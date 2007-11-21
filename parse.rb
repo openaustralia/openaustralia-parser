@@ -3,6 +3,8 @@
 require 'rubygems'
 require 'mechanize'
 require 'builder'
+# My bits and bobs
+require 'id'
 
 # House Hansard for 20 September 2007
 url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Chamber%20%3E%20House%20Hansard%20%3E%202007%20%3E%2020%20September%202007"
@@ -22,24 +24,11 @@ x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
 title = ""
 subtitle = ""
 
-# Generates unique identifier for each piece of text in the Hansard
-class Id
-  def initialize(date)
-    @date = date
-    @count = 0
-  end
-  
-  def to_s
-    @count = @count + 1
- 	  "uk.org.publicwhip/debate/#{@date}.#{@count}"
-  end
-end
-
 def quote(text)
   text.sub('&', '&amp;')
 end
 
-id = Id.new(date)
+id = Id.new("uk.org.publicwhip/debate/#{date}.")
 
 x.instruct!
 
