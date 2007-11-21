@@ -22,7 +22,8 @@ x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
 
 x.instruct!
 
-id = Id.new('uk.org.publicwhip/member/')
+id_member = 1
+id_person = 10001
 
 members = []
 page.links[29..-4].each do |link|
@@ -67,26 +68,37 @@ page.links[29..-4].each do |link|
   else
     throw "Unknown party: #{party}"
   end
-  members << {:id => id, :house => "commons", :title => title, :firstname => firstname, :lastname => lastname,
+  image_url = content.search("img").first.attributes['src']
+  res = Net::HTTP.get_response(sub_page.uri + URI.parse(image_url))
+  image_file = File.open("/Library/WebServer/Documents/twfy/www/docs/images/mps/#{id_person}.jpg", "w")
+  image_file.write(res.body)
+  image_file.close
+  #print res.body
+  members << {:id_member => id_member, :id_person => id_person, :house => "commons", :title => title, :firstname => firstname, :lastname => lastname,
     :constituency => constituency, :party => party, :fromdate => "2005-05-05", :todate => "9999-12-31",
     :fromwhy => "general_election", :towhy => "still_in_office"}
+  id_member = id_member + 1
+  id_person = id_person + 1
 end
 
 x.publicwhip do
   members.each do |member|
-    x.member(member)
+    id_member = "uk.org.publicwhip/member/#{member[:id_member]}"
+    x.member(:id => id_member, :house => member[:house], :title => member[:title], :firstname => member[:firstname],
+      :lastname => member[:lastname], :constituency => member[:constituency], :party => member[:party],
+      :fromdate => member[:fromdate], :todate => member[:todate], :fromwhy => member[:fromwhy], :towhy => member[:towhy])
   end
 end
 xml.close
 
-id_person = Id.new("uk.org.publicwhip/person/", 10001)
-id_member = Id.new("uk.org.publicwhip/member/")
 xml = File.open('pwdata/members/people.xml', 'w')
 x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
 x.instruct!
 x.publicwhip do
   members.each do |member|
     latestname = "#{member[:firstname]} #{member[:lastname]}"
+    id_person = "uk.org.publicwhip/person/#{member[:id_person]}"
+    id_member = "uk.org.publicwhip/member/#{member[:id_member]}"
     x.person(:id => id_person, :latestname => latestname) do
       x.office(:id => id_member, :current => "yes")
     end
