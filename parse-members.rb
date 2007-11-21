@@ -51,10 +51,25 @@ page.links[29..-4].each do |link|
   #puts "Title: #{title}"
   #puts "First name: #{firstname}"
   # For the time being just output a bunch of bogus information for each member
+  sub_page = agent.click(link)
+  constituency = sub_page.search("#dlMetadata__ctl3_Label3").inner_html
+	content = sub_page.search('div#contentstart')
+  party = content.search("p")[1].inner_html
+  if party == "Australian Labor Party"
+    party = "Labor"
+  elsif party == "Liberal Party of Australia"
+    party = "Liberal"
+  elsif party =~ /^The Nationals/
+    party = "The Nationals"
+  elsif party =~ /^Independent/
+    party = "Independent"
+  elsif party == "Country Liberal Party"
+  else
+    throw "Unknown party: #{party}"
+  end
   members << {:id => id, :house => "commons", :title => title, :firstname => firstname, :lastname => lastname,
-    :constituency => "up my ass", :party => "Con", :fromdate => "2005-05-05", :todate => "9999-12-31",
+    :constituency => constituency, :party => party, :fromdate => "2005-05-05", :todate => "9999-12-31",
     :fromwhy => "general_election", :towhy => "still_in_office"}
-  #sub_page = agent.click(link)
 end
 
 x.publicwhip do
