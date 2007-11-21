@@ -35,13 +35,18 @@ class Id
   end
 end
 
+def quote(text)
+  text.sub('&', '&amp;')
+end
+
 id = Id.new(date)
 
 x.instruct!
+
 x.publicwhip do
   # Structure of the page is such that we are only interested in some of the links
-  for link in page.links[30..50] do
-  #for link in page.links[30..-3] do
+  #for link in page.links[30..40] do
+  for link in page.links[30..-3] do
     puts "Processing: #{link}"
   	# Only going to consider speeches for the time being
   	if link.to_s =~ /Speech:/
@@ -55,8 +60,9 @@ x.publicwhip do
     	speaker_last_name = split[1].split(',')[0].strip
     	speakername = speaker_first_name + " " + speaker_last_name
      	sub_page = agent.click(link)
-     	# Extract permanent URL of this subpage
-     	url = sub_page.links.text("[Permalink]").uri.to_s
+     	# Extract permanent URL of this subpage. Also, quoting because there is a bug
+     	# in XML Builder that for some reason is not quoting attributes properly
+     	url = quote(sub_page.links.text("[Permalink]").uri.to_s)
     	# Type of page. Possible values: No, Speech, Bills
     	type = sub_page.search('//span[@id=dlMetadata__ctl7_Label3]/*').to_s
     	puts "Warning: Expected type Speech but was type #{type}" unless type == "Speech"
@@ -67,8 +73,9 @@ x.publicwhip do
      	#content.search('/').each do |e|
      	#  puts "Top level attribute: " + e.outer_html.attributes['class']
    	  #end
-   	  newtitle = content.search('//div[@class=hansardtitle]').inner_html
-   	  newsubtitle = content.search('//div[@class=hansardsubtitle]').inner_html
+   	  newtitle = content.search('div.hansardtitle').inner_html
+   	  newsubtitle = content.search('div.hansardsubtitle').inner_html
+      
    	  # Only add headings if they have changed
    	  if newtitle != title
      	  x.tag!("major-heading", newtitle, :id => id, :url => url)
@@ -85,8 +92,8 @@ end
 
 xml.close
 
-# Temporary hack: fix encoding problems so it's valid XML
-system("tidy -indent -xml -modify #{xml_filename}")
+# Temporary hack: nicely indent XML
+system("tidy -quiet -indent -xml -modify -wrap 0 -utf8 #{xml_filename}")
 
 # And load up the database
 system("/Users/matthewl/twfy/cvs/mysociety/twfy/scripts/xml2db.pl --debates --all --force")
