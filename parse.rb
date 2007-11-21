@@ -3,8 +3,13 @@
 require 'rubygems'
 require 'mechanize'
 require 'builder'
+
 # My bits and bobs
 require 'id'
+
+# First load all-members.xml back in so that we can look up member id's
+doc = Hpricot(open("pwdata/members/all-members.xml"))
+members = doc.search('member').map{|m| m.attributes}
 
 # House Hansard for 20 September 2007
 url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Chamber%20%3E%20House%20Hansard%20%3E%202007%20%3E%2020%20September%202007"
@@ -73,8 +78,29 @@ x.publicwhip do
      	  x.tag!("minor-heading", newsubtitle, :id => id, :url => url)
       end
       title = newtitle
-      subtitle = newsubtitle 	      
-  	  x.speech(:speakername => speakername, :time => time, :url => url, :id => id) { x << content.to_s }
+      subtitle = newsubtitle
+      # Extract speaker name and id from link
+      #p content
+      #link = content.search('span.talkername a').first
+      #p link.attributes['href']
+      #speakername = link.inner_html
+      # Lookup id of member based on speakername
+      puts "Speaker name: #{speakername}"
+      if speakername.downcase == "the speaker"
+    	  x.speech(:speakername => speakername, :time => time, :url => url, :id => id) { x << content.to_s }
+      else
+        member_matches = members.find_all{|m| m["lastname"].downcase == speaker_last_name.downcase}
+        if member_matches.size > 1
+          member_matches = members.find_all do |m|
+            m["firstname"].downcase == speaker_first_name.downcase && m["lastname"].downcase == speaker_last_name.downcase
+          end
+        end
+        throw "More than one match for member based on first and last name" if member_matches.size > 1
+        throw "No match for member found" if member_matches.size == 0
+        speakerid = member_matches[0]["id"]
+    	  x.speech(:speakername => speakername, :time => time, :url => url, :id => id,
+    	    :speakerid => speakerid) { x << content.to_s }
+  	  end
     end
   end
 end

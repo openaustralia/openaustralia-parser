@@ -1,8 +1,8 @@
 # Generates unique identifier for each piece of text in the Hansard
 class Id
-  def initialize(prefix)
+  def initialize(prefix, start_count = 1)
     @prefix = prefix
-    @count = 0
+    @count = start_count - 1
   end
   
   def to_s
