@@ -37,6 +37,29 @@ id = Id.new("uk.org.publicwhip/debate/#{date}.")
 
 x.instruct!
 
+def find_members_by_lastname(lastname, members)
+  members.find_all{|m| m["lastname"].downcase == lastname.downcase}
+end
+
+def find_members_by_name(firstname, lastname, members)
+  # First checking if there is an unambiguous match by lastname which allows
+  # an amount of variation in first name: ie Tony vs Anthony
+  matches = find_members_by_lastname(lastname, members)
+  if matches.size > 1
+    matches = members.find_all do |m|
+      m["firstname"].downcase == firstname.downcase && m["lastname"].downcase == lastname.downcase
+    end
+  end
+  matches
+end
+
+def find_member_id_by_name(firstname, lastname, members)
+  matches = find_members_by_name(firstname, lastname, members)
+  throw "More than one match for member based on first and last name" if matches.size > 1
+  throw "No match for member found" if matches.size == 0
+  matches[0]["id"]
+end
+
 x.publicwhip do
   # Structure of the page is such that we are only interested in some of the links
   #for link in page.links[30..40] do
@@ -61,12 +84,7 @@ x.publicwhip do
     	type = sub_page.search('//span[@id=dlMetadata__ctl7_Label3]/*').to_s
     	puts "Warning: Expected type Speech but was type #{type}" unless type == "Speech"
     	content = sub_page.search('//div#contentstart/*')
-     	# Top level div classes in content
-     	#puts content
-     	#puts content.search('/')
-     	#content.search('/').each do |e|
-     	#  puts "Top level attribute: " + e.outer_html.attributes['class']
-   	  #end
+
    	  newtitle = content.search('div.hansardtitle').inner_html
    	  newsubtitle = content.search('div.hansardsubtitle').inner_html
       
@@ -89,15 +107,7 @@ x.publicwhip do
       if speakername.downcase == "the speaker"
     	  x.speech(:speakername => speakername, :time => time, :url => url, :id => id) { x << content.to_s }
       else
-        member_matches = members.find_all{|m| m["lastname"].downcase == speaker_last_name.downcase}
-        if member_matches.size > 1
-          member_matches = members.find_all do |m|
-            m["firstname"].downcase == speaker_first_name.downcase && m["lastname"].downcase == speaker_last_name.downcase
-          end
-        end
-        throw "More than one match for member based on first and last name" if member_matches.size > 1
-        throw "No match for member found" if member_matches.size == 0
-        speakerid = member_matches[0]["id"]
+        speakerid = find_member_id_by_name(speaker_first_name, speaker_last_name, members)
     	  x.speech(:speakername => speakername, :time => time, :url => url, :id => id,
     	    :speakerid => speakerid) { x << content.to_s }
   	  end
