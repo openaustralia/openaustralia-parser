@@ -61,10 +61,48 @@ def find_member_id_by_name(firstname, lastname, members)
   matches[0]["id"]
 end
 
+def find_member_id_by_fullname(name, members)
+  names = name.split(' ')
+  names.delete("Mr")
+  names.delete("Mrs")
+  names.delete("Ms")
+  names.delete("Dr")
+  if names.size == 2
+    firstname = names[0]
+    lastname = names[1]
+  elsif names.size == 1
+    firstname = ""
+    lastname = names[0]
+  else
+    throw "Can't parse the name #{name}"
+  end
+  find_member_id_by_name(firstname, lastname, members)
+end
+
+def speech(content, x, members, time, url, id)
+  # Extract speaker name and id from link
+  #p content
+  link = content.search('span.talkername a').first
+  #p link.attributes['href']
+  # Unspeakable HACK
+  if link.nil?
+    return
+  end
+  speakername = link.inner_html
+  # Lookup id of member based on speakername
+  if speakername.downcase == "the speaker" || speakername.downcase == "the deputy speaker"
+	  x.speech(:speakername => speakername, :time => time, :url => url, :id => id) { x << content.to_s }
+  else
+    speakerid = find_member_id_by_fullname(speakername, members)
+	  x.speech(:speakername => speakername, :time => time, :url => url, :id => id,
+	    :speakerid => speakerid) { x << content.to_s }
+  end
+end
+
 x.publicwhip do
   # Structure of the page is such that we are only interested in some of the links
-  #for link in page.links[30..40] do
   for link in page.links[30..-4] do
+  #for link in page.links[109..109] do
     puts "Processing: #{link}"
   	# Only going to consider speeches for the time being
   	if link.to_s =~ /Speech:/
@@ -80,11 +118,9 @@ x.publicwhip do
     	# Type of page. Possible values: No, Speech, Bills
     	type = sub_page.search('//span[@id=dlMetadata__ctl7_Label3]/*').to_s
     	puts "Warning: Expected type Speech but was type #{type}" unless type == "Speech"
-    	content = sub_page.search('//div#contentstart/*')
+   	  newtitle = sub_page.search('div#contentstart div.hansardtitle').inner_html
+   	  newsubtitle = sub_page.search('div#contentstart div.hansardsubtitle').inner_html
 
-   	  newtitle = content.search('div.hansardtitle').inner_html
-   	  newsubtitle = content.search('div.hansardsubtitle').inner_html
-      
    	  # Only add headings if they have changed
    	  if newtitle != title
      	  x.tag!("major-heading", newtitle, :id => id, :url => url)
@@ -94,37 +130,21 @@ x.publicwhip do
       end
       title = newtitle
       subtitle = newsubtitle
-      # Extract speaker name and id from link
-      #p content
-      link = content.search('span.talkername a').first
-      p link.attributes['href']
-      speakername = link.inner_html
-      names = speakername.split(' ')
-      names.delete("Mr")
-      names.delete("Mrs")
-      names.delete("Ms")
-      names.delete("Dr")
-      if names.size == 2
-        speaker_first_name = names[0]
-        speaker_last_name = names[1]
-      elsif names.size == 1
-        speaker_first_name = ""
-        speaker_last_name = names[0]
-      else
-        throw "Can't parse the name #{speakername}"
-      end
-      # Lookup id of member based on speakername
-      #puts "Speaker name: #{speakername}"
-      #puts "Speaker firstname: #{speaker_first_name}"
-      #puts "Speaker lastname: #{speaker_last_name}"
-      if speakername.downcase == "the speaker"
-    	  x.speech(:speakername => speakername, :time => time, :url => url, :id => id) { x << content.to_s }
-      else
-        speakerid = find_member_id_by_name(speaker_first_name, speaker_last_name, members)
-    	  x.speech(:speakername => speakername, :time => time, :url => url, :id => id,
-    	    :speakerid => speakerid) { x << content.to_s }
-  	  end
-    end
+      
+      # Untangle speeches from subspeeches
+      speech_content = Hpricot::Elements.new
+    	content = sub_page.search('div#contentstart > div.speech0 > *')
+    	content.each do |e|
+    	  if e.attributes["class"] == "subspeech0" || e.attributes["class"] == "subspeech1"
+    	    speech(speech_content, x, members, time, url, id)
+    	    speech(e, x, members, time, url, id)
+    	    speech_content.clear
+    	  else
+    	    speech_content << e
+  	    end
+    	end
+	    speech(speech_content, x, members, time, url, id)  	    
+Å    end
   end
 end
 
