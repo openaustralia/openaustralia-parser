@@ -41,11 +41,12 @@ def find_members_by_lastname(lastname, members)
   members.find_all{|m| m["lastname"].downcase == lastname.downcase}
 end
 
+# If firstname is empty will just check by lastname
 def find_members_by_name(firstname, lastname, members)
   # First checking if there is an unambiguous match by lastname which allows
   # an amount of variation in first name: ie Tony vs Anthony
   matches = find_members_by_lastname(lastname, members)
-  if matches.size > 1
+  if firstname != "" && matches.size > 1
     matches = members.find_all do |m|
       m["firstname"].downcase == firstname.downcase && m["lastname"].downcase == lastname.downcase
     end
@@ -72,10 +73,6 @@ x.publicwhip do
     	split = link.to_s.split('>').map{|a| a.strip}
     	puts "Warning: Expected split to have length 3" unless split.size == 3
     	time = split[2]
-    	# Reverse order of name
-    	speaker_first_name = split[1].split(',')[1].strip
-    	speaker_last_name = split[1].split(',')[0].strip
-    	speakername = speaker_first_name + " " + speaker_last_name
      	sub_page = agent.click(link)
      	# Extract permanent URL of this subpage. Also, quoting because there is a bug
      	# in XML Builder that for some reason is not quoting attributes properly
@@ -99,11 +96,27 @@ x.publicwhip do
       subtitle = newsubtitle
       # Extract speaker name and id from link
       #p content
-      #link = content.search('span.talkername a').first
-      #p link.attributes['href']
-      #speakername = link.inner_html
+      link = content.search('span.talkername a').first
+      p link.attributes['href']
+      speakername = link.inner_html
+      names = speakername.split(' ')
+      names.delete("Mr")
+      names.delete("Mrs")
+      names.delete("Ms")
+      names.delete("Dr")
+      if names.size == 2
+        speaker_first_name = names[0]
+        speaker_last_name = names[1]
+      elsif names.size == 1
+        speaker_first_name = ""
+        speaker_last_name = names[0]
+      else
+        throw "Can't parse the name #{speakername}"
+      end
       # Lookup id of member based on speakername
-      puts "Speaker name: #{speakername}"
+      #puts "Speaker name: #{speakername}"
+      #puts "Speaker firstname: #{speaker_first_name}"
+      #puts "Speaker lastname: #{speaker_last_name}"
       if speakername.downcase == "the speaker"
     	  x.speech(:speakername => speakername, :time => time, :url => url, :id => id) { x << content.to_s }
       else
