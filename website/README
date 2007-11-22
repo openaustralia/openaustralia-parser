@@ -1,0 +1,3 @@
+config.php - The configuration file for the website (at least for it running locally on my test box). It belong in mysociety/twfy/www/includes/easyparliament
+patch_against_22_nov_2007_mysociety.patch - Apply this to the checked out copy of the mysociety code (from 22 Nov 2007) to make it Australian!
+
