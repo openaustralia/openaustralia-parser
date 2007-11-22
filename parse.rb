@@ -79,18 +79,23 @@ def find_member_id_by_fullname(name, members)
   find_member_id_by_name(firstname, lastname, members)
 end
 
-def speech(content, x, members, time, url, id)
-  # Extract speaker name and id from link
-  #p content
-  link = content.search('span.talkername a').first
-  #p link.attributes['href']
-  # Unspeakable HACK
-  if link.nil?
-    return
+def speech(speakername, content, x, members, time, url, id)
+  # I'm completely guessing here the meaning of p.paraitalic
+  if content[0] && content[0].attributes["class"] == "paraitalic"
+    puts "Overriding speaker name"
+    p content[0].attributes["class"]
+    # Override speaker name
+    speakername = "unknown"
   end
-  speakername = link.inner_html
+  puts "*********** Beginning of speech ***********"
+  puts "Speakername: #{speakername}"
+  p content.to_html
+  # HACK alert (Oh you know what this whole thing is a big hack alert)
+  if speakername.downcase == "the speaker"
+    speakername = "Mr David Hawker"
+  end
   # Lookup id of member based on speakername
-  if speakername.downcase == "the speaker" || speakername.downcase == "the deputy speaker"
+  if speakername.downcase == "the deputy speaker" || speakername.downcase == "unknown"
 	  x.speech(:speakername => speakername, :time => time, :url => url, :id => id) { x << content.to_s }
   else
     speakerid = find_member_id_by_fullname(speakername, members)
@@ -134,17 +139,32 @@ x.publicwhip do
       # Untangle speeches from subspeeches
       speech_content = Hpricot::Elements.new
     	content = sub_page.search('div#contentstart > div.speech0 > *')
+    	main_speakername = ""
     	content.each do |e|
     	  if e.attributes["class"] == "subspeech0" || e.attributes["class"] == "subspeech1"
-    	    speech(speech_content, x, members, time, url, id)
-    	    speech(e, x, members, time, url, id)
+          # Extract speaker name from link
+          if main_speakername == ""
+            main_speakername = speech_content.search('span.talkername a').first.inner_html
+          end
+    	    speech(main_speakername, speech_content, x, members, time, url, id)
+          # Extract speaker name from link
+          if e.search('span.talkername a').first.nil?
+              speakername = "unknown"
+          else
+            speakername = e.search('span.talkername a').first.inner_html
+          end
+    	    speech(speakername, e, x, members, time, url, id)
     	    speech_content.clear
     	  else
     	    speech_content << e
   	    end
     	end
-	    speech(speech_content, x, members, time, url, id)  	    
-Å    end
+      # Extract speaker name from link
+      if main_speakername == ""
+        main_speakername = speech_content.search('span.talkername a').first.inner_html
+      end
+	    speech(main_speakername, speech_content, x, members, time, url, id)  	    
+    end
   end
 end
 
