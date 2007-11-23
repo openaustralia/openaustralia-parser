@@ -17,7 +17,15 @@ class Name
     @first = (params[:first].capitalize if params[:first]) || ""
     @nick = (params[:nick].capitalize if params[:nick]) || ""
     @middle = (params[:middle].capitalize_each_word if params[:middle]) || ""
-    @last = (params[:last].capitalize if params[:last]) || ""
+    if params[:last]
+      @last = params[:last].capitalize
+      # Irish and Scottish exception to capitalisation rule
+      if @last[0..1] == "O'" || @last[0..1] == "Mc"
+        @last = @last[0..1] + @last[2..-1].capitalize
+      end
+    else
+      @last = ""
+    end
     throw "Invalid keys" unless (params.keys - [:title, :first, :nick, :middle, :last]).empty?
   end
   
