@@ -3,12 +3,13 @@ require 'name'
 
 class NameTest < Test::Unit::TestCase
   def setup
-    @matthew = Name.new(:first => "Matthew", :last => "Landauer")
+    @matthew = Name.new(:first => "Matthew", :middle => ["Noah"], :last => "Landauer")
     @joanna_gash = Name.new(:first => "Joanna", :last => "Gash")
   end
   
   def test_new
     assert_equal("Matthew", @matthew.first)
+    assert_equal(["Noah"], @matthew.middle)
     assert_equal("Landauer", @matthew.last)
   end
   
@@ -31,5 +32,10 @@ class NameTest < Test::Unit::TestCase
   
   def test_comma
     assert_equal(@joanna_gash, Name.last_title_first("Gash, Joanna"))
+  end
+  
+  def test_middle_name
+    assert_equal(Name.new(:last => "Albanese", :first => "Anthony", :middle => ["Norman"]),
+      Name.last_title_first("Albanese Anthony Norman"))
   end
 end
