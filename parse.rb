@@ -6,10 +6,11 @@ require 'builder'
 
 # My bits and bobs
 require 'id'
+require 'speech'
+require 'member'
 
 # First load all-members.xml back in so that we can look up member id's
-doc = Hpricot(open("pwdata/members/all-members.xml"))
-members = doc.search('member').map{|m| m.attributes}
+members = Members.load("pwdata/members/all-members.xml")
 
 # House Hansard for 20 September 2007
 url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Chamber%20%3E%20House%20Hansard%20%3E%202007%20%3E%2020%20September%202007"
@@ -37,79 +38,25 @@ id = Id.new("uk.org.publicwhip/debate/#{date}.")
 
 x.instruct!
 
-def find_members_by_lastname(lastname, members)
-  members.find_all{|m| m["lastname"].downcase == lastname.downcase}
-end
-
-# If firstname is empty will just check by lastname
-def find_members_by_name(firstname, lastname, members)
-  # First checking if there is an unambiguous match by lastname which allows
-  # an amount of variation in first name: ie Tony vs Anthony
-  matches = find_members_by_lastname(lastname, members)
-  if firstname != "" && matches.size > 1
-    matches = members.find_all do |m|
-      m["firstname"].downcase == firstname.downcase && m["lastname"].downcase == lastname.downcase
-    end
-  end
-  matches
-end
-
-def find_member_id_by_name(firstname, lastname, members)
-  matches = find_members_by_name(firstname, lastname, members)
-  throw "More than one match for member based on first and last name" if matches.size > 1
-  throw "No match for member found" if matches.size == 0
-  matches[0]["id"]
-end
-
-def find_member_id_by_fullname(name, members)
-  names = name.split(' ')
-  names.delete("Mr")
-  names.delete("Mrs")
-  names.delete("Ms")
-  names.delete("Dr")
-  if names.size == 2
-    firstname = names[0]
-    lastname = names[1]
-  elsif names.size == 1
-    firstname = ""
-    lastname = names[0]
-  else
-    throw "Can't parse the name #{name}"
-  end
-  find_member_id_by_name(firstname, lastname, members)
-end
-
 # Merges together two or more speeches by the same person that occur consecutively
 class SpeechOutputter
   def initialize(x)
-    @old_content = Hpricot::Elements.new
+    @old_speech = Speech.new
     @x = x
   end
   
   def speech(speakername, time, url, id, speakerid, content)
-    if speakername != @old_speakername
-      if @old_speakername
-        p @old_content.to_s
-        @x.speech(:speakername => @old_speakername, :time => @old_time, :url => @old_url, :id => @old_id,
-          :speakerid => @old_speakerid) { @x << @old_content.to_s }
+    if speakername != @old_speech.speakername
+      if @old_speech.speakername
+        @old_speech.output(@x)
       end
-      @old_speakername = speakername
-      @old_time = time
-      @old_url = url
-      @old_id = id
-      @old_speakerid = speakerid
-      @old_content.clear
+      @old_speech = Speech.new(speakername, time, url, id, speakerid)
     end
-    if content.kind_of?(Array)
-      @old_content = @old_content + content
-    else
-      @old_content << content
-    end
+    @old_speech.append_to_content(content)
   end
   
   def finish
-    @x.speech(:speakername => @old_speakername, :time => @old_time, :url => @old_url, :id => @old_id,
-      :speakerid => @old_speakerid) { @x << @old_content.to_s }
+    @old_speech.output(@x)
   end
 end
 
@@ -129,7 +76,7 @@ def speech(speakername, content, x, members, time, url, id, speech_outputter)
   if speakername.downcase == "the deputy speaker" || speakername.downcase == "unknown"
     speakerid = nil
   else
-    speakerid = find_member_id_by_fullname(speakername, members)
+    speakerid = members.find_member_id_by_fullname(speakername)
   end
   speech_outputter.speech(speakername, time, url, id, speakerid, content)
 end
