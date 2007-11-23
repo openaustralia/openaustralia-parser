@@ -58,7 +58,7 @@ page.links[29..-4].each do |link|
   big_image.write("/Library/WebServer/Documents/mysociety/twfy/www/docs/images/mpsL/#{id_person}.jpg")
   small_image.write("/Library/WebServer/Documents/mysociety/twfy/www/docs/images/mps/#{id_person}.jpg")
 
-  members << Member.new(:id_member => id_member, :id_person => id_person, :house => "commons", :title => name.title, :firstname => name.first, :lastname => name.last,
+  members << Member.new(:id_member => id_member, :id_person => id_person, :house => "commons", :name => name,
     :constituency => constituency, :party => party, :fromdate => "2005-05-05", :todate => "9999-12-31",
     :fromwhy => "general_election", :towhy => "still_in_office")
   id_member = id_member + 1
