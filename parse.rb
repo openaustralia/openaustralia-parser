@@ -79,7 +79,41 @@ def find_member_id_by_fullname(name, members)
   find_member_id_by_name(firstname, lastname, members)
 end
 
-def speech(speakername, content, x, members, time, url, id)
+# Merges together two or more speeches by the same person that occur consecutively
+class SpeechOutputter
+  def initialize(x)
+    @old_content = Hpricot::Elements.new
+    @x = x
+  end
+  
+  def speech(speakername, time, url, id, speakerid, content)
+    if speakername != @old_speakername
+      if @old_speakername
+        p @old_content.to_s
+        @x.speech(:speakername => @old_speakername, :time => @old_time, :url => @old_url, :id => @old_id,
+          :speakerid => @old_speakerid) { @x << @old_content.to_s }
+      end
+      @old_speakername = speakername
+      @old_time = time
+      @old_url = url
+      @old_id = id
+      @old_speakerid = speakerid
+      @old_content.clear
+    end
+    if content.kind_of?(Array)
+      @old_content = @old_content + content
+    else
+      @old_content << content
+    end
+  end
+  
+  def finish
+    @x.speech(:speakername => @old_speakername, :time => @old_time, :url => @old_url, :id => @old_id,
+      :speakerid => @old_speakerid) { @x << @old_content.to_s }
+  end
+end
+
+def speech(speakername, content, x, members, time, url, id, speech_outputter)
   # I'm completely guessing here the meaning of p.paraitalic
   if content[0] && content[0].attributes["class"] == "paraitalic"
     puts "Overriding speaker name"
@@ -87,27 +121,23 @@ def speech(speakername, content, x, members, time, url, id)
     # Override speaker name
     speakername = "unknown"
   end
-  puts "*********** Beginning of speech ***********"
-  puts "Speakername: #{speakername}"
-  p content.to_html
   # HACK alert (Oh you know what this whole thing is a big hack alert)
   if speakername.downcase == "the speaker"
     speakername = "Mr David Hawker"
   end
   # Lookup id of member based on speakername
   if speakername.downcase == "the deputy speaker" || speakername.downcase == "unknown"
-	  x.speech(:speakername => speakername, :time => time, :url => url, :id => id) { x << content.to_s }
+    speakerid = nil
   else
     speakerid = find_member_id_by_fullname(speakername, members)
-	  x.speech(:speakername => speakername, :time => time, :url => url, :id => id,
-	    :speakerid => speakerid) { x << content.to_s }
   end
+  speech_outputter.speech(speakername, time, url, id, speakerid, content)
 end
 
 x.publicwhip do
   # Structure of the page is such that we are only interested in some of the links
   for link in page.links[30..-4] do
-  #for link in page.links[109..109] do
+  #for link in page.links[108..108] do
     puts "Processing: #{link}"
   	# Only going to consider speeches for the time being
   	if link.to_s =~ /Speech:/
@@ -136,6 +166,8 @@ x.publicwhip do
       title = newtitle
       subtitle = newsubtitle
       
+      speech_outputter = SpeechOutputter.new(x)
+      
       # Untangle speeches from subspeeches
       speech_content = Hpricot::Elements.new
     	content = sub_page.search('div#contentstart > div.speech0 > *')
@@ -146,14 +178,14 @@ x.publicwhip do
           if main_speakername == ""
             main_speakername = speech_content.search('span.talkername a').first.inner_html
           end
-    	    speech(main_speakername, speech_content, x, members, time, url, id)
+    	    speech(main_speakername, speech_content, x, members, time, url, id, speech_outputter)
           # Extract speaker name from link
           if e.search('span.talkername a').first.nil?
               speakername = "unknown"
           else
             speakername = e.search('span.talkername a').first.inner_html
           end
-    	    speech(speakername, e, x, members, time, url, id)
+    	    speech(speakername, e, x, members, time, url, id, speech_outputter)
     	    speech_content.clear
     	  else
     	    speech_content << e
@@ -163,7 +195,8 @@ x.publicwhip do
       if main_speakername == ""
         main_speakername = speech_content.search('span.talkername a').first.inner_html
       end
-	    speech(main_speakername, speech_content, x, members, time, url, id)  	    
+	    speech(main_speakername, speech_content, x, members, time, url, id, speech_outputter)
+	    speech_outputter.finish    
     end
   end
 end
