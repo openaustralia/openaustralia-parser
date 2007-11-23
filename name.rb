@@ -30,7 +30,7 @@ class Name
   end
   
   def Name.last_title_first(text)
-    names = text.delete(',').split(" ")
+    names = text.delete(',').split(' ')
     last = names.shift
     titles = Array.new
     while title = Name.title(names)
@@ -44,6 +44,24 @@ class Name
       nick = names.shift[1..-2]
     end
     Name.new(:title => title, :last => last, :first => first, :nick => nick, :middle => names[0..-1].join(' '))
+  end
+  
+  def Name.title_first_last(text)
+    names = text.delete(',').split(' ')
+    titles = Array.new
+    while title = Name.title(names)
+      titles << title
+    end
+    title = titles.join(' ')
+    throw "Too few names" if names.empty?
+    if names.size == 1
+      last = names[0]
+    else
+      first = names[0]
+      last = names[-1]
+      middle = names[1..-2].join(' ')
+    end
+    Name.new(:title => title, :last => last, :first => first, :middle => middle)
   end
   
   def informal_name
@@ -68,9 +86,12 @@ class Name
       names.shift
       names.shift
       "the Hon."
-    elsif names.size >= 1 && names[0] == "Dr"
-      names.shift
-      "Dr"
+    elsif names.size >= 1
+      title = names[0]
+      if title == "Dr" || title == "Mr" || title == "Mrs" || title == "Ms"
+        names.shift
+        title
+      end
     end
   end
 end

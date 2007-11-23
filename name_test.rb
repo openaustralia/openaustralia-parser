@@ -71,4 +71,14 @@ class NameTest < Test::Unit::TestCase
   def test_capitals_scottish_name
     assert_equal("McMullan", Name.new(:last => "mcmullan").last)
   end
+  
+  def test_title_first_last
+    assert_equal(Name.new(:title => "Dr", :first => "John", :last => "Smith"), Name.title_first_last("Dr John Smith"))
+    assert_equal(Name.new(:title => "Dr", :last => "Smith"), Name.title_first_last("Dr Smith"))
+    assert_equal(Name.new(:title => "Mr", :last => "Smith"), Name.title_first_last("Mr Smith"))
+    assert_equal(Name.new(:title => "Mrs", :last => "Smith"), Name.title_first_last("Mrs Smith"))
+    assert_equal(Name.new(:title => "Ms", :first => "Julie", :last => "Smith"), Name.title_first_last("Ms Julie Smith"))
+    assert_equal(Name.new(:title => "Ms", :first => "Julie", :middle => "Sarah Marie", :last => "Smith"),
+      Name.title_first_last("Ms Julie Sarah Marie Smith"))
+  end
 end
