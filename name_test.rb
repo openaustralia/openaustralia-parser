@@ -53,4 +53,14 @@ class NameTest < Test::Unit::TestCase
     assert_equal(Name.new(:last => "Abbott", :title => "the Hon.", :first => "Anthony", :nick => "Tony", :middle => "John"),
       Name.last_title_first("ABBOTT, the Hon. Anthony (Tony) John"))
   end
+  
+  def test_dr
+    assert_equal(Name.new(:last => "Emerson", :title => "Dr", :first => "Craig", :middle => "Anthony"),
+      Name.last_title_first("EMERSON, Dr Craig Anthony"))
+  end
+  
+  def test_informal_name
+    assert_equal("Matthew Landauer", Name.new(:first => "Matthew", :last => "Landauer", :title => "Dr").informal_name)
+    assert_equal("Matt Landauer", Name.new(:first => "Matthew", :nick => "Matt", :last => "Landauer", :title => "Dr").informal_name)
+  end
 end

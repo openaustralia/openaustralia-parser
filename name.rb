@@ -24,11 +24,11 @@ class Name
   def Name.last_title_first(text)
     names = text.delete(',').split(" ")
     last = names.shift
-    if names.size >= 3 && names[0] == "the" && names[1] == "Hon."
-      title = "the Hon."
-      names.shift
-      names.shift
+    titles = Array.new
+    while title = Name.title(names)
+      titles << title
     end
+    title = titles.join(' ')
     first = names.shift
     throw "Too few names" if first.nil?
     # There could be a nickname after the first name in brackets
@@ -38,7 +38,31 @@ class Name
     Name.new(:title => title, :last => last, :first => first, :nick => nick, :middle => names[0..-1].join(' '))
   end
   
+  def informal_name
+    throw "No last name" if @last == ""
+    if @nick != ""
+      "#{@nick} #{@last}"
+    else
+      throw "No first name" if @first == ""
+      "#{@first} #{@last}"
+    end
+  end
+  
   def ==(name)
     @title == name.title && @first == name.first && @nick == name.nick && @middle == name.middle && @last == name.last
+  end
+  
+  private
+  
+  # Extract a title at the beginning of the list of names if available and shift
+  def Name.title(names)
+    if names.size >= 2 && names[0] == "the" && names[1] == "Hon."
+      names.shift
+      names.shift
+      "the Hon."
+    elsif names.size >= 1 && names[0] == "Dr"
+      names.shift
+      "Dr"
+    end
   end
 end
