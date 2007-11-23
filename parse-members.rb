@@ -8,6 +8,7 @@ require 'builder'
 require 'rmagick'
 require 'id'
 require 'name'
+require 'member'
 
 # Links to the biographies of all *current* members
 url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Handbook%20%3E%20Biographies%20%3E%20Current%20Members"
@@ -22,15 +23,10 @@ Hpricot.buffer_size = 262144
 agent = WWW::Mechanize.new
 page = agent.get(url)
 
-xml = File.open('pwdata/members/all-members.xml', 'w')
-x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
-
-x.instruct!
-
 id_member = 1
 id_person = 10001
-
 members = []
+
 page.links[29..-4].each do |link|
   throw "Should start with 'Biography for '" unless link.to_s =~ /^Biography for /
   name = Name.last_title_first(link.to_s[14..-1])
@@ -62,20 +58,18 @@ page.links[29..-4].each do |link|
   big_image.write("/Library/WebServer/Documents/mysociety/twfy/www/docs/images/mpsL/#{id_person}.jpg")
   small_image.write("/Library/WebServer/Documents/mysociety/twfy/www/docs/images/mps/#{id_person}.jpg")
 
-  members << {:id_member => id_member, :id_person => id_person, :house => "commons", :title => name.title, :firstname => name.first, :lastname => name.last,
+  members << Member.new(:id_member => id_member, :id_person => id_person, :house => "commons", :title => name.title, :firstname => name.first, :lastname => name.last,
     :constituency => constituency, :party => party, :fromdate => "2005-05-05", :todate => "9999-12-31",
-    :fromwhy => "general_election", :towhy => "still_in_office"}
+    :fromwhy => "general_election", :towhy => "still_in_office")
   id_member = id_member + 1
   id_person = id_person + 1
 end
 
+xml = File.open('pwdata/members/all-members.xml', 'w')
+x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
+x.instruct!
 x.publicwhip do
-  members.each do |member|
-    id_member = "uk.org.publicwhip/member/#{member[:id_member]}"
-    x.member(:id => id_member, :house => member[:house], :title => member[:title], :firstname => member[:firstname],
-      :lastname => member[:lastname], :constituency => member[:constituency], :party => member[:party],
-      :fromdate => member[:fromdate], :todate => member[:todate], :fromwhy => member[:fromwhy], :towhy => member[:towhy])
-  end
+  members.each{|m| m.output_member(x)}
 end
 xml.close
 
@@ -83,14 +77,7 @@ xml = File.open('pwdata/members/people.xml', 'w')
 x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
 x.instruct!
 x.publicwhip do
-  members.each do |member|
-    latestname = "#{member[:firstname]} #{member[:lastname]}"
-    id_person = "uk.org.publicwhip/person/#{member[:id_person]}"
-    id_member = "uk.org.publicwhip/member/#{member[:id_member]}"
-    x.person(:id => id_person, :latestname => latestname) do
-      x.office(:id => id_member, :current => "yes")
-    end
-  end
+  members.each{|m| m.output_person(x)}
 end
 xml.close
 
