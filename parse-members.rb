@@ -7,6 +7,7 @@ require 'mechanize'
 require 'builder'
 require 'rmagick'
 require 'id'
+require 'name'
 
 # Links to the biographies of all *current* members
 url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Handbook%20%3E%20Biographies%20%3E%20Current%20Members"
@@ -31,35 +32,15 @@ id_person = 10001
 
 members = []
 page.links[29..-4].each do |link|
-  puts "Processing: #{link}"
-  puts "Warning: Should start with 'Biography for '" unless link.to_s =~ /^Biography for /
-  rest = link.to_s[14..-1]
-  lastname = rest.split(',')[0].capitalize
-  #puts "Last name: #{lastname}"
-  rest = rest.split(',')[1].strip
-  #puts "Rest: #{rest}"
-  title_and_firstnames = rest.split(' ')
-  # Remove any names in brackets
-  title_and_firstnames.delete_if{|t| t[0..0] == '(' && t[-1..-1] == ')'}
-  #p title_and_firstnames
-  # We could actually have both titles - the Hon. Dr Fobs. We'll assume this explicit order
-  if title_and_firstnames[0] == "the" && title_and_firstnames[1] == "Hon."
-    title = title_and_firstnames[0..1].join(' ')
-    title_and_firstnames = title_and_firstnames[2..-1]
-  end
-  if title_and_firstnames[0] == "Dr"
-    title = title_and_firstnames[0]
-    title_and_firstnames = title_and_firstnames[1..-1]
-  end
-  puts "Warning: Unexpected number of names" unless title_and_firstnames.size == 1 || title_and_firstnames.size == 2
-  firstname = title_and_firstnames[0]
-  #puts "Title: #{title}"
-  #puts "First name: #{firstname}"
-  # For the time being just output a bunch of bogus information for each member
+  throw "Should start with 'Biography for '" unless link.to_s =~ /^Biography for /
+  name = Name.last_title_first(link.to_s[14..-1])
+
+  puts "Processing: #{name.informal_name}"
+  
   sub_page = agent.click(link)
   constituency = sub_page.search("#dlMetadata__ctl3_Label3").inner_html
 	content = sub_page.search('div#contentstart')
-  party = content.search("p"[1].inner_html
+  party = content.search("p")[1].inner_html
   if party == "Australian Labor Party"
     party = "Labor"
   elsif party == "Liberal Party of Australia"
@@ -78,10 +59,10 @@ page.links[29..-4].each do |link|
   image = Magick::Image.from_blob(res.body)[0]
   big_image = image.resize_to_fit(thumb_width * 2, thumb_height * 2)
   small_image = image.resize_to_fit(thumb_width, thumb_height)
-  big_image.write("/Library/WebServer/Documents/twfy/www/docs/images/mpsL/#{id_person}.jpg")
-  small_image.write("/Library/WebServer/Documents/twfy/www/docs/images/mps/#{id_person}.jpg")
+  big_image.write("/Library/WebServer/Documents/mysociety/twfy/www/docs/images/mpsL/#{id_person}.jpg")
+  small_image.write("/Library/WebServer/Documents/mysociety/twfy/www/docs/images/mps/#{id_person}.jpg")
 
-  members << {:id_member => id_member, :id_person => id_person, :house => "commons", :title => title, :firstname => firstname, :lastname => lastname,
+  members << {:id_member => id_member, :id_person => id_person, :house => "commons", :title => name.title, :firstname => name.first, :lastname => name.last,
     :constituency => constituency, :party => party, :fromdate => "2005-05-05", :todate => "9999-12-31",
     :fromwhy => "general_election", :towhy => "still_in_office"}
   id_member = id_member + 1
