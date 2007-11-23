@@ -94,15 +94,5 @@ x.publicwhip do
 end
 xml.close
 
-# Create a bogus constituencies.xml
-xml = File.open('pwdata/members/constituencies.xml', 'w')
-x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
-x.instruct!
-x.publicwhip do
-  x.constituency(:id => "uk.org.publicwhip/cons/1", :fromdate => "1000-01-01", :todate => "9999-12-31",
-    :name => "up my ass")
-end
-xml.close
-
 # And load up the database
 system("/Users/matthewl/twfy/cvs/mysociety/twfy/scripts/xml2db.pl --members --all --force")
