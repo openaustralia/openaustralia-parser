@@ -3,13 +3,13 @@ require 'name'
 
 class NameTest < Test::Unit::TestCase
   def setup
-    @matthew = Name.new(:first => "Matthew", :middle => ["Noah"], :last => "Landauer")
+    @matthew = Name.new(:first => "Matthew", :middle => "Noah", :last => "Landauer")
     @joanna_gash = Name.new(:first => "Joanna", :last => "Gash")
   end
   
   def test_new
     assert_equal("Matthew", @matthew.first)
-    assert_equal(["Noah"], @matthew.middle)
+    assert_equal("Noah", @matthew.middle)
     assert_equal("Landauer", @matthew.last)
   end
   
@@ -18,7 +18,7 @@ class NameTest < Test::Unit::TestCase
   end
   
   def test_equals
-    assert_equal(@matthew, Name.new(:last => "Landauer", :first => "Matthew"))
+    assert_equal(@matthew, Name.new(:last => "Landauer", :middle => "Noah", :first => "Matthew"))
     assert_not_equal(@matthew, Name.new(:last => "Landauer"))
   end
   
@@ -35,7 +35,17 @@ class NameTest < Test::Unit::TestCase
   end
   
   def test_middle_name
-    assert_equal(Name.new(:last => "Albanese", :first => "Anthony", :middle => ["Norman"]),
+    assert_equal(Name.new(:last => "Albanese", :first => "Anthony", :middle => "Norman"),
       Name.last_title_first("Albanese Anthony Norman"))
+  end
+  
+  def test_two_middle_names
+    assert_equal(Name.new(:last => "Albanese", :first => "Anthony", :middle => "Norman peter"),
+      Name.last_title_first("Albanese Anthony Norman Peter"))
+  end
+  
+  def test_the_hon
+    assert_equal(Name.new(:last => "Baird", :title => "the Hon.", :first => "Bruce", :middle => "George"),
+      Name.last_title_first("Baird the Hon. Bruce George"))
   end
 end
