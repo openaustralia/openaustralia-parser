@@ -48,4 +48,9 @@ class NameTest < Test::Unit::TestCase
     assert_equal(Name.new(:last => "Baird", :title => "the Hon.", :first => "Bruce", :middle => "George"),
       Name.last_title_first("Baird the Hon. Bruce George"))
   end
+  
+  def test_nickname
+    assert_equal(Name.new(:last => "Abbott", :title => "the Hon.", :first => "Anthony", :nick => "Tony", :middle => "John"),
+      Name.last_title_first("ABBOTT, the Hon. Anthony (Tony) John"))
+  end
 end
