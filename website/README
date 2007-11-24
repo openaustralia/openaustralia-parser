@@ -1,3 +1,11 @@
 config.php - The configuration file for the website (at least for it running locally on my test box). It belong in mysociety/twfy/www/includes/easyparliament
 patch_against_22_nov_2007_mysociety.patch - Apply this to the checked out copy of the mysociety code (from 22 Nov 2007) to make it Australian!
 
+# Rough description for getting the web server up and running
+cvs -d :pserver:anonymous@cvs.mysociety.org:/repos co mysociety/twfy mysociety/phplib
+svn co https://twfy-australia.svn.sourceforge.net/svnroot/twfy-australia/trunk/website twfy-australia
+# Patch the code to make it "Australian"
+cd mysociety
+patch -p0 < ../twfy-australia/patch_against_22_nov_2007_mysociety.patch 
+# Cleanup
+rm -rf ../twfy-australia
