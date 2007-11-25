@@ -22,8 +22,7 @@ namespace :deploy do
 	  # For some reason cvs on the server is not accepting an absolute destination directory
 	  run "cvs -d #{mysociety_repository} co -d #{deploy_to_relative}/releases/#{release_name} mysociety/twfy mysociety/phplib"
 	  run "svn co #{twfy_australia_repository} #{release_path}/twfy-australia"
-	  run "cd #{release_path}/mysociety; patch -p0 < #{release_path}/twfy-australia/website/non_root_app.patch"
-	  run "cd #{release_path}/mysociety; patch -p0 < #{release_path}/twfy-australia/website/patch_against_22_nov_2007_mysociety.patch"
+	  run "cd #{release_path}/mysociety; patch -p0 < #{release_path}/twfy-australia/website/mysociety.patch"
 	  run "ln -s #{shared_path}/system/config.php #{release_path}/mysociety/twfy/www/includes/easyparliament/config.php"
 	  run "rm #{release_path}/mysociety/twfy/www/docs/.htaccess"
 	  run "ln -s #{shared_path}/system/root_htaccess #{release_path}/mysociety/twfy/www/docs/.htaccess"
