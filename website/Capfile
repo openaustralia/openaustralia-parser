@@ -1,0 +1,32 @@
+set :application, "twfy"
+
+set :mysociety_repository, ":pserver:anonymous@cvs.mysociety.org:/repos"
+set :twfy_australia_repository, "https://twfy-australia.svn.sourceforge.net/svnroot/twfy-australia/trunk/"
+
+set :deploy_to_relative, "domains/openaustralia.org/#{application}"
+set :deploy_to, "/home/3716/#{deploy_to_relative}"
+
+set :use_sudo, false
+role :web, "openaustralia.org"
+set :user, "serveradmin%openaustralia.org"
+
+load 'deploy' if respond_to?(:namespace) # cap2 differentiator
+
+namespace :deploy do
+	# Overriding deploy:restart so that it does nothing
+	task :restart do
+	end
+
+	task :update_code, :except => { :no_release => true } do
+	  on_rollback { run "rm -rf #{release_path}; true" }
+	  # For some reason cvs on the server is not accepting an absolute destination directory
+	  run "cvs -d #{mysociety_repository} co -d #{deploy_to_relative}/releases/#{release_name} mysociety/twfy mysociety/phplib"
+	  run "svn co #{twfy_australia_repository} #{release_path}/twfy-australia"
+	  run "cd #{release_path}/mysociety; patch -p0 < #{release_path}/twfy-australia/website/mp_images.patch"
+	  run "cd #{release_path}/mysociety; patch -p0 < #{release_path}/twfy-australia/website/patch_against_22_nov_2007_mysociety.patch"
+	  run "ln -s #{shared_path}/system/config.php #{release_path}/mysociety/twfy/www/includes/easyparliament/config.php"
+	  run "ln -s #{shared_path}/system/images/mps #{release_path}/mysociety/twfy/www/docs/images/mps"
+	  run "ln -s #{shared_path}/system/images/mpsL #{release_path}/mysociety/twfy/www/docs/images/mpsL"
+	end
+end
+
