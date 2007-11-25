@@ -6,7 +6,7 @@ RCS file: /repos/mysociety/twfy/www/docs/api/api_getMP.php,v
 retrieving revision 1.10
 diff -u -r1.10 api_getMP.php
 --- twfy/www/docs/api/api_getMP.php	19 Oct 2007 09:24:10 -0000	1.10
-+++ twfy/www/docs/api/api_getMP.php	25 Nov 2007 03:34:19 -0000
++++ twfy/www/docs/api/api_getMP.php	25 Nov 2007 03:52:37 -0000
 @@ -36,13 +36,13 @@
  		$row['last_name'], $row['constituency']);
  	if (isset($parties[$row['party']]))
@@ -31,7 +31,7 @@ RCS file: /repos/mysociety/twfy/www/docs/mp/.htaccess,v
 retrieving revision 1.5
 diff -u -r1.5 .htaccess
 --- twfy/www/docs/mp/.htaccess	11 Dec 2006 00:37:26 -0000	1.5
-+++ twfy/www/docs/mp/.htaccess	25 Nov 2007 03:34:19 -0000
++++ twfy/www/docs/mp/.htaccess	25 Nov 2007 03:52:37 -0000
 @@ -1,5 +1,4 @@
  RewriteEngine on
 -RewriteBase /mp/
@@ -44,7 +44,7 @@ RCS file: /repos/mysociety/twfy/www/includes/easyparliament/config.php.incvs,v
 retrieving revision 1.7
 diff -u -r1.7 config.php.incvs
 --- twfy/www/includes/easyparliament/config.php.incvs	6 Nov 2007 13:30:11 -0000	1.7
-+++ twfy/www/includes/easyparliament/config.php.incvs	25 Nov 2007 03:34:19 -0000
++++ twfy/www/includes/easyparliament/config.php.incvs	25 Nov 2007 03:52:37 -0000
 @@ -56,6 +56,8 @@
  // Web path to the directory where the site's images are kept.
  define ("IMAGEPATH", WEBPATH . "images/");
@@ -60,7 +60,7 @@ RCS file: /repos/mysociety/twfy/www/includes/easyparliament/page.php,v
 retrieving revision 1.76
 diff -u -r1.76 page.php
 --- twfy/www/includes/easyparliament/page.php	15 Nov 2007 17:21:26 -0000	1.76
-+++ twfy/www/includes/easyparliament/page.php	25 Nov 2007 03:34:20 -0000
++++ twfy/www/includes/easyparliament/page.php	25 Nov 2007 03:52:39 -0000
 @@ -1031,16 +1031,16 @@
  		}
  		print '<p class="printonly">This data was produced by TheyWorkForYou from a variety of sources.</p>';
@@ -82,13 +82,61 @@ diff -u -r1.76 page.php
  		?>
  						<img src="<?php echo IMAGEPATH;?>mps/<?php echo $member['person_id']; ?>.jpeg" alt="Photo of <?php echo $member['full_name']; ?>" height="118" class="portrait">
  		<? } ?>
+Index: twfy/www/includes/easyparliament/sidebars/donate.php
+===================================================================
+RCS file: /repos/mysociety/twfy/www/includes/easyparliament/sidebars/donate.php,v
+retrieving revision 1.3
+diff -u -r1.3 donate.php
+--- twfy/www/includes/easyparliament/sidebars/donate.php	10 Aug 2007 11:09:19 -0000	1.3
++++ twfy/www/includes/easyparliament/sidebars/donate.php	25 Nov 2007 03:52:39 -0000
+@@ -4,7 +4,7 @@
+ $this->block_start(array('id'=>'help', 'title'=>"Did you know this site is run by a charity?"));
+ ?>
+ 
+-<p><a href="https://secure.mysociety.org/donate/"><img align="right" src="/images/donate_red_flatL.gif" width="100" height="35" border="0" hspace="4" vspace="5" alt="Donate"></a>
++<p><a href="https://secure.mysociety.org/donate/"><img align="right" src=<?php echo WEBPATH . "images/donate_red_flatL.gif"?> width="100" height="35" border="0" hspace="4" vspace="5" alt="Donate"></a>
+ We've just added the Northern Ireland Assembly, email alerts
+ have been sped up dramatically &mdash; your donation would enable
+ us to continue to add new features, such as committees.</p>
+Index: twfy/www/includes/easyparliament/sidebars/hocdebates_short.php
+===================================================================
+RCS file: /repos/mysociety/twfy/www/includes/easyparliament/sidebars/hocdebates_short.php,v
+retrieving revision 1.1
+diff -u -r1.1 hocdebates_short.php
+--- twfy/www/includes/easyparliament/sidebars/hocdebates_short.php	27 Apr 2006 14:20:40 -0000	1.1
++++ twfy/www/includes/easyparliament/sidebars/hocdebates_short.php	25 Nov 2007 03:52:39 -0000
+@@ -4,7 +4,7 @@
+ $this->block_start(array(
+ 	'id'=>'help', 
+ 	'title'=>"What are Commons debates?", 
+-	'url'=>'/debates/#help',
++	'url'=> WEBPATH . 'debates/#help',
+ 	'body'=>false
+ ));
+ $this->block_end();
+Index: twfy/www/includes/easyparliament/sidebars/whatisthissite.php
+===================================================================
+RCS file: /repos/mysociety/twfy/www/includes/easyparliament/sidebars/whatisthissite.php,v
+retrieving revision 1.4
+diff -u -r1.4 whatisthissite.php
+--- twfy/www/includes/easyparliament/sidebars/whatisthissite.php	10 Aug 2007 11:09:19 -0000	1.4
++++ twfy/www/includes/easyparliament/sidebars/whatisthissite.php	25 Nov 2007 03:52:39 -0000
+@@ -10,7 +10,7 @@
+ $helpurl = $URL->generate();
+ ?>
+ 
+-<p><a href="https://secure.mysociety.org/donate/"><img src="/images/donate_red_flatL.gif" width="100" height="35" border="0" align="right" hspace="4" vspace="5" alt="Donate"></a>
++<p><a href="https://secure.mysociety.org/donate/"><img src=<?php echo WEBPATH . "images/donate_red_flatL.gif" ?> width="100" height="35" border="0" align="right" hspace="4" vspace="5" alt="Donate"></a>
+ <a href="<?php echo $abouturl; ?>" title="link to About Us page">TheyWorkForYou.com</a>
+ is a non-partisan website run by a charity which aims to
+ make it easy for people to keep tabs on their elected and
 Index: twfy/www/includes/easyparliament/templates/api/hansard_gid.php
 ===================================================================
 RCS file: /repos/mysociety/twfy/www/includes/easyparliament/templates/api/hansard_gid.php,v
 retrieving revision 1.1
 diff -u -r1.1 hansard_gid.php
 --- twfy/www/includes/easyparliament/templates/api/hansard_gid.php	25 Aug 2006 19:38:31 -0000	1.1
-+++ twfy/www/includes/easyparliament/templates/api/hansard_gid.php	25 Nov 2007 03:34:20 -0000
++++ twfy/www/includes/easyparliament/templates/api/hansard_gid.php	25 Nov 2007 03:52:39 -0000
 @@ -18,9 +18,9 @@
  		if ($row['htype'] == '12') {
  			if (isset($row['speaker']) && count($row['speaker']) > 0) {
@@ -107,7 +155,7 @@ RCS file: /repos/mysociety/twfy/www/includes/easyparliament/templates/html/hansa
 retrieving revision 1.13
 diff -u -r1.13 hansard_gid.php
 --- twfy/www/includes/easyparliament/templates/html/hansard_gid.php	29 Aug 2007 13:50:49 -0000	1.13
-+++ twfy/www/includes/easyparliament/templates/html/hansard_gid.php	25 Nov 2007 03:34:21 -0000
++++ twfy/www/includes/easyparliament/templates/html/hansard_gid.php	25 Nov 2007 03:52:39 -0000
 @@ -202,12 +202,12 @@
  				$speakername = ucfirst(member_full_name($speaker['house'], $speaker['title'], $speaker['first_name'], $speaker['last_name'], $speaker['constituency']));
  				?>
