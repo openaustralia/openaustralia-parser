@@ -6,7 +6,7 @@ RCS file: /repos/mysociety/twfy/www/docs/index-election.php,v
 retrieving revision 1.2
 diff -u -r1.2 index-election.php
 --- twfy/www/docs/index-election.php	10 Aug 2007 11:09:15 -0000	1.2
-+++ twfy/www/docs/index-election.php	25 Nov 2007 04:05:56 -0000
++++ twfy/www/docs/index-election.php	26 Nov 2007 23:17:04 -0000
 @@ -102,7 +102,7 @@
  	?>
  						<form action="<?php echo $MPURL->generate(); ?>" method="get">
@@ -22,7 +22,7 @@ RCS file: /repos/mysociety/twfy/www/docs/index.php,v
 retrieving revision 1.11
 diff -u -r1.11 index.php
 --- twfy/www/docs/index.php	10 Aug 2007 11:09:15 -0000	1.11
-+++ twfy/www/docs/index.php	25 Nov 2007 04:05:56 -0000
++++ twfy/www/docs/index.php	26 Nov 2007 23:17:04 -0000
 @@ -59,12 +59,12 @@
  
  	if ($pc_form) { ?>
@@ -45,7 +45,7 @@ RCS file: /repos/mysociety/twfy/www/docs/api/api_getMP.php,v
 retrieving revision 1.10
 diff -u -r1.10 api_getMP.php
 --- twfy/www/docs/api/api_getMP.php	19 Oct 2007 09:24:10 -0000	1.10
-+++ twfy/www/docs/api/api_getMP.php	25 Nov 2007 04:05:57 -0000
++++ twfy/www/docs/api/api_getMP.php	26 Nov 2007 23:17:05 -0000
 @@ -36,13 +36,13 @@
  		$row['last_name'], $row['constituency']);
  	if (isset($parties[$row['party']]))
@@ -70,7 +70,7 @@ RCS file: /repos/mysociety/twfy/www/docs/hansard/index.php,v
 retrieving revision 1.4
 diff -u -r1.4 index.php
 --- twfy/www/docs/hansard/index.php	16 May 2007 15:26:34 -0000	1.4
-+++ twfy/www/docs/hansard/index.php	25 Nov 2007 04:05:57 -0000
++++ twfy/www/docs/hansard/index.php	26 Nov 2007 23:17:05 -0000
 @@ -82,7 +82,7 @@
  $PAGE->stripe_end();
  $PAGE->stripe_start();
@@ -211,20 +211,33 @@ RCS file: /repos/mysociety/twfy/www/docs/mp/.htaccess,v
 retrieving revision 1.5
 diff -u -r1.5 .htaccess
 --- twfy/www/docs/mp/.htaccess	11 Dec 2006 00:37:26 -0000	1.5
-+++ twfy/www/docs/mp/.htaccess	25 Nov 2007 04:05:57 -0000
++++ twfy/www/docs/mp/.htaccess	26 Nov 2007 23:17:05 -0000
 @@ -1,5 +1,4 @@
  RewriteEngine on
 -RewriteBase /mp/
  RewriteRule ^c4/(['a-zA-Z_+-]+)/([\(\)\.a-zA-Z_+,'-]+)$ index.php?c4=1&n=$1&c=$2
  RewriteRule ^c4x/(['a-zA-Z_+-]+)/([\(\)\.a-zA-Z_+,'-]+)$ index.php?c4x=1&n=$1&c=$2
  RewriteRule ^(['a-zA-Z_+-]+)/([\(\)\.a-zA-Z_+,'-]+)$ index.php?n=$1&c=$2 [QSA]
+Index: twfy/www/docs/news/.htaccess
+===================================================================
+RCS file: /repos/mysociety/twfy/www/docs/news/.htaccess,v
+retrieving revision 1.3
+diff -u -r1.3 .htaccess
+--- twfy/www/docs/news/.htaccess	11 Dec 2006 00:37:26 -0000	1.3
++++ twfy/www/docs/news/.htaccess	26 Nov 2007 23:17:05 -0000
+@@ -1,5 +1,4 @@
+ RewriteEngine on
+-RewriteBase /news/
+ #RewriteRule ^mps/c4/$ mps/?c4=1 [QSA]
+ RewriteRule ^archives/(.*)$ index.php/archives/$1 [QSA]
+ RewriteRule ^index.rdf$ rdf.php [QSA]
 Index: twfy/www/docs/news/editme.php
 ===================================================================
 RCS file: /repos/mysociety/twfy/www/docs/news/editme.php,v
 retrieving revision 1.8
 diff -u -r1.8 editme.php
 --- twfy/www/docs/news/editme.php	19 Oct 2007 09:23:43 -0000	1.8
-+++ twfy/www/docs/news/editme.php	25 Nov 2007 04:05:57 -0000
++++ twfy/www/docs/news/editme.php	26 Nov 2007 23:17:05 -0000
 @@ -4,436 +4,17 @@
  
  $all_news = array(
@@ -676,7 +689,7 @@ RCS file: /repos/mysociety/twfy/www/docs/user/index.php,v
 retrieving revision 1.6
 diff -u -r1.6 index.php
 --- twfy/www/docs/user/index.php	7 Nov 2007 13:57:03 -0000	1.6
-+++ twfy/www/docs/user/index.php	25 Nov 2007 04:05:57 -0000
++++ twfy/www/docs/user/index.php	26 Nov 2007 23:17:05 -0000
 @@ -328,7 +328,7 @@
  	
  	// Check postcode (which is not a compulsory field).
@@ -701,7 +714,7 @@ RCS file: /repos/mysociety/twfy/www/includes/dbtypes.php,v
 retrieving revision 1.4
 diff -u -r1.4 dbtypes.php
 --- twfy/www/includes/dbtypes.php	29 Aug 2007 13:50:48 -0000	1.4
-+++ twfy/www/includes/dbtypes.php	25 Nov 2007 04:05:57 -0000
++++ twfy/www/includes/dbtypes.php	26 Nov 2007 23:17:05 -0000
 @@ -13,7 +13,7 @@
  $hansardmajors = array(
  	1 => array(
@@ -717,7 +730,7 @@ RCS file: /repos/mysociety/twfy/www/includes/easyparliament/config.php.incvs,v
 retrieving revision 1.7
 diff -u -r1.7 config.php.incvs
 --- twfy/www/includes/easyparliament/config.php.incvs	6 Nov 2007 13:30:11 -0000	1.7
-+++ twfy/www/includes/easyparliament/config.php.incvs	25 Nov 2007 04:05:57 -0000
++++ twfy/www/includes/easyparliament/config.php.incvs	26 Nov 2007 23:17:05 -0000
 @@ -56,6 +56,8 @@
  // Web path to the directory where the site's images are kept.
  define ("IMAGEPATH", WEBPATH . "images/");
@@ -733,7 +746,7 @@ RCS file: /repos/mysociety/twfy/www/includes/easyparliament/metadata.php,v
 retrieving revision 1.10
 diff -u -r1.10 metadata.php
 --- twfy/www/includes/easyparliament/metadata.php	19 Oct 2007 09:23:42 -0000	1.10
-+++ twfy/www/includes/easyparliament/metadata.php	25 Nov 2007 04:05:58 -0000
++++ twfy/www/includes/easyparliament/metadata.php	26 Nov 2007 23:17:05 -0000
 @@ -284,11 +284,11 @@
  	),			
  	'debatesfront' => array (
@@ -799,7 +812,7 @@ RCS file: /repos/mysociety/twfy/www/includes/easyparliament/page.php,v
 retrieving revision 1.76
 diff -u -r1.76 page.php
 --- twfy/www/includes/easyparliament/page.php	15 Nov 2007 17:21:26 -0000	1.76
-+++ twfy/www/includes/easyparliament/page.php	25 Nov 2007 04:05:59 -0000
++++ twfy/www/includes/easyparliament/page.php	26 Nov 2007 23:17:07 -0000
 @@ -336,11 +336,11 @@
  		// we're within that section.
  		$items = array (
@@ -921,7 +934,7 @@ RCS file: /repos/mysociety/twfy/www/includes/easyparliament/people.php,v
 retrieving revision 1.9
 diff -u -r1.9 people.php
 --- twfy/www/includes/easyparliament/people.php	27 Jul 2007 14:30:10 -0000	1.9
-+++ twfy/www/includes/easyparliament/people.php	25 Nov 2007 04:05:59 -0000
++++ twfy/www/includes/easyparliament/people.php	26 Nov 2007 23:17:07 -0000
 @@ -17,7 +17,7 @@
  	function display ($view, $args=array(), $format='html') {
  		global $PAGE;
@@ -937,7 +950,7 @@ RCS file: /repos/mysociety/twfy/www/includes/easyparliament/sidebars/donate.php,
 retrieving revision 1.3
 diff -u -r1.3 donate.php
 --- twfy/www/includes/easyparliament/sidebars/donate.php	10 Aug 2007 11:09:19 -0000	1.3
-+++ twfy/www/includes/easyparliament/sidebars/donate.php	25 Nov 2007 04:05:59 -0000
++++ twfy/www/includes/easyparliament/sidebars/donate.php	26 Nov 2007 23:17:07 -0000
 @@ -4,10 +4,9 @@
  $this->block_start(array('id'=>'help', 'title'=>"Did you know this site is run by a charity?"));
  ?>
@@ -958,7 +971,7 @@ RCS file: /repos/mysociety/twfy/www/includes/easyparliament/sidebars/hocdebates.
 retrieving revision 1.1
 diff -u -r1.1 hocdebates.php
 --- twfy/www/includes/easyparliament/sidebars/hocdebates.php	27 Apr 2006 14:20:40 -0000	1.1
-+++ twfy/www/includes/easyparliament/sidebars/hocdebates.php	25 Nov 2007 04:05:59 -0000
++++ twfy/www/includes/easyparliament/sidebars/hocdebates.php	26 Nov 2007 23:17:07 -0000
 @@ -6,7 +6,7 @@
  $this->block_start(array('id'=>'help', 'title'=>"What are Debates?"));
  ?>
@@ -974,7 +987,7 @@ RCS file: /repos/mysociety/twfy/www/includes/easyparliament/sidebars/hocdebates_
 retrieving revision 1.1
 diff -u -r1.1 hocdebates_short.php
 --- twfy/www/includes/easyparliament/sidebars/hocdebates_short.php	27 Apr 2006 14:20:40 -0000	1.1
-+++ twfy/www/includes/easyparliament/sidebars/hocdebates_short.php	25 Nov 2007 04:05:59 -0000
++++ twfy/www/includes/easyparliament/sidebars/hocdebates_short.php	26 Nov 2007 23:17:07 -0000
 @@ -3,8 +3,8 @@
  
  $this->block_start(array(
@@ -992,7 +1005,7 @@ RCS file: /repos/mysociety/twfy/www/includes/easyparliament/sidebars/mps.php,v
 retrieving revision 1.2
 diff -u -r1.2 mps.php
 --- twfy/www/includes/easyparliament/sidebars/mps.php	23 Jun 2006 23:18:20 -0000	1.2
-+++ twfy/www/includes/easyparliament/sidebars/mps.php	25 Nov 2007 04:05:59 -0000
++++ twfy/www/includes/easyparliament/sidebars/mps.php	26 Nov 2007 23:17:07 -0000
 @@ -9,7 +9,7 @@
  	'body'=>''));
  ?>
@@ -1008,7 +1021,7 @@ RCS file: /repos/mysociety/twfy/www/includes/easyparliament/sidebars/whatisthiss
 retrieving revision 1.4
 diff -u -r1.4 whatisthissite.php
 --- twfy/www/includes/easyparliament/sidebars/whatisthissite.php	10 Aug 2007 11:09:19 -0000	1.4
-+++ twfy/www/includes/easyparliament/sidebars/whatisthissite.php	25 Nov 2007 04:05:59 -0000
++++ twfy/www/includes/easyparliament/sidebars/whatisthissite.php	26 Nov 2007 23:17:07 -0000
 @@ -10,7 +10,7 @@
  $helpurl = $URL->generate();
  ?>
@@ -1024,7 +1037,7 @@ RCS file: /repos/mysociety/twfy/www/includes/easyparliament/staticpages/linktous
 retrieving revision 1.2
 diff -u -r1.2 linktous.php
 --- twfy/www/includes/easyparliament/staticpages/linktous.php	10 Aug 2007 11:09:19 -0000	1.2
-+++ twfy/www/includes/easyparliament/staticpages/linktous.php	25 Nov 2007 04:05:59 -0000
++++ twfy/www/includes/easyparliament/staticpages/linktous.php	26 Nov 2007 23:17:07 -0000
 @@ -6,9 +6,9 @@
  <!-- TheyWorkForYou box, begin -->
  <div style="position: relative; width: 17em; color: #000000; background-color: #E8FDCB; font-family: Arial, Geneva, Sans-serif; margin-bottom: 1em; border: 1px solid #4d6c25; padding: 0 10px 2em 10px;">
@@ -1043,7 +1056,7 @@ RCS file: /repos/mysociety/twfy/www/includes/easyparliament/templates/api/hansar
 retrieving revision 1.1
 diff -u -r1.1 hansard_gid.php
 --- twfy/www/includes/easyparliament/templates/api/hansard_gid.php	25 Aug 2006 19:38:31 -0000	1.1
-+++ twfy/www/includes/easyparliament/templates/api/hansard_gid.php	25 Nov 2007 04:05:59 -0000
++++ twfy/www/includes/easyparliament/templates/api/hansard_gid.php	26 Nov 2007 23:17:07 -0000
 @@ -18,9 +18,9 @@
  		if ($row['htype'] == '12') {
  			if (isset($row['speaker']) && count($row['speaker']) > 0) {
@@ -1062,7 +1075,7 @@ RCS file: /repos/mysociety/twfy/www/includes/easyparliament/templates/html/hansa
 retrieving revision 1.13
 diff -u -r1.13 hansard_gid.php
 --- twfy/www/includes/easyparliament/templates/html/hansard_gid.php	29 Aug 2007 13:50:49 -0000	1.13
-+++ twfy/www/includes/easyparliament/templates/html/hansard_gid.php	25 Nov 2007 04:05:59 -0000
++++ twfy/www/includes/easyparliament/templates/html/hansard_gid.php	26 Nov 2007 23:17:07 -0000
 @@ -202,12 +202,12 @@
  				$speakername = ucfirst(member_full_name($speaker['house'], $speaker['title'], $speaker['first_name'], $speaker['last_name'], $speaker['constituency']));
  				?>
