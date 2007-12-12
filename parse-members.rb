@@ -60,8 +60,8 @@ page.links[29..-4].each do |link|
     image = Magick::Image.from_blob(res.body)[0]
     big_image = image.resize_to_fit(thumb_width * 2, thumb_height * 2)
     small_image = image.resize_to_fit(thumb_width, thumb_height)
-    big_image.write("/Library/WebServer/Documents/mysociety/twfy/www/docs/images/mpsL/#{id_person}.jpg")
-    small_image.write("/Library/WebServer/Documents/mysociety/twfy/www/docs/images/mps/#{id_person}.jpg")
+    big_image.write("pwdata/images/mpsL/#{id_person}.jpg")
+    small_image.write("pwdata/images/mps/#{id_person}.jpg")
   end
   
   member = Member.new(:id_member => id_member, :id_person => id_person, :house => "commons", :name => name,
@@ -97,3 +97,4 @@ xml.close
 
 # And load up the database
 system("/Users/matthewl/twfy/cvs/mysociety/twfy/scripts/xml2db.pl --members --all --force")
+system("cp -R pwdata/images/* /Library/WebServer/Documents/mysociety/twfy/www/docs/images")
