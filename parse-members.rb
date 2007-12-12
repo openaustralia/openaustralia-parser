@@ -9,6 +9,7 @@ require 'rmagick'
 require 'id'
 require 'name'
 require 'member'
+require 'member-parser'
 
 # Links to the biographies of all *current* members
 url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Handbook%20%3E%20Biographies%20%3E%20Current%20Members"
@@ -35,7 +36,7 @@ page.links[29..-4].each do |link|
   
   sub_page = agent.click(link)
   constituency = sub_page.search("#dlMetadata__ctl3_Label3").inner_html
-	content = sub_page.search('div#contentstart')
+  content = sub_page.search('div#contentstart')
   party = content.search("p")[1].inner_html
   if party == "Australian Labor Party"
     party = "Labor"
@@ -49,18 +50,31 @@ page.links[29..-4].each do |link|
   else
     throw "Unknown party: #{party}"
   end
-  # Grab image of member
-  image_url = content.search("img").first.attributes['src']
-  res = Net::HTTP.get_response(sub_page.uri + URI.parse(image_url))
-  image = Magick::Image.from_blob(res.body)[0]
-  big_image = image.resize_to_fit(thumb_width * 2, thumb_height * 2)
-  small_image = image.resize_to_fit(thumb_width, thumb_height)
-  big_image.write("/Library/WebServer/Documents/mysociety/twfy/www/docs/images/mpsL/#{id_person}.jpg")
-  small_image.write("/Library/WebServer/Documents/mysociety/twfy/www/docs/images/mps/#{id_person}.jpg")
 
-  members << Member.new(:id_member => id_member, :id_person => id_person, :house => "commons", :name => name,
+  # Grab image of member
+  img_tag = content.search("img").first
+  # If image is available
+  if img_tag
+    image_url = img_tag.attributes['src']
+    res = Net::HTTP.get_response(sub_page.uri + URI.parse(image_url))
+    image = Magick::Image.from_blob(res.body)[0]
+    big_image = image.resize_to_fit(thumb_width * 2, thumb_height * 2)
+    small_image = image.resize_to_fit(thumb_width, thumb_height)
+    big_image.write("/Library/WebServer/Documents/mysociety/twfy/www/docs/images/mpsL/#{id_person}.jpg")
+    small_image.write("/Library/WebServer/Documents/mysociety/twfy/www/docs/images/mps/#{id_person}.jpg")
+  end
+  
+  member = Member.new(:id_member => id_member, :id_person => id_person, :house => "commons", :name => name,
     :constituency => constituency, :party => party, :fromdate => "2005-05-05", :todate => "9999-12-31",
     :fromwhy => "general_election", :towhy => "still_in_office")
+  
+  # Currently MemberParser doesn't work for all members so using old implementation above
+  #member = MemberParser.parse(sub_page)
+  #member.id_member = id_member
+  #member.id_person = id_person
+
+  members << member
+
   id_member = id_member + 1
   id_person = id_person + 1
 end

@@ -1,6 +1,9 @@
 require 'name'
 
 class Member
+  attr_reader :fromwhy, :fromdate
+  attr_writer :id_member, :id_person
+
   def initialize(params)
     @id_member =    params[:id_member]
     @id_person =    params[:id_person]
