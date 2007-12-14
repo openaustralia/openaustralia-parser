@@ -39,17 +39,11 @@ class MemberParser
             throw "Unknown party: #{party}"
         end
 
-        arr = []
-        doc.search("//h2[text()='Parliamentary service']").each do |h2|
-            c = h2.next_sibling
-            while c.name != "h2"
-                arr << c
-                c = c.next_sibling
-            end
-        end
-        # Convert text to lowercase for easier matching
-        psText = arr.collect{|p| p.inner_text}.join(" ").downcase
-        
+        # Collect up all the text between the <h2>Parliamentary service</h2> and the next <h2> tag
+        psText = doc.to_html.downcase.match(/<h2>parliamentary service<\/h2>(.*?)<h2>/m)[1]
+        # Need to remove all tags and replace with space
+        psText.gsub!(/<\/?[^>]*>/, " ")
+
         if psText =~ /by-election/
             m = psText.match(/elected to the house of representatives for.*by-election ([.0-9]*)/)
             to_format = m[1]

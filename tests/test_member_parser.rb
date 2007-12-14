@@ -10,7 +10,15 @@ class TestMemberParser < Test::Unit::TestCase
     # mp-11838.html
     # mp-12065.html
     # 
-        
+    
+    def test_annette_ellis
+      doc = Hpricot(open("tests/source/Annette_Ellis.html"))
+      member = MemberParser::parse(doc)
+
+      assert_equal("1996-03-02", member.fromdate)
+      assert_equal("general_election", member.fromwhy)        
+    end
+    
     def test_from_date_simple
         doc = Hpricot(open("tests/source/Kate_Ellis.html"))
         member = MemberParser::parse(doc)
