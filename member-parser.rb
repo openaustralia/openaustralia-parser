@@ -45,8 +45,8 @@ class MemberParser
         psText.gsub!(/<\/?[^>]*>/, " ")
 
         if psText =~ /by-election/
-            m = psText.match(/elected to the house of representatives for.*by-election ([.0-9]*)/)
-            to_format = m[1]
+            m = psText.match(/elected to the house of representatives for.*by-election( on)? ([.0-9]*)/)
+            to_format = m[2]
             d = to_format.match(/([0-9]*).([0-9]*).([0-9]*)/)
             
             year = d[3].to_i

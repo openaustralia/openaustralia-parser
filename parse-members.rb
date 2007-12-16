@@ -30,26 +30,9 @@ members = []
 
 page.links[29..-4].each do |link|
   throw "Should start with 'Biography for '" unless link.to_s =~ /^Biography for /
-  name = Name.last_title_first(link.to_s[14..-1])
 
-  puts "Processing: #{name.informal_name}"
-  
   sub_page = agent.click(link)
-  constituency = sub_page.search("#dlMetadata__ctl3_Label3").inner_html
   content = sub_page.search('div#contentstart')
-  party = content.search("p")[1].inner_html
-  if party == "Australian Labor Party"
-    party = "Labor"
-  elsif party == "Liberal Party of Australia"
-    party = "Liberal"
-  elsif party =~ /^The Nationals/
-    party = "The Nationals"
-  elsif party =~ /^Independent/
-    party = "Independent"
-  elsif party == "Country Liberal Party"
-  else
-    throw "Unknown party: #{party}"
-  end
 
   # Grab image of member
   img_tag = content.search("img").first
@@ -64,19 +47,16 @@ page.links[29..-4].each do |link|
     small_image.write("pwdata/images/mps/#{id_person}.jpg")
   end
   
-  member = Member.new(:id_member => id_member, :id_person => id_person, :house => "commons", :name => name,
-    :constituency => constituency, :party => party, :fromdate => "2005-05-05", :todate => "9999-12-31",
-    :fromwhy => "general_election", :towhy => "still_in_office")
-  
-  # Currently MemberParser doesn't work for all members so using old implementation above
-  #member = MemberParser.parse(sub_page)
-  #member.id_member = id_member
-  #member.id_person = id_person
+  member = MemberParser.parse(sub_page.parser)
+  member.id_member = id_member
+  member.id_person = id_person
 
   members << member
 
   id_member = id_member + 1
   id_person = id_person + 1
+
+  puts "Processed: #{member.name.informal_name}"
 end
 
 xml = File.open('pwdata/members/all-members.xml', 'w')

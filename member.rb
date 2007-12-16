@@ -1,7 +1,7 @@
 require 'name'
 
 class Member
-  attr_reader :fromwhy, :fromdate
+  attr_reader :fromwhy, :fromdate, :name
   attr_writer :id_member, :id_person
 
   def initialize(params)
