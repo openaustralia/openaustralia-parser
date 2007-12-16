@@ -6,6 +6,7 @@ require 'id'
 require 'name'
 require 'member'
 
+
 class MemberParser
     
     @election_dates = {
@@ -19,9 +20,9 @@ class MemberParser
     }
     
     # parses member information from http://parlinfoweb.aph.gov.au/
-    # expects a html dom for hpricot
+    # expects the url of the page and an html dom for hpricot
     # returns a Member
-    def self.parse(doc)
+    def self.parse(url, doc)
         name = Name.last_title_first(doc.search("#txtTitle").inner_text.to_s[14..-1])
         constituency = doc.search("#dlMetadata__ctl3_Label3").inner_html
         content = doc.search('div#contentstart')
@@ -37,6 +38,14 @@ class MemberParser
         elsif party == "Country Liberal Party"
         else
             throw "Unknown party: #{party}"
+        end
+
+        # Grab image of member
+        img_tag = content.search("img").first
+        # If image is available
+        if img_tag
+          relative_image_url = img_tag.attributes['src']
+          image_url = url + URI.parse(relative_image_url)
         end
 
         # Collect up all the text between the <h2>Parliamentary service</h2> and the next <h2> tag
@@ -77,6 +86,7 @@ class MemberParser
             :fromdate => from_date,
             :todate => "9999-12-31",
             :fromwhy => fromwhy,
-            :towhy => "still_in_office")
+            :towhy => "still_in_office",
+            :image_url => image_url)
     end
 end

@@ -2,7 +2,11 @@ require 'name'
 
 class Member
   attr_reader :fromwhy, :fromdate, :name
-  attr_writer :id_member, :id_person
+  attr_accessor :id_person, :id_member
+  
+  # Sizes of small thumbnail pictures of members
+  @@THUMB_WIDTH = 44
+  @@THUMB_HEIGHT = 59
 
   def initialize(params)
     @id_member =    params[:id_member]
@@ -15,9 +19,26 @@ class Member
     @todate =       params[:todate]
     @fromwhy =      params[:fromwhy]
     @towhy =        params[:towhy]
+    @image_url =    params[:image_url]
     throw "Invalid keys" unless (params.keys -
       [:id_member, :id_person, :house, :name, :constituency, :party, :fromdate,
-      :todate, :fromwhy, :towhy]).empty?
+      :todate, :fromwhy, :towhy, :image_url]).empty?
+  end
+  
+  def image(width, height)
+    if @image_url
+      res = Net::HTTP.get_response(@image_url)
+      image = Magick::Image.from_blob(res.body)[0]
+      image.resize_to_fit(width, height)
+    end
+  end
+  
+  def small_image
+    image(@@THUMB_WIDTH, @@THUMB_HEIGHT)
+  end
+  
+  def big_image
+    image(@@THUMB_WIDTH * 2, @@THUMB_HEIGHT * 2)
   end
   
   def output_member(x)
