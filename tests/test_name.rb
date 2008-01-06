@@ -3,7 +3,7 @@ $:.unshift "#{File.dirname(__FILE__)}/.."
 require 'test/unit'
 require 'name'
 
-class NameTest < Test::Unit::TestCase
+class TestName < Test::Unit::TestCase
   def setup
     @matthew = Name.new(:first => "Matthew", :middle => "Noah", :last => "Landauer")
     @joanna_gash = Name.new(:first => "Joanna", :last => "Gash")
