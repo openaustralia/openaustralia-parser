@@ -19,6 +19,34 @@ class MemberParser
         "1990" => "1990-03-24"        
     }
     
+    def self.parse_parliamentary_service_text(psText)
+      psText.downcase!
+      if psText =~ /by-election/
+          m = psText.match(/elected to the house of representatives for.*by-election( on)? ([.0-9]*)/)
+          to_format = m[2]
+          d = to_format.match(/([0-9]*).([0-9]*).([0-9]*)/)
+          
+          year = d[3].to_i
+          year += 1900 if year < 1900 
+          
+          n_date = Date.new(year, d[2].to_i, d[1].to_i)
+          from_date = n_date.to_s
+          fromwhy = "by_election"
+      else
+          m = psText.match(/elected to the house of representatives for[^0-9]*([0-9]*)/)
+          from_date = @election_dates[m[1]]
+          fromwhy = "general_election"
+      end
+      
+      if psText =~ /defeated at general elections [0-9]{4}/
+          m = psText.match(/re-elected[^0-9]*([0-9]*)/)
+          from_date = @election_dates[m[1]]
+          fromwhy = "general_election"
+      end
+      
+      return from_date, fromwhy
+    end
+    
     # parses member information from http://parlinfoweb.aph.gov.au/
     # expects the url of the page and an html dom for hpricot
     # returns a Member
@@ -52,31 +80,7 @@ class MemberParser
         psText = doc.to_html.downcase.match(/<h2>parliamentary service<\/h2>(.*?)<h2>/m)[1]
         # Need to remove all tags and replace with space
         psText.gsub!(/<\/?[^>]*>/, " ")
-
-        if psText =~ /by-election/
-            m = psText.match(/elected to the house of representatives for.*by-election( on)? ([.0-9]*)/)
-            to_format = m[2]
-            d = to_format.match(/([0-9]*).([0-9]*).([0-9]*)/)
-            
-            year = d[3].to_i
-            year += 1900 if year < 1900 
-            
-            n_date = Date.new(year, d[2].to_i, d[1].to_i)
-            from_date = n_date.to_s
-            fromwhy = "by_election"
-        else
-            m = psText.match(/elected to the house of representatives for[^0-9]*([0-9]*)/)
-            #puts "Match = #{m[1]}"
-            from_date = @election_dates[m[1]]
-            fromwhy = "general_election"
-        end
-        
-        if psText =~ /defeated at general elections [0-9]{4}/
-            m = psText.match(/re-elected[^0-9]*([0-9]*)/)
-            #puts "Match = #{m[1]}"
-            from_date = @election_dates[m[1]]
-            fromwhy = "general_election"
-        end
+        from_date, fromwhy = parse_parliamentary_service_text(psText)
             
         member = Member.new(:id_member => 0, :id_person => 0,
             :house => "commons",
