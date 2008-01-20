@@ -19,10 +19,17 @@ class MemberParser
         "1990" => "1990-03-24"        
     }
     
-    def self.parse_parliamentary_service_text(psText)
-      psText.downcase!
-      if psText =~ /by-election/
-          m = psText.match(/elected to the house of representatives for.*by-election( on)? ([.0-9]*)/)
+    def self.extract_house_section_from_parliamentary_service(text)
+      m = text.match(/(elected to the house of representatives.*) elected/i)
+      if m.nil?
+        m = text.match(/(elected to the house of representatives.*)/i)
+      end
+      return m[1]
+    end
+    
+    def self.parse_house_service(text)
+      if text =~ /by-election/i
+          m = text.match(/elected to the house of representatives for.*by-election( on)? ([.0-9]*)/i)
           to_format = m[2]
           d = to_format.match(/([0-9]*).([0-9]*).([0-9]*)/)
           
@@ -33,18 +40,23 @@ class MemberParser
           from_date = n_date.to_s
           fromwhy = "by_election"
       else
-          m = psText.match(/elected to the house of representatives for[^0-9]*([0-9]*)/)
+          m = text.match(/elected to the house of representatives for[^0-9]*([0-9]*)/i)
           from_date = @election_dates[m[1]]
           fromwhy = "general_election"
       end
       
-      if psText =~ /defeated at general elections [0-9]{4}/
-          m = psText.match(/re-elected[^0-9]*([0-9]*)/)
+      if text =~ /defeated at general elections [0-9]{4}/i
+          m = text.match(/re-elected[^0-9]*([0-9]*)/i)
           from_date = @election_dates[m[1]]
           fromwhy = "general_election"
       end
       
       return from_date, fromwhy
+    end
+    
+    def self.parse_parliamentary_service_text(psText)
+      houseText = extract_house_section_from_parliamentary_service(psText)
+      parse_house_service(houseText)
     end
     
     # parses member information from http://parlinfoweb.aph.gov.au/
@@ -77,7 +89,7 @@ class MemberParser
         end
 
         # Collect up all the text between the <h2>Parliamentary service</h2> and the next <h2> tag
-        psText = doc.to_html.downcase.match(/<h2>parliamentary service<\/h2>(.*?)<h2>/m)[1]
+        psText = doc.to_html.match(/<h2>parliamentary service<\/h2>(.*?)<h2>/mi)[1]
         # Need to remove all tags and replace with space
         psText.gsub!(/<\/?[^>]*>/, " ")
         from_date, fromwhy = parse_parliamentary_service_text(psText)
