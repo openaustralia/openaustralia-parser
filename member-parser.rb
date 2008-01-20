@@ -19,7 +19,7 @@ class MemberParser
         "1990" => "1990-03-24"        
     }
     
-    def self.extract_house_section_from_parliamentary_service(text)
+    def self.extract_house_service_from_parliamentary_service(text)
       m = text.match(/(elected to the house of representatives.*) elected/i)
       if m.nil?
         m = text.match(/(elected to the house of representatives.*)/i)
@@ -52,11 +52,6 @@ class MemberParser
       end
       
       return from_date, fromwhy
-    end
-    
-    def self.parse_parliamentary_service_text(psText)
-      houseText = extract_house_section_from_parliamentary_service(psText)
-      parse_house_service(houseText)
     end
     
     # parses member information from http://parlinfoweb.aph.gov.au/
@@ -92,7 +87,8 @@ class MemberParser
         psText = doc.to_html.match(/<h2>parliamentary service<\/h2>(.*?)<h2>/mi)[1]
         # Need to remove all tags and replace with space
         psText.gsub!(/<\/?[^>]*>/, " ")
-        from_date, fromwhy = parse_parliamentary_service_text(psText)
+        house_service = extract_house_service_from_parliamentary_service(psText)
+        from_date, fromwhy = parse_house_service(house_service)
             
         member = Member.new(:id_member => 0, :id_person => 0,
             :house => "commons",
