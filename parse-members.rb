@@ -12,7 +12,7 @@ require 'member'
 require 'member-parser'
 
 # Load the configuration
-configuration = YAML::load( File.open( 'parser-config.yml' ) )
+configuration = YAML::load( File.open( 'config.yml' ) )
 configuration = {} if !configuration
 
 # Links to the biographies of all *current* members
