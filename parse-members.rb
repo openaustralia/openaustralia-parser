@@ -5,7 +5,7 @@
 require 'rubygems'
 require 'mechanize'
 require 'builder'
-require 'rmagick'
+require 'RMagick'
 require 'id'
 require 'name'
 require 'member'
