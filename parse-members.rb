@@ -11,6 +11,10 @@ require 'name'
 require 'member'
 require 'member-parser'
 
+# Load the configuration
+configuration = YAML::load( File.open( 'parser-config.yml' ) )
+configuration = {} if !configuration
+
 # Links to the biographies of all *current* members
 url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Handbook%20%3E%20Biographies%20%3E%20Current%20Members"
 
@@ -19,6 +23,7 @@ url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Hand
 Hpricot.buffer_size = 262144
 
 agent = WWW::Mechanize.new
+agent.set_proxy(configuration["proxy"]["host"], configuration["proxy"]["port"]) if configuration.has_key?("proxy")
 page = agent.get(url)
 
 id_member = 1

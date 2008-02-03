@@ -1,0 +1,18 @@
+#
+# Edit this file to control the behaviour of the parser
+#
+
+# Proxy to use for all internet connections in the parser
+# Leave commented out to disable the use of the proxy
+#
+# Using a web caching proxy is especially useful during development
+# to speed up the running of the parser.
+#
+# We've been using a "free" for private use caching proxy called
+# WebAssistant (http://www.proxy-offline-browser.com/)
+# It should also be possible to use Squid (http://www.squid-cache.org/) but so
+# far the configuration for caching dynamic content in Squid has eluded us.
+
+proxy:
+    host: localhost
+    port: 8080
