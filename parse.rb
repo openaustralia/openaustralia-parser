@@ -165,4 +165,4 @@ xml.close
 system("tidy -quiet -indent -xml -modify -wrap 0 -utf8 #{xml_filename}")
 
 # And load up the database
-system("/Users/matthewl/twfy/cvs/mysociety/twfy/scripts/xml2db.pl --debates --all --force")
+system(conf.web_root + "/twfy/scripts/xml2db.pl --debates --all --force")
