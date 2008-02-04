@@ -21,4 +21,8 @@ class Configuration
   def web_root
     @@conf["web_root"]
   end
+  
+  def current_members_url
+    @@conf["current_members_url"]
+  end
 end

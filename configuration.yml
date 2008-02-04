@@ -20,3 +20,8 @@ proxy:
 # The root directory of the patched Australian version of the TheyWorkForYou
 # website.
 web_root: "/Library/WebServer/Documents/mysociety"
+
+# Should hopefully not have to change anything below here
+
+# Links to the biographies of all *current* members
+current_members_url: "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Handbook%20%3E%20Biographies%20%3E%20Current%20Members"
