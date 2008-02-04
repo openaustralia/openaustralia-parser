@@ -63,6 +63,23 @@ class MemberParser
       return from_date, fromwhy
     end
     
+    def self.parse_party(party)
+      if party == "Australian Labor Party"
+        "Labor"
+      elsif party == "Liberal Party of Australia"
+        "Liberal"
+      elsif party =~ /^The Nationals/
+        "The Nationals"
+      elsif party =~ /^Independent/
+        "Independent"
+      elsif party == "Country Liberal Party"
+        # TODO: Stupid question: is Country Liberal the same as Liberal?
+        "Country Liberal"
+      else
+        throw "Unknown party: #{party}"
+      end
+    end
+    
     # parses member information from http://parlinfoweb.aph.gov.au/
     # expects the url of the page and an html dom for hpricot
     # returns a Member
@@ -70,19 +87,7 @@ class MemberParser
         name = Name.last_title_first(doc.search("#txtTitle").inner_text.to_s[14..-1])
         constituency = doc.search("#dlMetadata__ctl3_Label3").inner_html
         content = doc.search('div#contentstart')
-        party = content.search("p")[1].inner_html
-        if party == "Australian Labor Party"
-            party = "Labor"
-        elsif party == "Liberal Party of Australia"
-            party = "Liberal"
-        elsif party =~ /^The Nationals/
-            party = "The Nationals"
-        elsif party =~ /^Independent/
-            party = "Independent"
-        elsif party == "Country Liberal Party"
-        else
-            throw "Unknown party: #{party}"
-        end
+        party = parse_party(content.search("p")[1].inner_html)
 
         # Grab image of member
         img_tag = content.search("img").first
