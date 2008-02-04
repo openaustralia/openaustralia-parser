@@ -31,7 +31,10 @@ class MemberParser
       return m[1]
     end
     
-    def self.parse_house_service(text)
+    def self.parse_house_service_current_member(text)
+      # We're assuming that the member is continuously in parliament
+      # TODO: Handle member losing election and being re-elected
+      
       if text =~ /by-election/i
           m = text.match(/elected to the house of representatives for.*by-election( on)? ([.0-9]*)/i)
           to_format = m[2]
@@ -48,19 +51,11 @@ class MemberParser
           from_date = @election_dates[m[1]]
           fromwhy = "general_election"
       end
+
+      to_date = "9999-12-31"
+      to_why = "still_in_office"
       
-      if text =~ /defeated at general elections [0-9]{4}/i
-          m = text.match(/re-elected[^0-9]*([0-9]*)/i)
-          # TODO: Remove the hack below
-          if m
-            from_date = @election_dates[m[1]]
-            fromwhy = "general_election"
-          else
-            puts "WARNING: Parser error!"
-          end
-      end
-      
-      return from_date, fromwhy
+      return from_date, fromwhy, to_date, to_why
     end
     
     def self.parse_party(party)
@@ -83,7 +78,7 @@ class MemberParser
     # parses member information from http://parlinfoweb.aph.gov.au/
     # expects the url of the page and an html dom for hpricot
     # returns a Member
-    def self.parse(url, doc)
+    def self.parse_current_member(url, doc)
         name = Name.last_title_first(doc.search("#txtTitle").inner_text.to_s[14..-1])
         constituency = doc.search("#dlMetadata__ctl3_Label3").inner_html
         content = doc.search('div#contentstart')
@@ -102,17 +97,17 @@ class MemberParser
         # Need to remove all tags and replace with space
         psText.gsub!(/<\/?[^>]*>/, " ")
         house_service = extract_house_service_from_parliamentary_service(psText)
-        from_date, fromwhy = parse_house_service(house_service)
-            
-        member = Member.new(:id_member => @@id_member, :id_person => @@id_person,
+        from_date, from_why, to_date, to_why = parse_house_service_current_member(house_service)
+
+      member = Member.new(:id_member => @@id_member, :id_person => @@id_person,
             :house => "commons",
             :name => name,
             :constituency => constituency,
             :party => party,
             :fromdate => from_date,
-            :todate => "9999-12-31",
-            :fromwhy => fromwhy,
-            :towhy => "still_in_office",
+            :todate => to_date,
+            :fromwhy => from_why,
+            :towhy => to_why,
             :image_url => image_url)
 
         @@id_member = @@id_member + 1

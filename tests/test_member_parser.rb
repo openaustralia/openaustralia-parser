@@ -54,7 +54,7 @@ class TestMemberParser < Test::Unit::TestCase
   #end
   
   def test_elected_at_by_election
-    fromdate, fromwhy = MemberParser.parse_house_service(
+    fromdate, fromwhy, todate, towhy = MemberParser.parse_house_service_current_member(
       "Elected to the House of Representatives for Aston, Victoria at by-election 14.7.2001 " +
       "vice PE Nugent (deceased). Re-elected 2001 and 2004.")
     assert_equal("2001-07-14", fromdate)
@@ -62,7 +62,7 @@ class TestMemberParser < Test::Unit::TestCase
   end
   
   def test_elected_at_by_election_on
-    fromdate, fromwhy = MemberParser.parse_house_service(
+    fromdate, fromwhy, todate, towhy = MemberParser.parse_house_service_current_member(
       "elected to the house of representatives for kooyong, victoria, at by-election on 19.11.1994, " +
       "vice the hon. as peacock (resigned). re-elected 1996, 1998, 2001, 2004 and 2007.")
     assert_equal("1994-11-19", fromdate)
@@ -71,7 +71,7 @@ class TestMemberParser < Test::Unit::TestCase
   
   # Elected at general election
   def test_elected_at_general_election
-    fromdate, fromwhy = MemberParser.parse_house_service(
+    fromdate, fromwhy, todate, towhy = MemberParser.parse_house_service_current_member(
       "elected to the house of representatives for namadgi, " +
       "australian capital territory, 1996. re-elected following 1997 electoral redistribution for " +
       "canberra, australian capital territory, 1998, 2001, 2004 and 2007.")
@@ -82,10 +82,10 @@ class TestMemberParser < Test::Unit::TestCase
   # General election 1993, defeated 1996, general election 1996
   # Non contiguous service.
   def test_non_contiguous_service
-    fromdate, fromwhy = MemberParser.parse_house_service(
+    fromdate, fromwhy, todate, towhy = MemberParser.parse_house_service_current_member(
       "Elected to the House of Representatives for Lilley, Queensland, 1993. Defeated at general " +
       "elections 1996. Re-elected 1998, 2001 and 2004.")
-      assert_equal("1998-10-03", fromdate)
+      assert_equal("1993-03-13", fromdate)
       assert_equal("general_election", fromwhy)
   end
   
@@ -93,6 +93,6 @@ class TestMemberParser < Test::Unit::TestCase
   
   def read_member(filename)
     doc = Hpricot(open(File.join(@source, filename)))
-    MemberParser::parse(@url, doc)
+    MemberParser::parse_current_member(@url, doc)
   end
 end

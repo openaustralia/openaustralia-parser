@@ -34,7 +34,7 @@ page.links[29..-4].each do |link|
 
   sub_page = agent.click(link)
 
-  member = MemberParser.parse(sub_page.uri, sub_page.parser)
+  member = MemberParser.parse_current_member(sub_page.uri, sub_page.parser)
   members << member
   puts "Processed: #{member.name.informal_name}"
 end
