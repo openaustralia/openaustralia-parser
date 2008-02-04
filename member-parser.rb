@@ -47,8 +47,13 @@ class MemberParser
       
       if text =~ /defeated at general elections [0-9]{4}/i
           m = text.match(/re-elected[^0-9]*([0-9]*)/i)
-          from_date = @election_dates[m[1]]
-          fromwhy = "general_election"
+          # TODO: Remove the hack below
+          if m
+            from_date = @election_dates[m[1]]
+            fromwhy = "general_election"
+          else
+            puts "WARNING: Parser error!"
+          end
       end
       
       return from_date, fromwhy

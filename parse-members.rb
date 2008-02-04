@@ -10,6 +10,9 @@ require 'id'
 require 'name'
 require 'member'
 require 'member-parser'
+require 'configuration'
+
+conf = Configuration.new
 
 # Links to the biographies of all *current* members
 url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Handbook%20%3E%20Biographies%20%3E%20Current%20Members"
@@ -19,6 +22,7 @@ url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Hand
 Hpricot.buffer_size = 262144
 
 agent = WWW::Mechanize.new
+agent.set_proxy(conf.proxy_host, conf.proxy_port)
 page = agent.get(url)
 
 id_member = 1
@@ -50,6 +54,10 @@ x.publicwhip do
 end
 xml.close
 
+# Create the image directories if they don't already exist
+system("mkdir -p pwdata/images/mps")
+system("mkdir -p pwdata/images/mpsL")
+
 xml = File.open('pwdata/members/people.xml', 'w')
 x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
 x.instruct!
@@ -63,5 +71,5 @@ end
 xml.close
 
 # And load up the database
-system("/Users/matthewl/twfy/cvs/mysociety/twfy/scripts/xml2db.pl --members --all --force")
-system("cp -R pwdata/images/* /Library/WebServer/Documents/mysociety/twfy/www/docs/images")
+system(conf.web_root + "/twfy/scripts/xml2db.pl --members --all --force")
+system("cp -R pwdata/images/* " + conf.web_root + "/twfy/www/docs/images")
