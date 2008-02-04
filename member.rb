@@ -28,11 +28,7 @@ class Member
   def image(width, height)
     if @image_url
       conf = Configuration.new
-      if conf.using_proxy?
-        res = Net::HTTP::Proxy(conf.proxy_host, conf.proxy_port).get_response(@image_url)
-      else
-        res = Net::HTTP.get_response(@image_url)
-      end
+      res = Net::HTTP::Proxy(conf.proxy_host, conf.proxy_port).get_response(@image_url)
       image = Magick::Image.from_blob(res.body)[0]
       image.resize_to_fit(width, height)
     end

@@ -26,7 +26,7 @@ date = "2007-09-20"
 Hpricot.buffer_size = 262144
 
 agent = WWW::Mechanize.new
-agent.set_proxy(conf.proxy_host, conf.proxy_port) if conf.using_proxy?
+agent.set_proxy(conf.proxy_host, conf.proxy_port)
 page = agent.get(url)
 
 xml_filename = "pwdata/scrapedxml/debates/debates#{date}.xml"

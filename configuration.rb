@@ -10,16 +10,12 @@ class Configuration
     end
   end
   
-  def proxy_host
-    @@conf["proxy"]["host"]
+  def proxy_host    
+    @@conf["proxy"]["host"] if @@conf.has_key?("proxy")
   end
   
   def proxy_port
-    @@conf["proxy"]["port"]
-  end
-  
-  def using_proxy?
-    @@conf.has_key?("proxy")
+    @@conf["proxy"]["port"] if @@conf.has_key?("proxy")
   end
   
   def web_root

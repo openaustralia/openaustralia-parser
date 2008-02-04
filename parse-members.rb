@@ -22,7 +22,7 @@ url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Hand
 Hpricot.buffer_size = 262144
 
 agent = WWW::Mechanize.new
-agent.set_proxy(conf.proxy_host, conf.proxy_port) if conf.using_proxy?
+agent.set_proxy(conf.proxy_host, conf.proxy_port)
 page = agent.get(url)
 
 id_member = 1
