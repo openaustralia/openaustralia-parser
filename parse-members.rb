@@ -2,6 +2,8 @@
 #
 # Parsing all the data for members of the House of Representatives
 
+$:.unshift "#{File.dirname(__FILE__)}/lib"
+
 require 'rubygems'
 require 'mechanize'
 require 'builder'
