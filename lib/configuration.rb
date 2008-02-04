@@ -18,11 +18,8 @@ class Configuration
     @@conf["proxy"]["port"] if @@conf.has_key?("proxy")
   end
   
-  def web_root
-    @@conf["web_root"]
-  end
-  
-  def current_members_url
-    @@conf["current_members_url"]
+  # Ruby magic
+  def method_missing(method_id)
+    @@conf[method_id.id2name]
   end
 end
