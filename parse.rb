@@ -82,7 +82,12 @@ def speech(speakername, content, x, members, time, url, id, speech_outputter)
   if speakername.downcase == "the deputy speaker" || speakername.downcase == "unknown"
     speakerid = nil
   else
-    speakerid = members.find_member_id_by_fullname(speakername)
+    # TODO: Remove hack below to allow things to continue even if member not found
+    begin
+      speakerid = members.find_member_id_by_fullname(speakername)
+    rescue
+      puts "WARNING: Could not find member!"
+    end
   end
   speech_outputter.speech(speakername, time, url, id, speakerid, content)
 end
