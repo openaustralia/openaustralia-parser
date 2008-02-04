@@ -27,8 +27,6 @@ agent = WWW::Mechanize.new
 agent.set_proxy(conf.proxy_host, conf.proxy_port)
 page = agent.get(url)
 
-id_member = 1
-id_person = 10001
 members = []
 
 page.links[29..-4].each do |link|
@@ -37,14 +35,7 @@ page.links[29..-4].each do |link|
   sub_page = agent.click(link)
 
   member = MemberParser.parse(sub_page.uri, sub_page.parser)
-  member.id_member = id_member
-  member.id_person = id_person
-
   members << member
-
-  id_member = id_member + 1
-  id_person = id_person + 1
-
   puts "Processed: #{member.name.informal_name}"
 end
 

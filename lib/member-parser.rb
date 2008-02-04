@@ -19,6 +19,10 @@ class MemberParser
         "1990" => "1990-03-24"        
     }
     
+    # Keep a running tab of the next member and person id
+    @@id_member = 1
+    @@id_person = 10001
+    
     def self.extract_house_service_from_parliamentary_service(text)
       m = text.match(/(elected to the house of representatives.*) elected/i)
       if m.nil?
@@ -95,7 +99,7 @@ class MemberParser
         house_service = extract_house_service_from_parliamentary_service(psText)
         from_date, fromwhy = parse_house_service(house_service)
             
-        member = Member.new(:id_member => 0, :id_person => 0,
+        member = Member.new(:id_member => @@id_member, :id_person => @@id_person,
             :house => "commons",
             :name => name,
             :constituency => constituency,
@@ -105,5 +109,10 @@ class MemberParser
             :fromwhy => fromwhy,
             :towhy => "still_in_office",
             :image_url => image_url)
+
+        @@id_member = @@id_member + 1
+        @@id_person = @@id_person + 1
+
+        member
     end
 end
