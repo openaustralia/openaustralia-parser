@@ -8,9 +8,14 @@ require 'builder'
 require 'id'
 require 'speech'
 require 'member'
+require 'configuration'
+
+conf = Configuration.new
 
 # First load all-members.xml back in so that we can look up member id's
 members = Members.load("pwdata/members/all-members.xml")
+
+system("mkdir -p pwdata/scrapedxml/debates")
 
 # House Hansard for 20 September 2007
 url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Chamber%20%3E%20House%20Hansard%20%3E%202007%20%3E%2020%20September%202007"
@@ -21,6 +26,7 @@ date = "2007-09-20"
 Hpricot.buffer_size = 262144
 
 agent = WWW::Mechanize.new
+agent.set_proxy(conf.proxy_host, conf.proxy_port) if conf.using_proxy?
 page = agent.get(url)
 
 xml_filename = "pwdata/scrapedxml/debates/debates#{date}.xml"
