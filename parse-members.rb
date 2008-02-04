@@ -55,6 +55,10 @@ x.publicwhip do
 end
 xml.close
 
+# Create the image directories if they don't already exist
+system("mkdir -p pwdata/images/mps")
+system("mkdir -p pwdata/images/mpsL")
+
 xml = File.open('pwdata/members/people.xml', 'w')
 x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
 x.instruct!
