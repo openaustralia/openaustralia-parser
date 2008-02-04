@@ -21,4 +21,8 @@ class Configuration
   def using_proxy?
     @@conf.has_key?("proxy")
   end
+  
+  def web_root
+    @@conf["web_root"]
+  end
 end

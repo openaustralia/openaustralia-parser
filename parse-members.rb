@@ -71,5 +71,5 @@ end
 xml.close
 
 # And load up the database
-system("/Users/matthewl/twfy/cvs/mysociety/twfy/scripts/xml2db.pl --members --all --force")
-system("cp -R pwdata/images/* /Library/WebServer/Documents/mysociety/twfy/www/docs/images")
+system(conf.web_root + "/twfy/scripts/xml2db.pl --members --all --force")
+system("cp -R pwdata/images/* " + conf.web_root + "/twfy/www/docs/images")

@@ -16,3 +16,7 @@
 proxy:
     host: localhost
     port: 8080
+
+# The root directory of the patched Australian version of the TheyWorkForYou
+# website.
+web_root: "/Library/WebServer/Documents/mysociety"
