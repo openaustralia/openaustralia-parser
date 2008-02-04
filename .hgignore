@@ -1,2 +1,2 @@
-\.orig$
-\.rej$
+syntax: glob
+pwdata/scrapedxml/debates/debates*.xml
