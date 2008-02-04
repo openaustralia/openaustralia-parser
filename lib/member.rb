@@ -1,7 +1,7 @@
 require 'name'
 
 class Member
-  attr_reader :fromwhy, :fromdate, :name
+  attr_reader :fromwhy, :fromdate, :name, :constituency
   attr_accessor :id_person, :id_member
   
   # Sizes of small thumbnail pictures of members
@@ -86,6 +86,24 @@ class Members
     end
     find_member_id_by_name(firstname, lastname)
   end
+
+  def find_member_id_by_fullname_and_electorate(name, electorate)
+    names = name.split(' ')
+    names.delete("Mr")
+    names.delete("Mrs")
+    names.delete("Ms")
+    names.delete("Dr")
+    if names.size == 2
+      firstname = names[0]
+      lastname = names[1]
+    elsif names.size == 1
+      firstname = ""
+      lastname = names[0]
+    else
+      throw "Can't parse the name #{name}"
+    end
+    find_member_id_by_name_and_electorate(firstname, lastname, electorate)
+  end
   
   private
   
@@ -106,9 +124,36 @@ class Members
     matches
   end
 
+  # If firstname is empty will just check by lastname
+  def find_members_by_name_and_electorate(firstname, lastname, electorate)
+    puts "Searching for #{firstname} #{lastname} #{electorate}"
+    matches = find_members_by_name(firstname, lastname)
+    if matches.size > 1
+      # Use electorate to narrow the search
+      matches = matches.find_all{|m| m["constituency"] == electorate}
+    end
+    # TODO: Fix this dreadfull hack
+    if firstname == "" && lastname == "FITZGIBBON" && electorate == "Hunter"
+      # There's a father and son (I assume) that have been members in the same
+      # electorate. Joel is the one that's currently in parliament
+      matches = find_members_by_name_and_electorate("Joel", "FITZGIBBON", "Hunter")
+    end
+    matches
+  end
+
   def find_member_id_by_name(firstname, lastname)
     matches = find_members_by_name(firstname, lastname)
-    throw "More than one match for member based on first and last name" if matches.size > 1
+    throw "More than one match for member based on first name (#{firstname}) and last name #{lastname}" if matches.size > 1
+    throw "No match for member found" if matches.size == 0
+    matches[0]["id"]
+  end
+
+  def find_member_id_by_name_and_electorate(firstname, lastname, electorate)
+    matches = find_members_by_name_and_electorate(firstname, lastname, electorate)
+    throw "More than one match for member based on first name (#{firstname}), last name #{lastname} and electorate #{electorate}" if matches.size > 1
+    if matches.size == 0
+      puts "#{firstname} #{lastname} #{electorate}"
+    end
     throw "No match for member found" if matches.size == 0
     matches[0]["id"]
   end

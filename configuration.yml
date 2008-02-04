@@ -25,3 +25,5 @@ web_root: "/Library/WebServer/Documents/mysociety"
 
 # Links to the biographies of all *current* members
 current_members_url: "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Handbook%20%3E%20Biographies%20%3E%20Current%20Members"
+# Links to the biographies of all *former* senators and representatives
+former_members_url: "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Handbook%20%3E%20Biographies%20%3E%20Former%20Senators%20and%20Members"

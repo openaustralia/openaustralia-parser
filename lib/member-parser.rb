@@ -28,7 +28,7 @@ class MemberParser
       if m.nil?
         m = text.match(/(elected to the house of representatives.*)/i)
       end
-      return m[1]
+      m[1] if m
     end
     
     def self.parse_house_service_current_member(text)
@@ -58,20 +58,63 @@ class MemberParser
       return from_date, fromwhy, to_date, to_why
     end
     
+    def self.parse_house_service_former_member(text)
+      # We're assuming that the member is continuously in parliament
+      # TODO: Handle member losing election and being re-elected
+      
+      if text =~ /by-election/i
+          m = text.match(/elected to the house of representatives for.*by-election( on)? ([.0-9]*)/i)
+          to_format = m[2]
+          d = to_format.match(/([0-9]*).([0-9]*).([0-9]*)/)
+          
+          year = d[3].to_i
+          year += 1900 if year < 1900 
+          
+          n_date = Date.new(year, d[2].to_i, d[1].to_i)
+          from_date = n_date.to_s
+          fromwhy = "by_election"
+      else
+          m = text.match(/elected to the house of representatives for[^0-9]*([0-9]*)/i)
+          from_date = @election_dates[m[1]]
+          fromwhy = "general_election"
+      end
+
+      # TODO: This is wrong!
+      to_date = "9999-12-31"
+      to_why = "still_in_office"
+      
+      return from_date, fromwhy, to_date, to_why
+    end
+    
     def self.parse_party(party)
-      if party == "Australian Labor Party"
+      if party =~ /^Australian Labor Party/
         "Labor"
-      elsif party == "Liberal Party of Australia"
+      elsif party =~ /^Liberal Party of Australia/ || party == "Liberal Party"
         "Liberal"
-      elsif party =~ /^The Nationals/
-        "The Nationals"
+      elsif party =~ /^The Nationals/ || party == "National Party of Australia"
+        "Nationals"
       elsif party =~ /^Independent/
         "Independent"
-      elsif party == "Country Liberal Party"
+      elsif party =~ /Country Liberal Party/
         # TODO: Stupid question: is Country Liberal the same as Liberal?
         "Country Liberal"
+      elsif party =~ /^Australian Democrats/
+        "Democrat"
+      elsif party == "Nuclear Disarmament Party"
+        "Nuclear Disarmament Party"
+      elsif party =~ /^Christian Democratic Party/
+        "Christian Democrat"
+      elsif party =~ /^The Greens/ || party =~ /^Australian Greens/
+        "Green"
+      elsif party =~ /^Australian Progressive Alliance/
+        "Australian Progressive Alliance"
+      elsif party =~ /^Unite Australia Party/
+        "Unite Australia Party"
+      elsif party =~ /^Pauline Hanson's One Nation/
+        "One Nation"
       else
-        throw "Unknown party: #{party}"
+        puts "WARNING: Unknown party: #{party}"
+        party
       end
     end
     
@@ -98,6 +141,49 @@ class MemberParser
         psText.gsub!(/<\/?[^>]*>/, " ")
         house_service = extract_house_service_from_parliamentary_service(psText)
         from_date, from_why, to_date, to_why = parse_house_service_current_member(house_service)
+
+      member = Member.new(:id_member => @@id_member, :id_person => @@id_person,
+            :house => "commons",
+            :name => name,
+            :constituency => constituency,
+            :party => party,
+            :fromdate => from_date,
+            :todate => to_date,
+            :fromwhy => from_why,
+            :towhy => to_why,
+            :image_url => image_url)
+
+        @@id_member = @@id_member + 1
+        @@id_person = @@id_person + 1
+
+        member
+    end
+    
+    def self.parse_former_member(url, doc)
+        name = Name.last_title_first(doc.search("#txtTitle").inner_text.to_s[14..-1])
+        constituency = doc.search("#dlMetadata__ctl3_Label3").inner_html
+        content = doc.search('div#contentstart')
+        party = parse_party(content.search("p")[1].inner_html)
+
+        # Grab image of member
+        img_tag = content.search("img").first
+        # If image is available
+        if img_tag
+          relative_image_url = img_tag.attributes['src']
+          image_url = url + URI.parse(relative_image_url)
+        end
+
+        # Collect up all the text between the <h2>Parliamentary service</h2> and the next <h2> tag
+        match = doc.to_html.match(/<h2>parliamentary service<\/h2>(.*?)<h2>/mi)
+        # Barry Thomas Cunningham's biography page is all messed up. This should skip it
+        return nil if match.nil?
+        psText = match[1]
+        # Need to remove all tags and replace with space
+        psText.gsub!(/<\/?[^>]*>/, " ")
+        house_service = extract_house_service_from_parliamentary_service(psText)
+        return nil if house_service.nil?
+
+      from_date, from_why, to_date, to_why = parse_house_service_former_member(house_service)
 
       member = Member.new(:id_member => @@id_member, :id_person => @@id_person,
             :house => "commons",

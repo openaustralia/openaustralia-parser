@@ -32,7 +32,18 @@ agent.get(conf.current_members_url).links[29..-4].each do |link|
 
   member = MemberParser.parse_current_member(sub_page.uri, sub_page.parser)
   members << member
-  puts "Processed: #{member.name.informal_name}"
+  puts "Processed current member: #{member.name.informal_name}"
+end
+
+agent.get(conf.former_members_url).links[29..-4].each do |link|
+  throw "Should start with 'Biography for '" unless link.to_s =~ /^Biography for /
+  
+  sub_page = agent.click(link)
+  member = MemberParser.parse_former_member(sub_page.uri, sub_page.parser)
+  if member
+    members << member
+    puts "Processed former member: #{member.name.informal_name}"
+  end
 end
 
 xml = File.open('pwdata/members/all-members.xml', 'w')
