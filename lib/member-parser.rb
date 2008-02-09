@@ -159,12 +159,4 @@ class MemberParser
       
       member
     end
-    
-    def self.parse_former_member(url, doc)
-      parse_member(url, doc, false)
-    end
-
-    def self.parse_current_member(url, doc)
-      parse_member(url, doc, true)
-    end    
 end
