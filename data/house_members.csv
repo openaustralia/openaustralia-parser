@@ -29,11 +29,11 @@ Name,Division,State/Territory,Date of election,Type of election,Date ceased to b
 "Barresi, Phillip Anthony",Deakin,Vic.,2.3.1996,, ,current_member,LIB
 "Bartlett, Kerry Joseph",Macquarie,NSW,2.3.1996,, ,current_member,LIB
 "Baume, Michael Ehrenfried",Macarthur,NSW,13.12.1975,,5.3.1983,defeated,LIB
-"Beale, Julian Howard",Deakin,Vic.,1.12.1984,,Until elected for Bruce,elected_elsewhere,LIB
+"Beale, Julian Howard",Deakin,Vic.,1.12.1984,,24.3.1990,elected_elsewhere,LIB
 ,Bruce,Vic.,24.3.1990,,2.3.1996,defeated,LIB
-"Beazley, Kim Christian",Swan,WA,18.10.1980,,Until elected for Brand,elected_elsewhere,ALP
+"Beazley, Kim Christian",Swan,WA,18.10.1980,,2.3.1996,elected_elsewhere,ALP
 ,Brand,WA,2.3.1996,,17.10.2007,retired,ALP
-"Beddall, David Peter",Fadden,Qld,5.3.1983,,Until elected for Rankin,elected_elsewhere,ALP
+"Beddall, David Peter",Fadden,Qld,5.3.1983,,1.12.1984,elected_elsewhere,ALP
 ,Rankin,Qld,1.12.1984,,31.8.1998,retired,ALP
 "Bevis, Archibald Ronald",Brisbane,Qld,24.3.1990,, ,current_member,ALP
 "Billson, Bruce Fredrick",Dunkley,Vic.,2.3.1996,, ,current_member,LIB
@@ -59,7 +59,7 @@ Name,Division,State/Territory,Date of election,Type of election,Date ceased to b
 "Brown, Joseph Tilley",Indi,Vic.,12.12.1906,,13.4.1910,defeated,ANTI-SOC
 ,,Vic.,13.12.1975,,5.3.1983,defeated,LIB
 Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
-"Brown, Robert James",Hunter,NSW,18.10.1980,,Until elected for Charlton,elected_elsewhere,ALP
+"Brown, Robert James",Hunter,NSW,18.10.1980,,1.12.1984,elected_elsewhere,ALP
 ,Charlton,NSW,1.12.1984,,31.8.1998,retired,ALP
 "Brumby, John Mansfield",Bendigo,Vic.,5.3.1983,,24.3.1990,defeated,ALP
 "Bryant, Gordon Munro",Wills,Vic.,10.12.1955,,19.9.1980,retired,ALP
@@ -67,14 +67,14 @@ Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 "Burke, Anna Elizabeth",Chisholm,Vic.,3.10.1998,, ,current_member,ALP
 "Burke, Anthony Stephen",Watson,NSW,9.10.2004,, ,current_member,ALP
 "Burns, William George",Isaacs,Vic.,10.12.1977,,18.10.1980,defeated,LIB
-"Burr, Maxwell Arthur",Wilmot,Tas.,13.12.1975,,Until elected for Lyons,elected_elsewhere,LIB
+"Burr, Maxwell Arthur",Wilmot,Tas.,13.12.1975,,1.12.1984,elected_elsewhere,LIB
 ,Lyons,Tas.,1.12.1984,,8.2.1993,retired,LIB
 "Byrne, Anthony Michael",Holt,Vic.,6.11.1999,by_election, ,current_member,ALP
 "Cadman, Alan Glyndwr",Mitchell,NSW,18.5.1974,,17.10.2007,retired,LIB
 ,Lilley,Qld,18.5.1974,,18.10.1980,defeated,LIB
 "Calder, Stephen Edward",Northern Territory,NT,26.11.1966,,19.9.1980,retired,NCP
 "Cameron, Clyde Robert",Hindmarsh,SA,10.12.1949,,19.9.1980,retired,ALP
-"Cameron, Donald Milner",Griffith,Qld,26.11.1966,,Until elected for Fadden,elected_elsewhere,LIB
+"Cameron, Donald Milner",Griffith,Qld,26.11.1966,,10.12.1977,elected_elsewhere,LIB
 ,Fadden,Qld,10.12.1977,,5.3.1983,defeated,LIB
 ,Moreton,Qld,5.11.1983,by_election,24.3.1990,defeated,LIB
 "Cameron, Eoin Harrap",Stirling,WA,13.3.1993,,3.10.1998,defeated,LIB
@@ -93,11 +93,11 @@ Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 "Charles, Robert Edwin",La Trobe,Vic.,24.3.1990,,31.8.2004,retired,LIB
 "Charlesworth, Richard Ian",Perth,WA,5.3.1983,,8.2.1993,retired,ALP
 ,Henty,Vic.,18.10.1980,,19.2.1990,retired,ALP
-"Chynoweth, Robert Leslie",Flinders,Vic.,5.3.1983,,Until elected for Dunkley,elected_elsewhere,ALP
+"Chynoweth, Robert Leslie",Flinders,Vic.,5.3.1983,,1.12.1984,elected_elsewhere,ALP
 ,Dunkley,Vic.,1.12.1984,,24.3.1990,defeated,ALP
 ,Dunkley,Vic.,13.3.1993,,2.3.1996,defeated,ALP
 "Ciobo, Steven Michele",Moncrieff,Qld,10.11.2001,, ,current_member,LIB
-"Cleary, Philip Ronald",Wills,Vic.,11.4.1992,by_election,25.11.1992 (declare void),declared_void,IND
+"Cleary, Philip Ronald",Wills,Vic.,11.4.1992,by_election,25.11.1992,declared_void,IND
 ,Wills,Vic.,13.3.1993,,2.3.1996,defeated,IND
 "Cleeland, Peter Robert",McEwen,Vic.,1.12.1984,,24.3.1990,defeated,ALP
 ,McEwen,Vic.,13.3.1993,,2.3.1996,defeated,ALP
@@ -126,7 +126,7 @@ Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 ,Fremantle,WA,10.12.1977,,4.2.1994,resigned,ALP
 "Deahm, Margaret Joan",Macquarie,NSW,13.3.1993,,2.3.1996,defeated,ALP
 "Dean, Arthur Gordon",Herbert,Qld,10.12.1977,,5.3.1983,defeated,LIB
-"Dobie, James Donald Mathieson",Hughes,NSW,26.11.1966,,Until elected for Cook,elected_elsewhere,LIB
+"Dobie, James Donald Mathieson",Hughes,NSW,26.11.1966,,25.10.1969,elected_elsewhere,LIB
 ,Cook,NSW,25.10.1969,,2.12.1972,defeated,LIB
 ,Cook,NSW,13.12.1975,,29.1.1996,retired,LIB
 "Dodd, Peter George",Leichhardt,Qld,13.3.1993,,2.3.1996,defeated,ALP
@@ -158,34 +158,34 @@ Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 "Fahey, John Joseph",Macarthur,NSW,2.3.1996,,8.10.2001,retired,LIB
 "Falconer, Peter David",Casey,Vic.,13.12.1975,,5.3.1983,defeated,LIB
 "Farmer, Patrick Francis",Macarthur,NSW,10.11.2001,,,current_member,LIB
-"Fatin, Wendy Frances",Canning,WA,5.3.1983,,Until elected for Brand,elected_elsewhere,ALP
+"Fatin, Wendy Frances",Canning,WA,5.3.1983,,1.12.1984,elected_elsewhere,ALP
 ,Brand,WA,1.12.1984,,29.1.1996,retired,ALP
 "Fawcett, David Julian",Wakefield,SA,9.10.2004,, ,current_member,LIB
 "Ferguson, Laurie Donald Thomas",Reid,NSW,24.3.1990,,,current_member,ALP
 "Ferguson, Martin John",Batman,Vic.,2.3.1996,,,current_member,ALP
 "Ferguson, Michael Darrel",Bass,Tas.,9.10.2004,,,current_member,LIB
-"Fife, Wallace Clyde",Farrer,NSW,13.12.1975,,Until elected for Hume,elected_elsewhere,LIB
+"Fife, Wallace Clyde",Farrer,NSW,13.12.1975,,1.12.1984,elected_elsewhere,LIB
 ,Hume,NSW,1.12.1984,,8.2.1993,retired,LIB
 "Filing, Paul Anthony",Moore,WA,24.3.1990,,3.10.1998,defeated,IND
 "Fischer, Timothy Andrew",Farrer,NSW,1.12.1984,,8.10.2001,retired,NPA
 "Fisher, Peter Stanley",Mallee,Vic.,2.12.1972,,8.2.1993,retired,NPA
 "Fitzgibbon, Eric John",Hunter,NSW,1.12.1984,,29.1.1996,retired,ALP
 "Fitzgibbon, Joel Andrew",Hunter,NSW,2.3.1996,,,current_member,ALP
-"FitzPatrick, John",Darling,NSW,25.10.1969,,Until elected for Riverina,elected_elsewhere,ALP
+"FitzPatrick, John",Darling,NSW,25.10.1969,,10.12.1977,elected_elsewhere,ALP
 ,Riverina,NSW,10.12.1977,,19.9.1980,retired,ALP
 "Ford, Frank Allen",Dunkley,Vic.,24.3.1990,,13.3.1993,defeated,LIB
 "Forrest, John Alexander",Mallee,Vic.,13.3.1993,, ,current_member,NP
-"Free, Ross Vincent",Macquarie,NSW,18.10.1980,,Until elected for Lindsay,elected_elsewhere,ALP
+"Free, Ross Vincent",Macquarie,NSW,18.10.1980,,1.12.1984,elected_elsewhere,ALP
 ,Lindsay,NSW,1.12.1984,,2.3.1996,defeated,ALP
 "Fry, Kenneth Lionel",Fraser,ACT,18.5.1974,,26.10.1984,retired,ALP
-"Gallus, Christine Ann",Hawker,SA,24.3.1990,,Until elected for Hindmarsh,elected_elsewhere,LIB
+"Gallus, Christine Ann",Hawker,SA,24.3.1990,,13.3.1993,elected_elsewhere,LIB
 ,Hindmarsh,SA,13.3.1993,,31.8.2004,retired,LIB
 "Gambaro, Teresa",Petrie,Qld,2.3.1996,, ,current_member,LIB
 "Garland, Ransley Victor",Curtin,WA,19.4.1969,by_election,22.1.1981,resigned,LIB
 "Garrett, Peter Robert",Kingsford Smith,NSW,9.10.2004,, ,current_member,ALP
 "Gash, Joanna",Gilmore,NSW,2.3.1996,, ,current_member,LIB
 "Gayler, John",Leichhardt,Qld,5.3.1983,,8.2.1993,retired,ALP
-"Gear, George",Tangney,WA,5.3.1983,,Until elected for Canning,elected_elsewhere,ALP
+"Gear, George",Tangney,WA,5.3.1983,,1.12.1984,elected_elsewhere,ALP
 ,Canning,WA,1.12.1984,,2.3.1996,defeated,ALP
 "Georganas, Steven",Hindmarsh,SA,9.10.2004,, ,current_member,ALP
 "George, Jennie",Throsby,NSW,10.11.2001,, ,current_member,ALP
@@ -193,12 +193,12 @@ Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 "Gerick, Jane Frances",Canning,WA,3.10.1998,,10.11.2001,defeated,ALP
 "Gibbons, Stephen William",Bendigo,Vic.,3.10.1998,, ,current_member,ALP
 "Gibson, Garrie David",Moreton,Qld,24.3.1990,,2.3.1996,defeated,ALP
-"Giles, Geoffrey OÕHalloran",Angas,SA,20.6.1964,by_election,Until elected for Wakefield,elected_elsewhere,LIB
+"Giles, Geoffrey OÕHalloran",Angas,SA,20.6.1964,by_election,10.12.1977,elected_elsewhere,LIB
 ,Wakefield,SA,10.12.1977,,4.2.1983,retired,LIB
 "Gillard, Julia Eileen",Lalor,Vic.,3.10.1998,, ,current_member,ALP
 "Gillard, Reginald",Macquarie,NSW,13.12.1975,,18.10.1980,defeated,LIB
 "Goodluck, Bruce John",Franklin,Tas.,13.12.1975,,8.2.1993,retired,LIB
-"Gorman, Russell Neville Joseph",Chifley,NSW,5.3.1983,,Until elected for Greenway,elected_elsewhere,ALP
+"Gorman, Russell Neville Joseph",Chifley,NSW,5.3.1983,,1.12.1984,elected_elsewhere,ALP
 ,Greenway,NSW,1.12.1984,,29.1.1996,retired,ALP
 "Grace, Edward Laurence",Fowler,NSW,1.12.1984,,31.8.1998,retired,ALP
 "Grace, Elizabeth Jane",Lilley,Qld,2.3.1996,,3.10.1998,defeated,LIB
@@ -206,7 +206,7 @@ Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 ,St George,NSW,10.12.1955,,22.11.1958,defeated,LIB
 ,North Sydney,NSW,26.11.1966,,19.9.1980,retired,LIB
 "Grierson, Sharon Joy",Newcastle,NSW,10.11.2001,, ,current_member,ALP
-"Griffin, Alan Peter",Corinella,Vic.,13.3.1993,,Until elected for Bruce,elected_elsewhere,ALP
+"Griffin, Alan Peter",Corinella,Vic.,13.3.1993,,2.3.1996,elected_elsewhere,ALP
 ,Bruce,Vic.,2.3.1996,, ,current_member,ALP
 "Griffiths, Alan Gordon",Maribyrnong,Vic.,5.3.1983,,29.1.1996,retired,ALP
 "Groom, Raymond John",Braddon,Tas.,13.12.1975,,26.10.1984,retired,LIB
@@ -230,8 +230,8 @@ Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 "Henry, Stuart Irwin",Hasluck,WA,9.10.2004,, ,current_member,LIB
 "Henzell, Marjorie Madeline",Capricornia,Qld,13.3.1993,,2.3.1996,defeated,ALP
 "Hewson, John Robert",Wentworth,NSW,11.7.1987,,28.2.1995,resigned,LIB
-"Hicks, Noel Jeffrey",Riverina,NSW,18.10.1980,,Until elected for Riverina-Darling,elected_elsewhere,NPA
-,Riverina-Darling,NSW,1.12.1984,,Until elected for Riverina,elected_elsewhere,NPA
+"Hicks, Noel Jeffrey",Riverina,NSW,18.10.1980,,1.12.1984,elected_elsewhere,NPA
+,Riverina-Darling,NSW,1.12.1984,,13.3.1993,elected_elsewhere,NPA
 ,Riverina,NSW,13.3.1993,,31.8.1998,retired,NPA
 "Hoare, Kelly Joy",Charlton,NSW,3.10.1998,,17.10.2007,retired,ALP
 "Hockey, Joseph Benedict",North Sydney,NSW,2.3.1996,, ,current_member,LIB
@@ -239,7 +239,7 @@ Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 ,Petrie,Qld,1.12.1984,,11.7.1987,defeated,LIB
 "Hodgman, William Michael",Denison,Tas.,13.12.1975,,11.7.1987,defeated,LIB
 "Holding, Allan Clyde",Melbourne Ports,Vic.,10.12.1977,,31.8.1998,retired,ALP
-"Hollis, Colin",Macarthur,NSW,5.3.1983,,Until elected for Throsby,elected_elsewhere,ALP
+"Hollis, Colin",Macarthur,NSW,5.3.1983,,1.12.1984,elected_elsewhere,ALP
 ,Throsby,NSW,1.12.1984,,8.10.2001,retired,ALP
 "Horne, Robert Hodges",Paterson,NSW,13.3.1993,,2.3.1996,defeated,ALP
 ,Paterson,NSW,3.10.1998,,10.11.2001,defeated,ALP
@@ -280,7 +280,7 @@ Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 "Keating, Paul John",Blaxland,NSW,25.10.1969,,23.4.1996,resigned,ALP
 "Keenan, Michael Fayat",Stirling,WA,9.10.2004,, ,current_member,LIB
 "Kelly, De-Anne Margaret",Dawson,Qld,2.3.1996,, ,current_member,NP
-"Kelly, Jacqueline Marie",Lindsay,NSW,2.3.1996,,11.9.1996 (declared void),declared_void,LIB
+"Kelly, Jacqueline Marie",Lindsay,NSW,2.3.1996,,11.9.1996,declared_void,LIB
 ,Lindsay,NSW,19.10.1996,by_election,17.10.2007,retired,LIB
 "Kelly, Roslyn Joan",Canberra,ACT,18.10.1980,,30.1.1995,resigned,ALP
 "Kemp, David Alistair",Goldstein,Vic.,24.3.1990,,31.8.2004,retired,LIB
@@ -299,7 +299,7 @@ Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 "Laming, Andrew Charles",Bowman,Qld,9.10.2004,, ,current_member,LIB
 "Langmore, John Vance",Fraser,ACT,1.12.1984,,6.12.1996,resigned,ALP
 "Latham, Mark William",Werriwa,NSW,29.1.1994,by_election,21.1.2005,resigned,ALP
-"Lavarch, Michael Hugh",Fisher,Qld,11.7.1987,,Until elected for Dickson,elected_elsewhere,ALP
+"Lavarch, Michael Hugh",Fisher,Qld,11.7.1987,,17.4.1993,elected_elsewhere,ALP
 ,Dickson,Qld,17.4.1993,,2.3.1996,defeated,ALP
 "Lawler, Anthony John",Parkes,NSW,3.10.1998,,8.10.2001,retired,NPA
 "Lawrence, Carmen Mary",Fremantle,WA,12.3.1994,by_election,17.10.2007,retired,ALP
@@ -320,7 +320,7 @@ Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 "Macfarlane, Ian Elgin",Groom,Qld,3.10.1998,, ,current_member,LIB
 "McFarlane, Jann Sonya",Stirling,WA,3.10.1998,,9.10.2004,defeated,ALP
 "McGauran, Peter John",Gippsland,Vic.,5.3.1983,, ,current_member,NP
-"McHugh, Jeannette",Phillip,NSW,5.3.1983,,Until elected for Grayndler,elected_elsewhere,ALP
+"McHugh, Jeannette",Phillip,NSW,5.3.1983,,13.3.1993,elected_elsewhere,ALP
 ,Grayndler,NSW,13.3.1993,,29.1.1996,retired,ALP
 "Mack, Edward Carrington",North Sydney,NSW,24.3.1990,,29.1.1996,retired,IND
 "MacKellar, Michael John Randal",Warringah,NSW,25.10.1969,,18.2.1994,resigned,LIB
@@ -329,19 +329,19 @@ Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 "McLachlan, Ian Murray",Barker,SA,24.3.1990,,31.8.1998,retired,LIB
 "McLean, Ross Malcolm",Perth,WA,13.12.1975,,5.3.1983,defeated,LIB
 "McLeay, John Elden",Boothby,SA,26.11.1966,,22.1.1981,resigned,LIB
-"McLeay, Leo Boyce",Grayndler,NSW,23.6.1979,by_election,Until elected for Watson,elected_elsewhere,ALP
+"McLeay, Leo Boyce",Grayndler,NSW,23.6.1979,by_election,13.3.1993,elected_elsewhere,ALP
 ,Watson,NSW,13.3.1993,,31.8.2004,retired,ALP
 "McMahon, James Leslie",Sydney,NSW,13.12.1975,,4.2.1983,retired,ALP
 "McMahon, William (later Sir William)",Lowe,NSW,10.12.1949,,4.1.1982,resigned,LIB
 "McMullan, Robert Francis",Canberra,ACT,2.3.1996,, ,current_member,ALP
-"Macphee, Ian Malcolm",Balaclava,Vic.,18.5.1974,,Until elected for Goldstein,elected_elsewhere,LIB
+"Macphee, Ian Malcolm",Balaclava,Vic.,18.5.1974,,1.12.1984,elected_elsewhere,LIB
 ,Goldstein,Vic.,1.12.1984,,19.2.1990,retired,LIB
-"McVeigh, Daniel Thomas",Darling Downs,Qld,2.12.1972,,Until elected for Groom,elected_elsewhere,NPA
+"McVeigh, Daniel Thomas",Darling Downs,Qld,2.12.1972,,1.12.1984,elected_elsewhere,NPA
 ,Groom,Qld,1.12.1984,,29.2.1988,resigned,NPA
 "Maher, Michael John",Lowe,NSW,13.3.1982,by_election,11.7.1987,defeated,ALP
 "Marek, Paul",Capricornia,Qld,2.3.1996,,3.10.1998,defeated,NPA
 "Markus, Louise Elizabeth",Greenway,NSW,9.10.2004,, ,current_member,LIB
-"Martin, Stephen Paul",Macarthur,NSW,1.12.1984,,Until elected for Cunningham,elected_elsewhere,ALP
+"Martin, Stephen Paul",Macarthur,NSW,1.12.1984,,13.3.1993,elected_elsewhere,ALP
 ,Cunningham,NSW,13.3.1993,,16.8.2002,resigned,ALP
 "Martin, Vincent Joseph",Banks,NSW,25.10.1969,,19.9.1980,retired,ALP
 "Martyr, John Raymond",Swan,WA,13.12.1975,,18.10.1980,defeated,LIB
@@ -371,7 +371,7 @@ Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 "Nixon, Peter James",Gippsland,Vic.,9.12.1961,,4.2.1983,retired,NPA
 "Nugent, Peter Edward",Aston,Vic.,24.3.1990,,24.4.2001,died,LIB
 "OÕByrne, Michelle Anne",Bass,Tas.,3.10.1998,,9.10.2004,defeated,ALP
-"OÕConnor, Brendan Patrick",Burke,Vic.,10.11.2001,,Until elected for Gorton,elected_elsewhere,ALP
+"OÕConnor, Brendan Patrick",Burke,Vic.,10.11.2001,,9.10.2004,elected_elsewhere,ALP
 ,Gorton,Vic.,9.10.2004,, ,current_member,ALP
 "OÕConnor, Gavan Michael",Corio,Vic.,13.3.1993,, ,current_member,ALP
 "OÕKeefe, Frank Lionel",Paterson,NSW,25.10.1969,,26.10.1984,retired,NPA
@@ -383,7 +383,7 @@ Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 "Peacock, Andrew Sharp",Kooyong,Vic.,2.4.1966,by_election,17.9.1994,resigned,LIB
 "Pearce, Christopher John",Aston,Vic.,14.7.2001,by_election, ,current_member,LIB
 "Plibersek, Tanya Joan",Sydney,NSW,3.10.1998,, ,current_member,ALP
-"Pollard, Reginald Thomas",Ballaarat,Vic.,23.10.1937,,Until elected for Lalor,elected_elsewhere,ALP
+"Pollard, Reginald Thomas",Ballaarat,Vic.,23.10.1937,,10.12.1949,elected_elsewhere,ALP
 ,Lalor,Vic.,10.12.1949,,26.11.1966,defeated,ALP
 "Porter, James Robert",Barker,SA,13.12.1975,,19.2.1990,retired,LIB
 "Pratt, Michael Philip",Adelaide,SA,6.2.1988,by_election,24.3.1990,defeated,LIB
@@ -396,25 +396,25 @@ Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 ,Canning,WA,10.11.2001,, ,current_member,LIB
 "Reeves, John Edward",Northern Territory,NT,5.3.1983,,1.12.1984,defeated,ALP
 "Reid, Nicholas Bruce",Bendigo,Vic.,24.3.1990,,31.8.1998,retired,LIB
-"Reith, Peter Keaston",Flinders,Vic.,4.12.1982,by_election,5.3.1983,defeated,LIB
+"Reith, Peter Keaston",Flinders,Vic.,4.12.1982,by_election,5.3.1983¤,defeated,LIB
 ,Flinders,Vic.,1.12.1984,,8.10.2001,retired,LIB
 "Richardson, Kym Charles",Kingston,SA,9.10.2004,, ,current_member,LIB
 "Riggall, John Peter",McMillan,Vic.,24.3.1990,,13.3.1993,defeated,LIB
 "Ripoll, Bernard Fernando",Oxley,Qld,3.10.1998,, ,current_member,ALP
 "Robb, Andrew John",Goldstein,Vic.,9.10.2004,, ,current_member,LIB
 "Robinson, Eric Laidlaw",McPherson,Qld,2.12.1972,,7.1.1981,died,LIB
-"Robinson, Ian Louis",Cowper,NSW,30.11.1963,,Until elected for Page,elected_elsewhere,NPA
+"Robinson, Ian Louis",Cowper,NSW,30.11.1963,,1.12.1984,elected_elsewhere,NPA
 ,Page,NSW,1.12.1984,,24.3.1990,defeated,NPA
 "Rocher, Allan Charles",Curtin,WA,21.2.1981,by_election,3.10.1998,defeated,IND
 "Ronaldson, Michael John Clyde",Ballarat,Vic.,24.3.1990,,8.10.2001,retired,LIB
 "Roxon, Nicola Louise",Gellibrand,Vic.,3.10.1998,, ,current_member,ALP
 "Rudd, Kevin Michael",Griffith,Qld,3.10.1998,, ,current_member,ALP
-"Ruddock, Philip Maxwell",Parramatta,NSW,22.9.1973,by_election,Until elected for Dundas,elected_elsewhere,LIB
-,Dundas,NSW,13.12.1975,,Until elected for Berowra,elected_elsewhere,LIB
+"Ruddock, Philip Maxwell",Parramatta,NSW,22.9.1973,by_election,13.12.1975,elected_elsewhere,LIB
+,Dundas,NSW,13.12.1975,,13.3.1993,elected_elsewhere,LIB
 ,Berowra,NSW,13.3.1993,, ,current_member,LIB
 "Sainsbury, Murray Evan",Eden-Monaro,NSW,13.12.1975,,5.3.1983,defeated,LIB
 "St Clair, Stuart Roy",New England,NSW,3.10.1998,,10.11.2001,defeated,NPA
-"Saunderson, John",Deakin,Vic.,5.3.1983,,Until elected for Aston,elected_elsewhere,ALP
+"Saunderson, John",Deakin,Vic.,5.3.1983,,1.12.1984,elected_elsewhere,ALP
 ,Aston,Vic.,1.12.1984,,24.3.1990,defeated,ALP
 "Sawford, Rodney Weston",Port Adelaide,SA,26.3.1988,by_election,17.10.2007,retired,ALP
 "Scholes, Gordon Glen Denton",Corio,Vic.,22.7.1967,by_election,8.2.1993,retired,ALP
@@ -428,11 +428,11 @@ Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 "Sercombe, Robert Charles Grant",Maribyrnong,Vic.,2.3.1996,,17.10.2007,retired,ALP
 "Shack, Peter Donald",Tangney,WA,10.12.1977,,5.3.1983,defeated,LIB
 ,Tangney,WA,1.12.1984,,8.2.1993,retired,LIB
-"Sharp, John Randall",Gilmore,NSW,1.12.1984,,Until elected for Hume,elected_elsewhere,NPA
+"Sharp, John Randall",Gilmore,NSW,1.12.1984,,13.3.1993,elected_elsewhere,NPA
 ,Hume,NSW,13.3.1993,,31.8.1998,retired,NPA
 "Shaw, George William",Dawson,Qld,30.11.1963,,9.1.1966,died,CP
 "Shipton, Roger Francis",Higgins,Vic.,13.12.1975,,19.2.1990,retired,LIB
-"Short, James Robert",Ballaarat,Vic.,13.12.1975,,18.10.1980,defeated,LIB
+"Short, James Robert",Ballaarat ,Vic.,13.12.1975,,18.10.1980,defeated,LIB
 "Short, Leonie Marjorie",Ryan,Qld,17.3.2001,by_election,10.11.2001,defeated,ALP
 "Sidebottom, Peter Sid",Braddon,Tas.,3.10.1998,,9.10.2004,defeated,ALP
 "Simmons, David William",Calare,NSW,5.3.1983,,29.1.1996,retired,ALP
@@ -450,13 +450,13 @@ Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 "Snedden, Billy Mackie (later Sir Billy)",Bruce,Vic.,10.12.1955,,21.4.1983,resigned,LIB
 "Snow, James Henry",Eden-Monaro,NSW,5.3.1983,,2.3.1996,defeated,ALP
 "Snowdon, Warren Edward",Northern Territory,NT,11.7.1987,,2.3.1996,defeated,ALP
-,Northern Territory,NT,3.10.1998,,Until elected for Lingiari,elected_elsewhere,ALP
+,Northern Territory,NT,3.10.1998,,10.11.2001,elected_elsewhere,ALP
 ,Lingiari,NT,10.11.2001,, ,current_member,ALP
 "Somlyay, Alexander Michael",Fairfax,Qld,24.3.1990,, ,current_member,LIB
 "Southcott, Andrew John",Boothby,SA,2.3.1996,, ,current_member,LIB
 "Spender, John Michael",North Sydney,NSW,18.10.1980,,24.3.1990,defeated,LIB
 "Staley, Anthony Allan",Chisholm,Vic.,19.9.1970,by_election,19.9.1980,retired,LIB
-"Staples, Peter Richard",Diamond Valley,Vic.,5.3.1983,,Until elected for Jagajaga,elected_elsewhere,ALP
+"Staples, Peter Richard",Diamond Valley,Vic.,5.3.1983,,1.12.1984,elected_elsewhere,ALP
 ,Jagajaga,Vic.,1.12.1984,,29.1.1996,retired,ALP
 "Steedman, Alan Peter",Casey,Vic.,5.3.1983,,1.12.1984,defeated,ALP
 "Stone, Sharman Nancy",Murray,Vic.,2.3.1996,, ,current_member,LIB
@@ -467,7 +467,7 @@ Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 "Tambling, Grant Ernest John",Northern Territory,NT,18.10.1980,,5.3.1983,defeated,NPA
 "Tanner, Lindsay James",Melbourne,Vic.,13.3.1993,, ,current_member,ALP
 "Taylor, William Leonard",Groom,Qld,9.4.1988,by_election,31.8.1998,retired,LIB
-"Theophanous, Andrew Charles",Burke,Vic.,18.10.1980,,Until elected for Calwell,elected_elsewhere,ALP
+"Theophanous, Andrew Charles",Burke,Vic.,18.10.1980,,1.12.1984,elected_elsewhere,ALP
 ,Calwell,Vic.,1.12.1984,,10.11.2001,defeated,IND
 "Thompson, Cameron Paul",Blair,Qld,3.10.1998,, ,current_member,LIB
 "Thomson, Andrew Peter",Wentworth,NSW,8.4.1995,by_election,8.10.2001,retired,LIB
@@ -504,7 +504,7 @@ Diamond Valley,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 "Wood, Jason Peter",La Trobe,Vic.,9.10.2004,, ,current_member,LIB
 "Woods, Harry Francis",Page,NSW,24.3.1990,,2.3.1996,defeated,ALP
 "Woods, Robert Leslie",Lowe,NSW,11.7.1987,,13.3.1993,defeated,LIB
-"Wooldridge, Michael Richard Lewis",Chisholm,Vic.,11.7.1987,,Until elected for Casey,elected_elsewhere,LIB
+"Wooldridge, Michael Richard Lewis",Chisholm,Vic.,11.7.1987,,3.10.1998,elected_elsewhere,LIB
 ,Casey,Vic.,3.10.1998,,8.10.2001,retired,LIB
 "Worth, Patricia Mary",Adelaide,SA,13.3.1993,,9.10.2004,defeated,LIB
 "Wright, Keith Webb",Capricornia,Qld,1.12.1984,,13.3.1993,defeated,IND
