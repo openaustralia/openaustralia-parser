@@ -1,3 +1,5 @@
+require 'yaml'
+
 class Configuration
   
   @@conf = nil
