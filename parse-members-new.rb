@@ -174,20 +174,39 @@ while i < data.size do
   people << person
 end
 
-# Find person with the given name in the list of people. Returns nil if non found
-def find_person(name, people)
-  throw "name: #{name} doesn't have last name" if name.last == ""
-  r = people.find_all do |p|
+def find_people_by_first_last_name(name, people)
+  people.find_all do |p|
+    p.name.first.downcase == name.first.downcase &&
+      p.name.last.downcase == name.last.downcase
+  end
+end
+
+def find_people_by_first_middle_last_name(name, people)
+  people.find_all do |p|
     p.name.first.downcase == name.first.downcase &&
       p.name.middle.downcase == name.middle.downcase &&
       p.name.last.downcase == name.last.downcase
   end
+end
+
+# Find person with the given name in the list of people. Returns nil if non found
+def find_person(name, people)
+  throw "name: #{name} doesn't have last name" if name.last == ""
+  r = find_people_by_first_last_name(name, people)
   if r.size == 0
     nil
   elsif r.size == 1
     r[0]
   else
-    throw "More than one result for name: #{name.informal_name}"
+    # Multiple results so use the middle name to narrow the search
+    r = find_people_by_first_middle_last_name(name, people)
+    if r.size == 0
+      nil
+    elsif r.size == 1
+      r[0]
+    else
+      throw "More than one result for name: #{name.informal_name}"
+    end
   end
 end
 
@@ -219,7 +238,7 @@ def parse_person_page(sub_page, people)
     if person
       person.image_url = image_url
     else
-      puts "WARNING: Skipping photo for #{name.informal_name} because they don't exist in the list of people"
+      puts "WARNING: Skipping photo for #{name.full_name} because they don't exist in the list of people"
     end
   end
 end
@@ -229,6 +248,7 @@ agent.get(conf.current_members_url).links[29..-4].each do |link|
   sub_page = agent.click(link)
   parse_person_page(sub_page, people)
 end
+puts "Any skipped photos after here might be due to former politicians being senators"
 # Go through former members of house and senate
 agent.get(conf.former_members_url).links[29..-4].each do |link|
   sub_page = agent.click(link)
