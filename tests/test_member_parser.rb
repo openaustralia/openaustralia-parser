@@ -93,6 +93,6 @@ class TestMemberParser < Test::Unit::TestCase
   
   def read_member(filename)
     doc = Hpricot(open(File.join(@source, filename)))
-    MemberParser::parse_current_member(@url, doc)
+    MemberParser::parse_member(@url, doc, true)
   end
 end

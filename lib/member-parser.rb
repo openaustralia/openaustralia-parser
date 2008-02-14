@@ -5,7 +5,7 @@ require 'hpricot'
 require 'id'
 require 'name'
 require 'member'
-
+require 'date'
 
 class MemberParser
     
