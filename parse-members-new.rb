@@ -149,9 +149,9 @@ end
 i = 0
 people = []
 while i < data.size do
-  name, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
+  name_text, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
   
-  name = Name.last_title_first(name)
+  name = Name.last_title_first(name_text)
   person = Person.new(name)
 
   start_date = parse_date(start_date)
@@ -161,7 +161,7 @@ while i < data.size do
     :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason)
   i = i + 1
   # Process further start/end dates for this member
-  while i < data.size && data[i][0].nil?
+  while i < data.size && data[i][0] == name_text
     temp, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
     start_date = parse_date(start_date)
     end_date = parse_end_date(end_date)
