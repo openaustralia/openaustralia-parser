@@ -1,9 +1,11 @@
+#!/usr/bin/env ruby
+
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
+require 'rubygems'
 require 'csv'
 require 'date'
 require 'builder'
-require 'rubygems'
 require 'mechanize'
 require 'RMagick'
 
