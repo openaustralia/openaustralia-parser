@@ -74,6 +74,16 @@ class Name
     end
   end
   
+  def full_name
+    t = ""
+    t = t + "#{title} " unless title == ""
+    t = t + "#{first} "
+    t = t + "(#{nick}) " unless nick == ""
+    t = t + "#{middle} " unless middle == ""
+    t = t + "#{last}"
+    t
+  end
+  
   def ==(name)
     @title == name.title && @first == name.first && @nick == name.nick && @middle == name.middle && @last == name.last
   end
@@ -86,6 +96,9 @@ class Name
       names.shift
       names.shift
       "the Hon."
+    elsif names.size >= 1 && names[0] == "Hon."
+        names.shift
+        "Hon."
     elsif names.size >= 1
       title = names[0]
       if title == "Dr" || title == "Mr" || title == "Mrs" || title == "Ms"
