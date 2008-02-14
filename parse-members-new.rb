@@ -5,6 +5,9 @@ require 'date'
 require 'builder'
 
 require 'name'
+require 'configuration'
+
+conf = Configuration.new
 
 # Read in csv file of members data
 
@@ -161,5 +164,9 @@ x.publicwhip do
   people.each{|p| p.output_house_periods(x)}
 end
 xml.close
+
+# And load up the database
+system(conf.web_root + "/twfy/scripts/xml2db.pl --members --all --force")
+#system("cp -R pwdata/images/* " + conf.web_root + "/twfy/www/docs/images")
 
 #people.each {|p| p.display}
