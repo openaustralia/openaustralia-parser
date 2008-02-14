@@ -235,6 +235,9 @@ agent.get(conf.former_members_url).links[29..-4].each do |link|
   parse_person_page(sub_page, people)
 end
 
+# Clear out old photos
+system("rm -rf pwdata/images/mps/* pwdata/images/mpsL/*")
+
 xml = File.open('pwdata/members/people.xml', 'w')
 x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
 x.instruct!
@@ -257,6 +260,8 @@ xml.close
 
 # And load up the database
 system(conf.web_root + "/twfy/scripts/xml2db.pl --members --all --force")
-system("cp -R pwdata/images/* " + conf.web_root + "/twfy/www/docs/images")
+image_dir = conf.web_root + "/twfy/www/docs/images"
+system("rm -rf " + image_dir + "/mps/*.jpg " + image_dir + "/mpsL/*.jpg")
+system("cp -R pwdata/images/* " + image_dir)
 
 #people.each {|p| p.display}
