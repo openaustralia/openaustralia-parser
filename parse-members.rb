@@ -12,6 +12,7 @@ require 'RMagick'
 require 'name'
 require 'configuration'
 require 'people_csv_reader'
+require 'people_xml_writer'
 
 conf = Configuration.new
 
@@ -66,10 +67,10 @@ end
 system("rm -rf pwdata/images/mps/* pwdata/images/mpsL/*")
 
 puts "Writing XML..."
-people.write_people_xml('pwdata/members/people.xml')
-people.write_members_xml('pwdata/members/all-members.xml')
+PeopleXMLWriter.write_people(people, 'pwdata/members/people.xml')
+PeopleXMLWriter.write_members(people, 'pwdata/members/all-members.xml')
 puts "Writing people images..."
-people.write_images("pwdata/images/mps", "pwdata/images/mpsL")
+PeopleXMLWriter.write_images(people, "pwdata/images/mps", "pwdata/images/mpsL")
 
 # And load up the database
 system(conf.web_root + "/twfy/scripts/xml2db.pl --members --all --force")

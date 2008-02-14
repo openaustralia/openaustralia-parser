@@ -1,7 +1,7 @@
 require 'house_period'
 
 class Person
-  attr_reader :name, :id
+  attr_reader :name, :id, :house_periods
   attr_accessor :image_url
   
   @@id = 10001
@@ -19,7 +19,7 @@ class Person
   # Adds a single continuous period when this person was in the house of representatives
   # Note that there might be several of these per person
   def add_house_period(params)
-    @house_periods << HousePeriod.new(params.merge(:name => @name))
+    @house_periods << HousePeriod.new(params)
   end
   
   def display
@@ -28,22 +28,6 @@ class Person
       puts "  start: #{p.from_date} #{p.from_why}, end: #{p.to_date} #{p.to_why}"    
     end    
   end
-
-  def output_person(x)
-    x.person(:id => "uk.org.publicwhip/person/#{@id}", :latestname => @name.informal_name) do
-      @house_periods.each do |p|
-        if p.current?
-          x.office(:id => "uk.org.publicwhip/member/#{p.id}", :current => "yes")
-        else
-          x.office(:id => "uk.org.publicwhip/member/#{p.id}")
-        end
-      end
-    end
-  end
-
-  def output_house_periods(x)
-    @house_periods.each {|p| p.output(x)}
-  end 
 
   def image(width, height)
     if @image_url

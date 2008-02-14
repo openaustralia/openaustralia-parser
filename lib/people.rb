@@ -34,39 +34,4 @@ class People < Array
       end
     end
   end
-    
-  def write_xml
-    write_people_xml('pwdata/members/people.xml')
-    write_images("pwdata/images/mps", "pwdata/images/mpsL")
-    write_members_xml('pwdata/members/all-members.xml')
-  end
-  
-  def write_members_xml(filename)
-    xml = File.open(filename, 'w')
-    x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
-    x.instruct!
-    x.publicwhip do
-      each{|p| p.output_house_periods(x)}
-    end
-    xml.close
-  end
-  
-  def write_images(small_image_dir, large_image_dir)
-    each do |p|
-      p.small_image.write(small_image_dir + "/#{p.id}.jpg") if p.small_image
-      p.big_image.write(large_image_dir + "/#{p.id}.jpg") if p.big_image
-    end
-  end
-  
-  def write_people_xml(filename)
-    xml = File.open(filename, 'w')
-    x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
-    x.instruct!
-    x.publicwhip do
-      each do |p|
-        p.output_person(x)
-      end  
-    end
-    xml.close
-  end
 end
