@@ -200,7 +200,7 @@ Hpricot.buffer_size = 262144
 agent = WWW::Mechanize.new
 agent.set_proxy(conf.proxy_host, conf.proxy_port)
 
-def parse_person_page(sub_page)
+def parse_person_page(sub_page, people)
   name = Name.last_title_first(sub_page.search("#txtTitle").inner_text.to_s[14..-1])
   content = sub_page.search('div#contentstart')
   
@@ -213,36 +213,26 @@ def parse_person_page(sub_page)
       image_url = sub_page.uri + URI.parse(relative_image_url)
     end
   end
-  return name, image_url
+
+  if image_url
+    person = find_person(name, people)
+    if person
+      person.image_url = image_url
+    else
+      puts "WARNING: Skipping photo for #{name.informal_name} because they don't exist in the list of people"
+    end
+  end
 end
 
 # Go through current members of house
 agent.get(conf.current_members_url).links[29..-4].each do |link|
   sub_page = agent.click(link)
-  name, image_url = parse_person_page(sub_page)
-  if image_url
-    person = find_person(name, people)
-    if person
-      person.image_url = image_url
-      puts "name: #{name.informal_name}, url: #{image_url.to_s}"
-    else
-      puts "WARNING: Skipping photo for #{name.informal_name} because they don't exist in the list of people"
-    end
-  end
+  parse_person_page(sub_page, people)
 end
 # Go through former members of house and senate
 agent.get(conf.former_members_url).links[29..-4].each do |link|
   sub_page = agent.click(link)
-  name, image_url = parse_person_page(sub_page)
-  if image_url
-    person = find_person(name, people)
-    if person
-      person.image_url = image_url
-      puts "name: #{name.informal_name}, url: #{image_url.to_s}"
-    else
-      puts "WARNING: Skipping photo for #{name.informal_name} because they don't exist in the list of people"
-    end
-  end
+  parse_person_page(sub_page, people)
 end
 
 xml = File.open('pwdata/members/people.xml', 'w')
