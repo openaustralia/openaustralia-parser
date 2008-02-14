@@ -14,13 +14,6 @@ require 'configuration'
 
 conf = Configuration.new
 
-# Read in csv file of members data
-
-data = CSV.readlines("data/house_members.csv")
-# Remove the first two elements
-data.shift
-data.shift
-
 # Represents a period in the house of representatives
 class HousePeriod
   attr_reader :from_date, :to_date, :from_why, :to_why
@@ -122,95 +115,146 @@ class Person
   end
 end
 
-# text is in day.month.year form (all numbers)
-def parse_date(text)
-  m = text.match(/([0-9]+).([0-9]+).([0-9]+)/)
-  day = m[1].to_i
-  month = m[2].to_i
-  year = m[3].to_i
-  Date.new(year, month, day)
-end
-
-def parse_end_date(text)
-  # If no end_date is specified then the member is currently in parliament with a stupid end date
-  if text == " " || text.nil?
-    text = "31.12.9999"
+class People < Array
+  def find_by_first_last_name(name)
+    find_all do |p|
+      p.name.first.downcase == name.first.downcase &&
+        p.name.last.downcase == name.last.downcase
+    end
   end
-  parse_date(text)
-end
 
-def parse_start_reason(text)
-  # If no start_reason is specified this means a general election
-  if text == "" || text.nil?
-    "general_election"
-  else
-    text
+  def find_by_first_middle_last_name(name)
+    find_all do |p|
+      p.name.first.downcase == name.first.downcase &&
+        p.name.middle.downcase == name.middle.downcase &&
+        p.name.last.downcase == name.last.downcase
+    end
   end
-end
 
-i = 0
-people = []
-while i < data.size do
-  name_text, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
-  
-  name = Name.last_title_first(name_text)
-  person = Person.new(name)
-
-  start_date = parse_date(start_date)
-  end_date = parse_end_date(end_date)
-  start_reason = parse_start_reason(start_reason)
-  person.add_house_period(:division => division, :party => party,
-    :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason)
-  i = i + 1
-  # Process further start/end dates for this member
-  while i < data.size && data[i][0] == name_text
-    temp, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
-    start_date = parse_date(start_date)
-    end_date = parse_end_date(end_date)
-    start_reason = parse_start_reason(start_reason)
-    person.add_house_period(:division => division, :party => party,
-      :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason)
-    i = i + 1
-  end
-  
-  people << person
-end
-
-def find_people_by_first_last_name(name, people)
-  people.find_all do |p|
-    p.name.first.downcase == name.first.downcase &&
-      p.name.last.downcase == name.last.downcase
-  end
-end
-
-def find_people_by_first_middle_last_name(name, people)
-  people.find_all do |p|
-    p.name.first.downcase == name.first.downcase &&
-      p.name.middle.downcase == name.middle.downcase &&
-      p.name.last.downcase == name.last.downcase
-  end
-end
-
-# Find person with the given name in the list of people. Returns nil if non found
-def find_person(name, people)
-  throw "name: #{name} doesn't have last name" if name.last == ""
-  r = find_people_by_first_last_name(name, people)
-  if r.size == 0
-    nil
-  elsif r.size == 1
-    r[0]
-  else
-    # Multiple results so use the middle name to narrow the search
-    r = find_people_by_first_middle_last_name(name, people)
+  # Find person with the given name. Returns nil if non found
+  def find_by_name(name)
+    throw "name: #{name} doesn't have last name" if name.last == ""
+    r = find_by_first_last_name(name)
     if r.size == 0
       nil
     elsif r.size == 1
       r[0]
     else
-      throw "More than one result for name: #{name.informal_name}"
+      # Multiple results so use the middle name to narrow the search
+      r = find_by_first_middle_last_name(name)
+      if r.size == 0
+        nil
+      elsif r.size == 1
+        r[0]
+      else
+        throw "More than one result for name: #{name.informal_name}"
+      end
+    end
+  end
+  
+  def People.read_from_csv(filename)
+    # Read in csv file of members data
+
+    data = CSV.readlines(filename)
+    # Remove the first two elements
+    data.shift
+    data.shift
+
+    i = 0
+    people = People.new
+    while i < data.size do
+      name_text, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
+
+      name = Name.last_title_first(name_text)
+      person = Person.new(name)
+
+      start_date = parse_date(start_date)
+      end_date = parse_end_date(end_date)
+      start_reason = parse_start_reason(start_reason)
+      person.add_house_period(:division => division, :party => party,
+        :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason)
+      i = i + 1
+      # Process further start/end dates for this member
+      while i < data.size && data[i][0] == name_text
+        temp, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
+        start_date = parse_date(start_date)
+        end_date = parse_end_date(end_date)
+        start_reason = parse_start_reason(start_reason)
+        person.add_house_period(:division => division, :party => party,
+          :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason)
+        i = i + 1
+      end
+
+      people << person
+    end
+    people
+  end
+  
+  def write_xml
+    write_people_xml('pwdata/members/people.xml')
+    write_images("pwdata/images/mps", "pwdata/images/mpsL")
+    write_members_xml('pwdata/members/all-members.xml')
+  end
+  
+  def write_members_xml(filename)
+    xml = File.open(filename, 'w')
+    x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
+    x.instruct!
+    x.publicwhip do
+      each{|p| p.output_house_periods(x)}
+    end
+    xml.close
+  end
+  
+  def write_images(small_image_dir, large_image_dir)
+    each do |p|
+      p.small_image.write(small_image_dir + "/#{p.id}.jpg") if p.small_image
+      p.big_image.write(large_image_dir + "/#{p.id}.jpg") if p.big_image
+    end
+  end
+  
+  def write_people_xml(filename)
+    xml = File.open(filename, 'w')
+    x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
+    x.instruct!
+    x.publicwhip do
+      each do |p|
+        p.output_person(x)
+      end  
+    end
+    xml.close
+  end
+  
+  private
+  
+  # text is in day.month.year form (all numbers)
+  def People.parse_date(text)
+    m = text.match(/([0-9]+).([0-9]+).([0-9]+)/)
+    day = m[1].to_i
+    month = m[2].to_i
+    year = m[3].to_i
+    Date.new(year, month, day)
+  end
+
+  def People.parse_end_date(text)
+    # If no end_date is specified then the member is currently in parliament with a stupid end date
+    if text == " " || text.nil?
+      text = "31.12.9999"
+    end
+    parse_date(text)
+  end
+
+  def People.parse_start_reason(text)
+    # If no start_reason is specified this means a general election
+    if text == "" || text.nil?
+      "general_election"
+    else
+      text
     end
   end
 end
+
+people = People.read_from_csv("data/house_members.csv")
 
 # Pick up photos of the current members
 
@@ -236,7 +280,7 @@ def parse_person_page(sub_page, people)
   end
 
   if image_url
-    person = find_person(name, people)
+    person = people.find_by_name(name)
     if person
       person.image_url = image_url
     else
@@ -260,25 +304,11 @@ end
 # Clear out old photos
 system("rm -rf pwdata/images/mps/* pwdata/images/mpsL/*")
 
-xml = File.open('pwdata/members/people.xml', 'w')
-x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
-x.instruct!
-x.publicwhip do
-  people.each do |p|
-    p.output_person(x)
-    p.small_image.write("pwdata/images/mps/#{p.id}.jpg") if p.small_image
-    p.big_image.write("pwdata/images/mpsL/#{p.id}.jpg") if p.big_image
-  end  
-end
-xml.close
-
-xml = File.open('pwdata/members/all-members.xml', 'w')
-x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
-x.instruct!
-x.publicwhip do
-  people.each{|p| p.output_house_periods(x)}
-end
-xml.close
+puts "Writing XML..."
+people.write_people_xml('pwdata/members/people.xml')
+people.write_members_xml('pwdata/members/all-members.xml')
+puts "Writing people images..."
+people.write_images("pwdata/images/mps", "pwdata/images/mpsL")
 
 # And load up the database
 system(conf.web_root + "/twfy/scripts/xml2db.pl --members --all --force")
