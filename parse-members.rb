@@ -151,8 +151,45 @@ class People < Array
       end
     end
   end
+    
+  def write_xml
+    write_people_xml('pwdata/members/people.xml')
+    write_images("pwdata/images/mps", "pwdata/images/mpsL")
+    write_members_xml('pwdata/members/all-members.xml')
+  end
   
-  def People.read_from_csv(filename)
+  def write_members_xml(filename)
+    xml = File.open(filename, 'w')
+    x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
+    x.instruct!
+    x.publicwhip do
+      each{|p| p.output_house_periods(x)}
+    end
+    xml.close
+  end
+  
+  def write_images(small_image_dir, large_image_dir)
+    each do |p|
+      p.small_image.write(small_image_dir + "/#{p.id}.jpg") if p.small_image
+      p.big_image.write(large_image_dir + "/#{p.id}.jpg") if p.big_image
+    end
+  end
+  
+  def write_people_xml(filename)
+    xml = File.open(filename, 'w')
+    x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
+    x.instruct!
+    x.publicwhip do
+      each do |p|
+        p.output_person(x)
+      end  
+    end
+    xml.close
+  end
+end
+
+class PeopleCSVReader
+  def PeopleCSVReader.read(filename)
     # Read in csv file of members data
 
     data = CSV.readlines(filename)
@@ -188,47 +225,12 @@ class People < Array
       people << person
     end
     people
-  end
-  
-  def write_xml
-    write_people_xml('pwdata/members/people.xml')
-    write_images("pwdata/images/mps", "pwdata/images/mpsL")
-    write_members_xml('pwdata/members/all-members.xml')
-  end
-  
-  def write_members_xml(filename)
-    xml = File.open(filename, 'w')
-    x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
-    x.instruct!
-    x.publicwhip do
-      each{|p| p.output_house_periods(x)}
-    end
-    xml.close
-  end
-  
-  def write_images(small_image_dir, large_image_dir)
-    each do |p|
-      p.small_image.write(small_image_dir + "/#{p.id}.jpg") if p.small_image
-      p.big_image.write(large_image_dir + "/#{p.id}.jpg") if p.big_image
-    end
-  end
-  
-  def write_people_xml(filename)
-    xml = File.open(filename, 'w')
-    x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
-    x.instruct!
-    x.publicwhip do
-      each do |p|
-        p.output_person(x)
-      end  
-    end
-    xml.close
-  end
-  
+  end  
+
   private
   
   # text is in day.month.year form (all numbers)
-  def People.parse_date(text)
+  def PeopleCSVReader.parse_date(text)
     m = text.match(/([0-9]+).([0-9]+).([0-9]+)/)
     day = m[1].to_i
     month = m[2].to_i
@@ -236,7 +238,7 @@ class People < Array
     Date.new(year, month, day)
   end
 
-  def People.parse_end_date(text)
+  def PeopleCSVReader.parse_end_date(text)
     # If no end_date is specified then the member is currently in parliament with a stupid end date
     if text == " " || text.nil?
       text = "31.12.9999"
@@ -244,7 +246,7 @@ class People < Array
     parse_date(text)
   end
 
-  def People.parse_start_reason(text)
+  def PeopleCSVReader.parse_start_reason(text)
     # If no start_reason is specified this means a general election
     if text == "" || text.nil?
       "general_election"
@@ -254,7 +256,7 @@ class People < Array
   end
 end
 
-people = People.read_from_csv("data/house_members.csv")
+people = PeopleCSVReader.read("data/house_members.csv")
 
 # Pick up photos of the current members
 
