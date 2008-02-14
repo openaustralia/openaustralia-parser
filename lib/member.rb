@@ -87,7 +87,7 @@ class Members
     find_member_id_by_name(firstname, lastname)
   end
 
-  def find_member_id_by_fullname_and_electorate(name, electorate)
+  def find_member_id_by_fullname_and_electorate(name, electorate, date)
     names = name.split(' ')
     names.delete("Mr")
     names.delete("Mrs")
@@ -102,42 +102,47 @@ class Members
     else
       throw "Can't parse the name #{name}"
     end
-    find_member_id_by_name_and_electorate(firstname, lastname, electorate)
+    find_member_id_by_name_and_electorate(firstname, lastname, electorate, date)
   end
   
   private
   
-  def find_members_by_lastname(lastname)
-    @members.find_all{|m| m["lastname"].downcase == lastname.downcase}
+  def find_members_by_lastname(lastname, date)
+    @members.find_all do |m|
+      fromdate = Date.parse(m["fromdate"])
+      todate = Date.parse(m["todate"])
+      date >= fromdate && date <= todate && m["lastname"].downcase == lastname.downcase
+    end
   end
 
   # If firstname is empty will just check by lastname
-  def find_members_by_name(firstname, lastname)
+  def find_members_by_name(firstname, lastname, date)
     # First checking if there is an unambiguous match by lastname which allows
     # an amount of variation in first name: ie Tony vs Anthony
-    matches = find_members_by_lastname(lastname)
+    matches = find_members_by_lastname(lastname, date)
     if firstname != "" && matches.size > 1
       matches = @members.find_all do |m|
-        m["firstname"].downcase == firstname.downcase && m["lastname"].downcase == lastname.downcase
+        fromdate = Date.parse(m["fromdate"])
+        todate = Date.parse(m["todate"])
+        date >= fromdate && date <= todate && m["firstname"].downcase == firstname.downcase && m["lastname"].downcase == lastname.downcase
       end
     end
     matches
   end
 
   # If firstname is empty will just check by lastname
-  def find_members_by_name_and_electorate(firstname, lastname, electorate)
-    puts "Searching for #{firstname} #{lastname} #{electorate}"
-    matches = find_members_by_name(firstname, lastname)
-    if matches.size > 1
-      # Use electorate to narrow the search
-      matches = matches.find_all{|m| m["constituency"] == electorate}
-    end
+  def find_members_by_name_and_electorate(firstname, lastname, electorate, date)
+    matches = find_members_by_name(firstname, lastname, date)
+    #if matches.size > 1
+    #  # Use electorate to narrow the search
+    #  matches = matches.find_all{|m| m["constituency"] == electorate}
+    #end
     # TODO: Fix this dreadfull hack
-    if firstname == "" && lastname == "FITZGIBBON" && electorate == "Hunter"
-      # There's a father and son (I assume) that have been members in the same
-      # electorate. Joel is the one that's currently in parliament
-      matches = find_members_by_name_and_electorate("Joel", "FITZGIBBON", "Hunter")
-    end
+    #if firstname == "" && lastname == "FITZGIBBON" && electorate == "Hunter"
+    #  # There's a father and son (I assume) that have been members in the same
+    #  # electorate. Joel is the one that's currently in parliament
+    #  matches = find_members_by_name_and_electorate("Joel", "FITZGIBBON", "Hunter")
+    #end
     matches
   end
 
@@ -148,8 +153,8 @@ class Members
     matches[0]["id"]
   end
 
-  def find_member_id_by_name_and_electorate(firstname, lastname, electorate)
-    matches = find_members_by_name_and_electorate(firstname, lastname, electorate)
+  def find_member_id_by_name_and_electorate(firstname, lastname, electorate, date)
+    matches = find_members_by_name_and_electorate(firstname, lastname, electorate, date)
     throw "More than one match for member based on first name (#{firstname}), last name #{lastname} and electorate #{electorate}" if matches.size > 1
     if matches.size == 0
       puts "#{firstname} #{lastname} #{electorate}"
