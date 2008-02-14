@@ -69,7 +69,7 @@ class Members
     Members.new(doc.search('member').map{|m| m.attributes})
   end
 
-  def find_member_id_by_fullname(name)
+  def find_member_id_by_fullname(name, date)
     names = name.split(' ')
     names.delete("Mr")
     names.delete("Mrs")
@@ -84,25 +84,7 @@ class Members
     else
       throw "Can't parse the name #{name}"
     end
-    find_member_id_by_name(firstname, lastname)
-  end
-
-  def find_member_id_by_fullname_and_electorate(name, electorate, date)
-    names = name.split(' ')
-    names.delete("Mr")
-    names.delete("Mrs")
-    names.delete("Ms")
-    names.delete("Dr")
-    if names.size == 2
-      firstname = names[0]
-      lastname = names[1]
-    elsif names.size == 1
-      firstname = ""
-      lastname = names[0]
-    else
-      throw "Can't parse the name #{name}"
-    end
-    find_member_id_by_name_and_electorate(firstname, lastname, electorate, date)
+    find_member_id_by_name(firstname, lastname, date)
   end
   
   private
@@ -130,35 +112,9 @@ class Members
     matches
   end
 
-  # If firstname is empty will just check by lastname
-  def find_members_by_name_and_electorate(firstname, lastname, electorate, date)
+  def find_member_id_by_name(firstname, lastname, date)
     matches = find_members_by_name(firstname, lastname, date)
-    #if matches.size > 1
-    #  # Use electorate to narrow the search
-    #  matches = matches.find_all{|m| m["constituency"] == electorate}
-    #end
-    # TODO: Fix this dreadfull hack
-    #if firstname == "" && lastname == "FITZGIBBON" && electorate == "Hunter"
-    #  # There's a father and son (I assume) that have been members in the same
-    #  # electorate. Joel is the one that's currently in parliament
-    #  matches = find_members_by_name_and_electorate("Joel", "FITZGIBBON", "Hunter")
-    #end
-    matches
-  end
-
-  def find_member_id_by_name(firstname, lastname)
-    matches = find_members_by_name(firstname, lastname)
     throw "More than one match for member based on first name (#{firstname}) and last name #{lastname}" if matches.size > 1
-    throw "No match for member found" if matches.size == 0
-    matches[0]["id"]
-  end
-
-  def find_member_id_by_name_and_electorate(firstname, lastname, electorate, date)
-    matches = find_members_by_name_and_electorate(firstname, lastname, electorate, date)
-    throw "More than one match for member based on first name (#{firstname}), last name #{lastname} and electorate #{electorate}" if matches.size > 1
-    if matches.size == 0
-      puts "#{firstname} #{lastname} #{electorate}"
-    end
     throw "No match for member found" if matches.size == 0
     matches[0]["id"]
   end
