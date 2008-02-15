@@ -67,6 +67,10 @@ class SpeechOutputter
 end
 
 def lookup_speaker(speakername, people, date)
+  if speakername.nil?
+    speakername = "unknown"
+  end
+  
   # HACK alert (Oh you know what this whole thing is a big hack alert)
   if speakername.downcase == "the speaker"
     speakername = "Mr David Hawker"
@@ -80,23 +84,6 @@ def lookup_speaker(speakername, people, date)
   else
     people.find_member_by_name(Name.title_first_last(speakername), date)
   end
-end
-
-def speech(speakername, content, people, time, url, id, speech_outputter, date)
-  # I'm completely guessing here the meaning of p.paraitalic
-  if content[0] && content[0].attributes["class"] == "paraitalic"
-    puts "Overriding speaker name"
-    p content[0].attributes["class"]
-    # Override speaker name
-    speakername = "unknown"
-  end
-  speaker = lookup_speaker(speakername, people, date)
-  if speaker
-    speakerid = speaker.id
-  else
-    speakerid = nil
-  end
-  speech_outputter.speech(speaker, time, url, id, content)
 end
 
 x.publicwhip do
@@ -116,8 +103,8 @@ x.publicwhip do
      	# in XML Builder that for some reason is not quoting attributes properly
      	url = quote(sub_page.links.text("[Permalink]").uri.to_s)
     	# Type of page. Possible values: No, Speech, Bills
-    	type = sub_page.search('//span[@id=dlMetadata__ctl7_Label3]/*').to_s
-    	puts "Warning: Expected type Speech but was type #{type}" unless type == "Speech"
+    	#type = sub_page.search('//span[@id=dlMetadata__ctl7_Label3]/*').to_s
+    	#puts "Warning: Expected type Speech but was type #{type}" unless type == "Speech"
    	  newtitle = sub_page.search('div#contentstart div.hansardtitle').inner_html
    	  newsubtitle = sub_page.search('div#contentstart div.hansardsubtitle').inner_html
 
@@ -136,31 +123,66 @@ x.publicwhip do
       # Untangle speeches from subspeeches
       speech_content = Hpricot::Elements.new
     	content = sub_page.search('div#contentstart > div.speech0 > *')
-    	main_speakername = ""
-    	content.each do |e|
-    	  if e.attributes["class"] == "subspeech0" || e.attributes["class"] == "subspeech1"
-          # Extract speaker name from link
-          if main_speakername == ""
-            main_speakername = speech_content.search('span.talkername a').first.inner_html
-          end
-    	    speech(main_speakername, speech_content, people, time, url, id, speech_outputter, date)
-          # Extract speaker name from link
-          if e.search('span.talkername a').first.nil?
-              speakername = "unknown"
-          else
-            speakername = e.search('span.talkername a').first.inner_html
-          end
-    	    speech(speakername, e, people, time, url, id, speech_outputter, date)
-    	    speech_content.clear
-    	  else
-    	    speech_content << e
-  	    end
+    	tag_classes = content.map{|e| e.attributes["class"]}
+    	subspeech0_index = tag_classes.index("subspeech0")
+    	paraitalic_index = tag_classes.index("paraitalic")
+    	# HACK
+    	if subspeech0_index.nil?
+    	  subspeech0_index = 999999
     	end
-      # Extract speaker name from link
-      if main_speakername == ""
-        main_speakername = speech_content.search('span.talkername a').first.inner_html
+      if paraitalic_index.nil?
+        paraitalic_index = 999999
       end
-	    speech(main_speakername, speech_content, people, time, url, id, speech_outputter, date)
+      if subspeech0_index < paraitalic_index
+        subspeech_index = subspeech0_index
+      else
+        subspeech_index = paraitalic_index
+      end
+    	if subspeech_index
+      	speech_content = content[0..subspeech_index-1]
+      	subspeeches_content = content[subspeech_index..-1]
+      else
+        speech_content = content
+      end
+      # Extract speaker name from link
+      speaker_tag = speech_content.search('span.talkername a').first
+      if speaker_tag
+        speakername = speaker_tag.inner_html
+      else
+        speakername = "unknown"
+      end
+      speaker = lookup_speaker(speakername, people, date)
+      speech_outputter.speech(speaker, time, url, id, speech_content)
+  	  
+  	  if subspeeches_content
+    	  # Now extract the subspeeches
+      	subspeeches_content.each do |e|
+      	  tag_class = e.attributes["class"]
+      	  if tag_class == "subspeech0" || tag_class == "subspeech1"
+            # Extract speaker name from link
+            speaker_tag = e.search('span.talkername a').first
+            if speaker_tag
+              speakername = speaker_tag.inner_html
+            else
+              speakername = "unknown"
+            end
+          elsif tag_class.nil?
+            #puts "Ignoring tag without a class"
+          elsif tag_class == "paraitalic"
+            speakername = "unknown"
+          elsif tag_class == "quote"
+            #puts "At a quote"
+          elsif tag_class == "block" || tag_class == "parablock"
+            #puts "At a block"
+          elsif tag_class == "motion"
+            #puts "At a motion"
+          else
+            throw "Unknown attribute #{tag_class}"
+          end
+          speaker = lookup_speaker(speakername, people, date)
+          speech_outputter.speech(speaker, time, url, id, e)
+      	end
+  	  end
 	    speech_outputter.finish    
     end
   end
