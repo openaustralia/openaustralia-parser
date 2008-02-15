@@ -3,13 +3,8 @@
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
 require 'rubygems'
-require 'csv'
-require 'date'
-require 'builder'
 require 'mechanize'
-require 'RMagick'
 
-require 'name'
 require 'configuration'
 require 'people_csv_reader'
 require 'people_xml_writer'

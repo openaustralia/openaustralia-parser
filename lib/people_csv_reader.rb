@@ -1,5 +1,8 @@
+require 'csv'
+
 require 'people'
 require 'person'
+require 'name'
 
 class PeopleCSVReader
   def PeopleCSVReader.read(filename)

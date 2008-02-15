@@ -1,3 +1,6 @@
+require 'rubygems'
+require 'builder'
+
 class PeopleXMLWriter
   def PeopleXMLWriter.write_members(people, filename)
     xml = File.open(filename, 'w')
