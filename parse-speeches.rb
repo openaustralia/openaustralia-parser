@@ -81,7 +81,8 @@ def lookup_speakername(speakername, people, date)
   if speakername.downcase == "unknown"
     nil
   else
-    people.find_member_id_by_fullname(speakername, date)
+    puts "Looking up name: #{Name.title_first_last(speakername).full_name}"
+    people.find_member_id_by_name(Name.title_first_last(speakername), date)
   end
 end
 
@@ -140,7 +141,6 @@ x.publicwhip do
           # Extract speaker name from link
           if main_speakername == ""
             main_speakername = speech_content.search('span.talkername a').first.inner_html
-            puts "main_speakername: #{main_speakername}"
           end
     	    speech(main_speakername, speech_content, x, people, time, url, id, speech_outputter, date)
           # Extract speaker name from link
@@ -149,7 +149,6 @@ x.publicwhip do
           else
             speakername = e.search('span.talkername a').first.inner_html
           end
-          puts "speakername: #{speakername}"
     	    speech(speakername, e, x, people, time, url, id, speech_outputter, date)
     	    speech_content.clear
     	  else

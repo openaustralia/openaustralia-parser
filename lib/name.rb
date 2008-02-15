@@ -77,7 +77,7 @@ class Name
   def full_name
     t = ""
     t = t + "#{title} " unless title == ""
-    t = t + "#{first} "
+    t = t + "#{first} " unless first == ""
     t = t + "(#{nick}) " unless nick == ""
     t = t + "#{middle} " unless middle == ""
     t = t + "#{last}"
