@@ -1,6 +1,6 @@
 # Represents a period in the house of representatives
 class HousePeriod
-  attr_accessor :from_date, :to_date, :from_why, :to_why, :division, :party
+  attr_accessor :from_date, :to_date, :from_why, :to_why, :division, :party, :person
   attr_reader :id
   
   @@id = 1
@@ -18,9 +18,10 @@ class HousePeriod
     @to_why =     params[:to_why]
     @division =   params[:division]
     @party =      params[:party]
+    @person =     params[:person]
     throw "Invalid keys" unless (params.keys -
       [:id, :division, :party, :from_date,
-      :to_date, :from_why, :to_why]).empty?
+      :to_date, :from_why, :to_why, :person]).empty?
   end
   
   def ==(p)

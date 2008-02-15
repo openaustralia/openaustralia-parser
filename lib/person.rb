@@ -20,7 +20,7 @@ class Person
   # Adds a single continuous period when this person was in the house of representatives
   # Note that there might be several of these per person
   def add_house_period(params)
-    @house_periods << HousePeriod.new(params)
+    @house_periods << HousePeriod.new(params.merge(:person => self))
   end
   
   def display

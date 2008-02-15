@@ -4,6 +4,17 @@ require 'people_xml_writer'
 require 'people_image_downloader'
 
 class People < Array
+  
+  def initialize
+    @all_house_periods = []
+  end
+  
+  # Override method to populate @all_house_periods
+  def <<(person)
+    @all_house_periods.concat(person.house_periods)
+    super
+  end
+  
   def find_by_first_last_name(name)
     find_all do |p|
       p.name.first.downcase == name.first.downcase &&
@@ -41,8 +52,7 @@ class People < Array
   end
   
   def find_house_period_by_id(id)
-    person = find {|person| person.has_house_period_with_id?(id)} 
-    person.find_house_period_with_id(id)
+    @all_house_periods.find{|p| p.id == id}
   end
   
   # Facade for readers and writers
