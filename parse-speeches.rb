@@ -147,11 +147,10 @@ x.publicwhip do
       # Extract speaker name from link
       speaker_tag = speech_content.search('span.talkername a').first
       if speaker_tag
-        speakername = speaker_tag.inner_html
+        speaker = lookup_speaker(speaker_tag.inner_html, people, date)
       else
-        speakername = "unknown"
+        speaker = nil
       end
-      speaker = lookup_speaker(speakername, people, date)
       speech_outputter.speech(speaker, time, url, id, speech_content)
   	  
   	  if subspeeches_content
@@ -162,24 +161,13 @@ x.publicwhip do
             # Extract speaker name from link
             speaker_tag = e.search('span.talkername a').first
             if speaker_tag
-              speakername = speaker_tag.inner_html
+              speaker = lookup_speaker(speaker_tag.inner_html, people, date)
             else
-              speakername = "unknown"
+              speaker = nil
             end
-          elsif tag_class.nil?
-            #puts "Ignoring tag without a class"
           elsif tag_class == "paraitalic"
-            speakername = "unknown"
-          elsif tag_class == "quote"
-            #puts "At a quote"
-          elsif tag_class == "block" || tag_class == "parablock"
-            #puts "At a block"
-          elsif tag_class == "motion"
-            #puts "At a motion"
-          else
-            throw "Unknown attribute #{tag_class}"
+            speaker = nil
           end
-          speaker = lookup_speaker(speakername, people, date)
           speech_outputter.speech(speaker, time, url, id, e)
       	end
   	  end
