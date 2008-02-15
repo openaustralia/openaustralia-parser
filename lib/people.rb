@@ -100,9 +100,15 @@ class People < Array
     matches[0].id
   end
 
-  def find_members_by_lastname(lastname, date)
+  def all_house_periods_falling_on_date(date)
     @all_house_periods.find_all do |m|
-      date >= m.from_date && date <= m.to_date && m.person.name.last.downcase == lastname.downcase
+      date >= m.from_date && date <= m.to_date
+    end
+  end
+  
+  def find_members_by_lastname(lastname, date)
+    all_house_periods_falling_on_date(date).find_all do |m|
+      m.person.name.last.downcase == lastname.downcase
     end
   end
 
@@ -112,9 +118,8 @@ class People < Array
     # an amount of variation in first name: ie Tony vs Anthony
     matches = find_members_by_lastname(lastname, date)
     if firstname != "" && matches.size > 1
-      matches = @all_house_periods.find_all do |m|
-        date >= m.from_date && date <= m.to_date &&
-          m.person.name.first.downcase == firstname.downcase && m.person.name.last.downcase == lastname.downcase
+      matches = all_house_periods_falling_on_date(date).find_all do |m|
+        m.person.name.first.downcase == firstname.downcase && m.person.name.last.downcase == lastname.downcase
       end
     end
     matches
