@@ -68,6 +68,23 @@ class SpeechOutputter
   end
 end
 
+# Returns id of speakername
+def lookup_speakername(speakername, people, date)
+  # HACK alert (Oh you know what this whole thing is a big hack alert)
+  if speakername.downcase == "the speaker"
+    speakername = "Mr David Hawker"
+  elsif speakername.downcase == "the deputy speaker"
+    speakername = "Mr Ian Causley"
+  end
+
+  # Lookup id of member based on speakername
+  if speakername.downcase == "unknown"
+    nil
+  else
+    people.find_member_id_by_fullname(speakername, date)
+  end
+end
+
 def speech(speakername, content, x, people, time, url, id, speech_outputter, date)
   # I'm completely guessing here the meaning of p.paraitalic
   if content[0] && content[0].attributes["class"] == "paraitalic"
@@ -76,16 +93,7 @@ def speech(speakername, content, x, people, time, url, id, speech_outputter, dat
     # Override speaker name
     speakername = "unknown"
   end
-  # HACK alert (Oh you know what this whole thing is a big hack alert)
-  if speakername.downcase == "the speaker"
-    speakername = "Mr David Hawker"
-  end
-  # Lookup id of member based on speakername
-  if speakername.downcase == "the deputy speaker" || speakername.downcase == "unknown"
-    speakerid = nil
-  else
-    speakerid = people.find_member_id_by_fullname(speakername, date)
-  end
+  speakerid = lookup_speakername(speakername, people, date)
   speech_outputter.speech(speakername, time, url, id, speakerid, content)
 end
 
@@ -93,7 +101,7 @@ x.publicwhip do
   # Structure of the page is such that we are only interested in some of the links
   for link in page.links[30..-4] do
   #for link in page.links[108..108] do
-    puts "Processing: #{link}"
+    #puts "Processing: #{link}"
   	# Only going to consider speeches for the time being
   	if link.to_s =~ /Speech:/
     	# Link text for speech has format:
@@ -132,6 +140,7 @@ x.publicwhip do
           # Extract speaker name from link
           if main_speakername == ""
             main_speakername = speech_content.search('span.talkername a').first.inner_html
+            puts "main_speakername: #{main_speakername}"
           end
     	    speech(main_speakername, speech_content, x, people, time, url, id, speech_outputter, date)
           # Extract speaker name from link
@@ -140,6 +149,7 @@ x.publicwhip do
           else
             speakername = e.search('span.talkername a').first.inner_html
           end
+          puts "speakername: #{speakername}"
     	    speech(speakername, e, x, people, time, url, id, speech_outputter, date)
     	    speech_content.clear
     	  else
