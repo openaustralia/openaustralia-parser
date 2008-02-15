@@ -1,3 +1,7 @@
+require 'people_csv_reader'
+require 'people_xml_writer'
+require 'people_image_downloader'
+
 class People < Array
   def find_by_first_last_name(name)
     find_all do |p|
@@ -33,5 +37,23 @@ class People < Array
         throw "More than one result for name: #{name.informal_name}"
       end
     end
+  end
+  
+  # Facade for readers and writers
+  def People.read_csv(filename)
+    PeopleCSVReader.read(filename)
+  end
+  
+  def write_people_xml(filename)
+    PeopleXMLWriter.write_people(self, filename)    
+  end
+
+  def write_members_xml(filename)
+    PeopleXMLWriter.write_members(self, filename)    
+  end
+  
+  def download_images(small_image_dir, large_image_dir)
+    downloader = PeopleImageDownloader.new
+    downloader.download(self, small_image_dir, large_image_dir)
   end
 end

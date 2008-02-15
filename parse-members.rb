@@ -3,19 +3,15 @@
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
 require 'configuration'
-
-require 'people_csv_reader'
-require 'people_xml_writer'
-require 'people_image_downloader'
+require 'people'
 
 puts "Writing XML..."
-people = PeopleCSVReader.read("data/house_members.csv")
-PeopleXMLWriter.write_people(people, 'pwdata/members/people.xml')
-PeopleXMLWriter.write_members(people, 'pwdata/members/all-members.xml')
+people = People.read_csv("data/house_members.csv")
+people.write_people_xml('pwdata/members/people.xml')
+people.write_members_xml('pwdata/members/all-members.xml')
 
 puts "Downloading person images..."
-downloader = PeopleImageDownloader.new
-downloader.download(people, "pwdata/images/mps", "pwdata/images/mpsL")
+people.download_images("pwdata/images/mps", "pwdata/images/mpsL")
 
 # And load up the database
 conf = Configuration.new
