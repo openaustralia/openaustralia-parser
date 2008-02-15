@@ -1,4 +1,5 @@
 require 'people_csv_reader'
+require 'people_xml_reader'
 require 'people_xml_writer'
 require 'people_image_downloader'
 
@@ -39,9 +40,18 @@ class People < Array
     end
   end
   
+  def find_house_period_by_id(id)
+    person = find {|person| person.has_house_period_with_id?(id)} 
+    person.find_house_period_with_id(id)
+  end
+  
   # Facade for readers and writers
   def People.read_csv(filename)
     PeopleCSVReader.read(filename)
+  end
+  
+  def People.read_xml(people_filename, members_filename)
+    PeopleXMLReader.read(people_filename, members_filename)
   end
   
   def write_people_xml(filename)
