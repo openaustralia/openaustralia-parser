@@ -54,12 +54,8 @@ class People < Array
     PeopleXMLReader.read(people_filename, members_filename)
   end
   
-  def write_people_xml(filename)
-    PeopleXMLWriter.write_people(self, filename)    
-  end
-
-  def write_members_xml(filename)
-    PeopleXMLWriter.write_members(self, filename)    
+  def write_xml(people_filename, members_filename)
+    PeopleXMLWriter.write(self, people_filename, members_filename)
   end
   
   def download_images(small_image_dir, large_image_dir)

@@ -31,8 +31,7 @@ class TestPeopleXMLReader < Test::Unit::TestCase
     
     # Write the XML
     system('mkdir -p test_output')
-    people.write_people_xml('test_output/people.xml')
-    people.write_members_xml('test_output/members.xml')
+    people.write_xml('test_output/people.xml', 'test_output/members.xml')
     
     # Read the XML back in
     people2 = People.read_xml('test_output/people.xml', 'test_output/members.xml')

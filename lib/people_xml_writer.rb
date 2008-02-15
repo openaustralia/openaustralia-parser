@@ -2,6 +2,12 @@ require 'rubygems'
 require 'builder'
 
 class PeopleXMLWriter
+  
+  def PeopleXMLWriter.write(people, people_filename, members_filename)
+    write_people(people, people_filename)
+    write_members(people, members_filename)
+  end
+  
   def PeopleXMLWriter.write_members(people, filename)
     xml = File.open(filename, 'w')
     x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
