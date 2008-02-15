@@ -9,13 +9,13 @@ require 'builder'
 # My bits and bobs
 require 'id'
 require 'speech'
-require 'member'
 require 'configuration'
+require 'people'
 
 conf = Configuration.new
 
-# First load all-members.xml back in so that we can look up member id's
-members = Members.load("pwdata/members/all-members.xml")
+# First load people back in so that we can look up member id's
+people = People.read_xml('pwdata/members/people.xml', 'pwdata/members/all-members.xml')
 
 system("mkdir -p pwdata/scrapedxml/debates")
 
@@ -68,7 +68,7 @@ class SpeechOutputter
   end
 end
 
-def speech(speakername, content, x, members, time, url, id, speech_outputter, date)
+def speech(speakername, content, x, people, time, url, id, speech_outputter, date)
   # I'm completely guessing here the meaning of p.paraitalic
   if content[0] && content[0].attributes["class"] == "paraitalic"
     puts "Overriding speaker name"
@@ -84,7 +84,7 @@ def speech(speakername, content, x, members, time, url, id, speech_outputter, da
   if speakername.downcase == "the deputy speaker" || speakername.downcase == "unknown"
     speakerid = nil
   else
-    speakerid = members.find_member_id_by_fullname(speakername, date)
+    speakerid = people.find_member_id_by_fullname(speakername, date)
   end
   speech_outputter.speech(speakername, time, url, id, speakerid, content)
 end
@@ -133,14 +133,14 @@ x.publicwhip do
           if main_speakername == ""
             main_speakername = speech_content.search('span.talkername a').first.inner_html
           end
-    	    speech(main_speakername, speech_content, x, members, time, url, id, speech_outputter, date)
+    	    speech(main_speakername, speech_content, x, people, time, url, id, speech_outputter, date)
           # Extract speaker name from link
           if e.search('span.talkername a').first.nil?
               speakername = "unknown"
           else
             speakername = e.search('span.talkername a').first.inner_html
           end
-    	    speech(speakername, e, x, members, time, url, id, speech_outputter, date)
+    	    speech(speakername, e, x, people, time, url, id, speech_outputter, date)
     	    speech_content.clear
     	  else
     	    speech_content << e
@@ -150,7 +150,7 @@ x.publicwhip do
       if main_speakername == ""
         main_speakername = speech_content.search('span.talkername a').first.inner_html
       end
-	    speech(main_speakername, speech_content, x, members, time, url, id, speech_outputter, date)
+	    speech(main_speakername, speech_content, x, people, time, url, id, speech_outputter, date)
 	    speech_outputter.finish    
     end
   end
