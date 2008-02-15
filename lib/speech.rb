@@ -1,18 +1,21 @@
 class Speech
-  attr_accessor :speakername, :time, :url, :id, :speakerid, :content
+  attr_accessor :speaker, :time, :url, :id, :content
   
-  def initialize(speakername = nil, time = nil, url = nil, id = nil, speakerid = nil, content = Hpricot::Elements.new)
-    @speakername = speakername
+  def initialize(speaker = nil, time = nil, url = nil, id = nil, content = Hpricot::Elements.new)
+    @speaker = speaker
     @time = time
     @url = url
     @id = id
-    @speakerid = speakerid
     @content = content
   end
   
   def output(x)
-    x.speech(:speakername => @speakername, :time => @time, :url => @url, :id => @id,
-      :speakerid => @speakerid) { x << @content.to_s }
+    if @speaker
+      x.speech(:speakername => @speaker.person.name.full_name, :time => @time, :url => @url, :id => @id,
+        :speakerid => @speaker.id) { x << @content.to_s }
+    else
+      x.speech(:speakername => "unknown", :time => @time, :url => @url, :id => @id) { x << @content.to_s }
+    end
   end
 
   def append_to_content(content)

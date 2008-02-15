@@ -53,12 +53,10 @@ class SpeechOutputter
     @x = x
   end
   
-  def speech(speakername, time, url, id, speakerid, content)
-    if speakername != @old_speech.speakername
-      if @old_speech.speakername
-        @old_speech.output(@x)
-      end
-      @old_speech = Speech.new(speakername, time, url, id, speakerid)
+  def speech(speaker, time, url, id, content)
+    if speaker.nil? || @old_speech.speaker.nil? || speaker != @old_speech.speaker
+      @old_speech.output(@x)
+      @old_speech = Speech.new(speaker, time, url, id)
     end
     @old_speech.append_to_content(content)
   end
@@ -68,8 +66,7 @@ class SpeechOutputter
   end
 end
 
-# Returns id of speakername
-def lookup_speakername(speakername, people, date)
+def lookup_speaker(speakername, people, date)
   # HACK alert (Oh you know what this whole thing is a big hack alert)
   if speakername.downcase == "the speaker"
     speakername = "Mr David Hawker"
@@ -81,12 +78,11 @@ def lookup_speakername(speakername, people, date)
   if speakername.downcase == "unknown"
     nil
   else
-    puts "Looking up name: #{Name.title_first_last(speakername).full_name}"
-    people.find_member_by_name(Name.title_first_last(speakername), date).id
+    people.find_member_by_name(Name.title_first_last(speakername), date)
   end
 end
 
-def speech(speakername, content, x, people, time, url, id, speech_outputter, date)
+def speech(speakername, content, people, time, url, id, speech_outputter, date)
   # I'm completely guessing here the meaning of p.paraitalic
   if content[0] && content[0].attributes["class"] == "paraitalic"
     puts "Overriding speaker name"
@@ -94,15 +90,20 @@ def speech(speakername, content, x, people, time, url, id, speech_outputter, dat
     # Override speaker name
     speakername = "unknown"
   end
-  speakerid = lookup_speakername(speakername, people, date)
-  speech_outputter.speech(speakername, time, url, id, speakerid, content)
+  speaker = lookup_speaker(speakername, people, date)
+  if speaker
+    speakerid = speaker.id
+  else
+    speakerid = nil
+  end
+  speech_outputter.speech(speaker, time, url, id, content)
 end
 
 x.publicwhip do
   # Structure of the page is such that we are only interested in some of the links
   for link in page.links[30..-4] do
   #for link in page.links[108..108] do
-    #puts "Processing: #{link}"
+    puts "Processing: #{link}"
   	# Only going to consider speeches for the time being
   	if link.to_s =~ /Speech:/
     	# Link text for speech has format:
@@ -142,14 +143,14 @@ x.publicwhip do
           if main_speakername == ""
             main_speakername = speech_content.search('span.talkername a').first.inner_html
           end
-    	    speech(main_speakername, speech_content, x, people, time, url, id, speech_outputter, date)
+    	    speech(main_speakername, speech_content, people, time, url, id, speech_outputter, date)
           # Extract speaker name from link
           if e.search('span.talkername a').first.nil?
               speakername = "unknown"
           else
             speakername = e.search('span.talkername a').first.inner_html
           end
-    	    speech(speakername, e, x, people, time, url, id, speech_outputter, date)
+    	    speech(speakername, e, people, time, url, id, speech_outputter, date)
     	    speech_content.clear
     	  else
     	    speech_content << e
@@ -159,7 +160,7 @@ x.publicwhip do
       if main_speakername == ""
         main_speakername = speech_content.search('span.talkername a').first.inner_html
       end
-	    speech(main_speakername, speech_content, x, people, time, url, id, speech_outputter, date)
+	    speech(main_speakername, speech_content, people, time, url, id, speech_outputter, date)
 	    speech_outputter.finish    
     end
   end
