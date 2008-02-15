@@ -2,12 +2,8 @@ require 'house_period'
 
 class Person
   attr_reader :name, :id, :house_periods
-  attr_accessor :image_url
   
   @@id = 10001
-  # Sizes of small thumbnail pictures of members
-  @@THUMB_WIDTH = 44
-  @@THUMB_HEIGHT = 59
   
   def initialize(name)
     @name = name
@@ -27,26 +23,5 @@ class Person
     @house_periods.each do |p|
       puts "  start: #{p.from_date} #{p.from_why}, end: #{p.to_date} #{p.to_why}"    
     end    
-  end
-
-  def image(width, height)
-    if @image_url
-      conf = Configuration.new
-      res = Net::HTTP::Proxy(conf.proxy_host, conf.proxy_port).get_response(@image_url)
-      begin
-        image = Magick::Image.from_blob(res.body)[0]
-        image.resize_to_fit(width, height)
-      rescue
-        puts "WARNING: Could not load image #{@image_url}"
-      end
-    end
-  end
-  
-  def small_image
-    image(@@THUMB_WIDTH, @@THUMB_HEIGHT)
-  end
-  
-  def big_image
-    image(@@THUMB_WIDTH * 2, @@THUMB_HEIGHT * 2)
   end
 end

@@ -19,13 +19,6 @@ class PeopleXMLWriter
     xml.close
   end
   
-  def PeopleXMLWriter.write_images(people, small_image_dir, large_image_dir)
-    people.each do |p|
-      p.small_image.write(small_image_dir + "/#{p.id}.jpg") if p.small_image
-      p.big_image.write(large_image_dir + "/#{p.id}.jpg") if p.big_image
-    end
-  end
-
   def PeopleXMLWriter.write_people(people, filename)
     xml = File.open(filename, 'w')
     x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
