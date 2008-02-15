@@ -51,13 +51,28 @@ class People < Array
     end
   end
   
-  def find_member_id_by_name(name, date)
+  def find_member_by_name(name, date)
     matches = find_members_by_name(name, date)
     throw "More than one match for member based on first name (#{name.first}) and last name #{name.last}" if matches.size > 1
     throw "No match for member found" if matches.size == 0
-    matches[0].id
+    matches[0]
   end
   
+  # If first name is empty will just check by lastname
+  def find_members_by_name(name, date)
+    # First checking if there is an unambiguous match by lastname which allows
+    # an amount of variation in first name: ie Tony vs Anthony
+    matches = all_house_periods_falling_on_date(date).find_all do |m|
+      m.person.name.last == name.last
+    end
+    if name.first != "" && matches.size > 1
+      matches = all_house_periods_falling_on_date(date).find_all do |m|
+        m.person.name.first == name.first && m.person.name.last == name.last
+      end
+    end
+    matches
+  end
+
   def find_house_period_by_id(id)
     @all_house_periods.find{|p| p.id == id}
   end
@@ -86,20 +101,5 @@ class People < Array
     @all_house_periods.find_all do |m|
       date >= m.from_date && date <= m.to_date
     end
-  end
-  
-  # If first name is empty will just check by lastname
-  def find_members_by_name(name, date)
-    # First checking if there is an unambiguous match by lastname which allows
-    # an amount of variation in first name: ie Tony vs Anthony
-    matches = all_house_periods_falling_on_date(date).find_all do |m|
-      m.person.name.last == name.last
-    end
-    if name.first != "" && matches.size > 1
-      matches = all_house_periods_falling_on_date(date).find_all do |m|
-        m.person.name.first == name.first && m.person.name.last == name.last
-      end
-    end
-    matches
   end
 end

@@ -82,7 +82,7 @@ def lookup_speakername(speakername, people, date)
     nil
   else
     puts "Looking up name: #{Name.title_first_last(speakername).full_name}"
-    people.find_member_id_by_name(Name.title_first_last(speakername), date)
+    people.find_member_by_name(Name.title_first_last(speakername), date).id
   end
 end
 
