@@ -50,6 +50,7 @@ class PeopleImageDownloader
   
   def extract_name_and_image_from_page(page)
     name = Name.last_title_first(page.search("#txtTitle").inner_text.to_s[14..-1])
+    puts "Downloading image for #{name.full_name}"
     content = page.search('div#contentstart')  
     img_tag = content.search("img").first
     if img_tag
@@ -60,7 +61,7 @@ class PeopleImageDownloader
         res = Net::HTTP::Proxy(conf.proxy_host, conf.proxy_port).get_response(url)
         begin
           return name, Magick::Image.from_blob(res.body)[0]
-        rescue RuntimeError
+        rescue RuntimeError, Magick::ImageMagickError
           puts "WARNING: Could not load image for #{name.informal_name} at #{url}"
         end
       end
