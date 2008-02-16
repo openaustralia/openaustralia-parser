@@ -17,16 +17,13 @@ class People < Array
   
   def find_by_first_last_name(name)
     find_all do |p|
-      p.name.first.downcase == name.first.downcase &&
-        p.name.last.downcase == name.last.downcase
+      p.name.first == name.first && p.name.last == name.last
     end
   end
 
   def find_by_first_middle_last_name(name)
     find_all do |p|
-      p.name.first.downcase == name.first.downcase &&
-        p.name.middle.downcase == name.middle.downcase &&
-        p.name.last.downcase == name.last.downcase
+      p.name.first == name.first && p.name.middle == name.middle && p.name.last == name.last
     end
   end
 
