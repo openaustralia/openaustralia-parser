@@ -93,4 +93,18 @@ class TestName < Test::Unit::TestCase
     assert_equal("Bob", name.nick)
     assert_equal("John", name.middle)
   end
+  
+  # Class for simple (naive) way of comparing two names. Only compares parts of the name
+  # that exist in both names
+  def test_matches
+    dr_john_smith = Name.new(:title => "Dr", :first => "John", :last => "Smith")
+    john_smith = Name.new(:first => "John", :last => "Smith")
+    peter_smith = Name.new(:first => "Peter", :last => "Smith")
+    smith = Name.new(:last => "Smith")
+    dr_john = Name.new(:title => "Dr", :first => "John")
+    assert(dr_john_smith.matches?(dr_john_smith))
+    assert(!dr_john_smith.matches?(peter_smith))
+    # When there is no overlap between the names they should not match
+    assert(!smith.matches?(dr_john))
+  end
 end

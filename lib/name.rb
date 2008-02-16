@@ -65,23 +65,61 @@ class Name
   end
   
   def informal_name
-    throw "No last name" if @last == ""
+    throw "No last name" unless has_last?
     if @nick != ""
       "#{@nick} #{@last}"
     else
-      throw "No first name" if @first == ""
+      throw "No first name" unless has_first?
       "#{@first} #{@last}"
     end
   end
   
   def full_name
     t = ""
-    t = t + "#{title} " unless title == ""
-    t = t + "#{first} " unless first == ""
-    t = t + "(#{nick}) " unless nick == ""
-    t = t + "#{middle} " unless middle == ""
+    t = t + "#{title} " if has_title?
+    t = t + "#{first} " if has_first?
+    t = t + "(#{nick}) " if has_nick?
+    t = t + "#{middle} " if has_middle?
     t = t + "#{last}"
     t
+  end
+  
+  def has_title?
+    @title != ""
+  end
+  
+  def has_first?
+    @first != ""
+  end
+  
+  def has_nick?
+    @nick != ""
+  end
+  
+  def has_middle?
+    @middle != ""
+  end
+  
+  def has_last?
+    @last != ""
+  end
+  
+  # Names don't have to be identical to match but rather the parts of the name
+  # that exist in both names have to match
+  def matches?(name)
+    # True if there is overlap between the names
+    overlap = (has_title? && name.has_title?) ||
+      (has_first? && name.has_first?) ||
+      (has_nick?   && name.has_nick?) ||
+      (has_middle? && name.has_middle?) ||
+      (has_last? && name.has_last?)
+      
+    overlap &&
+      (!has_title?  || !name.has_title?  || @title  == name.title) &&
+      (!has_first?  || !name.has_first?  || @first  == name.first) &&
+      (!has_nick?   || !name.has_nick?   || @nick   == name.nick) &&
+      (!has_middle? || !name.has_middle? || @middle == name.middle) &&
+      (!has_last?   || !name.has_last?   || @last   == name.last)
   end
   
   def ==(name)
