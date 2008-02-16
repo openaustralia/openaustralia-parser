@@ -94,6 +94,17 @@ class TestName < Test::Unit::TestCase
     assert_equal("John", name.middle)
   end
   
+  # Deal with weirdo titles at the end
+  def test_post_title
+    name = Name.last_title_first("COMBET, the Hon. Gregory (Greg) Ivan, AM")
+    assert_equal("Combet", name.last)
+    assert_equal("the Hon.", name.title)
+    assert_equal("Gregory", name.first)
+    assert_equal("Greg", name.nick)
+    assert_equal("Ivan", name.middle)
+    assert_equal("AM", name.post_title)
+  end
+  
   # Class for simple (naive) way of comparing two names. Only compares parts of the name
   # that exist in both names
   def test_matches

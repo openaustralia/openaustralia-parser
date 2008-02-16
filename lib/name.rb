@@ -10,13 +10,14 @@ end
 
 # Handle all our silly name parsing needs
 class Name
-  attr_reader :title, :first, :nick, :middle, :last
+  attr_reader :title, :first, :nick, :middle, :last, :post_title
   
   def initialize(params)
     @title = params[:title] || ""
     @first = (params[:first].capitalize if params[:first]) || ""
     @nick = (params[:nick].capitalize if params[:nick]) || ""
     @middle = (params[:middle].capitalize_each_word if params[:middle]) || ""
+    @post_title = (params[:post_title].upcase if params[:post_title]) || ""
     if params[:last]
       @last = params[:last].capitalize
       # Irish and Scottish exception to capitalisation rule
@@ -26,7 +27,7 @@ class Name
     else
       @last = ""
     end
-    throw "Invalid keys" unless (params.keys - [:title, :first, :nick, :middle, :last]).empty?
+    throw "Invalid keys" unless (params.keys - [:title, :first, :nick, :middle, :last, :post_title]).empty?
   end
   
   def Name.last_title_first(text)
@@ -43,7 +44,13 @@ class Name
     if names.size >= 1 && names[0].surrounded_by_brackets?
       nick = names.shift[1..-2]
     end
-    Name.new(:title => title, :last => last, :first => first, :nick => nick, :middle => names[0..-1].join(' '))
+    if names.last == "AM" || names.last == "SC" || names.last == "AO"
+      post_title = names.last
+      middle = names[0..-2].join(' ')
+    else
+      middle = names[0..-1].join(' ')
+    end
+    Name.new(:title => title, :last => last, :first => first, :nick => nick, :middle => middle, :post_title => post_title)
   end
   
   def Name.title_first_last(text)
@@ -81,6 +88,7 @@ class Name
     t = t + "(#{nick}) " if has_nick?
     t = t + "#{middle} " if has_middle?
     t = t + "#{last}"
+    t = t + ", #{post_title}" if has_post_title?
     t
   end
   
@@ -104,26 +112,33 @@ class Name
     @last != ""
   end
   
+  def has_post_title?
+    @post_title != ""
+  end
+  
   # Names don't have to be identical to match but rather the parts of the name
   # that exist in both names have to match
   def matches?(name)
     # True if there is overlap between the names
     overlap = (has_title? && name.has_title?) ||
-      (has_first? && name.has_first?) ||
-      (has_nick?   && name.has_nick?) ||
-      (has_middle? && name.has_middle?) ||
-      (has_last? && name.has_last?)
+      (has_first?      && name.has_first?) ||
+      (has_nick?       && name.has_nick?) ||
+      (has_middle?     && name.has_middle?) ||
+      (has_last?       && name.has_last?) ||
+      (has_post_title? && name.has_post_title?)
       
     overlap &&
-      (!has_title?  || !name.has_title?  || @title  == name.title) &&
-      (!has_first?  || !name.has_first?  || @first  == name.first) &&
-      (!has_nick?   || !name.has_nick?   || @nick   == name.nick) &&
-      (!has_middle? || !name.has_middle? || @middle == name.middle) &&
-      (!has_last?   || !name.has_last?   || @last   == name.last)
+      (!has_title?      || !name.has_title?      || @title      == name.title) &&
+      (!has_first?      || !name.has_first?      || @first      == name.first) &&
+      (!has_nick?       || !name.has_nick?       || @nick       == name.nick) &&
+      (!has_middle?     || !name.has_middle?     || @middle     == name.middle) &&
+      (!has_last?       || !name.has_last?       || @last       == name.last) &&
+      (!has_post_title? || !name.has_post_title? || @post_title == name.post_title)
   end
   
   def ==(name)
-    @title == name.title && @first == name.first && @nick == name.nick && @middle == name.middle && @last == name.last
+    @title == name.title && @first == name.first && @nick == name.nick &&
+      @middle == name.middle && @last == name.last && @post_title == name.post_title
   end
   
   private
