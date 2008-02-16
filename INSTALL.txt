@@ -1,0 +1,31 @@
+How to Install
+
+Assumptions
+
+These steps have only been tested on Mac OS X 10.5 (leopard). They might
+work as well on other Unix derivatives.
+
+Requirements
+
+Unix
+Apache + PHP + MySQL
+(we've tested with Apache 2.X.X, PHP5, MySQL 5.0.x)
+Ruby (Leopard comes with Ruby)
+
+rubygems
+mechanize
+builder
+RMagick (this has dependencies like GraphicsMagick, which in turn needs
+ghostscript, so you are better off get DarwinPorts and then installing
+it with "sudo port install ghostscript" -NOTE: this step might take a while)
+
+Mercurial (distributed source control management)
+
+How to install all the previous apps
+
+Apache, PHP and Ruby all come with Leopard. If you need to install any of these
+on Mac OS X (if for whatever reason you don't have them installed) there's a ton
+of information online:
+
+- http://www.entropy.ch/software/macosx/
+- http://hivelogic.com/articles/ruby_rails_lighttpd_mysql_tiger/
