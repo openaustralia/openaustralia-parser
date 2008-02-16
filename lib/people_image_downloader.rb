@@ -25,7 +25,7 @@ class PeopleImageDownloader
     each_person_bio_page do |page|
       name, image = extract_name_and_image_from_page(page)
       if name
-        person = people.find_by_name(name)
+        person = people.find_person_by_name(name)
         if person
           image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH, @@SMALL_THUMBNAIL_HEIGHT).write(small_image_dir + "/#{person.id}.jpg")
           image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH * 2, @@SMALL_THUMBNAIL_HEIGHT * 2).write(large_image_dir + "/#{person.id}.jpg")

@@ -15,26 +15,26 @@ class People < Array
     super
   end
   
-  # Find person with the given name. Returns nil if non found
-  def find_by_name(name)
-    r = find_all do |p|
-      name.matches?(p.name)
-    end
-    if r.size == 0
-      nil
-    elsif r.size == 1
-      r[0]
-    else
-      throw "More than one result for name: #{name.informal_name}"
-    end
+  # Returns nil if non found. Throws exception if more than one match
+  def find_person_by_name(name)
+    matches = find_people_by_name(name)
+    throw "More than one match for name #{name.full_name} found" if matches.size > 1
+    matches[0] if matches.size == 1
   end
   
+  # Throws exception if no or multiple matches found
   def find_member_by_name(name, date)
     matches = find_members_by_name(name, date)
-    throw "More than one match for member based on first name (#{name.first}) and last name #{name.last}" if matches.size > 1
+    throw "More than one match for name #{name.full_name} found" if matches.size > 1
     throw "No match for member found" if matches.size == 0
     matches[0]
   end
+  
+  def find_people_by_name(name)
+    find_all do |p|
+      name.matches?(p.name)
+    end
+  end    
   
   def find_members_by_name(name, date)
     @all_house_periods.find_all do |m|
