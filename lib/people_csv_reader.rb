@@ -17,9 +17,9 @@ class PeopleCSVReader
     i = 0
     people = People.new
     while i < data.size do
-      name_text, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
+      lastname, firstname, middlename, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
 
-      name = Name.last_title_first(name_text)
+      name = Name.new(:last => lastname, :first => firstname, :middle => middlename)
       person = Person.new(name)
 
       start_date = parse_date(start_date)
@@ -29,8 +29,8 @@ class PeopleCSVReader
         :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason)
       i = i + 1
       # Process further start/end dates for this member
-      while i < data.size && data[i][0] == name_text
-        temp, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
+      while i < data.size && data[i][0] == lastname && data[i][1] == firstname && data[i][2] == middlename
+        temp1, temp2, temp3, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
         start_date = parse_date(start_date)
         end_date = parse_end_date(end_date)
         start_reason = parse_start_reason(start_reason)
