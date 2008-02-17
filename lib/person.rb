@@ -1,7 +1,8 @@
 require 'house_period'
 
 class Person
-  attr_reader :name, :house_periods, :id
+  attr_reader :house_periods, :id
+  attr_accessor :name
   #attr_accessor :id
   
   @@id = 10001

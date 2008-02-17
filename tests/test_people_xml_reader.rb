@@ -10,7 +10,7 @@ require 'people'
 class TestPeopleXMLReader < Test::Unit::TestCase
   def test_write_followed_by_read
     # Make two people with a couple of periods in the house
-    john_smith = Person.new(Name.new(:first => "John", :last => "Smith"))
+    john_smith = Person.new(Name.new(:first => "John", :last => "Smith", :title => "Mr"))
     john_smith.add_house_period(:division => "division1", :party => "party1",
       :from_date => Date.new(2000, 1, 1), :to_date => Date.new(2001, 1, 1),
       :from_why => "general_election", :to_why => "defeated")

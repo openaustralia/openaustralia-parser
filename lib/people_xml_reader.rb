@@ -5,10 +5,11 @@ class PeopleXMLReader
     people = People.new
     xml = REXML::Document.new(File.open(people_filename))
     xml.elements.each("publicwhip/person") do |e|
-      name = Name.title_first_last(e.attributes["latestname"])
+      #name = Name.title_first_last(e.attributes["latestname"])
       # TODO: Should really check that the beginning of the string is correct
       person_id = e.attributes["id"].match(/[0-9]+/)[0].to_i
-      person = Person.new(name, person_id)
+      # Starting with an empty name that gets filled in from the members data which has a more accurate name
+      person = Person.new("", person_id)
       e.elements.each("office") do |e|
         member_id = e.attributes["id"].match(/[0-9]+/)[0].to_i
         # TODO: Currently ignore current field in XML
@@ -27,6 +28,7 @@ class PeopleXMLReader
       
       period = people.find_house_period_by_id(member_id)
       
+      period.person.name = name
       period.from_date = Date.parse(e.attributes["fromdate"])
       period.to_date = Date.parse(e.attributes["todate"])
       period.from_why = e.attributes["fromwhy"]
