@@ -74,6 +74,10 @@ class TestName < Test::Unit::TestCase
     assert_equal("McMullan", Name.new(:last => "mcmullan").last)
   end
   
+  def test_dath
+    assert_equal("D'Ath", Name.new(:last => "d’ath").last)
+  end
+  
   def test_title_first_last
     assert_equal(Name.new(:title => "Dr", :first => "John", :last => "Smith"), Name.title_first_last("Dr John Smith"))
     assert_equal(Name.new(:title => "Dr", :last => "Smith"), Name.title_first_last("Dr Smith"))

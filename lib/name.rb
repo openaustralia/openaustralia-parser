@@ -19,9 +19,10 @@ class Name
     @middle = (params[:middle].capitalize_each_word if params[:middle]) || ""
     @post_title = (params[:post_title].upcase if params[:post_title]) || ""
     if params[:last]
-      @last = params[:last].capitalize
-      # Irish and Scottish exception to capitalisation rule
-      if @last[0..1] == "O'" || @last[0..1] == "Mc"
+      # Also replaces the unicode character
+      @last = params[:last].capitalize.gsub("\342\200\231", "'")
+      # Exceptions to capitalisation rule
+      if @last[0..1] == "O'" || @last[0..1] == "Mc" || @last[0..1] == "D'"
         @last = @last[0..1] + @last[2..-1].capitalize
       end
     else
