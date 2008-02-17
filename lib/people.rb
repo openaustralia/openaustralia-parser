@@ -26,7 +26,7 @@ class People < Array
   def find_member_by_name(name, date)
     matches = find_members_by_name(name, date)
     throw "More than one match for name #{name.full_name} found" if matches.size > 1
-    throw "No match for member found" if matches.size == 0
+    throw "No match for name #{name.full_name} found" if matches.size == 0
     matches[0]
   end
   
