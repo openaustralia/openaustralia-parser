@@ -1,6 +1,6 @@
 # Represents a period in the house of representatives
 class HousePeriod
-  attr_accessor :from_date, :to_date, :from_why, :to_why, :division, :party, :person
+  attr_accessor :from_date, :to_date, :from_why, :to_why, :division, :party, :person, :name
   attr_reader :id
   
   @@id = 1
@@ -22,8 +22,7 @@ class HousePeriod
     @division =   params[:division]
     @party =      params[:party]
     @person =     params[:person]
-    # Set the name in the parent
-    @person.name = params[:name]
+    @name =       params[:name]
     throw "Invalid keys" unless (params.keys -
       [:id, :division, :party, :from_date,
       :to_date, :from_why, :to_why, :person, :name]).empty?

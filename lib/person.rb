@@ -2,7 +2,6 @@ require 'house_period'
 
 class Person
   attr_reader :house_periods, :id
-  attr_accessor :name
   
   @@id = 10001
   
@@ -14,6 +13,12 @@ class Person
       @id = @@id
       @@id = @@id + 1
     end
+  end
+  
+  def name
+    throw "No house periods for this person" if @house_periods.empty?
+    # TODO: Should really return the latest name
+    @house_periods[0].name
   end
   
   # Adds a single continuous period when this person was in the house of representatives

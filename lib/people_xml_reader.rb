@@ -28,7 +28,7 @@ class PeopleXMLReader
       
       period = people.find_house_period_by_id(member_id)
       
-      period.person.name = name
+      period.name = name
       period.from_date = Date.parse(e.attributes["fromdate"])
       period.to_date = Date.parse(e.attributes["todate"])
       period.from_why = e.attributes["fromwhy"]
