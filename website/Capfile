@@ -34,19 +34,15 @@ namespace :setup do
 end
 
 namespace :apache do
-  namespace :deploy do
-    desc "Restart Apache"
-    task :restart do
-      run "apachectl reload"
-    end
+  desc "Restart Apache"
+  task :restart do
+    sudo "apachectl restart"
   end
 end
 
 namespace :deploy do
-	# Overriding deploy:restart so that it does nothing
 	task :restart do
-	  # We need to gracefully restart Apache so that it gets
-	  # the new released website
+	  top.apache.restart
 	end
 
   # We have to override this recipe unfortunately as we are using
@@ -61,12 +57,11 @@ namespace :deploy do
     run "cd #{release_path} && hg qpush -a"
   end
   
-  desc "Overriden update_code recipe to use mercurial patch queues"
+  desc "After a code update, we link the images directories to the shared ones"
 	task :after_update_code, :except => { :no_release => true } do
 	  on_rollback { run "rm -rf #{release_path}; true" }
 
 	  run "ln -s #{shared_path}/system/images/mps #{release_path}/twfy/www/docs/images/mps"
 	  run "ln -s #{shared_path}/system/images/mpsL #{release_path}/twfy/www/docs/images/mpsL"
-	  top.apache.deploy.reload
 	end
 end
