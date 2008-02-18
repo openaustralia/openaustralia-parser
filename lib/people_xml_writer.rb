@@ -16,8 +16,8 @@ class PeopleXMLWriter
       people.each do |person|
         person.house_periods.each do |period|
           x.member(:id => "uk.org.publicwhip/member/#{period.id}",
-            :house => "commons", :title => person.name.title, :firstname => person.name.first,
-            :lastname => person.name.last, :constituency => period.division, :party => period.party,
+            :house => "commons", :title => period.name.title, :firstname => period.name.first,
+            :lastname => period.name.last, :constituency => period.division, :party => period.party,
             :fromdate => period.from_date, :todate => period.to_date, :fromwhy => period.from_why, :towhy => period.to_why)
         end
       end
@@ -31,7 +31,7 @@ class PeopleXMLWriter
     x.instruct!
     x.publicwhip do
       people.each do |person|
-        x.person(:id => "uk.org.publicwhip/person/#{person.id}", :latestname => person.name.informal_name) do
+        x.person(:id => "uk.org.publicwhip/person/#{person.id}", :latestname => person.latest_name.informal_name) do
           person.house_periods.each do |period|
             if period.current?
               x.office(:id => "uk.org.publicwhip/member/#{period.id}", :current => "yes")

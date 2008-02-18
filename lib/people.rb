@@ -31,14 +31,12 @@ class People < Array
   end
   
   def find_people_by_name(name)
-    find_all do |p|
-      name.matches?(p.name)
-    end
+    @all_house_periods.find_all{|m| name.matches?(m.name)}.map{|m| m.person}.uniq
   end    
   
   def find_members_by_name(name, date)
     @all_house_periods.find_all do |m|
-      date >= m.from_date && date <= m.to_date && name.matches?(m.person.name)
+      date >= m.from_date && date <= m.to_date && name.matches?(m.name)
     end
   end
 

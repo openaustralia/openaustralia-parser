@@ -24,12 +24,6 @@ class Person
     latest_house_period.name
   end
   
-  def name
-    throw "No house periods for this person" if @house_periods.empty?
-    # TODO: Should really return the latest name
-    @house_periods[0].name
-  end
-  
   # Adds a single continuous period when this person was in the house of representatives
   # Note that there might be several of these per person
   def add_house_period(params)
@@ -53,6 +47,6 @@ class Person
   end
   
   def ==(p)
-    id == p.id && name == p.name && house_periods == p.house_periods
+    id == p.id && house_periods == p.house_periods
   end
 end
