@@ -8,12 +8,12 @@ class PeopleXMLReader
       #name = Name.title_first_last(e.attributes["latestname"])
       # TODO: Should really check that the beginning of the string is correct
       person_id = e.attributes["id"].match(/[0-9]+/)[0].to_i
-      # Starting with an empty name that gets filled in from the members data which has a more accurate name
-      person = Person.new("", person_id)
+      person = Person.new(person_id)
       e.elements.each("office") do |e|
         member_id = e.attributes["id"].match(/[0-9]+/)[0].to_i
         # TODO: Currently ignore current field in XML
-        person.add_house_period(:id => member_id)
+        # Starting with an empty name that gets filled in from the members data which has a more accurate name
+        person.add_house_period(:id => member_id, :name => Name.new({}))
       end
       people << person
     end

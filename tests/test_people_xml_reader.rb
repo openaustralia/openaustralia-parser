@@ -10,20 +10,20 @@ require 'people'
 class TestPeopleXMLReader < Test::Unit::TestCase
   def test_write_followed_by_read
     # Make two people with a couple of periods in the house
-    john_smith = Person.new(Name.new(:first => "John", :last => "Smith", :title => "Mr"))
+    john_smith = Person.new
     john_smith.add_house_period(:division => "division1", :party => "party1",
       :from_date => Date.new(2000, 1, 1), :to_date => Date.new(2001, 1, 1),
-      :from_why => "general_election", :to_why => "defeated")
+      :from_why => "general_election", :to_why => "defeated", :name => Name.new(:first => "John", :last => "Smith", :title => "Mr"))
     john_smith.add_house_period(:division => "division1", :party => "party1",
         :from_date => Date.new(2002, 1, 1), :to_date => Date.new(9999, 1, 1),
-        :from_why => "general_election", :to_why => "current_member")
-    henry_jones = Person.new(Name.new(:first => "Henry", :last => "Jones"))
+        :from_why => "general_election", :to_why => "current_member", :name => Name.new(:first => "John", :last => "Smith", :title => "Mr"))
+    henry_jones = Person.new
     henry_jones.add_house_period(:division => "division2", :party => "party2",
       :from_date => Date.new(2000, 1, 1), :to_date => Date.new(2001, 1, 1),
-      :from_why => "general_election", :to_why => "defeated")
+      :from_why => "general_election", :to_why => "defeated", :name => Name.new(:first => "Henry", :last => "Jones"))
     henry_jones.add_house_period(:division => "division2", :party => "party2",
         :from_date => Date.new(2002, 1, 1), :to_date => Date.new(2003, 1, 1),
-        :from_why => "general_election", :to_why => "defeated")
+        :from_why => "general_election", :to_why => "defeated", :name => Name.new(:first => "Henry", :last => "Jones"))
   
     people = People.new
     people << john_smith

@@ -3,12 +3,10 @@ require 'house_period'
 class Person
   attr_reader :house_periods, :id
   attr_accessor :name
-  #attr_accessor :id
   
   @@id = 10001
   
-  def initialize(name, override_id = nil)
-    @name = name
+  def initialize(override_id = nil)
     @house_periods = []
     if override_id
       @id = override_id

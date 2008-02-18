@@ -6,6 +6,9 @@ class HousePeriod
   @@id = 1
   
   def initialize(params)
+    # TODO: Make some parameters compulsary and others optional
+    throw ":name parameter required in HousePeriod.new" unless params[:name]
+    throw ":person parameter required in HousePeriod.new" unless params[:person]
     if params[:id]
       @id = params[:id]
     else
@@ -19,9 +22,11 @@ class HousePeriod
     @division =   params[:division]
     @party =      params[:party]
     @person =     params[:person]
+    # Set the name in the parent
+    @person.name = params[:name]
     throw "Invalid keys" unless (params.keys -
       [:id, :division, :party, :from_date,
-      :to_date, :from_why, :to_why, :person]).empty?
+      :to_date, :from_why, :to_why, :person, :name]).empty?
   end
   
   def ==(p)
