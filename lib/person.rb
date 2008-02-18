@@ -15,6 +15,11 @@ class Person
     end
   end
   
+  # Returns the house period which is the latest in time
+  def latest_house_period
+    @house_periods.sort {|a, b| a.to_date <=> b.to_date}.last
+  end
+  
   def name
     throw "No house periods for this person" if @house_periods.empty?
     # TODO: Should really return the latest name
