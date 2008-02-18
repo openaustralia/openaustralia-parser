@@ -20,6 +20,10 @@ class Person
     @house_periods.sort {|a, b| a.to_date <=> b.to_date}.last
   end
   
+  def latest_name
+    latest_house_period.name
+  end
+  
   def name
     throw "No house periods for this person" if @house_periods.empty?
     # TODO: Should really return the latest name
