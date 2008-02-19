@@ -1,0 +1,66 @@
+h1. How to Install
+
+h2. Assumptions
+
+These steps have only been tested on Mac OS X 10.5 (leopard). They might work as well on other Unix derivatives.
+
+h2. Requirements
+
+*  Unix
+*  Apache + PHP + MySQL (we've tested with Apache 2.X.X, PHP5, MySQL 5.0.x)
+*  Ruby (included in Leopard)
+*  the following gems
+**  mechanize
+**  builder
+**  RMagick 
+   (this has dependencies like GraphicsMagick, which in turn needs
+   ghostscript)
+*  "Mercurial":http://www.selenic.com/mercurial/wiki/
+
+h2. How to install all the previous apps
+
+Apache, PHP and Ruby all come with Leopard. If you need to install any of these
+on Mac OS X (if for whatever reason you don't have them installed) there's a ton
+of information online:
+
+# "Entropy's Instructions":http://www.entropy.ch/software/macosx/
+# "Hivelogic's Instructions":http://hivelogic.com/articles/ruby_rails_lighttpd_mysql_tiger/
+
+Install "DarwinPorts":http://darwinports.com/ and then install Mercurial, ImageMagick and ghostscript:
+
+<pre>
+  <code>
+$ sudo port install mercurial
+$ sudo port install ImageMagick
+$ sudo port install ghostscript
+  </code>
+</pre>
+
+h2. Installing OpenAustralia
+
+h3. Web Application
+
+For development purposes we have our web application (mostly PHP) under
+<tt>/Library/WebServer/Documents/</tt> and, unless you want to patch the
+configuration, we recommend that you install it there.
+
+
+<pre>
+  <code>
+$ cd /Library/WebServer/
+$ sudo chown -R YOURUSER:staff Documents
+(enter your admin password)
+$ cd Documents
+$ mkdir openaustralia
+$ hg clone http://hg.assembla.com/openaustralia3 openaustralia-app
+$ hg clone http://hg.assembla.com/openaustralia2 openaustralia-app/.hg/patches
+  </code>
+</pre>
+
+_where YOURUSER is replaced by your Mac OS X username_
+
+Perl CPAN modules (for twfy XML parser):
+sudo perl -MCPAN -e shell
+cpan> install Error
+cpan> install XML::Twig
+cpan> install DBD::mysql
