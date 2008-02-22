@@ -3,7 +3,11 @@ class HousePeriod
   attr_accessor :from_date, :to_date, :from_why, :to_why, :division, :party, :person, :name
   attr_reader :id
   
-  @@id = 1
+  def HousePeriod.reset_id_counter
+    @@id = 1
+  end
+  
+  reset_id_counter
   
   def initialize(params)
     # TODO: Make some parameters compulsary and others optional

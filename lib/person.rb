@@ -3,7 +3,11 @@ require 'house_period'
 class Person
   attr_reader :house_periods, :id
   
-  @@id = 10001
+  def Person.reset_id_counter
+    @@id = 10001
+  end
+  
+  reset_id_counter
   
   def initialize(override_id = nil)
     @house_periods = []
