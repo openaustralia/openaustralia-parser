@@ -42,4 +42,12 @@ class TestPerson < Test::Unit::TestCase
     assert_equal(dr_john_smith, person.latest_name)
   end
   
+  def test_find_house_period_by_id
+    person = Person.new
+    person.add_house_period(:id => 1, :name => Name.new(:first => "John", :last => "Smith"))
+    person.add_house_period(:id => 2, :name => Name.new(:first => "John", :last => "Smith"))
+    assert_equal(1, person.find_house_period_by_id(1).id)
+    assert_equal(nil, person.find_house_period_by_id(3))
+  end
+  
 end

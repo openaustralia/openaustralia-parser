@@ -36,10 +36,10 @@ class Person
   
   # Returns true if this person has a house_period with the given id
   def has_house_period_with_id?(id)
-    !find_house_period_with_id(id).nil?
+    !find_house_period_by_id(id).nil?
   end
   
-  def find_house_period_with_id(id)
+  def find_house_period_by_id(id)
     @house_periods.find{|p| p.id == id}
   end
   
