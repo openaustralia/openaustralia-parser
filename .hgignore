@@ -4,3 +4,4 @@ pwdata/images/mpsL/*.jpg
 pwdata/members/all-members.xml
 pwdata/members/people.xml
 pwdata/scrapedxml/debates/debates*.xml
+coverage/*
