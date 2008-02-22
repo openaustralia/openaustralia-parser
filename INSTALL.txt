@@ -15,6 +15,7 @@ h2. Requirements
 **  RMagick 
    (this has dependencies like GraphicsMagick, which in turn needs
    ghostscript)
+**  rcov
 *  "Mercurial":http://www.selenic.com/mercurial/wiki/
 
 h2. How to install all the previous apps
