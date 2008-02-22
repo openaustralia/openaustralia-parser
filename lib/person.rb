@@ -31,9 +31,9 @@ class Person
   end
   
   def display
-    puts "Member: #{@name.informal_name}"
+    puts "Member:"
     @house_periods.each do |p|
-      puts "  start: #{p.from_date} #{p.from_why}, end: #{p.to_date} #{p.to_why}"    
+      puts "  name: #{p.name.informal_name}, start: #{p.from_date} #{p.from_why}, end: #{p.to_date} #{p.to_why}"    
     end    
   end
   
