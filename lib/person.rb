@@ -34,13 +34,6 @@ class Person
     @house_periods << HousePeriod.new(params.merge(:person => self))
   end
   
-  def display
-    puts "Member:"
-    @house_periods.each do |p|
-      puts "  name: #{p.name.informal_name}, start: #{p.from_date} #{p.from_why}, end: #{p.to_date} #{p.to_why}"    
-    end    
-  end
-  
   # Returns true if this person has a house_period with the given id
   def has_house_period_with_id?(id)
     !find_house_period_with_id(id).nil?
