@@ -48,6 +48,9 @@ class TestPerson < Test::Unit::TestCase
     person.add_house_period(:id => 2, :name => Name.new(:first => "John", :last => "Smith"))
     assert_equal(1, person.find_house_period_by_id(1).id)
     assert_equal(nil, person.find_house_period_by_id(3))
+    
+    assert(person.has_house_period_with_id?(1))
+    assert(!person.has_house_period_with_id?(3))
   end
   
 end
