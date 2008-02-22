@@ -66,6 +66,11 @@ class TestName < Test::Unit::TestCase
     assert_equal("Matt Landauer", Name.new(:first => "Matthew", :nick => "Matt", :last => "Landauer", :title => "Dr").informal_name)
   end
   
+  def test_full_name
+    name = Name.new(:last => "Abbott", :title => "the Hon.", :first => "Anthony", :nick => "Tony", :middle => "John")
+    assert_equal("the Hon. Anthony (Tony) John Abbott", name.full_name)
+  end
+  
   def test_capitals_irish_name
     assert_equal("O'Connor", Name.new(:last => "o'connor").last)
   end
