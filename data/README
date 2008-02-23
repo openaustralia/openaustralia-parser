@@ -1,11 +1,9 @@
 This directory contains hand-made data. It was unfortunately more straightforward to build this by hand rather than
 writing a parser for it.
 
-house_members.csv:
-Contains the members of the House of Representatives since 1980. This data was originaly taken from 41st parliamentary
-handbook available at http://www.aph.gov.au/library/handbook41st/historical/representatives/index.htm and was manually
-updated to take in account the 2007 general elections
-
-senate_members.csv
-Contains the members of the senate since 1980. This data was originaly taken from 41st parliamentary
-handbook available at http://www.aph.gov.au/library/handbook41st/historical/senate/index.htm
+members.csv:
+Contains the members of the House of Representatives and members of the senate since 1980. This data was originaly compiled
+from the 41st parliamentary handbook. The members of the house of representatives data was taken from
+http://www.aph.gov.au/library/handbook41st/historical/representatives/index.htm
+This was manually updated to take in account the 2007 general elections. The senator information was taken from
+http://www.aph.gov.au/library/handbook41st/historical/senate/index.htm
