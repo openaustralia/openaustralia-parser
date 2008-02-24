@@ -38,12 +38,15 @@ class PeopleImageDownloader
   
   def each_person_bio_page
     # Iterate over current members of house
-    @agent.get(@conf.current_members_url).links[29..-4].each do |link|
+    @agent.get(@conf.current_house_members_url).links[29..-4].each do |link|
       yield @agent.click(link)
     end
-    puts "Any skipped photos after here might be due to former politicians being senators"
+    # Iterate over current members of senate
+    @agent.get(@conf.current_senate_members_url).links[29..-4].each do |link|
+      yield @agent.click(link)
+    end
     # Iterate over former members of house and senate
-    @agent.get(@conf.former_members_url).links[29..-4].each do |link|
+    @agent.get(@conf.former_members_house_and_senate_url).links[29..-4].each do |link|
       yield @agent.click(link)
     end    
   end

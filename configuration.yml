@@ -23,7 +23,8 @@ web_root: "/Library/WebServer/Documents/mysociety"
 
 # Should hopefully not have to change anything below here
 
-# Links to the biographies of all *current* members
-current_members_url: "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Handbook%20%3E%20Biographies%20%3E%20Current%20Members"
+# Links to the biographies of all *current* house members and senators
+current_house_members_url: "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Handbook%20%3E%20Biographies%20%3E%20Current%20Members"
+current_senate_members_url: "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Handbook%20%3E%20Biographies%20%3E%20Current%20Senators"
 # Links to the biographies of all *former* senators and representatives
-former_members_url: "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Handbook%20%3E%20Biographies%20%3E%20Former%20Senators%20and%20Members"
+former_members_house_and_senate_url: "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Handbook%20%3E%20Biographies%20%3E%20Former%20Senators%20and%20Members"
