@@ -1,7 +1,7 @@
 require 'period'
 
 class Person
-  attr_reader :house_periods, :id
+  attr_reader :periods, :id
   
   def Person.reset_id_counter
     @@id = 10001
@@ -10,7 +10,7 @@ class Person
   reset_id_counter
   
   def initialize(override_id = nil)
-    @house_periods = []
+    @periods = []
     if override_id
       @id = override_id
     else
@@ -19,17 +19,21 @@ class Person
     end
   end
   
-  # Returns the house period which is the latest in time
-  def latest_house_period
-    @house_periods.sort {|a, b| a.to_date <=> b.to_date}.last
+  def house_periods
+    @periods.find_all{|p| p.house == "representatives"}
+  end
+  
+  # Returns the period which is the latest in time
+  def latest_period
+    @periods.sort {|a, b| a.to_date <=> b.to_date}.last
   end
   
   def latest_name
-    latest_house_period.name
+    latest_period.name
   end
   
   def add_period(params)
-    @house_periods << Period.new(params.merge(:person => self))
+    @periods << Period.new(params.merge(:person => self))
   end
   
   # Adds a single continuous period when this person was in the house of representatives
@@ -39,15 +43,15 @@ class Person
   end
   
   # Returns true if this person has a house_period with the given id
-  def has_house_period_with_id?(id)
-    !find_house_period_by_id(id).nil?
+  def has_period_with_id?(id)
+    !find_period_by_id(id).nil?
   end
   
-  def find_house_period_by_id(id)
-    @house_periods.find{|p| p.id == id}
+  def find_period_by_id(id)
+    @periods.find{|p| p.id == id}
   end
   
   def ==(p)
-    id == p.id && house_periods == p.house_periods
+    id == p.id && periods == p.periods
   end
 end

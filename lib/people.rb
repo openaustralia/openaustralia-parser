@@ -6,12 +6,12 @@ require 'people_image_downloader'
 class People < Array
   
   def initialize
-    @all_house_periods = []
+    @all_periods = []
   end
   
   # Override method to populate @all_house_periods
   def <<(person)
-    @all_house_periods.concat(person.house_periods)
+    @all_periods.concat(person.periods)
     super
   end
   
@@ -23,25 +23,25 @@ class People < Array
   end
   
   # Throws exception if no or multiple matches found
-  def find_member_by_name(name, date)
-    matches = find_members_by_name(name, date)
+  def find_house_member_by_name(name, date)
+    matches = find_house_members_by_name(name, date)
     throw "More than one match for name #{name.full_name} found" if matches.size > 1
     throw "No match for name #{name.full_name} found" if matches.size == 0
     matches[0]
   end
   
   def find_people_by_name(name)
-    @all_house_periods.find_all{|m| name.matches?(m.name)}.map{|m| m.person}.uniq
+    @all_periods.find_all{|m| name.matches?(m.name)}.map{|m| m.person}.uniq
   end    
   
-  def find_members_by_name(name, date)
-    @all_house_periods.find_all do |m|
+  def find_house_members_by_name(name, date)
+    all_house_periods.find_all do |m|
       date >= m.from_date && date <= m.to_date && name.matches?(m.name)
     end
   end
 
   def find_house_period_by_id(id)
-    @all_house_periods.find{|p| p.id == id}
+    all_house_periods.find{|p| p.id == id}
   end
   
   # Facade for readers and writers
@@ -60,5 +60,11 @@ class People < Array
   def download_images(small_image_dir, large_image_dir)
     downloader = PeopleImageDownloader.new
     downloader.download(self, small_image_dir, large_image_dir)
+  end
+  
+  private
+  
+  def all_house_periods
+    @all_periods.find_all{|p| p.house == "representatives"}
   end
 end

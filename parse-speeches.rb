@@ -82,7 +82,7 @@ def lookup_speaker(speakername, people, date)
   if speakername.downcase == "unknown"
     nil
   else
-    people.find_member_by_name(Name.title_first_last(speakername), date)
+    people.find_house_member_by_name(Name.title_first_last(speakername), date)
   end
 end
 
