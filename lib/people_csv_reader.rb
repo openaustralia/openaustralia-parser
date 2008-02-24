@@ -19,32 +19,27 @@ class PeopleCSVReader
     while i < data.size do
       lastname, firstname, middlename, house, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
 
-      # TODO: Support senators
-      if house == "representatives"
-        name = Name.new(:last => lastname, :first => firstname, :middle => middlename)
-        person = Person.new
+      name = Name.new(:last => lastname, :first => firstname, :middle => middlename)
+      person = Person.new
 
+      start_date = parse_date(start_date)
+      end_date = parse_end_date(end_date)
+      start_reason = parse_start_reason(start_reason)
+      person.add_period(:house => house, :division => division, :party => party,
+        :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason, :name => name)
+      i = i + 1
+      # Process further start/end dates for this member
+      while i < data.size && data[i][0] == lastname && data[i][1] == firstname && data[i][2] == middlename
+        temp1, temp2, temp3, house, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
         start_date = parse_date(start_date)
         end_date = parse_end_date(end_date)
         start_reason = parse_start_reason(start_reason)
-        person.add_house_period(:division => division, :party => party,
+        person.add_period(:house => house, :division => division, :party => party,
           :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason, :name => name)
         i = i + 1
-        # Process further start/end dates for this member
-        while i < data.size && data[i][0] == lastname && data[i][1] == firstname && data[i][2] == middlename
-          temp1, temp2, temp3, temp4, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
-          start_date = parse_date(start_date)
-          end_date = parse_end_date(end_date)
-          start_reason = parse_start_reason(start_reason)
-          person.add_house_period(:division => division, :party => party,
-            :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason, :name => name)
-          i = i + 1
-        end
-
-        people << person
-      else
-        i = i + 1
       end
+
+      people << person
     end
     people
   end  
