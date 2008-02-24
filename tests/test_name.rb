@@ -114,6 +114,32 @@ class TestName < Test::Unit::TestCase
     assert_equal("AM", name.post_title)
   end
   
+  def test_post_title_MBE
+    assert_equal(Name.new(:first => "John", :last => "Smith", :post_title => "MBE"), Name.last_title_first("Smith, John, MBE"))
+  end
+  
+  def test_post_title_QC
+    assert_equal(Name.new(:first => "John", :last => "Smith", :post_title => "QC"), Name.last_title_first("Smith, John, QC"))
+  end
+  
+  def test_post_title_OBE
+    assert_equal(Name.new(:first => "John", :last => "Smith", :post_title => "OBE"), Name.last_title_first("Smith, John, OBE"))
+  end
+  
+  def test_capilisation_on_middle_name
+    assert_equal("McCahon", Name.new(:middle => "mccahon").middle)
+  end
+  
+  def test_ian_sinclair
+    assert_equal(Name.new(:last => "Sinclair", :title => "the Rt Hon.", :first => "Ian", :middle => "McCahon"),
+      Name.last_title_first("SINCLAIR, the Rt Hon. Ian Mccahon"))
+  end
+  
+  def test_two_post_titles
+    assert_equal(Name.new(:last => "Williams", :title => "the Hon.", :first => "Daryl", :middle => "Robert", :post_title => "AM QC"),
+      Name.last_title_first("WILLIAMS, the Hon. Daryl Robert, AM, QC"))
+  end
+
   # Class for simple (naive) way of comparing two names. Only compares parts of the name
   # that exist in both names
   def test_matches

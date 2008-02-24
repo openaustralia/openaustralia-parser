@@ -1,8 +1,4 @@
 class String
-  def capitalize_each_word
-    split(' ').map{|t| t.capitalize}.join(' ')
-  end
-  
   def surrounded_by_brackets?
     self[0..0] == '(' && self[-1..-1] == ')'
   end
@@ -14,27 +10,18 @@ class Name
   
   def initialize(params)
     @title = params[:title] || ""
-    @first = (params[:first].capitalize if params[:first]) || ""
-    @nick = (params[:nick].capitalize if params[:nick]) || ""
-    @middle = (params[:middle].capitalize_each_word if params[:middle]) || ""
+    @first = (Name.capitalize_name(params[:first]) if params[:first]) || ""
+    @nick = (Name.capitalize_name(params[:nick]) if params[:nick]) || ""
+    @middle = (Name.capitalize_each_name(params[:middle]) if params[:middle]) || ""
     @post_title = (params[:post_title].upcase if params[:post_title]) || ""
-    if params[:last]
-      # Also replaces the unicode character
-      @last = params[:last].capitalize.gsub("\342\200\231", "'")
-      # Exceptions to capitalisation rule
-      if @last[0..1] == "O'" || @last[0..1] == "Mc" || @last[0..1] == "D'"
-        @last = @last[0..1] + @last[2..-1].capitalize
-      end
-    else
-      @last = ""
-    end
+    @last = (Name.capitalize_name(params[:last]) if params[:last]) || ""
     throw "Invalid keys" unless (params.keys - [:title, :first, :nick, :middle, :last, :post_title]).empty?
   end
   
   def Name.last_title_first(text)
     names = text.delete(',').split(' ')
     last = names.shift
-    titles = Array.new
+    titles = []
     while title = Name.title(names)
       titles << title
     end
@@ -45,13 +32,21 @@ class Name
     if names.size >= 1 && names[0].surrounded_by_brackets?
       nick = names.shift[1..-2]
     end
-    if names.last == "AM" || names.last == "SC" || names.last == "AO"
-      post_title = names.last
-      middle = names[0..-2].join(' ')
-    else
-      middle = names[0..-1].join(' ')
+    post_titles = []
+    while post_title = Name.post_title(names)
+      post_titles.unshift(post_title)
     end
+    post_title = post_titles.join(' ')
+    middle = names[0..-1].join(' ')
     Name.new(:title => title, :last => last, :first => first, :nick => nick, :middle => middle, :post_title => post_title)
+  end
+  
+  # Extract a post title from the end if one is available
+  def Name.post_title(names)
+    if names.last == "AM" || names.last == "SC" || names.last == "AO" ||
+      names.last == "MBE" || names.last == "QC" || names.last == "OBE"
+      names.pop
+    end
   end
   
   def Name.title_first_last(text)
@@ -146,7 +141,12 @@ class Name
   
   # Extract a title at the beginning of the list of names if available and shift
   def Name.title(names)
-    if names.size >= 2 && names[0] == "the" && names[1] == "Hon."
+    if names.size >= 3 && names[0] == "the" && names[1] == "Rt" && names[2] == "Hon."
+      names.shift
+      names.shift
+      names.shift
+      "the Rt Hon."
+    elsif names.size >= 2 && names[0] == "the" && names[1] == "Hon."
       names.shift
       names.shift
       "the Hon."
@@ -160,5 +160,22 @@ class Name
         title
       end
     end
+  end
+  
+  # Capitalise a name using special rules
+  def Name.capitalize_name(name)
+    # Simple capitlisation
+    name = name.capitalize
+    # Replace a unicode character
+    name = name.capitalize.gsub("\342\200\231", "'")
+    # Exceptions to capitalisation rule
+    if name[0..1] == "O'" || name[0..1] == "Mc" || name[0..1] == "D'"
+      name = name[0..1] + name[2..-1].capitalize
+    end
+    name
+  end
+
+  def Name.capitalize_each_name(name)
+    name.split(' ').map{|t| capitalize_name(t)}.join(' ')
   end
 end
