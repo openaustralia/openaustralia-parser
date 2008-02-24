@@ -14,13 +14,26 @@ class Name
     @nick = (Name.capitalize_name(params[:nick]) if params[:nick]) || ""
     @middle = (Name.capitalize_each_name(params[:middle]) if params[:middle]) || ""
     @post_title = (params[:post_title].upcase if params[:post_title]) || ""
-    @last = (Name.capitalize_name(params[:last]) if params[:last]) || ""
+    @last = (Name.capitalize_each_name(params[:last]) if params[:last]) || ""
     throw "Invalid keys" unless (params.keys - [:title, :first, :nick, :middle, :last, :post_title]).empty?
   end
   
   def Name.last_title_first(text)
     names = text.delete(',').split(' ')
-    last = names.shift
+    # Check for a name in brackets which we take as the nickname
+    nickname_text = names.find{|n| n.surrounded_by_brackets?}
+    if nickname_text
+      nick = nickname_text[1..-2]
+      names.delete(nickname_text)
+    end
+    # Hack to deal with a specific person who has two last names that aren't hyphenated
+    if names.size >= 2 && names[0].downcase == "stott" && names[1].downcase == "despoja"
+      last = names[0..1].join(' ')
+      names.shift
+      names.shift
+    else
+      last = names.shift
+    end
     titles = []
     while title = Name.title(names)
       titles << title
@@ -28,10 +41,6 @@ class Name
     title = titles.join(' ')
     first = names.shift
     throw "Too few names" if first.nil?
-    # There could be a nickname after the first name in brackets
-    if names.size >= 1 && names[0].surrounded_by_brackets?
-      nick = names.shift[1..-2]
-    end
     post_titles = []
     while post_title = Name.post_title(names)
       post_titles.unshift(post_title)
@@ -44,7 +53,8 @@ class Name
   # Extract a post title from the end if one is available
   def Name.post_title(names)
     if names.last == "AM" || names.last == "SC" || names.last == "AO" ||
-      names.last == "MBE" || names.last == "QC" || names.last == "OBE"
+      names.last == "MBE" || names.last == "QC" || names.last == "OBE" ||
+      names.last == "KSJ" || names.last == "JP"
       names.pop
     end
   end
@@ -176,6 +186,6 @@ class Name
   end
 
   def Name.capitalize_each_name(name)
-    name.split(' ').map{|t| capitalize_name(t)}.join(' ')
+    name.split(' ').map{|t| Name.capitalize_name(t)}.join(' ')
   end
 end

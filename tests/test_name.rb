@@ -126,6 +126,14 @@ class TestName < Test::Unit::TestCase
     assert_equal(Name.new(:first => "John", :last => "Smith", :post_title => "OBE"), Name.last_title_first("Smith, John, OBE"))
   end
   
+  def test_post_title_KSJ
+    assert_equal(Name.new(:first => "John", :last => "Smith", :post_title => "KSJ"), Name.last_title_first("Smith, John, KSJ"))
+  end
+  
+  def test_post_title_JP
+    assert_equal(Name.new(:first => "John", :last => "Smith", :post_title => "JP"), Name.last_title_first("Smith, John, JP"))
+  end
+  
   def test_capilisation_on_middle_name
     assert_equal("McCahon", Name.new(:middle => "mccahon").middle)
   end
@@ -139,7 +147,13 @@ class TestName < Test::Unit::TestCase
     assert_equal(Name.new(:last => "Williams", :title => "the Hon.", :first => "Daryl", :middle => "Robert", :post_title => "AM QC"),
       Name.last_title_first("WILLIAMS, the Hon. Daryl Robert, AM, QC"))
   end
-
+  
+  def test_stott_despoja
+    # Difficult situation of two last names which aren't hyphenated
+    assert_equal(Name.new(:last => "Stott Despoja", :first => "Natasha", :middle => "Jessica"),
+      Name.last_title_first("STOTT DESPOJA, Natasha Jessica"))
+  end
+  
   # Class for simple (naive) way of comparing two names. Only compares parts of the name
   # that exist in both names
   def test_matches
@@ -152,5 +166,10 @@ class TestName < Test::Unit::TestCase
     assert(!dr_john_smith.matches?(peter_smith))
     # When there is no overlap between the names they should not match
     assert(!smith.matches?(dr_john))
+  end
+  
+  def test_nickname_after_middle_names
+    assert_equal(Name.new(:last => "Macdonald", :title => "the Hon.", :first => "John", :middle => "Alexander Lindsay", :nick => "Sandy"),
+      Name.last_title_first("MACDONALD, the Hon. John Alexander Lindsay (Sandy)"))
   end
 end
