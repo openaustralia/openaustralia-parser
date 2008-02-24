@@ -1,4 +1,4 @@
-require 'house_period'
+require 'period'
 
 class Person
   attr_reader :house_periods, :id

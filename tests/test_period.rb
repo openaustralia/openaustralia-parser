@@ -3,11 +3,11 @@ $:.unshift "#{File.dirname(__FILE__)}/../lib"
 require 'test/unit'
 require 'date'
 
-require 'house_period'
+require 'period'
 require 'name'
 require 'person'
 
-class TestHousePeriod < Test::Unit::TestCase
+class TestPeriod < Test::Unit::TestCase
   def test_equality
     person = Person.new
     period1 = Period.new(:house => "representatives", :division => "division1", :party => "party1",
