@@ -8,7 +8,7 @@ class TestPeopleCSVReader < Test::Unit::TestCase
   # By resetting the id counters before every test we can ensure that the id's will be consistent
   def setup
     Person.reset_id_counter
-    HousePeriod.reset_id_counter
+    Period.reset_id_counter
   end
   
   def test_sophie_mirabella

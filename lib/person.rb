@@ -28,10 +28,14 @@ class Person
     latest_house_period.name
   end
   
+  def add_period(params)
+    @house_periods << Period.new(params.merge(:person => self))
+  end
+  
   # Adds a single continuous period when this person was in the house of representatives
   # Note that there might be several of these per person
   def add_house_period(params)
-    @house_periods << HousePeriod.new(params.merge(:person => self))
+    add_period(params.merge(:house => "representatives"))
   end
   
   # Returns true if this person has a house_period with the given id

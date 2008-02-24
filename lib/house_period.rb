@@ -1,9 +1,9 @@
 # Represents a period in the house of representatives
-class HousePeriod
-  attr_accessor :from_date, :to_date, :from_why, :to_why, :division, :party, :person, :name
+class Period
+  attr_accessor :from_date, :to_date, :from_why, :to_why, :division, :party, :person, :name, :house
   attr_reader :id
   
-  def HousePeriod.reset_id_counter
+  def Period.reset_id_counter
     @@id = 1
   end
   
@@ -27,8 +27,12 @@ class HousePeriod
     @party =      params[:party]
     @person =     params[:person]
     @name =       params[:name]
+    @house =      params[:house]
+    if @house != "representatives"
+      throw "Only supporting members of the house of representatives currently"
+    end
     throw "Invalid keys" unless (params.keys -
-      [:id, :division, :party, :from_date,
+      [:id, :house, :division, :party, :from_date,
       :to_date, :from_why, :to_why, :person, :name]).empty?
   end
   
