@@ -1,3 +1,5 @@
+last name,first name,middle name,chamber,Division,State/Territory,Date of election,Type of election,Date ceased to be a Member,reason,Most recent party
+
 Abbott,Anthony,John,house,Warringah,NSW,26.3.1994,by_election, ,current_member,LIB
 Abel,John,Arthur,house,Evans,NSW,13.12.1975,,10.11.1977,retired,LIB
 Abetz,Eric,,senate,,Tas.,22.2.1994,section_15,,current_member,LIB
@@ -438,7 +440,6 @@ Lamb,Antony,Hamilton,house,La Trobe,Vic.,2.12.1972,,13.12.1975,defeated,ALP
 Lamb,Antony,Hamilton,house,Streeton,Vic.,1.12.1984,,24.3.1990,defeated,ALP
 Laming,Andrew,Charles,house,Bowman,Qld,9.10.2004,, ,current_member,LIB
 Langmore,John,Vance,house,Fraser,ACT,1.12.1984,,6.12.1996,resigned,ALP
-last name,first name,middle name,chamber,Division,State/Territory,Date of election,Type of election,Date ceased to be a Member,reason,Most recent party
 Latham,Mark,William,house,Werriwa,NSW,29.1.1994,by_election,21.1.2005,resigned,ALP
 Laucke,Condor,Louis,senate,,SA,2.11.1967 ,section_15,30.6.1981 ,retired,LIB
 Lavarch,Michael,Hugh,house,Dickson,Qld,17.4.1993,,2.3.1996,defeated,ALP
