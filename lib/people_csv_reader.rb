@@ -17,10 +17,10 @@ class PeopleCSVReader
     i = 0
     people = People.new
     while i < data.size do
-      lastname, firstname, middlename, chamber, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
+      lastname, firstname, middlename, house, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
 
       # TODO: Support senators
-      if chamber == "house"
+      if house == "representatives"
         name = Name.new(:last => lastname, :first => firstname, :middle => middlename)
         person = Person.new
 
