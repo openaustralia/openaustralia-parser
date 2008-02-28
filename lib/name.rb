@@ -178,7 +178,7 @@ class Name
         "Hon."
     elsif names.size >= 1
       title = names[0]
-      if title == "Dr" || title == "Mr" || title == "Mrs" || title == "Ms"
+      if title == "Dr" || title == "Mr" || title == "Mrs" || title == "Ms" || title == "Miss"
         names.shift
         title
       end

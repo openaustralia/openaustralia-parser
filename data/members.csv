@@ -95,8 +95,8 @@ Brumby,John,Mansfield,,,representatives,Bendigo,Vic.,5.3.1983,,24.3.1990,defeate
 Bryant,Gordon,Munro,,,representatives,Wills,Vic.,10.12.1955,,19.9.1980,retired,ALP
 Buckland,Geoffrey,Frederick,,,senate,,SA,14.9.2000,section_15,30.6.2005,retired,ALP
 Bungey,Melville,Harold,,,representatives,Canning,WA,18.5.1974,,5.3.1983,defeated,LIB
-Burke,Anna,Elizabeth,,,representatives,Chisholm,Vic.,3.10.1998,, ,current_member,ALP
-Burke,Anthony,Stephen,,,representatives,Watson,NSW,9.10.2004,, ,current_member,ALP
+Burke,Anna,Elizabeth,,Ms,representatives,Chisholm,Vic.,3.10.1998,, ,current_member,ALP
+Burke,Anthony,Stephen,,Mr,representatives,Watson,NSW,9.10.2004,, ,current_member,ALP
 Burns,Bryant,Robert,,,senate,,Qld,11.7.1987,,30.6.1996,retired,ALP
 Burns,William,George,,,representatives,Isaacs,Vic.,10.12.1977,,18.10.1980,defeated,LIB
 Burr,Maxwell,Arthur,,,representatives,Lyons,Tas.,1.12.1984,,8.2.1993,retired,LIB
@@ -231,7 +231,7 @@ Ellicott,Robert,James,,,representatives,Wentworth,NSW,18.5.1974,,17.2.1981,resig
 Elliot,Maria,Justine,,,representatives,Richmond,NSW,9.10.2004,, ,current_member,ALP
 Elliott,Robert,Paul,,,representatives,Parramatta,NSW,24.3.1990,,2.3.1996,defeated,ALP
 Ellis,Annette,Louise,,,representatives,Namadgi,ACT,2.3.1996,,,current_member,ALP
-Ellis,Katherine,Margaret,,,representatives,Adelaide,SA,9.10.2004,,,current_member,ALP
+Ellis,Katherine,Margaret,Kate,,representatives,Adelaide,SA,9.10.2004,,,current_member,ALP
 Ellison,Christopher,Martin,,,senate,,WA,1.7.1993,,,current_member,LIB
 Elson,Kay,Selma,,,representatives,Forde,Qld,2.3.1996,,17.10.2007,retired,LIB
 Elstob,Ronald,Charles,,,senate,,SA,1.7.1978 ,,5.6.1987 ,retired,ALP
@@ -414,8 +414,8 @@ Keating,Paul,John,,,representatives,Blaxland,NSW,25.10.1969,,23.4.1996,resigned,
 Keeffe,James,Bernard,,,senate,,Qld,1.7.1965 ,,4.2.1983 ,retired,ALP
 Keenan,Michael,Fayat,,,representatives,Stirling,WA,9.10.2004,, ,current_member,LIB
 Kelly,De-anne,Margaret,,,representatives,Dawson,Qld,2.3.1996,,24.11.2007,defeated,NP
-Kelly,Jacqueline,Marie,,,representatives,Lindsay,NSW,19.10.1996,by_election,17.10.2007,retired,LIB
-Kelly,Jacqueline,Marie,,,representatives,Lindsay,NSW,2.3.1996,,11.9.1996,declared_void,LIB
+Kelly,Jacqueline,Marie,Jackie,,representatives,Lindsay,NSW,19.10.1996,by_election,17.10.2007,retired,LIB
+Kelly,Jacqueline,Marie,Jackie,,representatives,Lindsay,NSW,2.3.1996,,11.9.1996,declared_void,LIB
 Kelly,Michael,Joseph,,,representatives,Eden-Monaro,NSW,24.11.2007,,,current_member,ALP
 Kelly,Roslyn,Joan,,,representatives,Canberra,ACT,18.10.1980,,30.1.1995,resigned,ALP
 Kemp,Charles,Roderick,,,senate,,Vic.,1.7.1990,,,current_member,LIB
