@@ -97,15 +97,22 @@ def strip_tags(doc)
   str.gsub(/<\/?[^>]*>/, "")
 end
 
+def extract_speaker_from_talkername_tag(content, people, date)
+  tag = content.search('span.talkername a').first
+  if tag
+    lookup_speaker(tag.inner_html, people, date)
+  end
+end
+
 def process_subspeeches(subspeeches_content, people, date, speeches, time, url, id, speaker)
   # Now extract the subspeeches
 	subspeeches_content.each do |e|
 	  tag_class = e.attributes["class"]
 	  if tag_class == "subspeech0" || tag_class == "subspeech1"
       # Extract speaker name from link
-      speaker_tag = e.search('span.talkername a').first
-      if speaker_tag
-        speaker = lookup_speaker(speaker_tag.inner_html, people, date)
+      extracted_speaker = extract_speaker_from_talkername_tag(e, people, date)
+      if extracted_speaker
+        speaker = extracted_speaker
       else
         # If no speaker found check if this is an interjection
         if e.search("div.speechType").inner_html == "Interjection"
@@ -179,12 +186,7 @@ x.publicwhip do
         speech_content = content
       end
       # Extract speaker name from link
-      speaker_tag = speech_content.search('span.talkername a').first
-      if speaker_tag
-        speaker = lookup_speaker(speaker_tag.inner_html, people, date)
-      else
-        speaker = nil
-      end
+      speaker = extract_speaker_from_talkername_tag(speech_content, people, date)
       speeches.add_speech(speaker, time, url, id, speech_content)
   	  
   	  if subspeeches_content
