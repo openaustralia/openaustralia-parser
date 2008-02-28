@@ -129,7 +129,7 @@ end
 
 x.publicwhip do
   # Structure of the page is such that we are only interested in some of the links
-  for link in page.links[30..-4] do
+  page.links[30..-4].each do |link|
   #for link in page.links[108..108] do
     puts "Processing: #{link}"
   	# Only going to consider speeches for the time being
