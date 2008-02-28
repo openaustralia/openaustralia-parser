@@ -97,6 +97,32 @@ def strip_tags(doc)
   str.gsub(/<\/?[^>]*>/, "")
 end
 
+def process_subspeeches(subspeeches_content, people, date, speeches, time, url, id, speaker)
+  # Now extract the subspeeches
+	subspeeches_content.each do |e|
+	  tag_class = e.attributes["class"]
+	  if tag_class == "subspeech0" || tag_class == "subspeech1"
+      # Extract speaker name from link
+      speaker_tag = e.search('span.talkername a').first
+      if speaker_tag
+        speaker = lookup_speaker(speaker_tag.inner_html, people, date)
+      else
+        # If no speaker found check if this is an interjection
+        if e.search("div.speechType").inner_html == "Interjection"
+          text = strip_tags(e.search("div.speechType + *").first)
+          name = text.match(/([a-z\s]*) interjecting/i)[1]
+          speaker = lookup_speaker(name, people, date)
+        else
+          throw "Not an interjection"
+        end
+      end
+    elsif tag_class == "paraitalic"
+      speaker = nil
+    end
+    speeches.add_speech(speaker, time, url, id, e)
+	end
+end
+
 x.publicwhip do
   # Structure of the page is such that we are only interested in some of the links
   for link in page.links[30..-4] do
@@ -162,29 +188,7 @@ x.publicwhip do
       speeches.add_speech(speaker, time, url, id, speech_content)
   	  
   	  if subspeeches_content
-    	  # Now extract the subspeeches
-      	subspeeches_content.each do |e|
-      	  tag_class = e.attributes["class"]
-      	  if tag_class == "subspeech0" || tag_class == "subspeech1"
-            # Extract speaker name from link
-            speaker_tag = e.search('span.talkername a').first
-            if speaker_tag
-              speaker = lookup_speaker(speaker_tag.inner_html, people, date)
-            else
-              # If no speaker found check if this is an interjection
-              if e.search("div.speechType").inner_html == "Interjection"
-                text = strip_tags(e.search("div.speechType + *").first)
-                name = text.match(/([a-z\s]*) interjecting/i)[1]
-                speaker = lookup_speaker(name, people, date)
-              else
-                throw "Not an interjection"
-              end
-            end
-          elsif tag_class == "paraitalic"
-            speaker = nil
-          end
-          speeches.add_speech(speaker, time, url, id, e)
-      	end
+  	    process_subspeeches(subspeeches_content, people, date, speeches, time, url, id, speaker)
   	  end
 	    speeches.write(x)   
     end
