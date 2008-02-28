@@ -15,7 +15,7 @@ require 'people'
 conf = Configuration.new
 
 # First load people back in so that we can look up member id's
-people = People.read_xml('pwdata/members/people.xml', 'pwdata/members/all-members.xml')
+people = People.read_csv("data/members.csv")
 
 system("mkdir -p pwdata/scrapedxml/debates")
 
@@ -86,11 +86,24 @@ def lookup_speaker(speakername, people, date)
   end
 end
 
+def min(a, b)
+  if a < b
+    a
+  else
+    b
+  end
+end
+
+def strip_tags(doc)
+  str=doc.to_s
+  str.gsub(/<\/?[^>]*>/, "")
+end
+
 x.publicwhip do
   # Structure of the page is such that we are only interested in some of the links
   for link in page.links[30..-4] do
   #for link in page.links[108..108] do
-    puts "Processing: #{link}"
+    #puts "Processing: #{link}"
   	# Only going to consider speeches for the time being
   	if link.to_s =~ /Speech:/
     	# Link text for speech has format:
@@ -126,21 +139,18 @@ x.publicwhip do
     	tag_classes = content.map{|e| e.attributes["class"]}
     	subspeech0_index = tag_classes.index("subspeech0")
     	paraitalic_index = tag_classes.index("paraitalic")
-    	# HACK
-    	if subspeech0_index.nil?
-    	  subspeech0_index = 999999
-    	end
-      if paraitalic_index.nil?
-        paraitalic_index = 999999
-      end
-      if subspeech0_index < paraitalic_index
+
+      if subspeech0_index.nil?
+        subspeech_index = paraitalic_index
+      elsif paraitalic_index.nil?
         subspeech_index = subspeech0_index
       else
-        subspeech_index = paraitalic_index
+        subspeech_index = min(subspeech0_index, paraitalic_index)
       end
-    	if subspeech_index
-      	speech_content = content[0..subspeech_index-1]
-      	subspeeches_content = content[subspeech_index..-1]
+      
+      if subspeech_index
+        speech_content = content[0..subspeech_index-1]
+        subspeeches_content = content[subspeech_index..-1]
       else
         speech_content = content
       end
@@ -163,7 +173,14 @@ x.publicwhip do
             if speaker_tag
               speaker = lookup_speaker(speaker_tag.inner_html, people, date)
             else
-              speaker = nil
+              # If no speaker found check if this is an interjection
+              if e.search("div.speechType").inner_html == "Interjection"
+                text = strip_tags(e.search("div.speechType + *").first)
+                name = text.match(/([a-z\s]*) interjecting/i)[1]
+                speaker = lookup_speaker(name, people, date)
+              else
+                throw "Not an interjection"
+              end
             end
           elsif tag_class == "paraitalic"
             speaker = nil
