@@ -104,24 +104,24 @@ def extract_speaker_from_talkername_tag(content, people, date)
   end
 end
 
+def extract_speaker_in_interjection(content, people, date)
+  if content.search("div.speechType").inner_html == "Interjection"
+    text = strip_tags(content.search("div.speechType + *").first)
+    name = text.match(/([a-z\s]*) interjecting/i)[1]
+    lookup_speaker(name, people, date)
+  else
+    throw "Not an interjection"
+  end
+end
+
 def process_subspeeches(subspeeches_content, people, date, speeches, time, url, id, speaker)
   # Now extract the subspeeches
 	subspeeches_content.each do |e|
 	  tag_class = e.attributes["class"]
 	  if tag_class == "subspeech0" || tag_class == "subspeech1"
-      # Extract speaker name from link
-      extracted_speaker = extract_speaker_from_talkername_tag(e, people, date)
-      if extracted_speaker
-        speaker = extracted_speaker
-      else
-        # If no speaker found check if this is an interjection
-        if e.search("div.speechType").inner_html == "Interjection"
-          text = strip_tags(e.search("div.speechType + *").first)
-          name = text.match(/([a-z\s]*) interjecting/i)[1]
-          speaker = lookup_speaker(name, people, date)
-        else
-          throw "Not an interjection"
-        end
+      speaker = extract_speaker_from_talkername_tag(e, people, date)
+      if speaker.nil?
+        speaker = extract_speaker_in_interjection(e, people, date)
       end
     elsif tag_class == "paraitalic"
       speaker = nil
