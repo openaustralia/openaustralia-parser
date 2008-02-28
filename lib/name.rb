@@ -124,7 +124,7 @@ class Name
   
   # Names don't have to be identical to match but rather the parts of the name
   # that exist in both names have to match
-  def matches?(name)
+  def matches_simply?(name)
     # True if there is overlap between the names
     overlap = (has_title? && name.has_title?) ||
       (has_first?      && name.has_first?) ||
@@ -140,6 +140,19 @@ class Name
       (!has_middle?     || !name.has_middle?     || @middle     == name.middle) &&
       (!has_last?       || !name.has_last?       || @last       == name.last) &&
       (!has_post_title? || !name.has_post_title? || @post_title == name.post_title)
+  end
+  
+  def matches?(name)
+    # Special handling for nicknames
+    if (has_first? && name.has_first? && !has_nick? && name.has_nick?)
+      return name.matches?(self)
+    elsif (has_first? && name.has_first? && has_nick? && !name.has_nick?)
+      swapped_first_and_nick = Name.new(:title => name.title, :nick => name.first, :middle => name.middle,
+        :last => name.last, :post_title => name.post_title)
+      matches_simply?(name) || matches_simply?(swapped_first_and_nick)
+    else
+      matches_simply?(name)
+    end
   end
   
   def ==(name)

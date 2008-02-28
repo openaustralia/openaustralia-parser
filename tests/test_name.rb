@@ -172,4 +172,16 @@ class TestName < Test::Unit::TestCase
     assert_equal(Name.new(:last => "Macdonald", :title => "the Hon.", :first => "John", :middle => "Alexander Lindsay", :nick => "Sandy"),
       Name.last_title_first("MACDONALD, the Hon. John Alexander Lindsay (Sandy)"))
   end
+  
+  def test_matches_when_firstname_is_actually_nickname
+    # The form of the name that's used in one of the speeches
+    # Note that the first name is actually a nickname
+    name_speech = Name.new(:first => "Fran", :last => "Bailey")
+    # Form of the name as it is stored internally (from members.csv)
+    name_members = Name.new(:first => "Frances", :last => "Bailey", :nick => "Fran")
+    
+    # We need these two forms to match
+    assert(name_speech.matches?(name_members))
+    assert(name_members.matches?(name_speech))
+  end
 end
