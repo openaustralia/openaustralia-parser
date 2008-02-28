@@ -119,10 +119,7 @@ def process_subspeeches(subspeeches_content, people, date, speeches, time, url, 
 	subspeeches_content.each do |e|
 	  tag_class = e.attributes["class"]
 	  if tag_class == "subspeech0" || tag_class == "subspeech1"
-      speaker = extract_speaker_from_talkername_tag(e, people, date)
-      if speaker.nil?
-        speaker = extract_speaker_in_interjection(e, people, date)
-      end
+      speaker = extract_speaker_from_talkername_tag(e, people, date) || extract_speaker_in_interjection(e, people, date)
     elsif tag_class == "paraitalic"
       speaker = nil
     end
