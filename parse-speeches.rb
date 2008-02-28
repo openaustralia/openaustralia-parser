@@ -42,7 +42,7 @@ def quote(text)
   text.sub('&', '&amp;')
 end
 
-id = Id.new("uk.org.publicwhip/debate/#{date}.")
+speech_id = Id.new("uk.org.publicwhip/debate/#{date}.")
 
 x.instruct!
 
@@ -52,9 +52,9 @@ class Speeches
     @speeches = []
   end
   
-  def add_speech(speaker, time, url, id, content)
+  def add_speech(speaker, time, url, speech_id, content)
     if speaker.nil? || @speeches.empty? || @speeches.last.speaker.nil? || speaker != @speeches.last.speaker
-      @speeches << Speech.new(speaker, time, url, id)
+      @speeches << Speech.new(speaker, time, url, speech_id)
     end
     @speeches.last.append_to_content(content)
   end
@@ -114,7 +114,7 @@ def extract_speaker_in_interjection(content, people, date)
   end
 end
 
-def process_subspeeches(subspeeches_content, people, date, speeches, time, url, id, speaker)
+def process_subspeeches(subspeeches_content, people, date, speeches, time, url, speech_id, speaker)
   # Now extract the subspeeches
 	subspeeches_content.each do |e|
 	  tag_class = e.attributes["class"]
@@ -123,7 +123,7 @@ def process_subspeeches(subspeeches_content, people, date, speeches, time, url, 
     elsif tag_class == "paraitalic"
       speaker = nil
     end
-    speeches.add_speech(speaker, time, url, id, e)
+    speeches.add_speech(speaker, time, url, speech_id, e)
 	end
 end
 
@@ -151,10 +151,10 @@ x.publicwhip do
 
    	  # Only add headings if they have changed
    	  if newtitle != title
-     	  x.tag!("major-heading", newtitle, :id => id, :url => url)
+     	  x.tag!("major-heading", newtitle, :id => speech_id, :url => url)
       end
    	  if newtitle != title || newsubtitle != subtitle
-     	  x.tag!("minor-heading", newsubtitle, :id => id, :url => url)
+     	  x.tag!("minor-heading", newsubtitle, :id => speech_id, :url => url)
       end
       title = newtitle
       subtitle = newsubtitle
@@ -184,10 +184,10 @@ x.publicwhip do
       end
       # Extract speaker name from link
       speaker = extract_speaker_from_talkername_tag(speech_content, people, date)
-      speeches.add_speech(speaker, time, url, id, speech_content)
+      speeches.add_speech(speaker, time, url, speech_id, speech_content)
   	  
   	  if subspeeches_content
-  	    process_subspeeches(subspeeches_content, people, date, speeches, time, url, id, speaker)
+  	    process_subspeeches(subspeeches_content, people, date, speeches, time, url, speech_id, speaker)
   	  end
 	    speeches.write(x)   
     end
