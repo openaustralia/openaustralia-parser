@@ -1,5 +1,4 @@
 require 'people_csv_reader'
-require 'people_xml_reader'
 require 'people_xml_writer'
 require 'people_image_downloader'
 
@@ -47,10 +46,6 @@ class People < Array
   # Facade for readers and writers
   def People.read_csv(filename)
     PeopleCSVReader.read(filename)
-  end
-  
-  def People.read_xml(people_filename, members_filename)
-    PeopleXMLReader.read(people_filename, members_filename)
   end
   
   def write_xml(people_filename, members_filename)
