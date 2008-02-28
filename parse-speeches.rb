@@ -47,22 +47,20 @@ id = Id.new("uk.org.publicwhip/debate/#{date}.")
 x.instruct!
 
 # Merges together two or more speeches by the same person that occur consecutively
-class SpeechOutputter
-  def initialize(x)
-    @old_speech = Speech.new
-    @x = x
+class Speeches
+  def initialize
+    @speeches = []
   end
   
-  def speech(speaker, time, url, id, content)
-    if speaker.nil? || @old_speech.speaker.nil? || speaker != @old_speech.speaker
-      @old_speech.output(@x)
-      @old_speech = Speech.new(speaker, time, url, id)
+  def add_speech(speaker, time, url, id, content)
+    if speaker.nil? || @speeches.empty? || @speeches.last.speaker.nil? || speaker != @speeches.last.speaker
+      @speeches << Speech.new(speaker, time, url, id)
     end
-    @old_speech.append_to_content(content)
+    @speeches.last.append_to_content(content)
   end
   
-  def finish
-    @old_speech.output(@x)
+  def write(x)
+    @speeches.each {|s| s.output(x)}
   end
 end
 
@@ -103,7 +101,7 @@ x.publicwhip do
   # Structure of the page is such that we are only interested in some of the links
   for link in page.links[30..-4] do
   #for link in page.links[108..108] do
-    #puts "Processing: #{link}"
+    puts "Processing: #{link}"
   	# Only going to consider speeches for the time being
   	if link.to_s =~ /Speech:/
     	# Link text for speech has format:
@@ -131,7 +129,7 @@ x.publicwhip do
       title = newtitle
       subtitle = newsubtitle
       
-      speech_outputter = SpeechOutputter.new(x)
+      speeches = Speeches.new
       
       # Untangle speeches from subspeeches
       speech_content = Hpricot::Elements.new
@@ -161,7 +159,7 @@ x.publicwhip do
       else
         speaker = nil
       end
-      speech_outputter.speech(speaker, time, url, id, speech_content)
+      speeches.add_speech(speaker, time, url, id, speech_content)
   	  
   	  if subspeeches_content
     	  # Now extract the subspeeches
@@ -185,10 +183,10 @@ x.publicwhip do
           elsif tag_class == "paraitalic"
             speaker = nil
           end
-          speech_outputter.speech(speaker, time, url, id, e)
+          speeches.add_speech(speaker, time, url, id, e)
       	end
   	  end
-	    speech_outputter.finish    
+	    speeches.write(x)   
     end
   end
 end
