@@ -18,8 +18,11 @@ proxy:
     port: 8080
 
 # The root directory of the patched Australian version of the TheyWorkForYou
-# website. 
-web_root: "/Library/WebServer/Documents/mysociety"
+# website.
+# For example, Under Mac OS X this is likely to be something like:
+web_root: "/Library/WebServer/Documents/openaustralia-app"
+# Under Linux, this is likely to be something like:
+# web_root: "/var/www/openaustralia-app"
 
 # Should hopefully not have to change anything below here
 
