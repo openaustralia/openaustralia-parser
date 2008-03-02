@@ -2,7 +2,6 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
-#require 'configuration'
 require 'people'
 require 'hansard_parser'
 
