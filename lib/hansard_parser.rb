@@ -2,6 +2,25 @@ require 'speeches'
 require 'id'
 require 'speech'
 
+class HansardHeading
+  def initialize
+    @title = ""
+    @subtitle = ""
+  end
+  
+  def output(x, newtitle, newsubtitle, speech_id, url)
+    # Only add headings if they have changed
+    if newtitle != @title
+      x.tag!("major-heading", newtitle, :id => speech_id, :url => url)
+    end
+    if newtitle != @title || newsubtitle != @subtitle
+      x.tag!("minor-heading", newsubtitle, :id => speech_id, :url => url)
+    end
+    @title = newtitle
+    @subtitle = newsubtitle
+  end
+end
+
 class HansardParser
   
   def HansardParser.parse_date(date, xml_filename, people)
@@ -24,8 +43,7 @@ class HansardParser
     xml = File.open(xml_filename, 'w')
     x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
 
-    title = ""
-    subtitle = ""
+    heading = HansardHeading.new
 
     speech_id = Id.new("uk.org.publicwhip/debate/#{date}.")
 
@@ -52,15 +70,7 @@ class HansardParser
             newtitle = sub_page.search('div#contentstart div.hansardtitle').inner_html
             newsubtitle = sub_page.search('div#contentstart div.hansardsubtitle').inner_html
 
-            # Only add headings if they have changed
-            if newtitle != title
-            x.tag!("major-heading", newtitle, :id => speech_id, :url => url)
-          end
-            if newtitle != title || newsubtitle != subtitle
-            x.tag!("minor-heading", newsubtitle, :id => speech_id, :url => url)
-          end
-          title = newtitle
-          subtitle = newsubtitle
+            heading.output(x, newtitle, newsubtitle, speech_id, url)
 
           speeches = Speeches.new
 
