@@ -24,6 +24,8 @@ class PeopleImageDownloader
 
     each_person_bio_page do |page|
       name, image = extract_name_and_image_from_page(page)
+      # Small HACK - removing title of name
+      name = Name.new(:first => name.first, :nick => name.nick, :middle => name.middle, :last => name.last, :post_title => name.post_title) if name
       if name
         person = people.find_person_by_name(name)
         if person
