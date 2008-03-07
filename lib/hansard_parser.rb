@@ -40,7 +40,6 @@ class HansardParser
   end
   
   def HansardParser.parse_sub_day_page(link_text, sub_page, x, heading, speech_id, people, date)
-    puts "Processing: #{link_text}"
     # Only going to consider speeches for the time being
     if link_text =~ /Speech:/
       # Link text for speech has format:
@@ -90,6 +89,8 @@ class HansardParser
         process_subspeeches(subspeeches_content, people, date, speeches, time, url, speech_id, speaker)
       end
       speeches.write(x)   
+    else
+      puts "WARNING: Skipping: #{link_text}"
     end
   end
 
