@@ -29,7 +29,7 @@ class Period
     @name =       params[:name]
     @house =      params[:house]
     if @house != "representatives" && @house != "senate"
-      throw ":house parameter must have value 'represenantive' or 'senate'"
+      throw ":house parameter must have value 'representatives' or 'senate'"
     end
     throw "Invalid keys" unless (params.keys -
       [:id, :house, :division, :party, :from_date,
