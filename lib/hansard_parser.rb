@@ -39,16 +39,15 @@ class HansardParser
     parse_day_page(page, date, agent, people, xml_filename)
   end
   
-  def HansardParser.parse_sub_day_page(link, agent, x, heading, speech_id, people, date)
-    puts "Processing: #{link}"
+  def HansardParser.parse_sub_day_page(link_text, sub_page, x, heading, speech_id, people, date)
+    puts "Processing: #{link_text}"
     # Only going to consider speeches for the time being
-    if link.to_s =~ /Speech:/
+    if link_text =~ /Speech:/
       # Link text for speech has format:
       # HEADING > NAME > HOUR:MINS:SECS
-      split = link.to_s.split('>').map{|a| a.strip}
+      split = link_text.split('>').map{|a| a.strip}
       puts "Warning: Expected split to have length 3" unless split.size == 3
       time = split[2]
-      sub_page = agent.click(link)
       # Extract permanent URL of this subpage. Also, quoting because there is a bug
       # in XML Builder that for some reason is not quoting attributes properly
       url = quote(sub_page.links.text("[Permalink]").uri.to_s)
@@ -106,7 +105,7 @@ class HansardParser
     x.publicwhip do
       # Structure of the page is such that we are only interested in some of the links
       page.links[30..-4].each do |link|
-        parse_sub_day_page(link, agent, x, heading, speech_id, people, date)
+        parse_sub_day_page(link.to_s, agent.click(link), x, heading, speech_id, people, date)
       end
     end
 
