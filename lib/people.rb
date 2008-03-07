@@ -21,20 +21,6 @@ class People < Array
     matches[0] if matches.size == 1
   end
   
-  # Throws exception if no or multiple matches found
-  def find_house_member_by_name_and_date(name, date)
-    matches = find_house_members_by_name_and_date(name, date)
-    throw "More than one match for name #{name.full_name} found" if matches.size > 1
-    throw "No match for name #{name.full_name} found" if matches.size == 0
-    matches[0]
-  end
-  
-  def find_house_members_by_name_and_date(name, date)
-    find_house_members_current_on(date).find_all do |m|
-      name.matches?(m.person.name)
-    end
-  end
-
   def find_people_by_name(name)
     find_all{|p| name.matches?(p.name)}
   end    

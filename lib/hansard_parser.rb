@@ -184,7 +184,12 @@ class HansardParser
     if speakername.downcase == "unknown"
       nil
     else
-      people.find_house_member_by_name_and_date(Name.title_first_last(speakername), date)
+      name = Name.title_first_last(speakername)
+      members = people.find_house_members_current_on(date)
+      matches = members.find_all {|m| name.matches?(m.person.name)}
+      throw "More than one match for name #{name.full_name} found" if matches.size > 1
+      throw "No match for name #{name.full_name} found" if matches.size == 0
+      matches[0]
     end
   end
 
