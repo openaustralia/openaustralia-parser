@@ -22,23 +22,30 @@ class People < Array
   end
   
   # Throws exception if no or multiple matches found
-  def find_house_member_by_name(name, date)
-    matches = find_house_members_by_name(name, date)
+  def find_house_member_by_name_and_date(name, date)
+    matches = find_house_members_by_name_and_date(name, date)
     throw "More than one match for name #{name.full_name} found" if matches.size > 1
     throw "No match for name #{name.full_name} found" if matches.size == 0
     matches[0]
   end
   
+  def find_house_members_by_name_and_date(name, date)
+    find_house_members_current_on(date).find_all do |m|
+      name.matches?(m.name)
+    end
+  end
+
   def find_people_by_name(name)
     @all_periods.find_all{|m| name.matches?(m.name)}.map{|m| m.person}.uniq
   end    
   
-  def find_house_members_by_name(name, date)
+  # Returns the house members that are members on the given date
+  def find_house_members_current_on(date)
     all_house_periods.find_all do |m|
-      date >= m.from_date && date <= m.to_date && name.matches?(m.name)
+      date >= m.from_date && date <= m.to_date
     end
   end
-
+  
   def find_house_period_by_id(id)
     all_house_periods.find{|p| p.id == id}
   end

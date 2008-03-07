@@ -184,7 +184,7 @@ class HansardParser
     if speakername.downcase == "unknown"
       nil
     else
-      people.find_house_member_by_name(Name.title_first_last(speakername), date)
+      people.find_house_member_by_name_and_date(Name.title_first_last(speakername), date)
     end
   end
 
