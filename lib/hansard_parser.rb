@@ -39,56 +39,58 @@ class HansardParser
     parse_day_page(page, date, agent, people, xml_filename)
   end
   
+  def HansardParser.parse_sub_day_speech_page(link_text, sub_page, x, heading, speech_id, people, date)
+    # Link text for speech has format:
+    # HEADING > NAME > HOUR:MINS:SECS
+    split = link_text.split('>').map{|a| a.strip}
+    puts "Warning: Expected split to have length 3" unless split.size == 3
+    time = split[2]
+    # Extract permanent URL of this subpage. Also, quoting because there is a bug
+    # in XML Builder that for some reason is not quoting attributes properly
+    url = quote(sub_page.links.text("[Permalink]").uri.to_s)
+
+    newtitle = sub_page.search('div#contentstart div.hansardtitle').inner_html
+    newsubtitle = sub_page.search('div#contentstart div.hansardsubtitle').inner_html
+
+    heading.output(x, newtitle, newsubtitle, speech_id, url)
+
+    speeches = Speeches.new
+
+    # Untangle speeches from subspeeches
+    speech_content = Hpricot::Elements.new
+    content = sub_page.search('div#contentstart > div.speech0 > *')
+    tag_classes = content.map{|e| e.attributes["class"]}
+    subspeech0_index = tag_classes.index("subspeech0")
+    paraitalic_index = tag_classes.index("paraitalic")
+
+    if subspeech0_index.nil?
+      subspeech_index = paraitalic_index
+    elsif paraitalic_index.nil?
+      subspeech_index = subspeech0_index
+    else
+      subspeech_index = min(subspeech0_index, paraitalic_index)
+    end
+
+    if subspeech_index
+      speech_content = content[0..subspeech_index-1]
+      subspeeches_content = content[subspeech_index..-1]
+    else
+      speech_content = content
+    end
+    # Extract speaker name from link
+    speaker = extract_speaker_from_talkername_tag(speech_content, people, date)
+    speeches.add_speech(speaker, time, url, speech_id, speech_content)
+
+    if subspeeches_content
+      process_subspeeches(subspeeches_content, people, date, speeches, time, url, speech_id, speaker)
+    end
+    speeches.write(x)   
+  end
+  
   def HansardParser.parse_sub_day_page(link_text, sub_page, x, heading, speech_id, people, date)
     # Only going to consider speeches for the time being
     if link_text =~ /Speech:/
-      # Link text for speech has format:
-      # HEADING > NAME > HOUR:MINS:SECS
-      split = link_text.split('>').map{|a| a.strip}
-      puts "Warning: Expected split to have length 3" unless split.size == 3
-      time = split[2]
-      # Extract permanent URL of this subpage. Also, quoting because there is a bug
-      # in XML Builder that for some reason is not quoting attributes properly
-      url = quote(sub_page.links.text("[Permalink]").uri.to_s)
-      # Type of page. Possible values: No, Speech, Bills
-      #type = sub_page.search('//span[@id=dlMetadata__ctl7_Label3]/*').to_s
-      #puts "Warning: Expected type Speech but was type #{type}" unless type == "Speech"
-      newtitle = sub_page.search('div#contentstart div.hansardtitle').inner_html
-      newsubtitle = sub_page.search('div#contentstart div.hansardsubtitle').inner_html
-
-      heading.output(x, newtitle, newsubtitle, speech_id, url)
-
-      speeches = Speeches.new
-
-      # Untangle speeches from subspeeches
-      speech_content = Hpricot::Elements.new
-      content = sub_page.search('div#contentstart > div.speech0 > *')
-      tag_classes = content.map{|e| e.attributes["class"]}
-      subspeech0_index = tag_classes.index("subspeech0")
-      paraitalic_index = tag_classes.index("paraitalic")
-
-      if subspeech0_index.nil?
-        subspeech_index = paraitalic_index
-      elsif paraitalic_index.nil?
-        subspeech_index = subspeech0_index
-      else
-        subspeech_index = min(subspeech0_index, paraitalic_index)
-      end
-
-      if subspeech_index
-        speech_content = content[0..subspeech_index-1]
-        subspeeches_content = content[subspeech_index..-1]
-      else
-        speech_content = content
-      end
-      # Extract speaker name from link
-      speaker = extract_speaker_from_talkername_tag(speech_content, people, date)
-      speeches.add_speech(speaker, time, url, speech_id, speech_content)
-
-      if subspeeches_content
-        process_subspeeches(subspeeches_content, people, date, speeches, time, url, speech_id, speaker)
-      end
-      speeches.write(x)   
+      parse_sub_day_speech_page(link_text, sub_page, x, heading, speech_id, people, date)
     else
       puts "WARNING: Skipping: #{link_text}"
     end
