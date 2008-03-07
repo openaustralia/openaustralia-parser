@@ -31,12 +31,12 @@ class People < Array
   
   def find_house_members_by_name_and_date(name, date)
     find_house_members_current_on(date).find_all do |m|
-      name.matches?(m.name)
+      name.matches?(m.person.name)
     end
   end
 
   def find_people_by_name(name)
-    @all_periods.find_all{|m| name.matches?(m.name)}.map{|m| m.person}.uniq
+    find_all{|p| name.matches?(p.name)}
   end    
   
   # Returns the house members that are members on the given date

@@ -20,13 +20,13 @@ class PeopleCSVReader
       lastname, firstname, middlename, nickname, title, house, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
 
       name = Name.new(:last => lastname, :first => firstname, :middle => middlename, :nick => nickname, :title => title)
-      person = Person.new
+      person = Person.new(name)
 
       start_date = parse_date(start_date)
       end_date = parse_end_date(end_date)
       start_reason = parse_start_reason(start_reason)
       person.add_period(:house => house, :division => division, :party => party,
-        :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason, :name => name)
+        :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason)
       i = i + 1
       # Process further start/end dates for this member
       while i < data.size && data[i][0] == lastname && data[i][1] == firstname && data[i][2] == middlename && data[i][3] == nickname && data[i][4] == title
@@ -35,7 +35,7 @@ class PeopleCSVReader
         end_date = parse_end_date(end_date)
         start_reason = parse_start_reason(start_reason)
         person.add_period(:house => house, :division => division, :party => party,
-          :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason, :name => name)
+          :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason)
         i = i + 1
       end
 

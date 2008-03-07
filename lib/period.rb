@@ -1,6 +1,6 @@
 # Represents a period in the house of representatives
 class Period
-  attr_accessor :from_date, :to_date, :from_why, :to_why, :division, :party, :person, :name, :house
+  attr_accessor :from_date, :to_date, :from_why, :to_why, :division, :party, :person, :house
   attr_reader :id
   
   def Period.reset_id_counter
@@ -11,7 +11,6 @@ class Period
   
   def initialize(params)
     # TODO: Make some parameters compulsary and others optional
-    throw ":name parameter required in HousePeriod.new" unless params[:name]
     throw ":person parameter required in HousePeriod.new" unless params[:person]
     if params[:id]
       @id = params[:id]
@@ -26,14 +25,13 @@ class Period
     @division =   params[:division]
     @party =      params[:party]
     @person =     params[:person]
-    @name =       params[:name]
     @house =      params[:house]
     if @house != "representatives" && @house != "senate"
       throw ":house parameter must have value 'representatives' or 'senate'"
     end
     throw "Invalid keys" unless (params.keys -
       [:id, :house, :division, :party, :from_date,
-      :to_date, :from_why, :to_why, :person, :name]).empty?
+      :to_date, :from_why, :to_why, :person]).empty?
   end
   
   def ==(p)

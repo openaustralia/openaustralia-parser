@@ -1,7 +1,7 @@
 require 'period'
 
 class Person
-  attr_reader :periods, :id
+  attr_reader :periods, :id, :name
   
   def Person.reset_id_counter
     @@id = 10001
@@ -9,7 +9,7 @@ class Person
   
   reset_id_counter
   
-  def initialize(override_id = nil)
+  def initialize(name, override_id = nil)
     @periods = []
     if override_id
       @id = override_id
@@ -17,6 +17,7 @@ class Person
       @id = @@id
       @@id = @@id + 1
     end
+    @name = name
   end
   
   def house_periods
@@ -26,10 +27,6 @@ class Person
   # Returns the period which is the latest in time
   def latest_period
     @periods.sort {|a, b| a.to_date <=> b.to_date}.last
-  end
-  
-  def latest_name
-    latest_period.name
   end
   
   def add_period(params)
