@@ -39,16 +39,7 @@ class HansardParser
     parse_day_page(page, date, agent, people, xml_filename)
   end
   
-  def HansardParser.parse_sub_day_speech_page(link_text, sub_page, x, heading, speech_id, people, date)
-    # Link text for speech has format:
-    # HEADING > NAME > HOUR:MINS:SECS
-    split = link_text.split('>').map{|a| a.strip}
-    puts "Warning: Expected split to have length 3" unless split.size == 3
-    time = split[2]
-    # Extract permanent URL of this subpage. Also, quoting because there is a bug
-    # in XML Builder that for some reason is not quoting attributes properly
-    url = quote(sub_page.links.text("[Permalink]").uri.to_s)
-
+  def HansardParser.parse_sub_day_speech_page(sub_page, x, heading, speech_id, people, date, time, url)
     newtitle = sub_page.search('div#contentstart div.hansardtitle').inner_html
     newsubtitle = sub_page.search('div#contentstart div.hansardsubtitle').inner_html
 
@@ -90,7 +81,16 @@ class HansardParser
   def HansardParser.parse_sub_day_page(link_text, sub_page, x, heading, speech_id, people, date)
     # Only going to consider speeches for the time being
     if link_text =~ /Speech:/
-      parse_sub_day_speech_page(link_text, sub_page, x, heading, speech_id, people, date)
+      # Link text for speech has format:
+      # HEADING > NAME > HOUR:MINS:SECS
+      split = link_text.split('>').map{|a| a.strip}
+      puts "Warning: Expected split to have length 3" unless split.size == 3
+      time = split[2]
+      # Extract permanent URL of this subpage. Also, quoting because there is a bug
+      # in XML Builder that for some reason is not quoting attributes properly
+      url = quote(sub_page.links.text("[Permalink]").uri.to_s)
+      
+      parse_sub_day_speech_page(sub_page, x, heading, speech_id, people, date, time, url)
     else
       puts "WARNING: Skipping: #{link_text}"
     end
