@@ -2,23 +2,25 @@ h1. How to Install
 
 h2. Assumptions
 
+This document goes over how we have set up OpenAustralia on our development machines. For a server set up, you can use this as a base however it might require a different approach unless you have complete control (i.e. you are root) on the server and can install all the dependencies, secure the machine, etc.
+
 These steps have only been tested on Mac OS X 10.5 (leopard). They might work as well on other Unix derivatives.
 
 h2. Requirements
 
 *  Unix
 *  Apache + PHP + MySQL (we've tested with Apache 2.X.X, PHP5, MySQL 5.0.x)
-*  Ruby (included in Leopard)
-*  the following gems
+*  Ruby (we've used the included version in Leopard)
+*  the following rubygems
 **  mechanize
 **  builder
 **  RMagick 
-   (this has dependencies like GraphicsMagick, which in turn needs
+   (this has dependencies like GraphicsMagick/ImageMagick, which in turn needs
    ghostscript)
 **  rcov
 *  "Mercurial":http://www.selenic.com/mercurial/wiki/
 
-h2. How to install all the previous apps
+h2. How to install all the dependencies
 
 Apache, PHP and Ruby all come with Leopard. If you need to install any of these
 on Mac OS X (if for whatever reason you don't have them installed) there's a ton
@@ -37,13 +39,24 @@ $ sudo port install ghostscript
   </code>
 </pre>
 
+Mote: the previous step takes a long while to complete, make yourself a coffee (or two)
+
+As the parsing of XML files to insert into the database is done with Perl (and there's quite a few scripts in Perl), you will need a few Perl CPAN modules:
+
+<pre>
+  <code>
+$ sudo perl -MCPAN -e shell
+cpan> install Error
+cpan> install XML::Twig
+cpan> install DBD::mysql
+  </code>
+</pre>
+
 h2. Installing OpenAustralia
 
 h3. Web Application
 
-For development purposes we have our web application (mostly PHP) under
-<tt>/Library/WebServer/Documents/</tt> and, unless you want to patch the
-configuration, we recommend that you install it there.
+For development purposes we have our web application (not the parser) under <tt>/Library/WebServer/Documents/</tt> and, unless you want to patch the configuration too much, we recommend that you install it there (also, if you do it this way, you have the application available under the root of your webserver on your Mac).
 
 
 <pre>
@@ -52,16 +65,36 @@ $ cd /Library/WebServer/
 $ sudo chown -R YOURUSER:staff Documents
 (enter your admin password)
 $ cd Documents
-$ mkdir openaustralia
-$ hg clone http://hg.assembla.com/openaustralia3 openaustralia-app
-$ hg clone http://hg.assembla.com/openaustralia2 openaustralia-app/.hg/patches
+$ hg clone http://hg.assembla.com/openaustralia3 mysociety
+$ hg clone http://hg.assembla.com/openaustralia2 mysociety/.hg/patches
+$ cd mysociety
+# Push all the patches
+$ hg qpush -a
+# (you should see messages like the following)
+applying configuration.patch
+applying fixes.patch
+applying australia.patch
+applying remove-uk-news.patch
+applying news-australian.patch
+Now at: news-australian.patch
+$ 
   </code>
 </pre>
 
-_where YOURUSER is replaced by your Mac OS X username_
+_where YOURUSER is replaced by your Mac OS X username_. This is necessary so that you don't have to always use sudo when editing files or coding on the website.
 
-Perl CPAN modules (for twfy XML parser):
-sudo perl -MCPAN -e shell
-cpan> install Error
-cpan> install XML::Twig
-cpan> install DBD::mysql
+You should now have the website files located at <tt>/Library/WebServer/Documents/mysociety</tt>. We will come back to this path once we've installed the parser as both need to know (at the time of writing this document) the path of each.
+
+h3. Parser
+
+The parser can be installed wherever. For this document, we will assume that the parser is installed under <tt>~/Development/openaustralia/</tt> (where the <tt>~</tt> is your home directory, eg <tt>/Users/bruno</tt> in my case).
+
+<pre>
+  <code>
+$ cd ~/Development
+$ mkdir openaustralia ; cd openaustralia
+$ hg clone http://hg.assembla.com/openaustralia openaustralia-parser
+  </code>
+</pre>
+
+You should now have the parser installed under <tt>~/Development/openaustralia/openaustralia-parser</tt>.
