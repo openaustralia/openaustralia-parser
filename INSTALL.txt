@@ -98,3 +98,29 @@ $ hg clone http://hg.assembla.com/openaustralia openaustralia-parser
 </pre>
 
 You should now have the parser installed under <tt>~/Development/openaustralia/openaustralia-parser</tt>.
+
+The only configuration necessary is to change the web-root if you have installed the web application (as described above) in another location. That value is <tt>web_root</tt> in the <tt>configuration.yml</tt> file at the root of the <tt>openaustralia-parser</tt>.
+
+h2. Running the Parser
+
+You shouldn't have to do much except getting the _free_ (see license for details) proxy we've been using (this speeds up the development cycle if you have to download over and over again the speeches and member informacion). You can get it from "WebAssistant":http://www.proxy-offline-browser.com/ . If you are not using a proxy, comment out the <tt>proxy</tt> entry in the <tt>configuration.yml</tt> file.
+
+Before you can run the parser, you will need to create the directories that will hold the images of the MPs.
+
+<pre>
+  <code>
+$ mkdir -p pwdata/images/mps pwdata/images/mpsL
+  </code>
+</pre>
+
+You are now ready to download the members information. You should just use:
+
+<pre>
+  <code>
+$ ruby parse-members.rb
+# you should see messages on the console similar to the following while the script downloads and parses the MP information
+# from parlinfoweb
+Writing XML...
+Downloading person images...
+# You could also see messages like if an operation cannot be completed
+WARNING: Could not load image for Barry Cunningham at http://parlinfoweb.aph.gov.au/piweb/Repository/Handbook/Biogs/0G4.jpg
