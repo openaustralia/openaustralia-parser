@@ -181,3 +181,28 @@ $VAR1 = [
         ];
  </code>
 </pre>
+
+This means that the parser has completed downloading all the members information and has run successfully the import into the database. You should now parse the speeches and you would have a full database.
+
+Note that for development purposes we only use the hansard from Sept 20th, 2007.
+
+<pre>
+  <code>
+$ ruby parse-speeches.rb
+# you will see a host of messages on the console
+# the following are some examples and will certainly change when you run it yourself
+WARNING: Not yet supporting: Procedural text: CROSS-BORDER INSOLVENCY BILL 2007: First Reading
+WARNING: Not yet supporting: Procedural text: TRADEX SCHEME AMENDMENT BILL 2007: First Reading
+WARNING: Not yet supporting: Procedural text: FAMILIES, COMMUNITY SERVICES AND INDIGENOUS AFFAIRS AND OTHER LEGISLATION AMENDMENT (EMERGENCY RESPONSE CONSOLIDATION) BILL 2007: First Reading
+WARNING: Not yet supporting: Procedural text: TAX LAWS AMENDMENT (TAXATION OF FINANCIAL ARRANGEMENTS) BILL 2007: First Reading
+WARNING: Not yet supporting: Procedural text: VETERANS' ENTITLEMENTS AMENDMENT (DISABILITY, WAR WIDOW AND WAR WIDOWER PENSIONS) BILL 2007: First Reading
+WARNING: Not yet supporting: Procedural text: COMMITTEES: Legal and Constitutional Affairs Committee: Report > 09:46:00
+WARNING: Not yet supporting: Procedural text: COMMITTEES: Legal and Constitutional Affairs Committee: Report: Referral to Main Committee
+WARNING: Not yet supporting: Procedural text: NATIONAL HEALTH AMENDMENT (PHARMACEUTICAL BENEFITS) BILL 2007: Referred to Main Committee
+[...]
+db loading debates 2007-09-20
+  </code>
+</pre>
+
+You should now be able to view the results at "Your Webserver URL":http://localhost/mysociety/twfy/www/docs/
+
