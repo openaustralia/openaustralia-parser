@@ -70,7 +70,8 @@ class HansardParser
     end
     # Extract speaker name from link
     speaker = extract_speaker_from_talkername_tag(speech_content, people, date)
-    speeches.add_speech(speaker, time, url, speech_id, speech_content)
+    speeches.add_speech(speaker, time, url, speech_id,
+      clean_speech_content(speech_content))
 
     if subspeeches_content
       process_subspeeches(subspeeches_content, people, date, speeches, time, url, speech_id, speaker)
@@ -131,10 +132,32 @@ class HansardParser
       elsif tag_class == "paraitalic"
         speaker = nil
       end
-      speeches.add_speech(speaker, time, url, speech_id, e)
+      speeches.add_speech(speaker, time, url, speech_id, clean_speech_content(e))
     end
   end
 
+  def HansardParser.clean_speech_content(content)
+    doc = Hpricot(content.to_s)
+    doc.search('div.speechType').remove
+    doc.search('span.talkername').remove
+    doc.search('span.talkerelectorate').remove
+    doc.search('span.talkerrole').remove
+    #doc.search('div.motion').each do |e|
+    #  puts "Before: #{e.inner_html}"
+    #  e = Hpricot(e.inner_html)
+    #  puts "After: #{e.inner_html}"
+    #end
+    # Do pure string manipulations from here
+    text = doc.to_s
+    text = text.gsub("(\342\200\224)", '')
+    #text = text.gsub("\342\200\224", ' ')
+    text = text.gsub(/\(\d.\d\d a.m.\)/, '')
+    text = text.gsub(/\(\d.\d\d p.m.\)/, '')
+    doc = Hpricot(text)
+    #p doc.to_s
+    doc
+  end
+  
   def HansardParser.quote(text)
     text.sub('&', '&amp;')
   end
