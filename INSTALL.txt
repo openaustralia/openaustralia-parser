@@ -2,23 +2,27 @@ h1. How to Install
 
 h2. Assumptions
 
+This document goes over how we have set up OpenAustralia on our development machines. For a server set up, you can use this as a base however it might require a different approach unless you have complete control (i.e. you are root) on the server and can install all the dependencies, secure the machine, etc.
+
+Configuring Apache, PHP, MySQL or any other application for optimal performance is beyond the scope of this document. You should be able to find enough information online to help you along the way.
+
 These steps have only been tested on Mac OS X 10.5 (leopard). They might work as well on other Unix derivatives.
 
 h2. Requirements
 
 *  Unix
 *  Apache + PHP + MySQL (we've tested with Apache 2.X.X, PHP5, MySQL 5.0.x)
-*  Ruby (included in Leopard)
-*  the following gems
+*  Ruby (we've used the included version in Leopard)
+*  the following rubygems
 **  mechanize
 **  builder
 **  RMagick 
-   (this has dependencies like GraphicsMagick, which in turn needs
+   (this has dependencies like GraphicsMagick/ImageMagick, which in turn needs
    ghostscript)
 **  rcov
 *  "Mercurial":http://www.selenic.com/mercurial/wiki/
 
-h2. How to install all the previous apps
+h2. How to install all the dependencies
 
 Apache, PHP and Ruby all come with Leopard. If you need to install any of these
 on Mac OS X (if for whatever reason you don't have them installed) there's a ton
@@ -26,6 +30,8 @@ of information online:
 
 # "Entropy's Instructions":http://www.entropy.ch/software/macosx/
 # "Hivelogic's Instructions":http://hivelogic.com/articles/ruby_rails_lighttpd_mysql_tiger/
+
+You should also be able to get MySQL from "MySQL's website":http://www.mysql.com/ as they now distribute binary versions for Mac OS X (at the time of writing this document, you can find the 5.0.51a MySQL Community Server at "MySQL Community Server":http://dev.mysql.com/downloads/mysql/5.0.html#macosx-dmg).
 
 Install "DarwinPorts":http://darwinports.com/ and then install Mercurial, ImageMagick and ghostscript:
 
@@ -37,13 +43,24 @@ $ sudo port install ghostscript
   </code>
 </pre>
 
+Mote: the previous step takes a long while to complete, make yourself a coffee (or two)
+
+As the parsing of XML files to insert into the database is done with Perl (and there's quite a few scripts in Perl), you will need a few Perl CPAN modules:
+
+<pre>
+  <code>
+$ sudo perl -MCPAN -e shell
+cpan> install Error
+cpan> install XML::Twig
+cpan> install DBD::mysql
+  </code>
+</pre>
+
 h2. Installing OpenAustralia
 
 h3. Web Application
 
-For development purposes we have our web application (mostly PHP) under
-<tt>/Library/WebServer/Documents/</tt> and, unless you want to patch the
-configuration, we recommend that you install it there.
+For development purposes we have our web application (not the parser) under <tt>/Library/WebServer/Documents/</tt> and, unless you want to patch the configuration too much, we recommend that you install it there (also, if you do it this way, you have the application available under the root of your webserver on your Mac).
 
 
 <pre>
@@ -52,16 +69,140 @@ $ cd /Library/WebServer/
 $ sudo chown -R YOURUSER:staff Documents
 (enter your admin password)
 $ cd Documents
-$ mkdir openaustralia
-$ hg clone http://hg.assembla.com/openaustralia3 openaustralia-app
-$ hg clone http://hg.assembla.com/openaustralia2 openaustralia-app/.hg/patches
+$ hg clone http://hg.assembla.com/openaustralia3 mysociety
+$ hg clone http://hg.assembla.com/openaustralia2 mysociety/.hg/patches
+$ cd mysociety
+# Push all the patches
+$ hg qpush -a
+# (you should see messages like the following)
+applying configuration.patch
+applying fixes.patch
+applying australia.patch
+applying remove-uk-news.patch
+applying news-australian.patch
+Now at: news-australian.patch
+$ 
   </code>
 </pre>
 
-_where YOURUSER is replaced by your Mac OS X username_
+_where YOURUSER is replaced by your Mac OS X username_. This is necessary so that you don't have to always use sudo when editing files or coding on the website.
 
-Perl CPAN modules (for twfy XML parser):
-sudo perl -MCPAN -e shell
-cpan> install Error
-cpan> install XML::Twig
-cpan> install DBD::mysql
+You should now have the website files located at <tt>/Library/WebServer/Documents/mysociety</tt>. We will come back to this path once we've installed the parser as both need to know (at the time of writing this document) the path of each.
+
+h3. Parser
+
+The parser can be installed wherever. For this document, we will assume that the parser is installed under <tt>~/Development/openaustralia/</tt> (where the <tt>~</tt> is your home directory, eg <tt>/Users/bruno</tt> in my case).
+
+<pre>
+  <code>
+$ cd ~/Development
+$ mkdir openaustralia ; cd openaustralia
+$ hg clone http://hg.assembla.com/openaustralia openaustralia-parser
+  </code>
+</pre>
+
+You should now have the parser installed under <tt>~/Development/openaustralia/openaustralia-parser</tt>.
+
+The only configuration necessary is to change the web-root if you have installed the web application (as described above) in another location. That value is <tt>web_root</tt> in the <tt>configuration.yml</tt> file at the root of the <tt>openaustralia-parser</tt>.
+
+h3. Configuration of the Web Application
+
+We now need to configure the web application, which includes creating a DB in MySQL and loading the schema. We assume that you have MySQL running and that your MySQL super user is <tt>root</tt> and the account has a password.
+
+We need to note again that these instructions are just for developers wanting to run the application on their machines and not recommendations or best-practices in performance and security.
+
+h4. MySQL
+
+We need to create the database. This is pretty simple:
+
+<pre>
+  <code>
+$ mysqladmin -u root -p create openaustralia
+Enter password: ******
+  </code>
+</pre>
+
+You are now ready to import the schema
+
+<pre>
+  <code>
+$ mysql -u root -p openaustralia < /Library/WebServer/Documents/mysociety/twfy/db/schema.sql
+Enter password: ******
+  </code>
+</pre>
+
+h4. Configuration
+
+There is a file that you need to edit (and remember NOT to commit your changes on that file) on the web application:
+
+<tt>/Library/WebServer/Documents/mysociety/twfy/conf/general</tt>
+
+It's well documented and quite explanatory. It contains the configuration for MySQL (database name, host, username, etc) as well as the URL and paths for the web application on your machine.
+
+h2. Running the Parser
+
+You shouldn't have to do much except getting the _free_ (see license for details) proxy we've been using (this speeds up the development cycle if you have to download over and over again the speeches and member informacion). You can get it from "WebAssistant":http://www.proxy-offline-browser.com/ . If you are not using a proxy, comment out the <tt>proxy</tt> entry in the <tt>configuration.yml</tt> file.
+
+Before you can run the parser, you will need to create the directories that will hold the images of the MPs.
+
+<pre>
+  <code>
+$ mkdir -p pwdata/images/mps pwdata/images/mpsL
+  </code>
+</pre>
+
+You are now ready to download the members information. You should just use:
+
+<pre>
+  <code>
+$ ruby parse-members.rb
+# you should see messages on the console similar to the following while the script downloads and parses the MP information
+# from parlinfoweb
+Writing XML...
+Downloading person images...
+# You could also see messages like if an operation cannot be completed
+WARNING: Could not load image for Barry Cunningham at http://parlinfoweb.aph.gov.au/piweb/Repository/Handbook/Biogs/0G4.jpg
+Adding new member with identifier 1
+This is for your information only, just check it looks OK.
+
+$VAR1 = [
+          '1',
+          '10001',
+          1,
+          '',
+          'Anthony',
+          'Abbott',
+          'Warringah',
+          'LIB',
+          '1994-03-26',
+          '9999-12-31',
+          'by_election',
+          'current_member'
+        ];
+ </code>
+</pre>
+
+This means that the parser has completed downloading all the members information and has run successfully the import into the database. You should now parse the speeches and you would have a full database.
+
+Note that for development purposes we only use the hansard from Sept 20th, 2007.
+
+<pre>
+  <code>
+$ ruby parse-speeches.rb
+# you will see a host of messages on the console
+# the following are some examples and will certainly change when you run it yourself
+WARNING: Not yet supporting: Procedural text: CROSS-BORDER INSOLVENCY BILL 2007: First Reading
+WARNING: Not yet supporting: Procedural text: TRADEX SCHEME AMENDMENT BILL 2007: First Reading
+WARNING: Not yet supporting: Procedural text: FAMILIES, COMMUNITY SERVICES AND INDIGENOUS AFFAIRS AND OTHER LEGISLATION AMENDMENT (EMERGENCY RESPONSE CONSOLIDATION) BILL 2007: First Reading
+WARNING: Not yet supporting: Procedural text: TAX LAWS AMENDMENT (TAXATION OF FINANCIAL ARRANGEMENTS) BILL 2007: First Reading
+WARNING: Not yet supporting: Procedural text: VETERANS' ENTITLEMENTS AMENDMENT (DISABILITY, WAR WIDOW AND WAR WIDOWER PENSIONS) BILL 2007: First Reading
+WARNING: Not yet supporting: Procedural text: COMMITTEES: Legal and Constitutional Affairs Committee: Report > 09:46:00
+WARNING: Not yet supporting: Procedural text: COMMITTEES: Legal and Constitutional Affairs Committee: Report: Referral to Main Committee
+WARNING: Not yet supporting: Procedural text: NATIONAL HEALTH AMENDMENT (PHARMACEUTICAL BENEFITS) BILL 2007: Referred to Main Committee
+[...]
+db loading debates 2007-09-20
+  </code>
+</pre>
+
+You should now be able to view the results at "Your Webserver URL":http://localhost/mysociety/twfy/www/docs/
+
