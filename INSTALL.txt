@@ -4,6 +4,8 @@ h2. Assumptions
 
 This document goes over how we have set up OpenAustralia on our development machines. For a server set up, you can use this as a base however it might require a different approach unless you have complete control (i.e. you are root) on the server and can install all the dependencies, secure the machine, etc.
 
+Configuring Apache, PHP, MySQL or any other application for optimal performance is beyond the scope of this document. You should be able to find enough information online to help you along the way.
+
 These steps have only been tested on Mac OS X 10.5 (leopard). They might work as well on other Unix derivatives.
 
 h2. Requirements
@@ -28,6 +30,8 @@ of information online:
 
 # "Entropy's Instructions":http://www.entropy.ch/software/macosx/
 # "Hivelogic's Instructions":http://hivelogic.com/articles/ruby_rails_lighttpd_mysql_tiger/
+
+You should also be able to get MySQL from "MySQL's website":http://www.mysql.com/ as they now distribute binary versions for Mac OS X (at the time of writing this document, you can find the 5.0.51a MySQL Community Server at "MySQL Community Server":http://dev.mysql.com/downloads/mysql/5.0.html#macosx-dmg).
 
 Install "DarwinPorts":http://darwinports.com/ and then install Mercurial, ImageMagick and ghostscript:
 
@@ -101,6 +105,40 @@ You should now have the parser installed under <tt>~/Development/openaustralia/o
 
 The only configuration necessary is to change the web-root if you have installed the web application (as described above) in another location. That value is <tt>web_root</tt> in the <tt>configuration.yml</tt> file at the root of the <tt>openaustralia-parser</tt>.
 
+h3. Configuration of the Web Application
+
+We now need to configure the web application, which includes creating a DB in MySQL and loading the schema. We assume that you have MySQL running and that your MySQL super user is <tt>root</tt> and the account has a password.
+
+We need to note again that these instructions are just for developers wanting to run the application on their machines and not recommendations or best-practices in performance and security.
+
+h4. MySQL
+
+We need to create the database. This is pretty simple:
+
+<pre>
+  <code>
+$ mysqladmin -u root -p create openaustralia
+Enter password: ******
+  </code>
+</pre>
+
+You are now ready to import the schema
+
+<pre>
+  <code>
+$ mysql -u root -p openaustralia < /Library/WebServer/Documents/mysociety/twfy/db/schema.sql
+Enter password: ******
+  </code>
+</pre>
+
+h4. Configuration
+
+There is a file that you need to edit (and remember NOT to commit your changes on that file) on the web application:
+
+<tt>/Library/WebServer/Documents/mysociety/twfy/conf/general</tt>
+
+It's well documented and quite explanatory. It contains the configuration for MySQL (database name, host, username, etc) as well as the URL and paths for the web application on your machine.
+
 h2. Running the Parser
 
 You shouldn't have to do much except getting the _free_ (see license for details) proxy we've been using (this speeds up the development cycle if you have to download over and over again the speeches and member informacion). You can get it from "WebAssistant":http://www.proxy-offline-browser.com/ . If you are not using a proxy, comment out the <tt>proxy</tt> entry in the <tt>configuration.yml</tt> file.
@@ -124,3 +162,22 @@ Writing XML...
 Downloading person images...
 # You could also see messages like if an operation cannot be completed
 WARNING: Could not load image for Barry Cunningham at http://parlinfoweb.aph.gov.au/piweb/Repository/Handbook/Biogs/0G4.jpg
+Adding new member with identifier 1
+This is for your information only, just check it looks OK.
+
+$VAR1 = [
+          '1',
+          '10001',
+          1,
+          '',
+          'Anthony',
+          'Abbott',
+          'Warringah',
+          'LIB',
+          '1994-03-26',
+          '9999-12-31',
+          'by_election',
+          'current_member'
+        ];
+ </code>
+</pre>
