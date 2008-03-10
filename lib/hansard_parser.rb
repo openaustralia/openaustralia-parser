@@ -168,24 +168,23 @@ class HansardParser
     doc
   end
   
+  def HansardParser.replace_with_inner_html(content, search)
+    content.search(search).each do |e|
+      e.swap(e.inner_html)
+    end
+  end
+  
   def HansardParser.make_motions_and_quotes_italic(content)
-    # Currently only handles one div.motion block
     content.search('div.motion p').set(:class => 'italic')
-    block = content.at('div.motion')
-    block.swap(block.inner_html) unless block.nil?
+    replace_with_inner_html(content, 'div.motion')
     content.search('div.quote p').set(:class => 'italic')
-    block = content.at('div.quote')
-    block.swap(block.inner_html) unless block.nil?
+    replace_with_inner_html(content, 'div.quote')
     content
   end
   
   def HansardParser.remove_subspeech_tags(content)
-    content.search('div.subspeech0').each do |e|
-      e.swap(e.inner_html)
-    end
-    content.search('div.subspeech1').each do |e|
-      e.swap(e.inner_html)
-    end
+    replace_with_inner_html(content, 'div.subspeech0')
+    replace_with_inner_html(content, 'div.subspeech1')
     content
   end
   
