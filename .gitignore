@@ -1,4 +1,3 @@
-syntax: glob
 pwdata/images/mps/*.jpg
 pwdata/images/mpsL/*.jpg
 pwdata/members/all-members.xml
