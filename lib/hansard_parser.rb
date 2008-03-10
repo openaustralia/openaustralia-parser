@@ -142,6 +142,7 @@ class HansardParser
     doc.search('span.talkername').remove
     doc.search('span.talkerelectorate').remove
     doc.search('span.talkerrole').remove
+    make_motions_italic(doc)
     #doc.search('div.motion').each do |e|
     #  puts "Before: #{e.inner_html}"
     #  e = Hpricot(e.inner_html)
@@ -158,11 +159,11 @@ class HansardParser
     doc
   end
   
-  def HansardParser.make_motions_indented(content)
+  def HansardParser.make_motions_italic(content)
     # Currently only handles one div.motion block
-    content.search('div.motion p').set(:class => 'indent')
+    content.search('div.motion p').set(:class => 'italic')
     block = content.at('div.motion')
-    block.swap(block.inner_html)
+    block.swap(block.inner_html) unless block.nil?
     content
   end
   

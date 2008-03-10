@@ -6,8 +6,8 @@ require 'rubygems'
 require 'hpricot'
 
 class TestHansardParser < Test::Unit::TestCase
-  def test_make_motions_indented
+  def test_make_motions_italic
     doc = Hpricot('<p>I move:</p><div class="motion"><p>Some text</p></div>')
-    assert_equal('<p>I move:</p><p class="indent">Some text</p>', HansardParser.make_motions_indented(doc).to_s)
+    assert_equal('<p>I move:</p><p class="italic">Some text</p>', HansardParser.make_motions_italic(doc).to_s)
   end
 end
