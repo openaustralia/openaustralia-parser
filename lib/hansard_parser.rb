@@ -158,6 +158,14 @@ class HansardParser
     doc
   end
   
+  def HansardParser.make_motions_indented(content)
+    # Currently only handles one div.motion block
+    content.search('div.motion p').set(:class => 'indent')
+    block = content.at('div.motion')
+    block.swap(block.inner_html)
+    content
+  end
+  
   def HansardParser.quote(text)
     text.sub('&', '&amp;')
   end
