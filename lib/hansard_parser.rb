@@ -154,6 +154,18 @@ class HansardParser
     #text = text.gsub("\342\200\224", ' ')
     text = text.gsub(/\(\d.\d\d a.m.\)/, '')
     text = text.gsub(/\(\d.\d\d p.m.\)/, '')
+    # Look for tags in the text and display warnings if any of them aren't being handled yet
+    text.scan(/<[a-z][^>]*>/i) do |text|
+      m = text.match(/<([a-z]*) [^>]*>/i)
+      if m
+        tag = m[1]
+      else
+        tag = text[1..-2]
+      end
+      if tag != "p" && tag != "b" && tag != "i"
+        puts "WARNING: Tag #{tag} is present in speech contents"
+      end
+    end
     doc = Hpricot(text)
     #p doc.to_s
     doc
