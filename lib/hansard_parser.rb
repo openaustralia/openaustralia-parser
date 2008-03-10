@@ -142,7 +142,8 @@ class HansardParser
     doc.search('span.talkername').remove
     doc.search('span.talkerelectorate').remove
     doc.search('span.talkerrole').remove
-    make_motions_italic(doc)
+    make_motions_and_quotes_italic(doc)
+    remove_subspeech_tags(doc)
     #doc.search('div.motion').each do |e|
     #  puts "Before: #{e.inner_html}"
     #  e = Hpricot(e.inner_html)
@@ -155,27 +156,39 @@ class HansardParser
     text = text.gsub(/\(\d.\d\d a.m.\)/, '')
     text = text.gsub(/\(\d.\d\d p.m.\)/, '')
     # Look for tags in the text and display warnings if any of them aren't being handled yet
-    text.scan(/<[a-z][^>]*>/i) do |text|
-      m = text.match(/<([a-z]*) [^>]*>/i)
+    text.scan(/<[a-z][^>]*>/i) do |t|
+      m = t.match(/<([a-z]*) [^>]*>/i)
       if m
         tag = m[1]
       else
-        tag = text[1..-2]
+        tag = t[1..-2]
       end
-      if tag != "p" && tag != "b" && tag != "i"
-        puts "WARNING: Tag #{tag} is present in speech contents"
-      end
+      allowed_tags = ["p", "b", "i", "dl", "dt", "dd", "ul", "li"]
+      puts "WARNING: Tag #{t} is present in speech contents" unless allowed_tags.include?(tag)
     end
     doc = Hpricot(text)
     #p doc.to_s
     doc
   end
   
-  def HansardParser.make_motions_italic(content)
+  def HansardParser.make_motions_and_quotes_italic(content)
     # Currently only handles one div.motion block
     content.search('div.motion p').set(:class => 'italic')
     block = content.at('div.motion')
     block.swap(block.inner_html) unless block.nil?
+    content.search('div.quote p').set(:class => 'italic')
+    block = content.at('div.quote')
+    block.swap(block.inner_html) unless block.nil?
+    content
+  end
+  
+  def HansardParser.remove_subspeech_tags(content)
+    content.search('div.subspeech0').each do |e|
+      e.swap(e.inner_html)
+    end
+    content.search('div.subspeech1').each do |e|
+      e.swap(e.inner_html)
+    end
     content
   end
   
