@@ -144,15 +144,12 @@ class HansardParser
     doc.search('span.talkerrole').remove
     make_motions_and_quotes_italic(doc)
     remove_subspeech_tags(doc)
-    #doc.search('div.motion').each do |e|
-    #  puts "Before: #{e.inner_html}"
-    #  e = Hpricot(e.inner_html)
-    #  puts "After: #{e.inner_html}"
-    #end
     # Do pure string manipulations from here
     text = doc.to_s
+    # Replace unicode dash with non-unicode version
+    #text = text.gsub("\342\200\224", "-")
     text = text.gsub("(\342\200\224)", '')
-    #text = text.gsub("\342\200\224", ' ')
+    text = text.gsub(/([^\w])\342\200\224/) {|m| m[0..0]}
     text = text.gsub(/\(\d.\d\d a.m.\)/, '')
     text = text.gsub(/\(\d.\d\d p.m.\)/, '')
     # Look for tags in the text and display warnings if any of them aren't being handled yet
