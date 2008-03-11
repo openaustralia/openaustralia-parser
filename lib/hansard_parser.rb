@@ -145,6 +145,7 @@ class HansardParser
     make_motions_and_quotes_italic(doc)
     remove_subspeech_tags(doc)
     fix_links(base_url, doc)
+    make_amendments_italic(doc)
     # Do pure string manipulations from here
     text = doc.to_s
     # Replace unicode dash with non-unicode version
@@ -193,6 +194,15 @@ class HansardParser
     replace_with_inner_html(content, 'div.motion')
     content.search('div.quote p').set(:class => 'italic')
     replace_with_inner_html(content, 'div.quote')
+    content
+  end
+  
+  def HansardParser.make_amendments_italic(content)
+    content.search('div.amendments div.amendment0 p').set(:class => 'italic')
+    content.search('div.amendments div.amendment1 p').set(:class => 'italic')
+    replace_with_inner_html(content, 'div.amendment0')
+    replace_with_inner_html(content, 'div.amendment1')
+    replace_with_inner_html(content, 'div.amendments')
     content
   end
   

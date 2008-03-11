@@ -35,4 +35,10 @@ class TestHansardParser < Test::Unit::TestCase
     HansardParser.fix_links("http://website/bar/blah.html", doc)
     assert_equal('<p>The Link Text Some Text</p>', doc.to_s)
   end
+  
+  def test_make_amendments_italic
+    doc = Hpricot('<div class="amendments"><div class="amendment0"><p class="paraParlAmend">Some Text</p></div><div class="amendment1"><p class="paraParlAmend">Some more text</p></div></div>')
+    HansardParser.make_amendments_italic(doc)
+    assert_equal('<p class="italic">Some Text</p><p class="italic">Some more text</p>', doc.to_s)
+  end
 end
