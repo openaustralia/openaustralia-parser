@@ -149,12 +149,11 @@ class HansardParser
     fix_attributes_of_p_tags(doc)
     # Do pure string manipulations from here
     text = doc.to_s
-    # Replace unicode dash with non-unicode version
-    #text = text.gsub("\342\200\224", "-")
     text = text.gsub("(\342\200\224)", '')
     text = text.gsub(/([^\w])\342\200\224/) {|m| m[0..0]}
-    text = text.gsub(/\(\d.\d\d a.m.\)/, '')
-    text = text.gsub(/\(\d.\d\d p.m.\)/, '')
+    text = text.gsub(/\(\d{1,2}.\d\d a.m.\)/, '')
+    text = text.gsub(/\(\d{1,2}.\d\d p.m.\)/, '')
+    text = text.gsub('()', '')
     # Look for tags in the text and display warnings if any of them aren't being handled yet
     text.scan(/<[a-z][^>]*>/i) do |t|
       m = t.match(/<([a-z]*) [^>]*>/i)
