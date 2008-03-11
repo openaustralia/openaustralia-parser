@@ -17,4 +17,22 @@ class TestHansardParser < Test::Unit::TestCase
     HansardParser.remove_subspeech_tags(doc)
     assert_equal('<p>Some Text</p><p>Some Other Text</p>', doc.to_s)
   end
+  
+  def test_fix_links_relative_link
+    doc = Hpricot('<p>The <a href="foo.html">Link Text</a> Some Text</p>')
+    HansardParser.fix_links("http://website/bar/blah.html", doc)
+    assert_equal('<p>The <a href="http://website/bar/foo.html">Link Text</a> Some Text</p>', doc.to_s)
+  end
+  
+  def test_fix_links_absolute_link
+    doc = Hpricot('<p>The <a href="http://anothersite/foo.html">Link Text</a> Some Text</p>')
+    HansardParser.fix_links("http://website/bar/blah.html", doc)
+    assert_equal('<p>The <a href="http://anothersite/foo.html">Link Text</a> Some Text</p>', doc.to_s)
+  end
+  
+  def test_fix_links_empty_a_tag
+    doc = Hpricot('<p>The <a>Link Text</a> Some Text</p>')
+    HansardParser.fix_links("http://website/bar/blah.html", doc)
+    assert_equal('<p>The Link Text Some Text</p>', doc.to_s)
+  end
 end

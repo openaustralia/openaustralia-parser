@@ -71,7 +71,7 @@ class HansardParser
     # Extract speaker name from link
     speaker = extract_speaker_from_talkername_tag(speech_content, people, date)
     speeches.add_speech(speaker, time, url, speech_id,
-      clean_speech_content(speech_content))
+      clean_speech_content(url, speech_content))
 
     if subspeeches_content
       process_subspeeches(subspeeches_content, people, date, speeches, time, url, speech_id, speaker)
@@ -132,11 +132,11 @@ class HansardParser
       elsif tag_class == "paraitalic"
         speaker = nil
       end
-      speeches.add_speech(speaker, time, url, speech_id, clean_speech_content(e))
+      speeches.add_speech(speaker, time, url, speech_id, clean_speech_content(url, e))
     end
   end
 
-  def HansardParser.clean_speech_content(content)
+  def HansardParser.clean_speech_content(base_url, content)
     doc = Hpricot(content.to_s)
     doc.search('div.speechType').remove
     doc.search('span.talkername').remove
@@ -144,6 +144,7 @@ class HansardParser
     doc.search('span.talkerrole').remove
     make_motions_and_quotes_italic(doc)
     remove_subspeech_tags(doc)
+    fix_links(base_url, doc)
     # Do pure string manipulations from here
     text = doc.to_s
     # Replace unicode dash with non-unicode version
@@ -160,12 +161,25 @@ class HansardParser
       else
         tag = t[1..-2]
       end
-      allowed_tags = ["p", "b", "i", "dl", "dt", "dd", "ul", "li"]
+      allowed_tags = ["p", "b", "i", "dl", "dt", "dd", "ul", "li", "a"]
       puts "WARNING: Tag #{t} is present in speech contents" unless allowed_tags.include?(tag)
     end
     doc = Hpricot(text)
     #p doc.to_s
     doc
+  end
+  
+  def HansardParser.fix_links(base_url, content)
+    content.search('a').each do |e|
+      href_value = e.get_attribute('href')
+      if href_value.nil?
+        # Remove a tags
+        e.swap(e.inner_html)
+      else
+        e.set_attribute('href', URI.join(base_url, href_value))
+      end
+    end
+    content
   end
   
   def HansardParser.replace_with_inner_html(content, search)
