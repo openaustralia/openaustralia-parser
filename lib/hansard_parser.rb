@@ -146,6 +146,7 @@ class HansardParser
     remove_subspeech_tags(doc)
     fix_links(base_url, doc)
     make_amendments_italic(doc)
+    fix_attributes_of_p_tags(doc)
     # Do pure string manipulations from here
     text = doc.to_s
     # Replace unicode dash with non-unicode version
@@ -162,12 +163,25 @@ class HansardParser
       else
         tag = t[1..-2]
       end
-      allowed_tags = ["p", "b", "i", "dl", "dt", "dd", "ul", "li", "a"]
-      puts "WARNING: Tag #{t} is present in speech contents" unless allowed_tags.include?(tag)
+      allowed_tags = ["b", "i", "dl", "dt", "dd", "ul", "li", "a"]
+      if !allowed_tags.include?(tag) && t != "<p>" && t != '<p class="italic">'
+        puts "WARNING: Tag #{t} is present in speech contents"
+      end
     end
     doc = Hpricot(text)
     #p doc.to_s
     doc
+  end
+  
+  def HansardParser.fix_attributes_of_p_tags(content)
+    content.search('p').each do |e|
+      class_value = e.get_attribute('class')
+      if class_value == "block" || class_value == "parablock"
+        e.remove_attribute('class')
+      elsif class_value == "paraitalic"
+        e.set_attribute('class', 'italic')
+      end
+    end
   end
   
   def HansardParser.fix_links(base_url, content)
