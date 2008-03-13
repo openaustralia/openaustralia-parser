@@ -180,6 +180,8 @@ class HansardParser
         e.remove_attribute('class')
       elsif class_value == "paraitalic"
         e.set_attribute('class', 'italic')
+      elsif class_value == "italic" && e.get_attribute('style')
+        e.remove_attribute('style')
       end
     end
   end

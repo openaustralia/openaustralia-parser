@@ -65,4 +65,10 @@ class TestHansardParser < Test::Unit::TestCase
     HansardParser.fix_attributes_of_p_tags(doc)
     assert_equal('<p>Some Text</p>', doc.to_s)
   end
+  
+  def test_fix_attributes_of_p_tags_text_indent
+    doc = Hpricot('<p class="italic" style="text-indent: 0;">Some Text</p>')
+    HansardParser.fix_attributes_of_p_tags(doc)
+    assert_equal('<p class="italic">Some Text</p>', doc.to_s)
+  end
 end
