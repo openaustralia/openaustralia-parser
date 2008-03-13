@@ -17,7 +17,7 @@ class TestHansardParser < Test::Unit::TestCase
     HansardParser.remove_subspeech_tags(doc)
     assert_equal('<p>Some Text</p><p>Some Other Text</p>', doc.to_s)
   end
-  
+
   def test_fix_links_relative_link
     doc = Hpricot('<p>The <a href="foo.html">Link Text</a> Some Text</p>')
     HansardParser.fix_links("http://website/bar/blah.html", doc)
@@ -58,5 +58,11 @@ class TestHansardParser < Test::Unit::TestCase
     doc = Hpricot('<p class="paraitalic">Some Text</p>')
     HansardParser.fix_attributes_of_p_tags(doc)
     assert_equal('<p class="italic">Some Text</p>', doc.to_s)
+  end
+  
+  def test_fix_attributes_of_p_tags_parasmalltablejustified
+    doc = Hpricot('<p class="parasmalltablejustified">Some Text</p>')
+    HansardParser.fix_attributes_of_p_tags(doc)
+    assert_equal('<p>Some Text</p>', doc.to_s)
   end
 end

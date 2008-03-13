@@ -162,9 +162,10 @@ class HansardParser
       else
         tag = t[1..-2]
       end
-      allowed_tags = ["b", "i", "dl", "dt", "dd", "ul", "li", "a"]
+      allowed_tags = ["b", "i", "dl", "dt", "dd", "ul", "li", "a", "table", "td", "tr"]
       if !allowed_tags.include?(tag) && t != "<p>" && t != '<p class="italic">'
         puts "WARNING: Tag #{t} is present in speech contents"
+        p text
       end
     end
     doc = Hpricot(text)
@@ -175,7 +176,7 @@ class HansardParser
   def HansardParser.fix_attributes_of_p_tags(content)
     content.search('p').each do |e|
       class_value = e.get_attribute('class')
-      if class_value == "block" || class_value == "parablock"
+      if class_value == "block" || class_value == "parablock" || class_value == "parasmalltablejustified"
         e.remove_attribute('class')
       elsif class_value == "paraitalic"
         e.set_attribute('class', 'italic')
@@ -265,6 +266,13 @@ class HansardParser
       speakername = "Mr David Hawker"
     # The name might be "The Deputy Speaker (Mr Smith)". So, take account of this
     elsif speakername =~ /^the deputy speaker/i
+      # Check name in brackets
+      match = speakername.match(/^the deputy speaker (\(.*\))/)
+      if match
+        if match[1] != "Mr Causle"
+          puts "WARNING: Deputy speaker name is #{match[1]} but expected Mr Causle"
+        end
+      end
       speakername = "Mr Ian Causley"
     elsif speakername.downcase == "the clerk"
       # TODO: Handle "The Clerk" correctly
