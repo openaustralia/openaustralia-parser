@@ -206,4 +206,10 @@ class TestName < Test::Unit::TestCase
   def test_matching_with_initials
     assert(Name.new(:first => "John", :middle => "Edward").matches?(Name.new(:initials => "JE")))
   end
+  
+  def test_last_initials
+    name = Name.last_initials("Hardgrave, GD")
+    assert_equal("Hardgrave", name.last)
+    assert_equal("GD", name.initials)
+  end
 end

@@ -67,6 +67,13 @@ class Name
     Name.new(:title => title, :last => last, :first => first, :nick => nick, :middle => middle, :post_title => post_title)
   end
   
+  # Parse name in the form: "Hardgrave, GD"
+  def Name.last_initials(text)
+    names = text.delete(',').split(' ')
+    throw "Only expecting two names" unless names.size == 2
+    Name.new(:last => names[0], :initials => names[1])
+  end
+  
   # Extract a post title from the end if one is available
   def Name.post_title(names)
     if names.last == "AM" || names.last == "SC" || names.last == "AO" ||
