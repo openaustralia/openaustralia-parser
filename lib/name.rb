@@ -6,7 +6,7 @@ end
 
 # Handle all our silly name parsing needs
 class Name
-  attr_reader :title, :first, :nick, :middle, :last, :post_title
+  attr_reader :title, :initials, :first, :nick, :middle, :last, :post_title
   
   def initialize(params)
     @title = params[:title] || ""
@@ -15,7 +15,15 @@ class Name
     @middle = (Name.capitalize_each_name(params[:middle]) if params[:middle]) || ""
     @post_title = (params[:post_title].upcase if params[:post_title]) || ""
     @last = (Name.capitalize_each_name(params[:last]) if params[:last]) || ""
-    throw "Invalid keys" unless (params.keys - [:title, :first, :nick, :middle, :last, :post_title]).empty?
+    if params[:initials]
+      @initials = params[:initials]
+    else
+      @initials = ""
+      @initials = @initials + first[0..0] if has_first?
+      @initials = @initials + middle[0..0] if has_middle?
+    end
+      
+    throw "Invalid keys" unless (params.keys - [:title, :initials, :first, :nick, :middle, :last, :post_title]).empty?
   end
   
   def Name.last_title_first(text)

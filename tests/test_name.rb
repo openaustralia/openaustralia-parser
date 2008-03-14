@@ -184,4 +184,16 @@ class TestName < Test::Unit::TestCase
     assert(name_speech.matches?(name_members))
     assert(name_members.matches?(name_speech))
   end
+  
+  def test_initials_when_not_given
+    name = Name.new(:first => "john", :last => "smith")
+    assert_equal("J", name.initials)
+    name = Name.new(:first => "john", :middle => "edward", :last => "smith")
+    assert_equal("JE", name.initials)
+  end
+  
+  def test_initials_when_given
+    name = Name.new(:initials => "JE", :last => "smith")
+    assert_equal("JE", name.initials)
+  end
 end
