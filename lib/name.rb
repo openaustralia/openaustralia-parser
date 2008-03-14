@@ -16,14 +16,23 @@ class Name
     @post_title = (params[:post_title].upcase if params[:post_title]) || ""
     @last = (Name.capitalize_each_name(params[:last]) if params[:last]) || ""
     if params[:initials]
-      @initials = params[:initials]
+      @initials = params[:initials].upcase
+      if has_first? || has_middle?
+        throw "Given initials #{params[:initials]} do not match given names" unless initials_from_names == @initials
+      end
     else
-      @initials = ""
-      @initials = @initials + first[0..0] if has_first?
-      @initials = @initials + middle[0..0] if has_middle?
+      @initials = initials_from_names
     end
       
     throw "Invalid keys" unless (params.keys - [:title, :initials, :first, :nick, :middle, :last, :post_title]).empty?
+  end
+  
+  # Initials purely obtained from the first and middle names
+  def initials_from_names
+    i = ""
+    i = i + first[0..0] if has_first?
+    i = i + middle[0..0] if has_middle?
+    i
   end
   
   def Name.last_title_first(text)

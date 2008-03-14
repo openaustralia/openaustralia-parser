@@ -193,7 +193,13 @@ class TestName < Test::Unit::TestCase
   end
   
   def test_initials_when_given
-    name = Name.new(:initials => "JE", :last => "smith")
+    name = Name.new(:initials => "je", :last => "smith")
     assert_equal("JE", name.initials)
+  end
+  
+  def test_initials_when_given_but_do_not_match_first_and_middle_name
+    assert_raise(NameError) do
+      name = Name.new(:first => "John", :middle => "Edward", :initials => "J")
+    end
   end
 end
