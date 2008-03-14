@@ -212,4 +212,9 @@ class TestName < Test::Unit::TestCase
     assert_equal("Hardgrave", name.last)
     assert_equal("GD", name.initials)
   end
+  
+  def test_informal_name_with_initials
+    name = Name.last_initials("Smith, JE")
+    assert_equal("JE Smith", name.informal_name)
+  end
 end

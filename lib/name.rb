@@ -106,8 +106,13 @@ class Name
     if @nick != ""
       "#{@nick} #{@last}"
     else
-      throw "No first name" unless has_first?
-      "#{@first} #{@last}"
+      if has_first?
+        "#{@first} #{@last}"
+      elsif has_initials?
+        "#{@initials} #{@last}"
+      else
+        throw "No first name or initials"
+      end
     end
   end
   
