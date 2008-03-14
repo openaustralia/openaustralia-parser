@@ -7,3 +7,7 @@ from the 41st parliamentary handbook. The members of the house of representative
 http://www.aph.gov.au/library/handbook41st/historical/representatives/index.htm
 This was manually updated to take in account the 2007 general elections. The senator information was taken from
 http://www.aph.gov.au/library/handbook41st/historical/senate/index.htm
+
+ministers.csv:
+Contains the periods when particular people were ministers. The data was originally taken from:
+http://www.aph.gov.au/library/handbook41st/historical/ministries/59.howard.htm
