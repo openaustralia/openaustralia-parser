@@ -31,7 +31,7 @@ class Name
   def initials_from_names
     i = ""
     i = i + first[0..0] if has_first?
-    i = i + middle[0..0] if has_middle?
+    i = i + middle.split(' ').map{|n| n[0..0]}.join if has_middle?
     i
   end
   
