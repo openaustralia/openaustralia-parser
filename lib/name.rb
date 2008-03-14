@@ -119,6 +119,10 @@ class Name
     @title != ""
   end
   
+  def has_initials?
+    @initials != ""
+  end
+  
   def has_first?
     @first != ""
   end
@@ -144,6 +148,7 @@ class Name
   def matches_simply?(name)
     # True if there is overlap between the names
     overlap = (has_title? && name.has_title?) ||
+      (has_initials?   && name.has_initials?) ||
       (has_first?      && name.has_first?) ||
       (has_nick?       && name.has_nick?) ||
       (has_middle?     && name.has_middle?) ||
@@ -152,6 +157,7 @@ class Name
       
     overlap &&
       (!has_title?      || !name.has_title?      || @title      == name.title) &&
+      (!has_initials?   || !name.has_initials?   || @initials   == name.initials) &&
       (!has_first?      || !name.has_first?      || @first      == name.first) &&
       (!has_nick?       || !name.has_nick?       || @nick       == name.nick) &&
       (!has_middle?     || !name.has_middle?     || @middle     == name.middle) &&
