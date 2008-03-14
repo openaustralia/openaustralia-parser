@@ -51,11 +51,7 @@ class Name
     else
       last = names.shift
     end
-    titles = []
-    while title = Name.title(names)
-      titles << title
-    end
-    title = titles.join(' ')
+    title = Name.extract_title_at_start(names)
     first = names.shift
     throw "Too few names" if first.nil?
     post_titles = []
@@ -68,10 +64,12 @@ class Name
   end
   
   # Parse name in the form: "Hardgrave, GD"
-  def Name.last_initials(text)
+  def Name.last_title_initials(text)
     names = text.delete(',').split(' ')
-    throw "Only expecting two names" unless names.size == 2
-    Name.new(:last => names[0], :initials => names[1])
+    last = names.shift
+    title = Name.extract_title_at_start(names)
+    initials = names.shift
+    Name.new(:last => last, :title => title, :initials => initials)
   end
   
   # Extract a post title from the end if one is available
@@ -85,11 +83,7 @@ class Name
   
   def Name.title_first_last(text)
     names = text.delete(',').split(' ')
-    titles = Array.new
-    while title = Name.title(names)
-      titles << title
-    end
-    title = titles.join(' ')
+    title = Name.extract_title_at_start(names)
     throw "Too few names" if names.empty?
     if names.size == 1
       last = names[0]
@@ -197,6 +191,14 @@ class Name
   
   private
   
+  def Name.extract_title_at_start(names)
+    titles = Array.new
+    while title = Name.title(names)
+      titles << title
+    end
+    titles.join(' ')
+  end
+  
   # Extract a title at the beginning of the list of names if available and shift
   def Name.title(names)
     if names.size >= 3 && names[0] == "the" && names[1] == "Rt" && names[2] == "Hon."
@@ -213,7 +215,7 @@ class Name
         "Hon."
     elsif names.size >= 1
       title = names[0]
-      if title == "Dr" || title == "Mr" || title == "Mrs" || title == "Ms" || title == "Miss"
+      if title == "Dr" || title == "Mr" || title == "Mrs" || title == "Ms" || title == "Miss" || title == "Senator"
         names.shift
         title
       end
