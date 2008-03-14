@@ -7,7 +7,7 @@ require 'hansard_parser'
 require 'configuration'
 
 # First load people back in so that we can look up member id's
-people = People.read_csv("data/members.csv")
+people = People.read_csv("data/members.csv", "data/ministers.csv")
 
 system("mkdir -p pwdata/scrapedxml/debates")
 

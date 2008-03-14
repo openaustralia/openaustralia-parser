@@ -12,7 +12,8 @@ class TestPeopleCSVReader < Test::Unit::TestCase
   end
   
   def test_sophie_mirabella
-    people = PeopleCSVReader.read("#{File.dirname(__FILE__)}/../data/members.csv")
+    people = PeopleCSVReader.read("#{File.dirname(__FILE__)}/../data/members.csv",
+      "#{File.dirname(__FILE__)}/../data/ministers.csv")
     sophie_mirabella = people.find_person_by_name(Name.new(:first => "Sophie", :last => "Mirabella"))
     
     ref = Person.new(Name.new(:first => "Sophie", :last => "Mirabella"), 10461)

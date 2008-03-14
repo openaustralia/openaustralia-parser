@@ -11,6 +11,7 @@ class Person
   
   def initialize(name, override_id = nil)
     @periods = []
+    @minister_positions = []
     if override_id
       @id = override_id
     else
@@ -37,6 +38,10 @@ class Person
   # Note that there might be several of these per person
   def add_house_period(params)
     add_period(params.merge(:house => "representatives"))
+  end
+  
+  def add_minister_position(params)
+    @minister_positions << MinisterPosition.new(params.merge(:person => self))
   end
   
   # Returns true if this person has a house_period with the given id

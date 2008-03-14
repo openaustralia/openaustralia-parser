@@ -6,10 +6,10 @@ require 'person'
 require 'name'
 
 class PeopleCSVReader
-  def PeopleCSVReader.read(filename)
+  def PeopleCSVReader.read(members_filename, ministers_filename)
     # Read in csv file of members data
 
-    data = CSV.readlines(filename)
+    data = CSV.readlines(members_filename)
     # Remove the first two elements
     data.shift
     data.shift
@@ -41,10 +41,34 @@ class PeopleCSVReader
 
       people << person
     end
+    read_ministers(ministers_filename, people)
     people
   end  
 
   private
+  
+  # Attaches ministerial information to people
+  def PeopleCSVReader.read_ministers(filename, people)
+    data = CSV.readlines(filename)
+    # Remove the first two rows
+    data.shift
+    data.shift
+    data.each do |line|
+      name, from_date, to_date , position = line
+      from_date = parse_date(from_date)
+      if to_date == "" || to_date.nil?
+        to_date = "31.12.9999"
+      end
+      to_date = parse_date(to_date)
+      # Skip the line where we don't know the person
+      if name != "??"
+        n = Name.last_title_initials(name)
+        person = people.find_person_by_name(n) if n
+        throw "Can't find #{name}" if person.nil?
+        person.add_minister_position(:from_date => from_date, :to_date => to_date, :position => position)
+      end
+    end
+  end
   
   # text is in day.month.year form (all numbers)
   def PeopleCSVReader.parse_date(text)

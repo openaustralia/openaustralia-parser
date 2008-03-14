@@ -6,7 +6,7 @@ require 'configuration'
 require 'people'
 
 puts "Writing XML..."
-people = People.read_csv("data/members.csv")
+people = People.read_csv("data/members.csv", "data/ministers.csv")
 people.write_xml('pwdata/members/people.xml', 'pwdata/members/all-members.xml')
 
 puts "Downloading person images..."
