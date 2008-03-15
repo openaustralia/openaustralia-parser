@@ -163,12 +163,41 @@ class Name
       
     overlap &&
       (!has_title?      || !name.has_title?      || @title      == name.title) &&
-      (!has_initials?   || !name.has_initials?   || @initials   == name.initials) &&
+      initials_matches?(name) &&
       (!has_first?      || !name.has_first?      || @first      == name.first) &&
       (!has_nick?       || !name.has_nick?       || @nick       == name.nick) &&
       (!has_middle?     || !name.has_middle?     || @middle     == name.middle) &&
       (!has_last?       || !name.has_last?       || @last       == name.last) &&
       (!has_post_title? || !name.has_post_title? || @post_title == name.post_title)
+  end
+  
+  def first_initial
+    if @initials.size > 0
+      @initials[0..0]
+    else
+      ""
+    end
+  end
+  
+  def middle_initials
+    if @initials.size > 1
+      @initials[1..-1]
+    else
+      ""
+    end  
+  end
+  
+  def has_first_initial?
+    first_initial != ""
+  end
+  
+  def has_middle_initials?
+    middle_initials != ""
+  end
+  
+  def initials_matches?(name)
+    (!has_first_initial?   || !name.has_first_initial? || first_initial == name.first_initial) &&
+    (!has_middle_initials?   || !name.has_middle_initials? || middle_initials == name.middle_initials)
   end
   
   def matches?(name)
