@@ -223,4 +223,11 @@ class TestName < Test::Unit::TestCase
     name = Name.last_title_initials("Smith, JE")
     assert_equal("JE Smith", name.informal_name)
   end
+  
+  # This test for the regression introduced by adding support for initials
+  def test_matches_with_middle_name_missing
+    name1 = Name.new(:first => "Kim", :middle => "William", :last => "Wilkie")
+    name2 = Name.new(:first => "Kim", :last => "Wilkie")
+    assert(name1.matches?(name2))
+  end
 end
