@@ -60,39 +60,27 @@ For development purposes we have our web application (not the parser) under {{{/
 
 {{{
 $ cd /Library/WebServer/
-$ sudo chown -R YOURUSER:staff Documents
-(enter your admin password)
+$ sudo chown -R $USER:staff Documents
+}}}
+And enter your admin password. This is necessary so that you don't have to always use sudo when editing files or coding on the website.
+
+{{{
 $ cd Documents
-$ hg clone http://hg.assembla.com/openaustralia3 mysociety
-$ hg clone http://hg.assembla.com/openaustralia2 mysociety/.hg/patches
-$ cd mysociety
-# Push all the patches
-$ hg qpush -a
-# (you should see messages like the following)
-applying configuration.patch
-applying fixes.patch
-applying australia.patch
-applying remove-uk-news.patch
-applying news-australian.patch
-Now at: news-australian.patch
-$ 
+$ git clone git://github.com/mlandauer/openaustralia-app.git
 }}}
 
-''where YOURUSER is replaced by your Mac OS X username''. This is necessary so that you don't have to always use sudo when editing files or coding on the website.
-
-You should now have the website files located at {{{/Library/WebServer/Documents/mysociety}}}. We will come back to this path once we've installed the parser as both need to know (at the time of writing this document) the path of each.
+You should now have the website files located at {{{/Library/WebServer/Documents/openaustralia-app}}}. We will come back to this path once we've installed the parser as both need to know (at the time of writing this document) the path of each.
 
 === Parser ===
 
-The parser can be installed wherever. For this document, we will assume that the parser is installed under {{{~/Development/openaustralia/}}} (where the {{{~}}} is your home directory, eg {{{/Users/bruno}}} in my case).
+The parser can be installed wherever. For this document, we will assume that the parser is installed under {{{~/Development}}} (where the {{{~}}} is your home directory, eg {{{/Users/bruno}}} in my case).
 
 {{{
 $ cd ~/Development
-$ mkdir openaustralia ; cd openaustralia
-$ hg clone http://hg.assembla.com/openaustralia openaustralia-parser
+$ git clone git://github.com/mlandauer/openaustralia-parser.git
 }}}
 
-You should now have the parser installed under {{{~/Development/openaustralia/openaustralia-parser}}}.
+You should now have the parser installed under {{{~/Development/openaustralia-parser}}}.
 
 The only configuration necessary is to change the web-root if you have installed the web application (as described above) in another location. That value is {{{web_root}}} in the {{{configuration.yml}}} file at the root of the {{{openaustralia-parser}}}.
 
@@ -114,7 +102,7 @@ Enter password: ******
 You are now ready to import the schema
 
 {{{
-$ mysql -u root -p openaustralia < /Library/WebServer/Documents/mysociety/twfy/db/schema.sql
+$ mysql -u root -p openaustralia < /Library/WebServer/Documents/openaustralia-app/twfy/db/schema.sql
 Enter password: ******
 }}}
 
@@ -122,7 +110,7 @@ Enter password: ******
 
 There is a file that you need to edit (and remember NOT to commit your changes on that file) on the web application:
 
-{{{/Library/WebServer/Documents/mysociety/twfy/conf/general}}}
+{{{/Library/WebServer/Documents/openaustralia-app/twfy/conf/general}}}
 
 It's well documented and quite explanatory. It contains the configuration for MySQL (database name, host, username, etc) as well as the URL and paths for the web application on your machine.
 
@@ -185,5 +173,5 @@ WARNING: Not yet supporting: Procedural text: NATIONAL HEALTH AMENDMENT (PHARMAC
 db loading debates 2007-09-20
 }}}
 
-You should now be able to view the results at "Your Webserver URL":http://localhost/mysociety/twfy/www/docs/
+You should now be able to view the results at "Your Webserver URL":http://localhost/openaustralia-app/twfy/www/docs/
 
