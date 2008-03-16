@@ -20,7 +20,7 @@ These steps have only been tested on Mac OS X 10.5 (leopard). They might work as
    (this has dependencies like !GraphicsMagick/!ImageMagick, which in turn needs
    ghostscript)
    *  rcov
- *  "Mercurial":http://www.selenic.com/mercurial/wiki/
+ *  [http://git.or.cz/ git]
 
 == How to install all the dependencies ==
 
@@ -33,15 +33,15 @@ of information online:
 
 You should also be able to get MySQL from "MySQL's website":http://www.mysql.com/ as they now distribute binary versions for Mac OS X (at the time of writing this document, you can find the 5.0.51a MySQL Community Server at "MySQL Community Server":http://dev.mysql.com/downloads/mysql/5.0.html#macosx-dmg).
 
-Install "!DarwinPorts":http://darwinports.com/ and then install Mercurial, !ImageMagick and ghostscript:
+Install "!DarwinPorts":http://darwinports.com/ and then install git, !ImageMagick and ghostscript:
 
 {{{
-$ sudo port install mercurial
+$ sudo port install git-core
 $ sudo port install ImageMagick
 $ sudo port install ghostscript
 }}}
 
-Mote: the previous step takes a long while to complete, make yourself a coffee (or two)
+Note: the previous step takes a long while to complete, make yourself a coffee (or two)
 
 As the parsing of XML files to insert into the database is done with Perl (and there's quite a few scripts in Perl), you will need a few Perl CPAN modules:
 
