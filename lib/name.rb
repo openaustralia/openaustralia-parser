@@ -6,7 +6,7 @@ end
 
 # Handle all our silly name parsing needs
 class Name
-  attr_reader :title, :initials, :first, :nick, :middle, :last, :post_title
+  attr_reader :title, :first, :first_initial, :nick, :middle, :middle_initials, :last, :post_title
   
   def initialize(params)
     @title = params[:title] || ""
@@ -16,23 +16,37 @@ class Name
     @post_title = (params[:post_title].upcase if params[:post_title]) || ""
     @last = (Name.capitalize_each_name(params[:last]) if params[:last]) || ""
     if params[:initials]
-      @initials = params[:initials].upcase
-      if has_first? || has_middle?
-        throw "Given initials #{params[:initials]} do not match given names" unless initials_from_names == @initials
+      @first_initial = params[:initials][0..0].upcase
+      @middle_initials = params[:initials][1..-1].upcase
+      if has_first? && first_initial_from_name != @first_initial
+        throw "Given first initial #{@first_initial} does not match given first name"
+      end
+      if has_middle? && middle_initials_from_name != @middle_initials
+        throw "Given middle initials #{@middle_initials} does not match given middle names"
       end
     else
-      @initials = initials_from_names
+      @first_initial = first_initial_from_name
+      @middle_initials = middle_initials_from_name
     end
       
     throw "Invalid keys" unless (params.keys - [:title, :initials, :first, :nick, :middle, :last, :post_title]).empty?
   end
   
-  # Initials purely obtained from the first and middle names
-  def initials_from_names
-    i = ""
-    i = i + first[0..0] if has_first?
-    i = i + middle.split(' ').map{|n| n[0..0]}.join if has_middle?
-    i
+  # Initial purely obtained from the first name
+  def first_initial_from_name
+    if has_first?
+      first[0..0]
+    else
+      ""
+    end
+  end
+  
+  def middle_initials_from_name
+    if has_middle?
+      middle.split(' ').map{|n| n[0..0]}.join
+    else
+      ""
+    end
   end
   
   def Name.last_title_first(text)
@@ -103,7 +117,7 @@ class Name
       if has_first?
         "#{@first} #{@last}"
       elsif has_initials?
-        "#{@initials} #{@last}"
+        "#{initials} #{@last}"
       else
         throw "No first name or initials"
       end
@@ -126,7 +140,7 @@ class Name
   end
   
   def has_initials?
-    @initials != ""
+    initials != ""
   end
   
   def has_first?
@@ -171,22 +185,13 @@ class Name
       (!has_post_title? || !name.has_post_title? || @post_title == name.post_title)
   end
   
-  def first_initial
-    if @initials.size > 0
-      @initials[0..0]
-    else
-      ""
-    end
+  def initials
+    i = ""
+    i = i + first_initial if has_first_initial?
+    i = i + middle_initials if has_middle_initials?
+    i
   end
-  
-  def middle_initials
-    if @initials.size > 1
-      @initials[1..-1]
-    else
-      ""
-    end  
-  end
-  
+    
   def has_first_initial?
     first_initial != ""
   end
