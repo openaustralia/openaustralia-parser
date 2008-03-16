@@ -187,19 +187,23 @@ class TestName < Test::Unit::TestCase
   
   def test_initials_when_not_given
     name = Name.new(:first => "john", :last => "smith")
-    assert_equal("J", name.initials)
+    assert_equal("J", name.first_initial)
+    assert_equal("", name.middle_initials)
     name = Name.new(:first => "john", :middle => "edward", :last => "smith")
-    assert_equal("JE", name.initials)
+    assert_equal("J", name.first_initial)
+    assert_equal("E", name.middle_initials)
   end
   
   def test_initials_when_given
-    name = Name.new(:initials => "je", :last => "smith")
-    assert_equal("JE", name.initials)
+    name = Name.new(:first_initial => "j", :middle_initials => "e", :last => "smith")
+    assert_equal("J", name.first_initial)
+    assert_equal("E", name.middle_initials)
   end
   
   def test_initials_when_not_given_two_middle_names
     name = Name.new(:first => "john", :middle => "edward philip", :last => "smith")
-    assert_equal("JEP", name.initials)
+    assert_equal("J", name.first_initial)
+    assert_equal("EP", name.middle_initials)
   end
   
   def test_initials_when_given_but_do_not_match_first_and_middle_name
@@ -209,14 +213,17 @@ class TestName < Test::Unit::TestCase
   end
   
   def test_matching_with_initials
-    assert(Name.new(:first => "John", :middle => "Edward").matches?(Name.new(:initials => "JE")))
+    name1 = Name.new(:first => "John", :middle => "Edward")
+    name2 = Name.new(:first_initial => "J", :middle_initials => "E")
+    assert(name1.matches?(name2))
   end
   
   def test_last_title_initials
     name = Name.last_title_initials("Smith, Senator JE")
     assert_equal("Smith", name.last)
     assert_equal("Senator", name.title)
-    assert_equal("JE", name.initials)
+    assert_equal("J", name.first_initial)
+    assert_equal("E", name.middle_initials)
   end
   
   def test_informal_name_with_initials

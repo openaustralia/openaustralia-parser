@@ -15,21 +15,24 @@ class Name
     @middle = (Name.capitalize_each_name(params[:middle]) if params[:middle]) || ""
     @post_title = (params[:post_title].upcase if params[:post_title]) || ""
     @last = (Name.capitalize_each_name(params[:last]) if params[:last]) || ""
-    if params[:initials]
-      @first_initial = params[:initials][0..0].upcase
-      @middle_initials = params[:initials][1..-1].upcase
+    if params[:first_initial]
+      @first_initial = params[:first_initial].upcase
       if has_first? && first_initial_from_name != @first_initial
         throw "Given first initial #{@first_initial} does not match given first name"
       end
-      if has_middle? && middle_initials_from_name != @middle_initials
-        throw "Given middle initials #{@middle_initials} does not match given middle names"
-      end
     else
       @first_initial = first_initial_from_name
-      @middle_initials = middle_initials_from_name
     end
-      
-    throw "Invalid keys" unless (params.keys - [:title, :initials, :first, :nick, :middle, :last, :post_title]).empty?
+    if params[:middle_initials]
+      @middle_initials = params[:middle_initials].upcase
+      if has_middle? && middle_initials_from_name != @middle_initials
+        throw "Given middle initials #{@middle_initials} does not match given middle names"
+      end      
+    else
+      @middle_initials = middle_initials_from_name      
+    end
+    invalid_keys = params.keys - [:title, :first, :first_initial, :nick, :middle, :middle_initials, :last, :post_title]
+    throw "Invalid keys #{invalid_keys} used" unless invalid_keys.empty?
   end
   
   # Initial purely obtained from the first name
@@ -83,7 +86,10 @@ class Name
     last = names.shift
     title = Name.extract_title_at_start(names)
     initials = names.shift
-    Name.new(:last => last, :title => title, :initials => initials)
+    first_initial = initials[0..0] if initials.size > 0
+    middle_initials = initials[1..-1] if initials.size > 1
+    Name.new(:last => last, :title => title,
+      :first_initial => first_initial, :middle_initials => middle_initials)
   end
   
   # Extract a post title from the end if one is available
@@ -116,10 +122,8 @@ class Name
     else
       if has_first?
         "#{@first} #{@last}"
-      elsif has_initials?
-        "#{initials} #{@last}"
       else
-        throw "No first name or initials"
+        "#{first_initial}#{middle_initials} #{@last}"
       end
     end
   end
@@ -139,12 +143,12 @@ class Name
     @title != ""
   end
   
-  def has_initials?
-    initials != ""
-  end
-  
   def has_first?
     @first != ""
+  end
+  
+  def has_first_initial?
+    @first_initial != ""
   end
   
   def has_nick?
@@ -153,6 +157,10 @@ class Name
   
   def has_middle?
     @middle != ""
+  end
+  
+  def has_middle_initials?
+    @middle_initials != ""
   end
   
   def has_last?
@@ -168,41 +176,23 @@ class Name
   def matches_simply?(name)
     # True if there is overlap between the names
     overlap = (has_title? && name.has_title?) ||
-      (has_initials?   && name.has_initials?) ||
-      (has_first?      && name.has_first?) ||
-      (has_nick?       && name.has_nick?) ||
-      (has_middle?     && name.has_middle?) ||
-      (has_last?       && name.has_last?) ||
-      (has_post_title? && name.has_post_title?)
+      (has_first_initial?   && name.has_first_initial?) ||
+      (has_middle_initials? && name.has_middle_initials?) ||
+      (has_first?           && name.has_first?) ||
+      (has_nick?            && name.has_nick?) ||
+      (has_middle?          && name.has_middle?) ||
+      (has_last?            && name.has_last?) ||
+      (has_post_title?      && name.has_post_title?)
       
     overlap &&
-      (!has_title?      || !name.has_title?      || @title      == name.title) &&
-      initials_matches?(name) &&
-      (!has_first?      || !name.has_first?      || @first      == name.first) &&
-      (!has_nick?       || !name.has_nick?       || @nick       == name.nick) &&
-      (!has_middle?     || !name.has_middle?     || @middle     == name.middle) &&
-      (!has_last?       || !name.has_last?       || @last       == name.last) &&
-      (!has_post_title? || !name.has_post_title? || @post_title == name.post_title)
-  end
-  
-  def initials
-    i = ""
-    i = i + first_initial if has_first_initial?
-    i = i + middle_initials if has_middle_initials?
-    i
-  end
-    
-  def has_first_initial?
-    first_initial != ""
-  end
-  
-  def has_middle_initials?
-    middle_initials != ""
-  end
-  
-  def initials_matches?(name)
-    (!has_first_initial?   || !name.has_first_initial? || first_initial == name.first_initial) &&
-    (!has_middle_initials?   || !name.has_middle_initials? || middle_initials == name.middle_initials)
+      (!has_title?           || !name.has_title?           || @title      == name.title) &&
+      (!has_first_initial?   || !name.has_first_initial?   || first_initial == name.first_initial) &&
+      (!has_middle_initials? || !name.has_middle_initials? || middle_initials == name.middle_initials) &&
+      (!has_first?           || !name.has_first?           || @first      == name.first) &&
+      (!has_nick?            || !name.has_nick?            || @nick       == name.nick) &&
+      (!has_middle?          || !name.has_middle?          || @middle     == name.middle) &&
+      (!has_last?            || !name.has_last?            || @last       == name.last) &&
+      (!has_post_title?      || !name.has_post_title?      || @post_title == name.post_title)
   end
   
   def matches?(name)
@@ -219,8 +209,8 @@ class Name
   end
   
   def ==(name)
-    @title == name.title && @first == name.first && @nick == name.nick &&
-      @middle == name.middle && @last == name.last && @post_title == name.post_title
+    @title == name.title && @first == name.first && @first_initial == name.first_initial && @nick == name.nick &&
+      @middle == name.middle && @middle_initials == name.middle_initials && @last == name.last && @post_title == name.post_title
   end
   
   private
