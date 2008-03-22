@@ -6,18 +6,24 @@ set :application, "openaustralia-app"
 
 set :scm, :git
 set :scm_command, "/opt/local/bin/git"
+# This works even when the remote server does not have git installed
+set :deploy_via, :copy
 
 # default_run_options[:pty] = true
 
 set :repository, "/Library/WebServer/Documents/openaustralia-app"
 
-set :deploy_to, "/Library/WebServer/Documents/test-deploy/#{application}"
-
 set :use_sudo, false
-# role :web, "openaustralia.org"
-# set :user, "matthew%openaustralia.org"
-role :web, "localhost"
-set :user, "matthewl"
+
+# Use the following settings for a "true" deploy
+set :deploy_to, "/home/3716/domains/openaustralia.org/#{application}"
+role :web, "openaustralia.org"
+set :user, "serveradmin%openaustralia.org"
+
+# Use the following settings for a test local deploy
+#set :deploy_to, "/Library/WebServer/Documents/test-deploy/#{application}"
+#role :web, "localhost"
+#set :user, "matthewl"
 
 load 'deploy' if respond_to?(:namespace) # cap2 differentiator
 
