@@ -15,15 +15,17 @@ set :repository, "/Library/WebServer/Documents/openaustralia-app"
 
 set :use_sudo, false
 
-# Use the following settings for a "true" deploy
-set :deploy_to, "/home/3716/domains/openaustralia.org/#{application}"
-role :web, "openaustralia.org"
-set :user, "serveradmin%openaustralia.org"
+local_deploy = false
 
-# Use the following settings for a test local deploy
-#set :deploy_to, "/Library/WebServer/Documents/test-deploy/#{application}"
-#role :web, "localhost"
-#set :user, "matthewl"
+if local_deploy
+	set :deploy_to, "/Library/WebServer/Documents/test-deploy/#{application}"
+	role :web, "localhost"
+	set :user, "matthewl"
+else
+	set :deploy_to, "/home/3716/domains/openaustralia.org/#{application}"
+	role :web, "openaustralia.org"
+	set :user, "serveradmin%openaustralia.org"
+end
 
 load 'deploy' if respond_to?(:namespace) # cap2 differentiator
 
