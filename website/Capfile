@@ -15,7 +15,7 @@ set :repository, "/Library/WebServer/Documents/openaustralia-app"
 
 set :use_sudo, false
 
-local_deploy = true
+local_deploy = false
 
 if local_deploy
 	set :deploy_to, "/Library/WebServer/Documents/test-deploy/#{application}"
@@ -80,7 +80,7 @@ def put_directory(source, destination)
     content = File.open(filename, "rb") { |f| f.read }
     put content, remote_filename
 	# Extract archive on remote machine
-	run "cd #{dst}; tar xf #{remote_filename}; rm #{remote_filename}"
+	run "cd #{dst}; tar xzf #{remote_filename}; rm #{remote_filename}"
 	# Clean up
 	system("rm #{filename}")
 end
