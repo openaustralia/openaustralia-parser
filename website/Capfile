@@ -2,66 +2,46 @@
 #
 # Requirement cap 2.1
 
-set :application, "twfy"
+set :application, "openaustralia-app"
 
-# We've moved over to Mercurial
-set :scm, :mercurial
+set :scm, :git
+set :scm_command, "/opt/local/bin/git"
 
 # default_run_options[:pty] = true
 
-set :repository, "http://hg.assembla.com/openaustralia3"
-set :mq_patches_repository, "http://hg.assembla.com/openaustralia2"
+set :repository, "/Library/WebServer/Documents/openaustralia-app"
 
-set :deploy_to, "/Users/bruno/Development/Personal/openaustralia/deployment/#{application}"
+set :deploy_to, "/Library/WebServer/Documents/test-deploy/#{application}"
 
 set :use_sudo, false
 # role :web, "openaustralia.org"
-# set :user, "serveradmin%openaustralia.org"
+# set :user, "matthew%openaustralia.org"
 role :web, "localhost"
-set :user, "bruno"
+set :user, "matthewl"
 
 load 'deploy' if respond_to?(:namespace) # cap2 differentiator
 
-# This namespace should only be used when deploying to a new server
-namespace :setup do
-  
-  desc "Basic directory structure before first deployment"
-  task :create_structure do
-    run "mkdir -p #{shared_path}/system/images/mps #{shared_path}/system/images/mpsL"
-    run "mkdir -p #{deploy_to}/releases"
-  end
-  
-end
-
-namespace :apache do
-  desc "Restart Apache"
-  task :restart do
-    sudo "apachectl restart"
-  end
-end
-
 namespace :deploy do
-	task :restart do
-	  top.apache.restart
+	task :setup, :except => { :no_release => true } do
+		dirs = [deploy_to, releases_path, shared_path]
+		shared_images_path = File.join(shared_path, "images")
+		dirs += ["mps", "mpsL"].map {|d| File.join(shared_images_path, d)}
+		run "umask 02 && mkdir -p #{dirs.join(' ')}"
 	end
 
-  # We have to override this recipe unfortunately as we are using
-  # the mq extension for mercurial and that's not supported in the
-  # mercurial scm plugin for capistrano AFAIK (TBC)
-  desc "Creates a new release directory and clones"
-  task :update_code, :except => { :no_release => true } do
-	  on_rollback { run "rm -rf #{release_path}; true" }
+	# Do nothing for deploy:restart
+	task :restart do
+	end
 
-    run "hg clone #{repository} #{release_path}"
-    run "hg clone #{mq_patches_repository} #{release_path}/.hg/patches"
-    run "cd #{release_path} && hg qpush -a"
-  end
-  
-  desc "After a code update, we link the images directories to the shared ones"
-	task :after_update_code, :except => { :no_release => true } do
-	  on_rollback { run "rm -rf #{release_path}; true" }
+	task :finalize_update, :except => { :no_release => true } do
+		run "chmod -R g+w #{latest_release}" if fetch(:group_writable, true)
+	end
 
-	  run "ln -s #{shared_path}/system/images/mps #{release_path}/twfy/www/docs/images/mps"
-	  run "ln -s #{shared_path}/system/images/mpsL #{release_path}/twfy/www/docs/images/mpsL"
+	desc "After a code update, we link the images directories to the shared ones"
+	task :after_update_code, :except => { :no_release => true} do
+		run "rm -rf #{release_path}/twfy/www/docs/images/mps #{release_path}/twfy/www/docs/images/mpsL #{release_path}/twfy/conf/general"
+		run "ln -s #{shared_path}/images/mps #{release_path}/twfy/www/docs/images/mps"
+		run "ln -s #{shared_path}/images/mpsL #{release_path}/twfy/www/docs/images/mpsL"
+		run "ln -s #{shared_path}/general #{release_path}/twfy/conf/general"
 	end
 end
