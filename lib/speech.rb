@@ -16,6 +16,7 @@ class Speech
     else
       x.speech(:speakername => "unknown", :time => @time, :url => @url, :id => @id) { x << @content.to_s }
     end
+    @id.next
   end
 
   def append_to_content(content)

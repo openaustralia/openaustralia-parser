@@ -39,6 +39,7 @@ class Period < PeriodBase
       @id = params.delete(:id)
     else
       @id = @@id.to_s
+      @@id.next
     end
     @from_why =   params.delete(:from_why)
     @to_why =     params.delete(:to_why)

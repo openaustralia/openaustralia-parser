@@ -17,6 +17,7 @@ class Person
       @id = override_id
     else
       @id = @@id.to_s
+      @@id.next
     end
     @name = name
   end
