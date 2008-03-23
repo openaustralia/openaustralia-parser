@@ -16,10 +16,10 @@ class TestPeopleCSVReader < Test::Unit::TestCase
       "#{File.dirname(__FILE__)}/../data/ministers.csv")
     sophie_mirabella = people.find_person_by_name(Name.new(:first => "Sophie", :last => "Mirabella"))
     
-    ref = Person.new(Name.new(:first => "Sophie", :last => "Mirabella"), "uk.org.publicwhip/person/10461")
+    ref = Person.new(Name.new(:first => "Sophie", :last => "Mirabella"), Id.new("uk.org.publicwhip/person/", 10461))
     ref.add_house_period(:from_date => Date.new(2001, 11, 10), :to_date => Date.new(9999, 12, 31),
       :from_why => "general_election", :to_why => "current_member",
-      :division => "Indi", :party => "LIB", :id => "uk.org.publicwhip/member/533")
+      :division => "Indi", :party => "LIB", :id => Id.new("uk.org.publicwhip/member/", 533))
 
     assert_equal(ref, sophie_mirabella)
   end

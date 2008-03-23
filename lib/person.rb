@@ -16,7 +16,7 @@ class Person
     if override_id
       @id = override_id
     else
-      @id = @@id.to_s
+      @id = @@id.clone
       @@id.next
     end
     @name = name

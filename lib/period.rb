@@ -38,7 +38,7 @@ class Period < PeriodBase
     if params[:id]
       @id = params.delete(:id)
     else
-      @id = @@id.to_s
+      @id = @@id.clone
       @@id.next
     end
     @from_why =   params.delete(:from_why)

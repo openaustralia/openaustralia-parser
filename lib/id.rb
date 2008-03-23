@@ -1,5 +1,7 @@
 # Generates unique identifier for each piece of text in the Hansard
 class Id
+  attr_reader :prefix, :count
+  
   def initialize(prefix, count = 1)
     @prefix = prefix
     @count = count
@@ -15,5 +17,9 @@ class Id
   
   def next
     @count = @count + 1
+  end
+  
+  def ==(a)
+    a.prefix == prefix && a.count == count
   end
 end
