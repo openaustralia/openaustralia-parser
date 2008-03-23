@@ -68,19 +68,24 @@ namespace :deploy do
 	task :database do
 		tmpdir = Dir.tmpdir
 		filename = "#{tmpdir}/twfy-australia.sql"
-		compressed_filename = "#{filename}.gz"
 		remote_filename = "/tmp/twfy-australia.sql"
-		remote_compressed_filename = "#{remote_filename}.gz"
 		# Dump local database to a temporary file
 		system("mysqldump5 -u twfy-australia --password=twfy-australia twfy-australia > #{filename}")
-		system("gzip #{filename}")
-	    content = File.open(compressed_filename, "rb") { |f| f.read }
-	    put content, remote_compressed_filename
-		# Uncompress
-		run "gunzip #{remote_compressed_filename}"
+		put_compressed(filename, remote_filename)
 		# Load up the database
 		run "mysql -u db3716_twfy --password=twfy-australia -h internal-db.s3716.gridserver.com db3716_twfy_australia < #{remote_filename}; rm #{remote_filename}"
 	end
+end
+
+def put_compressed(src_file, dst_file)
+	src_file_compressed = "#{src_file}.gz"
+	dst_file_compressed = "#{dst_file}.gz"
+	# Compress
+	system("gzip -c #{src_file} > #{src_file_compressed}")
+    content = File.open(src_file_compressed, "rb") { |f| f.read }
+    put content, dst_file_compressed
+	run "gunzip #{dst_file_compressed}"
+	system("rm #{src_file_compressed}")
 end
 
 def put_directory(source, destination)
