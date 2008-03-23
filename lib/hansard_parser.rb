@@ -12,11 +12,9 @@ class HansardHeading
     # Only add headings if they have changed
     if newtitle != @title
       x.tag!("major-heading", newtitle, :id => speech_id, :url => url)
-      speech_id.next
     end
     if newtitle != @title || newsubtitle != @subtitle
       x.tag!("minor-heading", newsubtitle, :id => speech_id, :url => url)
-      speech_id.next
     end
     @title = newtitle
     @subtitle = newsubtitle

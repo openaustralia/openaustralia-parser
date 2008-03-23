@@ -6,10 +6,8 @@ class Id
   end
   
   def to_s
- 	  "#{@prefix}#{@count}"
-  end
-  
-  def next
+ 	  value = "#{@prefix}#{@count}"
     @count = @count + 1
+ 	  value
   end
 end
