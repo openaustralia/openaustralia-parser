@@ -31,7 +31,7 @@ class PeopleXMLWriter
     x.instruct!
     x.publicwhip do
       people.each do |person|
-        x.person(:id => "uk.org.publicwhip/person/#{person.id}", :latestname => person.name.informal_name) do
+        x.person(:id => person.id, :latestname => person.name.informal_name) do
           person.house_periods.each do |period|
             if period.current?
               x.office(:id => period.id, :current => "yes")

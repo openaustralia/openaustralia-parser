@@ -1,10 +1,11 @@
 require 'period'
+require 'id'
 
 class Person
   attr_reader :periods, :id, :name
   
   def Person.reset_id_counter
-    @@id = 10001
+    @@id = Id.new("uk.org.publicwhip/person/", 10001)
   end
   
   reset_id_counter
@@ -15,8 +16,7 @@ class Person
     if override_id
       @id = override_id
     else
-      @id = @@id
-      @@id = @@id + 1
+      @id = @@id.to_s
     end
     @name = name
   end
