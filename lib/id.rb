@@ -2,11 +2,14 @@
 class Id
   def initialize(prefix, start_count = 1)
     @prefix = prefix
-    @count = start_count - 1
+    @count = start_count
   end
   
   def to_s
-    @count = @count + 1
  	  "#{@prefix}#{@count}"
+  end
+  
+  def next
+    @count = @count + 1
   end
 end
