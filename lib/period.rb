@@ -1,3 +1,5 @@
+require 'id'
+
 class PeriodBase
   attr_accessor :from_date, :to_date, :person
   
@@ -25,7 +27,7 @@ class Period < PeriodBase
   attr_reader :id
   
   def Period.reset_id_counter
-    @@id = 1
+    @@id = Id.new("uk.org.publicwhip/member/")
   end
   
   reset_id_counter
@@ -36,8 +38,7 @@ class Period < PeriodBase
     if params[:id]
       @id = params.delete(:id)
     else
-      @id = @@id
-      @@id = @@id + 1
+      @id = @@id.to_s
     end
     @from_why =   params.delete(:from_why)
     @to_why =     params.delete(:to_why)
