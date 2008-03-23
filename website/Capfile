@@ -2,6 +2,8 @@
 #
 # Requirement cap 2.1
 
+require 'tempfile'
+
 set :application, "openaustralia-app"
 
 set :scm, :git
@@ -61,9 +63,25 @@ namespace :deploy do
 		put_directory "../pwdata/images/mps", "#{shared_path}/images/mps"
 		put_directory "../pwdata/images/mpsL", "#{shared_path}/images/mpsL"
 	end
+	
+	desc "Upload local database contents"
+	task :database do
+		tmpdir = Dir.tmpdir
+		filename = "#{tmpdir}/twfy-australia.sql"
+		compressed_filename = "#{filename}.gz"
+		remote_filename = "/tmp/twfy-australia.sql"
+		remote_compressed_filename = "#{remote_filename}.gz"
+		# Dump local database to a temporary file
+		system("mysqldump5 -u twfy-australia --password=twfy-australia twfy-australia > #{filename}")
+		system("gzip #{filename}")
+	    content = File.open(compressed_filename, "rb") { |f| f.read }
+	    put content, remote_compressed_filename
+		# Uncompress
+		run "gunzip #{remote_compressed_filename}"
+		# Load up the database
+		run "mysql -u db3716_twfy --password=twfy-australia -h internal-db.s3716.gridserver.com db3716_twfy_australia < #{remote_filename}; rm #{remote_filename}"
+	end
 end
-
-require 'tempfile'
 
 def put_directory(source, destination)
 	dir = File.basename(source)
