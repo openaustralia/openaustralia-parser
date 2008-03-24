@@ -2,7 +2,7 @@ require 'period'
 require 'id'
 
 class Person
-  attr_reader :periods, :id, :name
+  attr_reader :periods, :id, :name, :minister_positions
   
   def Person.reset_id_counter
     @@id = Id.new("uk.org.publicwhip/person/", 10001)

@@ -7,7 +7,7 @@ require 'people'
 
 puts "Writing XML..."
 people = People.read_csv("data/members.csv", "data/ministers.csv")
-people.write_xml('pwdata/members/people.xml', 'pwdata/members/all-members.xml')
+people.write_xml('pwdata/members/people.xml', 'pwdata/members/all-members.xml', 'pwdata/members/ministers.xml')
 
 puts "Downloading person images..."
 people.download_images("pwdata/images/mps", "pwdata/images/mpsL")

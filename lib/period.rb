@@ -14,10 +14,23 @@ end
 
 class MinisterPosition < PeriodBase
   attr_accessor :position
+  attr_reader :id
+  
+  def MinisterPosition.reset_id_counter
+    @@id = Id.new("uk.org.publicwhip/moffice/")
+  end
+  
+  reset_id_counter
   
   def initialize(params)
     @position = params.delete(:position)
+    @id = @@id.clone
+    @@id.next
     super
+  end
+  
+  def current?
+    @to_date == Date.new(9999, 12, 31)
   end
 end
 
@@ -27,7 +40,8 @@ class Period < PeriodBase
   attr_reader :id
   
   def Period.reset_id_counter
-    @@id = Id.new("uk.org.publicwhip/member/")
+    @@rep_id = Id.new("uk.org.publicwhip/member/")
+    @@senator_id = Id.new("uk.org.publicwhip/lord/")
   end
   
   reset_id_counter
@@ -35,12 +49,6 @@ class Period < PeriodBase
   def initialize(params)
     # TODO: Make some parameters compulsary and others optional
     throw ":person parameter required in HousePeriod.new" unless params[:person]
-    if params[:id]
-      @id = params.delete(:id)
-    else
-      @id = @@id.clone
-      @@id.next
-    end
     @from_why =   params.delete(:from_why)
     @to_why =     params.delete(:to_why)
     @division =   params.delete(:division)
@@ -48,6 +56,17 @@ class Period < PeriodBase
     @house =      params.delete(:house)
     if @house != "representatives" && @house != "senate"
       throw ":house parameter must have value 'representatives' or 'senate'"
+    end
+    if params[:id]
+      @id = params.delete(:id)
+    else
+      if @house == "senate"
+        @id = @@senator_id.clone
+        @@senator_id.next
+      else
+        @id = @@rep_id.clone
+        @@rep_id.next
+      end
     end
     super
   end
