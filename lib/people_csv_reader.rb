@@ -1,5 +1,5 @@
 require 'csv'
-require 'date'
+require 'date_with_future'
 
 require 'people'
 require 'person'
@@ -57,9 +57,10 @@ class PeopleCSVReader
       name, from_date, to_date , position = line
       from_date = parse_date(from_date)
       if to_date == "" || to_date.nil?
-        to_date = "31.12.9999"
+        to_date = DateWithFuture.future
+      else
+        to_date = parse_date(to_date)
       end
-      to_date = parse_date(to_date)
       # Skip the line where we don't know the person
       if name != "??"
         n = Name.last_title_initials(name)
@@ -82,9 +83,10 @@ class PeopleCSVReader
   def PeopleCSVReader.parse_end_date(text)
     # If no end_date is specified then the member is currently in parliament with a stupid end date
     if text == " " || text.nil?
-      text = "31.12.9999"
+      DateWithFuture.future
+    else
+      parse_date(text)
     end
-    parse_date(text)
   end
 
   def PeopleCSVReader.parse_start_reason(text)

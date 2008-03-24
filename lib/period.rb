@@ -10,6 +10,10 @@ class PeriodBase
     invalid_keys = params.keys - [:from_date, :to_date, :person]
     throw "Invalid keys: #{invalid_keys}" unless invalid_keys.empty?
   end  
+
+  def current?
+    Date.today >= @from_date && Date.today <= @to_date
+  end
 end
 
 class MinisterPosition < PeriodBase
@@ -27,11 +31,7 @@ class MinisterPosition < PeriodBase
     @id = @@id.clone
     @@id.next
     super
-  end
-  
-  def current?
-    @to_date == Date.new(9999, 12, 31)
-  end
+  end  
 end
 
 # Represents a period in the house of representatives
@@ -74,9 +74,5 @@ class Period < PeriodBase
   def ==(p)
     id == p.id && from_date == p.from_date && to_date == p.to_date &&
       from_why == p.from_why && to_why == p.to_why && division == p.division && party == p.party
-  end
-  
-  def current?
-    @to_why == "current_member"
   end
 end
