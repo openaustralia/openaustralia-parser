@@ -66,7 +66,11 @@ And enter your admin password. This is necessary so that you don't have to alway
 
 {{{
 $ cd Documents
-$ git clone git://github.com/mlandauer/openaustralia-app.git
+$ mkdir openaustralia-app
+$ cd openaustralia-app
+$ git clone git://github.com/mlandauer/phplib.git
+$ git clone git://github.com/mlandauer/perllib.git
+$ git clone git://github.com/mlandauer/twfy.git
 }}}
 
 You should now have the website files located at {{{/Library/WebServer/Documents/openaustralia-app}}}. We will come back to this path once we've installed the parser as both need to know (at the time of writing this document) the path of each.
