@@ -6,16 +6,13 @@ require 'tempfile'
 
 set :application, "openaustralia-app"
 
-set :scm, :git
-set :scm_command, "/opt/local/bin/git"
-# This works even when the remote server does not have git installed
-set :deploy_via, :copy
-
 # default_run_options[:pty] = true
 
-set :repository, "/Library/WebServer/Documents/openaustralia-app"
-
 set :use_sudo, false
+
+set :twfy_repository, "/Library/Webserver/Documents/openaustralia-app/twfy"
+set :phplib_repository, "/Library/Webserver/Documents/openaustralia-app/phplib"
+set :perllib_repository, "/Library/Webserver/Documents/openaustralia-app/perllib"
 
 local_deploy = false
 
@@ -64,6 +61,21 @@ namespace :deploy do
 		put_directory "../pwdata/images/mpsL", "#{shared_path}/images/mpsL"
 	end
 	
+	task :update_code, :except => { :no_release => true } do
+		on_rollback { run "rm -rf #{release_path}; true" }
+		# Deploy via git here
+		tmpdir = Dir.tmpdir
+		system("cd #{tmpdir}; rm -rf phplib perllib twfy")
+		system("cd #{tmpdir}; git clone #{phplib_repository}; rm -rf .git")
+		system("cd #{tmpdir}; git clone #{perllib_repository}; rm -rf .git")
+		system("cd #{tmpdir}; git clone #{twfy_repository}; rm -rf .git")
+		run "mkdir #{release_path}"
+		put_directory "#{tmpdir}/phplib", "#{release_path}/phplib"
+		put_directory "#{tmpdir}/perllib", "#{release_path}/perllib"
+		put_directory "#{tmpdir}/twfy", "#{release_path}/twfy"
+		finalize_update
+	end
+
 	desc "Upload local database contents"
 	task :database do
 		tmpdir = Dir.tmpdir
