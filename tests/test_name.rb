@@ -237,4 +237,9 @@ class TestName < Test::Unit::TestCase
     name2 = Name.new(:first => "Kim", :last => "Wilkie")
     assert(name1.matches?(name2))
   end
+  
+  def test_The_Hon_John_Howard_MP
+    assert_equal(Name.title_first_last("The Hon John Howard MP"),
+      Name.new(:title => "the Hon.", :first => "John", :last => "Howard", :post_title => "MP"))
+  end
 end

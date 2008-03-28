@@ -71,11 +71,7 @@ class Name
     title = Name.extract_title_at_start(names)
     first = names.shift
     throw "Too few names" if first.nil?
-    post_titles = []
-    while post_title = Name.post_title(names)
-      post_titles.unshift(post_title)
-    end
-    post_title = post_titles.join(' ')
+    post_title = extract_post_title_at_end(names)
     middle = names[0..-1].join(' ')
     Name.new(:title => title, :last => last, :first => first, :nick => nick, :middle => middle, :post_title => post_title)
   end
@@ -96,7 +92,7 @@ class Name
   def Name.post_title(names)
     if names.last == "AM" || names.last == "SC" || names.last == "AO" ||
       names.last == "MBE" || names.last == "QC" || names.last == "OBE" ||
-      names.last == "KSJ" || names.last == "JP"
+      names.last == "KSJ" || names.last == "JP" || names.last == "MP"
       names.pop
     end
   end
@@ -109,10 +105,11 @@ class Name
       last = names[0]
     else
       first = names[0]
+      post_title = extract_post_title_at_end(names)
       last = names[-1]
       middle = names[1..-2].join(' ')
     end
-    Name.new(:title => title, :last => last, :first => first, :middle => middle)
+    Name.new(:title => title, :last => last, :first => first, :middle => middle, :post_title => post_title)
   end
   
   def informal_name
@@ -223,18 +220,30 @@ class Name
     titles.join(' ')
   end
   
+  def Name.extract_post_title_at_end(names)
+    post_titles = []
+    while post_title = Name.post_title(names)
+      post_titles.unshift(post_title)
+    end
+    post_titles.join(' ')
+  end
+  
+  def Name.matches_hon?(name)
+    name.downcase == "hon." || name.downcase == "hon"
+  end
+  
   # Extract a title at the beginning of the list of names if available and shift
   def Name.title(names)
-    if names.size >= 3 && names[0] == "the" && names[1] == "Rt" && names[2] == "Hon."
+    if names.size >= 3 && names[0].downcase == "the" && names[1].downcase == "rt" && matches_hon?(names[2])
       names.shift
       names.shift
       names.shift
       "the Rt Hon."
-    elsif names.size >= 2 && names[0] == "the" && names[1] == "Hon."
+    elsif names.size >= 2 && names[0].downcase == "the" && matches_hon?(names[1])
       names.shift
       names.shift
       "the Hon."
-    elsif names.size >= 1 && names[0] == "Hon."
+    elsif names.size >= 1 && matches_hon?(names[0])
         names.shift
         "Hon."
     elsif names.size >= 1
