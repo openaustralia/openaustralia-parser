@@ -185,50 +185,10 @@ class TestName < Test::Unit::TestCase
     assert(name_members.matches?(name_speech))
   end
   
-  def test_initials_when_not_given
-    name = Name.new(:first => "john", :last => "smith")
-    assert_equal("J", name.first_initial)
-    assert_equal("", name.middle_initials)
-    name = Name.new(:first => "john", :middle => "edward", :last => "smith")
-    assert_equal("J", name.first_initial)
-    assert_equal("E", name.middle_initials)
-  end
-  
-  def test_initials_when_given
-    name = Name.new(:first_initial => "j", :middle_initials => "e", :last => "smith")
-    assert_equal("J", name.first_initial)
-    assert_equal("E", name.middle_initials)
-  end
-  
-  def test_initials_when_not_given_two_middle_names
-    name = Name.new(:first => "john", :middle => "edward philip", :last => "smith")
-    assert_equal("J", name.first_initial)
-    assert_equal("EP", name.middle_initials)
-  end
-  
   def test_initials_when_given_but_do_not_match_first_and_middle_name
     assert_raise(NameError) do
       name = Name.new(:first => "John", :middle => "Edward", :initials => "J")
     end
-  end
-  
-  def test_matching_with_initials
-    name1 = Name.new(:first => "John", :middle => "Edward")
-    name2 = Name.new(:first_initial => "J", :middle_initials => "E")
-    assert(name1.matches?(name2))
-  end
-  
-  def test_last_title_initials
-    name = Name.last_title_initials("Smith, Senator JE")
-    assert_equal("Smith", name.last)
-    assert_equal("Senator", name.title)
-    assert_equal("J", name.first_initial)
-    assert_equal("E", name.middle_initials)
-  end
-  
-  def test_informal_name_with_initials
-    name = Name.last_title_initials("Smith, JE")
-    assert_equal("JE Smith", name.informal_name)
   end
   
   # This test for the regression introduced by adding support for initials
@@ -241,5 +201,22 @@ class TestName < Test::Unit::TestCase
   def test_The_Hon_John_Howard_MP
     assert_equal(Name.title_first_last("The Hon John Howard MP"),
       Name.new(:title => "the Hon.", :first => "John", :last => "Howard", :post_title => "MP"))
+  end
+  
+  def test_Senator_the_Hon_Nick_Minchin
+    assert_equal(Name.title_first_last("Senator the Hon Nick Minchin"),
+      Name.new(:title => "Senator the Hon.", :first => "Nick", :last => "Minchin"))
+  end
+  
+  def test_Nick_and_Nicholas_matching
+    name1 = Name.new(:first => "Nick", :last => "Minchin")
+    name2 = Name.new(:first => "Nicholas", :last => "Minchin")
+    assert(name1.matches?(name2))
+  end
+  
+  def test_Tony_and_Anthony_matching
+    name1 = Name.new(:first => "Tony", :last => "Abbott")
+    name2 = Name.new(:first => "Anthony", :last => "Abbott")
+    assert(name1.matches?(name2))
   end
 end

@@ -21,6 +21,17 @@ class People < Array
     matches[0] if matches.size == 1
   end
   
+  def find_person_by_name_current_on_date(name, date)
+    matches = find_people_by_name_current_on_date(name, date)
+    throw "More than one match for name #{name.full_name} found" if matches.size > 1
+    matches[0] if matches.size == 1
+  end
+  
+  # Returns all the people that match a particular name and have current senate/house of representatives positions on the date
+  def find_people_by_name_current_on_date(name, date)
+    find_people_by_name(name).find_all {|p| p.current_position_on_date?(date)} 
+  end
+  
   def find_people_by_name(name)
     find_all{|p| name.matches?(p.name)}
   end    

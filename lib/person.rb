@@ -22,6 +22,11 @@ class Person
     @name = name
   end
   
+  # Does this person have current senate/house of representatives positions on the given date
+  def current_position_on_date?(date)
+    @periods.detect {|p| p.current_on_date?(date)}
+  end
+  
   def house_periods
     @periods.find_all{|p| p.house == "representatives"}
   end

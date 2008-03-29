@@ -11,8 +11,12 @@ class PeriodBase
     throw "Invalid keys: #{invalid_keys}" unless invalid_keys.empty?
   end  
 
+  def current_on_date?(date)
+    date >= @from_date && date <= @to_date
+  end
+  
   def current?
-    Date.today >= @from_date && Date.today <= @to_date
+    current_on_date?(Date.today)
   end
 end
 

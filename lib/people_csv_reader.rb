@@ -61,13 +61,10 @@ class PeopleCSVReader
       else
         to_date = parse_date(to_date)
       end
-      # Skip the line where we don't know the person
-      if name != "??"
-        n = Name.last_title_initials(name)
-        person = people.find_person_by_name(n) if n
-        throw "Can't find #{name}" if person.nil?
-        person.add_minister_position(:from_date => from_date, :to_date => to_date, :position => position)
-      end
+      n = Name.title_first_last(name)
+      person = people.find_person_by_name_current_on_date(n, from_date) if n
+      throw "Can't find #{name}" if person.nil?
+      person.add_minister_position(:from_date => from_date, :to_date => to_date, :position => position)
     end
   end
   
