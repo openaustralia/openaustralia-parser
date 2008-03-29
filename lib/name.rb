@@ -122,7 +122,9 @@ class Name
         first_name_shortened_forms = {"Nicholas" => "Nick", "Anthony" => "Tony", "Christopher" => "Chris",
           "Malcolm" => "Mal", "Joseph" => "Joe", "James" => "Jim", "Gregory" => "Greg", "Robert" => "Bob",
           "Patrick" => "Pat", "Jennifer" => "Jenny", "Penelope" => "Penny", "Michael" => "Mike",
-          "William" => "Bill"}
+          "William" => "Bill", "Roderick" => "Rod", "Lawrence" => "Larry", "Patricia" => "Trish",
+          "Christine" => "Chris", "Ronald" => "Ron", "Kathryn" => "Kathy", "Timothy" => "Tim",
+          "Judith" => "Judi", "Alexander" => "Alex", "Geoffrey" => "Geoff"}
         first_name_shortened_forms.detect {|p| name1 == p[0] && name2 == p[1]}
       end
     end
