@@ -15,7 +15,7 @@ system("mkdir -p #{conf.web_root}/pwdata/scrapedxml/regmem")
 system("cp data/empty-template.xml #{conf.web_root}/pwdata/scrapedxml/regmem/regmem2000-01-01.xml")
 
 # First load people back in so that we can look up member id's
-people = People.read_csv("data/members.csv", "data/ministers_new.csv")
+people = People.read_csv("data/members.csv", "data/ministers.csv")
 
 date = Date.new(2007, 9, 20)
 xml_filename = "#{conf.web_root}/pwdata/scrapedxml/debates/debates#{date}.xml"

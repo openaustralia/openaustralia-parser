@@ -19,7 +19,7 @@ system("mkdir -p #{conf.web_root}/pwdata/members")
 end
 
 puts "Writing XML..."
-people = People.read_csv("data/members.csv", "data/ministers_new.csv")
+people = People.read_csv("data/members.csv", "data/ministers.csv")
 people.write_xml("#{conf.web_root}/pwdata/members/people.xml", "#{conf.web_root}/pwdata/members/all-members.xml",
   "#{conf.web_root}/pwdata/members/ministers.xml")
 
