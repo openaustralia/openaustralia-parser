@@ -20,9 +20,11 @@ class People < Array
     if date < Date.new(2008, 2, 12)
       name = Name.new(:first => "David", :last => "Hawker")
     else
-      name = Name.new(:first => "Harry", :last => "Jenkins")
+      name = Name.new(:first => "Henry", :last => "Jenkins")
     end
-    find_member_by_name_current_on_date(name, date)
+    member = find_member_by_name_current_on_date(name, date)
+    throw "Couldn't find speaker #{name.full_name}" if member.nil?
+    member
   end
   
   def deputy_house_speaker(date)
@@ -32,7 +34,9 @@ class People < Array
     else
       name = Name.new(:first => "Anna", :last => "Burke")
     end
-    find_member_by_name_current_on_date(name, date)
+    member = find_member_by_name_current_on_date(name, date)
+    throw "Couldn't find deputy speaker #{name.full_name}" if member.nil?
+    member
   end
   
   # Returns nil if non found. Throws exception if more than one match
