@@ -14,6 +14,11 @@ class People < Array
     super
   end
   
+  # Returns member
+  def house_speaker(date)
+    find_member_by_name_current_on_date(Name.new(:first => "David", :last => "Hawker"), date)
+  end
+  
   # Returns nil if non found. Throws exception if more than one match
   def find_person_by_name(name)
     matches = find_people_by_name(name)
@@ -25,6 +30,16 @@ class People < Array
     matches = find_people_by_name_current_on_date(name, date)
     throw "More than one match for name #{name.full_name} found" if matches.size > 1
     matches[0] if matches.size == 1
+  end
+  
+  def find_member_by_name_current_on_date(name, date)
+    matches = find_members_by_name_current_on_date(name, date)
+    throw "More than one match for name #{name.full_name} found" if matches.size > 1
+    matches[0] if matches.size == 1
+  end
+  
+  def find_members_by_name_current_on_date(name, date)
+    find_house_members_current_on(date).find_all {|m| name.matches?(m.person.name)}
   end
   
   # Returns all the people that match a particular name and have current senate/house of representatives positions on the date

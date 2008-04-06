@@ -267,7 +267,7 @@ class HansardParser
 
     # HACK alert (Oh you know what this whole thing is a big hack alert)
     if speakername =~ /^the speaker/i
-      speakername = "Mr David Hawker"
+      return people.house_speaker(date)
     # The name might be "The Deputy Speaker (Mr Smith)". So, take account of this
     elsif speakername =~ /^the deputy speaker/i
       # Check name in brackets
@@ -287,11 +287,9 @@ class HansardParser
       nil
     else
       name = Name.title_first_last(speakername)
-      members = people.find_house_members_current_on(date)
-      matches = members.find_all {|m| name.matches?(m.person.name)}
-      throw "More than one match for name #{name.full_name} found" if matches.size > 1
-      throw "No match for name #{name.full_name} found" if matches.size == 0
-      matches[0]
+      member = people.find_member_by_name_current_on_date(name, date)
+      throw "No match for name #{name.full_name} found" if member.nil?
+      member
     end
   end
 
