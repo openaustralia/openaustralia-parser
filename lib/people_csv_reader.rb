@@ -19,6 +19,42 @@ class PeopleCSVReader
     while i < data.size do
       lastname, firstname, middlename, nickname, title, house, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
 
+      # Translate shorthand for parties into long form
+      case party
+      when "LIB"
+        party = "Liberal Party"
+      when "ALP"
+        party = "Australian Labor Party"
+      when "NPA", "NP", "Nats"
+        party = "National Party"
+      when "AD"
+        party = "Australian Democrats"
+      when "IND"
+        party = "Independent"
+      when "CDP"
+        party = "Christian Democratic Party"
+      when "NCP", "CP"
+        party = "National Country Party"
+      when "GWA", "GRN", "AG"
+        party = "Australian Greens"
+      when "IND LIB"
+        party = "Independent Liberal"
+      when "CLP"
+        party = "Country Liberal Party"
+      when "FFP"
+        party = "Family First Party"
+      when "UNITE AP"
+        party = "Unite Australia Party"
+      when "NDP"
+        party = "Nuclear Disarmament Party"
+      when "PHON"
+        party = "Pauline Hanson's One Nation Party"
+      when "ANTI-SOC"
+        # Do nothing
+      else
+        throw "Unrecognised party: #{party}"
+      end
+      
       name = Name.new(:last => lastname, :first => firstname, :middle => middlename, :nick => nickname, :title => title)
       person = Person.new(name)
 
