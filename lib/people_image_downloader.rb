@@ -20,7 +20,7 @@ class PeopleImageDownloader
   
   def download(people, small_image_dir, large_image_dir)
     # Clear out old photos
-    system("rm -rf " + small_image_dir + "/* " + large_image_dir + "/*")
+    system("rm -rf #{small_image_dir}/*.jpg #{large_image_dir}/*.jpg")
 
     each_person_bio_page do |page|
       name, image = extract_name_and_image_from_page(page)
