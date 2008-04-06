@@ -70,6 +70,7 @@ $ mkdir openaustralia-app
 $ cd openaustralia-app
 $ git clone git://github.com/mlandauer/phplib.git
 $ git clone git://github.com/mlandauer/perllib.git
+$ git clone git://github.com/mlandauer/rblib.git
 $ git clone git://github.com/mlandauer/twfy.git
 }}}
 
