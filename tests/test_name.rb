@@ -219,4 +219,8 @@ class TestName < Test::Unit::TestCase
     name2 = Name.new(:first => "Anthony", :last => "Abbott")
     assert(name1.matches?(name2))
   end
+  
+  def test_ignore_initials
+    assert_equal(Name.new(:title => "Ms", :last => "Burke"), Name.title_first_last("Ms AE Burke"))
+  end
 end

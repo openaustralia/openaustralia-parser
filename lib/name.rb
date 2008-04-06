@@ -59,7 +59,12 @@ class Name
     if names.size == 1
       last = names[0]
     else
-      first = names[0]
+      # If only one or two letters assume that these are initials and ignore them
+      if names[0].size <= 2
+        names.shift
+      else
+        first = names[0]
+      end
       post_title = extract_post_title_at_end(names)
       last = names[-1]
       middle = names[1..-2].join(' ')
