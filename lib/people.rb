@@ -16,7 +16,23 @@ class People < Array
   
   # Returns member
   def house_speaker(date)
-    find_member_by_name_current_on_date(Name.new(:first => "David", :last => "Hawker"), date)
+    # HACK
+    if date < Date.new(2008, 2, 12)
+      name = Name.new(:first => "David", :last => "Hawker")
+    else
+      name = Name.new(:first => "Harry", :last => "Jenkins")
+    end
+    find_member_by_name_current_on_date(name, date)
+  end
+  
+  def deputy_house_speaker(date)
+    # HACK
+    if date < Date.new(2008, 2, 12)
+      name = Name.new(:first => "Ian", :last => "Causley")
+    else
+      name = Name.new(:first => "Anna", :last => "Burke")
+    end
+    find_member_by_name_current_on_date(name, date)
   end
   
   # Returns nil if non found. Throws exception if more than one match

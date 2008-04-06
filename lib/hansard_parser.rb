@@ -271,13 +271,13 @@ class HansardParser
     # The name might be "The Deputy Speaker (Mr Smith)". So, take account of this
     elsif speakername =~ /^the deputy speaker/i
       # Check name in brackets
-      match = speakername.match(/^the deputy speaker (\(.*\))/)
+      match = speakername.match(/^the deputy speaker \((.*)\)/i)
       if match
-        if match[1] != "Mr Causle"
-          puts "WARNING: Deputy speaker name is #{match[1]} but expected Mr Causle"
-        end
+        puts "WARNING: Deputy speaker is #{match[1]}"
+        speakername = match[1]
+      else
+        return people.deputy_house_speaker(date)
       end
-      speakername = "Mr Ian Causley"
     elsif speakername.downcase == "the clerk"
       # TODO: Handle "The Clerk" correctly
       speakername = "unknown"
@@ -287,9 +287,10 @@ class HansardParser
       nil
     else
       name = Name.title_first_last(speakername)
-      member = people.find_member_by_name_current_on_date(name, date)
-      throw "No match for name #{name.full_name} found" if member.nil?
-      member
+      matches = people.find_members_by_name_current_on_date(name, date)
+      throw "Multiple matches for name #{speakername} found" if matches.size > 1
+      throw "No match for name #{speakername} found" if matches.size == 0
+      matches[0]
     end
   end
 
