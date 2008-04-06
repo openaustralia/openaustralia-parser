@@ -49,7 +49,7 @@ class PeopleCSVReader
         party = "Nuclear Disarmament Party"
       when "PHON"
         party = "Pauline Hanson's One Nation Party"
-      when "ANTI-SOC"
+      when "ANTI-SOC", "Speaker"
         # Do nothing
       else
         throw "Unrecognised party: #{party}"
