@@ -18,42 +18,7 @@ class PeopleCSVReader
     people = People.new
     while i < data.size do
       lastname, firstname, middlename, nickname, title, house, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
-
-      # Translate shorthand for parties into long form
-      case party
-      when "LIB"
-        party = "Liberal Party"
-      when "ALP"
-        party = "Australian Labor Party"
-      when "NPA", "NP", "Nats"
-        party = "National Party"
-      when "AD"
-        party = "Australian Democrats"
-      when "IND"
-        party = "Independent"
-      when "CDP"
-        party = "Christian Democratic Party"
-      when "NCP", "CP"
-        party = "National Country Party"
-      when "GWA", "GRN", "AG"
-        party = "Australian Greens"
-      when "IND LIB"
-        party = "Independent Liberal"
-      when "CLP"
-        party = "Country Liberal Party"
-      when "FFP"
-        party = "Family First Party"
-      when "UNITE AP"
-        party = "Unite Australia Party"
-      when "NDP"
-        party = "Nuclear Disarmament Party"
-      when "PHON"
-        party = "Pauline Hanson's One Nation Party"
-      when "ANTI-SOC", "Speaker"
-        # Do nothing
-      else
-        throw "Unrecognised party: #{party}"
-      end
+      party = parse_party(party)
       
       name = Name.new(:last => lastname, :first => firstname, :middle => middlename, :nick => nickname, :title => title)
       person = Person.new(name)
@@ -67,6 +32,7 @@ class PeopleCSVReader
       # Process further start/end dates for this member
       while i < data.size && data[i][0] == lastname && data[i][1] == firstname && data[i][2] == middlename && data[i][3] == nickname && data[i][4] == title
         temp1, temp2, temp3, temp4, temp5, house, division, state, start_date, start_reason, end_date, end_reason, party = data[i]
+        party = parse_party(party)
         start_date = parse_date(start_date)
         end_date = parse_end_date(end_date)
         start_reason = parse_start_reason(start_reason)
@@ -82,6 +48,44 @@ class PeopleCSVReader
   end  
 
   private
+  
+  def PeopleCSVReader.parse_party(party)
+    case party
+    when "LIB"
+      "Liberal Party"
+    when "ALP"
+      "Australian Labor Party"
+    when "NPA", "NP", "Nats"
+      "National Party"
+    when "AD"
+      "Australian Democrats"
+    when "IND"
+      "Independent"
+    when "CDP"
+      "Christian Democratic Party"
+    when "NCP", "CP"
+      "National Country Party"
+    when "GWA", "GRN", "AG"
+      "Australian Greens"
+    when "IND LIB"
+      "Independent Liberal"
+    when "CLP"
+      "Country Liberal Party"
+    when "FFP"
+      "Family First Party"
+    when "UNITE AP"
+      "Unite Australia Party"
+    when "NDP"
+      "Nuclear Disarmament Party"
+    when "PHON"
+      "Pauline Hanson's One Nation Party"
+    when "ANTI-SOC", "SPK", "CWM"
+      # Do nothing
+      party
+    else
+      throw "Unrecognised party: #{party}"
+    end
+  end
   
   # Attaches ministerial information to people
   def PeopleCSVReader.read_ministers(filename, people)

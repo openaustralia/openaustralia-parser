@@ -95,7 +95,8 @@ Brumby,John,Mansfield,,,representatives,Bendigo,Vic.,5.3.1983,,24.3.1990,defeate
 Bryant,Gordon,Munro,,,representatives,Wills,Vic.,10.12.1955,,19.9.1980,retired,ALP
 Buckland,Geoffrey,Frederick,,,senate,,SA,14.9.2000,section_15,30.6.2005,retired,ALP
 Bungey,Melville,Harold,,,representatives,Canning,WA,18.5.1974,,5.3.1983,defeated,LIB
-Burke,Anna,Elizabeth,,Ms,representatives,Chisholm,Vic.,3.10.1998,, ,still_in_office,ALP
+Burke,Anna,Elizabeth,,Ms,representatives,Chisholm,Vic.,3.10.1998,,11.2.2008,changed_party,ALP
+Burke,Anna,Elizabeth,,Ms,representatives,Chisholm,Vic.,12.2.2008,changed_party, ,still_in_office,CWM
 Burke,Anthony,Stephen,,Mr,representatives,Watson,NSW,9.10.2004,, ,still_in_office,ALP
 Burns,Bryant,Robert,,,senate,,Qld,11.7.1987,,30.6.1996,retired,ALP
 Burns,William,George,,,representatives,Isaacs,Vic.,10.12.1977,,18.10.1980,defeated,LIB
@@ -340,9 +341,9 @@ Hatton,Michael,John,,,representatives,Blaxland,NSW,15.6.1996,by_election,17.10.2
 Haviland,Christopher,Douglas,,,representatives,Macarthur,NSW,13.3.1993,,29.1.1996,retired,ALP
 Hawke,Alexander,George,,,representatives,Mitchell,NSW,24.11.2007,,,still_in_office,LIB
 Hawke,Robert,James Lee,,,representatives,Wills,Vic.,18.10.1980,,20.2.1992,resigned,ALP
-Hawker,David,Peter Maxwell,,,representatives,Wannon,Vic.,7.5.1983,by_election,16.11.2004,change_office,LIB
-Hawker,David,Peter Maxwell,,,representatives,Wannon,Vic.,16.11.2004,change_office,17.10.2007,change_office,Speaker
-Hawker,David,Peter Maxwell,,,representatives,Wannon,Vic.,17.10.2007,change_office,,still_in_office,LIB
+Hawker,David,Peter Maxwell,,,representatives,Wannon,Vic.,7.5.1983,by_election,16.11.2004,changed_party,LIB
+Hawker,David,Peter Maxwell,,,representatives,Wannon,Vic.,16.11.2004,changed_party,17.10.2007,changed_party,SPK
+Hawker,David,Peter Maxwell,,,representatives,Wannon,Vic.,17.10.2007,changed_party,,still_in_office,LIB
 Hayden,William,George,,,representatives,Oxley,Qld,9.12.1961,,17.8.1988,resigned,ALP
 Hayes,Christopher,Patrick,,,representatives,Werriwa,NSW,19.3.2005,by_election, ,still_in_office,ALP
 Hearn,Jean,Margaret,,,senate,,Tas.,15.10.1980 ,section_15,30.6.1985 ,retired,ALP
@@ -391,7 +392,8 @@ James,Albert,William,,,representatives,Hunter,NSW,9.4.1960,by_election,19.9.1980
 Jarman,Alan,William,,,representatives,Deakin,Vic.,26.11.1966,,5.3.1983,defeated,LIB
 Jeanes,Susan,Barbara,,,representatives,Kingston,SA,2.3.1996,,3.10.1998,defeated,LIB
 Jenkins,(dr),Henry Alfred,,,representatives,Scullin,Vic.,25.10.1969,,20.12.1985,resigned,ALP
-Jenkins,Henry,Alfred,,,representatives,Scullin,Vic.,8.2.1986,by_election, ,still_in_office,ALP
+Jenkins,Henry,Alfred,,,representatives,Scullin,Vic.,8.2.1986,by_election,11.2.2008,changed_party,ALP
+Jenkins,Henry,Alfred,,,representatives,Scullin,Vic.,12.2.2008,changed_party, ,still_in_office,SPK
 Jenkins,Jean,Alice,,,senate,,WA,11.7.1987 ,,30.6.1990 ,defeated,AD
 Jensen,Dennis,Geoffrey,,,representatives,Tangney,WA,9.10.2004,, ,still_in_office,LIB
 Jessop,Donald,Scott,,,senate,,SA,1.7.1971 ,,5.6.1987 ,defeated,IND

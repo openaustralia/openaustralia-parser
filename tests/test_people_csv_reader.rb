@@ -19,7 +19,7 @@ class TestPeopleCSVReader < Test::Unit::TestCase
     ref = Person.new(Name.new(:first => "Sophie", :last => "Mirabella"), Id.new("uk.org.publicwhip/person/", 10461))
     ref.add_house_period(:from_date => Date.new(2001, 11, 10), :to_date => DateWithFuture.future,
       :from_why => "general_election", :to_why => "still_in_office",
-      :division => "Indi", :party => "Liberal Party", :id => Id.new("uk.org.publicwhip/member/", 378))
+      :division => "Indi", :party => "Liberal Party", :id => Id.new("uk.org.publicwhip/member/", 380))
 
     assert_equal(ref, sophie_mirabella)
   end
