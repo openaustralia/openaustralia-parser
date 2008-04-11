@@ -23,8 +23,5 @@ people = People.read_csv("data/members.csv", "data/ministers.csv")
 people.write_xml("#{conf.web_root}/pwdata/members/people.xml", "#{conf.web_root}/pwdata/members/all-members.xml",
   "#{conf.web_root}/pwdata/members/ministers.xml")
 
-puts "Downloading person images..."
-people.download_images("#{conf.web_root}/twfy/www/docs/images/mps", "#{conf.web_root}/twfy/www/docs/images/mpsL")
-
 # And load up the database
 system("#{conf.web_root}/twfy/scripts/xml2db.pl --members --all --force")
