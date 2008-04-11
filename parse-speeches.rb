@@ -17,7 +17,11 @@ system("cp data/empty-template.xml #{conf.web_root}/pwdata/scrapedxml/regmem/reg
 # First load people back in so that we can look up member id's
 people = People.read_csv("data/members.csv", "data/ministers.csv")
 
-date = Date.new(2007, 9, 20)
+# Interesting dates:
+# Last day of 2007 parliament: 2007.9.20)
+# First day of 2008 parliament: 2008.2.12
+#
+date = Date.new(2008, 2, 12)
 xml_filename = "#{conf.web_root}/pwdata/scrapedxml/debates/debates#{date}.xml"
 
 HansardParser.parse_date(date, xml_filename, people)
