@@ -41,27 +41,11 @@ class People < Array
   # Methods that return Period objects
   
   def house_speaker(date)
-    # HACK
-    if date < Date.new(2008, 2, 12)
-      name = Name.new(:first => "David", :last => "Hawker")
-    else
-      name = Name.new(:first => "Henry", :last => "Jenkins")
-    end
-    member = find_member_by_name_current_on_date(name, date)
-    throw "Couldn't find speaker #{name.full_name}" if member.nil?
-    member
+    find_house_members_current_on(date).find {|m| m.house_speaker?}
   end
   
   def deputy_house_speaker(date)
-    # HACK
-    if date < Date.new(2008, 2, 12)
-      name = Name.new(:first => "Ian", :last => "Causley")
-    else
-      name = Name.new(:first => "Anna", :last => "Burke")
-    end
-    member = find_member_by_name_current_on_date(name, date)
-    throw "Couldn't find deputy speaker #{name.full_name}" if member.nil?
-    member
+    find_house_members_current_on(date).find {|m| m.deputy_house_speaker?}
   end
 
   def find_member_by_name_current_on_date(name, date)
