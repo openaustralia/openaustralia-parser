@@ -73,9 +73,7 @@ class People < Array
   
   # Returns the house members that are members on the given date
   def find_house_members_current_on(date)
-    all_house_periods.find_all do |m|
-      date >= m.from_date && date <= m.to_date
-    end
+    all_house_periods.find_all {|m| m.current_on_date?(date)}
   end
   
   def find_house_period_by_id(id)
