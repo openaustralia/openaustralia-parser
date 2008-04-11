@@ -21,13 +21,17 @@ people = People.read_csv("data/members.csv", "data/ministers.csv")
 # Last day of 2007 parliament: 2007.9.20)
 # First day of 2008 parliament: 2008.2.12
 #
-date = Date.new(2008, 2, 12)
-xml_filename = "#{conf.web_root}/pwdata/scrapedxml/debates/debates#{date}.xml"
+#from_date = Date.new(2008, 3, 28)
+#to_date = Date.today
+from_date = Date.new(2008, 2, 12)
+to_date = Date.new(2008, 3, 18)
 
-HansardParser.parse_date(date, xml_filename, people)
-
-# Temporary hack: nicely indent XML
-system("tidy -quiet -indent -xml -modify -wrap 0 -utf8 #{xml_filename}")
+date = from_date
+while date <= to_date
+  puts "Parsing speeches for #{date.strftime('%a %d %b %Y')}..."
+  HansardParser.parse_date(date, "#{conf.web_root}/pwdata/scrapedxml/debates/debates#{date}.xml", people)
+  date = date + 1
+end
 
 # And load up the database
 system(conf.web_root + "/twfy/scripts/xml2db.pl --debates --all --force")

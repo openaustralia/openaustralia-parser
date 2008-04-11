@@ -36,8 +36,12 @@ class HansardParser
     agent.set_proxy(conf.proxy_host, conf.proxy_port)
 
     url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Chamber%20%3E%20House%20Hansard%20%3E%20#{date.year}%20%3E%20#{date.day}%20#{Date::MONTHNAMES[date.month]}%20#{date.year}"
-    page = agent.get(url)
-
+    begin
+      page = agent.get(url)
+    rescue
+      puts "WARNING: Could not retrieve overview page for date #{date}"
+      return
+    end
     parse_day_page(page, date, agent, people, xml_filename)
   end
   
@@ -278,7 +282,7 @@ class HansardParser
       else
         return people.deputy_house_speaker(date)
       end
-    elsif speakername.downcase == "the clerk"
+    elsif speakername =~ /^the clerk/i
       # TODO: Handle "The Clerk" correctly
       speakername = "unknown"
     end
