@@ -75,6 +75,14 @@ class Period < PeriodBase
     super
   end
   
+  def house_speaker?
+    @house == "representatives" && @party == "SPK"
+  end
+  
+  def deputy_house_speaker?
+    @house == 'representatives' && @party == "CWM"
+  end
+  
   def ==(p)
     id == p.id && from_date == p.from_date && to_date == p.to_date &&
       from_why == p.from_why && to_why == p.to_why && division == p.division && party == p.party
