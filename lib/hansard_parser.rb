@@ -65,8 +65,6 @@ class HansardParser
     newtitle = HansardParser.replace_unicode(newtitle)
     newsubtitle = HansardParser.replace_unicode(newsubtitle)
 
-    puts "newtitle: #{newtitle}"
-
     heading.output(x, newtitle, newsubtitle, speech_id, url)
 
     speeches = Speeches.new
