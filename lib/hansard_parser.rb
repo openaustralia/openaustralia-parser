@@ -45,9 +45,22 @@ class HansardParser
     parse_day_page(page, date, agent, people, xml_filename)
   end
   
+  # Replace unicode characters by their equivalent
+  def HansardParser.replace_unicode(text)
+    t = text.gsub("\342\200\230", "'")
+    t.gsub!("\342\200\231", "'")
+    t.gsub!("\342\200\224", "-")
+    t.each_byte do |c|
+      if c > 127
+        puts "Warning: Found invalid characters in: #{t.dump}"
+      end
+    end
+    t
+  end
+  
   def HansardParser.parse_sub_day_speech_page(sub_page, x, heading, speech_id, people, date, time, url)
-    newtitle = sub_page.search('div#contentstart div.hansardtitle').inner_html
-    newsubtitle = sub_page.search('div#contentstart div.hansardsubtitle').inner_html
+    newtitle = HansardParser.replace_unicode(sub_page.search('div#contentstart div.hansardtitle').inner_html)
+    newsubtitle = HansardParser.replace_unicode(sub_page.search('div#contentstart div.hansardsubtitle').inner_html)
 
     heading.output(x, newtitle, newsubtitle, speech_id, url)
 
