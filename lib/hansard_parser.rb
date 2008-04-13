@@ -59,8 +59,13 @@ class HansardParser
   end
   
   def HansardParser.parse_sub_day_speech_page(sub_page, x, heading, speech_id, people, date, time, url)
-    newtitle = HansardParser.replace_unicode(sub_page.search('div#contentstart div.hansardtitle').inner_html)
-    newsubtitle = HansardParser.replace_unicode(sub_page.search('div#contentstart div.hansardsubtitle').inner_html)
+    newtitle = sub_page.search('div#contentstart div.hansardtitle').map { |m| m.inner_html }.join('; ')
+    newsubtitle = sub_page.search('div#contentstart div.hansardsubtitle').map { |m| m.inner_html }.join('; ')
+    # Replace any unicode characters
+    newtitle = HansardParser.replace_unicode(newtitle)
+    newsubtitle = HansardParser.replace_unicode(newsubtitle)
+
+    puts "newtitle: #{newtitle}"
 
     heading.output(x, newtitle, newsubtitle, speech_id, url)
 
