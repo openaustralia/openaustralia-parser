@@ -164,11 +164,13 @@ class HansardParser
     doc.search('span.talkername').remove
     doc.search('span.talkerelectorate').remove
     doc.search('span.talkerrole').remove
+    doc.search('hr').remove
     make_motions_and_quotes_italic(doc)
     remove_subspeech_tags(doc)
     fix_links(base_url, doc)
     make_amendments_italic(doc)
     fix_attributes_of_p_tags(doc)
+    fix_attributes_of_td_tags(doc)
     # Do pure string manipulations from here
     text = doc.to_s
     text = text.gsub("(\342\200\224)", '')
@@ -196,15 +198,23 @@ class HansardParser
   end
   
   def HansardParser.fix_attributes_of_p_tags(content)
+    content.search('p.parabold').wrap('<b></b>')
     content.search('p').each do |e|
       class_value = e.get_attribute('class')
-      if class_value == "block" || class_value == "parablock" || class_value == "parasmalltablejustified"
+      if class_value == "block" || class_value == "parablock" || class_value == "parasmalltablejustified" ||
+          class_value == "parasmalltableleft" || class_value == "parabold"
         e.remove_attribute('class')
       elsif class_value == "paraitalic"
         e.set_attribute('class', 'italic')
       elsif class_value == "italic" && e.get_attribute('style')
         e.remove_attribute('style')
       end
+    end
+  end
+  
+  def HansardParser.fix_attributes_of_td_tags(content)
+    content.search('td').each do |e|
+      e.remove_attribute('style')
     end
   end
   

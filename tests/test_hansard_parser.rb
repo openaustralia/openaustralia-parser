@@ -71,4 +71,22 @@ class TestHansardParser < Test::Unit::TestCase
     HansardParser.fix_attributes_of_p_tags(doc)
     assert_equal('<p class="italic">Some Text</p>', doc.to_s)
   end
+  
+  def test_fix_attributes_of_p_tags_parasmalltableleft
+    doc = Hpricot('<p class="parasmalltableleft">Some Text</p>')
+    HansardParser.fix_attributes_of_p_tags(doc)
+    assert_equal('<p>Some Text</p>', doc.to_s)
+  end
+  
+  def test_fix_attributes_of_td_tags_style
+    doc = Hpricot('<td style="foo">Some Text</td>')
+    HansardParser.fix_attributes_of_td_tags(doc)
+    assert_equal('<td>Some Text</td>', doc.to_s)
+  end
+  
+  def test_fix_attributes_of_p_tags_parabold
+    doc = Hpricot('<p class="parabold">Some Text</p>')
+    HansardParser.fix_attributes_of_p_tags(doc)
+    assert_equal('<b><p>Some Text</p></b>', doc.to_s)
+  end
 end
