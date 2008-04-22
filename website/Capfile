@@ -10,9 +10,11 @@ set :application, "openaustralia-app"
 
 set :use_sudo, false
 
-set :twfy_repository, "/Library/Webserver/Documents/openaustralia-app/twfy"
-set :phplib_repository, "/Library/Webserver/Documents/openaustralia-app/phplib"
-set :perllib_repository, "/Library/Webserver/Documents/openaustralia-app/perllib"
+set :repository_root, "/Library/WebServer/Documents/openaustralia-app"
+set :twfy_repository, "#{repository_root}/twfy"
+set :phplib_repository, "#{repository_root}/phplib"
+set :perllib_repository, "#{repository_root}/perllib"
+set :rblib_repository, "#{repository_root}/rblib"
 
 local_deploy = false
 
@@ -21,9 +23,9 @@ if local_deploy
 	role :web, "localhost"
 	set :user, "matthewl"
 else
-	set :deploy_to, "/home/3716/domains/openaustralia.org/#{application}"
-	role :web, "openaustralia.org"
-	set :user, "serveradmin%openaustralia.org"
+	set :deploy_to, "/www/openaustralia.org/#{application}"
+	role :web, "www-test.openaustralia.org"
+	set :user, "matthewl"
 end
 
 load 'deploy' if respond_to?(:namespace) # cap2 differentiator
@@ -65,28 +67,30 @@ namespace :deploy do
 		on_rollback { run "rm -rf #{release_path}; true" }
 		# Deploy via git here
 		tmpdir = Dir.tmpdir
-		system("cd #{tmpdir}; rm -rf phplib perllib twfy")
-		system("cd #{tmpdir}; git clone #{phplib_repository}; rm -rf .git")
-		system("cd #{tmpdir}; git clone #{perllib_repository}; rm -rf .git")
-		system("cd #{tmpdir}; git clone #{twfy_repository}; rm -rf .git")
+		system("cd #{tmpdir}; rm -rf phplib perllib rblib twfy")
+		system("cd #{tmpdir}; git clone #{phplib_repository}; rm -rf phplib/.git")
+		system("cd #{tmpdir}; git clone #{perllib_repository}; rm -rf perllib/.git")
+		system("cd #{tmpdir}; git clone #{rblib_repository}; rm -rf rblib/.git")
+		system("cd #{tmpdir}; git clone #{twfy_repository}; rm -rf twfy/.git")
 		run "mkdir #{release_path}"
 		put_directory "#{tmpdir}/phplib", "#{release_path}/phplib"
 		put_directory "#{tmpdir}/perllib", "#{release_path}/perllib"
+		put_directory "#{tmpdir}/rblib", "#{release_path}/rblib"
 		put_directory "#{tmpdir}/twfy", "#{release_path}/twfy"
 		finalize_update
 	end
 
-	desc "Upload local database contents"
-	task :database do
-		tmpdir = Dir.tmpdir
-		filename = "#{tmpdir}/twfy-australia.sql"
-		remote_filename = "/tmp/twfy-australia.sql"
-		# Dump local database to a temporary file
-		system("mysqldump5 -u twfy-australia --password=twfy-australia twfy-australia > #{filename}")
-		put_compressed(filename, remote_filename)
-		# Load up the database
-		run "mysql -u db3716_twfy --password=twfy-australia -h internal-db.s3716.gridserver.com db3716_twfy_australia < #{remote_filename}; rm #{remote_filename}"
-	end
+	#desc "Upload local database contents"
+	#task :database do
+	#	tmpdir = Dir.tmpdir
+	#	filename = "#{tmpdir}/twfy-australia.sql"
+	#	remote_filename = "/tmp/twfy-australia.sql"
+	#	# Dump local database to a temporary file
+	#	system("mysqldump5 -u twfy-australia --password=twfy-australia twfy-australia > #{filename}")
+	#	put_compressed(filename, remote_filename)
+	#	# Load up the database
+	#	run "mysql -u db3716_twfy --password=twfy-australia -h internal-db.s3716.gridserver.com db3716_twfy_australia < #{remote_filename}; rm #{remote_filename}"
+	#end
 end
 
 def put_compressed(src_file, dst_file)
