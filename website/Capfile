@@ -15,6 +15,7 @@ set :twfy_repository, "#{repository_root}/twfy"
 set :phplib_repository, "#{repository_root}/phplib"
 set :perllib_repository, "#{repository_root}/perllib"
 set :rblib_repository, "#{repository_root}/rblib"
+set :parser_repository, "/Users/matthewl/git/openaustralia-parser"
 
 local_deploy = false
 
@@ -65,6 +66,7 @@ namespace :deploy do
 	
 	task :update_code, :except => { :no_release => true } do
 		on_rollback { run "rm -rf #{release_path}; true" }
+		clone_and_upload(parser_repository, "openaustralia-parser", release_path)
     clone_and_upload(phplib_repository, "phplib", release_path)
     clone_and_upload(perllib_repository, "perllib", release_path)
     clone_and_upload(rblib_repository, "rblib", release_path)
