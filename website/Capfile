@@ -65,18 +65,10 @@ namespace :deploy do
 	
 	task :update_code, :except => { :no_release => true } do
 		on_rollback { run "rm -rf #{release_path}; true" }
-		# Deploy via git here
-		tmpdir = Dir.tmpdir
-		system("cd #{tmpdir}; rm -rf phplib perllib rblib twfy")
-		system("cd #{tmpdir}; git clone #{phplib_repository}; rm -rf phplib/.git")
-		system("cd #{tmpdir}; git clone #{perllib_repository}; rm -rf perllib/.git")
-		system("cd #{tmpdir}; git clone #{rblib_repository}; rm -rf rblib/.git")
-		system("cd #{tmpdir}; git clone #{twfy_repository}; rm -rf twfy/.git")
-		run "mkdir #{release_path}"
-		put_directory "#{tmpdir}/phplib", "#{release_path}/phplib"
-		put_directory "#{tmpdir}/perllib", "#{release_path}/perllib"
-		put_directory "#{tmpdir}/rblib", "#{release_path}/rblib"
-		put_directory "#{tmpdir}/twfy", "#{release_path}/twfy"
+    clone_and_upload(phplib_repository, "phplib", release_path)
+    clone_and_upload(perllib_repository, "perllib", release_path)
+    clone_and_upload(rblib_repository, "rblib", release_path)
+    clone_and_upload(twfy_repository, "twfy", release_path)
 		finalize_update
 	end
 
@@ -91,6 +83,13 @@ namespace :deploy do
 	#	# Load up the database
 	#	run "mysql -u db3716_twfy --password=twfy-australia -h internal-db.s3716.gridserver.com db3716_twfy_australia < #{remote_filename}; rm #{remote_filename}"
 	#end
+end
+
+def clone_and_upload(repository, dir, release_path)
+	tmpdir = Dir.tmpdir
+	run "mkdir -p #{release_path}"
+	system("cd #{tmpdir}; rm -rf #{dir}; git clone #{repository}; rm -rf #{dir}/.git")
+	put_directory "#{tmpdir}/#{dir}", "#{release_path}/#{dir}"  
 end
 
 def put_compressed(src_file, dst_file)
