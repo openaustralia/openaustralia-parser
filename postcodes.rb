@@ -7,18 +7,12 @@ require 'mysql'
 require 'configuration'
 
 conf = Configuration.new
-conf.web_root
-
-require "#{conf.web_root}/rblib/config"
-
-MySociety::Config.set_file("#{conf.web_root}/twfy/conf/general")
 
 def quote_string(s)
   s.gsub(/\\/, '\&\&').gsub(/'/, "''") # ' (for ruby-mode)
 end
 
-db = Mysql.real_connect(MySociety::Config.get('DB_HOST'), MySociety::Config.get('DB_USER'),
-  MySociety::Config.get('DB_PASSWORD'), MySociety::Config.get('DB_NAME'))
+db = Mysql.real_connect(conf.database_host, conf.database_user, conf.database_password, conf.database_name)
 
 data = CSV.readlines("data/postcodes.csv")
 # Remove the first two elements
