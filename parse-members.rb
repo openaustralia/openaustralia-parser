@@ -7,7 +7,7 @@ require 'people'
 
 conf = Configuration.new
 
-system("mkdir -p #{conf.web_root}/pwdata/members")
+system("mkdir -p #{conf.members_xml_path}")
 
 # Copy across files that are needed for the script xml2db to run but are not yet populated with data
 ["bbc-links.xml", "constituencies.xml", "diocese-bishops.xml", "edm-links.xml", "expenses200102.xml",
@@ -15,7 +15,7 @@ system("mkdir -p #{conf.web_root}/pwdata/members")
   "expenses200607.xml", "guardian-links.xml", "journa-list.xml", "lordbiogs.xml", "ni-members.xml", "peers-ucl.xml",
   "royals.xml", "sp-members.xml", "websites.xml", "wikipedia-commons.xml", "wikipedia-lords.xml", "wikipedia-mla.xml",
   "wikipedia-msp.xml"].each do |file|
-    system("cp data/empty-template.xml #{conf.web_root}/pwdata/members/#{file}")
+    system("cp data/empty-template.xml #{conf.members_xml_path}/#{file}")
 end
 
 puts "Writing XML..."
