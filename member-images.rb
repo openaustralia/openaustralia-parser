@@ -9,4 +9,4 @@ conf = Configuration.new
 
 people = People.read_csv("data/members.csv", "data/ministers.csv")
 puts "Downloading person images..."
-people.download_images("#{conf.web_root}/twfy/www/docs/images/mps", "#{conf.web_root}/twfy/www/docs/images/mpsL")
+people.download_images("#{conf.file_image_path}/mps", "#{conf.file_image_path}/mpsL")

@@ -2,7 +2,7 @@ require 'yaml'
 
 class Configuration
   # TODO: Could have conflicts between these and names in the configuration file
-  attr_reader :database_host, :database_user, :database_password, :database_name
+  attr_reader :database_host, :database_user, :database_password, :database_name, :file_image_path
   
   @@conf = nil
   
@@ -20,6 +20,7 @@ class Configuration
     @database_user = MySociety::Config.get('DB_USER')
     @database_password = MySociety::Config.get('DB_PASSWORD')
     @database_name = MySociety::Config.get('DB_NAME')
+    @file_image_path = MySociety::Config.get('FILEIMAGEPATH')
   end
   
   def proxy_host    
@@ -32,6 +33,11 @@ class Configuration
   
   # Ruby magic
   def method_missing(method_id)
-    @@conf[method_id.id2name]
+    name = method_id.id2name
+    if @@conf.has_key?(name)
+      @@conf[name]
+    else
+      super
+    end
   end
 end
