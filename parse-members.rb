@@ -20,8 +20,8 @@ end
 
 puts "Writing XML..."
 people = People.read_csv("data/members.csv", "data/ministers.csv")
-people.write_xml("#{conf.web_root}/pwdata/members/people.xml", "#{conf.web_root}/pwdata/members/all-members.xml",
-  "#{conf.web_root}/pwdata/members/ministers.xml")
+people.write_xml("#{conf.members_xml_path}/people.xml", "#{conf.members_xml_path}/all-members.xml",
+  "#{conf.members_xml_path}/ministers.xml")
 
 # And load up the database
 system("#{conf.web_root}/twfy/scripts/xml2db.pl --members --all --force")
