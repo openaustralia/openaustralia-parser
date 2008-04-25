@@ -23,6 +23,78 @@ class HansardHeading
   end
 end
 
+# Very stripped down proxy for WWW::Mechanize
+class MechanizeProxy
+  def initialize
+    @agent = WWW::Mechanize.new
+    @conf = Configuration.new
+    
+    @agent.set_proxy(@conf.proxy_host, @conf.proxy_port)    
+  end
+  
+  def get(url)
+    page = @agent.get(url)
+
+    #filename = "#{@conf.html_cache_path}/#{url_to_filename(page.uri.to_s)}"
+    #if File.exists?(filename)
+    #  document = Hpricot(File.open(filename) {|file| file.read})
+    #  #p document.search('a').map{|e| e.get_attribute("href")}
+    #else
+      document = page.parser
+    #  File.open(filename, 'w') {|file| file.puts(document.to_s) }
+    #end
+    PageProxy.new(document, proxify_links(page.links))
+  end
+  
+  def click(link)
+    page = @agent.click(link)
+    PageProxy.new(page.parser, proxify_links(page.links))
+  end  
+
+  private
+  
+  def proxify_links(links)
+    WWW::Mechanize::List.new(links.map{|l| LinkProxy.new(l)})
+  end
+  
+  def url_to_filename(url)
+    url.tr('/', '_')
+  end
+end
+
+class PageProxy
+  attr_reader :links
+  
+  def initialize(doc, links)
+    @doc = doc
+    @links = links
+  end
+  
+  def search(text)
+    @doc.search(text)
+  end
+end
+
+class LinkProxy
+  def initialize(link)
+    @link = link
+  end
+  
+  def attributes
+    @link.attributes
+  end
+  
+  def text
+    @link.text
+  end
+
+  alias :to_s :text
+  
+  def uri
+    @link.uri
+  end  
+end
+
 class HansardParser
   
   def HansardParser.parse_date(date, xml_filename, people)
@@ -32,16 +104,15 @@ class HansardParser
     # See http://code.whytheluckystiff.net/hpricot/ticket/13
     Hpricot.buffer_size = 262144
 
-    agent = WWW::Mechanize.new
-    agent.set_proxy(conf.proxy_host, conf.proxy_port)
+    agent = MechanizeProxy.new
 
     url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Chamber%20%3E%20House%20Hansard%20%3E%20#{date.year}%20%3E%20#{date.day}%20#{Date::MONTHNAMES[date.month]}%20#{date.year}"
-    begin
+    #begin
       page = agent.get(url)
-    rescue
-      puts "WARNING: Could not retrieve overview page for date #{date}"
-      return
-    end
+    #rescue
+    #  puts "WARNING: Could not retrieve overview page for date #{date}"
+    #  return
+    #end
     parse_day_page(page, date, agent, people, xml_filename)
   end
   

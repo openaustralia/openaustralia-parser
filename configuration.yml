@@ -24,6 +24,8 @@ web_root: "/Library/WebServer/Documents/openaustralia"
 # Under Linux, this is likely to be something like:
 #web_root: "/var/www/openaustralia-app"
 
+html_cache_path: "/Library/WebServer/Documents/openaustralia/openaustralia-parser/html_cache"
+
 # Should hopefully not have to change anything below here
 
 # Links to the biographies of all *current* house members and senators
