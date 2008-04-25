@@ -33,41 +33,96 @@ class MechanizeProxy
   end
   
   def get(url)
-    page = @agent.get(url)
-
-    #filename = "#{@conf.html_cache_path}/#{url_to_filename(page.uri.to_s)}"
-    #if File.exists?(filename)
-    #  document = Hpricot(File.open(filename) {|file| file.read})
-    #  #p document.search('a').map{|e| e.get_attribute("href")}
-    #else
-      document = page.parser
-    #  File.open(filename, 'w') {|file| file.puts(document.to_s) }
-    #end
-    PageProxy.new(document, proxify_links(page.links))
+    filename = url_to_filename(url)
+    if File.exists?(filename)
+      document = Hpricot(File.open(filename) {|file| file.read})
+    else
+      document = @agent.get(url).parser
+      File.open(filename, 'w') {|file| file.puts(document.to_s) }
+    end
+    PageProxy.new(document, URI.parse(url))
   end
   
   def click(link)
-    page = @agent.click(link)
-    PageProxy.new(page.parser, proxify_links(page.links))
+    uri = to_absolute_uri(link.href, link.page)
+    filename = url_to_filename(uri.to_s)
+    if File.exists?(filename)
+      document = Hpricot(File.open(filename) {|file| file.read})
+    else
+      document = @agent.click(link).parser
+      File.open(filename, 'w') {|file| file.puts(document.to_s) }      
+    end
+    PageProxy.new(document, uri)
   end  
 
   private
   
-  def proxify_links(links)
-    WWW::Mechanize::List.new(links.map{|l| LinkProxy.new(l)})
+  def url_to_filename(url)
+    "#{@conf.html_cache_path}/#{url.tr('/', '_')}"
   end
   
-  def url_to_filename(url)
-    url.tr('/', '_')
+  def to_absolute_uri(url, cur_page)
+    unless url.is_a? URI
+      url = url.to_s.strip.gsub(/[^#{0.chr}-#{125.chr}]/) { |match|
+        sprintf('%%%X', match.unpack($KCODE == 'UTF8' ? 'U' : 'c')[0])
+      }
+
+      url = URI.parse(
+              Util.html_unescape(
+                url.split(/%[0-9A-Fa-f]{2}|#/).zip(
+                  url.scan(/%[0-9A-Fa-f]{2}|#/)
+                ).map { |x,y|
+                  "#{URI.escape(x)}#{y}"
+                }.join('')
+              )
+            )
+    end
+
+    url.path = '/' if url.path.length == 0
+
+    # construct an absolute uri
+    if url.relative?
+      raise 'no history. please specify an absolute URL' unless cur_page.uri
+      base = cur_page.respond_to?(:bases) ? cur_page.bases.last : nil
+      url = ((base && base.uri && base.uri.absolute?) ?
+              base.uri :
+              cur_page.uri) + url
+      url = cur_page.uri + url
+      # Strip initial "/.." bits from the path
+      url.path.sub!(/^(\/\.\.)+(?=\/)/, '')
+    end
+
+    return url
   end
+  
+  class Util
+    def self.html_unescape(s)
+      return s unless s
+      s.gsub(/&(\w+|#[0-9]+);/) { |match|
+        number = case match
+        when /&(\w+);/
+          Hpricot::NamedCharacters[$1]
+        when /&#([0-9]+);/
+          $1.to_i
+        end
+
+        number ? ([number].pack('U') rescue match) : match
+      }
+    end
+  end
+  
 end
 
 class PageProxy
-  attr_reader :links
+  attr_reader :uri
   
-  def initialize(doc, links)
+  def initialize(doc, uri)
     @doc = doc
-    @links = links
+    @uri = uri
+  end
+  
+  def links
+    WWW::Mechanize::List.new(@doc.search('a').map{|e| LinkProxy.new(e, self)})
   end
   
   def search(text)
@@ -76,22 +131,25 @@ class PageProxy
 end
 
 class LinkProxy
-  def initialize(link)
-    @link = link
-  end
+  attr_reader :attributes, :page
   
-  def attributes
-    @link.attributes
+  def initialize(attributes, page)
+    @attributes = attributes
+    @page = page
   end
   
   def text
-    @link.text
+    @attributes.inner_text
   end
-
+  
   alias :to_s :text
+
+  def href
+    @attributes['href']
+  end
   
   def uri
-    @link.uri
+    URI.parse(href)
   end  
 end
 
