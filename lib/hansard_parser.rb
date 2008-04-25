@@ -33,27 +33,25 @@ class MechanizeProxy
   end
   
   def get(url)
-    filename = url_to_filename(url)
-    if File.exists?(filename)
-      document = Hpricot(File.open(filename) {|file| file.read})
-    else
-      document = @agent.get(url).parser
-      File.open(filename, 'w') {|file| file.puts(document.to_s) }
-    end
-    PageProxy.new(document, URI.parse(url))
+    uri = URI.parse(url)
+    load_and_cache_page(uri) { @agent.get(url) }
   end
   
   def click(link)
     uri = to_absolute_uri(link.href, link.page)
+    load_and_cache_page(uri) { @agent.click(link) }
+  end
+  
+  def load_and_cache_page(uri)
     filename = url_to_filename(uri.to_s)
     if File.exists?(filename)
       document = Hpricot(File.open(filename) {|file| file.read})
     else
-      document = @agent.click(link).parser
+      document = yield.parser
       File.open(filename, 'w') {|file| file.puts(document.to_s) }      
     end
-    PageProxy.new(document, uri)
-  end  
+    PageProxy.new(document, uri)    
+  end
 
   private
   
