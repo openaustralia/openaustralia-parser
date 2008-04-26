@@ -3,6 +3,9 @@
 # Stores cached html files in directory "html_cache_path" in configuration.yml
 
 class MechanizeProxy
+  # By setting cache_subdirectory can put cached files under a subdirectory in the html_cache_path
+  attr_accessor :cache_subdirectory
+  
   def initialize
     @agent = WWW::Mechanize.new
     @conf = Configuration.new
@@ -26,6 +29,7 @@ class MechanizeProxy
       document = Hpricot(File.open(filename) {|file| file.read})
     else
       document = yield.parser
+      FileUtils.mkdir_p(File.dirname(filename))
       File.open(filename, 'w') {|file| file.puts(document.to_s) }      
     end
     PageProxy.new(document, uri)    
@@ -34,7 +38,11 @@ class MechanizeProxy
   private
   
   def url_to_filename(url)
-    "#{@conf.html_cache_path}/#{url.tr('/', '_')}"
+    if cache_subdirectory
+      "#{@conf.html_cache_path}/#{cache_subdirectory}/#{url.tr('/', '_')}"
+    else
+      "#{@conf.html_cache_path}/#{url.tr('/', '_')}"
+    end
   end
   
   def to_absolute_uri(url, cur_page)

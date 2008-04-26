@@ -34,6 +34,7 @@ class HansardParser
     Hpricot.buffer_size = 262144
 
     agent = MechanizeProxy.new
+    agent.cache_subdirectory = date.to_s
 
     url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Chamber%20%3E%20House%20Hansard%20%3E%20#{date.year}%20%3E%20#{date.day}%20#{Date::MONTHNAMES[date.month]}%20#{date.year}"
     begin
