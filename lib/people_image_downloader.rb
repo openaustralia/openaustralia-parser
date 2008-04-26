@@ -1,4 +1,5 @@
 require 'rubygems'
+gem 'mechanize', "= 0.6.10"
 require 'mechanize'
 require 'RMagick'
 
