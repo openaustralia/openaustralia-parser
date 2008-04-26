@@ -223,4 +223,8 @@ class TestName < Test::Unit::TestCase
   def test_ignore_initials
     assert_equal(Name.new(:title => "Ms", :last => "Burke"), Name.title_first_last("Ms AE Burke"))
   end
+  
+  def test_title_first_last_djc_kerr
+    assert_equal(Name.new(:last => "Kerr"), Name.title_first_last("DJC Kerr"))
+  end
 end
