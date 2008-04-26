@@ -112,6 +112,10 @@ class PageProxy
   def search(text)
     @doc.search(text)
   end
+  
+  def title
+    @doc.search('title').inner_text
+  end
 end
 
 class LinkProxy

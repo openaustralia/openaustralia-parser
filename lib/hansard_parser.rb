@@ -39,10 +39,18 @@ class HansardParser
     url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Chamber%20%3E%20House%20Hansard%20%3E%20#{date.year}%20%3E%20#{date.day}%20#{Date::MONTHNAMES[date.month]}%20#{date.year}"
     begin
       page = agent.get(url)
+      # HACK: Don't know why if the page isn't found a return code isn't returned. So, hacking around this.
+      if page.title == "ParlInfo Web - Error"
+        throw "ParlInfo Web - Error"
+      end
     rescue
       puts "WARNING: Could not retrieve overview page for date #{date}"
       return
     end
+    #if page.title == "ParlInfo Web - Error"
+    #  puts "WARNING: Could not retrieve overview page for date #{date}"
+    #  return
+    #end
     parse_day_page(page, date, agent, people, xml_filename)
   end
   
