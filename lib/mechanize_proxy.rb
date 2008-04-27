@@ -9,8 +9,6 @@ class MechanizeProxy
   def initialize
     @agent = WWW::Mechanize.new
     @conf = Configuration.new
-    
-    @agent.set_proxy(@conf.proxy_host, @conf.proxy_port)    
   end
   
   def get(url)
