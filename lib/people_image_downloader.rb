@@ -61,13 +61,11 @@ class PeopleImageDownloader
     if img_tag
       relative_image_url = img_tag.attributes['src']
       if relative_image_url != "images/top_btn.gif"
-        url = page.uri + URI.parse(relative_image_url)
-        conf = Configuration.new
-        res = Net::HTTP::Proxy(conf.proxy_host, conf.proxy_port).get_response(url)
         begin
+          res = @agent.get(relative_image_url)
           return name, Magick::Image.from_blob(res.body)[0]
-        rescue RuntimeError, Magick::ImageMagickError
-          puts "WARNING: Could not load image for #{name.informal_name} at #{url}"
+        rescue RuntimeError, Magick::ImageMagickError, WWW::Mechanize::ResponseCodeError
+          puts "WARNING: Could not load image for #{name.informal_name} at #{relative_image_url}"
         end
       end
     end
