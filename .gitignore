@@ -4,4 +4,5 @@ pwdata/members/all-members.xml
 pwdata/members/people.xml
 pwdata/members/ministers.xml
 pwdata/scrapedxml/debates/debates*.xml
+html_cache/*
 coverage/*
