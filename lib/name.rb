@@ -6,16 +6,17 @@ end
 
 # Handle all our silly name parsing needs
 class Name
-  attr_reader :title, :first, :nick, :middle, :last, :post_title
+  attr_reader :title, :first, :nick, :middle, :initials, :last, :post_title
   
   def initialize(params)
     @title = params[:title] || ""
     @first = (Name.capitalize_name(params[:first]) if params[:first]) || ""
     @nick = (Name.capitalize_name(params[:nick]) if params[:nick]) || ""
     @middle = (Name.capitalize_each_name(params[:middle]) if params[:middle]) || ""
+    @initials = (params[:initials].upcase if params[:initials]) || ""
     @post_title = (params[:post_title].upcase if params[:post_title]) || ""
     @last = (Name.capitalize_each_name(params[:last]) if params[:last]) || ""
-    invalid_keys = params.keys - [:title, :first, :nick, :middle, :last, :post_title]
+    invalid_keys = params.keys - [:title, :first, :nick, :middle, :initials, :last, :post_title]
     throw "Invalid keys #{invalid_keys} used" unless invalid_keys.empty?
   end
   
@@ -59,10 +60,10 @@ class Name
     if names.size == 1
       last = names[0]
     else
-      # If only one or two letters assume that these are initials and ignore them
+      # If only one or two letters assume that these are initials
       # HACK: Added specific handling for initials DJC
       if names[0].size <= 2 || names[0] == "DJC"
-        names.shift
+        initials = names.shift
       else
         first = names[0]
       end
@@ -70,7 +71,23 @@ class Name
       last = names[-1]
       middle = names[1..-2].join(' ')
     end
-    Name.new(:title => title, :last => last, :first => first, :middle => middle, :post_title => post_title)
+    Name.new(:title => title, :last => last, :first => first, :middle => middle, :initials => initials, :post_title => post_title)
+  end
+  
+  def first_initial
+    if has_first_initial?
+      @initials[0..0]
+    else
+      @first[0..0]
+    end
+  end
+  
+  def middle_initials
+    if has_middle_initials?
+      @initials[1..-1]
+    else
+      @middle.split(' ').map{|n| n[0..0]}.join
+    end
   end
   
   def informal_name
@@ -109,6 +126,14 @@ class Name
     @middle != ""
   end
   
+  def has_first_initial?
+    @initials.size > 0
+  end
+  
+  def has_middle_initials?
+    @initials.size > 1
+  end
+  
   def has_last?
     @last != ""
   end
@@ -117,43 +142,56 @@ class Name
     @post_title != ""
   end
   
-  def Name.first_names_match?(name1, name2)
-    if name1.size < name2.size
-      first_names_match?(name2, name1)
+  def first_matches?(name)
+    if !has_first? || !name.has_first?
+      # Check here if one name has initials and no first name and the other has a first name
+      if (has_first_initial? && name.has_first?) || (has_first? && name.has_first_initial?)
+        first_initial == name.first_initial
+      else
+        true
+      end
+    elsif first.size < name.first.size
+      name.first_matches?(self)
     else 
-      if name1 == name2
+      if first == name.first
         true
       else
-        # name1.size >= name2.size
+        # first.size >= name.first.size
         first_name_shortened_forms = {"Nicholas" => "Nick", "Anthony" => "Tony", "Christopher" => "Chris",
           "Malcolm" => "Mal", "Joseph" => "Joe", "James" => "Jim", "Gregory" => "Greg", "Robert" => "Bob",
           "Patrick" => "Pat", "Jennifer" => "Jenny", "Penelope" => "Penny", "Michael" => "Mike",
           "William" => "Bill", "Roderick" => "Rod", "Lawrence" => "Larry", "Patricia" => "Trish",
           "Christine" => "Chris", "Ronald" => "Ron", "Kathryn" => "Kathy", "Timothy" => "Tim",
           "Judith" => "Judi", "Alexander" => "Alex", "Geoffrey" => "Geoff"}
-        first_name_shortened_forms.detect {|p| name1 == p[0] && name2 == p[1]}
+        first_name_shortened_forms.detect {|p| first == p[0] && name.first == p[1]}
       end
+    end
+  end
+
+  def middle_matches?(name)
+    if !has_middle? || !name.has_middle?
+      if (has_middle_initials? && name.has_middle?) || (has_middle? && name.has_middle_initials?)
+        middle_initials == name.middle_initials
+      else
+        true
+      end
+    else
+      @middle == name.middle
     end
   end
   
   # Names don't have to be identical to match but rather the parts of the name
   # that exist in both names have to match
   def matches_simply?(name)
-    # True if there is overlap between the names
-    overlap = (has_title? && name.has_title?) ||
-      (has_first?           && name.has_first?) ||
-      (has_nick?            && name.has_nick?) ||
-      (has_middle?          && name.has_middle?) ||
-      (has_last?            && name.has_last?) ||
-      (has_post_title?      && name.has_post_title?)
-      
-    overlap &&
-      (!has_title?           || !name.has_title?           || @title      == name.title) &&
-      (!has_first?           || !name.has_first?           || Name.first_names_match?(@first, name.first)) &&
-      (!has_nick?            || !name.has_nick?            || @nick       == name.nick) &&
-      (!has_middle?          || !name.has_middle?          || @middle     == name.middle) &&
-      (!has_last?            || !name.has_last?            || @last       == name.last) &&
-      (!has_post_title?      || !name.has_post_title?      || @post_title == name.post_title)
+    # Both names need to have a last name to match
+    return false unless has_last? && name.has_last?
+    
+    (!has_title?           || !name.has_title?           || @title      == name.title) &&
+    first_matches?(name) &&
+    (!has_nick?            || !name.has_nick?            || @nick       == name.nick) &&
+    middle_matches?(name) &&
+    (!has_last?            || !name.has_last?            || @last       == name.last) &&
+    (!has_post_title?      || !name.has_post_title?      || @post_title == name.post_title)
   end
   
   def matches?(name)
@@ -171,7 +209,7 @@ class Name
   
   def ==(name)
     @title == name.title && @first == name.first && @nick == name.nick &&
-      @middle == name.middle && @last == name.last && @post_title == name.post_title
+      @middle == name.middle && @initials == name.initials && @last == name.last && @post_title == name.post_title
   end
   
   private

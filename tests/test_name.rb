@@ -185,12 +185,6 @@ class TestName < Test::Unit::TestCase
     assert(name_members.matches?(name_speech))
   end
   
-  def test_initials_when_given_but_do_not_match_first_and_middle_name
-    assert_raise(NameError) do
-      name = Name.new(:first => "John", :middle => "Edward", :initials => "J")
-    end
-  end
-  
   # This test for the regression introduced by adding support for initials
   def test_matches_with_middle_name_missing
     name1 = Name.new(:first => "Kim", :middle => "William", :last => "Wilkie")
@@ -220,11 +214,42 @@ class TestName < Test::Unit::TestCase
     assert(name1.matches?(name2))
   end
   
-  def test_ignore_initials
-    assert_equal(Name.new(:title => "Ms", :last => "Burke"), Name.title_first_last("Ms AE Burke"))
+  def test_title_first_last_djc_kerr
+    assert_equal(Name.new(:initials => "DJC", :last => "Kerr"), Name.title_first_last("DJC Kerr"))
   end
   
-  def test_title_first_last_djc_kerr
-    assert_equal(Name.new(:last => "Kerr"), Name.title_first_last("DJC Kerr"))
+  def test_parsing_initials
+    assert_equal(Name.new(:initials => "LK", :last => "Johnson"), Name.title_first_last("LK Johnson"))
+  end
+  
+  def test_matches_with_first_initials
+    l_johnson = Name.title_first_last("L Johnson")
+    leonard_keith_johnson = Name.new(:first => "Leonard", :middle => "Keith",   :last => "Johnson")
+    leslie_royston_johnson = Name.new(:first => "Leslie",  :middle => "Royston", :last => "Johnson")
+    peter_francis_johnson = Name.new(:first => "Peter", :middle => "Francis", :last => "Johnson")
+    assert(!peter_francis_johnson.matches?(l_johnson))
+    assert(leonard_keith_johnson.matches?(l_johnson))
+    assert(leslie_royston_johnson.matches?(l_johnson))
+  end
+
+  def test_matches_with_middle_initials
+    lk_johnson = Name.title_first_last("LK Johnson")
+    leonard_keith_johnson = Name.new(:first => "Leonard", :middle => "Keith",   :last => "Johnson")
+    leslie_royston_johnson = Name.new(:first => "Leslie",  :middle => "Royston", :last => "Johnson")
+  
+    assert(!leslie_royston_johnson.matches?(lk_johnson))
+    assert(leonard_keith_johnson.matches?(lk_johnson))
+    
+    assert(lk_johnson.matches?(leonard_keith_johnson))
+  end
+  
+  def test_first_initial
+    assert_equal("J", Name.new(:first => "John", :middle => "Edward Peter").first_initial)
+    assert_equal("M", Name.new(:initials => "MN").first_initial)
+  end
+  
+  def test_middle_initials
+    assert_equal("EP", Name.new(:first => "John", :middle => "Edward Peter").middle_initials)
+    assert_equal("N", Name.new(:initials => "MN").middle_initials)
   end
 end
