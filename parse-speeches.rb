@@ -23,7 +23,6 @@ people = People.read_csv("data/members.csv", "data/ministers.csv")
 #
 # Problem dates:
 # 2007.6.18: President speaks: 2007.6.18
-# 2007.6.21: Multiple matches for name Hon. BK Bishop found
 # 2007.9.11: No match for name Rt Hon. STEPHEN HARPER found
 #
 #from_date = Date.new(2008, 3, 28)
