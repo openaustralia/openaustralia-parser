@@ -6,9 +6,10 @@ class MechanizeProxy
   # By setting cache_subdirectory can put cached files under a subdirectory in the html_cache_path
   attr_accessor :cache_subdirectory
   
-  def initialize
+  def initialize(compress = true)
     @agent = WWW::Mechanize.new
     @conf = Configuration.new
+    @compress = compress
   end
   
   def get(url)
@@ -21,26 +22,72 @@ class MechanizeProxy
     load_and_cache_page(uri) { @agent.click(link) }
   end
   
+  private
+  
+  def url_cached?(uri)
+    cache_file_exists?(uri, false) || cache_file_exists?(uri, true)
+  end
+  
+  def cache_file_exists?(uri, compressed)
+    File.exists?(url_to_filename(uri, compressed))
+  end
+  
+  def read_cache(uri)
+    # Prefer uncompressed cache files over compressed ones if both exist
+    compressed = !cache_file_exists?(uri, false)
+    fileReader(compressed).open(url_to_filename(uri, compressed)) {|file| file.read}
+  end
+  
+  def fileReader(compressed)
+    if compressed
+      Zlib::GzipReader
+    else
+      File
+    end
+  end
+  
+  def fileWriter
+    if @compressed
+      Zlib::GzipWriter
+    else
+      File
+    end
+  end
+  
+  def write_cache(uri, contents)    
+    filename = url_to_filename(uri, @compressed)
+    FileUtils.mkdir_p(File.dirname(filename))
+    fileWriter.open(filename, 'w') {|file| file.puts(document.to_s) }
+  end
+  
   def load_and_cache_page(uri)
-    filename = url_to_filename(uri.to_s)
-    if File.exists?(filename)
-      document = Hpricot(File.open(filename) {|file| file.read})
+    if url_cached?(uri)
+      document = Hpricot(read_cache(uri))
     else
       document = yield.parser
-      FileUtils.mkdir_p(File.dirname(filename))
-      File.open(filename, 'w') {|file| file.puts(document.to_s) }      
+      write_cache(uri, document.to_s)
     end
     PageProxy.new(document, uri)    
   end
 
-  private
-  
-  def url_to_filename(url)
-    if cache_subdirectory
-      "#{@conf.html_cache_path}/#{cache_subdirectory}/#{url.tr('/', '_')}"
+  def url_to_filename(url, compressed)
+    if compressed
+      url_to_compressed_filename(url)
     else
-      "#{@conf.html_cache_path}/#{url.tr('/', '_')}"
+      url_to_uncompressed_filename(url)
     end
+  end
+  
+  def url_to_uncompressed_filename(uri)
+    if cache_subdirectory
+      "#{@conf.html_cache_path}/#{cache_subdirectory}/#{uri.to_s.tr('/', '_')}"
+    else
+      "#{@conf.html_cache_path}/#{uri.to_s.tr('/', '_')}"
+    end
+  end
+  
+  def url_to_compressed_filename(uri)
+    url_to_uncompressed_filename(uri) + ".gz"
   end
   
   def to_absolute_uri(url, cur_page)
