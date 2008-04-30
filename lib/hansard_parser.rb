@@ -328,7 +328,7 @@ class HansardParser
       name = Name.title_first_last(speakername)
       matches = people.find_members_by_name_current_on_date(name, date)
       throw "Multiple matches for name #{speakername} found" if matches.size > 1
-      throw "No match for name #{speakername} found" if matches.size == 0
+      puts "BIG WARNING: No match for name #{speakername} found" if matches.size == 0
       matches[0]
     end
   end
