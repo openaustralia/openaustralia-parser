@@ -6,10 +6,9 @@ class MechanizeProxy
   # By setting cache_subdirectory can put cached files under a subdirectory in the html_cache_path
   attr_accessor :cache_subdirectory
   
-  def initialize(compress = true)
+  def initialize
     @agent = WWW::Mechanize.new
     @conf = Configuration.new
-    @compress = compress
   end
   
   def get(url)
@@ -46,18 +45,14 @@ class MechanizeProxy
     end
   end
   
-  def fileWriter
-    if @compressed
-      Zlib::GzipWriter
-    else
-      File
-    end
-  end
-  
+  # Always writes compressed cache files
   def write_cache(uri, contents)    
-    filename = url_to_filename(uri, @compressed)
+    filename = url_to_filename(uri, true)
     FileUtils.mkdir_p(File.dirname(filename))
-    fileWriter.open(filename, 'w') {|file| file.puts(document.to_s) }
+    Zlib::GzipWriter.open(filename) do |file|
+      file.puts(contents)
+      file.close
+    end
   end
   
   def load_and_cache_page(uri)
