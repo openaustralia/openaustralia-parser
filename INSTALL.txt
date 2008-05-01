@@ -56,7 +56,7 @@ cpan> install DBD::mysql
 
 === Web Application ===
 
-For development purposes we have our web application (not the parser) under {{{/Library/WebServer/Documents/}}} and, unless you want to patch the configuration too much, we recommend that you install it there (also, if you do it this way, you have the application available under the root of your webserver on your Mac).
+For development purposes we have our web application and the parser under {{{/Library/WebServer/Documents/}}} and, unless you want to patch the configuration too much, we recommend that you install it there (also, if you do it this way, you have the application available under the root of your webserver on your Mac).
 
 {{{
 $ cd /Library/WebServer/
@@ -66,28 +66,18 @@ And enter your admin password. This is necessary so that you don't have to alway
 
 {{{
 $ cd Documents
-$ mkdir openaustralia-app
-$ cd openaustralia-app
-$ git clone git://github.com/mlandauer/phplib.git
-$ git clone git://github.com/mlandauer/perllib.git
-$ git clone git://github.com/mlandauer/rblib.git
-$ git clone git://github.com/mlandauer/twfy.git
+$ git clone git://github.com/mlandauer/openaustralia.git
+$ cd openaustralia
+$ git submodule init
+$ git submodule update
 }}}
 
-You should now have the website files located at {{{/Library/WebServer/Documents/openaustralia-app}}}. We will come back to this path once we've installed the parser as both need to know (at the time of writing this document) the path of each.
+You should now have the website files located at {{{/Library/WebServer/Documents/openaustralia}}}. Also, you should now have the parser
+installed under {{{/Library/WebServer/Documents/openaustralia/openaustralia-parser}}}.
 
-=== Parser ===
+=== Configuration of the Parser ===
 
-The parser can be installed wherever. For this document, we will assume that the parser is installed under {{{~/Development}}} (where the {{{~}}} is your home directory, eg {{{/Users/bruno}}} in my case).
-
-{{{
-$ cd ~/Development
-$ git clone git://github.com/mlandauer/openaustralia-parser.git
-}}}
-
-You should now have the parser installed under {{{~/Development/openaustralia-parser}}}.
-
-The only configuration necessary is to change the web-root if you have installed the web application (as described above) in another location. That value is {{{web_root}}} in the {{{configuration.yml}}} file at the root of the {{{openaustralia-parser}}}.
+The only configuration necessary is to change the web-root if you have installed the web application in another location. That value is {{{web_root}}} in the {{{configuration.yml}}} file at the root of the {{{openaustralia-parser}}}.
 
 === Configuration of the Web Application ===
 
@@ -107,7 +97,7 @@ Enter password: ******
 You are now ready to import the schema
 
 {{{
-$ mysql -u root -p openaustralia < /Library/WebServer/Documents/openaustralia-app/twfy/db/schema.sql
+$ mysql -u root -p openaustralia < /Library/WebServer/Documents/openaustralia/twfy/db/schema.sql
 Enter password: ******
 }}}
 
@@ -115,7 +105,7 @@ Enter password: ******
 
 There is a file that you need to edit (and remember NOT to commit your changes on that file) on the web application:
 
-{{{/Library/WebServer/Documents/openaustralia-app/twfy/conf/general}}}
+{{{/Library/WebServer/Documents/openaustralia/twfy/conf/general}}}
 
 It's well documented and quite explanatory. It contains the configuration for MySQL (database name, host, username, etc) as well as the URL and paths for the web application on your machine.
 
@@ -178,5 +168,5 @@ WARNING: Not yet supporting: Procedural text: NATIONAL HEALTH AMENDMENT (PHARMAC
 db loading debates 2007-09-20
 }}}
 
-You should now be able to view the results at "Your Webserver URL":http://localhost/openaustralia-app/twfy/www/docs/
+You should now be able to view the results at "Your Webserver URL":http://localhost/openaustralia/twfy/www/docs/
 
