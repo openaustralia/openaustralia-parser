@@ -30,10 +30,12 @@ people = People.read_csv("data/members.csv", "data/ministers.csv")
 from_date = Date.new(2008, 2, 12)
 to_date = Date.new(2008, 3, 18)
 
+parser = HansardParser.new(people)
+
 date = from_date
 while date <= to_date
   puts "Parsing speeches for #{date.strftime('%a %d %b %Y')}..."
-  HansardParser.parse_date(date, "#{conf.xml_path}/scrapedxml/debates/debates#{date}.xml", people)
+  parser.parse_date(date, "#{conf.xml_path}/scrapedxml/debates/debates#{date}.xml")
   date = date + 1
 end
 
