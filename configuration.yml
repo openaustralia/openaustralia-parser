@@ -25,6 +25,7 @@ web_root: "/Library/WebServer/Documents/openaustralia"
 #web_root: "/var/www/openaustralia-app"
 
 html_cache_path: "/Library/WebServer/Documents/openaustralia/openaustralia-parser/html_cache"
+log_path: "/Library/WebServer/Documents/openaustralia/openaustralia-parser/parser.log"
 
 # Should hopefully not have to change anything below here
 

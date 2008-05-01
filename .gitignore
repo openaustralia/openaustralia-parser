@@ -6,3 +6,4 @@ pwdata/members/ministers.xml
 pwdata/scrapedxml/debates/debates*.xml
 html_cache/*
 coverage/*
+parser.log
