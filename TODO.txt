@@ -1,0 +1,42 @@
+Defects:
+Adapt publicwhip website for Australia
+Remove bbc links
+Handle name changes of members correctly
+Update parliamentary recess file to be correct for Australian parliament
+Two people called "Henry Jenkins"
+Get API working
+Support "The Clerk" properly in speeches
+Add support for "procedural texts" in the Hansard
+Explicitly handle timeout exceptions caused by transient network problems
+Make /parsing work
+In the web application see what version is deployed
+For a particular day_ debates are not in strict chronological order
+On page for signing up for email alerts choosing "Any Representative" doesn't work
+Email alert confirmation email shows headers
+
+Enhancements:
+Logo/logotype for openaustralia.org
+Australian colour scheme for website
+Maybe refactor parser to use intermediate database
+Add consistency check for members after loaded from csv file
+When a reference to a person is made in a speech link to it
+Parse divisions (voting information)
+Make parse-speeches accept a data range on the command-line
+Make all parsers use a general logger rather than outputting to standard output
+Add glossary entries
+Wikipedia links
+Add register for members interests (or whatever the Australian equivalent is called)
+Add shadow ministry information
+Move tests over to using RSpec
+Add link from member page to aph.gov.au biography page
+Port TheyWorkForYou Firefox search plugin to OpenAustralia
+A user should be able to delete their own comments
+unable to find glossary
+
+Tasks:
+Email Hansard website administrator with details of broken biography pages and images
+Submit fix patches to UK TheyWorkForYou people
+Set up cron job that automatically runs speech parsing on each day
+Move DNS to an Australian provider
+Buy SSL certificate for openaustralia.org
+summary
