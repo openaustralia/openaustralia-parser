@@ -9,7 +9,7 @@ class Configuration
   def initialize
     if @@conf.nil?
       # Load the configuration
-      @@conf = YAML::load( File.open( 'configuration.yml' ) )
+      @@conf = YAML::load( File.open( "#{File.dirname(__FILE__)}/../configuration.yml" ) )
       @@conf = {} if !@@conf
     end
     
