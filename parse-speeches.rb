@@ -58,10 +58,10 @@ system("mkdir -p #{conf.xml_path}/scrapedxml/debates")
 system("mkdir -p #{conf.xml_path}/scrapedxml/regmem")
 
 # Copy across file that is needed for the script xml2db to run but is not yet populated with data
-system("cp data/empty-template.xml #{conf.xml_path}/scrapedxml/regmem/regmem2000-01-01.xml")
+system("cp #{File.dirname(__FILE__)}/data/empty-template.xml #{conf.xml_path}/scrapedxml/regmem/regmem2000-01-01.xml")
 
 # First load people back in so that we can look up member id's
-people = People.read_csv("data/members.csv", "data/ministers.csv")
+people = People.read_csv("#{File.dirname(__FILE__)}/data/members.csv", "#{File.dirname(__FILE__)}/data/ministers.csv")
 
 parser = HansardParser.new(people)
 
