@@ -10,6 +10,8 @@ require 'optparse'
 def parse_date(text)
   if text == "today"
     Date.today
+  elsif text == "yesterday"
+    Date.today - 1
   else
     Date.parse(text)
   end
@@ -21,7 +23,8 @@ options = {:load_database => true}
 OptionParser.new do |opts|
   opts.banner = <<EOF
 Usage: parse-speeches.rb [options] <from-date> [<to-date>]
-    In <from-date> and <to-date> can use "today" for today's date
+    formatting of date:
+      year.month.day or today or yesterday
     
     Interesting dates:
       Last day of 2007 parliament: 2007.9.20
