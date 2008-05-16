@@ -24,6 +24,7 @@ class HansardHeading
   end
 end
 
+require 'rubygems'
 require 'log4r'
 
 class HansardParser
