@@ -157,12 +157,38 @@ class Name
         true
       else
         # first.size >= name.first.size
-        first_name_shortened_forms = {"Nicholas" => "Nick", "Anthony" => "Tony", "Christopher" => "Chris",
-          "Malcolm" => "Mal", "Joseph" => "Joe", "James" => "Jim", "Gregory" => "Greg", "Robert" => "Bob",
-          "Patrick" => "Pat", "Jennifer" => "Jenny", "Penelope" => "Penny", "Michael" => "Mike",
-          "William" => "Bill", "Roderick" => "Rod", "Lawrence" => "Larry", "Patricia" => "Trish",
-          "Christine" => "Chris", "Ronald" => "Ron", "Kathryn" => "Kathy", "Timothy" => "Tim",
-          "Judith" => "Judi", "Alexander" => "Alex", "Geoffrey" => "Geoff"}
+        first_name_shortened_forms = {
+          "Alexander" => "Alex",
+          "Anthony" => "Tony",
+          "Archibald" => "Arch",
+          "Bernard" => "Bernie",
+          "Christine" => "Chris",
+          "Christopher" => "Chris",
+          "Concetto" => "Con",
+          "Donald" => "Don",
+          "Edward" => "Ted",
+          "Geoffrey" => "Geoff",
+          "Gregory" => "Greg",
+          "James" => "Jim",
+          "Jennifer" => "Jenny",
+          "Joseph" => "Joe",
+          "Judith" => "Judi",
+          "Kathryn" => "Kathy",
+          "Lawrence" => "Larry",
+          "Malcolm" => "Mal",
+          "Michael" => "Mike",
+          "Nicholas" => "Nick",
+          "Patricia" => "Trish",
+          "Patrick" => "Pat",
+          "Penelope" => "Penny",
+          "Robert" => "Bob",
+          "Roderick" => "Rod",
+          "Rodney" => "Rod",
+          "Ronald" => "Ron",
+          "Susan" => "Sue",
+          "Timothy" => "Tim",
+          "William" => "Bill"
+          }
         first_name_shortened_forms.detect {|p| first == p[0] && name.first == p[1]}
       end
     end
