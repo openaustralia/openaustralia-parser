@@ -12,5 +12,9 @@ ministers.csv:
 Contains the periods when particular people were ministers. The data was originally taken from:
 http://www.aph.gov.au/library/handbook41st/historical/ministries/59.howard.htm
 
+shadow-ministers.csv:
+Contains the periods when particular people were part of the shadow ministry.
+Is current as of May 2008 and goes back to 20th March 1996.
+
 postcodes.csv:
 From the Australian Bureau of Statistics <http://www.abs.gov.au/>
