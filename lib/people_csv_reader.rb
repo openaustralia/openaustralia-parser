@@ -6,7 +6,7 @@ require 'person'
 require 'name'
 
 class PeopleCSVReader
-  def PeopleCSVReader.read(members_filename, ministers_filename)
+  def PeopleCSVReader.read(members_filename, ministers_filename, shadow_ministers_filename)
     # Read in csv file of members data
 
     data = CSV.readlines(members_filename)
@@ -44,6 +44,7 @@ class PeopleCSVReader
       people << person
     end
     read_ministers(ministers_filename, people)
+    read_ministers(shadow_ministers_filename, people)
     people
   end  
 
@@ -103,7 +104,7 @@ class PeopleCSVReader
       end
       n = Name.title_first_last(name)
       person = people.find_person_by_name_current_on_date(n, from_date) if n
-      throw "Can't find #{name}" if person.nil?
+      throw "Can't find #{name} for date #{from_date}" if person.nil?
       person.add_minister_position(:from_date => from_date, :to_date => to_date, :position => position)
     end
   end
