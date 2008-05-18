@@ -25,14 +25,6 @@ class Configuration
     @xml_path = MySociety::Config.get('RAWDATA')
   end
   
-  def proxy_host    
-    @@conf["proxy"]["host"] if @@conf.has_key?("proxy")
-  end
-  
-  def proxy_port
-    @@conf["proxy"]["port"] if @@conf.has_key?("proxy")
-  end
-  
   # Ruby magic
   def method_missing(method_id)
     name = method_id.id2name
