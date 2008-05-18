@@ -1,7 +1,6 @@
 require 'rubygems'
-gem 'mechanize', "= 0.6.10"
-require 'mechanize'
 require 'RMagick'
+require 'mechanize_proxy'
 
 require 'configuration'
 
@@ -15,8 +14,8 @@ class PeopleImageDownloader
     Hpricot.buffer_size = 262144
 
     @conf = Configuration.new
-    @agent = WWW::Mechanize.new
-    @agent.set_proxy(@conf.proxy_host, @conf.proxy_port)
+    @agent = MechanizeProxy.new
+    @agent.cache_subdirectory = "member_images"
   end
   
   def download(people, small_image_dir, large_image_dir)

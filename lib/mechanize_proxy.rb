@@ -2,6 +2,10 @@
 #
 # Stores cached html files in directory "html_cache_path" in configuration.yml
 
+require 'rubygems'
+gem 'mechanize', "= 0.6.10"
+require 'mechanize'
+
 class MechanizeProxy
   # By setting cache_subdirectory can put cached files under a subdirectory in the html_cache_path
   attr_accessor :cache_subdirectory
@@ -19,6 +23,10 @@ class MechanizeProxy
   def click(link)
     uri = to_absolute_uri(link.href, link.page)
     load_and_cache_page(uri) { @agent.click(link) }
+  end
+  
+  def transact
+    yield
   end
   
   private
@@ -57,12 +65,26 @@ class MechanizeProxy
   
   def load_and_cache_page(uri)
     if url_cached?(uri)
-      document = Hpricot(read_cache(uri))
+      if uri.to_s[-4..-1] == ".jpg"
+        document = read_cache(uri)
+        FileProxy.new(document, uri)
+      else
+        document = Hpricot(read_cache(uri))
+        PageProxy.new(document, uri)
+      end
     else
-      document = yield.parser
-      write_cache(uri, document.to_s)
+      result = yield
+      if result.respond_to?(:parser)
+        document = result.parser
+        write_cache(uri, document.to_s)
+        PageProxy.new(document, uri)    
+      else
+        document = result
+        filename = url_to_filename(uri, false)
+        document.save(filename)
+        FileProxy.new(document.body, uri)
+      end
     end
-    PageProxy.new(document, uri)    
   end
 
   def url_to_filename(url, compressed)
@@ -135,6 +157,17 @@ class MechanizeProxy
     end
   end
   
+end
+
+class FileProxy
+  def initialize(doc, uri)
+    @doc = doc
+    @uri = uri
+  end
+  
+  def body
+    @doc
+  end
 end
 
 class PageProxy
