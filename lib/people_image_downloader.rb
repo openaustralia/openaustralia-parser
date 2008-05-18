@@ -24,6 +24,10 @@ class PeopleImageDownloader
       # Small HACK - removing title of name
       name = Name.new(:first => name.first, :nick => name.nick, :middle => name.middle, :last => name.last, :post_title => name.post_title) if name
       if name
+        # HACK: Special handling for Maxine Mckew as in her bio she is referred to as Margaret Maxine McKew
+        if name.matches?(Name.new(:first => "Margaret", :middle => "Maxine", :last => "McKew"))
+          name = Name.new(:first => "Maxine", :middle => "Margaret", :last => "McKew")
+        end
         person = people.find_person_by_name(name)
         if person
           image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH, @@SMALL_THUMBNAIL_HEIGHT).write(small_image_dir + "/#{person.id.count}.jpg")
