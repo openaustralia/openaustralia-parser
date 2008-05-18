@@ -11,7 +11,7 @@ class Speech
   
   def output(x)
     if @speaker
-      x.speech(:speakername => @speaker.person.name.full_name, :time => @time, :url => @url, :id => @id,
+      x.speech(:speakername => @speaker.name.full_name, :time => @time, :url => @url, :id => @id,
         :speakerid => @speaker.id) { x << @content.to_s }
     else
       x.speech(:speakername => "unknown", :time => @time, :url => @url, :id => @id) { x << @content.to_s }

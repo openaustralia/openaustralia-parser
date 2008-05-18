@@ -3,6 +3,20 @@ require 'id'
 require 'speech'
 require 'mechanize_proxy'
 
+class UnknownSpeaker
+  def initialize(name)
+    @name = name
+  end
+  
+  def id
+    "unknown"
+  end
+  
+  def name
+    Name.title_first_last(@name)
+  end
+end
+
 class HansardHeading
   def initialize
     @title = ""
@@ -310,7 +324,8 @@ class HansardParser
 
   def lookup_speaker(speakername, date)
     if speakername.nil?
-      speakername = "unknown"
+      logger.warn "Unknown speaker"
+      return UnknownSpeaker.new("unknown")
     end
 
     # HACK alert (Oh you know what this whole thing is a big hack alert)
@@ -328,18 +343,16 @@ class HansardParser
       end
     elsif speakername =~ /^the clerk/i
       # TODO: Handle "The Clerk" correctly
-      speakername = "unknown"
+      return UnknownSpeaker.new(speakername)
     end
     # Lookup id of member based on speakername
-    if speakername.downcase == "unknown"
-      nil
-    else
-      name = Name.title_first_last(speakername)
-      matches = @people.find_members_by_name_current_on_date(name, date)
-      throw "Multiple matches for name #{speakername} found" if matches.size > 1
-      logger.error "No match for name #{speakername} found" if matches.size == 0
-      matches[0]
+    name = Name.title_first_last(speakername)
+    matches = @people.find_members_by_name_current_on_date(name, date)
+    throw "Multiple matches for name #{speakername} found" if matches.size > 1
+    if matches.size == 0
+      return UnknownSpeaker.new(speakername)
     end
+    matches[0]
   end
 
   def strip_tags(doc)

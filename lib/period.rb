@@ -18,6 +18,10 @@ class PeriodBase
   def current?
     current_on_date?(Date.today)
   end
+  
+  def name
+    person.name
+  end
 end
 
 class MinisterPosition < PeriodBase
@@ -84,7 +88,7 @@ class Period < PeriodBase
   end
   
   def ==(p)
-    id == p.id && from_date == p.from_date && to_date == p.to_date &&
+    id.to_s == p.id.to_s && from_date == p.from_date && to_date == p.to_date &&
       from_why == p.from_why && to_why == p.to_why && division == p.division && party == p.party
   end
 end
