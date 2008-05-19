@@ -2,6 +2,7 @@ require 'speeches'
 require 'id'
 require 'speech'
 require 'mechanize_proxy'
+require 'configuration'
 
 class UnknownSpeaker
   def initialize(name)
@@ -194,6 +195,7 @@ class HansardParser
   def clean_speech_content(base_url, content)
     doc = Hpricot(content.to_s)
     doc.search('div.speechType').remove
+    doc.search('span.talkername ~ b').remove
     doc.search('span.talkername').remove
     doc.search('span.talkerelectorate').remove
     doc.search('span.talkerrole').remove
@@ -296,11 +298,28 @@ class HansardParser
     text.sub('&', '&amp;')
   end
 
-  def extract_speaker_from_talkername_tag(content, date)
+  def extract_speakername_from_talkername_tag(content)
     tag = content.search('span.talkername a').first
     if tag
-      lookup_speaker(tag.inner_html, date)
+      name = tag.inner_html
+      # Now check if there is something like <span class="talkername"><a>Some Text</a></span> <b>(Some Text)</b>
+      tag = content.search('span.talkername ~ b').first
+      if tag
+        text = tag.inner_html
+        puts "Found extra speakername text: #{text}"
+        # Only use it if it is surrounded by brackets
+        m = text.match(/\((.*)\)/)
+        if m
+          name += " " + m[0]
+        end
+      end
     end
+    name
+  end
+  
+  def extract_speaker_from_talkername_tag(content, date)
+    speakername = extract_speakername_from_talkername_tag(content)
+    lookup_speaker(speakername, date) if speakername
   end
 
   def extract_speaker_in_interjection(content, date)
@@ -323,6 +342,7 @@ class HansardParser
   end
 
   def lookup_speaker(speakername, date)
+    puts "Looking up speaker name: #{speakername}"
     if speakername.nil?
       logger.warn "Unknown speaker"
       return UnknownSpeaker.new("unknown")

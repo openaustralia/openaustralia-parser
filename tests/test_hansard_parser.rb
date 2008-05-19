@@ -93,4 +93,19 @@ class TestHansardParser < Test::Unit::TestCase
     @parser.fix_attributes_of_p_tags(doc)
     assert_equal('<b><p>Some Text</p></b>', doc.to_s)
   end
+  
+  def test_extract_speakername_from_talkername_tag_normal_form
+    doc = Hpricot('<p><span class="talkername"><a HREF="blah">Mr Hunt</a></span></p>')
+    assert_equal('Mr Hunt', @parser.extract_speakername_from_talkername_tag(doc))
+  end
+
+  def test_extract_speakername_from_talkername_tag_no_tag
+    doc = Hpricot('<p>Mr Hunt</p>')
+    assert(@parser.extract_speakername_from_talkername_tag(doc).nil?)
+  end
+  
+  def test_extract_speakername_from_talkername_tag_bad_markup_form
+    doc = Hpricot('<p><span class="talkername"><a>The Deputy Speaker</a></span><b>(Mr Hunt)</p>')
+    assert_equal('The Deputy Speaker (Mr Hunt)', @parser.extract_speakername_from_talkername_tag(doc))
+  end
 end
