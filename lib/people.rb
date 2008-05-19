@@ -41,11 +41,15 @@ class People < Array
   # Methods that return Period objects
   
   def house_speaker(date)
-    find_house_members_current_on(date).find {|m| m.house_speaker?}
+    member = find_house_members_current_on(date).find {|m| m.house_speaker?}
+    throw "Could not find house speaker for date #{date}" if member.nil?
+    member
   end
   
   def deputy_house_speaker(date)
-    find_house_members_current_on(date).find {|m| m.deputy_house_speaker?}
+    member = find_house_members_current_on(date).find {|m| m.deputy_house_speaker?}
+    throw "Could not find deputy house speaker for date #{date}" if member.nil?
+    member
   end
 
   def find_member_by_name_current_on_date(name, date)
