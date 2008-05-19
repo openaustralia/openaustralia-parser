@@ -306,7 +306,6 @@ class HansardParser
       tag = content.search('span.talkername ~ b').first
       if tag
         text = tag.inner_html
-        puts "Found extra speakername text: #{text}"
         # Only use it if it is surrounded by brackets
         m = text.match(/\((.*)\)/)
         if m
@@ -342,7 +341,6 @@ class HansardParser
   end
 
   def lookup_speaker(speakername, date)
-    puts "Looking up speaker name: #{speakername}"
     if speakername.nil?
       logger.warn "Unknown speaker"
       return UnknownSpeaker.new("unknown")
