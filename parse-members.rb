@@ -13,7 +13,7 @@ system("mkdir -p #{conf.members_xml_path}")
 ["bbc-links.xml", "constituencies.xml", "diocese-bishops.xml", "edm-links.xml", "expenses200102.xml",
   "expenses200203.xml", "expenses200304.xml", "expenses200405.xml", "expenses200506.xml", "expenses200506former.xml",
   "expenses200607.xml", "guardian-links.xml", "journa-list.xml", "lordbiogs.xml", "ni-members.xml", "peers-ucl.xml",
-  "royals.xml", "sp-members.xml", "websites.xml", "wikipedia-commons.xml", "wikipedia-lords.xml", "wikipedia-mla.xml",
+  "royals.xml", "sp-members.xml", "wikipedia-commons.xml", "wikipedia-lords.xml", "wikipedia-mla.xml",
   "wikipedia-msp.xml"].each do |file|
     system("cp data/empty-template.xml #{conf.members_xml_path}/#{file}")
 end
