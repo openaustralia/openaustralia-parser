@@ -5,6 +5,7 @@
 require 'rubygems'
 gem 'mechanize', "= 0.6.10"
 require 'mechanize'
+require 'configuration'
 
 class MechanizeProxy
   # By setting cache_subdirectory can put cached files under a subdirectory in the html_cache_path
