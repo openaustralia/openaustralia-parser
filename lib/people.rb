@@ -62,6 +62,11 @@ class People < Array
     find_house_members_current_on(date).find_all {|m| name.matches?(m.person.name)}
   end
   
+  # Returns the house members that are currently members of the House of Representatives
+  def find_current_house_members
+    all_house_periods.find_all {|m| m.current?}
+  end
+  
   # Returns the house members that are members on the given date
   def find_house_members_current_on(date)
     all_house_periods.find_all {|m| m.current_on_date?(date)}
