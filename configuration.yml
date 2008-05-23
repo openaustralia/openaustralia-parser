@@ -19,3 +19,9 @@ current_house_members_url: "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path
 current_senate_members_url: "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Handbook%20%3E%20Biographies%20%3E%20Current%20Senators"
 # Links to the biographies of all *former* senators and representatives
 former_members_house_and_senate_url: "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Handbook%20%3E%20Biographies%20%3E%20Former%20Senators%20and%20Members"
+
+# Alternative version of biography pages for current house members
+alternative_current_house_members_url: "http://www.aph.gov.au/house/members/mi-alpha.asp"
+
+# List of electorates from website for the ABC's Q&A programme
+qanda_electorate_url: "http://www.abc.net.au/tv/qanda/find-your-local-mp-by-electorate.htm"

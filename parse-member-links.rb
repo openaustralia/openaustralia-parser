@@ -17,7 +17,7 @@ people = People.read_csv("data/members.csv", "data/ministers.csv", "data/shadow-
 
 puts "Personal home page & Contact Details (Gov website)..."
 
-page = agent.get('http://www.aph.gov.au/house/members/mi-alpha.asp')
+page = agent.get(conf.alternative_current_house_members_url)
 
 xml = File.open("#{conf.members_xml_path}/websites.xml", 'w')
 x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
@@ -42,7 +42,7 @@ end
 puts "Q&A Links..."
 
 # First get mapping between constituency name and web page
-page = agent.get('http://www.abc.net.au/tv/qanda/find-your-local-mp-by-electorate.htm')
+page = agent.get(conf.qanda_electorate_url)
 map = {}
 page.links[35..183].each do |link|
   map[link.text.downcase] = page.uri + link.uri
