@@ -80,9 +80,20 @@ class People < Array
   
   # Facade for readers and writers
   def People.read_csv(members_filename, ministers_filename, shadow_ministers_filename)
-    PeopleCSVReader.read(members_filename, ministers_filename, shadow_ministers_filename)
+    people = PeopleCSVReader.read_members(members_filename)
+    PeopleCSVReader.read_ministers(ministers_filename, people)
+    PeopleCSVReader.read_ministers(shadow_ministers_filename, people)
+    people
+  end
+
+  def People.read_members_csv(filename)
+    PeopleCSVReader.read_members(filename)
   end
   
+  def People.read_ministers_csv(filename)
+    PeopleCSVReader.read_ministers(filename, self)
+  end
+    
   def write_xml(people_filename, members_filename, ministers_filename)
     PeopleXMLWriter.write(self, people_filename, members_filename, ministers_filename)
   end

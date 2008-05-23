@@ -13,7 +13,7 @@ agent = MechanizeProxy.new
 agent.cache_subdirectory = "parse-member-links"
 
 puts "Reading member data..."
-people = People.read_csv("data/members.csv", "data/ministers.csv", "data/shadow-ministers.csv")
+people = People.read_members_csv("data/members.csv")
 
 puts "Personal home page & Contact Details (Gov website)..."
 
