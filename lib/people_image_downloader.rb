@@ -35,8 +35,8 @@ class PeopleImageDownloader
           person = people.find_person_by_name(name)
         end
         if person
-          image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH, @@SMALL_THUMBNAIL_HEIGHT).write(small_image_dir + "/#{person.id.count}.jpg")
-          image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH * 2, @@SMALL_THUMBNAIL_HEIGHT * 2).write(large_image_dir + "/#{person.id.count}.jpg")
+          image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH, @@SMALL_THUMBNAIL_HEIGHT).write(small_image_dir + "/#{person.person_count}.jpg")
+          image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH * 2, @@SMALL_THUMBNAIL_HEIGHT * 2).write(large_image_dir + "/#{person.person_count}.jpg")
         else
           puts "WARNING: Skipping photo for #{name.full_name} because they don't exist in the list of people"
         end

@@ -25,19 +25,22 @@ class PeriodBase
 end
 
 class MinisterPosition < PeriodBase
-  attr_accessor :position
-  attr_reader :id
+  attr_accessor :position, :minister_count
   
   def MinisterPosition.reset_id_counter
-    @@id = Id.new("uk.org.publicwhip/moffice/")
+    @@next_minister_count = 1
   end
   
   reset_id_counter
   
+  def id
+    "uk.org.publicwhip/moffice/#{@minister_count}"
+  end
+  
   def initialize(params)
     @position = params.delete(:position)
-    @id = @@id.clone
-    @@id.next
+    @minister_count = @@next_minister_count
+    @@next_minister_count = @@next_minister_count + 1
     super
   end  
 end
