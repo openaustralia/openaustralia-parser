@@ -143,7 +143,7 @@ class HansardParser
       # Link text for speech has format:
       # HEADING > NAME > HOUR:MINS:SECS
       split = link_text.split('>').map{|a| a.strip}
-      logger.warn "Expected split to have length 3" unless split.size == 3
+      logger.error "Expected split to have length 3" unless split.size == 3
       time = split[2]
       # Extract permanent URL of this subpage. Also, quoting because there is a bug
       # in XML Builder that for some reason is not quoting attributes properly
