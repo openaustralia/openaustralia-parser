@@ -7,6 +7,6 @@ require 'people'
 
 conf = Configuration.new
 
-people = People.read_csv("data/members.csv", "data/ministers.csv", "data/shadow-ministers.csv")
+people = People.read_members_csv("data/members.csv")
 puts "Downloading person images..."
 people.download_images("#{conf.file_image_path}/mps", "#{conf.file_image_path}/mpsL")

@@ -61,8 +61,7 @@ system("mkdir -p #{conf.xml_path}/scrapedxml/regmem")
 system("cp #{File.dirname(__FILE__)}/data/empty-template.xml #{conf.xml_path}/scrapedxml/regmem/regmem2000-01-01.xml")
 
 # First load people back in so that we can look up member id's
-people = People.read_csv("#{File.dirname(__FILE__)}/data/members.csv", "#{File.dirname(__FILE__)}/data/ministers.csv",
-  "#{File.dirname(__FILE__)}/data/shadow-ministers.csv")
+people = People.read_members_csv("#{File.dirname(__FILE__)}/data/members.csv")
 
 parser = HansardParser.new(people)
 
