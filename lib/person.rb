@@ -2,22 +2,26 @@ require 'period'
 require 'id'
 
 class Person
-  attr_reader :periods, :id, :name, :minister_positions
+  attr_reader :periods, :person_count, :name, :minister_positions
   
   def Person.reset_id_counter
-    @@id = Id.new("uk.org.publicwhip/person/", 10001)
+    @@next_person_count = 10001
   end
   
   reset_id_counter
   
-  def initialize(name, override_id = nil)
+  def id
+    "uk.org.publicwhip/person/#{@person_count}"
+  end
+  
+  def initialize(name, override_person_count = nil)
     @periods = []
     @minister_positions = []
-    if override_id
-      @id = override_id
+    if override_person_count
+      @person_count = override_person_count
     else
-      @id = @@id.clone
-      @@id.next
+      @person_count = @@next_person_count
+      @@next_person_count = @@next_person_count + 1
     end
     @name = name
   end
