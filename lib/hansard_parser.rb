@@ -134,8 +134,6 @@ class HansardParser
       tag_class = e.attributes["class"]
       if tag_class == "subspeech0" || tag_class == "subspeech1"
         speaker = extract_speaker_from_talkername_tag(e, date) || extract_speaker_in_interjection(e, date)
-      elsif tag_class == "paraitalic"
-        speaker = nil
       end
       debates.add_speech(speaker, time, url, clean_speech_content(url, e))
     end
