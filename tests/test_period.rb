@@ -6,6 +6,7 @@ require 'date'
 require 'period'
 require 'name'
 require 'person'
+require 'date_with_future'
 
 class TestPeriod < Test::Unit::TestCase
   def test_equality
@@ -14,7 +15,7 @@ class TestPeriod < Test::Unit::TestCase
       :from_date => Date.new(2000, 1, 1), :to_date => Date.new(2001, 1, 1),
       :from_why => "general_election", :to_why => "defeated", :person => person)
     # Make period2 and period1 the same by giving them the same id
-    period2 = Period.new(:id => period1.id, :house => "representatives", :division => "division1", :party => "party1",
+    period2 = Period.new(:count => period1.count, :house => "representatives", :division => "division1", :party => "party1",
         :from_date => Date.new(2000, 1, 1), :to_date => Date.new(2001, 1, 1),
         :from_why => "general_election", :to_why => "defeated", :person => person)
     

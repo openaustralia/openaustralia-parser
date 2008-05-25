@@ -1,5 +1,3 @@
-require 'id'
-
 class PeriodBase
   attr_accessor :from_date, :to_date, :person
   
@@ -48,14 +46,30 @@ end
 # Represents a period in the house of representatives
 class Period < PeriodBase
   attr_accessor :from_why, :to_why, :division, :party, :house
-  attr_reader :id
-  
+  attr_reader :count
+
   def Period.reset_id_counter
-    @@rep_id = Id.new("uk.org.publicwhip/member/")
-    @@senator_id = Id.new("uk.org.publicwhip/lord/")
+    @@next_rep_count = 1
+    @@next_senator_count = 1
   end
   
   reset_id_counter
+  
+  def id
+    if senator?
+      "uk.org.publicwhip/lord/#{@count}"
+    else
+      "uk.org.publicwhip/member/#{@count}"
+    end
+  end
+  
+  def representative?
+    @house == "representatives"
+  end
+  
+  def senator?
+    @house == "senate"
+  end
   
   def initialize(params)
     # TODO: Make some parameters compulsary and others optional
@@ -65,33 +79,31 @@ class Period < PeriodBase
     @division =   params.delete(:division)
     @party =      params.delete(:party)
     @house =      params.delete(:house)
-    if @house != "representatives" && @house != "senate"
-      throw ":house parameter must have value 'representatives' or 'senate'"
-    end
-    if params[:id]
-      @id = params.delete(:id)
+    throw ":house parameter must have value 'representatives' or 'senate'" unless representative? || senator?
+    if params[:count]
+      @count = params.delete(:count)
     else
-      if @house == "senate"
-        @id = @@senator_id.clone
-        @@senator_id.next
+      if senator?
+        @count = @@next_senator_count
+        @@next_senator_count = @@next_senator_count + 1
       else
-        @id = @@rep_id.clone
-        @@rep_id.next
+        @count = @@next_rep_count
+        @@next_rep_count = @@next_rep_count + 1
       end
     end
     super
   end
   
   def house_speaker?
-    @house == "representatives" && @party == "SPK"
+    representative? && @party == "SPK"
   end
   
   def deputy_house_speaker?
-    @house == 'representatives' && @party == "CWM"
+    representative? && @party == "CWM"
   end
   
   def ==(p)
-    id.to_s == p.id.to_s && from_date == p.from_date && to_date == p.to_date &&
-      from_why == p.from_why && to_why == p.to_why && division == p.division && party == p.party
+    count == p.count && from_date == p.from_date && to_date == p.to_date &&
+      from_why == p.from_why && to_why == p.to_why && division == p.division && party == p.party && house == p.house
   end
 end

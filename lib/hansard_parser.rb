@@ -1,4 +1,3 @@
-require 'id'
 require 'speech'
 require 'mechanize_proxy'
 require 'configuration'

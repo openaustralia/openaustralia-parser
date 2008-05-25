@@ -1,5 +1,4 @@
 require 'period'
-require 'id'
 
 class Person
   attr_reader :periods, :person_count, :name, :minister_positions

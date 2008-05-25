@@ -17,7 +17,7 @@ class TestPerson < Test::Unit::TestCase
     john_smith2.add_house_period(:division => "division1", :party => "party1",
         :from_date => Date.new(2000, 1, 1), :to_date => Date.new(2001, 1, 1),
         :from_why => "general_election", :to_why => "defeated",
-        :id => john_smith1.periods[0].id)
+        :count => john_smith1.periods[0].count)
     
     henry_jones = Person.new(Name.new(:first => "Henry", :last => "Jones"))
     henry_jones.add_house_period(:division => "division2", :party => "party2",
