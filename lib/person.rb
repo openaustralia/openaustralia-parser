@@ -54,15 +54,6 @@ class Person
     @minister_positions << MinisterPosition.new(params.merge(:person => self))
   end
   
-  # Returns true if this person has a house_period with the given id
-  def has_period_with_id?(id)
-    !find_period_by_id(id).nil?
-  end
-  
-  def find_period_by_id(id)
-    @periods.find{|p| p.id == id}
-  end
-  
   def ==(p)
     id == p.id && periods == p.periods
   end
