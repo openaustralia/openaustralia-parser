@@ -1,13 +1,14 @@
 class Heading
-  def initialize(title, count, url, date)
+  def initialize(title, major_count, minor_count, url, date)
     @title = title
-    @count = count
+    @major_count = major_count
+    @minor_count = minor_count
     @url = url
     @date = date
   end
   
   def id
-    "uk.org.publicwhip/debate/#{@date}.#{@count}"
+    "uk.org.publicwhip/debate/#{@date}.#{@major_count}.#{@minor_count}"
   end
 end
 

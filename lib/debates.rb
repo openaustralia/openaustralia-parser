@@ -8,28 +8,38 @@ class Debates
     @title = ""
     @subtitle = ""
     @items = []
-    @count = 1
+    @minor_count = 1
+    @major_count = 1
   end
   
   def add_heading(newtitle, newsubtitle, url)
     # Only add headings if they have changed
     if newtitle != @title
-      @items << MajorHeading.new(newtitle, @count, url, @date)
-      @count = @count + 1
+      @items << MajorHeading.new(newtitle, @major_count, @minor_count, url, @date)
+      increment_minor_count
     end
     if newtitle != @title || newsubtitle != @subtitle
-      @items << MinorHeading.new(newsubtitle, @count, url, @date)
-      @count = @count + 1
+      @items << MinorHeading.new(newsubtitle, @major_count, @minor_count, url, @date)
+      increment_minor_count
     end
     @title = newtitle
     @subtitle = newsubtitle    
   end
   
+  def increment_minor_count
+    @minor_count = @minor_count + 1
+  end
+  
+  def increment_major_count
+    @major_count = @major_count + 1
+    @minor_count = 1
+  end
+  
   def add_speech(speaker, time, url, content)
     # Only add new speech if the speaker has changed
     unless speaker && last_speaker && speaker == last_speaker
-      @items << Speech.new(speaker, time, url, @count, @date)
-      @count = @count + 1
+      @items << Speech.new(speaker, time, url, @major_count, @minor_count, @date)
+      increment_minor_count
     end
     @items.last.append_to_content(content)
   end

@@ -61,6 +61,9 @@ class HansardParser
     # Structure of the page is such that we are only interested in some of the links
     page.links[30..-4].each do |link|
       parse_sub_day_page(link.to_s, agent.click(link), debates, date)
+      # This ensures that every sub day page has a different major count which limits the impact
+      # of when we start supporting things like written questions, procedurial text, etc..
+      debates.increment_major_count
     end
     
     debates.output(xml_filename)
