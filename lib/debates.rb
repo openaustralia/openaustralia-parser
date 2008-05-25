@@ -1,3 +1,5 @@
+require 'heading'
+
 # Holds the data for debates on one day
 # Also knows how to output the XML data for that
 class Debates
@@ -47,38 +49,3 @@ class Debates
     xml.close
   end
 end
-
-class MajorHeading
-  def initialize(title, count, url, date)
-    @title = title
-    @count = count
-    @url = url
-    @date = date
-  end
-  
-  def id
-    "uk.org.publicwhip/debate/#{@date}.#{@count}"
-  end
-  
-  def output(x)
-    x.tag!("major-heading", @title, :id => id, :url => @url)
-  end
-end
-
-class MinorHeading
-  def initialize(title, count, url, date)
-    @title = title
-    @count = count
-    @url = url
-    @date = date
-  end
-  
-  def id
-    "uk.org.publicwhip/debate/#{@date}.#{@count}"
-  end
-  
-  def output(x)
-    x.tag!("minor-heading", @title, :id => id, :url => @url)
-  end
-end
-
