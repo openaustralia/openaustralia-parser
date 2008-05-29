@@ -1,0 +1,88 @@
+element publicwhip {
+	attribute scrapeversion { "a" },
+	attribute latest { "yes" },
+	(
+	element major-heading {
+		attribute id { xsd:string { pattern = "uk.org.publicwhip/debate/[0-9]{4}-[0-9]{2}-[0-9]{2}a.[0-9]+.[0-9]+" } },
+		attribute nospeaker { "true" },
+		attribute colnum { xsd:integer },
+		# Allowing badly formatted time like "012:31:00"
+		attribute time { xsd:time | xsd:string { pattern = "[0-9]{3}:[0-9]{2}:[0-9]{2}"} },
+		attribute url { text },
+		text
+	} |
+	element minor-heading {
+		attribute id { xsd:string { pattern = "uk.org.publicwhip/debate/[0-9]{4}-[0-9]{2}-[0-9]{2}a.[0-9]+.[0-9]+" } },
+		attribute nospeaker { "true" },
+		attribute colnum { xsd:integer },
+		# Allowing badly formatted time like "012:31:00"
+		attribute time { xsd:time | xsd:string { pattern = "[0-9]{3}:[0-9]{2}:[0-9]{2}"} },
+		attribute url { text },
+		text
+	} |
+	element speech {
+		attribute id { xsd:string { pattern = "uk.org.publicwhip/debate/[0-9]{4}-[0-9]{2}-[0-9]{2}a.[0-9]+.[0-9]+" } },
+		attribute nospeaker { "true" }?,
+		attribute speakerid { xsd:string { pattern = "uk.org.publicwhip/member/[0-9]+" } | "unknown" }?,
+		attribute error { "No match" }?,
+		attribute speakername { text }?,
+		attribute speakeroffice { text }?,
+		attribute colnum { xsd:integer },
+		# Allowing badly formatted time like "012:31:00"
+		attribute time { xsd:time | xsd:string { pattern = "[0-9]{3}:[0-9]{2}:[0-9]{2}"} },
+		attribute url { text },
+		attribute oral-qnum { xsd:integer }?,
+		element p {
+			attribute pid { xsd:string { pattern = "a.[0-9]+.[0-9]+/[0-9]+" } },
+			attribute qnum { xsd:integer }?,
+			attribute class { "italic" | "indent" | "" }?,
+			attribute pwmotiontext { "yes" }?,
+			(
+			element i { text }*
+			& element phrase {
+				attribute class { "honfriend" | "date" },
+				attribute id { xsd:string { pattern = "uk.org.publicwhip/member/[0-9]+" } | "unknown" }?,
+				attribute name { text }?,
+				attribute code { text }?,
+				text
+			}*
+			& text
+			)
+		}+
+	} |
+	element oral-heading {
+		attribute id { xsd:string { pattern = "uk.org.publicwhip/debate/[0-9]{4}-[0-9]{2}-[0-9]{2}a.[0-9]+.[0-9]+" } },
+		attribute nospeaker { "true" },
+		attribute colnum { xsd:integer },
+		attribute time { xsd:time },
+		attribute url { text },
+		text
+	} |
+	element division {
+		attribute id { xsd:string { pattern = "uk.org.publicwhip/debate/[0-9]{4}-[0-9]{2}-[0-9]{2}a.[0-9]+.[0-9]+" } },
+		attribute nospeaker { "true" },
+		attribute divdate { xsd:date },
+		attribute divnumber { xsd:integer },
+		attribute colnum { xsd:integer },
+		# Allowing badly formatted time like "012:31:00"
+		attribute time { xsd:time | xsd:string { pattern = "[0-9]{3}:[0-9]{2}:[0-9]{2}"} },
+		attribute url { text },
+		element divisioncount {
+			attribute ayes { xsd:integer },
+			attribute noes { xsd:integer },
+			attribute tellerayes { xsd:integer },
+			attribute tellernoes { xsd:integer },
+			text
+		},
+		element mplist {
+			attribute vote { "aye" | "no" },
+			element mpname {
+				attribute id { xsd:string { pattern = "uk.org.publicwhip/member/[0-9]+" } },
+				attribute vote { "aye" | "no" },
+				attribute teller { "yes" }?,
+				text
+			}+
+		}+
+	}
+	)+
+}
