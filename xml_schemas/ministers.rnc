@@ -1,0 +1,19 @@
+element publicwhip {
+	element chgpageupdates {
+		attribute date { xsd:date },
+		attribute chgtype { "govposts" | "privsec" | "selctee" | "offoppose" | "libdem" | "plaidsnp" }
+	}+,
+	element ministerofficegroup {
+		element moffice {
+			attribute id { xsd:string { pattern = "uk.org.publicwhip/moffice/[0-9]+" } },
+			attribute name { text },
+			attribute dept { text },
+			attribute position { text },
+			attribute responsibility { text }?,
+			attribute fromdate { xsd:date },
+			attribute todate { xsd:date },
+			attribute source { text },
+			attribute matchid { xsd:string { pattern = "uk.org.publicwhip/(member|lord)/[0-9]+" } }?
+		}+
+	}+
+}
