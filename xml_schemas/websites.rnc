@@ -1,0 +1,6 @@
+element publicwhip {
+	element personinfo {
+		attribute id { xsd:string { pattern = "uk.org.publicwhip/person/[0-9]+" } },
+		attribute mp_website { text }
+	}+
+}
