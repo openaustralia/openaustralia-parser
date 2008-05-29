@@ -1,0 +1,18 @@
+element publicwhip {
+	element member {
+		attribute fromwhy { "general_election" | "changed_party" | "by_election" | "reinstated" },
+		attribute lastname { text },
+		attribute todate { xsd:date },
+		attribute title { text },
+		attribute towhy { "general_election" | "still_in_office" | "died" | "changed_party" | "general_election_standing" |
+			"general_election_not_standing" | "disqualified" | "resigned" | "declared_void" | "became_peer" },
+		attribute firstname { text },
+		attribute fromdate { xsd:date },
+		attribute house { "commons" },
+		attribute party { text },
+		attribute constituency { text },
+		attribute id {
+			xsd:string { pattern = "uk.org.publicwhip/member/[0-9]+" }
+		}
+	}+
+}
