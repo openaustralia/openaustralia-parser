@@ -2,6 +2,11 @@ start = element publicwhip {
 	attribute scrapeversion { "a" | "" }?,
 	attribute latest { "yes" | "no" }?,
 	(
+	element inserted-heading {
+		common-section-attributes,
+		attribute nospeaker { "true" },
+		text
+	} |
 	element gidredirect {
 		attribute oldgid { debate-id-type },
 		attribute newgid { debate-id-type },
@@ -20,12 +25,14 @@ start = element publicwhip {
 	element speech {
 		common-section-attributes,
 		attribute oral-qnum { xsd:integer }?,
-		attribute nospeaker { "true" }?,	
+		# Allowing different capitalisation of "true"
+		attribute nospeaker { "true" | "True" }?,	
 		attribute error { "No match" | "Matched multiple times" }?,
 		attribute speakerid { member-id-type | "unknown" }?,
 		attribute speakername { text }?,
 		attribute speakeroffice { text }?,
 		attribute colon { ":" | "" }?,
+		attribute redirect { "up" | "down" | "nowhere" }?,
 		debates-content
 	} |
 	element oral-heading {
@@ -55,7 +62,7 @@ start = element publicwhip {
 				element i { text }*
 				& text*
 				)
-			}+
+			}*
 		}+
 	}
 	)+
