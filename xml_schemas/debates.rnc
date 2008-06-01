@@ -1,7 +1,12 @@
 start = element publicwhip {
 	attribute scrapeversion { "a" | "" }?,
-	attribute latest { "yes" }?,
+	attribute latest { "yes" | "no" }?,
 	(
+	element gidredirect {
+		attribute oldgid { debate-id-type },
+		attribute newgid { debate-id-type },
+		attribute matchtype { "perfectmatch" | "changes" }
+	} |
 	element major-heading {
 		common-section-attributes,
 		attribute nospeaker { "true" },
@@ -16,7 +21,7 @@ start = element publicwhip {
 		common-section-attributes,
 		attribute oral-qnum { xsd:integer }?,
 		attribute nospeaker { "true" }?,	
-		attribute error { "No match" }?,
+		attribute error { "No match" | "Matched multiple times" }?,
 		attribute speakerid { member-id-type | "unknown" }?,
 		attribute speakername { text }?,
 		attribute speakeroffice { text }?,
@@ -67,7 +72,7 @@ debates-content =
 		element i|I { text }*
 		& element phrase {
 			attribute class { "honfriend" | "date" | "standing-order" | "offrep" },
-			attribute id { member-id-type | answer-id-type | "unknown" }?,
+			attribute id { member-id-type | answer-id-type | short-debate-id-type | "unknown" }?,
 			attribute name { text }?,
 			attribute code { text }?,
 			attribute pwmotiontext { "yes" }?,
@@ -94,7 +99,10 @@ debates-content =
 				element td {
 					attribute colspan { xsd:integer }?,
 					(
-					element i { text }*
+					element i {
+						element sub { text }*
+						& text*
+					}*
 					& element sup {
 						element i { text }*
 						& text*
@@ -117,6 +125,8 @@ common-section-attributes =
 	attribute url { text }
 
 answer-id-type = xsd:string { pattern = "wrans/([0-9]{4}-[0-9]{2}-[0-9]{2})?\.[0-9]+W?" }
-pid-type = xsd:string { pattern = "a?.[0-9]+.[0-9]+/[0-9]+" }
+pid-type = xsd:string { pattern = "a?.[0-9]+.[0-9]+(-[0-9])?/[0-9]+" }
 member-id-type = xsd:string { pattern = "uk.org.publicwhip/(member|lord)/[0-9]+" } | "uk.org.publicwhip/royal/-1"
-debate-id-type = xsd:string { pattern = "uk.org.publicwhip/(debate|lords|westminhall)/[0-9]{4}-[0-9]{2}-[0-9]{2}a?.[0-9]+.[0-9]+" }
+debate-id-type = xsd:string { pattern = "uk.org.publicwhip/(debate|lords|westminhall)/[0-9]{4}-[0-9]{2}-[0-9]{2}a?.[0-9]+.[0-9]+(-[0-9])?" }
+# Odd alternate form of debate id's that seems to only occur in phrase tag
+short-debate-id-type = xsd:string { pattern = "debates/[0-9]{4}-[0-9]{2}-[0-9]{2}.[0-9]+" }
