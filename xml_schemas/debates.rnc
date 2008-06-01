@@ -79,8 +79,7 @@ debates-content =
 		attribute class { "italic" | "indent" | "indentitalic" | "" }?,
 		attribute pwmotiontext { "yes" | "unrecognized" | "adjourned" | "asked" | "agreedto" | "considered" | "withdrawn" | "moved"}?,
 		(
-		element i|I { text }*
-		& element phrase {
+		element phrase {
 			attribute class { "honfriend" | "date" | "standing-order" | "offrep" },
 			attribute id { member-id-type | answer-id-type | short-debate-id-type | "unknown" }?,
 			attribute name { text }?,
@@ -92,19 +91,7 @@ debates-content =
 			& text*
 			)
 		}*
-		& element sup {
-			element i { text }*
-			& text*
-		}*
-		& element sub { text }*
-		& element a {
-			attribute href { text },
-			(
-			element i { text }*
-			& text*
-			)
-		}*
-		& text
+		& html-subset-content*
 		)
 	} |
 	element table {
@@ -114,24 +101,23 @@ debates-content =
 				attribute pid { pid-type }?,
 				element td {
 					attribute colspan { xsd:integer }?,
-					(
-					element i {
-						element sub { text }*
-						& text*
-					}*
-					& element sup {
-						element i { text }*
-						& text*
-					}*
-					& element br { empty }*
-					& text*
-					)
+					html-subset-content
 				}+
 			}+
 		}
 	}
 	)*
-	
+
+html-subset-content =
+	element i|I { html-subset-content }*
+	& element sup { html-subset-content }*
+	& element sub { html-subset-content }*
+	& element br { empty }*
+	& element a {
+		attribute href { text },
+		html-subset-content
+	}*
+	& text	
 
 common-section-attributes =
 	attribute id { debate-id-type },
