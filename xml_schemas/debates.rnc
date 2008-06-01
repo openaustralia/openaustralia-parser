@@ -1,6 +1,6 @@
 start = element publicwhip {
-	attribute scrapeversion { "a" },
-	attribute latest { "yes" },
+	attribute scrapeversion { "a" | "" }?,
+	attribute latest { "yes" }?,
 	(
 	element major-heading {
 		common-section-attributes,
@@ -21,24 +21,7 @@ start = element publicwhip {
 		attribute speakername { text }?,
 		attribute speakeroffice { text }?,
 		attribute colon { ":" | "" }?,
-		element p {
-			attribute pid { xsd:string { pattern = "a.[0-9]+.[0-9]+/[0-9]+" } },
-			attribute qnum { xsd:integer }?,
-			attribute class { "italic" | "indent" | "" }?,
-			attribute pwmotiontext { "yes" | "unrecognized" | "adjourned" | "asked" | "agreedto" | "considered" | "withdrawn" | "moved"}?,
-			(
-			element i|I { text }*
-			& element phrase {
-				attribute class { "honfriend" | "date" },
-				attribute id { member-id-type | "unknown" }?,
-				attribute name { text }?,
-				attribute code { text }?,
-				text
-			}*
-			& element sup { text }*
-			& text
-			)
-		}+
+		debates-content
 	} |
 	element oral-heading {
 		common-section-attributes,
@@ -63,12 +46,68 @@ start = element publicwhip {
 				attribute id { member-id-type },
 				attribute vote { "aye" | "no" },
 				attribute teller { "yes" }?,
-				text
+				(
+				element i { text }*
+				& text*
+				)
 			}+
 		}+
 	}
 	)+
 }
+
+debates-content =
+	(
+	element p {
+		attribute pid { pid-type }?,
+		attribute qnum { xsd:integer }?,
+		attribute class { "italic" | "indent" | "indentitalic" | "" }?,
+		attribute pwmotiontext { "yes" | "unrecognized" | "adjourned" | "asked" | "agreedto" | "considered" | "withdrawn" | "moved"}?,
+		(
+		element i|I { text }*
+		& element phrase {
+			attribute class { "honfriend" | "date" | "standing-order" | "offrep" },
+			attribute id { member-id-type | answer-id-type | "unknown" }?,
+			attribute name { text }?,
+			attribute code { text }?,
+			attribute pwmotiontext { "yes" }?,
+			attribute title { text }?,
+			(
+			element i { text }*
+			& text*
+			)
+		}*
+		& element sup { text }*
+		& element sub { text }*
+		& element a {
+			attribute href { text },
+			text
+		}*
+		& text
+		)
+	} |
+	element table {
+		element caption { text }?,
+		element tbody {
+			element tr {
+				attribute pid { pid-type }?,
+				element td {
+					attribute colspan { xsd:integer }?,
+					(
+					element i { text }*
+					& element sup {
+						element i { text }*
+						& text*
+					}*
+					& element br { empty }*
+					& text*
+					)
+				}+
+			}+
+		}
+	}
+	)+
+	
 
 common-section-attributes =
 	attribute id { debate-id-type },
@@ -77,5 +116,7 @@ common-section-attributes =
 	attribute time { xsd:time | xsd:string { pattern = "[0-9]{3}:[0-9]{2}:[0-9]{2}"} | "unknown" }?,
 	attribute url { text }
 
+answer-id-type = xsd:string { pattern = "wrans/([0-9]{4}-[0-9]{2}-[0-9]{2})?\.[0-9]+W?" }
+pid-type = xsd:string { pattern = "a?.[0-9]+.[0-9]+/[0-9]+" }
 member-id-type = xsd:string { pattern = "uk.org.publicwhip/(member|lord)/[0-9]+" } | "uk.org.publicwhip/royal/-1"
-debate-id-type = xsd:string { pattern = "uk.org.publicwhip/(debate|lords|westminhall)/[0-9]{4}-[0-9]{2}-[0-9]{2}a.[0-9]+.[0-9]+" }
+debate-id-type = xsd:string { pattern = "uk.org.publicwhip/(debate|lords|westminhall)/[0-9]{4}-[0-9]{2}-[0-9]{2}a?.[0-9]+.[0-9]+" }
