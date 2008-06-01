@@ -92,11 +92,17 @@ debates-content =
 			& text*
 			)
 		}*
-		& element sup { text }*
+		& element sup {
+			element i { text }*
+			& text*
+		}*
 		& element sub { text }*
 		& element a {
 			attribute href { text },
-			text
+			(
+			element i { text }*
+			& text*
+			)
 		}*
 		& text
 		)
