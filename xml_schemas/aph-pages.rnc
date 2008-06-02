@@ -125,7 +125,24 @@ start-of-business =
 		element context { "Start of Business" } &
 		common-metadata
 	},
-	anyElement
+	element content {
+		element div {
+			attribute class { "contentstart" },
+			attribute id { "contentstart" },
+			element div {
+				attribute class { "businessStart" },
+				element div { attribute class { "bsDate" }, text },
+				element div {
+					attribute class { "separator" },
+					element hr { attribute width { "25%" } }
+				}?,
+				element p {
+					element b { text } &
+					text
+				}
+			}
+		}
+	}
 	
 # Matches any well-formed XML
 anyElement =
