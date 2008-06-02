@@ -91,14 +91,33 @@ speech =
 	},
 	anyElement
 
-
 start-of-transcript =
 	element meta {
 		element type { "Start of Transcript" } &
 		element context { "Start of Transcript" } &
 		common-metadata
 	},
-	anyElement
+	element content {
+		element div {
+			attribute class { "contentstart" },
+			attribute id { "contentstart" },
+			element div {
+				attribute class { "titlepage" },
+				element div {
+					attribute class { "crest" },
+					element img {
+						attribute src { text },
+						attribute alt { text }
+					}
+				},
+				element div { attribute class { "mainheading" }, text },
+				element div { attribute class { "date" }, text },
+				element div { attribute class { "sessioninfo" }, text }+,
+				element div { attribute class { "authority" }, text },
+				element div { attribute class { "proof" }, text }
+			}
+		}
+	}
 
 start-of-business =
 	element meta {
