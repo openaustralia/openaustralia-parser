@@ -4,16 +4,19 @@ start = element hansard {
 	}+
 }
 
+common-metadata =
+	element main-committee { "Yes" | "No" } &
+	element size { text } &
+	element proof { "Yes" } &
+	element source { "House" } &
+	element database { "House Hansard" } &
+	element date { text } &
+	element page { xsd:integer }
+	
 misc =
 	element meta {
 		element context { "Bills" | "Miscellaneous" | "Start of Transcript" | "Start of Business" } &
-		element main-committee { "Yes" | "No" } &
-		element size { text } &
-		element proof { "Yes" } &
-		element source { "House" } &
-		element database { "House Hansard" } &
-		element date { text } &
-		element page { xsd:integer } &
+		common-metadata &
 		
 		# Optional metadata
 		element stage { "First Reading" | "Second Reading" | "Third Reading" | "Report from Main Committee" }?
@@ -25,13 +28,7 @@ question =
 		element type { "Question" } &
 
 		element context { "Questions Without Notice" | "Questions in Writing" } &
-		element main-committee { "Yes" | "No" } &
-		element size { text } &
-		element proof { "Yes" } &
-		element source { "House" } &
-		element database { "House Hansard" } &
-		element date { text } &
-		element page { xsd:integer } &
+		common-metadata &
 		element responder { text } &
 		element questioner { text } &
 
@@ -46,28 +43,16 @@ adjournment =
 		element type { "Adjournment" } &
 
 		element context { "Adjournment" } &
-		element main-committee { "Yes" | "No" } &
-		element size { text } &
-		element proof { "Yes" } &
-		element source { "House" } &
-		element database { "House Hansard" } &
-		element date { text } &
-		element page { xsd:integer }
+		common-metadata
 	},
 	anyElement
-	
+
 division =
 	element meta {
 		element type { "Division" } &
 
 		element context { "Bills" | "Miscellaneous" } &
-		element main-committee { "Yes" | "No" } &
-		element size { text } &
-		element proof { "Yes" } &
-		element source { "House" } &
-		element database { "House Hansard" } &
-		element date { text } &
-		element page { xsd:integer } &
+		common-metadata &
 		
 		# Optional metadata
 		element stage { "First Reading" | "Second Reading" | "Third Reading" | "Report from Main Committee" }?
@@ -81,13 +66,7 @@ procedural-text =
 		element context {
 			"Adjournment" | "Notices" | "Matters of Public Importance" | "Miscellaneous" | "Business" | "Bills"
 		} &
-		element main-committee { "Yes" | "No" } &
-		element size { text } &
-		element proof { "Yes" } &
-		element source { "House" } &
-		element database { "House Hansard" } &
-		element date { text } &
-		element page { xsd:integer } &
+		common-metadata &
 		
 		# Optional metadata
 		element interjector { text }? &
@@ -103,13 +82,7 @@ speech =
 			"Miscellaneous" | "Distinguished Visitors" | "Bills" | "Business" | "Ministerial Arrangements" | "Questions Without Notice" |
 			"Questions Without Notice: Additional Answers" | "Auditor-General's Reports" | "Statements by Members" | "Adjournment"
 		} &
-		element main-committee { "Yes" | "No" } &
-		element size { text } &
-		element proof { "Yes" } &
-		element source { "House" } &
-		element database { "House Hansard" } &
-		element date { text } &
-		element page { xsd:integer } &
+		common-metadata &
 		element speaker { text } &
 
 		# Optional metadata
@@ -123,13 +96,7 @@ start-of-transcript =
 	element meta {
 		element type { "Start of Transcript" } &
 		element context { "Start of Transcript" } &
-		element main-committee { "Yes" | "No" } &
-		element size { text } &
-		element proof { "Yes" } &
-		element source { "House" } &
-		element database { "House Hansard" } &
-		element date { text } &
-		element page { xsd:integer }
+		common-metadata
 	},
 	anyElement
 
@@ -137,13 +104,7 @@ start-of-business =
 	element meta {
 		element type { "Start of Business" } &
 		element context { "Start of Business" } &
-		element main-committee { "Yes" | "No" } &
-		element size { text } &
-		element proof { "Yes" } &
-		element source { "House" } &
-		element database { "House Hansard" } &
-		element date { text } &
-		element page { xsd:integer }
+		common-metadata
 	},
 	anyElement
 	
