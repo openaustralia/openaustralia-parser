@@ -111,20 +111,6 @@ speech =
 		}
 	}
 
-speech0-p-parablock =
-	element p {
-		attribute class { "parablock" },
-		(
-		element i { text }* &
-		element a {
-			attribute href { text },
-			text
-		}* &
-		element b { text }* &
-		text*
-		)
-	}
-
 speech0-div-motion =
 	element div {
 		attribute class { "motion" },
@@ -146,18 +132,16 @@ speech0-p-paraitalic =
 		text
 	}
 
+speech0-p-parablock =
+	element p {
+		attribute class { "parablock" },
+		marked-text
+	}
+
 speech0-p-block =
 	element p {
 		attribute class { "block" },
-		(
-			element i { text }* &
-			element a {
-				attribute href { text }?,
-				text
-			}* &
-			element b { text }* &
-			text*
-		)
+		marked-text
 	}
 
 speech0-div-quote =
@@ -176,24 +160,20 @@ html-definition-list =
 		(element dt { text }, element dd { text })+
 	}
 
-speech0-p =
-	element p {
-		element b { text }* &
-		element i { text }* &
-		element a {
-			attribute href { text },
-			text
-		}* &
-		text
-	}
-
 marked-text =
 	element a {
-		attribute href { text },
+		attribute href { text }?,
 		text
 	}* &
+	element b { text }* &
 	element i { text }* &
 	text*
+
+
+speech0-p =
+	element p {
+		marked-text
+	}
 
 speech0-b =
 	element b {
@@ -231,11 +211,6 @@ speech0 =
 		(speech0-div-motion | speech0-p | speech0-p-parablock | speech0-p-paraitalic | speech0-p-parabold |
 		speech0-p-block | speech0-div-quote | speech0-div-subspeech | html-list | speech0-b )*
 	}
-
-#	<div class="subspeech0">
-#		<div class="speechType">Interjection</div>
-#		<p><span class="talkername"><a>The DEPUTY SPEAKER</a></span>&#xA0;<b>(Hon. BC Scott)</b>&#x2014;The member for Cowper will refer to the honourable member by his seat.</p>
-#	</div>
 
 speech0-div-subspeech =
 	element div {
