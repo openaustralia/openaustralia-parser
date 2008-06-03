@@ -57,7 +57,40 @@ division =
 		# Optional metadata
 		element stage { "First Reading" | "Second Reading" | "Third Reading" | "Report from Main Committee" }?
 	},
-	anyElement
+	element content {
+		element div {
+			attribute class { "contentstart" },
+			attribute id { "contentstart" },
+			hansard-titles,
+			element p { text }+,
+			table-division,
+			element p { text }+
+		}
+	}
+
+table-division =
+	element table {
+		attribute class { "division" },
+		attribute border { "1" },
+		attribute width { "100%" },
+		element tr {
+			element th {
+				attribute valign { "top" },
+				attribute colspan { xsd:integer },
+				(
+				element span {
+					attribute style {"color: green;" | "color: red;"},
+					text
+				}* &
+				text*
+				)
+			}+
+		}+,
+		element tr {
+			element td { text }+
+		}+
+	}
+
 	
 procedural-text =
 	element meta {
@@ -93,24 +126,27 @@ speech =
 		element div {
 			attribute class { "contentstart" },
 			attribute id { "contentstart" },
-			element div {
-				attribute class { "hansardtitlegroup" },
-				element div {
-					attribute class { "hansardtitle" },
-					text
-				}+
-			},
-			element div {
-				attribute class { "hansardsubtitlegroup" },
-				element div {
-					attribute class { "hansardsubtitle" },
-					text
-				}+
-			}?,			
+			hansard-titles,
 			speech0
 		}
 	}
 
+hansard-titles =
+	element div {
+		attribute class { "hansardtitlegroup" },
+		element div {
+			attribute class { "hansardtitle" },
+			text
+		}+
+	},
+	element div {
+		attribute class { "hansardsubtitlegroup" },
+		element div {
+			attribute class { "hansardsubtitle" },
+			text
+		}+
+	}?
+	
 speech0-div-motion =
 	element div {
 		attribute class { "motion" },
