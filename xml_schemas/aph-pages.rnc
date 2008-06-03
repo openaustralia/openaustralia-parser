@@ -21,7 +21,14 @@ misc =
 		# Optional metadata
 		element stage { "First Reading" | "Second Reading" | "Third Reading" | "Report from Main Committee" }?
 	},
-	anyElement
+	element content {
+		element div {
+			attribute class { "contentstart" },
+			attribute id { "contentstart" },
+			hansard-titles,
+			div-motionnospeech
+		}
+	}
 
 question =
 	element meta {
@@ -415,11 +422,3 @@ start-of-business =
 			}
 		}
 	}
-	
-# Matches any well-formed XML
-anyElement =
-  element * {
-    (attribute * { text }
-     | text
-     | anyElement)*
-  }
