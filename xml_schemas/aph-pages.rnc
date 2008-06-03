@@ -105,7 +105,41 @@ procedural-text =
 		element interjector { text }? &
 		element stage { "First Reading" | "Second Reading" | "Third Reading" | "Report from Main Committee" }?
 	},
-	anyElement
+	element content {
+		element div {
+			attribute class { "contentstart" },
+			attribute id { "contentstart" },
+			hansard-titles,
+			(div-subspeech | div-quote | p-parablock | p-paraitalic | div-motionnospeech | p | div-motion)+
+		}
+	}
+
+div-motionnospeech =
+	element div {
+		attribute class { "motionnospeech" },
+		element span {
+			attribute class { "speechname" },
+			text
+		},
+		text,
+		element span {
+			attribute class { "speechelectorate" },
+			text
+		},
+		text,
+		element span {
+			attribute class { "speechrole" },
+			text
+		},
+		text,
+		element span {
+			attribute class { "speechtime" },
+			text
+		},
+		text,
+		div-motion,
+		p-block*
+	}
 
 speech =
 	element meta {
@@ -147,13 +181,11 @@ hansard-titles =
 		}+
 	}?
 	
-speech0-div-motion =
+div-motion =
 	element div {
 		attribute class { "motion" },
-		(speech0-p | speech0-p-parablock),
-		element dl {
-			(element dt { text }, element dd { text })+
-		}?
+		(p | p-parablock),
+		html-definition-list?
 	}
 
 speech0-p-parabold =
@@ -162,28 +194,28 @@ speech0-p-parabold =
 		text
 	}
 	
-speech0-p-paraitalic =
+p-paraitalic =
 	element p {
 		attribute class { "paraitalic" },
 		text
 	}
 
-speech0-p-parablock =
+p-parablock =
 	element p {
 		attribute class { "parablock" },
 		marked-text
 	}
 
-speech0-p-block =
+p-block =
 	element p {
 		attribute class { "block" },
 		marked-text
 	}
 
-speech0-div-quote =
+div-quote =
 	element div {
 		attribute class { "quote" },
-		(speech0-p-parablock | speech0-p | html-definition-list )+
+		(p-parablock | p | html-definition-list )+
 	}
 
 html-list =
@@ -193,10 +225,14 @@ html-list =
 	
 html-definition-list =
 	element dl {
-		(element dt { text }, element dd { text })+
+		(element dt { text },
+		element dd {
+			html-definition-list* &
+			text*
+		})+
 	}
 
-speech0-p =
+p =
 	element p {
 		marked-text
 	}
@@ -234,8 +270,8 @@ speech0 =
 			}?,
 			marked-text
 		},
-		(speech0-div-motion | speech0-p | speech0-p-parablock | speech0-p-paraitalic | speech0-p-parabold |
-		speech0-p-block | speech0-div-quote | speech0-div-subspeech | html-list | speech0-b )*
+		(div-motion | p | p-parablock | p-paraitalic | speech0-p-parabold |
+		p-block | div-quote | div-subspeech | html-list | speech0-b )*
 	}
 
 marked-text =
@@ -247,7 +283,7 @@ marked-text =
 	element i { text }* &
 	text*
 
-speech0-div-subspeech =
+div-subspeech =
 	element div {
 		attribute class { "subspeech0" | "subspeech1" },
 		element div { 
