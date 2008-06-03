@@ -73,7 +73,7 @@ procedural-text =
 		element stage { "First Reading" | "Second Reading" | "Third Reading" | "Report from Main Committee" }?
 	},
 	anyElement
-	
+
 speech =
 	element meta {
 		element type { "Speech" } &
@@ -89,8 +89,177 @@ speech =
 		element interjector { text }? &
 		element stage { "First Reading" | "Second Reading" | "Third Reading" | "Report from Main Committee" }?
 	},
-	anyElement
+	element content {
+		element div {
+			attribute class { "contentstart" },
+			attribute id { "contentstart" },
+			element div {
+				attribute class { "hansardtitlegroup" },
+				element div {
+					attribute class { "hansardtitle" },
+					text
+				}+
+			},
+			element div {
+				attribute class { "hansardsubtitlegroup" },
+				element div {
+					attribute class { "hansardsubtitle" },
+					text
+				}+
+			}?,			
+			speech0
+		}
+	}
 
+speech0-p-parablock =
+	element p {
+		attribute class { "parablock" },
+		(
+		element i { text }* &
+		element a {
+			attribute href { text },
+			text
+		}* &
+		element b { text }* &
+		text*
+		)
+	}
+
+speech0-div-motion =
+	element div {
+		attribute class { "motion" },
+		(speech0-p | speech0-p-parablock),
+		element dl {
+			(element dt { text }, element dd { text })+
+		}?
+	}
+
+speech0-p-parabold =
+	element p {
+		attribute class { "parabold" },
+		text
+	}
+	
+speech0-p-paraitalic =
+	element p {
+		attribute class { "paraitalic" },
+		text
+	}
+
+speech0-p-block =
+	element p {
+		attribute class { "block" },
+		(
+			element i { text }* &
+			element a {
+				attribute href { text }?,
+				text
+			}* &
+			element b { text }* &
+			text*
+		)
+	}
+
+speech0-div-quote =
+	element div {
+		attribute class { "quote" },
+		(speech0-p-parablock | speech0-p | html-definition-list )+
+	}
+
+html-list =
+	element ul {
+		element li { text }+
+	}
+	
+html-definition-list =
+	element dl {
+		(element dt { text }, element dd { text })+
+	}
+
+speech0-p =
+	element p {
+		element b { text }* &
+		element i { text }* &
+		element a {
+			attribute href { text },
+			text
+		}* &
+		text
+	}
+
+marked-text =
+	element a {
+		attribute href { text },
+		text
+	}* &
+	element i { text }* &
+	text*
+
+speech0-b =
+	element b {
+		element p { text },
+		element hr { empty }
+	}
+
+speech0 =
+	element div {
+		attribute class { "speech0" },
+		element div {
+			attribute class { "speechType" },
+			"Speech"
+		},
+		element p {
+			element span {
+				attribute class { "talkername" },
+				element a {
+					attribute href { text }?,
+					text
+				}
+			},
+			marked-text?,
+			element span {
+				attribute class { "talkerelectorate" },
+				text
+			}?,
+			marked-text?,
+			element span {
+				attribute class { "talkerrole" },
+				text
+			}?,
+			marked-text
+		},
+		(speech0-div-motion | speech0-p | speech0-p-parablock | speech0-p-paraitalic | speech0-p-parabold |
+		speech0-p-block | speech0-div-quote | speech0-div-subspeech | html-list | speech0-b )*
+	}
+
+#	<div class="subspeech0">
+#		<div class="speechType">Interjection</div>
+#		<p><span class="talkername"><a>The DEPUTY SPEAKER</a></span>&#xA0;<b>(Hon. BC Scott)</b>&#x2014;The member for Cowper will refer to the honourable member by his seat.</p>
+#	</div>
+
+speech0-div-subspeech =
+	element div {
+		attribute class { "subspeech0" | "subspeech1" },
+		element div { 
+			attribute class { "speechType" },
+			("Continue" | "Interjection")
+		},
+		element p {
+			element span {
+				attribute class { "talkername" },
+				element a {
+					attribute href { text }?,
+					text
+				}
+			}?,
+			(
+			element i { text }* &
+			element b { text }* &
+			text*
+			)
+		}
+	}
+	
 start-of-transcript =
 	element meta {
 		element type { "Start of Transcript" } &
