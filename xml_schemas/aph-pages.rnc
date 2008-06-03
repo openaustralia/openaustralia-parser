@@ -22,12 +22,8 @@ misc =
 		element stage { "First Reading" | "Second Reading" | "Third Reading" | "Report from Main Committee" }?
 	},
 	element content {
-		element div {
-			attribute class { "contentstart" },
-			attribute id { "contentstart" },
-			hansard-titles,
-			div-motionnospeech
-		}
+		hansard-titles,
+		div-motionnospeech
 	}
 
 question =
@@ -44,17 +40,13 @@ question =
 		element question_no { xsd:integer }?
 	},
 	element content {
+		hansard-titles,
 		element div {
-			attribute class { "contentstart" },
-			attribute id { "contentstart" },
-			hansard-titles,
-			element div {
-				attribute class { "questionnumber" },
-				text
-			}?,
-			div-question,
-			div-answer
-		}
+			attribute class { "questionnumber" },
+			text
+		}?,
+		div-question,
+		div-answer
 	}
 
 adjournment =
@@ -66,12 +58,8 @@ adjournment =
 	},
 	element content {
 		element div {
-			attribute class { "contentstart" },
-			attribute id { "contentstart" },
-			element div {
-				attribute class { "adjournment" },
-				element p { text }
-			}
+			attribute class { "adjournment" },
+			element p { text }
 		}
 	}
 
@@ -86,14 +74,10 @@ division =
 		element stage { "First Reading" | "Second Reading" | "Third Reading" | "Report from Main Committee" }?
 	},
 	element content {
-		element div {
-			attribute class { "contentstart" },
-			attribute id { "contentstart" },
-			hansard-titles,
-			element p { text }+,
-			table-division,
-			element p { text }+
-		}
+		hansard-titles,
+		element p { text }+,
+		table-division,
+		element p { text }+
 	}
 
 table-division =
@@ -134,12 +118,8 @@ procedural-text =
 		element stage { "First Reading" | "Second Reading" | "Third Reading" | "Report from Main Committee" }?
 	},
 	element content {
-		element div {
-			attribute class { "contentstart" },
-			attribute id { "contentstart" },
-			hansard-titles,
-			(div-subspeech | div-quote | p-parablock | p-paraitalic | div-motionnospeech | p | div-motion)+
-		}
+		hansard-titles,
+		(div-subspeech | div-quote | p-parablock | p-paraitalic | div-motionnospeech | p | div-motion)+
 	}
 
 div-motionnospeech =
@@ -185,12 +165,8 @@ speech =
 		element stage { "First Reading" | "Second Reading" | "Third Reading" | "Report from Main Committee" }?
 	},
 	element content {
-		element div {
-			attribute class { "contentstart" },
-			attribute id { "contentstart" },
-			hansard-titles,
-			speech0
-		}
+		hansard-titles,
+		speech0
 	}
 
 hansard-titles =
@@ -378,23 +354,19 @@ start-of-transcript =
 	},
 	element content {
 		element div {
-			attribute class { "contentstart" },
-			attribute id { "contentstart" },
+			attribute class { "titlepage" },
 			element div {
-				attribute class { "titlepage" },
-				element div {
-					attribute class { "crest" },
-					element img {
-						attribute src { text },
-						attribute alt { text }
-					}
-				},
-				element div { attribute class { "mainheading" }, text },
-				element div { attribute class { "date" }, text },
-				element div { attribute class { "sessioninfo" }, text }+,
-				element div { attribute class { "authority" }, text },
-				element div { attribute class { "proof" }, text }
-			}
+				attribute class { "crest" },
+				element img {
+					attribute src { text },
+					attribute alt { text }
+				}
+			},
+			element div { attribute class { "mainheading" }, text },
+			element div { attribute class { "date" }, text },
+			element div { attribute class { "sessioninfo" }, text }+,
+			element div { attribute class { "authority" }, text },
+			element div { attribute class { "proof" }, text }
 		}
 	}
 
@@ -406,19 +378,15 @@ start-of-business =
 	},
 	element content {
 		element div {
-			attribute class { "contentstart" },
-			attribute id { "contentstart" },
+			attribute class { "businessStart" },
+			element div { attribute class { "bsDate" }, text },
 			element div {
-				attribute class { "businessStart" },
-				element div { attribute class { "bsDate" }, text },
-				element div {
-					attribute class { "separator" },
-					element hr { attribute width { "25%" } }
-				}?,
-				element p {
-					element b { text } &
-					text
-				}
+				attribute class { "separator" },
+				element hr { attribute width { "25%" } }
+			}?,
+			element p {
+				element b { text } &
+				text
 			}
 		}
 	}

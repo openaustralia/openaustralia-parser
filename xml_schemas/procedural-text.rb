@@ -59,7 +59,8 @@ def parse_sub_day_page(page)
     puts "<#{e}>#{value}</#{e}>"
   end
   puts "</meta>"
-  puts "<content>#{page.search("div#contentstart")}</content>"
+  content = page.search("div#contentstart").first.children.each{|x| x.to_html}.join
+  puts "<content>#{content}</content>"
   puts "</page>"
 end
 
