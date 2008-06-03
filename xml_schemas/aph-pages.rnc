@@ -36,8 +36,20 @@ question =
 		element interjector { text }? &
 		element question_no { xsd:integer }?
 	},
-	anyElement
-	
+	element content {
+		element div {
+			attribute class { "contentstart" },
+			attribute id { "contentstart" },
+			hansard-titles,
+			element div {
+				attribute class { "questionnumber" },
+				text
+			}?,
+			div-question,
+			div-answer
+		}
+	}
+
 adjournment =
 	element meta {
 		element type { "Adjournment" } &
@@ -224,7 +236,22 @@ p-block =
 div-quote =
 	element div {
 		attribute class { "quote" },
-		(p-parablock | p | html-definition-list )+
+		(p-parablock | p | html-definition-list | html-table)+
+	}
+
+html-table =
+	element table {
+		attribute border { xsd:integer },
+		element tr {
+			element td {
+				attribute valign { text },
+				attribute style { text }?,
+				element p {
+					attribute class { "parasmalltableleft" },
+					text
+				}+
+			}+
+		}+
 	}
 
 html-list =
@@ -252,6 +279,50 @@ speech0-b =
 		element hr { empty }
 	}
 
+div-question =
+	element div {
+		attribute class { "speech0" },
+		element div {
+			attribute class { "speechType" },
+			"Question"
+		},
+		p-talker,
+		(div-quote | p-parablock | p-paraitalic | div-subspeech)*
+	}
+
+div-answer =
+	element div {
+		attribute class { "speech1" },
+		element div {
+			attribute class { "speechType" },
+			"Answer"
+		},
+		p-talker,
+		(p | div-quote | p-block | p-parablock | div-subspeech | p-paraitalic)+
+	}
+
+p-talker =
+	element p {
+		element span {
+			attribute class { "talkername" },
+			element a {
+				attribute href { text }?,
+				text
+			}
+		},
+		marked-text?,
+		element span {
+			attribute class { "talkerelectorate" },
+			text
+		}?,
+		marked-text?,
+		element span {
+			attribute class { "talkerrole" },
+			text
+		}?,
+		marked-text
+	}
+
 speech0 =
 	element div {
 		attribute class { "speech0" },
@@ -259,26 +330,7 @@ speech0 =
 			attribute class { "speechType" },
 			"Speech"
 		},
-		element p {
-			element span {
-				attribute class { "talkername" },
-				element a {
-					attribute href { text }?,
-					text
-				}
-			},
-			marked-text?,
-			element span {
-				attribute class { "talkerelectorate" },
-				text
-			}?,
-			marked-text?,
-			element span {
-				attribute class { "talkerrole" },
-				text
-			}?,
-			marked-text
-		},
+		p-talker,
 		(div-motion | p | p-parablock | p-paraitalic | speech0-p-parabold |
 		p-block | div-quote | div-subspeech | html-list | speech0-b )*
 	}
