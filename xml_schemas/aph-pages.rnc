@@ -45,7 +45,16 @@ adjournment =
 		element context { "Adjournment" } &
 		common-metadata
 	},
-	anyElement
+	element content {
+		element div {
+			attribute class { "contentstart" },
+			attribute id { "contentstart" },
+			element div {
+				attribute class { "adjournment" },
+				element p { text }
+			}
+		}
+	}
 
 division =
 	element meta {
