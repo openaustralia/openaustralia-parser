@@ -1,6 +1,6 @@
 start = element hansard {
 	element page {
-		start-of-transcript | start-of-business | speech | procedural-text | division | adjournment | question | misc
+		start-of-transcript | start-of-business | speech | procedural-text | division | adjournment | question | petition | misc
 	}+
 }
 
@@ -15,11 +15,11 @@ common-metadata =
 	
 misc =
 	element meta {
-		element context { "Bills" | "Miscellaneous" | "Start of Transcript" | "Start of Business" } &
+		element context { text } &
 		common-metadata &
 		
 		# Optional metadata
-		element stage { "First Reading" | "Second Reading" | "Third Reading" | "Report from Main Committee" }?
+		stage?
 	},
 	element content {
 		hansard-titles,
@@ -30,14 +30,14 @@ question =
 	element meta {
 		element type { "Question" } &
 
-		element context { "Questions Without Notice" | "Questions in Writing" } &
+		element context { "Questions Without Notice" | "Questions in Writing" | "Questions to the Speaker" } &
 		common-metadata &
-		element responder { text } &
 		element questioner { text } &
 
 		# Optional metadata
+		element responder { text }? &
 		element interjector { text }? &
-		element question_no { xsd:integer }?
+		element question_no { text }?
 	},
 	element content {
 		hansard-titles,
@@ -46,7 +46,14 @@ question =
 			text
 		}?,
 		div-question,
-		div-answer
+		div-answer?,
+		(
+		div-motionnospeech |
+		element p { text } |
+		table-division |
+		div-subspeech |
+		p-paraitalic
+		)*
 	}
 
 adjournment =
@@ -67,11 +74,11 @@ division =
 	element meta {
 		element type { "Division" } &
 
-		element context { "Bills" | "Miscellaneous" } &
+		element context { "Bills" | "Miscellaneous" | "Dissent from Ruling" | "Questions Without Notice" } &
 		common-metadata &
 		
 		# Optional metadata
-		element stage { "First Reading" | "Second Reading" | "Third Reading" | "Report from Main Committee" }?
+		stage?
 	},
 	element content {
 		hansard-titles,
@@ -84,34 +91,34 @@ procedural-text =
 	element meta {
 		element type { "Procedural text" } &
 
-		element context {
-			"Adjournment" | "Notices" | "Matters of Public Importance" | "Miscellaneous" | "Business" | "Bills"
-		} &
+		element context { text } &
 		common-metadata &
 
 		# Optional metadata
 		element interjector { text }? &
-		element stage { "First Reading" | "Second Reading" | "Third Reading" | "Report from Main Committee" }?
+		stage?
 	},
 	element content {
-		hansard-titles,
-		(div-subspeech | div-quote | p-parablock | p-paraitalic | div-motionnospeech | p | div-motion)+
+		hansard-titles?,
+		(div-subspeech | div-quote | p-parablock | p-paraitalic | p-block | div-motionnospeech | p | div-motion)+
 	}
+
+stage = 
+	element stage { "First Reading" | "Second Reading" | "Third Reading" | "Report from Main Committee" |
+		"Consideration in Detail" | "Consideration in detail" |
+		"Membership" | "Returned from the Senate" | "Referred to Main Committee" | "Reference" | "Assent" }
 
 speech =
 	element meta {
 		element type { "Speech" } &
 		
-		element context {
-			"Miscellaneous" | "Distinguished Visitors" | "Bills" | "Business" | "Ministerial Arrangements" | "Questions Without Notice" |
-			"Questions Without Notice: Additional Answers" | "Auditor-General's Reports" | "Statements by Members" | "Adjournment"
-		} &
+		element context { text } &
 		common-metadata &
 		element speaker { text } &
 
 		# Optional metadata
 		element interjector { text }? &
-		element stage { "First Reading" | "Second Reading" | "Third Reading" | "Report from Main Committee" }?
+		stage?
 	},
 	element content {
 		hansard-titles,
@@ -163,7 +170,48 @@ start-of-business =
 		}
 	}
 
+petition =
+	element meta {
+		element type { "Petition" } &
+		element context { "Petitions" } &
+		element presenter { text } &
+		common-metadata
+	},
+	element content {
+		element div {
+			attribute class { "subsection" },
+			element div {
+				attribute class { "subsection0" },
+				div-quote,
+				div-presenter,
+				p-block?
+			}
+		}
+	}
+
+div-presenter =
+	element div {
+		attribute class { "presenter" },
+		(element span {
+			attribute class { "talkername" },
+			element a { text }
+		} &
+		text*)
+	}
+
 ############
+
+div-amendments =
+	element div {
+		attribute class { "amendments" },
+		element div { 
+			attribute class { "amendment0" },
+			element p {
+				attribute class { "paraParlAmend" | "paraItemHead" | "paraItem" | "parasubsection" | "paraindenta" },
+				text
+			}+
+		}
+	}
 
 table-division =
 	element table {
@@ -188,7 +236,6 @@ table-division =
 		}+
 	}
 
-	
 div-motionnospeech =
 	element div {
 		attribute class { "motionnospeech" },
@@ -211,9 +258,18 @@ div-motionnospeech =
 			attribute class { "speechtime" },
 			text
 		},
-		text,
-		div-motion,
-		p-block*
+		marked-text,
+		div-motion?,
+		div-subspeech*,
+		div-quote?,
+		p-block*,
+		p*
+	}
+
+div-motion =
+	element div {
+		attribute class { "motion" },
+		(p | p-parablock | html-definition-list)+
 	}
 
 hansard-titles =
@@ -232,13 +288,6 @@ hansard-titles =
 		}+
 	}?
 	
-div-motion =
-	element div {
-		attribute class { "motion" },
-		(p | p-parablock),
-		html-definition-list?
-	}
-
 p-parabold =
 	element p {
 		attribute class { "parabold" },
@@ -271,7 +320,7 @@ p =
 div-quote =
 	element div {
 		attribute class { "quote" },
-		(p-parablock | p | html-definition-list | html-table)+
+		(p-parablock | p | html-definition-list | html-list | html-table)+
 	}
 
 html-table =
@@ -293,12 +342,16 @@ html-list =
 	element ul {
 		element li { text }+
 	}
-	
+
 html-definition-list =
 	element dl {
 		(element dt { text },
 		element dd {
 			html-definition-list* &
+			element p {
+				attribute style { "text-indent: 0;" },
+				text
+			}* &
 			text*
 		})+
 	}
@@ -328,7 +381,7 @@ div-answer =
 			"Answer"
 		},
 		p-talker,
-		(p | div-quote | p-block | p-parablock | div-subspeech | p-paraitalic)+
+		(p | div-quote | p-block | p-parablock | div-subspeech | p-paraitalic)*
 	}
 
 speech0 =
@@ -340,7 +393,7 @@ speech0 =
 		},
 		p-talker,
 		(div-motion | p | p-parablock | p-paraitalic | p-parabold |
-		p-block | div-quote | div-subspeech | html-list | speech0-b )*
+		p-block | div-quote | div-subspeech | html-list | speech0-b | div-amendments )*
 	}
 
 marked-text =
@@ -375,11 +428,25 @@ p-talker =
 	}
 
 div-subspeech =
+	div-subspeech-continue | div-subspeech-interjection
+	
+div-subspeech-continue =
 	element div {
 		attribute class { "subspeech0" | "subspeech1" },
 		element div { 
 			attribute class { "speechType" },
-			("Continue" | "Interjection")
+			"Continue"
+		},
+		p-talker
+	}
+	
+div-subspeech-interjection =
+	element div {
+		attribute class { "subspeech0" | "subspeech1" },
+		element div { 
+			attribute class { "speechType" },
+			"Interjection"
 		},
 		(p-talker | p)
 	}
+	

@@ -68,7 +68,14 @@ def escape_for_tag_name(text)
   text.tr(' ', '-').downcase
 end
 
+from = Date.new(2008, 5, 26)
+to = Date.new(2008, 5, 29)
+
 puts "<hansard>"
-parse_date(Date.new(2008, 5, 29))
+date = from
+while date <= to
+  parse_date(date)
+  date = date + 1
+end
 puts "</hansard>"
 
