@@ -64,7 +64,7 @@ speech =
 
 		# Optional metadata
 		element interjector { text }? &
-		stage?
+		element stage { text }?
 	},
 	element content {
 		speech-content
@@ -79,7 +79,7 @@ procedural-text =
 
 		# Optional metadata
 		element interjector { text }? &
-		stage?
+		element stage { text }?
 	},
 	element content {
 		procedural-text-content
@@ -89,11 +89,11 @@ division =
 	element meta {
 		element type { "Division" } &
 
-		element context { "Bills" | "Miscellaneous" | "Dissent from Ruling" | "Questions Without Notice" | "Motions" | "Committees" } &
+		element context { text } &
 		common-metadata &
 		
 		# Optional metadata
-		stage?
+		element stage { text }?
 	},
 	element content {
 		division-content
@@ -133,7 +133,7 @@ misc =
 		common-metadata &
 		
 		# Optional metadata
-		stage?
+		element stage { text }?
 	},
 	element content {
 		misc-content
@@ -175,13 +175,8 @@ division-content =
 
 procedural-text-content =
 	hansard-titles?,
-	(div-subspeech | div-quote | p-parablock | p-paraitalic | p-block | div-motionnospeech | div-amendments | html-table | p | div-motion)+
-
-stage = 
-	element stage { "First Reading" | "Second Reading" | "Third Reading" | "Report from Main Committee" |
-		"Consideration in Detail" | "Consideration in detail" | "Consideration of Senate Message" |
-		"Membership" | "Returned from the Senate" | "Referred to Main Committee" | "Reference" | "Assent" | "Report" |
-		"Infrastructure, Transport, Regional Development and Local Government Committee" }
+	(div-subspeech | div-quote | p-parablock | p-paraitalic | p-parabold | p-block | div-motionnospeech | div-amendments |
+		html-table | p | div-motion | speech0-b )+
 
 speech-content =
 	hansard-titles,
@@ -206,7 +201,6 @@ start-of-transcript-content =
 		element div { attribute class { "proof" }, text }?
 	}
 
-
 start-of-business-content =
 	element div {
 		attribute class { "businessStart" },
@@ -218,7 +212,7 @@ start-of-business-content =
 		element p {
 			element b { text } &
 			text
-		}
+		}?
 	}
 
 petition-content =
@@ -239,7 +233,10 @@ div-presenter =
 		attribute class { "presenter" },
 		(element span {
 			attribute class { "talkername" },
-			element a { text }
+			element a {
+				attribute href { text }?,
+				text
+			}
 		} &
 		text*)
 	}
@@ -303,18 +300,13 @@ div-motionnospeech =
 			text
 		},
 		marked-text,
-		div-motion?,
-		div-subspeech*,
-		div-quote?,
-		p-block*,
-		speech0-b?,
-		p*
+		(div-motion | div-subspeech | div-quote | p-block | p-parablock | p-paraitalic | speech0-b | p)*
 	}
 
 div-motion =
 	element div {
 		attribute class { "motion" },
-		(p | p-parablock | html-definition-list)+
+		(p | p-parablock | html-definition-list | html-table )+
 	}
 
 hansard-titles =
@@ -386,7 +378,7 @@ html-table =
 
 html-list =
 	element ul {
-		element li { text }+
+		element li { marked-text }+
 	}
 
 html-definition-list =
@@ -396,7 +388,7 @@ html-definition-list =
 			html-definition-list* &
 			element p {
 				attribute style { "text-indent: 0;" },
-				text
+				marked-text
 			}* &
 			marked-text*
 		})+

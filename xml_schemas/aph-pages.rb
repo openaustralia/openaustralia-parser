@@ -32,6 +32,7 @@ def parse_date(x, date)
     puts "Could not retrieve overview page for date #{date}"
     return
   end
+  puts "Retrieving pages for #{date}"
   # Structure of the page is such that we are only interested in some of the links
   page.links[30..-4].each do |link|
     parse_sub_day_page(x, agent.click(link))
@@ -67,7 +68,7 @@ def escape_for_tag_name(text)
   text.tr(' ', '-').downcase
 end
 
-from = Date.new(2008, 4, 1)
+from = Date.new(2008, 1, 1)
 to = Date.new(2008, 5, 29)
 filename = "aph-pages.xml"
 
