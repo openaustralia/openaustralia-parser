@@ -67,7 +67,7 @@ def escape_for_tag_name(text)
   text.tr(' ', '-').downcase
 end
 
-from = Date.new(2008, 5, 26)
+from = Date.new(2008, 4, 1)
 to = Date.new(2008, 5, 29)
 filename = "aph-pages.xml"
 

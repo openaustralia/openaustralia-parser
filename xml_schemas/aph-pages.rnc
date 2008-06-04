@@ -1,31 +1,115 @@
 start = element hansard {
 	element page {
-		start-of-transcript | start-of-business | speech | procedural-text | division | adjournment | question | petition | misc
+		start-of-transcript | 
+		start-of-business | 
+		speech | 
+		procedural-text | 
+		division | 
+		adjournment | 
+		question | 
+		petition | 
+		misc
 	}+
 }
 
 common-metadata =
 	element main-committee { "Yes" | "No" } &
 	element size { text } &
-	element proof { "Yes" } &
+	element proof { "Yes" | "No" } &
 	element source { "House" } &
 	element database { "House Hansard" } &
 	element date { text } &
 	element page { xsd:integer }
 	
-misc =
+######
+
+petition =
 	element meta {
+		element type { "Petition" } &
+		element context { "Petitions" } &
+		element presenter { text } &
+		common-metadata
+	},
+	element content {
+		petition-content
+	}
+	
+start-of-business =
+	element meta {
+		element type { "Start of Business" } &
+		element context { "Start of Business" } &
+		common-metadata
+	},
+	element content {
+		start-of-business-content
+	}
+	
+start-of-transcript =
+	element meta {
+		element type { "Start of Transcript" } &
+		element context { "Start of Transcript" } &
+		common-metadata
+	},
+	element content {
+		start-of-transcript-content
+	}
+	
+speech =
+	element meta {
+		element type { "Speech" } &
+		
 		element context { text } &
+		common-metadata &
+		element speaker { text } &
+
+		# Optional metadata
+		element interjector { text }? &
+		stage?
+	},
+	element content {
+		speech-content
+	}
+	
+procedural-text =
+	element meta {
+		element type { "Procedural text" } &
+
+		element context { text } &
+		common-metadata &
+
+		# Optional metadata
+		element interjector { text }? &
+		stage?
+	},
+	element content {
+		procedural-text-content
+	}
+
+division =
+	element meta {
+		element type { "Division" } &
+
+		element context { "Bills" | "Miscellaneous" | "Dissent from Ruling" | "Questions Without Notice" | "Motions" | "Committees" } &
 		common-metadata &
 		
 		# Optional metadata
 		stage?
 	},
 	element content {
-		hansard-titles,
-		div-motionnospeech
+		division-content
 	}
+	
+adjournment =
+	element meta {
+		element type { "Adjournment" } &
 
+		element context { "Adjournment" } &
+		common-metadata
+	},
+	element content {
+		adjournment-content
+	}
+	
 question =
 	element meta {
 		element type { "Question" } &
@@ -40,154 +124,115 @@ question =
 		element question_no { text }?
 	},
 	element content {
-		hansard-titles,
-		element div {
-			attribute class { "questionnumber" },
-			text
-		}?,
-		div-question,
-		div-answer?,
-		(
-		div-motionnospeech |
-		element p { text } |
-		table-division |
-		div-subspeech |
-		p-paraitalic
-		)*
+		question-content
 	}
-
-adjournment =
+	
+misc =
 	element meta {
-		element type { "Adjournment" } &
-
-		element context { "Adjournment" } &
-		common-metadata
-	},
-	element content {
-		element div {
-			attribute class { "adjournment" },
-			element p { text }
-		}
-	}
-
-division =
-	element meta {
-		element type { "Division" } &
-
-		element context { "Bills" | "Miscellaneous" | "Dissent from Ruling" | "Questions Without Notice" } &
+		element context { text } &
 		common-metadata &
 		
 		# Optional metadata
 		stage?
 	},
 	element content {
-		hansard-titles,
-		element p { text }+,
-		table-division,
-		element p { text }+
+		misc-content
 	}
 
-procedural-text =
-	element meta {
-		element type { "Procedural text" } &
+#######
 
-		element context { text } &
-		common-metadata &
+misc-content =
+	hansard-titles,
+	div-motionnospeech
 
-		# Optional metadata
-		element interjector { text }? &
-		stage?
-	},
-	element content {
-		hansard-titles?,
-		(div-subspeech | div-quote | p-parablock | p-paraitalic | p-block | div-motionnospeech | p | div-motion)+
+question-content =
+	hansard-titles,
+	element div {
+		attribute class { "questionnumber" },
+		text
+	}?,
+	div-question,
+	div-answer?,
+	(
+	div-motionnospeech |
+	element p { text } |
+	table-division |
+	div-subspeech |
+	p-paraitalic
+	)*
+
+adjournment-content =
+	element div {
+		attribute class { "adjournment" },
+		element p { text }
 	}
+
+division-content =
+	hansard-titles,
+	element p { text }+,
+	table-division,
+	element p { text }+
+
+procedural-text-content =
+	hansard-titles?,
+	(div-subspeech | div-quote | p-parablock | p-paraitalic | p-block | div-motionnospeech | div-amendments | html-table | p | div-motion)+
 
 stage = 
 	element stage { "First Reading" | "Second Reading" | "Third Reading" | "Report from Main Committee" |
-		"Consideration in Detail" | "Consideration in detail" |
-		"Membership" | "Returned from the Senate" | "Referred to Main Committee" | "Reference" | "Assent" }
+		"Consideration in Detail" | "Consideration in detail" | "Consideration of Senate Message" |
+		"Membership" | "Returned from the Senate" | "Referred to Main Committee" | "Reference" | "Assent" | "Report" |
+		"Infrastructure, Transport, Regional Development and Local Government Committee" }
 
-speech =
-	element meta {
-		element type { "Speech" } &
-		
-		element context { text } &
-		common-metadata &
-		element speaker { text } &
+speech-content =
+	hansard-titles,
+	speech0
 
-		# Optional metadata
-		element interjector { text }? &
-		stage?
-	},
-	element content {
-		hansard-titles,
-		speech0
-	}
 
-start-of-transcript =
-	element meta {
-		element type { "Start of Transcript" } &
-		element context { "Start of Transcript" } &
-		common-metadata
-	},
-	element content {
+start-of-transcript-content =
+	element div {
+		attribute class { "titlepage" },
 		element div {
-			attribute class { "titlepage" },
-			element div {
-				attribute class { "crest" },
-				element img {
-					attribute src { text },
-					attribute alt { text }
-				}
-			},
-			element div { attribute class { "mainheading" }, text },
-			element div { attribute class { "date" }, text },
-			element div { attribute class { "sessioninfo" }, text }+,
-			element div { attribute class { "authority" }, text },
-			element div { attribute class { "proof" }, text }
-		}
-	}
-
-start-of-business =
-	element meta {
-		element type { "Start of Business" } &
-		element context { "Start of Business" } &
-		common-metadata
-	},
-	element content {
-		element div {
-			attribute class { "businessStart" },
-			element div { attribute class { "bsDate" }, text },
-			element div {
-				attribute class { "separator" },
-				element hr { attribute width { "25%" } }
-			}?,
-			element p {
-				element b { text } &
-				text
+			attribute class { "crest" },
+			element img {
+				attribute src { text },
+				attribute alt { text }
 			}
+		},
+		element div { attribute class { "mainheading" }, text },
+		element div { attribute class { "hansardtitle" }, text }?,
+		element div { attribute class { "date" }, text },
+		element div { attribute class { "sessioninfo" }, text }+,
+		element div { attribute class { "authority" }, text },
+		element div { attribute class { "proof" }, text }?
+	}
+
+
+start-of-business-content =
+	element div {
+		attribute class { "businessStart" },
+		element div { attribute class { "bsDate" }, text },
+		element div {
+			attribute class { "separator" },
+			element hr { attribute width { "25%" } }
+		}?,
+		element p {
+			element b { text } &
+			text
 		}
 	}
 
-petition =
-	element meta {
-		element type { "Petition" } &
-		element context { "Petitions" } &
-		element presenter { text } &
-		common-metadata
-	},
-	element content {
+petition-content =
+	element div {
+		attribute class { "subsection" },
 		element div {
-			attribute class { "subsection" },
-			element div {
-				attribute class { "subsection0" },
-				div-quote,
-				div-presenter,
-				p-block?
-			}
+			attribute class { "subsection0" },
+			div-quote,
+			div-presenter,
+			p-block?
 		}
 	}
+
+############
 
 div-presenter =
 	element div {
@@ -199,18 +244,17 @@ div-presenter =
 		text*)
 	}
 
-############
-
 div-amendments =
 	element div {
 		attribute class { "amendments" },
 		element div { 
-			attribute class { "amendment0" },
+			attribute class { "amendment0" | "amendment1" },
 			element p {
-				attribute class { "paraParlAmend" | "paraItemHead" | "paraItem" | "parasubsection" | "paraindenta" },
-				text
+				attribute class { "paraParlAmend" | "paraItemHead" | "paraItem" | "parasubsection" | "paraindenta" | "paraindentii" |
+					"paraDefinition" },
+				marked-text
 			}+
-		}
+		}+
 	}
 
 table-division =
@@ -263,6 +307,7 @@ div-motionnospeech =
 		div-subspeech*,
 		div-quote?,
 		p-block*,
+		speech0-b?,
 		p*
 	}
 
@@ -330,10 +375,11 @@ html-table =
 			element td {
 				attribute valign { text },
 				attribute style { text }?,
+				attribute colspan { xsd:integer }?,
 				element p {
-					attribute class { "parasmalltableleft" },
-					text
-				}+
+					attribute class { "parasmalltableleft" }?,
+					marked-text
+				}*
 			}+
 		}+
 	}
@@ -352,7 +398,7 @@ html-definition-list =
 				attribute style { "text-indent: 0;" },
 				text
 			}* &
-			text*
+			marked-text*
 		})+
 	}
 
@@ -370,7 +416,7 @@ div-question =
 			"Question"
 		},
 		p-talker,
-		(div-quote | p-parablock | p-paraitalic | div-subspeech)*
+		(div-quote | p-parablock | p-paraitalic | p | div-subspeech)*
 	}
 
 div-answer =
@@ -393,7 +439,7 @@ speech0 =
 		},
 		p-talker,
 		(div-motion | p | p-parablock | p-paraitalic | p-parabold |
-		p-block | div-quote | div-subspeech | html-list | speech0-b | div-amendments )*
+		p-block | div-quote | div-subspeech | html-list | speech0-b | div-amendments | html-table)*
 	}
 
 marked-text =
@@ -401,7 +447,10 @@ marked-text =
 		attribute href { text }?,
 		text
 	}* &
-	element b { text }* &
+	element b {
+		element i { text }* &
+		text*
+	}* &
 	element i { text }* &
 	text*
 
