@@ -41,18 +41,17 @@ start-of-transcript-meta =
 	
 speech-meta =
 	element type { "Speech" } &
-	
 	element context { text } &
 	common-metadata &
+	
 	element speaker { text } &
-
+	
 	# Optional metadata
 	element interjector { text }? &
 	element stage { text }?
 	
 procedural-text-meta =
 	element type { "Procedural text" } &
-
 	element context { text } &
 	common-metadata &
 
@@ -62,7 +61,6 @@ procedural-text-meta =
 
 division-meta =
 	element type { "Division" } &
-
 	element context { text } &
 	common-metadata &
 	
@@ -71,15 +69,14 @@ division-meta =
 
 adjournment-meta =
 	element type { "Adjournment" } &
-
 	element context { "Adjournment" } &
 	common-metadata
 
 question-meta =
 	element type { "Question" } &
-
 	element context { "Questions Without Notice" | "Questions in Writing" | "Questions to the Speaker" } &
 	common-metadata &
+	
 	element questioner { text } &
 
 	# Optional metadata
@@ -136,7 +133,6 @@ procedural-text-content =
 speech-content =
 	hansard-titles,
 	speech0
-
 
 start-of-transcript-content =
 	element div {
