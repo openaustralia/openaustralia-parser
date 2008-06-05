@@ -84,7 +84,8 @@ to_year, to_month = 2008, 6
 year, month = from_year, from_month
 
 until year == to_year && month == to_month
-  xml = File.open("aph-pages-#{year}-#{month}.xml", 'w')
+  filename = "aph-pages-%i-%02i.xml" % [year, month]
+  xml = File.open(filename, 'w')
   x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
   x.instruct!
   
