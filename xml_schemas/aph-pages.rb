@@ -68,18 +68,33 @@ def escape_for_tag_name(text)
   text.tr(' ', '-').downcase
 end
 
-from = Date.new(2008, 1, 1)
-to = Date.new(2008, 5, 29)
-filename = "aph-pages.xml"
-
-xml = File.open(filename, 'w')
-x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
-x.instruct!
-date = from
-
-x.hansard do 
-  while date <= to
+def parse_month(x, year, month)
+  date = Date.new(year, month, 1)
+  to = date>>(1)
+  
+  while date < to
     parse_date(x, date)
     date = date + 1
   end
+end
+
+from_year, from_month = 2007, 1
+to_year, to_month = 2008, 6
+
+year, month = from_year, from_month
+
+until year == to_year && month == to_month
+  xml = File.open("aph-pages-#{year}-#{month}.xml", 'w')
+  x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
+  x.instruct!
+  
+  x.hansard do
+    parse_month(x, year, month)
+  end
+  
+  # Next month
+  date = Date.new(year, month, 1)
+  date = date>>(1)
+  year = date.year
+  month = date.month
 end
