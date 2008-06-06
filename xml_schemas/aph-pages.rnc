@@ -106,13 +106,7 @@ question-content =
 		text
 	}?,
 	div-question-or-answer+,
-	(
-	div-motionnospeech |
-	element p { marked-text } |
-	table-division |
-	div-subspeech |
-	p-paraitalic
-	)*
+	(div-motionnospeech | p | p-paraitalic | table-division | div-subspeech)*
 
 adjournment-content =
 	element div {
