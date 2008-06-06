@@ -19,7 +19,7 @@ common-metadata =
 	element source { "House" } &
 	element database { "House Hansard" } &
 	element date { text } &
-	element page { xsd:integer }
+	element page { xsd:integer }?
 	
 ######
 
@@ -38,7 +38,7 @@ start-of-transcript-meta =
 	element type { "Start of Transcript" } &
 	element context { "Start of Transcript" } &
 	common-metadata
-	
+
 speech-meta =
 	element type { "Speech" } &
 	element context { text } &
@@ -74,7 +74,9 @@ adjournment-meta =
 
 question-meta =
 	element type { "Question" } &
-	element context { "Questions Without Notice" | "Questions in Writing" | "Questions to the Speaker" | "Requests for detailed information" } &
+	element context { "Questions Without Notice" | "Questions in Writing" | "Questions to the Speaker" |
+		"Requests for detailed information" | "REQUESTS FOR DETAILED INFORMATION" |
+		"Privilege" | "Answers to Questions on Notice" | "MISCELLANEOUS" } &
 	common-metadata &
 	
 	element questioner { text } &
@@ -173,7 +175,7 @@ petition-content =
 		attribute class { "subsection" },
 		element div {
 			attribute class { "subsection0" },
-			(div-quote | p-parablock)+,
+			(div-quote | p-parablock | p-block )+,
 			div-presenter+,
 			p-block?
 		}
@@ -201,7 +203,7 @@ div-amendments =
 			attribute class { "amendment0" | "amendment1" },
 			element p {
 				attribute class { "paraParlAmend" | "paraItemHead" | "paraItem" | "parasubsection" | "paraindenta" | "paraindentii" |
-					"paraDefinition" | "parahdg5s" },
+					"paraDefinition" | "parahdg5s" }?,
 				marked-text
 			}+
 		}+
@@ -313,7 +315,7 @@ p =
 div-quote =
 	element div {
 		attribute class { "quote" },
-		(p-parablock | p | p-parabold | html-definition-list | html-list | html-table)+
+		(p-parablock | p | p-parabold | html-definition-list | html-list | html-table)*
 	}
 
 html-table =
@@ -348,6 +350,7 @@ html-definition-list =
 				attribute style { "text-indent: 0;" },
 				marked-text+
 			}* &
+			html-list* &
 			marked-text*
 		})+
 	}
@@ -377,7 +380,7 @@ div-answer =
 			"Answer"
 		},
 		p-talker,
-		(p | div-quote | div-motion | p-block | p-parablock | div-subspeech | p-paraitalic | html-table)*
+		(p | div-quote | div-motion | p-block | p-parablock | div-subspeech | p-paraitalic | html-table | speech0-b)*
 	}
 
 speech0 =
