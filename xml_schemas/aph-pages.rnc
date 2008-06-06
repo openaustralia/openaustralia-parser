@@ -105,7 +105,7 @@ question-content =
 		attribute class { "questionnumber" },
 		text
 	}?,
-	(div-question | div-answer)+,
+	div-question-or-answer+,
 	(
 	div-motionnospeech |
 	element p { marked-text } |
@@ -131,7 +131,7 @@ division-content =
 procedural-text-content =
 	hansard-titles?,
 	(div-subspeech | div-quote | p-parablock | p-paraitalic | p-parabold | p-block | div-motionnospeech | div-amendments |
-		html-table | html-list | p | div-motion | speech0-b | div-answer )+
+		html-table | html-list | p | div-motion | speech0-b | div-question-or-answer )+
 
 speech-content =
 	hansard-titles,
@@ -361,26 +361,16 @@ speech0-b =
 		element hr { empty }
 	}
 
-div-question =
-	element div {
-		attribute class { "speech0" | "speech1" },
-		element div {
-			attribute class { "speechType" },
-			"Question"
-		},
-		p-talker,
-		(div-quote | div-motion | p-block | p-parablock | p-paraitalic | p | div-subspeech)*
-	}
 
-div-answer =
+div-question-or-answer =
 	element div {
 		attribute class { "speech0" | "speech1" },
 		element div {
 			attribute class { "speechType" },
-			"Answer"
+			("Question" | "Answer")
 		},
 		p-talker,
-		(p | div-quote | div-motion | p-block | p-parablock | div-subspeech | p-paraitalic | html-table | speech0-b)*
+		(div-quote | div-motion | div-subspeech | p | p-block | p-parablock | p-paraitalic | html-table | speech0-b)*
 	}
 
 speech0 =
