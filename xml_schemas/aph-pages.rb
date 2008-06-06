@@ -60,7 +60,12 @@ def parse_sub_day_page(x, page)
         x.tag!(escape_for_tag_name(key), value)
       end
     end
-    x.content { x << page.search("div#contentstart").first.children.each{|x| x.to_html}.join }
+    tag = page.search("div#contentstart").first
+    if tag
+      x.content { x << tag.children.each{|x| x.to_html}.join }
+    else
+      puts "WARNING: Couldn't find content!"
+    end
   end
 end
 
@@ -78,8 +83,8 @@ def parse_month(x, year, month)
   end
 end
 
-from_year, from_month = 2007, 1
-to_year, to_month = 2008, 6
+from_year, from_month = 2006, 9
+to_year, to_month = 2007, 1
 
 year, month = from_year, from_month
 
