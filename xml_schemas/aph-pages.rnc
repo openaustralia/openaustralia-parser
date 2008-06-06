@@ -106,7 +106,7 @@ question-content =
 		text
 	}?,
 	div-question-or-answer+,
-	(div-motionnospeech | p | p-paraitalic | table-division | div-subspeech)*
+	(div-motionnospeech | p | p-paraitalic | div-subspeech | table-division)*
 
 adjournment-content =
 	element div {
@@ -125,11 +125,11 @@ division-content =
 procedural-text-content =
 	hansard-titles?,
 	(div-subspeech | div-quote | p-parablock | p-paraitalic | p-parabold | p-block | div-motionnospeech | div-amendments |
-		html-table | html-list | p | div-motion | speech0-b | div-question-or-answer )+
+		html-table | html-list | p | div-motion | b-paragraph | div-question-or-answer )+
 
 speech-content =
 	hansard-titles,
-	speech0
+	div-speech
 
 start-of-transcript-content =
 	element div {
@@ -249,7 +249,7 @@ div-motionnospeech =
 			text
 		},
 		marked-text,
-		(html-table | div-motion | div-amendments | div-subspeech | div-quote | p-block | p-parablock | p-paraitalic | speech0-b | p)*
+		(html-table | div-motion | div-amendments | div-subspeech | div-quote | p-block | p-parablock | p-paraitalic | b-paragraph | p)*
 	}
 
 div-motion =
@@ -349,7 +349,7 @@ html-definition-list =
 		})+
 	}
 
-speech0-b =
+b-paragraph =
 	element b {
 		element p { text },
 		element hr { empty }
@@ -364,10 +364,12 @@ div-question-or-answer =
 			("Question" | "Answer")
 		},
 		p-talker,
-		(div-quote | div-motion | div-subspeech | p | p-block | p-parablock | p-paraitalic | html-table | speech0-b)*
+		(div-quote | div-motion | div-subspeech |
+			b-paragraph | html-table | 
+			p | p-block | p-parablock | p-paraitalic)*
 	}
 
-speech0 =
+div-speech =
 	element div {
 		attribute class { "speech0" },
 		element div {
@@ -375,8 +377,9 @@ speech0 =
 			"Speech"
 		},
 		p-talker,
-		(div-motion | p | p-parablock | p-paraitalic | p-parabold |
-		p-block | div-quote | div-subspeech | html-list | speech0-b | div-amendments | html-table)*
+		(div-quote | div-motion | div-subspeech | div-amendments |
+			b-paragraph | html-table | html-list | 
+			p | p-block | p-parablock | p-paraitalic | p-parabold)*
 	}
 
 marked-text =
