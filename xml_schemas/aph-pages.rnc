@@ -131,14 +131,21 @@ questions-without-notice-content =
 		element div {
 			attribute class { "hansardtitle" },
 			"QUESTIONS WITHOUT NOTICE"
-		}+
+		}
 	},
 	div-hansardsubtitlegroup,
 	div-question-or-answer+,
 	(div-motionnospeech | p | p-paraitalic | div-subspeech | table-division)*
 
 questions-in-writing-content =
-	hansard-titles,
+	element div {
+		attribute class { "hansardtitlegroup" },
+		element div {
+			attribute class { "hansardtitle" },
+			"QUESTIONS IN WRITING"
+		}
+	},
+	div-hansardsubtitlegroup,
 	element div {
 		attribute class { "questionnumber" },
 		text
@@ -146,7 +153,14 @@ questions-in-writing-content =
 	div-question-or-answer+
 
 questions-other-content =
-	hansard-titles,
+	element div {
+		attribute class { "hansardtitlegroup" },
+		element div {
+			attribute class { "hansardtitle" },
+			("QUESTIONS TO THE SPEAKER" | "REQUEST FOR DETAILED INFORMATION" | "PRIVILEGE" )
+		}
+	},
+	div-hansardsubtitlegroup?,
 	div-question-or-answer+
 
 adjournment-content =
