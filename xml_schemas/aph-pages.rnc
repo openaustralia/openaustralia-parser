@@ -6,7 +6,9 @@ start = element hansard {
 		(element meta { procedural-text-meta }, element content { procedural-text-content }) | 
 		(element meta { division-meta }, element content { division-content }) | 
 		(element meta { adjournment-meta }, element content { adjournment-content }) | 
-		(element meta { question-meta }, element content { question-content }) | 
+		(element meta { questions-without-notice-meta }, element content { questions-without-notice-content }) | 
+		(element meta { questions-in-writing-meta }, element content { questions-in-writing-content }) | 
+		(element meta { questions-other-meta }, element content { questions-other-content }) | 
 		(element meta { petition-meta }, element content { petition-content }) | 
 		(element meta { misc-meta }, element content { misc-content })
 	}*
@@ -72,11 +74,35 @@ adjournment-meta =
 	element context { "Adjournment" } &
 	common-metadata
 
-question-meta =
+questions-without-notice-meta =
 	element type { "Question" } &
-	element context { "Questions Without Notice" | "Questions in Writing" | "Questions to the Speaker" |
+	element context { "Questions Without Notice" } &
+	common-metadata &
+	
+	element questioner { text } &
+
+	# Optional metadata
+	element responder { text }? &
+	element interjector { text }? &
+	element question_no { text }?
+
+questions-in-writing-meta =
+	element type { "Question" } &
+	element context { "Questions in Writing" | "Answers to Questions on Notice" } &
+	common-metadata &
+	
+	element questioner { text } &
+
+	# Optional metadata
+	element responder { text }? &
+	element interjector { text }? &
+	element question_no { text }?
+	
+questions-other-meta =
+	element type { "Question" } &
+	element context { "Questions to the Speaker" |
 		"Requests for detailed information" | "REQUESTS FOR DETAILED INFORMATION" |
-		"Privilege" | "Answers to Questions on Notice" | "MISCELLANEOUS" } &
+		"Privilege" | "MISCELLANEOUS" } &
 	common-metadata &
 	
 	element questioner { text } &
@@ -99,14 +125,22 @@ misc-content =
 	hansard-titles,
 	div-motionnospeech+
 
-question-content =
+questions-without-notice-content =
+	hansard-titles,
+	div-question-or-answer+,
+	(div-motionnospeech | p | p-paraitalic | div-subspeech | table-division)*
+
+questions-in-writing-content =
 	hansard-titles,
 	element div {
 		attribute class { "questionnumber" },
 		text
-	}?,
-	div-question-or-answer+,
-	(div-motionnospeech | p | p-paraitalic | div-subspeech | table-division)*
+	},
+	div-question-or-answer+
+
+questions-other-content =
+	hansard-titles,
+	div-question-or-answer+
 
 adjournment-content =
 	element div {
