@@ -126,7 +126,14 @@ misc-content =
 	div-motionnospeech+
 
 questions-without-notice-content =
-	hansard-titles,
+	element div {
+		attribute class { "hansardtitlegroup" },
+		element div {
+			attribute class { "hansardtitle" },
+			"QUESTIONS WITHOUT NOTICE"
+		}+
+	},
+	div-hansardsubtitlegroup,
 	div-question-or-answer+,
 	(div-motionnospeech | p | p-paraitalic | div-subspeech | table-division)*
 
@@ -293,20 +300,25 @@ div-motion =
 	}
 
 hansard-titles =
+	div-hansardtitlegroup, div-hansardsubtitlegroup?
+
+div-hansardtitlegroup =
 	element div {
 		attribute class { "hansardtitlegroup" },
 		element div {
 			attribute class { "hansardtitle" },
 			text
 		}+
-	},
+	}
+
+div-hansardsubtitlegroup =
 	element div {
 		attribute class { "hansardsubtitlegroup" },
 		element div {
 			attribute class { "hansardsubtitle" },
 			text
 		}*
-	}?
+	}
 	
 p-parabold =
 	element p {
