@@ -25,7 +25,7 @@ class MechanizeProxyCache
       else
         page = FileProxy.new(result.body, uri)
       end
-      write_cache(uri, page)
+      write_cache(page)
     end
   end
   
@@ -63,8 +63,6 @@ class MechanizeProxyCache
     return url
   end
   
-  private
-  
   def url_cached?(uri)
     cache_file_exists?(uri, false) || cache_file_exists?(uri, true)
   end
@@ -93,7 +91,7 @@ class MechanizeProxyCache
   end
   
   # Returns original page
-  def write_cache(uri, page)
+  def write_cache(page)
     if page.respond_to?(:parser)
       # Write compressed cache files (for normal HTML pages)
       compressed = true
@@ -103,7 +101,7 @@ class MechanizeProxyCache
       compressed = false
       data = page.body      
     end
-    filename = url_to_filename(uri, compressed)
+    filename = url_to_filename(page.uri, compressed)
     FileUtils.mkdir_p(File.dirname(filename))
     if compressed
       Zlib::GzipWriter.open(filename) do |file|
@@ -185,6 +183,8 @@ class MechanizeProxy
 end
 
 class FileProxy
+  attr_reader :uri
+  
   def initialize(doc, uri)
     @doc = doc
     @uri = uri
