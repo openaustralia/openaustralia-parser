@@ -8,3 +8,4 @@ html_cache/*
 coverage/*
 parser.log
 xml_schemas/aph-pages-*.xml
+ref/*.xml
