@@ -7,27 +7,60 @@ gem 'mechanize', "= 0.6.10"
 require 'mechanize'
 require 'configuration'
 
-class MechanizeProxy
+class MechanizeProxyCache
   # By setting cache_subdirectory can put cached files under a subdirectory in the html_cache_path
   attr_accessor :cache_subdirectory
   
   def initialize
-    @agent = WWW::Mechanize.new
     @conf = Configuration.new
   end
   
-  def get(url)
-    uri = URI.parse(url)
-    load_and_cache_page(uri) { @agent.get(url) }
+  def load_and_cache_page(uri)
+    if url_cached?(uri)
+      read_cache(uri)
+    else
+      result = yield
+      if result.respond_to?(:parser)
+        page = PageProxy.new(result.parser, uri)
+      else
+        page = FileProxy.new(result.body, uri)
+      end
+      write_cache(uri, page)
+    end
   end
   
-  def click(link)
-    uri = to_absolute_uri(link.href, link.page)
-    load_and_cache_page(uri) { @agent.click(link) }
-  end
-  
-  def transact
-    yield
+  def to_absolute_uri(url, cur_page)
+    unless url.is_a? URI
+      url = url.to_s.strip.gsub(/[^#{0.chr}-#{125.chr}]/) { |match|
+        sprintf('%%%X', match.unpack($KCODE == 'UTF8' ? 'U' : 'c')[0])
+      }
+
+      url = URI.parse(
+              Util.html_unescape(
+                url.split(/%[0-9A-Fa-f]{2}|#/).zip(
+                  url.scan(/%[0-9A-Fa-f]{2}|#/)
+                ).map { |x,y|
+                  "#{URI.escape(x)}#{y}"
+                }.join('')
+              )
+            )
+    end
+
+    url.path = '/' if url.path.length == 0
+
+    # construct an absolute uri
+    if url.relative?
+      raise 'no history. please specify an absolute URL' unless cur_page.uri
+      base = cur_page.respond_to?(:bases) ? cur_page.bases.last : nil
+      url = ((base && base.uri && base.uri.absolute?) ?
+              base.uri :
+              cur_page.uri) + url
+      url = cur_page.uri + url
+      # Strip initial "/.." bits from the path
+      url.path.sub!(/^(\/\.\.)+(?=\/)/, '')
+    end
+
+    return url
   end
   
   private
@@ -35,11 +68,11 @@ class MechanizeProxy
   def url_cached?(uri)
     cache_file_exists?(uri, false) || cache_file_exists?(uri, true)
   end
-  
+
   def cache_file_exists?(uri, compressed)
     File.exists?(url_to_filename(uri, compressed))
   end
-  
+
   def fileReader(compressed)
     if compressed
       Zlib::GzipReader
@@ -85,20 +118,6 @@ class MechanizeProxy
     page
   end
   
-  def load_and_cache_page(uri)
-    if url_cached?(uri)
-      read_cache(uri)
-    else
-      result = yield
-      if result.respond_to?(:parser)
-        page = PageProxy.new(result.parser, uri)
-      else
-        page = FileProxy.new(result.body, uri)
-      end
-      write_cache(uri, page)
-    end
-  end
-
   def url_to_filename(url, compressed)
     if compressed
       url_to_compressed_filename(url)
@@ -119,40 +138,6 @@ class MechanizeProxy
     url_to_uncompressed_filename(uri) + ".gz"
   end
   
-  def to_absolute_uri(url, cur_page)
-    unless url.is_a? URI
-      url = url.to_s.strip.gsub(/[^#{0.chr}-#{125.chr}]/) { |match|
-        sprintf('%%%X', match.unpack($KCODE == 'UTF8' ? 'U' : 'c')[0])
-      }
-
-      url = URI.parse(
-              Util.html_unescape(
-                url.split(/%[0-9A-Fa-f]{2}|#/).zip(
-                  url.scan(/%[0-9A-Fa-f]{2}|#/)
-                ).map { |x,y|
-                  "#{URI.escape(x)}#{y}"
-                }.join('')
-              )
-            )
-    end
-
-    url.path = '/' if url.path.length == 0
-
-    # construct an absolute uri
-    if url.relative?
-      raise 'no history. please specify an absolute URL' unless cur_page.uri
-      base = cur_page.respond_to?(:bases) ? cur_page.bases.last : nil
-      url = ((base && base.uri && base.uri.absolute?) ?
-              base.uri :
-              cur_page.uri) + url
-      url = cur_page.uri + url
-      # Strip initial "/.." bits from the path
-      url.path.sub!(/^(\/\.\.)+(?=\/)/, '')
-    end
-
-    return url
-  end
-  
   class Util
     def self.html_unescape(s)
       return s unless s
@@ -168,7 +153,35 @@ class MechanizeProxy
       }
     end
   end
+end
+
+class MechanizeProxy
+  def initialize
+    @agent = WWW::Mechanize.new
+    @cache = MechanizeProxyCache.new
+  end
   
+  def cache_subdirectory
+    @cache.cache_subdirectory
+  end
+  
+  def cache_subdirectory=(path)
+    @cache.cache_subdirectory = path
+  end
+  
+  def get(url)
+    uri = URI.parse(url)
+    @cache.load_and_cache_page(uri) { @agent.get(url) }
+  end
+  
+  def click(link)
+    uri = @cache.to_absolute_uri(link.href, link.page)
+    @cache.load_and_cache_page(uri) { @agent.click(link) }
+  end
+  
+  def transact
+    yield
+  end  
 end
 
 class FileProxy
