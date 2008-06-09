@@ -40,12 +40,6 @@ class MechanizeProxy
     File.exists?(url_to_filename(uri, compressed))
   end
   
-  def read_cache(uri)
-    # Prefer uncompressed cache files over compressed ones if both exist
-    compressed = !cache_file_exists?(uri, false)
-    fileReader(compressed).open(url_to_filename(uri, compressed)) {|file| file.read}
-  end
-  
   def fileReader(compressed)
     if compressed
       Zlib::GzipReader
@@ -54,37 +48,54 @@ class MechanizeProxy
     end
   end
   
-  # Always writes compressed cache files
-  def write_cache(uri, contents)    
-    filename = url_to_filename(uri, true)
-    FileUtils.mkdir_p(File.dirname(filename))
-    Zlib::GzipWriter.open(filename) do |file|
-      file.puts(contents)
-      file.close
+  def read_cache(uri)
+    # Prefer uncompressed cache files over compressed ones if both exist
+    compressed = !cache_file_exists?(uri, false)
+    data = fileReader(compressed).open(url_to_filename(uri, compressed)) {|file| file.read}
+    if uri.to_s[-4..-1] == ".jpg"
+      FileProxy.new(data, uri)
+    else
+      PageProxy.new(Hpricot(data), uri)
     end
+  end
+  
+  # Returns original page
+  def write_cache(uri, page)
+    if page.respond_to?(:parser)
+      # Write compressed cache files (for normal HTML pages)
+      compressed = true
+      data = page.parser.to_s
+    else
+      # Don't compress images
+      compressed = false
+      data = page.body      
+    end
+    filename = url_to_filename(uri, compressed)
+    FileUtils.mkdir_p(File.dirname(filename))
+    if compressed
+      Zlib::GzipWriter.open(filename) do |file|
+        file.write(data)
+        file.close
+      end
+    else
+      File.open(filename, 'w') do |file|
+        file.write(data)
+      end
+    end
+    page
   end
   
   def load_and_cache_page(uri)
     if url_cached?(uri)
-      if uri.to_s[-4..-1] == ".jpg"
-        document = read_cache(uri)
-        FileProxy.new(document, uri)
-      else
-        document = Hpricot(read_cache(uri))
-        PageProxy.new(document, uri)
-      end
+      read_cache(uri)
     else
       result = yield
       if result.respond_to?(:parser)
-        document = result.parser
-        write_cache(uri, document.to_s)
-        PageProxy.new(document, uri)    
+        page = PageProxy.new(result.parser, uri)
       else
-        document = result
-        filename = url_to_filename(uri, false)
-        document.save(filename)
-        FileProxy.new(document.body, uri)
+        page = FileProxy.new(result.body, uri)
       end
+      write_cache(uri, page)
     end
   end
 
@@ -177,6 +188,10 @@ class PageProxy
   def initialize(doc, uri)
     @doc = doc
     @uri = uri
+  end
+  
+  def parser
+    @doc
   end
   
   def links
