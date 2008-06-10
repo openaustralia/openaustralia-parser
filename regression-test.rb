@@ -42,6 +42,16 @@ to_date = Date.new(2008, 6, 1)
 # Array of all dates
 dates = (from_date..to_date).to_a
 
+# Randomly permute array. This means that we will cover a much broader range of dates quickly
+srand(42)
+randomised_dates = []
+(1..dates.size).each do
+  random_index = rand(dates.size)
+  randomised_dates << dates[random_index]
+  dates.delete_at(random_index)
+end
+dates = randomised_dates
+
 # Dates to test first before anything else
 # Update this list with any dates that have shown up problems in the past
 test_first = [Date.new(2006,9,14)]
@@ -52,6 +62,11 @@ test_first.each do |date|
   dates.unshift(date)
 end
 
-dates.each { |date| test_date(date, conf, parser) }
+count = 0
+dates.each do |date|
+  test_date(date, conf, parser)
+  count = count + 1
+  puts "Regression test progress: Done #{count}/#{dates.size}"
+end
 
 puts "Regression tests all passed!"
