@@ -13,9 +13,6 @@ require 'hansard_parser'
 require 'configuration'
 require 'optparse'
 
-from_date = Date.new(2006, 1, 1)
-to_date = Date.new(2008, 6, 1)
-
 conf = Configuration.new
 
 # First load people back in so that we can look up member id's
@@ -23,8 +20,7 @@ people = People.read_members_csv("#{File.dirname(__FILE__)}/data/members.csv")
 
 parser = HansardParser.new(people)
 
-date = from_date
-while date <= to_date
+def test_date(date, conf, parser)
   xml_filename = "debates#{date}.xml"
   new_xml_path = "#{conf.xml_path}/scrapedxml/debates/#{xml_filename}"
   ref_xml_path = "ref/#{xml_filename}"
@@ -38,6 +34,20 @@ while date <= to_date
       exit
     end
   end
+end
+
+from_date = Date.new(2006, 1, 1)
+to_date = Date.new(2008, 6, 1)
+
+# Dates to test first before anything else
+# Update this list with any dates that have shown up problems in the past
+test_first = [Date.new(2006,9,14)]
+
+test_first.each { |date| test_date(date, conf, parser) }
+
+date = from_date
+while date <= to_date
+  test_date(date, conf, parser) unless test_first.include?(date)
   date = date + 1
 end
 
