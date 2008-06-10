@@ -261,6 +261,14 @@ class HansardParser
     text.sub('&', '&amp;')
   end
 
+  def extract_speakername(content)
+    name = extract_speakername_from_talkername_tag(content)
+    if name.nil?
+      name = extract_speakername_in_interjection(content)
+    end
+    name
+  end
+  
   def extract_speakername_from_talkername_tag(content)
     tag = content.search('span.talkername a').first
     if tag
@@ -284,23 +292,24 @@ class HansardParser
     lookup_speaker(speakername, date) if speakername
   end
 
-  def extract_speaker_in_interjection(content, date)
+  def extract_speakername_in_interjection(content)
     if content.search("div.speechType").inner_html == "Interjection"
       text = strip_tags(content.search("div.speechType + *").first)
       m = text.match(/([a-z].*) interjecting/i)
       if m
-        name = m[1]
-        lookup_speaker(name, date)
+        m[1]
       else
         m = text.match(/([a-z].*)—/i)
         if m
-          name = m[1]
-          lookup_speaker(name, date)
+          m[1]
         end
       end
-    else
-      throw "Not an interjection"
     end
+  end
+  
+  def extract_speaker_in_interjection(content, date)
+    speakername = extract_speakername_in_interjection(content)
+    lookup_speaker(speakername, date) if speakername
   end
 
   def lookup_speaker(speakername, date)

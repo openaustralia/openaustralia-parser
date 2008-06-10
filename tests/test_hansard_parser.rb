@@ -108,4 +108,22 @@ class TestHansardParser < Test::Unit::TestCase
     doc = Hpricot('<p><span class="talkername"><a>The Deputy Speaker</a></span><b>(Mr Hunt)</p>')
     assert_equal('The Deputy Speaker (Mr Hunt)', @parser.extract_speakername_from_talkername_tag(doc))
   end
+  
+  def test_extract_speakername
+    good_form1 = '<p><span class="talkername"><a HREF="blah">Mr Hunt</a></span></p>'
+    good_form2 = '<p><span class="talkername"><a>The Deputy Speaker</a></span><b>(Mr Hunt)</p>'
+    good_form3 = '<div class="subspeech1"><div class="speechType">Interjection</div><p> <i>Mr Smith interjecting</i>—</p></div>'
+    good_form4 = '<div class="subspeech1"><div class="speechType">Interjection</div><p> <i>Ms Johnson</i>—</p></div>'
+    good_form5 = '<div class="subspeech1"><div class="speechType">Continue</div><p><span class="talkername"><a href="blah">Mr BAIRD</a></span>—Some words</p></div>'
+		
+		bad_form1 = '<p class="block">Some words.</p>'
+		
+    assert_equal("Mr Hunt", @parser.extract_speakername(Hpricot(good_form1)))
+    assert_equal("The Deputy Speaker (Mr Hunt)", @parser.extract_speakername(Hpricot(good_form2)))
+    assert_equal("Mr Smith", @parser.extract_speakername(Hpricot(good_form3)))
+    assert_equal("Ms Johnson", @parser.extract_speakername(Hpricot(good_form4)))
+    assert_equal("Mr BAIRD", @parser.extract_speakername(Hpricot(good_form5)))
+    
+    assert_nil(@parser.extract_speakername(Hpricot(bad_form1)))
+  end
 end
