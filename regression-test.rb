@@ -61,12 +61,9 @@ class Array
   end
 end
 
-# Array of all dates
-dates = (from_date..to_date).to_a
-
 # Randomly permute array. This means that we will cover a much broader range of dates quickly
 srand(42)
-dates = dates.randomly_permute
+dates = (from_date..to_date).to_a.randomly_permute
 
 test_first.each do |date|
   # Moves date to the beginning of the array
