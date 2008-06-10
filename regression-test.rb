@@ -11,7 +11,6 @@ $:.unshift "#{File.dirname(__FILE__)}/lib"
 require 'people'
 require 'hansard_parser'
 require 'configuration'
-require 'optparse'
 
 # Range of dates to test
 
@@ -21,7 +20,9 @@ to_date = Date.new(2008, 6, 1)
 # Dates to test first before anything else
 # Update this list with any dates that have shown up problems in the past
 
-test_first = [Date.new(2006,9,14)]
+test_first = [Date.new(2007,9,14)]
+
+skip_dates = [Date.new(2006,10,11), Date.new(2006,11,28), Date.new(2006,10,10), Date.new(2006,12,05)]
 
 #
 
@@ -35,16 +36,26 @@ parser = HansardParser.new(people)
 def test_date(date, conf, parser)
   xml_filename = "debates#{date}.xml"
   new_xml_path = "#{conf.xml_path}/scrapedxml/debates/#{xml_filename}"
-  ref_xml_path = "ref/#{xml_filename}"
+  ref_xml_path = "#{File.dirname(__FILE__)}/ref/#{xml_filename}"
   parser.parse_date(date, new_xml_path)
   
-  if File.exists?(new_xml_path)
+  if File.exists?(ref_xml_path) && File.exists?(new_xml_path)
     # Now compare generated and reference xml
-    system("xmldiff #{new_xml_path} #{ref_xml_path}")
+    command = "xmldiff #{new_xml_path} #{ref_xml_path}"
+    puts command
+    system(command)
     if $? != 0
       puts "Regression tests FAILED on date #{date}!"
       exit
     end
+  elsif File.exists?(ref_xml_path)
+    puts "ERROR: #{new_xml_path} is missing"
+    puts "Regression tests FAILED on date #{date}!"
+    exit
+  elsif File.exists?(new_xml_path)
+    puts "ERROR: #{ref_xml_path} is missing"
+    puts "Regression tests FAILED on date #{date}!"
+    exit
   end
 end
 
@@ -62,7 +73,7 @@ class Array
 end
 
 # Randomly permute array. This means that we will cover a much broader range of dates quickly
-srand(42)
+#srand(42)
 dates = (from_date..to_date).to_a.randomly_permute
 
 test_first.each do |date|
@@ -71,11 +82,27 @@ test_first.each do |date|
   dates.unshift(date)
 end
 
+skip_dates.each { |date| dates.delete(date) }
+
 count = 0
+time0 = Time.new
 dates.each do |date|
   test_date(date, conf, parser)
   count = count + 1
   puts "Regression test progress: Done #{count}/#{dates.size}"
+  seconds_left = ((Time.new - time0) / count * (dates.size - count)).to_i
+  
+  minutes_left = (seconds_left / 60).to_i
+  seconds_left = seconds_left - 60 * minutes_left
+  
+  hours_left = (minutes_left / 60).to_i
+  minutes_left = minutes_left - 60 * hours_left
+  
+  if hours_left > 0
+    puts "Estimated time left to completion: #{hours_left} hours #{minutes_left} mins"
+  else
+    puts "Estimated time left to completion: #{minutes_left} mins #{seconds_left} secs"
+  end
 end
 
 puts "Regression tests all passed!"
