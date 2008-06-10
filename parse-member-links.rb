@@ -51,14 +51,18 @@ end
 # Hack to deal with "Flynn" constituency incorrectly spelled as "Flyn"
 map["flynn"] = "http://www.abc.net.au/tv/qanda/mp-profiles/flyn.htm"
 
+bad_divisions = []
 # Check that the links point to valid pages
 map.each_pair do |division, url|
   begin
     agent.get(url)
   rescue WWW::Mechanize::ResponseCodeError
+    bad_divisions << division
     puts "ERROR: Invalid url #{url} for division #{division}"
   end
 end
+# Clear out bad divisions
+bad_divisions.each { |division| map.delete(division) }
 
 xml = File.open("#{conf.members_xml_path}/links-abc-qanda.xml", 'w')
 x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
@@ -67,7 +71,7 @@ x.publicwhip do
   people.find_current_house_members.each do |member|
     short_division = member.division.downcase[0..3]
     link = map[member.division.downcase]
-    throw "Couldn't lookup division #{member.division}" if link.nil?
+    puts "ERROR: Couldn't lookup division #{member.division}" if link.nil?
     x.personinfo(:id => member.person.id, :mp_biography_qanda => link)
   end
 end
