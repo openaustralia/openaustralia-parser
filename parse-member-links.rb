@@ -44,11 +44,21 @@ puts "Q&A Links..."
 # First get mapping between constituency name and web page
 page = agent.get(conf.qanda_electorate_url)
 map = {}
-page.links[35..183].each do |link|
-  map[link.text.downcase] = page.uri + link.uri
+
+page.links[35..184].each do |link|
+  map[link.text.downcase] = (page.uri + link.uri).to_s
 end
 # Hack to deal with "Flynn" constituency incorrectly spelled as "Flyn"
 map["flynn"] = "http://www.abc.net.au/tv/qanda/mp-profiles/flyn.htm"
+
+# Check that the links point to valid pages
+map.each_pair do |division, url|
+  begin
+    agent.get(url)
+  rescue WWW::Mechanize::ResponseCodeError
+    puts "ERROR: Invalid url #{url} for division #{division}"
+  end
+end
 
 xml = File.open("#{conf.members_xml_path}/links-abc-qanda.xml", 'w')
 x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
