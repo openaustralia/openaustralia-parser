@@ -123,7 +123,12 @@ class HansardParser
       speech_content = content
     end
     # Extract speaker name from link
-    speaker = extract_speaker_from_talkername_tag(speech_content, date)
+    speakername = extract_speakername_from_talkername_tag(speech_content)
+    if speakername
+      speaker = lookup_speaker(speakername, date)
+    else
+      speaker = nil
+    end
     debates.add_speech(speaker, time, url, clean_speech_content(url, speech_content))
 
     if subspeeches_content
@@ -136,7 +141,20 @@ class HansardParser
     subspeeches_content.each do |e|
       tag_class = e.attributes["class"]
       if tag_class == "subspeech0" || tag_class == "subspeech1"
-        speaker = extract_speaker_from_talkername_tag(e, date) || extract_speaker_in_interjection(e, date)
+        speakername = extract_speakername_from_talkername_tag(e)
+        if speakername
+          speaker = lookup_speaker(speakername, date)
+        else
+          speaker = nil
+        end
+        if speaker.nil?
+          speakername = extract_speakername_in_interjection(e)
+          if speakername
+            speaker = lookup_speaker(speakername, date)
+          else
+            speaker = nil
+          end
+        end
       end
       debates.add_speech(speaker, time, url, clean_speech_content(url, e))
     end
@@ -287,11 +305,6 @@ class HansardParser
     name
   end
   
-  def extract_speaker_from_talkername_tag(content, date)
-    speakername = extract_speakername_from_talkername_tag(content)
-    lookup_speaker(speakername, date) if speakername
-  end
-
   def extract_speakername_in_interjection(content)
     if content.search("div.speechType").inner_html == "Interjection"
       text = strip_tags(content.search("div.speechType + *").first)
@@ -307,11 +320,6 @@ class HansardParser
     end
   end
   
-  def extract_speaker_in_interjection(content, date)
-    speakername = extract_speakername_in_interjection(content)
-    lookup_speaker(speakername, date) if speakername
-  end
-
   def lookup_speaker(speakername, date)
     if speakername.nil?
       logger.warn "Unknown speaker"
