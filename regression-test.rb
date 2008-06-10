@@ -13,6 +13,18 @@ require 'hansard_parser'
 require 'configuration'
 require 'optparse'
 
+# Range of dates to test
+
+from_date = Date.new(2006, 1, 1)
+to_date = Date.new(2008, 6, 1)
+
+# Dates to test first before anything else
+# Update this list with any dates that have shown up problems in the past
+
+test_first = [Date.new(2006,9,14)]
+
+#
+
 conf = Configuration.new
 
 # First load people back in so that we can look up member id's
@@ -36,9 +48,6 @@ def test_date(date, conf, parser)
   end
 end
 
-from_date = Date.new(2006, 1, 1)
-to_date = Date.new(2008, 6, 1)
-
 # Array of all dates
 dates = (from_date..to_date).to_a
 
@@ -51,10 +60,6 @@ randomised_dates = []
   dates.delete_at(random_index)
 end
 dates = randomised_dates
-
-# Dates to test first before anything else
-# Update this list with any dates that have shown up problems in the past
-test_first = [Date.new(2006,9,14)]
 
 test_first.each do |date|
   # Moves date to the beginning of the array
