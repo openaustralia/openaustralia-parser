@@ -48,18 +48,25 @@ def test_date(date, conf, parser)
   end
 end
 
+class Array
+  def randomly_permute
+    temp = clone
+    result = []
+    (1..size).each do
+      i = rand(temp.size)
+      result << temp[i]
+      temp.delete_at(i)
+    end
+    result
+  end
+end
+
 # Array of all dates
 dates = (from_date..to_date).to_a
 
 # Randomly permute array. This means that we will cover a much broader range of dates quickly
 srand(42)
-randomised_dates = []
-(1..dates.size).each do
-  random_index = rand(dates.size)
-  randomised_dates << dates[random_index]
-  dates.delete_at(random_index)
-end
-dates = randomised_dates
+dates = dates.randomly_permute
 
 test_first.each do |date|
   # Moves date to the beginning of the array
