@@ -20,7 +20,7 @@ to_date = Date.new(2008, 6, 1)
 # Dates to test first before anything else
 # Update this list with any dates that have shown up problems in the past
 
-test_first = []
+test_first = [Date.new(2007,8,8)]
 
 skip_dates = []
 
@@ -45,6 +45,7 @@ def test_date(date, conf, parser)
     puts command
     system(command)
     if $? != 0
+      puts "ERROR: #{new_xml_path} and #{ref_xml_path} don't match"
       puts "Regression tests FAILED on date #{date}!"
       exit
     end
