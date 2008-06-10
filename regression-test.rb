@@ -39,16 +39,19 @@ end
 from_date = Date.new(2006, 1, 1)
 to_date = Date.new(2008, 6, 1)
 
+# Array of all dates
+dates = (from_date..to_date).to_a
+
 # Dates to test first before anything else
 # Update this list with any dates that have shown up problems in the past
 test_first = [Date.new(2006,9,14)]
 
-test_first.each { |date| test_date(date, conf, parser) }
-
-date = from_date
-while date <= to_date
-  test_date(date, conf, parser) unless test_first.include?(date)
-  date = date + 1
+test_first.each do |date|
+  # Moves date to the beginning of the array
+  dates.delete(date)
+  dates.unshift(date)
 end
+
+dates.each { |date| test_date(date, conf, parser) }
 
 puts "Regression tests all passed!"
