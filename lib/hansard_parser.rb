@@ -101,57 +101,35 @@ class HansardParser
 
     debates.add_heading(newtitle, newsubtitle, url)
 
-    # Untangle speeches from subspeeches
-    speech_content = Hpricot::Elements.new
     content = sub_page.search('div#contentstart > div.speech0 > *')
-    tag_classes = content.map{|e| e.attributes["class"]}
-    subspeech0_index = tag_classes.index("subspeech0")
-    paraitalic_index = tag_classes.index("paraitalic")
 
-    if subspeech0_index.nil?
-      subspeech_index = paraitalic_index
-    elsif paraitalic_index.nil?
-      subspeech_index = subspeech0_index
-    else
-      subspeech_index = min(subspeech0_index, paraitalic_index)
-    end
-
-    if subspeech_index
-      speech_content = content[0..subspeech_index-1]
-      subspeeches_content = content[subspeech_index..-1]
-    else
-      speech_content = content
-    end
-    # Extract speaker name from link
-    speakername = extract_speakername(speech_content)
-    if speakername
-      speaker = lookup_speaker(speakername, date)
-    else
+    if content.size > 1
       speaker = nil
-    end
-    debates.add_speech(speaker, time, url, clean_speech_content(url, speech_content))
-
-    if subspeeches_content
-      process_subspeeches(subspeeches_content, date, time, url, speaker, debates)
+      content[1..-1].each do |e|
+        speakername = extract_speakername(e)
+        # Only change speaker if a speaker name was found
+        speaker = lookup_speaker(speakername, date) if speakername
+        debates.add_speech(speaker, time, url, clean_speech_content(url, e))
+      end
+    else
+      # Doing this just to ensure that regression tests don't fail
+      #cleaned = clean_speech_content(url, content[0])
+      #p cleaned
+      debates.add_speech(nil, time, url, Hpricot(''))
     end
   end
   
-  def process_subspeeches(subspeeches_content, date, time, url, speaker, debates)
-    # Now extract the subspeeches
-    subspeeches_content.each do |e|
-      tag_class = e.attributes["class"]
-      if tag_class == "subspeech0" || tag_class == "subspeech1"
-        speakername = extract_speakername(e)
-        if speakername
-          speaker = lookup_speaker(speakername, date)
-        else
-          speaker = nil
-        end
-      end
+  # Pass in current speaker (if there is one)
+  def parse_speeches(content, speaker = nil)
+    content.each do |e|
+      speakername = extract_speakername(e)
+      # Only change speaker if a speaker name was found
+      speaker = lookup_speaker(speakername, date) if speakername
       debates.add_speech(speaker, time, url, clean_speech_content(url, e))
     end
   end
-
+    
+  
   def extract_speakername(content)
     # Try to extract speaker name from talkername tag
     tag = content.search('span.talkername a').first

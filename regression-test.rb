@@ -20,7 +20,7 @@ to_date = Date.new(2008, 6, 1)
 # Dates to test first before anything else
 # Update this list with any dates that have shown up problems in the past
 
-test_first = [Date.new(2007,8,8)]
+test_first = [Date.new(2007,8,8), Date.new(2008,3,12)]
 
 skip_dates = []
 
