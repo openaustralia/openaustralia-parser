@@ -77,11 +77,8 @@ class HansardParser
       split = link_text.split('>').map{|a| a.strip}
       logger.error "Expected split to have length 3" unless split.size == 3
       time = split[2]
-      # Extract permanent URL of this subpage. Also, quoting because there is a bug
-      # in XML Builder that for some reason is not quoting attributes properly
-      url = quote(sub_page.links.text("[Permalink]").uri.to_s)
       
-      parse_sub_day_speech_page(sub_page, time, url, debates, date)
+      parse_sub_day_speech_page(sub_page, time, debates, date)
     elsif link_text == "Official Hansard" || link_text =~ /^Start of Business/ || link_text == "Adjournment"
       # Do nothing - skip this entirely
     elsif link_text =~ /^Procedural text:/ || link_text =~ /^QUESTIONS WITHOUT NOTICE:/ || link_text =~ /^QUESTIONS IN WRITING:/ ||
@@ -92,7 +89,11 @@ class HansardParser
     end
   end
 
-  def parse_sub_day_speech_page(sub_page, time, url, debates, date)
+  def parse_sub_day_speech_page(sub_page, time, debates, date)
+    # Extract permanent URL of this subpage. Also, quoting because there is a bug
+    # in XML Builder that for some reason is not quoting attributes properly
+    url = quote(sub_page.links.text("[Permalink]").uri.to_s)
+
     newtitle = sub_page.search('div#contentstart div.hansardtitle').map { |m| m.inner_html }.join('; ')
     newsubtitle = sub_page.search('div#contentstart div.hansardsubtitle').map { |m| m.inner_html }.join('; ')
     # Replace any unicode characters
@@ -113,8 +114,6 @@ class HansardParser
       end
     else
       # Doing this just to ensure that regression tests don't fail
-      #cleaned = clean_speech_content(url, content[0])
-      #p cleaned
       debates.add_speech(nil, time, url, Hpricot(''))
     end
   end
