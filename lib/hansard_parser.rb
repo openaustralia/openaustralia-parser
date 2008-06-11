@@ -123,7 +123,7 @@ class HansardParser
       speech_content = content
     end
     # Extract speaker name from link
-    speakername = extract_speakername_from_talkername_tag(speech_content)
+    speakername = extract_speakername(speech_content)
     if speakername
       speaker = lookup_speaker(speakername, date)
     else
@@ -141,25 +141,46 @@ class HansardParser
     subspeeches_content.each do |e|
       tag_class = e.attributes["class"]
       if tag_class == "subspeech0" || tag_class == "subspeech1"
-        speakername = extract_speakername_from_talkername_tag(e)
+        speakername = extract_speakername(e)
         if speakername
           speaker = lookup_speaker(speakername, date)
         else
           speaker = nil
-        end
-        if speaker.nil?
-          speakername = extract_speakername_in_interjection(e)
-          if speakername
-            speaker = lookup_speaker(speakername, date)
-          else
-            speaker = nil
-          end
         end
       end
       debates.add_speech(speaker, time, url, clean_speech_content(url, e))
     end
   end
 
+  def extract_speakername(content)
+    # Try to extract speaker name from talkername tag
+    tag = content.search('span.talkername a').first
+    if tag
+      name = tag.inner_html
+      # Now check if there is something like <span class="talkername"><a>Some Text</a></span> <b>(Some Text)</b>
+      tag = content.search('span.talkername ~ b').first
+      # Only use it if it is surrounded by brackets
+      if tag && tag.inner_html.match(/\((.*)\)/)
+        name += " " + $~[0]
+      end
+    # If that fails try an interjection
+    elsif content.search("div.speechType").inner_html == "Interjection"
+      text = strip_tags(content.search("div.speechType + *").first)
+      m = text.match(/([a-z].*) interjecting/i)
+      if m
+        name = m[1]
+      else
+        m = text.match(/([a-z].*)—/i)
+        if m
+          name = m[1]
+        else
+          name = nil
+        end
+      end
+    end
+    name
+  end
+  
   # Replace unicode characters by their equivalent
   def replace_unicode(text)
     t = text.gsub("\342\200\230", "'")
@@ -279,47 +300,6 @@ class HansardParser
     text.sub('&', '&amp;')
   end
 
-  def extract_speakername(content)
-    name = extract_speakername_from_talkername_tag(content)
-    if name.nil?
-      name = extract_speakername_in_interjection(content)
-    end
-    name
-  end
-  
-  def extract_speakername_from_talkername_tag(content)
-    tag = content.search('span.talkername a').first
-    if tag
-      name = tag.inner_html
-      # Now check if there is something like <span class="talkername"><a>Some Text</a></span> <b>(Some Text)</b>
-      tag = content.search('span.talkername ~ b').first
-      if tag
-        text = tag.inner_html
-        # Only use it if it is surrounded by brackets
-        m = text.match(/\((.*)\)/)
-        if m
-          name += " " + m[0]
-        end
-      end
-    end
-    name
-  end
-  
-  def extract_speakername_in_interjection(content)
-    if content.search("div.speechType").inner_html == "Interjection"
-      text = strip_tags(content.search("div.speechType + *").first)
-      m = text.match(/([a-z].*) interjecting/i)
-      if m
-        m[1]
-      else
-        m = text.match(/([a-z].*)—/i)
-        if m
-          m[1]
-        end
-      end
-    end
-  end
-  
   def lookup_speaker(speakername, date)
     throw "speakername can not be nil in lookup_speaker" if speakername.nil?
 
