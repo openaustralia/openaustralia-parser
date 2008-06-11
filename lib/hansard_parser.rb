@@ -321,14 +321,11 @@ class HansardParser
   end
   
   def lookup_speaker(speakername, date)
-    if speakername.nil?
-      logger.warn "Unknown speaker"
-      return UnknownSpeaker.new("unknown")
-    end
+    throw "speakername can not be nil in lookup_speaker" if speakername.nil?
 
     # HACK alert (Oh you know what this whole thing is a big hack alert)
     if speakername =~ /^the speaker/i
-      return @people.house_speaker(date)
+      member = @people.house_speaker(date)
     # The name might be "The Deputy Speaker (Mr Smith)". So, take account of this
     elsif speakername =~ /^the deputy speaker/i
       # Check name in brackets
@@ -336,21 +333,23 @@ class HansardParser
       if match
         logger.warn "Deputy speaker is #{match[1]}"
         speakername = match[1]
+        name = Name.title_first_last(speakername)
+        member = @people.find_member_by_name_current_on_date(name, date)
       else
-        return @people.deputy_house_speaker(date)
+        member = @people.deputy_house_speaker(date)
       end
-    elsif speakername =~ /^the clerk/i
-      # TODO: Handle "The Clerk" correctly
-      return UnknownSpeaker.new(speakername)
+    else
+      # Lookup id of member based on speakername
+      name = Name.title_first_last(speakername)
+      member = @people.find_member_by_name_current_on_date(name, date)
     end
-    # Lookup id of member based on speakername
-    name = Name.title_first_last(speakername)
-    matches = @people.find_members_by_name_current_on_date(name, date)
-    throw "Multiple matches for name #{speakername} found" if matches.size > 1
-    if matches.size == 0
-      return UnknownSpeaker.new(speakername)
+    
+    if member.nil?
+      logger.warn "Unknown speaker #{speakername}"
+      member = UnknownSpeaker.new(speakername)
     end
-    matches[0]
+    
+    member
   end
 
   def strip_tags(doc)
