@@ -118,17 +118,6 @@ class HansardParser
     end
   end
   
-  # Pass in current speaker (if there is one)
-  def parse_speeches(content, speaker = nil)
-    content.each do |e|
-      speakername = extract_speakername(e)
-      # Only change speaker if a speaker name was found
-      speaker = lookup_speaker(speakername, date) if speakername
-      debates.add_speech(speaker, time, url, clean_speech_content(url, e))
-    end
-  end
-    
-  
   def extract_speakername(content)
     # Try to extract speaker name from talkername tag
     tag = content.search('span.talkername a').first
