@@ -102,19 +102,38 @@ class HansardParser
 
     debates.add_heading(newtitle, newsubtitle, url)
 
-    content = sub_page.search('div#contentstart > div.speech0 > *')
+    #top_content_tag = sub_page.search('div#contentstart').first
+    #if top_content_tag
+    #  top_content = top_content_tag.children
+    #
+    #  top_content.each do |e|
+    #    if e.name == "div"
+    #      if e.attributes["class"] == "hansardtitlegroup" || e.attributes["class"] == "hansardsubtitlegroup"
+    #      elsif e.attributes["class"] == "speech0"
+    #      else
+    #        throw "Unexpected class value #{e.attributes['class']}"
+    #      end
+    #    else
+    #      throw "Unexpected tag #{e.name}"
+    #    end
+    #  end
+    #end
 
-    if content.size > 1
+    content_tag = sub_page.search('div#contentstart > div.speech0').first
+    if content_tag 
       speaker = nil
-      content[1..-1].each do |e|
-        speakername = extract_speakername(e)
-        # Only change speaker if a speaker name was found
-        speaker = lookup_speaker(speakername, date) if speakername
-        debates.add_speech(speaker, time, url, clean_speech_content(url, e))
-      end
+      parse_speech_blocks(content_tag.children[1..-1], speaker, time, url, debates, date)
     else
-      # Doing this just to ensure that regression tests don't fail
       debates.add_speech(nil, time, url, Hpricot(''))
+    end
+  end
+  
+  def parse_speech_blocks(content, speaker, time, url, debates, date)
+    content.each do |e|
+      speakername = extract_speakername(e)
+      # Only change speaker if a speaker name was found
+      speaker = lookup_speaker(speakername, date) if speakername
+      debates.add_speech(speaker, time, url, clean_speech_content(url, e))
     end
   end
   
