@@ -109,10 +109,8 @@ class HansardParser
   end
 
   def parse_sub_day_speech_page(sub_page, time, debates, date)
-    # Check that the content is there
-    if sub_page.search('div#contentstart').empty?
-      logger.error "Page on date #{date} at time #{time} has no content"
-    end
+    top_content_tag = sub_page.search('div#contentstart').first
+    throw "Page on date #{date} at time #{time} has no content" if top_content_tag.nil?
     
     # Extract permanent URL of this subpage. Also, quoting because there is a bug
     # in XML Builder that for some reason is not quoting attributes properly
@@ -126,29 +124,18 @@ class HansardParser
 
     debates.add_heading(newtitle, newsubtitle, url)
 
-    #top_content_tag = sub_page.search('div#contentstart').first
-    #if top_content_tag
-    #  top_content = top_content_tag.children
-    #
-    #  top_content.each do |e|
-    #    if e.name == "div"
-    #      if e.attributes["class"] == "hansardtitlegroup" || e.attributes["class"] == "hansardsubtitlegroup"
-    #      elsif e.attributes["class"] == "speech0"
-    #      else
-    #        throw "Unexpected class value #{e.attributes['class']}"
-    #      end
-    #    else
-    #      throw "Unexpected tag #{e.name}"
-    #    end
-    #  end
-    #end
-
-    content_tag = sub_page.search('div#contentstart > div.speech0').first
-    if content_tag 
-      speaker = nil
-      parse_speech_blocks(content_tag.children[1..-1], speaker, time, url, debates, date)
-    else
-      debates.add_speech(nil, time, url, Hpricot(''))
+    speaker = nil
+    top_content_tag.children.each do |e|
+      if e.name == "div"
+        if e.attributes["class"] == "hansardtitlegroup" || e.attributes["class"] == "hansardsubtitlegroup"
+        elsif e.attributes["class"] == "speech0"
+          parse_speech_blocks(e.children[1..-1], speaker, time, url, debates, date)
+        else
+          throw "Unexpected class value #{e.attributes['class']}"
+        end
+      else
+        throw "Unexpected tag #{e.name}"
+      end
     end
   end
   
