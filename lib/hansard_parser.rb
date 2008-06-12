@@ -2,6 +2,7 @@ require 'speech'
 require 'mechanize_proxy'
 require 'configuration'
 require 'debates'
+require 'builder'
 
 # Monkey Patch XML Builder to sort the attributes, so that they are in alphabetical order.
 # This makes it easier to do simple diffs between XML files
@@ -90,18 +91,16 @@ class HansardParser
   
   def parse_sub_day_page(link_text, sub_page, debates, date)
     # Only going to consider speeches for the time being
-    if link_text =~ /^Speech:/
+    if link_text =~ /^Speech:/ || link_text =~ /^QUESTIONS WITHOUT NOTICE:/
       # Link text for speech has format:
       # HEADING > NAME > HOUR:MINS:SECS
       split = link_text.split('>').map{|a| a.strip}
       logger.error "Expected split to have length 3" unless split.size == 3
       time = split[2]
-      
       parse_sub_day_speech_page(sub_page, time, debates, date)
     elsif link_text == "Official Hansard" || link_text =~ /^Start of Business/ || link_text == "Adjournment"
       # Do nothing - skip this entirely
-    elsif link_text =~ /^Procedural text:/ || link_text =~ /^QUESTIONS WITHOUT NOTICE:/ || link_text =~ /^QUESTIONS IN WRITING:/ ||
-      link_text =~ /^Division:/
+    elsif link_text =~ /^Procedural text:/ || link_text =~ /^QUESTIONS IN WRITING:/ || link_text =~ /^Division:/
       logger.warn "Not yet supporting: #{link_text}"
     else
       logger.warn "Unsupported: #{link_text}"
@@ -126,12 +125,23 @@ class HansardParser
 
     speaker = nil
     top_content_tag.children.each do |e|
+      class_value = e.attributes["class"]
       if e.name == "div"
-        if e.attributes["class"] == "hansardtitlegroup" || e.attributes["class"] == "hansardsubtitlegroup"
-        elsif e.attributes["class"] == "speech0"
+        if class_value == "hansardtitlegroup" || class_value == "hansardsubtitlegroup"
+        elsif class_value == "speech0" || class_value == "speech1"
           parse_speech_blocks(e.children[1..-1], speaker, time, url, debates, date)
+        elsif class_value == "motionnospeech"
+          parse_speech_block(e, speaker, time, url, debates, date)
         else
-          throw "Unexpected class value #{e.attributes['class']}"
+          throw "Unexpected class value #{class_value} for tag #{e.name}"
+        end
+      elsif e.name == "p"
+        parse_speech_block(e, speaker, time, url, debates, date)
+      elsif e.name == "table"
+        if class_value == "division"
+          # Ignore (for the time being)
+        else
+          throw "Unexpected class value #{class_value} for tag #{e.name}"
         end
       else
         throw "Unexpected tag #{e.name}"
@@ -139,18 +149,23 @@ class HansardParser
     end
   end
   
+  def parse_speech_block(e, speaker, time, url, debates, date)
+    speakername = extract_speakername(e)
+    # Only change speaker if a speaker name was found
+    speaker = lookup_speaker(speakername, date) if speakername
+    debates.add_speech(speaker, time, url, clean_speech_content(url, e))
+  end
+  
   def parse_speech_blocks(content, speaker, time, url, debates, date)
     content.each do |e|
-      speakername = extract_speakername(e)
-      # Only change speaker if a speaker name was found
-      speaker = lookup_speaker(speakername, date) if speakername
-      debates.add_speech(speaker, time, url, clean_speech_content(url, e))
+      parse_speech_block(e, speaker, time, url, debates, date)
     end
   end
   
   def extract_speakername(content)
     # Try to extract speaker name from talkername tag
     tag = content.search('span.talkername a').first
+    tag2 = content.search('span.speechname').first
     if tag
       name = tag.inner_html
       # Now check if there is something like <span class="talkername"><a>Some Text</a></span> <b>(Some Text)</b>
@@ -159,6 +174,8 @@ class HansardParser
       if tag && tag.inner_html.match(/\((.*)\)/)
         name += " " + $~[0]
       end
+    elsif tag2
+      name = tag2.inner_html
     # If that fails try an interjection
     elsif content.search("div.speechType").inner_html == "Interjection"
       text = strip_tags(content.search("div.speechType + *").first)

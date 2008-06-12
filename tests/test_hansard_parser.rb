@@ -113,4 +113,10 @@ class TestHansardParser < Test::Unit::TestCase
     assert_nil(@parser.extract_speakername(Hpricot(bad_form1)))
     assert_nil(@parser.extract_speakername(Hpricot(bad_form2)))
   end
+  
+  def test_extract_speakername_from_motionnospeech
+    good_form1 = '<div class="motionnospeech"><span class="speechname">Mr ABBOTT</span></div>'
+    
+    assert_equal("Mr ABBOTT", @parser.extract_speakername(Hpricot(good_form1)))
+  end
 end
