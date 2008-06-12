@@ -3,6 +3,25 @@ require 'mechanize_proxy'
 require 'configuration'
 require 'debates'
 
+# Monkey Patch XML Builder to sort the attributes, so that they are in alphabetical order.
+# This makes it easier to do simple diffs between XML files
+module Builder
+  class XmlMarkup < XmlBase
+    # Insert the attributes (given in the hash).
+    def _insert_attributes(attrs, order=[])
+      return if attrs.nil?
+      order.each do |k|
+        v = attrs[k]
+        @target << %{ #{k}="#{_attr_value(v)}"} if v # " WART
+      end
+      sorted_attrs = attrs.sort {|a,b| a.first.to_s <=> b.first.to_s}
+      sorted_attrs.each do |k, v|
+        @target << %{ #{k}="#{_attr_value(v)}"} unless order.member?(k) # " WART
+      end
+    end
+  end
+end
+
 class UnknownSpeaker
   def initialize(name)
     @name = name
@@ -77,11 +96,8 @@ class HansardParser
       split = link_text.split('>').map{|a| a.strip}
       logger.error "Expected split to have length 3" unless split.size == 3
       time = split[2]
-      # Extract permanent URL of this subpage. Also, quoting because there is a bug
-      # in XML Builder that for some reason is not quoting attributes properly
-      url = quote(sub_page.links.text("[Permalink]").uri.to_s)
       
-      parse_sub_day_speech_page(sub_page, time, url, debates, date)
+      parse_sub_day_speech_page(sub_page, time, debates, date)
     elsif link_text == "Official Hansard" || link_text =~ /^Start of Business/ || link_text == "Adjournment"
       # Do nothing - skip this entirely
     elsif link_text =~ /^Procedural text:/ || link_text =~ /^QUESTIONS WITHOUT NOTICE:/ || link_text =~ /^QUESTIONS IN WRITING:/ ||
@@ -92,7 +108,14 @@ class HansardParser
     end
   end
 
-  def parse_sub_day_speech_page(sub_page, time, url, debates, date)
+  def parse_sub_day_speech_page(sub_page, time, debates, date)
+    top_content_tag = sub_page.search('div#contentstart').first
+    throw "Page on date #{date} at time #{time} has no content" if top_content_tag.nil?
+    
+    # Extract permanent URL of this subpage. Also, quoting because there is a bug
+    # in XML Builder that for some reason is not quoting attributes properly
+    url = quote(sub_page.links.text("[Permalink]").uri.to_s)
+
     newtitle = sub_page.search('div#contentstart div.hansardtitle').map { |m| m.inner_html }.join('; ')
     newsubtitle = sub_page.search('div#contentstart div.hansardsubtitle').map { |m| m.inner_html }.join('; ')
     # Replace any unicode characters
@@ -101,47 +124,59 @@ class HansardParser
 
     debates.add_heading(newtitle, newsubtitle, url)
 
-    # Untangle speeches from subspeeches
-    speech_content = Hpricot::Elements.new
-    content = sub_page.search('div#contentstart > div.speech0 > *')
-    tag_classes = content.map{|e| e.attributes["class"]}
-    subspeech0_index = tag_classes.index("subspeech0")
-    paraitalic_index = tag_classes.index("paraitalic")
-
-    if subspeech0_index.nil?
-      subspeech_index = paraitalic_index
-    elsif paraitalic_index.nil?
-      subspeech_index = subspeech0_index
-    else
-      subspeech_index = min(subspeech0_index, paraitalic_index)
-    end
-
-    if subspeech_index
-      speech_content = content[0..subspeech_index-1]
-      subspeeches_content = content[subspeech_index..-1]
-    else
-      speech_content = content
-    end
-    # Extract speaker name from link
-    speaker = extract_speaker_from_talkername_tag(speech_content, date)
-    debates.add_speech(speaker, time, url, clean_speech_content(url, speech_content))
-
-    if subspeeches_content
-      process_subspeeches(subspeeches_content, date, time, url, speaker, debates)
+    speaker = nil
+    top_content_tag.children.each do |e|
+      if e.name == "div"
+        if e.attributes["class"] == "hansardtitlegroup" || e.attributes["class"] == "hansardsubtitlegroup"
+        elsif e.attributes["class"] == "speech0"
+          parse_speech_blocks(e.children[1..-1], speaker, time, url, debates, date)
+        else
+          throw "Unexpected class value #{e.attributes['class']}"
+        end
+      else
+        throw "Unexpected tag #{e.name}"
+      end
     end
   end
   
-  def process_subspeeches(subspeeches_content, date, time, url, speaker, debates)
-    # Now extract the subspeeches
-    subspeeches_content.each do |e|
-      tag_class = e.attributes["class"]
-      if tag_class == "subspeech0" || tag_class == "subspeech1"
-        speaker = extract_speaker_from_talkername_tag(e, date) || extract_speaker_in_interjection(e, date)
-      end
+  def parse_speech_blocks(content, speaker, time, url, debates, date)
+    content.each do |e|
+      speakername = extract_speakername(e)
+      # Only change speaker if a speaker name was found
+      speaker = lookup_speaker(speakername, date) if speakername
       debates.add_speech(speaker, time, url, clean_speech_content(url, e))
     end
   end
-
+  
+  def extract_speakername(content)
+    # Try to extract speaker name from talkername tag
+    tag = content.search('span.talkername a').first
+    if tag
+      name = tag.inner_html
+      # Now check if there is something like <span class="talkername"><a>Some Text</a></span> <b>(Some Text)</b>
+      tag = content.search('span.talkername ~ b').first
+      # Only use it if it is surrounded by brackets
+      if tag && tag.inner_html.match(/\((.*)\)/)
+        name += " " + $~[0]
+      end
+    # If that fails try an interjection
+    elsif content.search("div.speechType").inner_html == "Interjection"
+      text = strip_tags(content.search("div.speechType + *").first)
+      m = text.match(/([a-z].*) interjecting/i)
+      if m
+        name = m[1]
+      else
+        m = text.match(/([a-z].*)—/i)
+        if m
+          name = m[1]
+        else
+          name = nil
+        end
+      end
+    end
+    name
+  end
+  
   # Replace unicode characters by their equivalent
   def replace_unicode(text)
     t = text.gsub("\342\200\230", "'")
@@ -261,79 +296,36 @@ class HansardParser
     text.sub('&', '&amp;')
   end
 
-  def extract_speakername_from_talkername_tag(content)
-    tag = content.search('span.talkername a').first
-    if tag
-      name = tag.inner_html
-      # Now check if there is something like <span class="talkername"><a>Some Text</a></span> <b>(Some Text)</b>
-      tag = content.search('span.talkername ~ b').first
-      if tag
-        text = tag.inner_html
-        # Only use it if it is surrounded by brackets
-        m = text.match(/\((.*)\)/)
-        if m
-          name += " " + m[0]
-        end
-      end
-    end
-    name
-  end
-  
-  def extract_speaker_from_talkername_tag(content, date)
-    speakername = extract_speakername_from_talkername_tag(content)
-    lookup_speaker(speakername, date) if speakername
-  end
-
-  def extract_speaker_in_interjection(content, date)
-    if content.search("div.speechType").inner_html == "Interjection"
-      text = strip_tags(content.search("div.speechType + *").first)
-      m = text.match(/([a-z].*) interjecting/i)
-      if m
-        name = m[1]
-        lookup_speaker(name, date)
-      else
-        m = text.match(/([a-z].*)—/i)
-        if m
-          name = m[1]
-          lookup_speaker(name, date)
-        end
-      end
-    else
-      throw "Not an interjection"
-    end
-  end
-
   def lookup_speaker(speakername, date)
-    if speakername.nil?
-      logger.warn "Unknown speaker"
-      return UnknownSpeaker.new("unknown")
-    end
+    throw "speakername can not be nil in lookup_speaker" if speakername.nil?
 
     # HACK alert (Oh you know what this whole thing is a big hack alert)
     if speakername =~ /^the speaker/i
-      return @people.house_speaker(date)
+      member = @people.house_speaker(date)
     # The name might be "The Deputy Speaker (Mr Smith)". So, take account of this
     elsif speakername =~ /^the deputy speaker/i
       # Check name in brackets
       match = speakername.match(/^the deputy speaker \((.*)\)/i)
       if match
-        logger.warn "Deputy speaker is #{match[1]}"
+        #logger.warn "Deputy speaker is #{match[1]}"
         speakername = match[1]
+        name = Name.title_first_last(speakername)
+        member = @people.find_member_by_name_current_on_date(name, date)
       else
-        return @people.deputy_house_speaker(date)
+        member = @people.deputy_house_speaker(date)
       end
-    elsif speakername =~ /^the clerk/i
-      # TODO: Handle "The Clerk" correctly
-      return UnknownSpeaker.new(speakername)
+    else
+      # Lookup id of member based on speakername
+      name = Name.title_first_last(speakername)
+      member = @people.find_member_by_name_current_on_date(name, date)
     end
-    # Lookup id of member based on speakername
-    name = Name.title_first_last(speakername)
-    matches = @people.find_members_by_name_current_on_date(name, date)
-    throw "Multiple matches for name #{speakername} found" if matches.size > 1
-    if matches.size == 0
-      return UnknownSpeaker.new(speakername)
+    
+    if member.nil?
+      logger.warn "Unknown speaker #{speakername}"
+      member = UnknownSpeaker.new(speakername)
     end
-    matches[0]
+    
+    member
   end
 
   def strip_tags(doc)

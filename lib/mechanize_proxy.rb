@@ -7,105 +7,26 @@ gem 'mechanize', "= 0.6.10"
 require 'mechanize'
 require 'configuration'
 
-class MechanizeProxy
+class MechanizeProxyCache
   # By setting cache_subdirectory can put cached files under a subdirectory in the html_cache_path
   attr_accessor :cache_subdirectory
   
   def initialize
-    @agent = WWW::Mechanize.new
     @conf = Configuration.new
-  end
-  
-  def get(url)
-    uri = URI.parse(url)
-    load_and_cache_page(uri) { @agent.get(url) }
-  end
-  
-  def click(link)
-    uri = to_absolute_uri(link.href, link.page)
-    load_and_cache_page(uri) { @agent.click(link) }
-  end
-  
-  def transact
-    yield
-  end
-  
-  private
-  
-  def url_cached?(uri)
-    cache_file_exists?(uri, false) || cache_file_exists?(uri, true)
-  end
-  
-  def cache_file_exists?(uri, compressed)
-    File.exists?(url_to_filename(uri, compressed))
-  end
-  
-  def read_cache(uri)
-    # Prefer uncompressed cache files over compressed ones if both exist
-    compressed = !cache_file_exists?(uri, false)
-    fileReader(compressed).open(url_to_filename(uri, compressed)) {|file| file.read}
-  end
-  
-  def fileReader(compressed)
-    if compressed
-      Zlib::GzipReader
-    else
-      File
-    end
-  end
-  
-  # Always writes compressed cache files
-  def write_cache(uri, contents)    
-    filename = url_to_filename(uri, true)
-    FileUtils.mkdir_p(File.dirname(filename))
-    Zlib::GzipWriter.open(filename) do |file|
-      file.puts(contents)
-      file.close
-    end
   end
   
   def load_and_cache_page(uri)
     if url_cached?(uri)
-      if uri.to_s[-4..-1] == ".jpg"
-        document = read_cache(uri)
-        FileProxy.new(document, uri)
-      else
-        document = Hpricot(read_cache(uri))
-        PageProxy.new(document, uri)
-      end
+      read_cache(uri)
     else
       result = yield
       if result.respond_to?(:parser)
-        document = result.parser
-        write_cache(uri, document.to_s)
-        PageProxy.new(document, uri)    
+        page = PageProxy.new(result.parser, uri)
       else
-        document = result
-        filename = url_to_filename(uri, false)
-        document.save(filename)
-        FileProxy.new(document.body, uri)
+        page = FileProxy.new(result.body, uri)
       end
+      write_cache(page)
     end
-  end
-
-  def url_to_filename(url, compressed)
-    if compressed
-      url_to_compressed_filename(url)
-    else
-      url_to_uncompressed_filename(url)
-    end
-  end
-  
-  def url_to_uncompressed_filename(uri)
-    if cache_subdirectory
-      "#{@conf.html_cache_path}/#{cache_subdirectory}/#{uri.to_s.tr('/', '_')}"
-    else
-      "#{@conf.html_cache_path}/#{uri.to_s.tr('/', '_')}"
-    end
-  end
-  
-  def url_to_compressed_filename(uri)
-    url_to_uncompressed_filename(uri) + ".gz"
   end
   
   def to_absolute_uri(url, cur_page)
@@ -142,6 +63,34 @@ class MechanizeProxy
     return url
   end
   
+  def url_cached?(uri)
+    File.exists?(url_to_filename(uri))
+  end
+
+  def read_cache(uri)
+    data = Zlib::GzipReader.open(url_to_filename(uri)) {|file| file.read}
+    Marshal.load(data)
+  end
+  
+  # Returns original page
+  def write_cache(page)
+    filename = url_to_filename(page.uri)
+    FileUtils.mkdir_p(File.dirname(filename))
+    Zlib::GzipWriter.open(filename) do |file|
+      file.write(Marshal.dump(page))
+      file.close
+    end
+    page
+  end
+  
+  def url_to_filename(url)
+    if cache_subdirectory
+      "#{@conf.html_cache_path}/#{cache_subdirectory}/#{url.to_s.tr('/', '_')}"
+    else
+      "#{@conf.html_cache_path}/#{url.to_s.tr('/', '_')}"
+    end
+  end
+  
   class Util
     def self.html_unescape(s)
       return s unless s
@@ -157,10 +106,40 @@ class MechanizeProxy
       }
     end
   end
+end
+
+class MechanizeProxy
+  def initialize
+    @agent = WWW::Mechanize.new
+    @cache = MechanizeProxyCache.new
+  end
   
+  def cache_subdirectory
+    @cache.cache_subdirectory
+  end
+  
+  def cache_subdirectory=(path)
+    @cache.cache_subdirectory = path
+  end
+  
+  def get(url)
+    uri = URI.parse(url)
+    @cache.load_and_cache_page(uri) { @agent.get(url) }
+  end
+  
+  def click(link)
+    uri = @cache.to_absolute_uri(link.href, link.page)
+    @cache.load_and_cache_page(uri) { @agent.click(link) }
+  end
+  
+  def transact
+    yield
+  end  
 end
 
 class FileProxy
+  attr_reader :uri
+  
   def initialize(doc, uri)
     @doc = doc
     @uri = uri
@@ -177,6 +156,10 @@ class PageProxy
   def initialize(doc, uri)
     @doc = doc
     @uri = uri
+  end
+  
+  def parser
+    @doc
   end
   
   def links
