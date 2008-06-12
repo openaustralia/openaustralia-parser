@@ -221,6 +221,7 @@ class HansardParser
     make_amendments_italic(doc)
     fix_attributes_of_p_tags(doc)
     fix_attributes_of_td_tags(doc)
+    fix_motionnospeech_tags(doc)
     # Do pure string manipulations from here
     text = doc.to_s
     text = text.gsub("(\342\200\224)", '')
@@ -238,12 +239,20 @@ class HansardParser
       end
       allowed_tags = ["b", "i", "dl", "dt", "dd", "ul", "li", "a", "table", "td", "tr"]
       if !allowed_tags.include?(tag) && t != "<p>" && t != '<p class="italic">'
-        logger.warn "Tag #{t} is present in speech contents: " + text
+        throw "Tag #{t} is present in speech contents: " + text
       end
     end
     doc = Hpricot(text)
     #p doc.to_s
     doc
+  end
+  
+  def fix_motionnospeech_tags(content)
+    replace_with_inner_html(content, 'div.motionnospeech')
+    content.search('span.speechname').remove
+    content.search('span.speechelectorate').remove
+    content.search('span.speechrole').remove
+    content.search('span.speechtime').remove
   end
   
   def fix_attributes_of_p_tags(content)
