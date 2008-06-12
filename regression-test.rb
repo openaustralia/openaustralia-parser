@@ -41,7 +41,7 @@ def test_date(date, conf, parser)
   
   if File.exists?(ref_xml_path) && File.exists?(new_xml_path)
     # Now compare generated and reference xml
-    command = "xmldiff #{new_xml_path} #{ref_xml_path}"
+    command = "diff #{new_xml_path} #{ref_xml_path}"
     puts command
     system(command)
     if $? != 0

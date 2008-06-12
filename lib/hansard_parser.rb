@@ -109,6 +109,11 @@ class HansardParser
   end
 
   def parse_sub_day_speech_page(sub_page, time, debates, date)
+    # Check that the content is there
+    if sub_page.search('div#contentstart').empty?
+      logger.error "Page on date #{date} at time #{time} has no content"
+    end
+    
     # Extract permanent URL of this subpage. Also, quoting because there is a bug
     # in XML Builder that for some reason is not quoting attributes properly
     url = quote(sub_page.links.text("[Permalink]").uri.to_s)
@@ -315,7 +320,7 @@ class HansardParser
       # Check name in brackets
       match = speakername.match(/^the deputy speaker \((.*)\)/i)
       if match
-        logger.warn "Deputy speaker is #{match[1]}"
+        #logger.warn "Deputy speaker is #{match[1]}"
         speakername = match[1]
         name = Name.title_first_last(speakername)
         member = @people.find_member_by_name_current_on_date(name, date)
