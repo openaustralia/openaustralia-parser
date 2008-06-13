@@ -100,10 +100,12 @@ class HansardParser
       parse_sub_day_speech_page(sub_page, time, debates, date)
     elsif link_text == "Official Hansard" || link_text =~ /^Start of Business/ || link_text == "Adjournment"
       # Do nothing - skip this entirely
-    elsif link_text =~ /^Procedural text:/ || link_text =~ /^QUESTIONS IN WRITING:/ || link_text =~ /^Division:/
+    elsif link_text =~ /^Procedural text:/ || link_text =~ /^QUESTIONS IN WRITING:/ || link_text =~ /^Division:/ ||
+        link_text =~ /^QUESTIONS TO THE SPEAKER:/ || link_text =~ /^REQUEST FOR DETAILED INFORMATION:/ ||
+        link_text =~ /^Petition:/ || link_text =~ /^PRIVILEGE:/ || link_text == "Interruption"
       logger.warn "Not yet supporting: #{link_text}"
     else
-      logger.warn "Unsupported: #{link_text}"
+      throw "Unsupported: #{link_text}"
     end
   end
 
@@ -237,7 +239,7 @@ class HansardParser
       else
         tag = t[1..-2]
       end
-      allowed_tags = ["b", "i", "dl", "dt", "dd", "ul", "li", "a", "table", "td", "tr"]
+      allowed_tags = ["b", "i", "dl", "dt", "dd", "ul", "li", "a", "table", "td", "tr", "img"]
       if !allowed_tags.include?(tag) && t != "<p>" && t != '<p class="italic">'
         throw "Tag #{t} is present in speech contents: " + text
       end
@@ -260,7 +262,7 @@ class HansardParser
     content.search('p').each do |e|
       class_value = e.get_attribute('class')
       if class_value == "block" || class_value == "parablock" || class_value == "parasmalltablejustified" ||
-          class_value == "parasmalltableleft" || class_value == "parabold"
+          class_value == "parasmalltableleft" || class_value == "parabold" || class_value == "paraheading"
         e.remove_attribute('class')
       elsif class_value == "paraitalic"
         e.set_attribute('class', 'italic')
@@ -285,6 +287,9 @@ class HansardParser
       else
         e.set_attribute('href', URI.join(base_url, href_value))
       end
+    end
+    content.search('img').each do |e|
+      e.set_attribute('src', URI.join(base_url, e.get_attribute('src')))
     end
     content
   end

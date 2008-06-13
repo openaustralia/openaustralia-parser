@@ -34,6 +34,12 @@ class TestHansardParser < Test::Unit::TestCase
     assert_equal('<p>The <a href="http://anothersite/foo.html">Link Text</a> Some Text</p>', doc.to_s)
   end
   
+  def test_fix_links_on_image
+    doc = Hpricot('<p>The <img src="/parlinfo/Repository/Chamber/HANSARDR/5320M_image002.jpg" /> Some Text</p>')
+    @parser.fix_links("http://website/bar/blah.html", doc)
+    assert_equal('<p>The <img src="http://website/parlinfo/Repository/Chamber/HANSARDR/5320M_image002.jpg" /> Some Text</p>', doc.to_s)
+  end
+  
   def test_fix_links_empty_a_tag
     doc = Hpricot('<p>The <a>Link Text</a> Some Text</p>')
     @parser.fix_links("http://website/bar/blah.html", doc)
@@ -78,6 +84,12 @@ class TestHansardParser < Test::Unit::TestCase
   
   def test_fix_attributes_of_p_tags_parasmalltableleft
     doc = Hpricot('<p class="parasmalltableleft">Some Text</p>')
+    @parser.fix_attributes_of_p_tags(doc)
+    assert_equal('<p>Some Text</p>', doc.to_s)
+  end
+  
+  def test_fix_attributes_of_p_tags_paraheading
+    doc = Hpricot('<p class="paraheading">Some Text</p>')
     @parser.fix_attributes_of_p_tags(doc)
     assert_equal('<p>Some Text</p>', doc.to_s)
   end
