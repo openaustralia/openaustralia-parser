@@ -91,7 +91,8 @@ class HansardParser
   
   def parse_sub_day_page(link_text, sub_page, debates, date)
     # Only going to consider speeches for the time being
-    if link_text =~ /^Speech:/ || link_text =~ /^QUESTIONS WITHOUT NOTICE:/
+    #if link_text =~ /^Speech:/ || link_text =~ /^QUESTIONS WITHOUT NOTICE:/
+    if link_text =~ /^Speech:/
       # Link text for speech has format:
       # HEADING > NAME > HOUR:MINS:SECS
       split = link_text.split('>').map{|a| a.strip}
@@ -102,7 +103,8 @@ class HansardParser
       # Do nothing - skip this entirely
     elsif link_text =~ /^Procedural text:/ || link_text =~ /^QUESTIONS IN WRITING:/ || link_text =~ /^Division:/ ||
         link_text =~ /^QUESTIONS TO THE SPEAKER:/ || link_text =~ /^REQUEST FOR DETAILED INFORMATION:/ ||
-        link_text =~ /^Petition:/ || link_text =~ /^PRIVILEGE:/ || link_text == "Interruption"
+        link_text =~ /^Petition:/ || link_text =~ /^PRIVILEGE:/ || link_text == "Interruption" ||
+        link_text =~ /^QUESTIONS WITHOUT NOTICE:/
       logger.warn "Not yet supporting: #{link_text}"
     else
       throw "Unsupported: #{link_text}"
@@ -131,14 +133,14 @@ class HansardParser
       if e.name == "div"
         if class_value == "hansardtitlegroup" || class_value == "hansardsubtitlegroup"
         elsif class_value == "speech0" || class_value == "speech1"
-          parse_speech_blocks(e.children[1..-1], speaker, time, url, debates, date)
+          speaker = parse_speech_blocks(e.children[1..-1], speaker, time, url, debates, date)
         elsif class_value == "motionnospeech" || class_value == "subspeech0" || class_value == "subspeech1"
-          parse_speech_block(e, speaker, time, url, debates, date)
+          speaker = parse_speech_block(e, speaker, time, url, debates, date)
         else
           throw "Unexpected class value #{class_value} for tag #{e.name}"
         end
       elsif e.name == "p"
-        parse_speech_block(e, speaker, time, url, debates, date)
+        speaker = parse_speech_block(e, speaker, time, url, debates, date)
       elsif e.name == "table"
         if class_value == "division"
           # Ignore (for the time being)
@@ -151,17 +153,21 @@ class HansardParser
     end
   end
   
+  # Returns new speaker
   def parse_speech_block(e, speaker, time, url, debates, date)
     speakername = extract_speakername(e)
     # Only change speaker if a speaker name was found
     speaker = lookup_speaker(speakername, date) if speakername
     debates.add_speech(speaker, time, url, clean_speech_content(url, e))
+    speaker
   end
   
+  # Returns new speaker
   def parse_speech_blocks(content, speaker, time, url, debates, date)
     content.each do |e|
-      parse_speech_block(e, speaker, time, url, debates, date)
+      speaker = parse_speech_block(e, speaker, time, url, debates, date)
     end
+    speaker
   end
   
   def extract_speakername(content)
