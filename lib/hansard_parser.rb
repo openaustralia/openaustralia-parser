@@ -130,7 +130,7 @@ class HansardParser
         if class_value == "hansardtitlegroup" || class_value == "hansardsubtitlegroup"
         elsif class_value == "speech0" || class_value == "speech1"
           parse_speech_blocks(e.children[1..-1], speaker, time, url, debates, date)
-        elsif class_value == "motionnospeech"
+        elsif class_value == "motionnospeech" || class_value == "subspeech0" || class_value == "subspeech1"
           parse_speech_block(e, speaker, time, url, debates, date)
         else
           throw "Unexpected class value #{class_value} for tag #{e.name}"
