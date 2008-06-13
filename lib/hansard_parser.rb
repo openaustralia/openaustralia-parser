@@ -91,17 +91,17 @@ class HansardParser
   
   def parse_sub_day_page(link_text, sub_page, debates, date)
     # Only going to consider speeches for the time being
-    if link_text =~ /^Speech:/ || link_text =~ /^QUESTIONS WITHOUT NOTICE:/
+    if link_text =~ /^Speech:/ || link_text =~ /^QUESTIONS WITHOUT NOTICE:/ || link_text =~ /^QUESTIONS TO THE SPEAKER:/
       # Link text for speech has format:
       # HEADING > NAME > HOUR:MINS:SECS
       split = link_text.split('>').map{|a| a.strip}
-      logger.error "Expected split to have length 3" unless split.size == 3
+      logger.error "Expected split to have length 3 in link text: #{link_text}" unless split.size == 3
       time = split[2]
       parse_sub_day_speech_page(sub_page, time, debates, date)
     elsif link_text == "Official Hansard" || link_text =~ /^Start of Business/ || link_text == "Adjournment"
       # Do nothing - skip this entirely
     elsif link_text =~ /^Procedural text:/ || link_text =~ /^QUESTIONS IN WRITING:/ || link_text =~ /^Division:/ ||
-        link_text =~ /^QUESTIONS TO THE SPEAKER:/ || link_text =~ /^REQUEST FOR DETAILED INFORMATION:/ ||
+        link_text =~ /^REQUEST FOR DETAILED INFORMATION:/ ||
         link_text =~ /^Petition:/ || link_text =~ /^PRIVILEGE:/ || link_text == "Interruption"
       logger.warn "Not yet supporting: #{link_text}"
     else
