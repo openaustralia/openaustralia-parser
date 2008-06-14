@@ -45,6 +45,12 @@ def test_date(date, conf, parser)
     puts command
     system(command)
     if $? != 0
+      test = "regression_failed_text.xml"
+      ref = "regression_failed_ref.xml"
+      #system("rm -f #{test} #{ref}")
+      system("tidy -xml -o #{test} #{new_xml_path}")
+      system("tidy -xml -o #{ref} #{ref_xml_path}")
+      system("opendiff #{test} #{ref}")
       puts "ERROR: #{new_xml_path} and #{ref_xml_path} don't match"
       puts "Regression tests FAILED on date #{date}!"
       exit
