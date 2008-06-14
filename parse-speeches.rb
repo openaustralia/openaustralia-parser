@@ -72,4 +72,4 @@ while date <= to_date
 end
 
 # And load up the database
-system(conf.web_root + "/twfy/scripts/xml2db.pl --debates --all --force") if options[:load_database]
+system(conf.web_root + "/twfy/scripts/xml2db.pl --debates --from=#{from_date} --to=#{to_date} --force") if options[:load_database]
