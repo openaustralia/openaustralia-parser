@@ -98,6 +98,9 @@ class HansardParser
       logger.error "Expected split to have length 3 in link text: #{link_text}" unless split.size == 3
       time = split[2]
       parse_sub_day_speech_page(sub_page, time, debates, date)
+    #elsif link_text =~ /^Procedural text:/
+    #  # Assuming no time recorded for Procedural text
+    #  parse_sub_day_speech_page(sub_page, nil, debates, date)
     elsif link_text == "Official Hansard" || link_text =~ /^Start of Business/ || link_text == "Adjournment"
       # Do nothing - skip this entirely
     elsif link_text =~ /^Procedural text:/ || link_text =~ /^QUESTIONS IN WRITING:/ || link_text =~ /^Division:/ ||
@@ -132,7 +135,8 @@ class HansardParser
         if class_value == "hansardtitlegroup" || class_value == "hansardsubtitlegroup"
         elsif class_value == "speech0" || class_value == "speech1"
           speaker = parse_speech_blocks(e.children[1..-1], speaker, time, url, debates, date)
-        elsif class_value == "motionnospeech" || class_value == "subspeech0" || class_value == "subspeech1"
+        elsif class_value == "motionnospeech" || class_value == "subspeech0" || class_value == "subspeech1" ||
+            class_value == "motion" || class_value = "quote"
           speaker = parse_speech_block(e, speaker, time, url, debates, date)
         else
           throw "Unexpected class value #{class_value} for tag #{e.name}"
@@ -254,6 +258,7 @@ class HansardParser
   end
   
   def fix_motionnospeech_tags(content)
+    content.search('div.motionnospeech').wrap('<p></p>')
     replace_with_inner_html(content, 'div.motionnospeech')
     content.search('span.speechname').remove
     content.search('span.speechelectorate').remove

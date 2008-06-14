@@ -110,7 +110,7 @@ class TestHansardParser < Test::Unit::TestCase
     doc = Hpricot(
 '<div class="motionnospeech"><span class="speechname">Mr ABBOTT</span><span class="speechelectorate">(Warringah</span><span class="speechrole">Leader of the House)</span><span class="speechtime"></span>Some Text</div>')
     @parser.fix_motionnospeech_tags(doc)
-    assert_equal('Some Text', doc.to_s)
+    assert_equal('<p>Some Text</p>', doc.to_s)
   end
   
   def test_extract_speakername
