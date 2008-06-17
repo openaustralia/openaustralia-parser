@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 # Load the postcode data directly into the database
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"
