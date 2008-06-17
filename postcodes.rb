@@ -5,6 +5,7 @@ $:.unshift "#{File.dirname(__FILE__)}/lib"
 require 'csv'
 require 'mysql'
 require 'configuration'
+require 'people'
 
 conf = Configuration.new
 
@@ -12,12 +13,22 @@ def quote_string(s)
   s.gsub(/\\/, '\&\&').gsub(/'/, "''") # ' (for ruby-mode)
 end
 
-db = Mysql.real_connect(conf.database_host, conf.database_user, conf.database_password, conf.database_name)
-
 data = CSV.readlines("data/postcodes.csv")
 # Remove the first two elements
 data.shift
 data.shift
+
+puts "Reading members data..."
+people = People.read_members_csv("data/members.csv")
+all_members = people.all_house_periods
+
+# First check that all the constituencies are valid
+constituencies = data.map { |row| row[1] }.uniq
+constituencies.each do |constituency|
+  throw "Constituency #{constituency} not found" unless all_members.any? {|m| m.division == constituency}
+end
+
+db = Mysql.real_connect(conf.database_host, conf.database_user, conf.database_password, conf.database_name)
 
 # Clear out the old data
 db.query("DELETE FROM postcode_lookup")

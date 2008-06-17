@@ -96,8 +96,6 @@ class People < Array
     downloader.download(self, small_image_dir, large_image_dir)
   end
   
-  private
-  
   def all_house_periods
     @all_periods.find_all{|p| p.house == "representatives"}
   end
