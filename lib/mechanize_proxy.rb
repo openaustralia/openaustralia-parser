@@ -69,7 +69,11 @@ class MechanizeProxyCache
 
   def read_cache(uri)
     data = Zlib::GzipReader.open(url_to_filename(uri)) {|file| file.read}
-    Marshal.load(data)
+    begin
+      Marshal.load(data)
+    rescue
+      throw "Cache file #{url_to_filename(uri)} is corrupt. Delete it and retry."
+    end
   end
   
   # Returns original page
@@ -133,7 +137,7 @@ class MechanizeProxy
   end
   
   def transact
-    yield
+    @agent.transact { yield }
   end  
 end
 
