@@ -8,10 +8,22 @@ require 'configuration'
 require 'optparse'
 
 def parse_date(text)
+  today = Date.today
+  
   if text == "today"
-    Date.today
+    today
   elsif text == "yesterday"
-    Date.today - 1
+    today - 1
+  elsif text == "previous-working-day"
+    # For Sunday (wday 0) and Monday (wday 1) the previous working day is last Friday otherwise it's
+    # just the previous day
+    if today.wday == 0
+      today - 2
+    elsif today.wday == 1
+      today - 3
+    else
+      today - 1
+    end
   else
     Date.parse(text)
   end
