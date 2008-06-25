@@ -17,9 +17,9 @@ class PeopleCSVReader
 
     data = data.map do |line|
       a = OpenStruct.new
-      title, lastname, firstname, middlename, nickname, post_title, house, division, state, start_date, start_reason, end_date, end_reason, party = line
+      person_count, title, lastname, firstname, middlename, nickname, post_title, house, division, state, start_date, start_reason, end_date, end_reason, party = line
       # Ignore comment lines starting with '#'
-      unless title && title[0..0] == '#'
+      unless line[0] && line[0][0..0] == '#'
         party = parse_party(party)
         start_date = parse_date(start_date)
         end_date = parse_end_date(end_date)
