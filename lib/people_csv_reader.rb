@@ -18,18 +18,23 @@ class PeopleCSVReader
     data = data.map do |line|
       a = OpenStruct.new
       title, lastname, firstname, middlename, nickname, post_title, house, division, state, start_date, start_reason, end_date, end_reason, party = line
-      party = parse_party(party)
-      start_date = parse_date(start_date)
-      end_date = parse_end_date(end_date)
-      start_reason = parse_start_reason(start_reason)
+      # Ignore comment lines starting with '#'
+      unless title && title[0..0] == '#'
+        party = parse_party(party)
+        start_date = parse_date(start_date)
+        end_date = parse_end_date(end_date)
+        start_reason = parse_start_reason(start_reason)
 
-      a.name = Name.new(:last => lastname, :first => firstname, :middle => middlename,
-        :nick => nickname, :title => title, :post_title => post_title)
-      a.period_params = {:house => house, :division => division, :party => party,
-          :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason}
-      a
+        a.name = Name.new(:last => lastname, :first => firstname, :middle => middlename,
+          :nick => nickname, :title => title, :post_title => post_title)
+        throw "Division is undefined for #{a.name.full_name}" if house == "representatives" && division.nil?
+        a.period_params = {:house => house, :division => division, :party => party,
+            :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason}
+        a
+      end
     end
-
+    data.compact!
+    
     i = 0
     people = People.new
     while i < data.size do
