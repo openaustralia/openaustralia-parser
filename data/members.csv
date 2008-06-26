@@ -71,7 +71,7 @@ member count,title,last name,first name,middle name,nick name,post title,house,D
 47,,Bourchier,John,William,,,representatives,Bendigo,Vic.,2.12.1972,,5.3.1983,defeated,LIB
 23,,Bourne,Vicki,Worrall,,,senate,,NSW,1.7.1990,,30.6.2002,defeated,AD
 48,,Bowen,Christopher,Eyles,,,representatives,Prospect,NSW,9.10.2004,, ,still_in_office,ALP
-49,,Bowen,Lionel,Frost,,,representatives,Kingsford-Smith,NSW,25.10.1969,,19.2.1990,retired,ALP
+49,,Bowen,Lionel,Frost,,,representatives,Kingsford Smith,NSW,25.10.1969,,19.2.1990,retired,ALP
 24,,Boyce,Suzanne,Kay,,,senate,,Qld,19.4.2007,section_15,,still_in_office,LIB
 50,,Bradbury,David,John,,,representatives,Lindsay,NSW,24.11.2007,,,still_in_office,ALP
 51,,Bradfield,James,Mark,,,representatives,Barton,NSW,13.12.1975,,5.3.1983,defeated,LIB
@@ -85,8 +85,6 @@ member count,title,last name,first name,middle name,nick name,post title,house,D
 58,,Brough,Malcolm,Thomas,,,representatives,Longman,Qld,2.3.1996,,24.11.2007,defeated,LIB
 26,,Brown,Carol,Louise,,,senate,,Tas.,25.8.2005,section_15,,still_in_office,ALP
 59,,Brown,John,Joseph,,,representatives,Parramatta,NSW,10.12.1977,,19.2.1990,retired,ALP
-# TODO: Joseph Tilley Brown should be removed when possible
-60,,Brown,Joseph,Tilley,,,representatives,Indi,Vic.,12.12.1906,,13.4.1910,defeated,ANTI-SOC
 61,,Brown,Robert,James,,,representatives,Charlton,NSW,1.12.1984,,31.8.1998,retired,ALP
 62,,Brown,Robert,James,,,representatives,Hunter,NSW,18.10.1980,,1.12.1984,elected_elsewhere,ALP
 27,,Brown,Robert,James,,,senate,,Tas.,1.7.1996,,,still_in_office,GRN
@@ -127,7 +125,6 @@ member count,title,last name,first name,middle name,nick name,post title,house,D
 37,,Carrick,John,Leslie,,,senate,,NSW,1.7.1971,,5.6.1987,retired,LIB
 88,,Cass,Moses,Henry,,,representatives,Maribyrnong,Vic.,25.10.1969,,4.2.1983,retired,ALP
 89,,Catley,Robert,,,,representatives,Adelaide,SA,24.3.1990,,13.3.1993,defeated,ALP
-90,,Catts,James,Howard,,,representatives,Cook,NSW,12.12.1906,,16.12.1922,defeated,ALP
 91,,Causley,Ian,Raymond,,,representatives,Page,NSW,2.3.1996,,11.2.2002,changed_party,NP
 92,,Causley,Ian,Raymond,,,representatives,Page,NSW,11.2.2002,changed_party,17.10.2007,retired,CWM
 38,,Cavanagh,James,Luke,,,senate,,SA,1.7.1962,,30.6.1981,retired,ALP
@@ -155,7 +152,8 @@ member count,title,last name,first name,middle name,nick name,post title,house,D
 108,,Cleeland,Peter,Robert,,,representatives,McEwen,Vic.,1.12.1984,,24.3.1990,defeated,ALP
 109,,Cleeland,Peter,Robert,,,representatives,McEwen,Vic.,13.3.1993,,2.3.1996,defeated,ALP
 45,,Coates,John,,,,senate,,Tas.,1.7.1981,,20.8.1996,resigned,ALP
-110,,Cobb,John,Kenneth,,,representatives,Parkes,NSW,10.11.2001,, ,still_in_office,NP
+563,,Cobb,John,Kenneth,,,representatives,Parkes,NSW,10.11.2001,,24.11.2007,general_election,NP
+110,,Cobb,John,Kenneth,,,representatives,Calare,NSW,24.11.2007,, ,still_in_office,NP
 111,,Cobb,Michael,Roy,,,representatives,Parkes,NSW,1.12.1984,,31.8.1998,retired,NPA
 112,,Cohen,Barry,,,,representatives,Robertson,NSW,25.10.1969,,19.2.1990,retired,ALP
 46,,Cohen,Samuel,Herbert,,,senate,,Vic.,1.7.1962,,7.10.1969,died,ALP
@@ -232,7 +230,8 @@ member count,title,last name,first name,middle name,nick name,post title,house,D
 158,,Ellicott,Robert,James,,,representatives,Wentworth,NSW,18.5.1974,,17.2.1981,resigned,LIB
 159,,Elliot,Justine,,,,representatives,Richmond,NSW,9.10.2004,, ,still_in_office,ALP
 160,,Elliott,Robert,Paul,,,representatives,Parramatta,NSW,24.3.1990,,2.3.1996,defeated,ALP
-161,,Ellis,Annette,Louise,,,representatives,Canberra,ACT,2.3.1996,,,still_in_office,ALP
+161,,Ellis,Annette,Louise,,,representatives,Canberra,ACT,3.10.1998,,,still_in_office,ALP
+565,,Ellis,Annette,Louise,,,representatives,Namadgi,ACT,2.3.1996,,3.10.1998,general_election,ALP
 162,,Ellis,Katherine,Margaret,Kate,,representatives,Adelaide,SA,9.10.2004,,,still_in_office,ALP
 72,,Ellison,Christopher,Martin,,,senate,,WA,1.7.1993,,,still_in_office,LIB
 163,,Elson,Kay,Selma,,,representatives,Forde,Qld,2.3.1996,,17.10.2007,retired,LIB
@@ -526,7 +525,8 @@ member count,title,last name,first name,middle name,nick name,post title,house,D
 152,,McLucas,Jan,Elizabeth,,,senate,,Qld,1.7.1999,,,still_in_office,ALP
 372,,McMahon,James,Leslie,,,representatives,Sydney,NSW,13.12.1975,,4.2.1983,retired,ALP
 373,,McMahon,William,(later Sir William),,,representatives,Lowe,NSW,10.12.1949,,4.1.1982,resigned,LIB
-374,,McMullan,Robert,Francis,,,representatives,Fraser,ACT,2.3.1996,, ,still_in_office,ALP
+374,,McMullan,Robert,Francis,,,representatives,Fraser,ACT,3.10.1998,, ,still_in_office,ALP
+564,,McMullan,Robert,Francis,,,representatives,Canberra,ACT,2.3.1996,,3.10.1998,general_election,ALP
 153,,McMullan,Robert,Francis,,,senate,,ACT,16.2.1988 ,section_15,6.2.1996 ,resigned,ALP
 375,,McVeigh,Daniel,Thomas,,,representatives,Darling Downs,Qld,2.12.1972,,1.12.1984,elected_elsewhere,NPA
 376,,McVeigh,Daniel,Thomas,,,representatives,Groom,Qld,1.12.1984,,29.2.1988,resigned,NPA
@@ -596,8 +596,6 @@ member count,title,last name,first name,middle name,nick name,post title,house,D
 416,,Pearce,Christopher,John,,,representatives,Aston,Vic.,14.7.2001,by_election, ,still_in_office,LIB
 417,,Perrett,Graham,Douglas,,,representatives,Moreton,Qld,24.11.2007,,,still_in_office,ALP
 418,,Plibersek,Tanya,Joan,,,representatives,Sydney,NSW,3.10.1998,, ,still_in_office,ALP
-419,,Pollard,Reginald,Thomas,,,representatives,Ballaarat,Vic.,23.10.1937,,10.12.1949,elected_elsewhere,ALP
-420,,Pollard,Reginald,Thomas,,,representatives,Lalor,Vic.,10.12.1949,,26.11.1966,defeated,ALP
 178,,Polley,Helen,Beatrice ,,,senate,,Tas.,1.7.2005,,,still_in_office,ALP
 421,,Porter,James,Robert,,,representatives,Barker,SA,13.12.1975,,19.2.1990,retired,LIB
 179,,Powell,Janet,Frances,,,senate,,Vic.,26.8.1986 ,section_15,30.6.1993 ,defeated,IND
@@ -675,7 +673,7 @@ member count,title,last name,first name,middle name,nick name,post title,house,D
 201,,Sheil,Glenister,,,,senate,,Qld,18.5.1974 ,,6.2.1981 ,resigned ,NCP
 202,,Sherry,Nicholas,John,,,senate,,Tas.,1.7.1990,,,still_in_office,ALP
 472,,Shipton,Roger,Francis,,,representatives,Higgins,Vic.,13.12.1975,,19.2.1990,retired,LIB
-473,,Short,James,Robert,,,representatives,Ballaarat,Vic.,13.12.1975,,18.10.1980,defeated,LIB
+473,,Short,James,Robert,,,representatives,Ballarat,Vic.,13.12.1975,,18.10.1980,defeated,LIB
 203,,Short,James,Robert,,,senate,,Vic.,1.12.1984 ,,12.5.1997 ,resigned,LIB
 474,,Short,Leonie,Marjorie,,,representatives,Ryan,Qld,17.3.2001,by_election,10.11.2001,defeated,ALP
 475,,Shorten,William,Richard,,,representatives,Maribyrnong,Vic,24.11.2007,,,still_in_office,ALP
@@ -692,7 +690,7 @@ member count,title,last name,first name,middle name,nick name,post title,house,D
 480,,Simpkins,Luke,Xavier Linton,,,representatives,Cowan,WA,24.11.2007,,,still_in_office,LIB
 481,,Sinclair,Ian,Mccahon,,,representatives,New England,NSW,30.11.1963,,31.8.1998,retired,NPA
 482,,Slipper,Peter,Neil,,,representatives,Fisher,Qld,1.12.1984,,11.7.1987,defeated,NPA
-483,,Slipper,Peter,Neil,,,representatives,Fisher,Qld,13.3.1993,, ,still_in_office,LIB
+483,,Slipper,Peter,Neil,,,representatives,Fisher,Qld,17.4.1993,, ,still_in_office,LIB
 484,,Smith,Anthony,Charles,,,representatives,Dickson,Qld,2.3.1996,,3.10.1998,defeated,IND
 485,,Smith,Anthony,David Hawthorn,,,representatives,Casey,Vic.,10.11.2001,, ,still_in_office,LIB
 486,,Smith,Silvia,Joy,,,representatives,Bass,Tas.,13.3.1993,,2.3.1996,defeated,ALP
@@ -746,7 +744,7 @@ member count,title,last name,first name,middle name,nick name,post title,house,D
 521,,Ticehurst,Kenneth,Vincent,,,representatives,Dobell,NSW,10.11.2001,,24.11.2007,defeated,LIB
 522,,Tickner,Robert,Edward,,,representatives,Hughes,NSW,18.2.1984,by_election,2.3.1996,defeated,ALP
 223,,Tierney,John,William,,,senate,,NSW,11.2.1991 ,section_15,14.4.2005 ,resigned,LIB
-523,,Tollner,David,William,,,representatives,Lingiari,NT,10.11.2001,,24.11.2007,defeated,CLP
+523,,Tollner,David,William,,,representatives,Solomon,NT,10.11.2001,,24.11.2007,defeated,CLP
 224,,Townley,Michael,,,,senate,,Tas.,1.7.1971 ,,5.6.1987 ,retired,IND
 524,,Trevor,Chris,Allan,,,representatives,Flynn,Qld,24.11.2007,,,still_in_office,ALP
 225,,Troeth,Judith,Mary,,,senate,,Vic.,1.7.1993 ,,,still_in_office,LIB
@@ -811,3 +809,5 @@ member count,title,last name,first name,middle name,nick name,post title,house,D
 248,,Zakharov,Alice,Olive,,,senate,,Vic.,5.3.1983 ,,6.3.1995 ,died,ALP
 561,,Zammit,Paul,John,,,representatives,Lowe,NSW,2.3.1996,,3.10.1998,defeated,IND
 562,,Zappia,Antonio,,,,representatives,Makin,SA,24.11.2007,,,still_in_office,ALP
+# 566 is the next available rep number
+# 249 is the next available senate number

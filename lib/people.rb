@@ -103,7 +103,7 @@ class People < Array
   end
   
   def all_periods
-    map {|p| p.periods}.flatten
+    map {|person| person.periods}.flatten
   end
   
   def all_house_periods
