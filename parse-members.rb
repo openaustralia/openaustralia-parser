@@ -51,6 +51,9 @@ divisions.each do |division|
   unless old_divisions.member?(division) || division_members.any? {|m| m.current?}
     puts "WARNING: No current member for #{division}"
   end
+  if division_members.first.from_date > Date.new(1980,1,1)
+    #puts "WARNING: Earliest member in division #{division} is #{division_members.first.person.name.full_name} who started on #{division_members.first.from_date}"
+  end
 end
 
 #puts "Writing XML..."
