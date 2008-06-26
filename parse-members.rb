@@ -21,8 +21,8 @@ end
 
 puts "Reading members data..."
 people = People.read_members_csv("data/people.csv", "data/members.csv")
-#people.read_ministers_csv("data/ministers.csv")
-#people.read_ministers_csv("data/shadow-ministers.csv")
+people.read_ministers_csv("data/ministers.csv")
+people.read_ministers_csv("data/shadow-ministers.csv")
 puts "Running consistency checks..."
 # First check that each constituency is showing a continuous period of members with there never being more than one member at any time.
 # Collect all the division names
@@ -66,7 +66,7 @@ people.each do |person|
   end  
 end
 
-#puts "Writing XML..."
+puts "Writing XML..."
 people.write_xml("#{conf.members_xml_path}/people.xml", "#{conf.members_xml_path}/all-members.xml",
   "#{conf.members_xml_path}/ministers.xml")
 
