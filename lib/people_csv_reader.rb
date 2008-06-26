@@ -20,48 +20,35 @@ class PeopleCSVReader
     data.shift
     data.shift
 
-    data = data.map do |line|
-      a = OpenStruct.new
+    people = People.new
+    data.each do |line|
       person_count, title, lastname, firstname, middlename, nickname, post_title = line
-
-      a.name = Name.new(:last => lastname, :first => firstname, :middle => middlename,
-        :nick => nickname, :title => title, :post_title => post_title)
-      a
+      people << Person.new(Name.new(:last => lastname, :first => firstname, :middle => middlename,
+        :nick => nickname, :title => title, :post_title => post_title))
     end
     
-    people = People.new
-    data.each do |a|
-      person = Person.new(a.name)
-      people << person
-    end
-
     data = read_raw_csv(members_filename)
     # Remove the first two elements
     data.shift
     data.shift
 
-    data = data.map do |line|
-      a = OpenStruct.new
+    data.each do |line|
       person_count, title, lastname, firstname, middlename, nickname, post_title, house, division, state, start_date, start_reason, end_date, end_reason, party = line
       party = parse_party(party)
       start_date = parse_date(start_date)
       end_date = parse_end_date(end_date)
       start_reason = parse_start_reason(start_reason)
 
-      a.name = Name.new(:last => lastname, :first => firstname, :middle => middlename,
+      name = Name.new(:last => lastname, :first => firstname, :middle => middlename,
         :nick => nickname, :title => title, :post_title => post_title)
       throw "Division is undefined for #{a.name.full_name}" if house == "representatives" && division.nil?
-      a.period_params = {:house => house, :division => division, :party => party,
-          :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason}
-      a
+
+      person = people.find_person_by_name(name)
+      throw "Couldn't find person #{name.full_name}" if person.nil?
+      person.add_period(:house => house, :division => division, :party => party,
+          :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason)
     end
     
-    data.each do |a|
-      person = people.find_person_by_name(a.name)
-      throw "Couldn't find person #{a.name.full_name}" if person.nil?
-      person.add_period(a.period_params)
-    end
-
     people
   end
   
