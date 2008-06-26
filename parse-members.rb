@@ -56,6 +56,16 @@ divisions.each do |division|
   end
 end
 
+people.each do |person|
+  person_members = person.periods.sort {|a,b| a.from_date <=> b.from_date}
+  person_members.each_cons(2) do |a,b|
+    overlap = a.to_date - b.from_date
+    if overlap > 0
+      puts "ERROR: #{person.name.full_name} has two periods that overlap (by #{overlap} days)"
+    end
+  end  
+end
+
 #puts "Writing XML..."
 people.write_xml("#{conf.members_xml_path}/people.xml", "#{conf.members_xml_path}/all-members.xml",
   "#{conf.members_xml_path}/ministers.xml")
