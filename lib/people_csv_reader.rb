@@ -24,7 +24,7 @@ class PeopleCSVReader
     data.each do |line|
       person_count, title, lastname, firstname, middlename, nickname, post_title = line
       people << Person.new(Name.new(:last => lastname, :first => firstname, :middle => middlename,
-        :nick => nickname, :title => title, :post_title => post_title))
+        :nick => nickname, :title => title, :post_title => post_title), 10000 + person_count.to_i)
     end
     
     data = read_raw_csv(members_filename)
@@ -41,7 +41,7 @@ class PeopleCSVReader
 
       name = Name.new(:last => lastname, :first => firstname, :middle => middlename,
         :nick => nickname, :title => title, :post_title => post_title)
-      throw "Division is undefined for #{a.name.full_name}" if house == "representatives" && division.nil?
+      throw "Division is undefined for #{name.full_name}" if house == "representatives" && division.nil?
 
       person = people.find_person_by_name(name)
       throw "Couldn't find person #{name.full_name}" if person.nil?
