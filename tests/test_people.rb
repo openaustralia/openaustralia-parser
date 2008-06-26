@@ -5,7 +5,7 @@ require 'people'
 
 class TestPeople < Test::Unit::TestCase
   def test_speaker
-    people = People.read_members_csv("#{File.dirname(__FILE__)}/../data/members.csv")
+    people = People.read_members_csv("#{File.dirname(__FILE__)}/../data/people.csv", "#{File.dirname(__FILE__)}/../data/members.csv")
     people.read_ministers_csv("#{File.dirname(__FILE__)}/../data/ministers.csv")
     member = people.house_speaker(Date.new(2007, 10, 1))
     assert_equal("David Peter Maxwell Hawker", member.person.name.full_name)

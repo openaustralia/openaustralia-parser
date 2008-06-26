@@ -5,12 +5,14 @@ require 'people_image_downloader'
 class People < Array
   
   def initialize
-    @all_periods = []
+    # A hash from lastname to all people that have the lastname (used for speeding up name lookup)
+    @last_names = {}
   end
   
-  # Override method to populate @all_house_periods
+  # Override method to populate @last_names
   def <<(person)
-    @all_periods.concat(person.periods)
+    @last_names[person.name.last] = [] unless @last_names.has_key?(person.name.last)
+    @last_names[person.name.last] << person
     super
   end
   
@@ -35,8 +37,12 @@ class People < Array
   end
   
   def find_people_by_name(name)
-    find_all{|p| name.matches?(p.name)}
-  end    
+    find_people_by_lastname(name.last).find_all{|p| name.matches?(p.name)}
+  end
+  
+  def find_people_by_lastname(lastname)
+    @last_names[lastname]
+  end
   
   # Methods that return Period objects
   
@@ -96,7 +102,11 @@ class People < Array
     downloader.download(self, small_image_dir, large_image_dir)
   end
   
+  def all_periods
+    map {|p| p.periods}.flatten
+  end
+  
   def all_house_periods
-    @all_periods.find_all{|p| p.house == "representatives"}
+    all_periods.find_all{|p| p.house == "representatives"}
   end
 end
