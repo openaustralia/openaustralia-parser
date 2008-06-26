@@ -33,7 +33,7 @@ class PeopleCSVReader
     data.shift
 
     data.each do |line|
-      person_count, title, lastname, firstname, middlename, nickname, post_title, house, division, state, start_date, start_reason, end_date, end_reason, party = line
+      member_count, title, lastname, firstname, middlename, nickname, post_title, house, division, state, start_date, start_reason, end_date, end_reason, party = line
       party = parse_party(party)
       start_date = parse_date(start_date)
       end_date = parse_end_date(end_date)
@@ -46,7 +46,7 @@ class PeopleCSVReader
       person = people.find_person_by_name(name)
       throw "Couldn't find person #{name.full_name}" if person.nil?
       person.add_period(:house => house, :division => division, :party => party,
-          :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason)
+          :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason, :count => member_count.to_i)
     end
     
     people
