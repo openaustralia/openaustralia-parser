@@ -1,5 +1,5 @@
 require 'rubygems'
-require 'builder'
+require 'builder_alpha_attributes'
 
 class PeopleXMLWriter
   

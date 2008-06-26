@@ -79,8 +79,8 @@ class People < Array
   # End of methods that return Period objects
   
   # Facade for readers and writers
-  def People.read_members_csv(filename)
-    PeopleCSVReader.read_members(filename)
+  def People.read_members_csv(people_filename, members_filename)
+    PeopleCSVReader.read_members(people_filename, members_filename)
   end
   
   def read_ministers_csv(filename)

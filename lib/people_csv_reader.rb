@@ -7,7 +7,7 @@ require 'person'
 require 'name'
 
 class PeopleCSVReader
-  def PeopleCSVReader.read_members(members_filename)
+  def PeopleCSVReader.read_members(people_filename, members_filename)
     # Read in csv file of members data
 
     data = CSV.readlines(members_filename)

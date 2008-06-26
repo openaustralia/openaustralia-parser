@@ -13,11 +13,11 @@ require 'people'
 def compare_xml(test_file, ref_file)
   system("diff #{test_file} #{ref_file}")
   if $? != 0
-    test = "regression_failed_test.xml"
-    ref = "regression_failed_ref.xml"
-    system("tidy -xml -o #{test} #{test_file}")
-    system("tidy -xml -o #{ref} #{ref_file}")
-    system("opendiff #{test} #{ref}")
+    #test = "regression_failed_test.xml"
+    #ref = "regression_failed_ref.xml"
+    #system("tidy -xml -o #{test} #{test_file}")
+    #system("tidy -xml -o #{ref} #{ref_file}")
+    system("opendiff #{test_file} #{ref_file}")
     puts "ERROR: #{test_file} and #{ref_file} don't match"
     exit
   end
@@ -29,7 +29,7 @@ system("mkdir -p #{conf.members_xml_path}")
 
 puts "Reading CSV data..."
 data_path = "#{File.dirname(__FILE__)}/../data"
-people = People.read_members_csv("#{data_path}/members.csv")
+people = People.read_members_csv("#{data_path}/people.csv", "#{data_path}/members.csv")
 people.read_ministers_csv("#{data_path}/ministers.csv")
 people.read_ministers_csv("#{data_path}/shadow-ministers.csv")
 puts "Writing XML..."
