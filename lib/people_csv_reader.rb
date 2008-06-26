@@ -16,6 +16,25 @@ class PeopleCSVReader
   end
   
   def PeopleCSVReader.read_members(people_filename, members_filename)
+    data = read_raw_csv(people_filename)
+    data.shift
+    data.shift
+
+    data = data.map do |line|
+      a = OpenStruct.new
+      person_count, title, lastname, firstname, middlename, nickname, post_title = line
+
+      a.name = Name.new(:last => lastname, :first => firstname, :middle => middlename,
+        :nick => nickname, :title => title, :post_title => post_title)
+      a
+    end
+    
+    people = People.new
+    data.each do |a|
+      person = Person.new(a.name)
+      people << person
+    end
+
     data = read_raw_csv(members_filename)
     # Remove the first two elements
     data.shift
@@ -37,21 +56,12 @@ class PeopleCSVReader
       a
     end
     
-    i = 0
-    people = People.new
-    while i < data.size do
-      name = data[i].name
-      person = Person.new(name)
-      person.add_period(data[i].period_params)
-      i = i + 1
-      # Process further start/end dates for this member
-      while i < data.size && data[i].name == name
-        person.add_period(data[i].period_params)
-        i = i + 1
-      end
-
-      people << person
+    data.each do |a|
+      person = people.find_person_by_name(a.name)
+      throw "Couldn't find person #{a.name.full_name}" if person.nil?
+      person.add_period(a.period_params)
     end
+
     people
   end
   
