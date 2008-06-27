@@ -41,7 +41,12 @@ class People < Array
   end
   
   def find_people_by_name(name)
-    find_people_by_lastname(name.last).find_all{|p| name.matches?(p.name)}
+    potential = find_people_by_lastname(name.last)
+    if potential.nil?
+      []
+    else
+      potential.find_all{|p| name.matches?(p.name)}
+    end
   end
   
   def find_people_by_lastname(lastname)
