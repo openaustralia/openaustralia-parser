@@ -173,6 +173,7 @@ person count,title,last name,first name,middle name,nick name,post title
 166,,Dargavel,Steven,John,,
 167,,Darling,Elaine,Elizabeth,,
 168,,Davidson,Gordon,Sinclair,,
+698,,Dawkins,John,Sydney,,
 169,,Deahm,Margaret,Joan,,
 170,,Dean,Arthur,Gordon,,
 171,,Debus,Robert,John,,
@@ -700,4 +701,8 @@ person count,title,last name,first name,middle name,nick name,post title
 693,,Zakharov,Alice,Olive,,
 694,,Zammit,Paul,John,,
 695,,Zappia,Antonio,,,
-# Next available number is 698
+699,,Keogh,Leonard,Joseph,,
+700,,Kerin,John,Charles,,
+701,,Morrison,William,Lawrence,,
+702,,Wilson,Ian,Bonython Cameron,,
+# Next available number is 703
