@@ -87,7 +87,6 @@ member count,person count,title,last name,first name,middle name,nick name,post 
 59,,,Brown,John,Joseph,,,representatives,Parramatta,NSW,10.12.1977,,19.2.1990,retired,ALP
 # TODO: Joseph Tilley Brown should be removed when possible
 60,,,Brown,Joseph,Tilley,,,representatives,Indi,Vic.,12.12.1906,,13.4.1910,defeated,ANTI-SOC
-61,,,Brown,Joseph,Tilley,,,representatives,Unknown,Vic.,13.12.1975,,5.3.1983,defeated,LIB
 62,74,,Brown,Robert,James,,,representatives,Charlton,NSW,1.12.1984,,31.8.1998,retired,ALP
 63,74,,Brown,Robert,James,,,representatives,Hunter,NSW,18.10.1980,,1.12.1984,elected_elsewhere,ALP
 27,696,,Brown,Robert,James,,,senate,,Tas.,1.7.1996,,,still_in_office,GRN
@@ -140,7 +139,7 @@ member count,person count,title,last name,first name,middle name,nick name,post 
 41,,,Chapman,Hedley,Grant Pearson,,,senate,,SA,11.7.1987,,,still_in_office,LIB
 97,,,Charles,David,Ernest,,,representatives,Isaacs,Vic.,18.10.1980,,19.2.1990,retired,ALP
 98,,,Charles,Robert,Edwin,,,representatives,La Trobe,Vic.,24.3.1990,,31.8.2004,retired,LIB
-99,,,Charlesworth,Richard,Ian,,,representatives,Henty,Vic.,18.10.1980,,19.2.1990,retired,ALP
+99,,,Child,Joan,,,,representatives,Henty,Vic.,18.10.1980,,19.2.1990,retired,ALP
 100,,,Charlesworth,Richard,Ian,,,representatives,Perth,WA,5.3.1983,,8.2.1993,retired,ALP
 101,,,Cheeseman,Darren,Leicester,,,representatives,Corangamite,Vic,24.11.2007,,,still_in_office,ALP
 42,,,Cherry,John,Clifford,,,senate,,Qld,31.7.2001,section_15,30.6.2005,defeated,AD
