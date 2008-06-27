@@ -1,814 +1,815 @@
-member count,title,last name,first name,middle name,nick name,post title,house,Division,State/Territory,Date of election,Type of election,Date ceased to be a Member,reason,Most recent party
+member count,person count,title,last name,first name,middle name,nick name,post title,house,Division,State/Territory,Date of election,Type of election,Date ceased to be a Member,reason,Most recent party
 ,,,,,,,,,,,,,,
-1,,Abbott,Anthony,John,,,representatives,Warringah,NSW,26.3.1994,by_election, ,still_in_office,LIB
-2,,Abel,John,Arthur,,,representatives,Evans,NSW,13.12.1975,,10.11.1977,retired,LIB
-1,,Abetz,Eric,,,,senate,,Tas.,22.2.1994,section_15,,still_in_office,LIB
-3,,Adams,Dick,Godfrey Harry,,,representatives,Lyons,Tas.,13.3.1993,, ,still_in_office,ALP
-2,,Adams,Judith,Anne ,,,senate,,WA,1.7.2005,,,still_in_office,LIB
-4,,Adermann,Albert,Evan,,,representatives,Fairfax,Qld,1.12.1984,,19.2.1990,retired,NPA
-5,,Adermann,Albert,Evan,,,representatives,Fisher,Qld,2.12.1972,,1.12.1984,elected_elsewhere,NPA
-6,,Albanese,Anthony,Norman,,,representatives,Grayndler,NSW,2.3.1996,, ,still_in_office,ALP
-7,,Aldred,Kenneth,James,,,representatives,Bruce,Vic.,28.5.1983,by_election,24.3.1990,elected_elsewhere,LIB
-8,,Aldred,Kenneth,James,,,representatives,Deakin,Vic.,24.3.1990,,29.1.1996,retired,LIB
-9,,Aldred,Kenneth,James,,,representatives,Henty,Vic.,13.12.1975,,18.10.1980,defeated,LIB
-3,,Allison,Lynette,Fay,,,senate,,Vic.,1.7.1996,,,still_in_office,AD
-4,,Alston,Richard,Kenneth Robert,,,senate,,Vic.,7.5.1986,section_15,10.2.2004,resigned,LIB
-10,,Anderson,John,Duncan,,,representatives,Gwydir,NSW,15.4.1989,by_election,17.10.2007,retired,NP
-11,,Andren,Peter,James,,,representatives,Calare,NSW,2.3.1996,,17.10.2007,retired,IND
-12,,Andrew,John,Neil,,,representatives,Wakefield,SA,5.3.1983,,31.8.2004,retired,LIB
-13,,Andrews,Kevin,James,,,representatives,Menzies,Vic.,11.5.1991,by_election, ,still_in_office,LIB
-14,,Anthony,John,Douglas,,,representatives,Richmond,NSW,14.9.1957,by_election,18.1.1984,resigned,NPA
-15,,Anthony,Lawrence,James,,,representatives,Richmond,NSW,2.3.1996,,9.10.2004,defeated,NP
-5,,Archer,Brian,Roper,,,senate,,Tas.,13.12.1975,,31.1.1994,resigned,LIB
-16,,Armitage,John,Lindsay,,,representatives,Chifley,NSW,25.10.1969,,4.2.1983,retired,ALP
-17,,Armitage,John,Lindsay,,,representatives,Mitchell,NSW,9.12.1961,,30.11.1963,defeated,ALP
-18,,Atkinson,Rodney,Alexander,,,representatives,Isaacs,Vic.,24.3.1990,,2.3.1996,defeated,LIB
-6,,Aulich,Terrence,Gordon,,,senate,,Tas.,1.12.1984,,30.6.1993,defeated,ALP
-19,,Bailey,Frances,Esther,Fran,,representatives,McEwen,Vic.,24.3.1990,,13.3.1993,defeated,LIB
-20,,Bailey,Frances,Esther,Fran,,representatives,McEwen,Vic.,2.3.1996,, ,still_in_office,LIB
-21,,Baillieu,Marshall,,,,representatives,La Trobe,Vic.,13.12.1975,,18.10.1980,defeated,LIB
-22,,Baird,Bruce,George,,,representatives,Cook,NSW,3.10.1998,,17.10.2007,retired,LIB
-23,,Baker,Mark,Horden,,,representatives,Braddon,Tas.,9.10.2004,,24.11.2007,defeated,LIB
-24,,Baldwin,Peter,Jeremy,,,representatives,Sydney,NSW,5.3.1983,,31.8.1998,retired,ALP
-25,,Baldwin,Robert,Charles,,,representatives,Paterson,NSW,2.3.1996,,3.10.1998,defeated,LIB
-26,,Baldwin,Robert,Charles,,,representatives,Paterson,NSW,10.11.2001,, ,still_in_office,LIB
-7,,Barnett,Guy,,,,senate,,Tas.,26.2.2002,section_15,,still_in_office,LIB
-27,,Barresi,Phillip,Anthony,,,representatives,Deakin,Vic.,2.3.1996,,24.11.2007,defeated,LIB
-8,,Bartlett,Andrew,John Julian,,,senate,,Qld,30.10.1997,section_15,,still_in_office,AD
-28,,Bartlett,Kerry,Joseph,,,representatives,Macquarie,NSW,2.3.1996,,24.11.2007,defeated,LIB
-29,,Baume,Michael,Ehrenfried,,,representatives,Macarthur,NSW,13.12.1975,,5.3.1983,defeated,LIB
-9,,Baume,Michael,Ehrenfried,,,senate,,NSW,1.7.1985,,9.9.1996 ,resigned,LIB
-10,,Baume,Peter,Erne,,,senate,,NSW,18.5.1974,,28.1.1991,resigned,LIB
-11,,Beahan,Michael,Eamon,,,senate,,WA,11.7.1987,,30.6.1996,defeated,ALP
-30,,Beale,Julian,Howard,,,representatives,Bruce,Vic.,24.3.1990,,2.3.1996,defeated,LIB
-31,,Beale,Julian,Howard,,,representatives,Deakin,Vic.,1.12.1984,,24.3.1990,elected_elsewhere,LIB
-32,,Beazley,Kim,Christian,,,representatives,Brand,WA,2.3.1996,,17.10.2007,retired,ALP
-33,,Beazley,Kim,Christian,,,representatives,Swan,WA,18.10.1980,,2.3.1996,elected_elsewhere,ALP
-34,,Beddall,David,Peter,,,representatives,Fadden,Qld,5.3.1983,,1.12.1984,elected_elsewhere,ALP
-35,,Beddall,David,Peter,,,representatives,Rankin,Qld,1.12.1984,,31.8.1998,retired,ALP
-12,,Bell,Robert,John,,,senate,,Tas.,7.3.1990,section_15,30.6.1996,defeated,AD
-13,,Bernardi,Cory,,,,senate,,SA,4.5.2006,section_15,,still_in_office,LIB
-36,,Bevis,Archibald,Ronald,,,representatives,Brisbane,Qld,24.3.1990,, ,still_in_office,ALP
-37,,Bidgood,James,Mark,,,representatives,Dawson,Qld,24.11.2007,,,still_in_office,ALP
-38,,Billson,Bruce,Fredrick,,,representatives,Dunkley,Vic.,2.3.1996,, ,still_in_office,LIB
-39,,Bilney,Gordon,Neil,,,representatives,Kingston,SA,5.3.1983,,2.3.1996,defeated,ALP
-40,,Bird,Sharon,Leah,,,representatives,Cunningham,NSW,9.10.2004,,,still_in_office,ALP
-14,,Birmingham,Simon,John,,,senate,,SA,3.5.2007,section_15,,still_in_office,LIB
-41,,Birney,Reginald,John,,,representatives,Phillip,NSW,13.12.1975,,5.3.1983,defeated,LIB
-42,,Bishop,Bronwyn,Kathleen,,,representatives,Mackellar,NSW,26.3.1994,by_election, ,still_in_office,LIB
-15,,Bishop,Bronwyn,Kathleen,,,senate,,NSW,11.7.1987,,24.2.1994,resigned,LIB
-43,,Bishop,Julie,Isabel,,,representatives,Curtin,WA,3.10.1998,, ,still_in_office,LIB
-16,,Bishop,Thomas,Mark,,,senate,,WA,1.7.1996,,,still_in_office,ALP
-17,,Bishop,Reginald,,,,senate,,SA,1.7.1962,,30.6.1981,retired,ALP
-18,,Bjelke-Petersen,Florence,Isabel,,,senate,,Qld,12.3.1981,section_15,30.6.1993,retired,NPA
-19,,Black,John,Rees,,,senate,,Qld,1.12.1984,,30.6.1990,defeated,ALP
-44,,Blanchard,Cecil,Allen,,,representatives,Moore,WA,5.3.1983,,24.3.1990,defeated,ALP
-45,,Blewett,Neal,,,,representatives,Bonython,SA,10.12.1977,,11.2.1994,resigned,ALP
-46,,Blunt,Charles,William,,,representatives,Richmond,NSW,18.2.1984,by_election,24.3.1990,defeated,NPA
-20,,Bolkus,Nick,,,,senate,,SA,1.7.1981,,30.6.2005,retired,ALP
-21,,Bonner,Neville,Thomas,,,senate,,Qld,11.6.1971,section_15,4.2.1983,defeated,IND
-22,,Boswell,Ronald,Leslie Doyle,,,senate,,Qld,5.3.1983,,,still_in_office,NPA
-47,,Bourchier,John,William,,,representatives,Bendigo,Vic.,2.12.1972,,5.3.1983,defeated,LIB
-23,,Bourne,Vicki,Worrall,,,senate,,NSW,1.7.1990,,30.6.2002,defeated,AD
-48,,Bowen,Christopher,Eyles,,,representatives,Prospect,NSW,9.10.2004,, ,still_in_office,ALP
-49,,Bowen,Lionel,Frost,,,representatives,Kingsford-Smith,NSW,25.10.1969,,19.2.1990,retired,ALP
-24,,Boyce,Suzanne,Kay,,,senate,,Qld,19.4.2007,section_15,,still_in_office,LIB
-50,,Bradbury,David,John,,,representatives,Lindsay,NSW,24.11.2007,,,still_in_office,ALP
-51,,Bradfield,James,Mark,,,representatives,Barton,NSW,13.12.1975,,5.3.1983,defeated,LIB
-52,,Bradford,John,Walter,,,representatives,McPherson,Qld,24.3.1990,,3.10.1998,defeated,CDP
-53,,Braithwaite,Raymond,Allen,,,representatives,Dawson,Qld,13.12.1975,,29.1.1996,retired,NPA
-25,,Brandis,George,Henry,,,senate,,Qld,16.5.2000,section_15,,still_in_office,LIB
-54,,Brereton,Laurence,John,,,representatives,Kingsford Smith,NSW,24.3.1990,,31.8.2004,retired,ALP
-55,,Broadbent,Russell,Evan,,,representatives,Corinella,Vic.,24.3.1990,,13.3.1993,defeated,LIB
-56,,Broadbent,Russell,Evan,,,representatives,McMillan,Vic.,2.3.1996,,3.10.1998,defeated,LIB
-57,,Broadbent,Russell,Evan,,,representatives,McMillan,Vic.,9.10.2004,,,still_in_office,LIB
-58,,Brough,Malcolm,Thomas,,,representatives,Longman,Qld,2.3.1996,,24.11.2007,defeated,LIB
-26,,Brown,Carol,Louise,,,senate,,Tas.,25.8.2005,section_15,,still_in_office,ALP
-59,,Brown,John,Joseph,,,representatives,Parramatta,NSW,10.12.1977,,19.2.1990,retired,ALP
+1,,,Abbott,Anthony,John,,,representatives,Warringah,NSW,26.3.1994,by_election, ,still_in_office,LIB
+2,,,Abel,John,Arthur,,,representatives,Evans,NSW,13.12.1975,,10.11.1977,retired,LIB
+1,,,Abetz,Eric,,,,senate,,Tas.,22.2.1994,section_15,,still_in_office,LIB
+3,,,Adams,Dick,Godfrey Harry,,,representatives,Lyons,Tas.,13.3.1993,, ,still_in_office,ALP
+2,,,Adams,Judith,Anne ,,,senate,,WA,1.7.2005,,,still_in_office,LIB
+4,,,Adermann,Albert,Evan,,,representatives,Fairfax,Qld,1.12.1984,,19.2.1990,retired,NPA
+5,,,Adermann,Albert,Evan,,,representatives,Fisher,Qld,2.12.1972,,1.12.1984,elected_elsewhere,NPA
+6,,,Albanese,Anthony,Norman,,,representatives,Grayndler,NSW,2.3.1996,, ,still_in_office,ALP
+7,,,Aldred,Kenneth,James,,,representatives,Bruce,Vic.,28.5.1983,by_election,24.3.1990,elected_elsewhere,LIB
+8,,,Aldred,Kenneth,James,,,representatives,Deakin,Vic.,24.3.1990,,29.1.1996,retired,LIB
+9,,,Aldred,Kenneth,James,,,representatives,Henty,Vic.,13.12.1975,,18.10.1980,defeated,LIB
+3,,,Allison,Lynette,Fay,,,senate,,Vic.,1.7.1996,,,still_in_office,AD
+4,,,Alston,Richard,Kenneth Robert,,,senate,,Vic.,7.5.1986,section_15,10.2.2004,resigned,LIB
+10,,,Anderson,John,Duncan,,,representatives,Gwydir,NSW,15.4.1989,by_election,17.10.2007,retired,NP
+11,,,Andren,Peter,James,,,representatives,Calare,NSW,2.3.1996,,17.10.2007,retired,IND
+12,,,Andrew,John,Neil,,,representatives,Wakefield,SA,5.3.1983,,31.8.2004,retired,LIB
+13,,,Andrews,Kevin,James,,,representatives,Menzies,Vic.,11.5.1991,by_election, ,still_in_office,LIB
+14,,,Anthony,John,Douglas,,,representatives,Richmond,NSW,14.9.1957,by_election,18.1.1984,resigned,NPA
+15,,,Anthony,Lawrence,James,,,representatives,Richmond,NSW,2.3.1996,,9.10.2004,defeated,NP
+5,,,Archer,Brian,Roper,,,senate,,Tas.,13.12.1975,,31.1.1994,resigned,LIB
+16,,,Armitage,John,Lindsay,,,representatives,Chifley,NSW,25.10.1969,,4.2.1983,retired,ALP
+17,,,Armitage,John,Lindsay,,,representatives,Mitchell,NSW,9.12.1961,,30.11.1963,defeated,ALP
+18,,,Atkinson,Rodney,Alexander,,,representatives,Isaacs,Vic.,24.3.1990,,2.3.1996,defeated,LIB
+6,,,Aulich,Terrence,Gordon,,,senate,,Tas.,1.12.1984,,30.6.1993,defeated,ALP
+19,,,Bailey,Frances,Esther,Fran,,representatives,McEwen,Vic.,24.3.1990,,13.3.1993,defeated,LIB
+20,,,Bailey,Frances,Esther,Fran,,representatives,McEwen,Vic.,2.3.1996,, ,still_in_office,LIB
+21,,,Baillieu,Marshall,,,,representatives,La Trobe,Vic.,13.12.1975,,18.10.1980,defeated,LIB
+22,,,Baird,Bruce,George,,,representatives,Cook,NSW,3.10.1998,,17.10.2007,retired,LIB
+23,,,Baker,Mark,Horden,,,representatives,Braddon,Tas.,9.10.2004,,24.11.2007,defeated,LIB
+24,,,Baldwin,Peter,Jeremy,,,representatives,Sydney,NSW,5.3.1983,,31.8.1998,retired,ALP
+25,,,Baldwin,Robert,Charles,,,representatives,Paterson,NSW,2.3.1996,,3.10.1998,defeated,LIB
+26,,,Baldwin,Robert,Charles,,,representatives,Paterson,NSW,10.11.2001,, ,still_in_office,LIB
+7,,,Barnett,Guy,,,,senate,,Tas.,26.2.2002,section_15,,still_in_office,LIB
+27,,,Barresi,Phillip,Anthony,,,representatives,Deakin,Vic.,2.3.1996,,24.11.2007,defeated,LIB
+8,,,Bartlett,Andrew,John Julian,,,senate,,Qld,30.10.1997,section_15,,still_in_office,AD
+28,,,Bartlett,Kerry,Joseph,,,representatives,Macquarie,NSW,2.3.1996,,24.11.2007,defeated,LIB
+29,,,Baume,Michael,Ehrenfried,,,representatives,Macarthur,NSW,13.12.1975,,5.3.1983,defeated,LIB
+9,,,Baume,Michael,Ehrenfried,,,senate,,NSW,1.7.1985,,9.9.1996 ,resigned,LIB
+10,,,Baume,Peter,Erne,,,senate,,NSW,18.5.1974,,28.1.1991,resigned,LIB
+11,,,Beahan,Michael,Eamon,,,senate,,WA,11.7.1987,,30.6.1996,defeated,ALP
+30,,,Beale,Julian,Howard,,,representatives,Bruce,Vic.,24.3.1990,,2.3.1996,defeated,LIB
+31,,,Beale,Julian,Howard,,,representatives,Deakin,Vic.,1.12.1984,,24.3.1990,elected_elsewhere,LIB
+32,,,Beazley,Kim,Christian,,,representatives,Brand,WA,2.3.1996,,17.10.2007,retired,ALP
+33,,,Beazley,Kim,Christian,,,representatives,Swan,WA,18.10.1980,,2.3.1996,elected_elsewhere,ALP
+34,,,Beddall,David,Peter,,,representatives,Fadden,Qld,5.3.1983,,1.12.1984,elected_elsewhere,ALP
+35,,,Beddall,David,Peter,,,representatives,Rankin,Qld,1.12.1984,,31.8.1998,retired,ALP
+12,,,Bell,Robert,John,,,senate,,Tas.,7.3.1990,section_15,30.6.1996,defeated,AD
+13,,,Bernardi,Cory,,,,senate,,SA,4.5.2006,section_15,,still_in_office,LIB
+36,,,Bevis,Archibald,Ronald,,,representatives,Brisbane,Qld,24.3.1990,, ,still_in_office,ALP
+37,,,Bidgood,James,Mark,,,representatives,Dawson,Qld,24.11.2007,,,still_in_office,ALP
+38,,,Billson,Bruce,Fredrick,,,representatives,Dunkley,Vic.,2.3.1996,, ,still_in_office,LIB
+39,,,Bilney,Gordon,Neil,,,representatives,Kingston,SA,5.3.1983,,2.3.1996,defeated,ALP
+40,,,Bird,Sharon,Leah,,,representatives,Cunningham,NSW,9.10.2004,,,still_in_office,ALP
+14,,,Birmingham,Simon,John,,,senate,,SA,3.5.2007,section_15,,still_in_office,LIB
+41,,,Birney,Reginald,John,,,representatives,Phillip,NSW,13.12.1975,,5.3.1983,defeated,LIB
+42,,,Bishop,Bronwyn,Kathleen,,,representatives,Mackellar,NSW,26.3.1994,by_election, ,still_in_office,LIB
+15,,,Bishop,Bronwyn,Kathleen,,,senate,,NSW,11.7.1987,,24.2.1994,resigned,LIB
+43,,,Bishop,Julie,Isabel,,,representatives,Curtin,WA,3.10.1998,, ,still_in_office,LIB
+16,,,Bishop,Thomas,Mark,,,senate,,WA,1.7.1996,,,still_in_office,ALP
+17,,,Bishop,Reginald,,,,senate,,SA,1.7.1962,,30.6.1981,retired,ALP
+18,,,Bjelke-Petersen,Florence,Isabel,,,senate,,Qld,12.3.1981,section_15,30.6.1993,retired,NPA
+19,,,Black,John,Rees,,,senate,,Qld,1.12.1984,,30.6.1990,defeated,ALP
+44,,,Blanchard,Cecil,Allen,,,representatives,Moore,WA,5.3.1983,,24.3.1990,defeated,ALP
+45,,,Blewett,Neal,,,,representatives,Bonython,SA,10.12.1977,,11.2.1994,resigned,ALP
+46,,,Blunt,Charles,William,,,representatives,Richmond,NSW,18.2.1984,by_election,24.3.1990,defeated,NPA
+20,,,Bolkus,Nick,,,,senate,,SA,1.7.1981,,30.6.2005,retired,ALP
+21,,,Bonner,Neville,Thomas,,,senate,,Qld,11.6.1971,section_15,4.2.1983,defeated,IND
+22,,,Boswell,Ronald,Leslie Doyle,,,senate,,Qld,5.3.1983,,,still_in_office,NPA
+47,,,Bourchier,John,William,,,representatives,Bendigo,Vic.,2.12.1972,,5.3.1983,defeated,LIB
+23,,,Bourne,Vicki,Worrall,,,senate,,NSW,1.7.1990,,30.6.2002,defeated,AD
+48,,,Bowen,Christopher,Eyles,,,representatives,Prospect,NSW,9.10.2004,, ,still_in_office,ALP
+49,,,Bowen,Lionel,Frost,,,representatives,Kingsford-Smith,NSW,25.10.1969,,19.2.1990,retired,ALP
+24,,,Boyce,Suzanne,Kay,,,senate,,Qld,19.4.2007,section_15,,still_in_office,LIB
+50,,,Bradbury,David,John,,,representatives,Lindsay,NSW,24.11.2007,,,still_in_office,ALP
+51,,,Bradfield,James,Mark,,,representatives,Barton,NSW,13.12.1975,,5.3.1983,defeated,LIB
+52,,,Bradford,John,Walter,,,representatives,McPherson,Qld,24.3.1990,,3.10.1998,defeated,CDP
+53,,,Braithwaite,Raymond,Allen,,,representatives,Dawson,Qld,13.12.1975,,29.1.1996,retired,NPA
+25,,,Brandis,George,Henry,,,senate,,Qld,16.5.2000,section_15,,still_in_office,LIB
+54,,,Brereton,Laurence,John,,,representatives,Kingsford Smith,NSW,24.3.1990,,31.8.2004,retired,ALP
+55,,,Broadbent,Russell,Evan,,,representatives,Corinella,Vic.,24.3.1990,,13.3.1993,defeated,LIB
+56,,,Broadbent,Russell,Evan,,,representatives,McMillan,Vic.,2.3.1996,,3.10.1998,defeated,LIB
+57,,,Broadbent,Russell,Evan,,,representatives,McMillan,Vic.,9.10.2004,,,still_in_office,LIB
+58,,,Brough,Malcolm,Thomas,,,representatives,Longman,Qld,2.3.1996,,24.11.2007,defeated,LIB
+26,,,Brown,Carol,Louise,,,senate,,Tas.,25.8.2005,section_15,,still_in_office,ALP
+59,,,Brown,John,Joseph,,,representatives,Parramatta,NSW,10.12.1977,,19.2.1990,retired,ALP
 # TODO: Joseph Tilley Brown should be removed when possible
-60,,Brown,Joseph,Tilley,,,representatives,Indi,Vic.,12.12.1906,,13.4.1910,defeated,ANTI-SOC
-61,,Brown,Joseph,Tilley,,,representatives,Unknown,Vic.,13.12.1975,,5.3.1983,defeated,LIB
-62,,Brown,Robert,James,,,representatives,Charlton,NSW,1.12.1984,,31.8.1998,retired,ALP
-63,,Brown,Robert,James,,,representatives,Hunter,NSW,18.10.1980,,1.12.1984,elected_elsewhere,ALP
-27,,Brown,Robert,James,,,senate,,Tas.,1.7.1996,,,still_in_office,GRN
-28,,Brownhill,David,Gordon Cadell,,,senate,,NSW,1.12.1984,,14.4.2000,resigned,NPA
-64,,Brumby,John,Mansfield,,,representatives,Bendigo,Vic.,5.3.1983,,24.3.1990,defeated,ALP
-65,,Bryant,Gordon,Munro,,,representatives,Wills,Vic.,10.12.1955,,19.9.1980,retired,ALP
-29,,Buckland,Geoffrey,Frederick,,,senate,,SA,14.9.2000,section_15,30.6.2005,retired,ALP
-66,,Bungey,Melville,Harold,,,representatives,Canning,WA,18.5.1974,,5.3.1983,defeated,LIB
-67,Ms,Burke,Anna,Elizabeth,,,representatives,Chisholm,Vic.,3.10.1998,,11.2.2008,changed_party,ALP
-68,Ms,Burke,Anna,Elizabeth,,,representatives,Chisholm,Vic.,12.2.2008,changed_party, ,still_in_office,CWM
-69,Mr,Burke,Anthony,Stephen,,,representatives,Watson,NSW,9.10.2004,, ,still_in_office,ALP
-30,,Burns,Bryant,Robert,,,senate,,Qld,11.7.1987,,30.6.1996,retired,ALP
-70,,Burns,William,George,,,representatives,Isaacs,Vic.,10.12.1977,,18.10.1980,defeated,LIB
-71,,Burr,Maxwell,Arthur,,,representatives,Lyons,Tas.,1.12.1984,,8.2.1993,retired,LIB
-72,,Burr,Maxwell,Arthur,,,representatives,Wilmot,Tas.,13.12.1975,,1.12.1984,elected_elsewhere,LIB
-31,,Bushby,David,Christopher,,,senate,,SA,30.8.2007,section_15,,still_in_office,LIB
-73,,Butler,Mark,Christopher,,,representatives,Port Adelaide,SA,24.11.2007,,,still_in_office,ALP
-32,,Button,John,Norman,,,senate,,Vic.,18.5.1974,,31.3.1993,resigned,ALP
-74,,Byrne,Anthony,Michael,,,representatives,Holt,Vic.,6.11.1999,by_election, ,still_in_office,ALP
-75,,Cadman,Alan,Glyndwr,,,representatives,Lilley,Qld,18.5.1974,,18.10.1980,defeated,LIB
-76,,Cadman,Alan,Glyndwr,,,representatives,Mitchell,NSW,18.5.1974,,17.10.2007,retired,LIB
-77,,Calder,Stephen,Edward,,,representatives,Northern Territory,NT,26.11.1966,,19.9.1980,retired,NCP
-33,,Calvert,Paul,Henry,,,senate,,Tas.,11.7.1987,,29.8.2007,resigned,LIB
-78,,Cameron,Clyde,Robert,,,representatives,Hindmarsh,SA,10.12.1949,,19.9.1980,retired,ALP
-79,,Cameron,Donald,Milner,,,representatives,Fadden,Qld,10.12.1977,,5.3.1983,defeated,LIB
-80,,Cameron,Donald,Milner,,,representatives,Griffith,Qld,26.11.1966,,10.12.1977,elected_elsewhere,LIB
-81,,Cameron,Donald,Milner,,,representatives,Moreton,Qld,5.11.1983,by_election,24.3.1990,defeated,LIB
-82,,Cameron,Eoin,Harrap,,,representatives,Stirling,WA,13.3.1993,,3.10.1998,defeated,LIB
-83,,Cameron,Ewen,Colin,,,representatives,Indi,Vic.,10.12.1977,,8.2.1993,retired,LIB
-84,,Cameron,Ian,Milne Dixon,,,representatives,Maranoa,Qld,18.10.1980,,19.2.1990,retired,NPA
-85,,Cameron,Ross,Alexander,,,representatives,Parramatta,NSW,2.3.1996,,9.10.2004,defeated,LIB
-34,,Campbell,George,,,,senate,,NSW,17.9.1997,section_15,,still_in_office,ALP
-86,,Campbell,Graeme,,,,representatives,Kalgoorlie,WA,18.10.1980,,3.10.1998,defeated,IND
-35,,Campbell,Ian,Gordon,,,senate,,WA,16.5.1990,section_15,31.5.2007,resigned,LIB
-87,,Campbell,Jodie,Louise,,,representatives,Bass,Tas,24.11.2007,,,still_in_office,ALP
-88,,Carlton,James,Joseph,,,representatives,Mackellar,NSW,10.12.1977,,14.1.1994,resigned,LIB
-36,,Carr,Kim,John,,,senate,,Vic.,28.4.1993,section_15,,still_in_office,ALP
-37,,Carrick,John,Leslie,,,senate,,NSW,1.7.1971,,5.6.1987,retired,LIB
-89,,Cass,Moses,Henry,,,representatives,Maribyrnong,Vic.,25.10.1969,,4.2.1983,retired,ALP
-90,,Catley,Robert,,,,representatives,Adelaide,SA,24.3.1990,,13.3.1993,defeated,ALP
-91,,Catts,James,Howard,,,representatives,Cook,NSW,12.12.1906,,16.12.1922,defeated,ALP
-92,,Causley,Ian,Raymond,,,representatives,Page,NSW,2.3.1996,,11.2.2002,changed_party,NP
-93,,Causley,Ian,Raymond,,,representatives,Page,NSW,11.2.2002,changed_party,17.10.2007,retired,CWM
-38,,Cavanagh,James,Luke,,,senate,,SA,1.7.1962,,30.6.1981,retired,ALP
-39,,Chamarette,Christabel,Marguerite Alain,,,senate,,WA,12.3.1992,section_15,30.6.1996,defeated,GWA
-94,,Champion,Nicholas,David,,,representatives,Wakefield,SA,24.11.2007,,,still_in_office,ALP
-95,,Chaney,Frederick,Michael,,,representatives,Pearce,WA,24.3.1990,,8.2.1993,retired,LIB
-40,,Chaney,Frederick,Michael,,,senate,,WA,18.5.1974,,27.2.1990,resigned,LIB
-96,,Chapman,Hedley,Grant Pearson,,,representatives,Kingston,SA,13.12.1975,,5.3.1983,defeated,LIB
-41,,Chapman,Hedley,Grant Pearson,,,senate,,SA,11.7.1987,,,still_in_office,LIB
-97,,Charles,David,Ernest,,,representatives,Isaacs,Vic.,18.10.1980,,19.2.1990,retired,ALP
-98,,Charles,Robert,Edwin,,,representatives,La Trobe,Vic.,24.3.1990,,31.8.2004,retired,LIB
-99,,Charlesworth,Richard,Ian,,,representatives,Henty,Vic.,18.10.1980,,19.2.1990,retired,ALP
-100,,Charlesworth,Richard,Ian,,,representatives,Perth,WA,5.3.1983,,8.2.1993,retired,ALP
-101,,Cheeseman,Darren,Leicester,,,representatives,Corangamite,Vic,24.11.2007,,,still_in_office,ALP
-42,,Cherry,John,Clifford,,,senate,,Qld,31.7.2001,section_15,30.6.2005,defeated,AD
-43,,Childs,Bruce,Kenneth,,,senate,,NSW,1.7.1981,,10.9.1997,resigned,ALP
-44,,Chipp,Donald,Leslie,,,senate,,Vic.,1.7.1978,,18.8.1986,resigned,AD
-102,,Chynoweth,Robert,Leslie,,,representatives,Dunkley,Vic.,1.12.1984,,24.3.1990,defeated,ALP
-103,,Chynoweth,Robert,Leslie,,,representatives,Dunkley,Vic.,13.3.1993,,2.3.1996,defeated,ALP
-104,,Chynoweth,Robert,Leslie,,,representatives,Flinders,Vic.,5.3.1983,,1.12.1984,elected_elsewhere,ALP
-105,,Ciobo,Steven,Michele,,,representatives,Moncrieff,Qld,10.11.2001,, ,still_in_office,LIB
-106,,Clare,Jason,Dean,,,representatives,Blaxland,NSW,24.11.2007,,,still_in_office,ALP
-107,,Cleary,Philip,Ronald,,,representatives,Wills,Vic.,11.4.1992,by_election,25.11.1992,declared_void,IND
-108,,Cleary,Philip,Ronald,,,representatives,Wills,Vic.,13.3.1993,,2.3.1996,defeated,IND
-109,,Cleeland,Peter,Robert,,,representatives,McEwen,Vic.,1.12.1984,,24.3.1990,defeated,ALP
-110,,Cleeland,Peter,Robert,,,representatives,McEwen,Vic.,13.3.1993,,2.3.1996,defeated,ALP
-45,,Coates,John,,,,senate,,Tas.,1.7.1981,,20.8.1996,resigned,ALP
-111,,Cobb,John,Kenneth,,,representatives,Parkes,NSW,10.11.2001,, ,still_in_office,NP
-112,,Cobb,Michael,Roy,,,representatives,Parkes,NSW,1.12.1984,,31.8.1998,retired,NPA
-113,,Cohen,Barry,,,,representatives,Robertson,NSW,25.10.1969,,19.2.1990,retired,ALP
-46,,Cohen,Samuel,Herbert,,,senate,,Vic.,1.7.1962,,7.10.1969,died,ALP
-47,,Colbeck,Richard,Mansell,,,senate,,Tas.,4.2.2002,section_15,,still_in_office,LIB
-48,,Coleman,Ruth,Nancy,,,senate,,WA,18.5.1974,,5.6.1987,retired,ALP
-114,,Coleman,William,Peter,,,representatives,Wentworth,NSW,11.4.1981,by_election,5.6.1987,retired,LIB
-49,,Collard,Stanley,James,,,senate,,Qld,13.12.1975,,5.6.1987,retired,NPA
-50,,Collins,Jacinta,Mary Ann,,,senate,,Vic.,3.5.1995,section_15,30.6.2005,defeated,ALP
-115,,Collins,Julie,Maree,,,representatives,Franklin,Tas,24.11.2007,,,still_in_office,ALP
-51,,Collins,Robert,Lindsay,,,senate,,NT,11.7.1987,,30.3.1998,resigned,ALP
-52,,Colston,Malcolm,Arthur,,,senate,,Qld,13.12.1975,,30.6.1999,retired,IND
-116,,Combet,Gregory,Ivan,,,representatives,Charlton,NSW,24.11.2007,,,still_in_office,ALP
-117,,Connolly,David,Miles,,,representatives,Bradfield,NSW,18.5.1974,,29.1.1996,retired,LIB
-118,,Conquest,Bryan,Joseph,,,representatives,Hinkler,Qld,1.12.1984,,11.7.1987,defeated,NPA
-53,,Conroy,Stephen,Michael,,,senate,,Vic.,30.4.1996,section_15,,still_in_office,ALP
-54,,Cook,Peter,Francis Salmon,,,senate,,WA,5.3.1983,,30.6.2005,retired,ALP
-55,,Coonan,Helen,Lloyd,,,senate,,NSW,1.7.1996,,,still_in_office,LIB
-56,,Cooney,Bernard,Cornelius,,,senate,,Vic.,1.12.1984,,30.6.2002,retired,ALP
-119,,Corbett,James,,,,representatives,Maranoa,Qld,26.11.1966,,19.9.1980,retired,NCP
-120,,Corcoran,Ann,Kathleen,,,representatives,Isaacs,Vic.,12.8.2000,by_election,17.10.2007,retired,ALP
-57,,Cormann,Mathias,Hubert Paul,,,senate,,WA,19.6.2007,section_15,,still_in_office,LIB
-121,,Costello,Peter,Howard,,,representatives,Higgins,Vic.,24.3.1990,, ,still_in_office,LIB
-122,,Cotter,John,Francis,,,representatives,Kalgoorlie,WA,13.12.1975,,18.10.1980,defeated,LIB
-58,,Coulter,John,Richard,,,senate,,SA,11.7.1987 ,,20.11.1995 ,resigned,AD
-123,,Coulton,Mark,Maclean,,,representatives,Parkes,NSW,24.11.2007,,,still_in_office,Nats
-124,,Courtice,Brian,William,,,representatives,Hinkler,Qld,11.7.1987,,13.3.1993,defeated,ALP
-125,,Cowan,David,Bruce,,,representatives,Lyne,NSW,18.10.1980,,8.2.1993,retired,NPA
-126,,Cox,David,Alexander,,,representatives,Kingston,SA,3.10.1998,,9.10.2004,defeated,ALP
-59,,Crane,Arthur,Winston,,,senate,,WA,1.7.1990 ,,30.6.2002 ,defeated,LIB
-127,,Crawford,Mary,Catherine,,,representatives,Forde,Qld,11.7.1987,,2.3.1996,defeated,ALP
-128,,Crean,Simon,Findlay,,,representatives,Hotham,Vic.,24.3.1990,,,still_in_office,ALP
-60,,Crichton-Browne,Noel,Ashley,,,senate,,WA,1.7.1981 ,,30.6.1996 ,retired,IND LIB
-129,,Crosio,Janice,Ann,,,representatives,Brisbane,Qld,18.10.1980,,19.2.1990,retired,ALP
-130,,Crosio,Janice,Ann,,,representatives,Prospect,NSW,24.3.1990,,31.8.2004,retired,ALP
-61,,Crossin,Patricia,Margaret,,,senate,,NT,16.6.1998 ,section_15,,still_in_office,ALP
-62,,Crowley,Rosemary,Anne,,,senate,,SA,5.3.1983 ,,30.6.2002 ,retired,ALP
-131,,Cunningham,Barry,Thomas,,,representatives,McMillan,Vic.,18.10.1980,,24.3.1990,defeated,ALP
-132,,Cunningham,Barry,Thomas,,,representatives,McMillan,Vic.,13.3.1993,,2.3.1996,defeated,ALP
-133,,D'ath,Yvette,Maree,,,representatives,Petrie,Qld,24.11.2007,,,still_in_office,ALP
-134,,Danby,Michael,David,,,representatives,Melbourne Ports,Vic.,3.10.1998,,,still_in_office,ALP
-135,,Dargavel,Steven,John,,,representatives,Fraser,ACT,1.2.1997,by_election,31.8.1998,retired,ALP
-136,,Darling,Elaine,Elizabeth,,,representatives,Fremantle,WA,10.12.1977,,4.2.1994,resigned,ALP
-137,,Darling,Elaine,Elizabeth,,,representatives,Lilley,Qld,18.10.1980,,8.2.1993,retired,ALP
-63,,Davidson,Gordon,Sinclair,,,senate,,SA,8.2.1962 ,,30.6.1962 ,retired;,LIB
-64,,Davidson,Gordon,Sinclair,,,senate,,SA,1.7.1965 ,,30.6.1981 ,retired,LIB
-65,,Davidson,Gordon,Sinclair,,,senate,,SA,28.9.1961 ,section_15,8.12.1961 ,term expired; ,LIB
-138,,Deahm,Margaret,Joan,,,representatives,Macquarie,NSW,13.3.1993,,2.3.1996,defeated,ALP
-139,,Dean,Arthur,Gordon,,,representatives,Herbert,Qld,10.12.1977,,5.3.1983,defeated,LIB
-140,,Debus,Robert,John,,,representatives,Macquarie,NSW,24.11.2007,,,still_in_office,ALP
-66,,Denman,Kay,Janet,,,senate,,Tas.,24.8.1993 ,section_15,30.6.2005 ,retired,ALP
-67,,Devereux,John,Robert,,,senate,,Tas.,11.7.1987 ,,7.2.1996 ,resigned,IND
-68,,Devlin,Arthur,Ray,,,senate,,Tas.,1.12.1984 ,,30.6.1990 ,retired,ALP
-141,,Diamond,Valley,,,,representatives,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
-142,,Dobie,James,Donald Mathieson,,,representatives,Cook,NSW,13.12.1975,,29.1.1996,retired,LIB
-143,,Dobie,James,Donald Mathieson,,,representatives,Cook,NSW,25.10.1969,,2.12.1972,defeated,LIB
-144,,Dobie,James,Donald Mathieson,,,representatives,Hughes,NSW,26.11.1966,,25.10.1969,elected_elsewhere,LIB
-145,,Dodd,Peter,George,,,representatives,Leichhardt,Qld,13.3.1993,,2.3.1996,defeated,ALP
-146,,Dondas,Nicholas,Manuel,,,representatives,Northern Territory,NT,2.3.1996,,3.10.1998,defeated,CLP
-147,,Downer,Alexander,John Gosse,,,representatives,Mayo,SA,1.12.1984,,,still_in_office,LIB
-148,,Draper,Patricia,,,,representatives,Makin,SA,2.3.1996,,17.10.2007,retired,LIB
-149,,Dreyfus,Mark,Alfred,,,representatives,Isaacs,Vic,24.11.2007,,,still_in_office,ALP
-150,,Drummond,Peter,Hertford,,,representatives,Forrest,WA,2.12.1972,,5.6.1987,retired,LIB
-151,,Dubois,Stephen,Cairfield,,,representatives,St George,NSW,1.12.1984,,8.2.1993,retired,ALP
-152,,Duffy,Michael,John,,,representatives,Holt,Vic.,18.10.1980,,29.1.1996,retired,ALP
-153,,Duncan,Peter,,,,representatives,Makin,SA,1.12.1984,,2.3.1996,defeated,ALP
-69,,Dunn,Patricia,Irene (Irina),,,senate,,NSW,21.7.1988 ,,30.6.1990 ,defeated,IND
-70,,Durack,Peter,Drew,,,senate,,WA,1.7.1971 ,,30.6.1993 ,retired,LIB
-154,,Dutton,Peter,Craig,,,representatives,Dickson,Qld,10.11.2001,,,still_in_office,LIB
-155,,Easson,Mary,Louise,,,representatives,Lowe,NSW,13.3.1993,,2.3.1996,defeated,ALP
-156,,Edwards,Graham,John,,,representatives,Cowan,WA,3.10.1998,,17.10.2007,retired,ALP
-157,,Edwards,Harold,Raymond,,,representatives,Berowra,NSW,2.12.1972,,8.2.1993,retired,LIB
-158,,Edwards,Ronald,Frederick,,,representatives,Stirling,WA,5.3.1983,,13.3.1993,defeated,ALP
-71,,Eggleston,Alan,,,,senate,,WA,1.7.1996,,,still_in_office,LIB
-159,,Ellicott,Robert,James,,,representatives,Wentworth,NSW,18.5.1974,,17.2.1981,resigned,LIB
-160,,Elliot,Justine,,,,representatives,Richmond,NSW,9.10.2004,, ,still_in_office,ALP
-161,,Elliott,Robert,Paul,,,representatives,Parramatta,NSW,24.3.1990,,2.3.1996,defeated,ALP
-162,,Ellis,Annette,Louise,,,representatives,Canberra,ACT,2.3.1996,,,still_in_office,ALP
-163,,Ellis,Katherine,Margaret,Kate,,representatives,Adelaide,SA,9.10.2004,,,still_in_office,ALP
-72,,Ellison,Christopher,Martin,,,senate,,WA,1.7.1993,,,still_in_office,LIB
-164,,Elson,Kay,Selma,,,representatives,Forde,Qld,2.3.1996,,17.10.2007,retired,LIB
-73,,Elstob,Ronald,Charles,,,senate,,SA,1.7.1978 ,,5.6.1987 ,retired,ALP
-165,,Emerson,Craig,Anthony,,,representatives,Rankin,Qld,3.10.1998,,,still_in_office,ALP
-166,,Entsch,Warren,George,,,representatives,Leichhardt,Qld,2.3.1996,,17.10.2007,retired,LIB
-74,,Evans,Christopher,Vaughan,,,senate,,WA,1.7.1993,,,still_in_office,ALP
-167,,Evans,Gareth,John,,,representatives,Holt,Vic.,2.3.1996,,30.9.1999,resigned,ALP
-75,,Evans,Gareth,John,,,senate,,Vic.,1.7.1978 ,,6.2.1996 ,resigned,ALP
-76,,Evans,John,Gordon,,,senate,,WA,5.3.1983 ,,30.6.1985 ,defeated,AD
-168,,Evans,Martyn,John,,,representatives,Bonython,SA,19.3.1994,by_election,9.10.2004,defeated,ALP
-169,,Evans,Richard,David Conroy,,,representatives,Capricornia,Qld,10.12.1977,,26.10.1984,retired,ALP
-170,,Evans,Richard,David Conroy,,,representatives,Cowan,WA,13.3.1993,,3.10.1998,defeated,LIB
-171,,Everingham,Paul,Anthony Edward,,,representatives,Northern Territory,NT,1.12.1984,,5.6.1987,retired,LIB
-172,,Fahey,John,Joseph,,,representatives,Macarthur,NSW,2.3.1996,,8.10.2001,retired,LIB
-173,,Falconer,Peter,David,,,representatives,Casey,Vic.,13.12.1975,,5.3.1983,defeated,LIB
-174,,Farmer,Patrick,Francis,,,representatives,Macarthur,NSW,10.11.2001,,,still_in_office,LIB
-175,,Fatin,Wendy,Frances,,,representatives,Brand,WA,1.12.1984,,29.1.1996,retired,ALP
-176,,Fatin,Wendy,Frances,,,representatives,Canning,WA,5.3.1983,,1.12.1984,elected_elsewhere,ALP
-77,,Faulkner,John,Philip,,,senate,,NSW,4.4.1989,section_15,,still_in_office,ALP
-177,,Fawcett,David,Julian,,,representatives,Wakefield,SA,9.10.2004,,24.11.2007,defeated,LIB
-78,,Ferguson,Alan,Baird,,,senate,,SA,26.5.1992,section_15,,still_in_office,LIB
-178,,Ferguson,Laurie,Donald Thomas,,,representatives,Reid,NSW,24.3.1990,,,still_in_office,ALP
-179,,Ferguson,Martin,John,,,representatives,Batman,Vic.,2.3.1996,,,still_in_office,ALP
-180,,Ferguson,Michael,Darrel,,,representatives,Bass,Tas.,9.10.2004,,24.11.2007,defeated,LIB
-79,,Ferris,Jeannie,Margaret,,,senate,,SA,1.7.1996 ,,12.7.1996 ,resigned; ,LIB
-80,,Ferris,Jeannie,Margaret,,,senate,,SA,24.7.1996 ,section_15,2.4.2007 ,died,LIB
-81,,Fielding,Steve,,,,senate,,Vic.,1.7.2005 ,,,still_in_office,FFP
-82,,Fierravanti-Wells,Concetta,Anna,,,senate,,NSW,5.5.2005 ,section_15,,still_in_office,LIB
-181,,Fife,Wallace,Clyde,,,representatives,Farrer,NSW,13.12.1975,,1.12.1984,elected_elsewhere,LIB
-182,,Fife,Wallace,Clyde,,,representatives,Hume,NSW,1.12.1984,,8.2.1993,retired,LIB
-83,,Fifield,Mitchell,Peter,,,senate,,Vic.,31.3.2004 ,section_15,,still_in_office,LIB
-183,,Filing,Paul,Anthony,,,representatives,Moore,WA,24.3.1990,,3.10.1998,defeated,IND
-184,,Fischer,Timothy,Andrew,,,representatives,Farrer,NSW,1.12.1984,,8.10.2001,retired,NPA
-84,,Fisher,Mary,Jo,,,senate,,SA,6.6.2007,section_15,,still_in_office,LIB
-185,,Fisher,Peter,Stanley,,,representatives,Mallee,Vic.,2.12.1972,,8.2.1993,retired,NPA
-186,,Fitzgibbon,Eric,John,,,representatives,Hunter,NSW,1.12.1984,,29.1.1996,retired,ALP
-187,,Fitzgibbon,Joel,Andrew,,,representatives,Hunter,NSW,2.3.1996,,,still_in_office,ALP
-188,,Fitzpatrick,John,,,,representatives,Darling,NSW,25.10.1969,,10.12.1977,elected_elsewhere,ALP
-189,,Fitzpatrick,John,,,,representatives,Riverina,NSW,10.12.1977,,19.9.1980,retired,ALP
-190,,Ford,Frank,Allen,,,representatives,Dunkley,Vic.,24.3.1990,,13.3.1993,defeated,LIB
-85,,Foreman,Dominic,John,,,senate,,SA,1.7.1981 ,,15.9.1997 ,resigned,ALP
-191,,Forrest,John,Alexander,,,representatives,Mallee,Vic.,13.3.1993,, ,still_in_office,NP
-86,,Forshaw,Michael,George,,,senate,,NSW,10.5.1994,section_15,,still_in_office,ALP
-192,,Free,Ross,Vincent,,,representatives,Lindsay,NSW,1.12.1984,,2.3.1996,defeated,ALP
-193,,Free,Ross,Vincent,,,representatives,Macquarie,NSW,18.10.1980,,1.12.1984,elected_elsewhere,ALP
-194,,Fry,Kenneth,Lionel,,,representatives,Fraser,ACT,18.5.1974,,26.10.1984,retired,ALP
-195,,Gallus,Christine,Ann,,,representatives,Hawker,SA,24.3.1990,,13.3.1993,elected_elsewhere,LIB
-196,,Gallus,Christine,Ann,,,representatives,Hindmarsh,SA,13.3.1993,,31.8.2004,retired,LIB
-197,,Gambaro,Teresa,,,,representatives,Petrie,Qld,2.3.1996,,24.11.2007,defeated,LIB
-198,,Garland,Ransley,Victor,,,representatives,Curtin,WA,19.4.1969,by_election,22.1.1981,resigned,LIB
-199,,Garrett,Peter,Robert,,,representatives,Kingsford Smith,NSW,9.10.2004,, ,still_in_office,ALP
-200,,Gash,Joanna,,,,representatives,Gilmore,NSW,2.3.1996,, ,still_in_office,LIB
-201,,Gayler,John,,,,representatives,Leichhardt,Qld,5.3.1983,,8.2.1993,retired,ALP
-202,,Gear,George,,,,representatives,Canning,WA,1.12.1984,,2.3.1996,defeated,ALP
-203,,Gear,George,,,,representatives,Tangney,WA,5.3.1983,,1.12.1984,elected_elsewhere,ALP
-204,,Georganas,Steven,,,,representatives,Hindmarsh,SA,9.10.2004,, ,still_in_office,ALP
-205,,George,Jennie,,,,representatives,Throsby,NSW,10.11.2001,, ,still_in_office,ALP
-87,,Georges,George,,,,senate,,Qld,1.7.1968 ,,5.6.1987 ,defeated,IND
-206,,Georgiou,Petro,,,,representatives,Kooyong,Vic.,19.11.1994,by_election, ,still_in_office,LIB
-207,,Gerick,Jane,Frances,,,representatives,Canning,WA,3.10.1998,,10.11.2001,defeated,ALP
-208,,Gibbons,Stephen,William,,,representatives,Bendigo,Vic.,3.10.1998,, ,still_in_office,ALP
-88,,Gibbs,Brenda,,,,senate,,Qld,1.7.1996 ,,30.6.2002 ,defeated,ALP
-89,,Gibson,Brian,Francis,,,senate,,Tas.,1.7.1993 ,,22.2.2002 ,resigned,LIB
-209,,Gibson,Garrie,David,,,representatives,Moreton,Qld,24.3.1990,,2.3.1996,defeated,ALP
-90,,Gietzelt,Arthur,Thomas,,,senate,,NSW,1.7.1971 ,,27.2.1989 ,resigned,ALP
-210,,Giles,Geoffrey,O'halloran,,,representatives,Angas,SA,20.6.1964,by_election,10.12.1977,elected_elsewhere,LIB
-211,,Giles,Geoffrey,O'halloran,,,representatives,Wakefield,SA,10.12.1977,,4.2.1983,retired,LIB
-91,,Giles,Patricia,Jessie,,,senate,,WA,1.7.1981 ,,30.6.1993 ,retired,ALP
-212,,Gillard,Julia,Eileen,,,representatives,Lalor,Vic.,3.10.1998,, ,still_in_office,ALP
-213,,Gillard,Reginald,,,,representatives,Macquarie,NSW,13.12.1975,,18.10.1980,defeated,LIB
-214,,Goodluck,Bruce,John,,,representatives,Franklin,Tas.,13.12.1975,,8.2.1993,retired,LIB
-215,,Gorman,Russell,Neville Joseph,,,representatives,Chifley,NSW,5.3.1983,,1.12.1984,elected_elsewhere,ALP
-216,,Gorman,Russell,Neville Joseph,,,representatives,Greenway,NSW,1.12.1984,,29.1.1996,retired,ALP
-217,,Grace,Edward,Laurence,,,representatives,Fowler,NSW,1.12.1984,,31.8.1998,retired,ALP
-218,,Grace,Elizabeth,Jane,,,representatives,Lilley,Qld,2.3.1996,,3.10.1998,defeated,LIB
-219,,Graham,Bruce,William,,,representatives,North Sydney,NSW,26.11.1966,,19.9.1980,retired,LIB
-220,,Graham,Bruce,William,,,representatives,St George,NSW,10.12.1949,,29.5.1954,defeated,LIB
-221,,Graham,Bruce,William,,,representatives,St George,NSW,10.12.1955,,22.11.1958,defeated,LIB
-222,,Gray,Gary,,,,representatives,Brand,WA,24.11.2007,,,still_in_office,ALP
-92,,Greig,Brian,Andrew,,,senate,,WA,1.7.1999,,30.5.2005 ,defeated,AD
-223,,Grierson,Sharon,Joy,,,representatives,Newcastle,NSW,10.11.2001,, ,still_in_office,ALP
-224,,Griffin,Alan,Peter,,,representatives,Bruce,Vic.,2.3.1996,, ,still_in_office,ALP
-225,,Griffin,Alan,Peter,,,representatives,Corinella,Vic.,13.3.1993,,2.3.1996,elected_elsewhere,ALP
-226,,Griffiths,Alan,Gordon,,,representatives,Maribyrnong,Vic.,5.3.1983,,29.1.1996,retired,ALP
-93,,Grimes,Donald,James,,,senate,,Tas.,18.5.1974 ,,2.4.1987 ,resigned,ALP
-227,,Groom,Raymond,John,,,representatives,Braddon,Tas.,13.12.1975,,26.10.1984,retired,LIB
-94,,Guilfoyle,Margaret,Georgina Constance,,,senate,,Vic.,1.7.1971 ,,5.6.1987 ,retired,LIB
-228,,Haase,Barry,Wayne,,,representatives,Kalgoorlie,WA,3.10.1998,, ,still_in_office,LIB
-95,,Haines,Janine,,,,senate,,SA,1.7.1981 ,,1.3.1990 ,resigned,AD
-96,,Haines,Janine,,,,senate,,SA,14.12.1977 ,section_15,30.6.1978 ,term_expired,AD
-229,,Hale,Damian,Francis,,,representatives,Solomon,NT,24.11.2007,,,still_in_office,ALP
-230,,Hall,Jill,Griffiths,,,representatives,Shortland,NSW,3.10.1998,, ,still_in_office,ALP
-231,,Hall,Raymond,Steele,,,representatives,Boothby,SA,21.2.1981,by_election,29.1.1996,retired,LIB
-232,,Halverson,Robert,George,,,representatives,Casey,Vic.,1.12.1984,,31.8.1998,retired,LIB
-97,,Hamer,David,John,,,senate,,Vic.,1.7.1978 ,,30.6.1990 ,retired,LIB
-233,,Hand,Gerard,Leslie,,,representatives,Melbourne,Vic.,5.3.1983,,8.2.1993,retired,ALP
-234,,Hanson,Pauline,Lee,,,representatives,Oxley,Qld,2.3.1996,,3.10.1998,defeated,PHON
-235,,Hardgrave,Gary,Douglas,,,representatives,Moreton,Qld,2.3.1996,,24.11.2007,defeated,LIB
-98,,Harradine,Brian,,,,senate,,Tas.,13.12.1975 ,,30.6.2005 ,retired,IND
-236,,Harris,Graham,Mcdonald,,,representatives,Chisholm,Vic.,18.10.1980,,5.3.1983,defeated,LIB
-99,,Harris,Leonard,William,,,senate,,Qld,2.7.1999,,30.6.2005 ,defeated,PHON
-237,,Hartsuyker,Luke,,,,representatives,Cowper,NSW,10.11.2001,, ,still_in_office,NP
-238,,Harvey,Elizabeth,Robyn,,,representatives,Hawker,SA,11.7.1987,,24.3.1990,defeated,ALP
-239,,Haslem,John,Whitton,,,representatives,Canberra,ACT,13.12.1975,,18.10.1980,defeated,LIB
-240,,Hatton,Michael,John,,,representatives,Blaxland,NSW,15.6.1996,by_election,17.10.2007,retired,ALP
-241,,Haviland,Christopher,Douglas,,,representatives,Macarthur,NSW,13.3.1993,,29.1.1996,retired,ALP
-242,,Hawke,Alexander,George,,,representatives,Mitchell,NSW,24.11.2007,,,still_in_office,LIB
-243,,Hawke,Robert,James Lee,,,representatives,Wills,Vic.,18.10.1980,,20.2.1992,resigned,ALP
-244,,Hawker,David,Peter Maxwell,,,representatives,Wannon,Vic.,7.5.1983,by_election,16.11.2004,changed_party,LIB
-245,,Hawker,David,Peter Maxwell,,,representatives,Wannon,Vic.,16.11.2004,changed_party,17.10.2007,changed_party,SPK
-246,,Hawker,David,Peter Maxwell,,,representatives,Wannon,Vic.,17.10.2007,changed_party,,still_in_office,LIB
-247,,Hayden,William,George,,,representatives,Oxley,Qld,9.12.1961,,17.8.1988,resigned,ALP
-248,,Hayes,Christopher,Patrick,,,representatives,Werriwa,NSW,19.3.2005,by_election, ,still_in_office,ALP
-100,,Hearn,Jean,Margaret,,,senate,,Tas.,15.10.1980 ,section_15,30.6.1985 ,retired,ALP
-101,,Heffernan,William,Daniel,,,senate,,NSW,18.9.1996,section_15,,still_in_office,LIB
-102,,Hendrickson,Albion,,,,senate,,Vic.,1.7.1947 ,,30.6.1971 ,retired,ALP
-249,,Henry,Stuart,Irwin,,,representatives,Hasluck,WA,9.10.2004,,24.11.2007,defeated,LIB
-250,,Henzell,Marjorie,Madeline,,,representatives,Capricornia,Qld,13.3.1993,,2.3.1996,defeated,ALP
-103,,Herron,John,Joseph,,,senate,,Qld,1.7.1990 ,,5.9.2002 ,resigned,LIB
-251,,Hewson,John,Robert,,,representatives,Wentworth,NSW,11.7.1987,,28.2.1995,resigned,LIB
-252,,Hicks,Noel,Jeffrey,,,representatives,Riverina,NSW,13.3.1993,,31.8.1998,retired,NPA
-253,,Hicks,Noel,Jeffrey,,,representatives,Riverina,NSW,18.10.1980,,1.12.1984,elected_elsewhere,NPA
-254,,Hicks,Noel,Jeffrey,,,representatives,Riverina-Darling,NSW,1.12.1984,,13.3.1993,elected_elsewhere,NPA
-104,,Hill,Heather,Elaine,,,senate,,Qld,18.11.1998,,23.9.1999 ,disqualified,PHON
-105,,Hill,Robert,Murray,,,senate,,SA,1.7.1981 ,,15.3.2006 ,resigned,LIB
-255,,Hoare,Kelly,Joy,,,representatives,Charlton,NSW,3.10.1998,,17.10.2007,retired,ALP
-256,,Hockey,Joseph,Benedict,,,representatives,North Sydney,NSW,2.3.1996,, ,still_in_office,LIB
-257,,Hodges,John,Charles,,,representatives,Petrie,Qld,18.5.1974,,5.3.1983,defeated,LIB
-258,,Hodges,John,Charles,,,representatives,Petrie,Qld,1.12.1984,,11.7.1987,defeated,LIB
-259,,Hodgman,Michael,William,,,representatives,Denison,Tas.,13.12.1975,,11.7.1987,defeated,LIB
-106,,Hogg,John,Joseph,,,senate,,Qld,1.7.1996 ,,,still_in_office,ALP
-260,,Holding,Allan,Clyde,,,representatives,Melbourne Ports,Vic.,10.12.1977,,31.8.1998,retired,ALP
-261,,Hollis,Colin,,,,representatives,Macarthur,NSW,5.3.1983,,1.12.1984,elected_elsewhere,ALP
-262,,Hollis,Colin,,,,representatives,Throsby,NSW,1.12.1984,,8.10.2001,retired,ALP
-263,,Horne,Robert,Hodges,,,representatives,Paterson,NSW,13.3.1993,,2.3.1996,defeated,ALP
-264,,Horne,Robert,Hodges,,,representatives,Paterson,NSW,3.10.1998,,10.11.2001,defeated,ALP
-265,,Howard,John,Winston,,,representatives,Bennelong,NSW,18.5.1974,,24.11.2007,defeated,LIB
-266,,Howe,Brian,Leslie,,,representatives,Batman,Vic.,10.12.1977,,29.1.1996,retired,ALP
-267,,Hull,Kay,Elizabeth,,,representatives,Riverina,NSW,3.10.1998,, ,still_in_office,NPA
-268,,Hulls,Rob,Justin,,,representatives,Kennedy,Qld,24.3.1990,,13.3.1993,defeated,ALP
-269,,Humphreys,Benjamin,Charles,,,representatives,Griffith,Qld,10.12.1977,,29.1.1996,retired,ALP
-107,,Humphries,Gary,John Joseph ,,,senate,,ACT,18.2.2003 ,section_15,,still_in_office,LIB
-270,,Hunt,Gregory,Andrew,,,representatives,Flinders,Vic.,10.11.2001,, ,still_in_office,LIB
-271,,Hunt,Ralph,James Dunnet,,,representatives,Gwydir,NSW,7.6.1969,by_election,24.2.1989,resigned,NPA
-272,,Hurford,Christopher,John,,,representatives,Adelaide,SA,25.10.1969,,31.12.1987,resigned,ALP
-108,,Hurley,Annette,Kay,,,senate,,SA,1.7.2005 ,,,still_in_office,ALP
-109,,Hutchins,Stephen,Patrick,,,senate,,NSW,14.10.1998 ,section_15,,still_in_office,ALP
-273,,Hyde,John,Martin,,,representatives,Moore,WA,18.5.1974,,5.3.1983,defeated,LIB
-274,,Innes,Urquhart,Edward,,,representatives,Melbourne,Vic.,2.12.1972,,4.2.1983,retired,ALP
-275,,Irons,Stephen,James,,,representatives,Swan,WA,24.11.2007,,,still_in_office,LIB
-276,,Irwin,Julia,Claire,,,representatives,Fowler,NSW,3.10.1998,, ,still_in_office,ALP
-277,,Jackson,Sharryn,Maree,,,representatives,Hasluck,WA,10.11.2001,,9.10.2004,defeated,ALP
-278,,Jackson,Sharryn,Maree,,,representatives,Hasluck,WA,24.11.2007,,,still_in_office,ALP
-279,,Jacobi,Ralph,,,,representatives,Hawker,SA,25.10.1969,,5.6.1987,retired,ALP
-280,,Jakobsen,Carolyn,Anne,,,representatives,Cowan,WA,1.12.1984,,13.3.1993,defeated,ALP
-281,,James,Albert,William,,,representatives,Hunter,NSW,9.4.1960,by_election,19.9.1980,retired,ALP
-282,,Jarman,Alan,William,,,representatives,Deakin,Vic.,26.11.1966,,5.3.1983,defeated,LIB
-283,,Jeanes,Susan,Barbara,,,representatives,Kingston,SA,2.3.1996,,3.10.1998,defeated,LIB
-284,,Jenkins,Henry,Alfred,,,representatives,Scullin,Vic.,25.10.1969,,20.12.1985,resigned,ALP
-285,,Jenkins,Harry,Alfred,,,representatives,Scullin,Vic.,8.2.1986,by_election,4.5.1993,changed_party,ALP
-286,,Jenkins,Harry,Alfred,,,representatives,Scullin,Vic.,4.5.1993,changed_party,29.1.1996,changed_party,CWM
-287,,Jenkins,Harry,Alfred,,,representatives,Scullin,Vic.,29.1.1996,changed_party,11.2.2008,changed_party,ALP
-288,,Jenkins,Harry,Alfred,,,representatives,Scullin,Vic.,12.2.2008,changed_party, ,still_in_office,SPK
-110,,Jenkins,Jean,Alice,,,senate,,WA,11.7.1987 ,,30.6.1990 ,defeated,AD
-289,,Jensen,Dennis,Geoffrey,,,representatives,Tangney,WA,9.10.2004,, ,still_in_office,LIB
-111,,Jessop,Donald,Scott,,,senate,,SA,1.7.1971 ,,5.6.1987 ,defeated,IND
-290,,Johns,Gary,Thomas,,,representatives,Petrie,Qld,11.7.1987,,2.3.1996,defeated,ALP
-291,,Johnson,Leonard,Keith,,,representatives,Burke,Vic.,25.10.1969,,19.9.1980,retired,ALP
-292,,Johnson,Leslie,Royston,,,representatives,Hughes,NSW,10.12.1955,,26.11.1966,defeated,ALP
-293,,Johnson,Leslie,Royston,,,representatives,Hughes,NSW,25.10.1969,,19.12.1983,resigned,ALP
-294,,Johnson,Michael,Andrew,,,representatives,Ryan,Qld,10.11.2001,, ,still_in_office,LIB
-295,,Johnson,Peter,Francis,,,representatives,Brisbane,Qld,13.12.1975,,18.10.1980,defeated,LIB
-112,,Johnston,David,Albert Lloyd,,,senate,,WA,1.7.2002 ,,,still_in_office,LIB
-296,,Johnston,James,Roger,,,representatives,Hotham,Vic.,10.12.1977,,18.10.1980,defeated,LIB
-297,,Johnston,Ricky,,,,representatives,Canning,WA,2.3.1996,,3.10.1998,defeated,LIB
-298,,Jones,Barry,Owen,,,representatives,Lalor,Vic.,10.12.1977,,31.8.1998,retired,ALP
-299,,Jones,Charles,Keith,,,representatives,Newcastle,NSW,22.11.1958,,4.2.1983,retired,ALP
-113,,Jones,Gerry,Norman,,,senate,,Qld,1.7.1981 ,,30.6.1996 ,retired,ALP
-114,,Joyce,Barnaby,Thomas Gerard,,,senate,,Qld,1.7.2005,,,still_in_office,NP
-300,,Jull,David,Francis,,,representatives,Bowman,Qld,13.12.1975,,5.3.1983,defeated,LIB
-301,,Jull,David,Francis,,,representatives,Fadden,Qld,1.12.1984,,17.10.2007,retired,LIB
-302,,Katter,Robert,Carl,,,representatives,Kennedy,Qld,13.3.1993,, ,still_in_office,IND
-303,,Katter,Robert,Cummin,,,representatives,Kennedy,Qld,26.11.1966,,19.2.1990,retired,NPA
-304,,Keating,Paul,John,,,representatives,Blaxland,NSW,25.10.1969,,23.4.1996,resigned,ALP
-115,,Keeffe,James,Bernard,,,senate,,Qld,1.7.1965 ,,4.2.1983 ,retired,ALP
-305,,Keenan,Michael,Fayat,,,representatives,Stirling,WA,9.10.2004,, ,still_in_office,LIB
-306,,Kelly,De-anne,Margaret,,,representatives,Dawson,Qld,2.3.1996,,24.11.2007,defeated,NP
-307,,Kelly,Jacqueline,Marie,Jackie,,representatives,Lindsay,NSW,19.10.1996,by_election,17.10.2007,retired,LIB
-308,,Kelly,Jacqueline,Marie,Jackie,,representatives,Lindsay,NSW,2.3.1996,,11.9.1996,declared_void,LIB
-309,,Kelly,Michael,Joseph,,,representatives,Eden-Monaro,NSW,24.11.2007,,,still_in_office,ALP
-310,,Kelly,Roslyn,Joan,,,representatives,Canberra,ACT,18.10.1980,,30.1.1995,resigned,ALP
-116,,Kemp,Charles,Roderick,,,senate,,Vic.,1.7.1990,,,still_in_office,LIB
-311,,Kemp,David,Alistair,,,representatives,Goldstein,Vic.,24.3.1990,,31.8.2004,retired,LIB
-312,,Kent,Lewis,,,,representatives,Bowman,Qld,5.3.1983,,5.6.1987,retired,ALP
-313,,Kent,Lewis,,,,representatives,Hotham,Vic.,18.10.1980,,24.3.1990,defeated,ALP
-314,,Kent,Lewis,,,,representatives,Werriwa,NSW,23.9.1978,by_election,22.12.1993,resigned,ALP
-315,,Kernot,Cheryl,,,,representatives,Dickson,Qld,3.10.1998,,10.11.2001,defeated,ALP
-117,,Kernot,Cheryl,,,,senate,,Qld,1.7.1990 ,,15.10.1997 ,resigned,AD
-316,,Kerr,Duncan,James Colquhoun,,,representatives,Denison,Tas.,11.7.1987,, ,still_in_office,ALP
-118,,Kilgariff,Bernard,Francis,,,senate,,NT,13.12.1975 ,,5.6.1987 ,retired,LIB
-317,,Killen,Denis,James (later Sir James),,,representatives,Moreton,Qld,10.12.1955,,15.8.1983,resigned,LIB
-318,,King,Catherine,Fiona,,,representatives,Ballarat,Vic.,10.11.2001,, ,still_in_office,ALP
-319,,King,Peter,Edward,,,representatives,Wentworth,NSW,10.11.2001,,9.10.2004,defeated,IND
-119,,Kirk,Linda,Jean,,,senate,,SA,1.7.2002 ,,,still_in_office,ALP
-320,,Klugman,Richard,Emanuel,,,representatives,Prospect,NSW,25.10.1969,,19.2.1990,retired,ALP
-120,,Knight,John,William,,,senate,,ACT,13.12.1975 ,,4.3.1981 ,died,LIB
-321,,Knott,Peter,John,,,representatives,Gilmore,NSW,13.3.1993,,2.3.1996,defeated,ALP
-121,,Knowles,Susan,Christine,,,senate,,WA,1.12.1984 ,,30.6.2005 ,retired,LIB
-122,,Lajovic,Milivoj,Emil,,,senate,,NSW,13.12.1975 ,,30.6.1985 ,retired,LIB
-322,,Lamb,Antony,Hamilton,,,representatives,La Trobe,Vic.,2.12.1972,,13.12.1975,defeated,ALP
-323,,Lamb,Antony,Hamilton,,,representatives,Streeton,Vic.,1.12.1984,,24.3.1990,defeated,ALP
-324,,Laming,Andrew,Charles,,,representatives,Bowman,Qld,9.10.2004,, ,still_in_office,LIB
-325,,Langmore,John,Vance,,,representatives,Fraser,ACT,1.12.1984,,6.12.1996,resigned,ALP
-326,,Latham,Mark,William,,,representatives,Werriwa,NSW,29.1.1994,by_election,21.1.2005,resigned,ALP
-123,,Laucke,Condor,Louis,,,senate,,SA,2.11.1967 ,section_15,30.6.1981 ,retired,LIB
-327,,Lavarch,Michael,Hugh,,,representatives,Dickson,Qld,17.4.1993,,2.3.1996,defeated,ALP
-328,,Lavarch,Michael,Hugh,,,representatives,Fisher,Qld,11.7.1987,,17.4.1993,elected_elsewhere,ALP
-329,,Lawler,Anthony,John,,,representatives,Parkes,NSW,3.10.1998,,8.10.2001,retired,NPA
-330,,Lawrence,Carmen,Mary,,,representatives,Fremantle,WA,12.3.1994,by_election,17.10.2007,retired,ALP
-331,,Lee,Michael,John,,,representatives,Dobell,NSW,1.12.1984,,10.11.2001,defeated,ALP
-124,,Lees,Meg,Heather,,,senate,,SA,4.4.1990 ,section_15,30.6.2005 ,defeated,IND
-125,,Lewis,Austin,William Russell,,,senate,,Vic.,17.12.1976 ,section_15,30.6.1993 ,retired,LIB
-332,,Ley,Sussan,Penelope,,,representatives,Farrer,NSW,10.11.2001,, ,still_in_office,LIB
-333,,Lieberman,Louis,Stuart,,,representatives,Indi,Vic.,13.3.1993,,8.10.2001,retired,LIB
-126,,Lightfoot,Philip,Ross,,,senate,,WA,19.5.1997,section_15,,still_in_office,LIB
-334,,Lindsay,Eamon,John,,,representatives,Herbert,Qld,5.3.1983,,2.3.1996,defeated,ALP
-335,,Lindsay,Peter,John,,,representatives,Herbert,Qld,2.3.1996,, ,still_in_office,LIB
-336,,Livermore,Kirsten,Fiona,,,representatives,Capricornia,Qld,3.10.1998,, ,still_in_office,ALP
-337,,Lloyd,Bruce,,,,representatives,Murray,Vic.,20.3.1971,by_election,29.1.1996,retired,NPA
-338,,Lloyd,James,Eric,,,representatives,Robertson,NSW,2.3.1996,,24.11.2007,defeated,LIB
-127,,Loosley,Stephen,,,,senate,,NSW,1.7.1990 ,,19.5.1995 ,resigned,ALP
-339,,Lucock,Philip,Ernest,,,representatives,Lyne,NSW,22.3.1952,by_election,19.9.1980,retired,NCP
-128,,Ludwig,Joseph,William,,,senate,,Qld,1.7.1999,,,still_in_office,ALP
-129,,Lundy,Kate,Alexandra,,,senate,,ACT,2.3.1996 ,,,still_in_office,ALP
-340,,Lusher,Stephen,Augustus,,,representatives,Hume,NSW,18.5.1974,,1.12.1984,defeated,NPA
-341,,Lynch,Phillip,Reginald (later Sir Phillip),,,representatives,Flinders,Vic.,26.11.1966,,22.10.1982,resigned,LIB
-130,,Macdonald,Ian,Douglas,,,senate,,Qld,1.7.1990,,,still_in_office,LIB
-131,,Macdonald,John,Alexander Lindsay,,,senate,,NSW,1.7.1993 ,,30.6.1999 ,defeated,NP
-132,,Macdonald,John,Alexander Lindsay,,,senate,,NSW,4.5.2000 ,section_15,,still_in_office,NP
-342,,Macfarlane,Ian,Elgin,,,representatives,Groom,Qld,3.10.1998,, ,still_in_office,LIB
-133,,MacGibbon,David,John,,,senate,,Qld,1.7.1978 ,,30.6.1999 ,defeated,LIB
-343,,Mack,Edward,Carrington,,,representatives,North Sydney,NSW,24.3.1990,,29.1.1996,retired,IND
-134,,Mackay,Susan,Mary,,,senate,,Tas.,8.3.1996 ,section_15,29.7.2005 ,resigned,ALP
-344,,Mackellar,Michael,John Randal,,,representatives,Warringah,NSW,25.10.1969,,18.2.1994,resigned,LIB
-345,,Mackenzie,Alexander,John,,,representatives,Calare,NSW,13.12.1975,,5.3.1983,defeated,NPA
-346,,Macklin,Jennifer,Louise,,,representatives,Jagajaga,Vic.,2.3.1996,, ,still_in_office,ALP
-135,,Macklin,Michael,John,,,senate,,Qld,1.7.1981 ,,30.6.1990 ,retired,AD
-347,,Macphee,Ian,Malcolm,,,representatives,Balaclava,Vic.,18.5.1974,,1.12.1984,elected_elsewhere,LIB
-348,,Macphee,Ian,Malcolm,,,representatives,Goldstein,Vic.,1.12.1984,,19.2.1990,retired,LIB
-136,,Maguire,Graham,Ross,,,senate,,SA,5.3.1983 ,,30.6.1993 ,defeated,ALP
-349,,Maher,Michael,John,,,representatives,Lowe,NSW,13.3.1982,by_election,11.7.1987,defeated,ALP
-350,,Marek,Paul,,,,representatives,Capricornia,Qld,2.3.1996,,3.10.1998,defeated,NPA
-137,,Margetts,Diane,Elizabeth,,,senate,,WA,1.7.1993 ,,30.6.1999 ,defeated,GWA
-351,,Marino,Nola,Bethwyn,,,representatives,Forrest,WA,24.11.2007,,,still_in_office,LIB
-352,,Markus,Louise,Elizabeth,,,representatives,Greenway,NSW,9.10.2004,, ,still_in_office,LIB
-353,,Marles,Richard,Donald,,,representatives,Corio,Vic,24.11.2007,,,still_in_office,ALP
-138,,Marshall,Gavin,Mark,,,senate,,Vic.,1.7.2002 ,,,still_in_office,ALP
-354,,Martin,Stephen,Paul,,,representatives,Cunningham,NSW,13.3.1993,,16.8.2002,resigned,ALP
-355,,Martin,Stephen,Paul,,,representatives,Macarthur,NSW,1.12.1984,,13.3.1993,elected_elsewhere,ALP
-356,,Martin,Vincent,Joseph,,,representatives,Banks,NSW,25.10.1969,,19.9.1980,retired,ALP
-357,,Martyr,John,Raymond,,,representatives,Swan,WA,13.12.1975,,18.10.1980,defeated,LIB
-139,,Martyr,John,Raymond,,,senate,,WA,11.3.1981 ,section_15,4.2.1983 ,defeated,LIB
-140,,Mason,Brett,John,,,senate,,Qld,1.7.1999 ,,,still_in_office,LIB
-141,,Mason,Colin,Victor James,,,senate,,NSW,1.7.1978 ,,5.6.1987 ,retired,AD
-142,,Maunsell,Charles,Ronald,,,senate,,Qld,1.7.1968 ,,30.6.1981 ,defeated,NCP
-358,,May,Margaret,Ann,,,representatives,McPherson,Qld,3.10.1998,, ,still_in_office,LIB
-359,,Mayer,Helen,,,,representatives,Chisholm,Vic.,5.3.1983,,11.7.1987,defeated,ALP
-360,,McArthur,Fergus,Stewart,,,representatives,Corangamite,Vic.,18.2.1984,by_election,24.11.2007,defeated,LIB
-143,,McAuliffe,Ronald,Edward,,,senate,,Qld,1.7.1971 ,,30.6.1981 ,retired,ALP
-144,,McClelland,Douglas,,,,senate,,NSW,1.7.1962 ,,23.1.1987 ,resigned,ALP
-361,,McClelland,Robert,Bruce,,,representatives,Barton,NSW,2.3.1996,, ,still_in_office,ALP
-362,,McDougall,Graeme,Robert,,,representatives,Griffith,Qld,2.3.1996,,3.10.1998,defeated,LIB
-145,,McEwen,Anne,,,,senate,,SA,1.7.2005 ,,,still_in_office,ALP
-363,,McFarlane,Jann,Sonya,,,representatives,Stirling,WA,3.10.1998,,9.10.2004,defeated,ALP
-146,,McGauran,Julian,John James,,,senate,,Vic.,11.7.1987 ,,30.6.1990 ,defeated,NP
-147,,McGauran,Julian,John James,,,senate,,Vic.,1.7.1993,,,still_in_office,NP
-364,,McGauran,Peter,John,,,representatives,Gippsland,Vic.,5.3.1983,,9.4.2008,retired,NP
-365,,McHugh,Jeannette,,,,representatives,Grayndler,NSW,13.3.1993,,29.1.1996,retired,ALP
-366,,McHugh,Jeannette,,,,representatives,Phillip,NSW,5.3.1983,,13.3.1993,elected_elsewhere,ALP
-148,,McIntosh,Gordon,Douglas,,,senate,,WA,18.5.1974 ,,5.6.1987 ,retired,ALP
-367,,McKew,Maxine,Margaret,,,representatives,Bennelong,NSW,24.11.2007,,,still_in_office,ALP
-149,,McKiernan,James,Philip,,,senate,,WA,1.12.1984 ,,30.6.2002 ,retired,ALP
-368,,McLachlan,Ian,Murray,,,representatives,Barker,SA,24.3.1990,,31.8.1998,retired,LIB
-150,,McLaren,Geoffrey,Thomas,,,senate,,SA,1.7.1971 ,,4.2.1983 ,retired,ALP
-151,,McLean,Paul,Alexander,,,senate,,NSW,11.7.1987 ,,23.8.1991 ,resigned,AD
-369,,McLean,Ross,Malcolm,,,representatives,Perth,WA,13.12.1975,,5.3.1983,defeated,LIB
-370,,McLeay,John,Elden,,,representatives,Boothby,SA,26.11.1966,,22.1.1981,resigned,LIB
-371,,McLeay,Leo,Boyce,,,representatives,Grayndler,NSW,23.6.1979,by_election,13.3.1993,elected_elsewhere,ALP
-372,,McLeay,Leo,Boyce,,,representatives,Watson,NSW,13.3.1993,,31.8.2004,retired,ALP
-152,,McLucas,Jan,Elizabeth,,,senate,,Qld,1.7.1999,,,still_in_office,ALP
-373,,McMahon,James,Leslie,,,representatives,Sydney,NSW,13.12.1975,,4.2.1983,retired,ALP
-374,,McMahon,William,(later Sir William),,,representatives,Lowe,NSW,10.12.1949,,4.1.1982,resigned,LIB
-375,,McMullan,Robert,Francis,,,representatives,Fraser,ACT,2.3.1996,, ,still_in_office,ALP
-153,,McMullan,Robert,Francis,,,senate,,ACT,16.2.1988 ,section_15,6.2.1996 ,resigned,ALP
-376,,McVeigh,Daniel,Thomas,,,representatives,Darling Downs,Qld,2.12.1972,,1.12.1984,elected_elsewhere,NPA
-377,,McVeigh,Daniel,Thomas,,,representatives,Groom,Qld,1.12.1984,,29.2.1988,resigned,NPA
-378,,Melham,Daryl,,,,representatives,Banks,NSW,24.3.1990,, ,still_in_office,ALP
-154,,Melzer,Jean,Isobelle,,,senate,,Vic.,18.5.1974 ,,30.6.1981 ,defeated,ALP
-155,,Messner,Anthony,John,,,senate,,SA,13.12.1975 ,,17.4.1990 ,resigned,LIB
-379,,Mildren,John,Barry,,,representatives,Ballarat,Vic.,18.10.1980,,24.3.1990,defeated,ALP
-380,,Miles,Christopher,Gordon,,,representatives,Braddon,Tas.,1.12.1984,,3.10.1998,defeated,LIB
-381,,Millar,Percival,Clarence,,,representatives,Wide Bay,Qld,18.5.1974,,19.2.1990,retired,NPA
-156,,Milne,Christine,Anne,,,senate,,Tas.,1.7.2005,,,still_in_office,GRN
-382,,Milton,Peter,,,,representatives,La Trobe,Vic.,18.10.1980,,24.3.1990,defeated,ALP
-157,,Minchin,Nicholas,Hugh,,,senate,,SA,1.7.1993,,,still_in_office,LIB
-383,,Mirabella,Sophie,,,,representatives,Indi,Vic.,10.11.2001,, ,still_in_office,LIB
-158,,Missen,Alan,Joseph,,,senate,,Vic.,18.5.1974 ,,30.3.1986 ,died,LIB
-159,,Moore,Claire,Mary,,,senate,,Qld,1.7.2002,,,still_in_office,ALP
-384,,Moore,John,Colinton,,,representatives,Ryan,Qld,13.12.1975,,5.2.2001,resigned,LIB
-385,,Morris,Allan,Agapitos,,,representatives,Newcastle,NSW,5.3.1983,,8.10.2001,retired,ALP
-160,,Morris,John,Joseph,,,senate,,NSW,1.7.1985 ,,30.6.1990 ,retired,ALP
-386,,Morris,Peter,Frederick,,,representatives,Shortland,NSW,2.12.1972,,31.8.1998,retired,ALP
-387,,Morris,Peter,Frederick,,,representatives,St George,NSW,18.10.1980,,26.10.1984,retired,ALP
-388,,Morrison,Scott,John,,,representatives,Cook,NSW,24.11.2007,,,still_in_office,LIB
-389,,Mossfield,Frank,William,,,representatives,Greenway,NSW,2.3.1996,,31.8.2004,retired,ALP
-390,,Mountford,John,Graham,,,representatives,Banks,NSW,18.10.1980,,19.2.1990,retired,ALP
-391,,Moylan,Judith,Eleanor,,,representatives,Pearce,WA,13.3.1993,, ,still_in_office,LIB
-161,,Mulvihill,James,Anthony,,,senate,,NSW,1.7.1965 ,,4.2.1983 ,retired,ALP
-392,,Murphy,John,Paul,,,representatives,Lowe,NSW,3.10.1998,, ,still_in_office,ALP
-162,,Murphy,Shayne,Michael,,,senate,,Tas.,1.7.1993 ,,30.6.2005 ,defeated,IND
-163,,Murray,Andrew,James Marshall,,,senate,,WA,1.7.1996,,,still_in_office,AD
-393,,Mutch,Stephen,Bruce,,,representatives,Cook,NSW,2.3.1996,,31.8.1998,retired,LIB
-394,,Nairn,Gary,Roy,,,representatives,Eden-Monaro,NSW,2.3.1996,,24.11.2007,defeated,LIB
-164,,Nash,Fiona,Joy,,,senate,,NSW,1.7.2005 ,,,still_in_office,NP
-395,,Neal,Belinda,Jane,,,representatives,Robertson,NSW,24.11.2007,,,still_in_office,ALP
-165,,Neal,Belinda,Jane,,,senate,,NSW,8.3.1994,section_15,3.9.1998 ,resigned,ALP
-166,,Neal,Laurence,William,,,senate,,Vic.,11.3.1980 ,section_15,30.6.1981 ,defeated,NCP
-396,,Nehl,Garry,Barr,,,representatives,Cowper,NSW,1.12.1984,,30.4.1996,changed_party,NPA
-397,,Nehl,Garry,Barr,,,representatives,Cowper,NSW,30.4.1996,changed_party,8.10.2001,retired,CWM
-398,,Neil,Maurice,James,,,representatives,St George,NSW,13.12.1975,,18.10.1980,defeated,LIB
-399,,Nelson,Brendan,John,,,representatives,Bradfield,NSW,2.3.1996,, ,still_in_office,LIB
-167,,Nettle,Kerry,Michelle,,,senate,,NSW,1.7.2002 ,,,still_in_office,AG
-400,,Neumann,Shayne,Kenneth,,,representatives,Blair,Qld,24.11.2007,,,still_in_office,ALP
-401,,Neville,Paul,Christopher,,,representatives,Hinkler,Qld,13.3.1993,, ,still_in_office,NP
-402,,Newell,Neville,Joseph,,,representatives,Richmond,NSW,24.3.1990,,2.3.1996,defeated,ALP
-168,,Newman,Jocelyn,Margaret,,,senate,,Tas.,13.3.1986 ,section_15,1.2.2002 ,resigned,LIB
-403,,Newman,Kevin,Eugene,,,representatives,Bass,Tas.,28.6.1975,by_election,26.10.1984,retired,LIB
-404,,Nixon,Peter,James,,,representatives,Gippsland,Vic.,9.12.1961,,4.2.1983,retired,NPA
-405,,Nugent,Peter,Edward,,,representatives,Aston,Vic.,24.3.1990,,24.4.2001,died,LIB
-169,,O'Brien,Kerry,Williams Kelso,,,senate,,Tas.,5.9.1996,section_15,,still_in_office,ALP
-170,,O'Byrne,Justin,Hilary,,,senate,,Tas.,1.7.1947 ,,30.6.1981 ,retired,ALP
-406,,O'Byrne,Michelle,Anne,,,representatives,Bass,Tas.,3.10.1998,,9.10.2004,defeated,ALP
-171,,O'Chee,William,George,,,senate,,Qld,8.5.1990 ,section_15,30.6.1999 ,defeated,NPA
-407,,O'Connor,Brendan,Patrick,,,representatives,Burke,Vic.,10.11.2001,,9.10.2004,elected_elsewhere,ALP
-408,,O'Connor,Brendan,Patrick,,,representatives,Gorton,Vic.,9.10.2004,, ,still_in_office,ALP
-409,,O'Connor,Gavan,Michael,,,representatives,Corio,Vic.,13.3.1993,,24.11.2007,defeated,ALP
-410,,O'Keefe,Frank,Lionel,,,representatives,Paterson,NSW,25.10.1969,,26.10.1984,retired,NPA
-411,,O'Keefe,Neil,Patrick,,,representatives,Burke,Vic.,1.12.1984,,8.10.2001,retired,ALP
-412,,O'Neil,Lloyd,Reginald Terrence,,,representatives,Grey,SA,5.3.1983,,8.2.1993,retired,ALP
-172,,Olsen,John,Wayne,,,senate,,SA,7.5.1990 ,section_15,4.5.1992 ,resigned,LIB
-413,,Organ,Michael,Keith,,,representatives,Cunningham,NSW,19.10.2002,by_election,9.10.2004,defeated,GRN
-414,,Owens,Julie,Ann,,,representatives,Parramatta,NSW,9.10.2004,, ,still_in_office,ALP
-173,,Panizza,John,Horace,,,senate,,WA,11.7.1987 ,,31.1.1997 ,died,LIB
-174,,Parer,Warwick,Raymond,,,senate,,Qld,22.11.1984 ,section_15,11.2.2000 ,resigned,LIB
-415,,Parke,Melissa,,,,representatives,Fremantle,WA,24.11.2007,,,still_in_office,ALP
-175,,Parry,Stephen,Shane,,,senate,,Tas.,1.7.2005,,,still_in_office,LIB
-176,,Patterson,Kay,Christine Lesley,,,senate,,Vic.,11.7.1987,,,still_in_office,LIB
-177,,Payne,Marise,Ann,,,senate,,NSW,9.4.1997,section_15,,still_in_office,LIB
-416,,Peacock,Andrew,Sharp,,,representatives,Kooyong,Vic.,2.4.1966,by_election,17.9.1994,resigned,LIB
-417,,Pearce,Christopher,John,,,representatives,Aston,Vic.,14.7.2001,by_election, ,still_in_office,LIB
-418,,Perrett,Graham,Douglas,,,representatives,Moreton,Qld,24.11.2007,,,still_in_office,ALP
-419,,Plibersek,Tanya,Joan,,,representatives,Sydney,NSW,3.10.1998,, ,still_in_office,ALP
-420,,Pollard,Reginald,Thomas,,,representatives,Ballaarat,Vic.,23.10.1937,,10.12.1949,elected_elsewhere,ALP
-421,,Pollard,Reginald,Thomas,,,representatives,Lalor,Vic.,10.12.1949,,26.11.1966,defeated,ALP
-178,,Polley,Helen,Beatrice ,,,senate,,Tas.,1.7.2005,,,still_in_office,ALP
-422,,Porter,James,Robert,,,representatives,Barker,SA,13.12.1975,,19.2.1990,retired,LIB
-179,,Powell,Janet,Frances,,,senate,,Vic.,26.8.1986 ,section_15,30.6.1993 ,defeated,IND
-423,,Pratt,Michael,Philip,,,representatives,Adelaide,SA,6.2.1988,by_election,24.3.1990,defeated,LIB
-424,,Price,Leo,Roger Spurway,,,representatives,Chifley,NSW,1.12.1984,, ,still_in_office,ALP
-180,,Primmer,Cyril,Graham,,,senate,,Vic.,1.7.1971 ,,30.6.1985 ,retired,ALP
-425,,Prosser,Geoffrey,Daniel,,,representatives,Forrest,WA,11.7.1987,,17.10.2007,retired,LIB
-426,,Punch,Gary,Francis,,,representatives,Barton,NSW,5.3.1983,,29.1.1996,retired,ALP
-181,,Puplick,Christopher,John Guelph,,,senate,,NSW,26.7.1978 ,,30.6.1981 ,defeated,LIB
-182,,Puplick,Christopher,John Guelph,,,senate,,NSW,1.12.1984 ,,30.6.1990 ,defeated,LIB
-427,,Pyne,Christopher,Maurice,,,representatives,Sturt,SA,13.3.1993,, ,still_in_office,LIB
-428,,Quick,Harry,Vernon,,,representatives,Franklin,Tas.,13.3.1993,,17.10.2007,retired,IND
-183,,Quirke,John,Andrew,,,senate,,SA,18.9.1997 ,section_15,15.8.2000 ,resigned,ALP
-184,,Rae,Peter,Elliot,,,senate,,Tas.,1.7.1968 ,,16.1.1986 ,resigned,LIB
-429,,Raguse,Brett,Blair,,,representatives,Forde,Qld,24.11.2007,,,still_in_office,ALP
-430,,Ramsey,Rowan,Eric,,,representatives,Grey,SA,24.11.2007,,,still_in_office,LIB
-431,,Randall,Donald,James,,,representatives,Canning,WA,10.11.2001,, ,still_in_office,LIB
-432,,Randall,Donald,James,,,representatives,Swan,WA,2.3.1996,,3.10.1998,defeated,LIB
-185,,Ray,Robert,Francis,,,senate,,Vic.,1.7.1981 ,,,still_in_office,ALP
-433,,Rea,Kerry,Marie,,,representatives,Bonner,Qld,24.11.2007,,,still_in_office,ALP
-434,,Reeves,John,Edward,,,representatives,Northern Territory,NT,5.3.1983,,1.12.1984,defeated,ALP
-186,,Reid,Margaret,Elizabeth,,,senate,,ACT,5.5.1981 ,section_15,14.2.2003 ,resigned,LIB
-435,,Reid,Nicholas,Bruce,,,representatives,Bendigo,Vic.,24.3.1990,,31.8.1998,retired,LIB
-436,,Reith,Peter,Keaston,,,representatives,Flinders,Vic.,1.12.1984,,8.10.2001,retired,LIB
-437,,Reith,Peter,Keaston,,,representatives,Flinders,Vic.,4.12.1982,by_election,5.3.1983,defeated,LIB
-187,,Reynolds,Margaret,,,,senate,,Qld,5.3.1983 ,,30.6.1999 ,retired,ALP
-188,,Richardson,Graham,Frederick,,,senate,,NSW,5.3.1983 ,,25.3.1994 ,resigned,ALP
-438,,Richardson,Kym,Charles,,,representatives,Kingston,SA,9.10.2004,,24.11.2007,defeated,LIB
-189,,Ridgeway,Aden,Derek,,,senate,,NSW,1.7.1999,,30.6.2005,defeated,AD
-439,,Riggall,John,Peter,,,representatives,McMillan,Vic.,24.3.1990,,13.3.1993,defeated,LIB
-440,,Ripoll,Bernard,Fernando,,,representatives,Oxley,Qld,3.10.1998,, ,still_in_office,ALP
-441,,Rishworth,Amanda,Louise,,,representatives,Kingston,SA,24.11.2007,,,still_in_office,ALP
-442,,Robb,Andrew,John,,,representatives,Goldstein,Vic.,9.10.2004,, ,still_in_office,LIB
-443,,Robert,Stuart,Rowland,,,representatives,Fadden,Qld,24.11.2007,,,still_in_office,LIB
-190,,Robertson,Edward,Albert,,,senate,,NT,13.12.1975 ,,5.6.1987 ,retired,ALP
-444,,Robinson,Eric,Laidlaw,,,representatives,McPherson,Qld,2.12.1972,,7.1.1981,died,LIB
-445,,Robinson,Ian,Louis,,,representatives,Cowper,NSW,30.11.1963,,1.12.1984,elected_elsewhere,NPA
-446,,Robinson,Ian,Louis,,,representatives,Page,NSW,1.12.1984,,24.3.1990,defeated,NPA
-447,,Rocher,Allan,Charles,,,representatives,Curtin,WA,21.2.1981,by_election,3.10.1998,defeated,IND
-191,,Rocher,Allan,Charles,,,senate,,WA,1.7.1978 ,,10.2.1981 ,resigned,LIB
-448,,Ronaldson,Michael,John Clyde,,,representatives,Ballarat,Vic.,24.3.1990,,8.10.2001,retired,LIB
-192,,Ronaldson,Michael,John Clyde,,,senate,,Vic.,1.7.2005,,,still_in_office,LIB
-449,,Roxon,Nicola,Louise,,,representatives,Gellibrand,Vic.,3.10.1998,, ,still_in_office,ALP
-450,,Rudd,Kevin,Michael,,,representatives,Griffith,Qld,3.10.1998,, ,still_in_office,ALP
-451,,Ruddock,Philip,Maxwell,,,representatives,Berowra,NSW,13.3.1993,, ,still_in_office,LIB
-452,,Ruddock,Philip,Maxwell,,,representatives,Dundas,NSW,13.12.1975,,13.3.1993,elected_elsewhere,LIB
-453,,Ruddock,Philip,Maxwell,,,representatives,Parramatta,NSW,22.9.1973,by_election,13.12.1975,elected_elsewhere,LIB
-193,,Ryan,Susan,Maree,,,senate,,ACT,13.12.1975 ,,29.1.1988 ,resigned,ALP
-454,,Saffin,Janelle,Anne,,,representatives,Page,NSW,24.11.2007,,,still_in_office,ALP
-455,,Sainsbury,Murray,Evan,,,representatives,Eden-Monaro,NSW,13.12.1975,,5.3.1983,defeated,LIB
-194,,Sanders,Norman,Karl,,,senate,,Tas.,1.7.1985 ,,1.3.1990 ,resigned,AD
-195,,Santoro,Santo,,,,senate,,QLD,29.10.2002 ,section_15,11.4.2007 ,resigned,LIB
-456,,Saunderson,John,,,,representatives,Aston,Vic.,1.12.1984,,24.3.1990,defeated,ALP
-457,,Saunderson,John,,,,representatives,Deakin,Vic.,5.3.1983,,1.12.1984,elected_elsewhere,ALP
-458,,Sawford,Rodney,Weston,,,representatives,Port Adelaide,SA,26.3.1988,by_election,17.10.2007,retired,ALP
-196,,Schacht,Christopher,Cleland,,,senate,,SA,11.7.1987 ,,30.6.2002 ,defeated,ALP
-459,,Scholes,Gordon,Glen Denton,,,representatives,Corio,Vic.,22.7.1967,by_election,8.2.1993,retired,ALP
-460,,Schultz,Albert,John,,,representatives,Hume,NSW,3.10.1998,, ,still_in_office,LIB
-461,,Sciacca,Concetto,Antonio,,,representatives,Bowman,Qld,3.10.1998,,9.10.2004,defeated,ALP
-462,,Sciacca,Concetto,Antonio,,,representatives,Bowman,Qld,11.7.1987,,2.3.1996,defeated,ALP
-463,,Scott,Bruce,Craig,,,representatives,Maranoa,Qld,24.3.1990,, ,still_in_office,NP
-197,,Scott,Douglas,Barr,,,senate,,NSW,6.8.1970 ,section_15,20.11.1970 ,term expired ,NPA
-198,,Scott,Douglas,Barr,,,senate,,NSW,18.5.1974 ,,30.6.1985 ,retired,NPA
-464,,Scott,John,Lyden,,,representatives,Hindmarsh,SA,18.10.1980,,8.2.1993,retired,ALP
-465,,Scott,Leslie,James,,,representatives,Oxley,Qld,8.10.1988,by_election,2.3.1996,defeated,ALP
-199,,Scullion,Nigel,Gregory,,,senate,,NT,10.11.2001 ,,,still_in_office,CLP
-466,,Secker,Patrick,Damien,,,representatives,Barker,SA,3.10.1998,, ,still_in_office,LIB
-467,,Sercombe,Robert,Charles Grant,,,representatives,Maribyrnong,Vic.,2.3.1996,,17.10.2007,retired,ALP
-468,,Shack,Peter,Donald,,,representatives,Tangney,WA,1.12.1984,,8.2.1993,retired,LIB
-469,,Shack,Peter,Donald,,,representatives,Tangney,WA,10.12.1977,,5.3.1983,defeated,LIB
-470,,Sharp,John,Randall,,,representatives,Gilmore,NSW,1.12.1984,,13.3.1993,elected_elsewhere,NPA
-471,,Sharp,John,Randall,,,representatives,Hume,NSW,13.3.1993,,31.8.1998,retired,NPA
-472,,Shaw,George,William,,,representatives,Dawson,Qld,30.11.1963,,9.1.1966,died,CP
-200,,Sheil,Glenister,,,,senate,,Qld,1.12.1984 ,,30.6.1990 ,defeated,NCP
-201,,Sheil,Glenister,,,,senate,,Qld,18.5.1974 ,,6.2.1981 ,resigned ,NCP
-202,,Sherry,Nicholas,John,,,senate,,Tas.,1.7.1990,,,still_in_office,ALP
-473,,Shipton,Roger,Francis,,,representatives,Higgins,Vic.,13.12.1975,,19.2.1990,retired,LIB
-474,,Short,James,Robert,,,representatives,Ballaarat,Vic.,13.12.1975,,18.10.1980,defeated,LIB
-203,,Short,James,Robert,,,senate,,Vic.,1.12.1984 ,,12.5.1997 ,resigned,LIB
-475,,Short,Leonie,Marjorie,,,representatives,Ryan,Qld,17.3.2001,by_election,10.11.2001,defeated,ALP
-476,,Shorten,William,Richard,,,representatives,Maribyrnong,Vic,24.11.2007,,,still_in_office,ALP
-204,,Sibraa,Kerry,Walter,,,senate,,NSW,9.8.1978 ,section_15,1.2.1994 ,resigned,ALP
-205,,Sibraa,Kerry,Walter,,,senate,,NSW,13.12.1975 ,,30.6.1978,still_in_office,ALP
-206,,Siddons,John,Royston,,,senate,,Vic.,1.7.1981 ,,4.2.1983 ,defeated,UNITE AP
-207,,Siddons,John,Royston,,,senate,,Vic.,1.7.1985 ,,5.6.1987 ,defeated,UNITE AP
-477,,Sidebottom,Peter,Sid,,,representatives,Braddon,Tas.,3.10.1998,,9.10.2004,defeated,ALP
-478,,Sidebottom,Peter,Sid,,,representatives,Braddon,Tas,24.11.2007,,,still_in_office,ALP
-208,,Siewert,Rachel,Mary,,,senate,,WA,1.7.2005 ,,,still_in_office,GRN
-209,,Sim,John,Peter,,,senate,,WA,26.11.1964,section_15,30.6.1981 ,retired,LIB
-479,,Simmons,David,William,,,representatives,Calare,NSW,5.3.1983,,29.1.1996,retired,ALP
-480,,Simon,Barry,Douglas,,,representatives,McMillan,Vic.,13.12.1975,,18.10.1980,defeated,LIB
-481,,Simpkins,Luke,Xavier Linton,,,representatives,Cowan,WA,24.11.2007,,,still_in_office,LIB
-482,,Sinclair,Ian,Mccahon,,,representatives,New England,NSW,30.11.1963,,31.8.1998,retired,NPA
-483,,Slipper,Peter,Neil,,,representatives,Fisher,Qld,1.12.1984,,11.7.1987,defeated,NPA
-484,,Slipper,Peter,Neil,,,representatives,Fisher,Qld,13.3.1993,, ,still_in_office,LIB
-485,,Smith,Anthony,Charles,,,representatives,Dickson,Qld,2.3.1996,,3.10.1998,defeated,IND
-486,,Smith,Anthony,David Hawthorn,,,representatives,Casey,Vic.,10.11.2001,, ,still_in_office,LIB
-487,,Smith,Silvia,Joy,,,representatives,Bass,Tas.,13.3.1993,,2.3.1996,defeated,ALP
-488,,Smith,Stephen,Francis,,,representatives,Perth,WA,13.3.1993,, ,still_in_office,ALP
-489,,Smith,Warwick,Leslie,,,representatives,Bass,Tas.,2.3.1996,,3.10.1998,defeated,LIB
-490,,Smith,Warwick,Leslie,,,representatives,Bass,Tas.,1.12.1984,,13.3.1993,defeated,LIB
-491,,Smyth,Brendan,Michael,,,representatives,Canberra,ACT,25.3.1995,by_election,2.3.1996,defeated,LIB
-492,,Snedden,Billy,Mackie (later Sir Billy),,,representatives,Bruce,Vic.,10.12.1955,,21.4.1983,resigned,LIB
-493,,Snow,James,Henry,,,representatives,Eden-Monaro,NSW,5.3.1983,,2.3.1996,defeated,ALP
-494,,Snowdon,Warren,Edward,,,representatives,Lingiari,NT,10.11.2001,, ,still_in_office,ALP
-495,,Snowdon,Warren,Edward,,,representatives,Northern Territory,NT,11.7.1987,,2.3.1996,defeated,ALP
-496,,Snowdon,Warren,Edward,,,representatives,Northern Territory,NT,3.10.1998,,10.11.2001,elected_elsewhere,ALP
-497,,Somlyay,Alexander,Michael,,,representatives,Fairfax,Qld,24.3.1990,, ,still_in_office,LIB
-498,,Southcott,Andrew,John,,,representatives,Boothby,SA,2.3.1996,, ,still_in_office,LIB
-210,,Sowada,Karin,Nicole,,,senate,,NSW,29.8.1991 ,section_15,30.6.1993 ,defeated,AD
-499,,Spender,John,Michael,,,representatives,North Sydney,NSW,18.10.1980,,24.3.1990,defeated,LIB
-211,,Spindler,Sid,,,,senate,,Vic.,1.7.1990 ,,30.6.1996 ,retired,AD
-500,,St,Clair,Stuart Roy,,,representatives,New England,NSW,3.10.1998,,10.11.2001,defeated,NPA
-501,,Staley,Anthony,Allan,,,representatives,Chisholm,Vic.,19.9.1970,by_election,19.9.1980,retired,LIB
-502,,Staples,Peter,Richard,,,representatives,Diamond Valley,Vic.,5.3.1983,,1.12.1984,elected_elsewhere,ALP
-503,,Staples,Peter,Richard,,,representatives,Jagajaga,Vic.,1.12.1984,,29.1.1996,retired,ALP
-504,,Steedman,Alan,Peter,,,representatives,Casey,Vic.,5.3.1983,,1.12.1984,defeated,ALP
-212,,Stephens,Ursula,Mary,,,senate,,NSW,1.7.2002 ,,,still_in_office,ALP
-213,,Sterle,Glenn,,,,senate,,WA,1.7.2005 ,,,still_in_office,ALP
-214,,Stone,John,Owen,,,senate,,Qld,11.7.1987 ,,1.3.1990 ,resigned,NPA
-505,,Stone,Sharman,Nancy,,,representatives,Murray,Vic.,2.3.1996,, ,still_in_office,LIB
-215,,Stott Despoja,Natasha,Jessica,,,senate,,SA,29.11.1995,section_15,,still_in_office,AD
-506,,Street,Anthony,Austin,,,representatives,Corangamite,Vic.,26.11.1966,,18.1.1984,resigned,LIB
-507,,Sullivan,Jonathan,Harold,,,representatives,Longman,Qld,24.11.2007,,,still_in_office,ALP
-216,,Sullivan,Kathryn,Jean Martin,,,senate,,Qld,18.5.1974 ,,5.11.1984 ,resigned,LIB
-508,,Sullivan,Kathryn,Jean Martin,,,representatives,Moncrieff,Qld,1.12.1984,,8.10.2001,retired,LIB
-509,,Swan,Wayne,Maxwell,,,representatives,Lilley,Qld,13.3.1993,,2.3.1996,defeated,ALP
-510,,Swan,Wayne,Maxwell,,,representatives,Lilley,Qld,3.10.1998,, ,still_in_office,ALP
-511,,Symon,Michael,Stuart,,,representatives,Deakin,Vic,24.11.2007,,,still_in_office,ALP
-217,,Synon,Karen,Margaret,,,senate,,Vic.,13.5.1997 ,section_15,30.6.1999 ,defeated,LIB
-512,,Tambling,Grant,Ernest John,,,representatives,Northern Territory,NT,18.10.1980,,5.3.1983,defeated,NPA
-218,,Tambling,Grant,Ernest John,,,senate,,NT,11.7.1987 ,,9.11.2001 ,retired,CLP
-513,,Tanner,Lindsay,James,,,representatives,Melbourne,Vic.,13.3.1993,, ,still_in_office,ALP
-219,,Tate,Michael,Carter,,,senate,,Tas.,1.7.1978 ,,5.7.1993 ,resigned,ALP
-514,,Taylor,William,Leonard,,,representatives,Groom,Qld,9.4.1988,by_election,31.8.1998,retired,LIB
-220,,Tchen,Tsebin,,,,senate,,Vic.,1.7.1999 ,,30.6.2005 ,retired,LIB
-221,,Teague,Baden,Chapman,,,senate,,SA,1.7.1978 ,,30.6.1996 ,retired,LIB
-515,,Theophanous,Andrew,Charles,,,representatives,Burke,Vic.,18.10.1980,,1.12.1984,elected_elsewhere,ALP
-516,,Theophanous,Andrew,Charles,,,representatives,Calwell,Vic.,1.12.1984,,10.11.2001,defeated,IND
-222,,Thomas,Andrew,Murray,,,senate,,WA,13.12.1975 ,,4.2.1983 ,defeated,LIB
-517,,Thompson,Cameron,Paul,,,representatives,Blair,Qld,3.10.1998,,24.11.2007,defeated,LIB
-518,,Thomson,Andrew,Peter,,,representatives,Wentworth,NSW,8.4.1995,by_election,8.10.2001,retired,LIB
-519,,Thomson,Craig,Robert,,,representatives,Dobell,NSW,24.11.2007,,,still_in_office,ALP
-520,,Thomson,David,Scott,,,representatives,Leichhardt,Qld,13.12.1975,,5.3.1983,defeated,NPA
-521,,Thomson,Kelvin,John,,,representatives,Wills,Vic.,2.3.1996,, ,still_in_office,ALP
-522,,Ticehurst,Kenneth,Vincent,,,representatives,Dobell,NSW,10.11.2001,,24.11.2007,defeated,LIB
-523,,Tickner,Robert,Edward,,,representatives,Hughes,NSW,18.2.1984,by_election,2.3.1996,defeated,ALP
-223,,Tierney,John,William,,,senate,,NSW,11.2.1991 ,section_15,14.4.2005 ,resigned,LIB
-524,,Tollner,David,William,,,representatives,Lingiari,NT,10.11.2001,,24.11.2007,defeated,CLP
-224,,Townley,Michael,,,,senate,,Tas.,1.7.1971 ,,5.6.1987 ,retired,IND
-525,,Trevor,Chris,Allan,,,representatives,Flynn,Qld,24.11.2007,,,still_in_office,ALP
-225,,Troeth,Judith,Mary,,,senate,,Vic.,1.7.1993 ,,,still_in_office,LIB
-226,,Trood,Russell,Brunell,,,senate,,Qld,1.7.2005 ,,,still_in_office,LIB
-526,,Truss,Warren,Errol,,,representatives,Wide Bay,Qld,24.3.1990,, ,still_in_office,NP
-527,,Tuckey,Charles,Wilson,,,representatives,O'Connor,WA,18.10.1980,, ,still_in_office,LIB
-528,,Turnbull,Malcolm,Bligh,,,representatives,Wentworth,NSW,9.10.2004,, ,still_in_office,LIB
-529,,Turnour,James,Pearce,,,representatives,Leichhardt,Qld,24.11.2007,,,still_in_office,ALP
-530,,Uren,Thomas,,,,representatives,Reid,NSW,22.11.1958,,19.2.1990,retired,ALP
-531,,Vaile,Mark,Anthony James,,,representatives,Lyne,NSW,13.3.1993,, ,still_in_office,NP
-532,,Vale,Danna,Sue,,,representatives,Hughes,NSW,2.3.1996,, ,still_in_office,LIB
-227,,Vallentine,Josephine,,,,senate,,WA,1.7.1985 ,,31.1.1992 ,resigned,GWA
-533,,Vamvakinou,Maria,,,,representatives,Calwell,Vic.,10.11.2001,, ,still_in_office,ALP
-228,,Vanstone,Amanda,Eloise,,,senate,,SA,1.12.1984 ,,26.4.2007 ,resigned,LIB
-534,,Vasta,Ross,Xavier,,,representatives,Bonner,Qld,9.10.2004,,24.11.2007,defeated,LIB
-229,,Vigor,David,Bernard,,,senate,,SA,1.12.1984 ,,5.6.1987 ,defeated,UNITE AP
-535,,Viner,Robert,Ian,,,representatives,Stirling,WA,2.12.1972,,5.3.1983,defeated,LIB
-536,,Wakelin,Barry,Hugh,,,representatives,Grey,SA,13.3.1993,,17.10.2007,retired,LIB
-537,,Walker,Francis,John,,,representatives,Robertson,NSW,24.3.1990,,2.3.1996,defeated,ALP
-538,,Wallis,Laurie,George,,,representatives,Grey,SA,25.10.1969,,4.2.1983,retired,ALP
-230,,Walsh,Peter,Alexander,,,senate,,WA,18.5.1974 ,,30.6.1993 ,retired,ALP
-231,,Walters,Mary,Shirley,,,senate,,Tas.,13.12.1975 ,,30.6.1993 ,retired,LIB
-539,,Washer,Malcolm,James,,,representatives,Moore,WA,3.10.1998,, ,still_in_office,LIB
-540,,Watson,David,John Hopetoun,,,representatives,Forde,Qld,1.12.1984,,11.7.1987,defeated,LIB
-232,,Watson,John,Odin Wentworth,,,senate,,Tas.,1.7.1978 ,,,still_in_office,LIB
-233,,Webber,Ruth,Stephanie,,,senate,,WA,1.7.2002 ,,,still_in_office,ALP
-541,,Webster,Alasdair,Paine,,,representatives,Macquarie,NSW,1.12.1984,,13.3.1993,defeated,LIB
-234,,Webster,James,Joseph,,,senate,,Vic.,9.12.1964 ,section_15,28.1.1980 ,resigned,NCP
-542,,Wells,Deane,Mcmillan,,,representatives,Petrie,Qld,5.3.1983,,1.12.1984,defeated,ALP
-543,,West,Andrea,Gail,,,representatives,Bowman,Qld,2.3.1996,,3.10.1998,defeated,LIB
-544,,West,Stewart,John,,,representatives,Cunningham,NSW,15.10.1977,by_election,8.2.1993,retired,ALP
-235,,West,Suzanne,Margaret,,,senate,,NSW,1.7.1990 ,,30.6.2002 ,retired,ALP
-236,,West,Suzanne,Margaret,,,senate,,NSW,11.2.1987 ,section_15,5.6.1987 ,defeated,ALP
-237,,Wheeldon,John,Murray,,,senate,,WA,1.7.1965 ,,30.6.1981 ,retired,ALP
-238,,Wheelwright,Thomas,Clive,,,senate,,NSW,24.5.1995 ,section_15,30.6.1996 ,defeated,ALP
-545,,White,Peter,Nicholson Duckett,,,representatives,McPherson,Qld,21.2.1981,by_election,19.2.1990,retired,LIB
-546,,Wilkie,Kim,,,,representatives,Swan,WA,3.10.1998,,24.11.2007,defeated,ALP
-547,,Williams,Daryl,Robert,,,representatives,Tangney,WA,13.3.1993,,31.8.2004,retired,LIB
-548,,Willis,Ralph,,,,representatives,Gellibrand,Vic.,2.12.1972,,31.8.1998,retired,ALP
-549,,Willis,Ralph,,,,representatives,Sturt,SA,2.12.1972,,8.2.1993,retired,LIB
-550,,Wilton,Gregory,Stuart,,,representatives,Isaacs,Vic.,2.3.1996,,14.6.2000,died,ALP
-551,,Windsor,Antony,Harold Curties,,,representatives,New England,NSW,10.11.2001,, ,still_in_office,IND
-239,,Withers,Reginald,Greive,,,senate,,WA,17.2.1966 ,section_15,25.11.1966 ,term expired,LIB
-240,,Withers,Reginald,Greive,,,senate,,WA,1.7.1968 ,,5.6.1987 ,retired,LIB
-241,,Wong,Penelope,Ying Yen,,,senate,,SA,1.7.2002 ,,,still_in_office,ALP
-552,,Wood,Jason,Peter,,,representatives,La Trobe,Vic.,9.10.2004,, ,still_in_office,LIB
-242,,Wood,William,Robert,,,senate,,NSW,11.7.1987 ,,12.5.1988,disqualified,NDP
-243,,Woodley,John,,,,senate,,Qld,1.7.1993 ,,27.7.2001 ,resigned,AD
-553,,Woods,Harry,Francis,,,representatives,Page,NSW,24.3.1990,,2.3.1996,defeated,ALP
-554,,Woods,Robert,Leslie,,,representatives,Lowe,NSW,11.7.1987,,13.3.1993,defeated,LIB
-244,,Woods,Robert,Leslie,,,senate,,NSW,8.3.1994 ,section_15,7.3.1997 ,resigned,LIB
-555,,Wooldridge,Michael,Richard Lewis,,,representatives,Casey,Vic.,3.10.1998,,8.10.2001,retired,LIB
-556,,Wooldridge,Michael,Richard Lewis,,,representatives,Chisholm,Vic.,11.7.1987,,3.10.1998,elected_elsewhere,LIB
-557,,Worth,Patricia,Mary,,,representatives,Adelaide,SA,13.3.1993,,9.10.2004,defeated,LIB
-245,,Wortley,Dana,Johanna,,,senate,,SA,1.7.2005 ,,,still_in_office,ALP
-246,,Wriedt,Kenneth,Shaw,,,senate,,Tas.,1.7.1968 ,,25.9.1980 ,resigned,ALP
-558,,Wright,Keith,Webb,,,representatives,Capricornia,Qld,1.12.1984,,13.3.1993,defeated,IND
-559,,Yates,William,,,,representatives,Holt,Vic.,13.12.1975,,18.10.1980,defeated,LIB
-247,,Young,Harold,William,,,senate,,SA,1.7.1968 ,,4.2.1983 ,defeated,LIB
-560,,Young,Michael,Jerome,,,representatives,Port Adelaide,SA,18.5.1974,,8.2.1988,resigned,ALP
-561,,Zahra,Christian,John,,,representatives,McMillan,Vic.,3.10.1998,,9.10.2004,defeated,ALP
-248,,Zakharov,Alice,Olive,,,senate,,Vic.,5.3.1983 ,,6.3.1995 ,died,ALP
-562,,Zammit,Paul,John,,,representatives,Lowe,NSW,2.3.1996,,3.10.1998,defeated,IND
-563,,Zappia,Antonio,,,,representatives,Makin,SA,24.11.2007,,,still_in_office,ALP
+60,,,Brown,Joseph,Tilley,,,representatives,Indi,Vic.,12.12.1906,,13.4.1910,defeated,ANTI-SOC
+61,,,Brown,Joseph,Tilley,,,representatives,Unknown,Vic.,13.12.1975,,5.3.1983,defeated,LIB
+62,74,,Brown,Robert,James,,,representatives,Charlton,NSW,1.12.1984,,31.8.1998,retired,ALP
+63,74,,Brown,Robert,James,,,representatives,Hunter,NSW,18.10.1980,,1.12.1984,elected_elsewhere,ALP
+27,696,,Brown,Robert,James,,,senate,,Tas.,1.7.1996,,,still_in_office,GRN
+# TODO: We're also missing Neil Anthony Brown QC
+28,,,Brownhill,David,Gordon Cadell,,,senate,,NSW,1.12.1984,,14.4.2000,resigned,NPA
+64,,,Brumby,John,Mansfield,,,representatives,Bendigo,Vic.,5.3.1983,,24.3.1990,defeated,ALP
+65,,,Bryant,Gordon,Munro,,,representatives,Wills,Vic.,10.12.1955,,19.9.1980,retired,ALP
+29,,,Buckland,Geoffrey,Frederick,,,senate,,SA,14.9.2000,section_15,30.6.2005,retired,ALP
+66,,,Bungey,Melville,Harold,,,representatives,Canning,WA,18.5.1974,,5.3.1983,defeated,LIB
+67,,Ms,Burke,Anna,Elizabeth,,,representatives,Chisholm,Vic.,3.10.1998,,11.2.2008,changed_party,ALP
+68,,Ms,Burke,Anna,Elizabeth,,,representatives,Chisholm,Vic.,12.2.2008,changed_party, ,still_in_office,CWM
+69,,Mr,Burke,Anthony,Stephen,,,representatives,Watson,NSW,9.10.2004,, ,still_in_office,ALP
+30,,,Burns,Bryant,Robert,,,senate,,Qld,11.7.1987,,30.6.1996,retired,ALP
+70,,,Burns,William,George,,,representatives,Isaacs,Vic.,10.12.1977,,18.10.1980,defeated,LIB
+71,,,Burr,Maxwell,Arthur,,,representatives,Lyons,Tas.,1.12.1984,,8.2.1993,retired,LIB
+72,,,Burr,Maxwell,Arthur,,,representatives,Wilmot,Tas.,13.12.1975,,1.12.1984,elected_elsewhere,LIB
+31,,,Bushby,David,Christopher,,,senate,,SA,30.8.2007,section_15,,still_in_office,LIB
+73,,,Butler,Mark,Christopher,,,representatives,Port Adelaide,SA,24.11.2007,,,still_in_office,ALP
+32,,,Button,John,Norman,,,senate,,Vic.,18.5.1974,,31.3.1993,resigned,ALP
+74,,,Byrne,Anthony,Michael,,,representatives,Holt,Vic.,6.11.1999,by_election, ,still_in_office,ALP
+75,,,Cadman,Alan,Glyndwr,,,representatives,Lilley,Qld,18.5.1974,,18.10.1980,defeated,LIB
+76,,,Cadman,Alan,Glyndwr,,,representatives,Mitchell,NSW,18.5.1974,,17.10.2007,retired,LIB
+77,,,Calder,Stephen,Edward,,,representatives,Northern Territory,NT,26.11.1966,,19.9.1980,retired,NCP
+33,,,Calvert,Paul,Henry,,,senate,,Tas.,11.7.1987,,29.8.2007,resigned,LIB
+78,,,Cameron,Clyde,Robert,,,representatives,Hindmarsh,SA,10.12.1949,,19.9.1980,retired,ALP
+79,,,Cameron,Donald,Milner,,,representatives,Fadden,Qld,10.12.1977,,5.3.1983,defeated,LIB
+80,,,Cameron,Donald,Milner,,,representatives,Griffith,Qld,26.11.1966,,10.12.1977,elected_elsewhere,LIB
+81,,,Cameron,Donald,Milner,,,representatives,Moreton,Qld,5.11.1983,by_election,24.3.1990,defeated,LIB
+82,,,Cameron,Eoin,Harrap,,,representatives,Stirling,WA,13.3.1993,,3.10.1998,defeated,LIB
+83,,,Cameron,Ewen,Colin,,,representatives,Indi,Vic.,10.12.1977,,8.2.1993,retired,LIB
+84,,,Cameron,Ian,Milne Dixon,,,representatives,Maranoa,Qld,18.10.1980,,19.2.1990,retired,NPA
+85,,,Cameron,Ross,Alexander,,,representatives,Parramatta,NSW,2.3.1996,,9.10.2004,defeated,LIB
+34,,,Campbell,George,,,,senate,,NSW,17.9.1997,section_15,,still_in_office,ALP
+86,,,Campbell,Graeme,,,,representatives,Kalgoorlie,WA,18.10.1980,,3.10.1998,defeated,IND
+35,,,Campbell,Ian,Gordon,,,senate,,WA,16.5.1990,section_15,31.5.2007,resigned,LIB
+87,,,Campbell,Jodie,Louise,,,representatives,Bass,Tas,24.11.2007,,,still_in_office,ALP
+88,,,Carlton,James,Joseph,,,representatives,Mackellar,NSW,10.12.1977,,14.1.1994,resigned,LIB
+36,,,Carr,Kim,John,,,senate,,Vic.,28.4.1993,section_15,,still_in_office,ALP
+37,,,Carrick,John,Leslie,,,senate,,NSW,1.7.1971,,5.6.1987,retired,LIB
+89,,,Cass,Moses,Henry,,,representatives,Maribyrnong,Vic.,25.10.1969,,4.2.1983,retired,ALP
+90,,,Catley,Robert,,,,representatives,Adelaide,SA,24.3.1990,,13.3.1993,defeated,ALP
+91,,,Catts,James,Howard,,,representatives,Cook,NSW,12.12.1906,,16.12.1922,defeated,ALP
+92,,,Causley,Ian,Raymond,,,representatives,Page,NSW,2.3.1996,,11.2.2002,changed_party,NP
+93,,,Causley,Ian,Raymond,,,representatives,Page,NSW,11.2.2002,changed_party,17.10.2007,retired,CWM
+38,,,Cavanagh,James,Luke,,,senate,,SA,1.7.1962,,30.6.1981,retired,ALP
+39,,,Chamarette,Christabel,Marguerite Alain,,,senate,,WA,12.3.1992,section_15,30.6.1996,defeated,GWA
+94,,,Champion,Nicholas,David,,,representatives,Wakefield,SA,24.11.2007,,,still_in_office,ALP
+95,,,Chaney,Frederick,Michael,,,representatives,Pearce,WA,24.3.1990,,8.2.1993,retired,LIB
+40,,,Chaney,Frederick,Michael,,,senate,,WA,18.5.1974,,27.2.1990,resigned,LIB
+96,,,Chapman,Hedley,Grant Pearson,,,representatives,Kingston,SA,13.12.1975,,5.3.1983,defeated,LIB
+41,,,Chapman,Hedley,Grant Pearson,,,senate,,SA,11.7.1987,,,still_in_office,LIB
+97,,,Charles,David,Ernest,,,representatives,Isaacs,Vic.,18.10.1980,,19.2.1990,retired,ALP
+98,,,Charles,Robert,Edwin,,,representatives,La Trobe,Vic.,24.3.1990,,31.8.2004,retired,LIB
+99,,,Charlesworth,Richard,Ian,,,representatives,Henty,Vic.,18.10.1980,,19.2.1990,retired,ALP
+100,,,Charlesworth,Richard,Ian,,,representatives,Perth,WA,5.3.1983,,8.2.1993,retired,ALP
+101,,,Cheeseman,Darren,Leicester,,,representatives,Corangamite,Vic,24.11.2007,,,still_in_office,ALP
+42,,,Cherry,John,Clifford,,,senate,,Qld,31.7.2001,section_15,30.6.2005,defeated,AD
+43,,,Childs,Bruce,Kenneth,,,senate,,NSW,1.7.1981,,10.9.1997,resigned,ALP
+44,,,Chipp,Donald,Leslie,,,senate,,Vic.,1.7.1978,,18.8.1986,resigned,AD
+102,,,Chynoweth,Robert,Leslie,,,representatives,Dunkley,Vic.,1.12.1984,,24.3.1990,defeated,ALP
+103,,,Chynoweth,Robert,Leslie,,,representatives,Dunkley,Vic.,13.3.1993,,2.3.1996,defeated,ALP
+104,,,Chynoweth,Robert,Leslie,,,representatives,Flinders,Vic.,5.3.1983,,1.12.1984,elected_elsewhere,ALP
+105,,,Ciobo,Steven,Michele,,,representatives,Moncrieff,Qld,10.11.2001,, ,still_in_office,LIB
+106,,,Clare,Jason,Dean,,,representatives,Blaxland,NSW,24.11.2007,,,still_in_office,ALP
+107,,,Cleary,Philip,Ronald,,,representatives,Wills,Vic.,11.4.1992,by_election,25.11.1992,declared_void,IND
+108,,,Cleary,Philip,Ronald,,,representatives,Wills,Vic.,13.3.1993,,2.3.1996,defeated,IND
+109,,,Cleeland,Peter,Robert,,,representatives,McEwen,Vic.,1.12.1984,,24.3.1990,defeated,ALP
+110,,,Cleeland,Peter,Robert,,,representatives,McEwen,Vic.,13.3.1993,,2.3.1996,defeated,ALP
+45,,,Coates,John,,,,senate,,Tas.,1.7.1981,,20.8.1996,resigned,ALP
+111,,,Cobb,John,Kenneth,,,representatives,Parkes,NSW,10.11.2001,, ,still_in_office,NP
+112,,,Cobb,Michael,Roy,,,representatives,Parkes,NSW,1.12.1984,,31.8.1998,retired,NPA
+113,,,Cohen,Barry,,,,representatives,Robertson,NSW,25.10.1969,,19.2.1990,retired,ALP
+46,,,Cohen,Samuel,Herbert,,,senate,,Vic.,1.7.1962,,7.10.1969,died,ALP
+47,,,Colbeck,Richard,Mansell,,,senate,,Tas.,4.2.2002,section_15,,still_in_office,LIB
+48,,,Coleman,Ruth,Nancy,,,senate,,WA,18.5.1974,,5.6.1987,retired,ALP
+114,,,Coleman,William,Peter,,,representatives,Wentworth,NSW,11.4.1981,by_election,5.6.1987,retired,LIB
+49,,,Collard,Stanley,James,,,senate,,Qld,13.12.1975,,5.6.1987,retired,NPA
+50,,,Collins,Jacinta,Mary Ann,,,senate,,Vic.,3.5.1995,section_15,30.6.2005,defeated,ALP
+115,,,Collins,Julie,Maree,,,representatives,Franklin,Tas,24.11.2007,,,still_in_office,ALP
+51,,,Collins,Robert,Lindsay,,,senate,,NT,11.7.1987,,30.3.1998,resigned,ALP
+52,,,Colston,Malcolm,Arthur,,,senate,,Qld,13.12.1975,,30.6.1999,retired,IND
+116,,,Combet,Gregory,Ivan,,,representatives,Charlton,NSW,24.11.2007,,,still_in_office,ALP
+117,,,Connolly,David,Miles,,,representatives,Bradfield,NSW,18.5.1974,,29.1.1996,retired,LIB
+118,,,Conquest,Bryan,Joseph,,,representatives,Hinkler,Qld,1.12.1984,,11.7.1987,defeated,NPA
+53,,,Conroy,Stephen,Michael,,,senate,,Vic.,30.4.1996,section_15,,still_in_office,ALP
+54,,,Cook,Peter,Francis Salmon,,,senate,,WA,5.3.1983,,30.6.2005,retired,ALP
+55,,,Coonan,Helen,Lloyd,,,senate,,NSW,1.7.1996,,,still_in_office,LIB
+56,,,Cooney,Bernard,Cornelius,,,senate,,Vic.,1.12.1984,,30.6.2002,retired,ALP
+119,,,Corbett,James,,,,representatives,Maranoa,Qld,26.11.1966,,19.9.1980,retired,NCP
+120,,,Corcoran,Ann,Kathleen,,,representatives,Isaacs,Vic.,12.8.2000,by_election,17.10.2007,retired,ALP
+57,,,Cormann,Mathias,Hubert Paul,,,senate,,WA,19.6.2007,section_15,,still_in_office,LIB
+121,,,Costello,Peter,Howard,,,representatives,Higgins,Vic.,24.3.1990,, ,still_in_office,LIB
+122,,,Cotter,John,Francis,,,representatives,Kalgoorlie,WA,13.12.1975,,18.10.1980,defeated,LIB
+58,,,Coulter,John,Richard,,,senate,,SA,11.7.1987 ,,20.11.1995 ,resigned,AD
+123,,,Coulton,Mark,Maclean,,,representatives,Parkes,NSW,24.11.2007,,,still_in_office,Nats
+124,,,Courtice,Brian,William,,,representatives,Hinkler,Qld,11.7.1987,,13.3.1993,defeated,ALP
+125,,,Cowan,David,Bruce,,,representatives,Lyne,NSW,18.10.1980,,8.2.1993,retired,NPA
+126,,,Cox,David,Alexander,,,representatives,Kingston,SA,3.10.1998,,9.10.2004,defeated,ALP
+59,,,Crane,Arthur,Winston,,,senate,,WA,1.7.1990 ,,30.6.2002 ,defeated,LIB
+127,,,Crawford,Mary,Catherine,,,representatives,Forde,Qld,11.7.1987,,2.3.1996,defeated,ALP
+128,,,Crean,Simon,Findlay,,,representatives,Hotham,Vic.,24.3.1990,,,still_in_office,ALP
+60,,,Crichton-Browne,Noel,Ashley,,,senate,,WA,1.7.1981 ,,30.6.1996 ,retired,IND LIB
+129,,,Crosio,Janice,Ann,,,representatives,Brisbane,Qld,18.10.1980,,19.2.1990,retired,ALP
+130,,,Crosio,Janice,Ann,,,representatives,Prospect,NSW,24.3.1990,,31.8.2004,retired,ALP
+61,,,Crossin,Patricia,Margaret,,,senate,,NT,16.6.1998 ,section_15,,still_in_office,ALP
+62,,,Crowley,Rosemary,Anne,,,senate,,SA,5.3.1983 ,,30.6.2002 ,retired,ALP
+131,,,Cunningham,Barry,Thomas,,,representatives,McMillan,Vic.,18.10.1980,,24.3.1990,defeated,ALP
+132,,,Cunningham,Barry,Thomas,,,representatives,McMillan,Vic.,13.3.1993,,2.3.1996,defeated,ALP
+133,,,D'ath,Yvette,Maree,,,representatives,Petrie,Qld,24.11.2007,,,still_in_office,ALP
+134,,,Danby,Michael,David,,,representatives,Melbourne Ports,Vic.,3.10.1998,,,still_in_office,ALP
+135,,,Dargavel,Steven,John,,,representatives,Fraser,ACT,1.2.1997,by_election,31.8.1998,retired,ALP
+136,,,Darling,Elaine,Elizabeth,,,representatives,Fremantle,WA,10.12.1977,,4.2.1994,resigned,ALP
+137,,,Darling,Elaine,Elizabeth,,,representatives,Lilley,Qld,18.10.1980,,8.2.1993,retired,ALP
+63,,,Davidson,Gordon,Sinclair,,,senate,,SA,8.2.1962 ,,30.6.1962 ,retired;,LIB
+64,,,Davidson,Gordon,Sinclair,,,senate,,SA,1.7.1965 ,,30.6.1981 ,retired,LIB
+65,,,Davidson,Gordon,Sinclair,,,senate,,SA,28.9.1961 ,section_15,8.12.1961 ,term expired; ,LIB
+138,,,Deahm,Margaret,Joan,,,representatives,Macquarie,NSW,13.3.1993,,2.3.1996,defeated,ALP
+139,,,Dean,Arthur,Gordon,,,representatives,Herbert,Qld,10.12.1977,,5.3.1983,defeated,LIB
+140,,,Debus,Robert,John,,,representatives,Macquarie,NSW,24.11.2007,,,still_in_office,ALP
+66,,,Denman,Kay,Janet,,,senate,,Tas.,24.8.1993 ,section_15,30.6.2005 ,retired,ALP
+67,,,Devereux,John,Robert,,,senate,,Tas.,11.7.1987 ,,7.2.1996 ,resigned,IND
+68,,,Devlin,Arthur,Ray,,,senate,,Tas.,1.12.1984 ,,30.6.1990 ,retired,ALP
+141,,,Diamond,Valley,,,,representatives,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
+142,,,Dobie,James,Donald Mathieson,,,representatives,Cook,NSW,13.12.1975,,29.1.1996,retired,LIB
+143,,,Dobie,James,Donald Mathieson,,,representatives,Cook,NSW,25.10.1969,,2.12.1972,defeated,LIB
+144,,,Dobie,James,Donald Mathieson,,,representatives,Hughes,NSW,26.11.1966,,25.10.1969,elected_elsewhere,LIB
+145,,,Dodd,Peter,George,,,representatives,Leichhardt,Qld,13.3.1993,,2.3.1996,defeated,ALP
+146,,,Dondas,Nicholas,Manuel,,,representatives,Northern Territory,NT,2.3.1996,,3.10.1998,defeated,CLP
+147,,,Downer,Alexander,John Gosse,,,representatives,Mayo,SA,1.12.1984,,,still_in_office,LIB
+148,,,Draper,Patricia,,,,representatives,Makin,SA,2.3.1996,,17.10.2007,retired,LIB
+149,,,Dreyfus,Mark,Alfred,,,representatives,Isaacs,Vic,24.11.2007,,,still_in_office,ALP
+150,,,Drummond,Peter,Hertford,,,representatives,Forrest,WA,2.12.1972,,5.6.1987,retired,LIB
+151,,,Dubois,Stephen,Cairfield,,,representatives,St George,NSW,1.12.1984,,8.2.1993,retired,ALP
+152,,,Duffy,Michael,John,,,representatives,Holt,Vic.,18.10.1980,,29.1.1996,retired,ALP
+153,,,Duncan,Peter,,,,representatives,Makin,SA,1.12.1984,,2.3.1996,defeated,ALP
+69,,,Dunn,Patricia,Irene (Irina),,,senate,,NSW,21.7.1988 ,,30.6.1990 ,defeated,IND
+70,,,Durack,Peter,Drew,,,senate,,WA,1.7.1971 ,,30.6.1993 ,retired,LIB
+154,,,Dutton,Peter,Craig,,,representatives,Dickson,Qld,10.11.2001,,,still_in_office,LIB
+155,,,Easson,Mary,Louise,,,representatives,Lowe,NSW,13.3.1993,,2.3.1996,defeated,ALP
+156,,,Edwards,Graham,John,,,representatives,Cowan,WA,3.10.1998,,17.10.2007,retired,ALP
+157,,,Edwards,Harold,Raymond,,,representatives,Berowra,NSW,2.12.1972,,8.2.1993,retired,LIB
+158,,,Edwards,Ronald,Frederick,,,representatives,Stirling,WA,5.3.1983,,13.3.1993,defeated,ALP
+71,,,Eggleston,Alan,,,,senate,,WA,1.7.1996,,,still_in_office,LIB
+159,,,Ellicott,Robert,James,,,representatives,Wentworth,NSW,18.5.1974,,17.2.1981,resigned,LIB
+160,,,Elliot,Justine,,,,representatives,Richmond,NSW,9.10.2004,, ,still_in_office,ALP
+161,,,Elliott,Robert,Paul,,,representatives,Parramatta,NSW,24.3.1990,,2.3.1996,defeated,ALP
+162,,,Ellis,Annette,Louise,,,representatives,Canberra,ACT,2.3.1996,,,still_in_office,ALP
+163,,,Ellis,Katherine,Margaret,Kate,,representatives,Adelaide,SA,9.10.2004,,,still_in_office,ALP
+72,,,Ellison,Christopher,Martin,,,senate,,WA,1.7.1993,,,still_in_office,LIB
+164,,,Elson,Kay,Selma,,,representatives,Forde,Qld,2.3.1996,,17.10.2007,retired,LIB
+73,,,Elstob,Ronald,Charles,,,senate,,SA,1.7.1978 ,,5.6.1987 ,retired,ALP
+165,,,Emerson,Craig,Anthony,,,representatives,Rankin,Qld,3.10.1998,,,still_in_office,ALP
+166,,,Entsch,Warren,George,,,representatives,Leichhardt,Qld,2.3.1996,,17.10.2007,retired,LIB
+74,,,Evans,Christopher,Vaughan,,,senate,,WA,1.7.1993,,,still_in_office,ALP
+167,,,Evans,Gareth,John,,,representatives,Holt,Vic.,2.3.1996,,30.9.1999,resigned,ALP
+75,,,Evans,Gareth,John,,,senate,,Vic.,1.7.1978 ,,6.2.1996 ,resigned,ALP
+76,,,Evans,John,Gordon,,,senate,,WA,5.3.1983 ,,30.6.1985 ,defeated,AD
+168,,,Evans,Martyn,John,,,representatives,Bonython,SA,19.3.1994,by_election,9.10.2004,defeated,ALP
+169,,,Evans,Richard,David Conroy,,,representatives,Capricornia,Qld,10.12.1977,,26.10.1984,retired,ALP
+170,,,Evans,Richard,David Conroy,,,representatives,Cowan,WA,13.3.1993,,3.10.1998,defeated,LIB
+171,,,Everingham,Paul,Anthony Edward,,,representatives,Northern Territory,NT,1.12.1984,,5.6.1987,retired,LIB
+172,,,Fahey,John,Joseph,,,representatives,Macarthur,NSW,2.3.1996,,8.10.2001,retired,LIB
+173,,,Falconer,Peter,David,,,representatives,Casey,Vic.,13.12.1975,,5.3.1983,defeated,LIB
+174,,,Farmer,Patrick,Francis,,,representatives,Macarthur,NSW,10.11.2001,,,still_in_office,LIB
+175,,,Fatin,Wendy,Frances,,,representatives,Brand,WA,1.12.1984,,29.1.1996,retired,ALP
+176,,,Fatin,Wendy,Frances,,,representatives,Canning,WA,5.3.1983,,1.12.1984,elected_elsewhere,ALP
+77,,,Faulkner,John,Philip,,,senate,,NSW,4.4.1989,section_15,,still_in_office,ALP
+177,,,Fawcett,David,Julian,,,representatives,Wakefield,SA,9.10.2004,,24.11.2007,defeated,LIB
+78,,,Ferguson,Alan,Baird,,,senate,,SA,26.5.1992,section_15,,still_in_office,LIB
+178,,,Ferguson,Laurie,Donald Thomas,,,representatives,Reid,NSW,24.3.1990,,,still_in_office,ALP
+179,,,Ferguson,Martin,John,,,representatives,Batman,Vic.,2.3.1996,,,still_in_office,ALP
+180,,,Ferguson,Michael,Darrel,,,representatives,Bass,Tas.,9.10.2004,,24.11.2007,defeated,LIB
+79,,,Ferris,Jeannie,Margaret,,,senate,,SA,1.7.1996 ,,12.7.1996 ,resigned; ,LIB
+80,,,Ferris,Jeannie,Margaret,,,senate,,SA,24.7.1996 ,section_15,2.4.2007 ,died,LIB
+81,,,Fielding,Steve,,,,senate,,Vic.,1.7.2005 ,,,still_in_office,FFP
+82,,,Fierravanti-Wells,Concetta,Anna,,,senate,,NSW,5.5.2005 ,section_15,,still_in_office,LIB
+181,,,Fife,Wallace,Clyde,,,representatives,Farrer,NSW,13.12.1975,,1.12.1984,elected_elsewhere,LIB
+182,,,Fife,Wallace,Clyde,,,representatives,Hume,NSW,1.12.1984,,8.2.1993,retired,LIB
+83,,,Fifield,Mitchell,Peter,,,senate,,Vic.,31.3.2004 ,section_15,,still_in_office,LIB
+183,,,Filing,Paul,Anthony,,,representatives,Moore,WA,24.3.1990,,3.10.1998,defeated,IND
+184,,,Fischer,Timothy,Andrew,,,representatives,Farrer,NSW,1.12.1984,,8.10.2001,retired,NPA
+84,,,Fisher,Mary,Jo,,,senate,,SA,6.6.2007,section_15,,still_in_office,LIB
+185,,,Fisher,Peter,Stanley,,,representatives,Mallee,Vic.,2.12.1972,,8.2.1993,retired,NPA
+186,,,Fitzgibbon,Eric,John,,,representatives,Hunter,NSW,1.12.1984,,29.1.1996,retired,ALP
+187,,,Fitzgibbon,Joel,Andrew,,,representatives,Hunter,NSW,2.3.1996,,,still_in_office,ALP
+188,,,Fitzpatrick,John,,,,representatives,Darling,NSW,25.10.1969,,10.12.1977,elected_elsewhere,ALP
+189,,,Fitzpatrick,John,,,,representatives,Riverina,NSW,10.12.1977,,19.9.1980,retired,ALP
+190,,,Ford,Frank,Allen,,,representatives,Dunkley,Vic.,24.3.1990,,13.3.1993,defeated,LIB
+85,,,Foreman,Dominic,John,,,senate,,SA,1.7.1981 ,,15.9.1997 ,resigned,ALP
+191,,,Forrest,John,Alexander,,,representatives,Mallee,Vic.,13.3.1993,, ,still_in_office,NP
+86,,,Forshaw,Michael,George,,,senate,,NSW,10.5.1994,section_15,,still_in_office,ALP
+192,,,Free,Ross,Vincent,,,representatives,Lindsay,NSW,1.12.1984,,2.3.1996,defeated,ALP
+193,,,Free,Ross,Vincent,,,representatives,Macquarie,NSW,18.10.1980,,1.12.1984,elected_elsewhere,ALP
+194,,,Fry,Kenneth,Lionel,,,representatives,Fraser,ACT,18.5.1974,,26.10.1984,retired,ALP
+195,,,Gallus,Christine,Ann,,,representatives,Hawker,SA,24.3.1990,,13.3.1993,elected_elsewhere,LIB
+196,,,Gallus,Christine,Ann,,,representatives,Hindmarsh,SA,13.3.1993,,31.8.2004,retired,LIB
+197,,,Gambaro,Teresa,,,,representatives,Petrie,Qld,2.3.1996,,24.11.2007,defeated,LIB
+198,,,Garland,Ransley,Victor,,,representatives,Curtin,WA,19.4.1969,by_election,22.1.1981,resigned,LIB
+199,,,Garrett,Peter,Robert,,,representatives,Kingsford Smith,NSW,9.10.2004,, ,still_in_office,ALP
+200,,,Gash,Joanna,,,,representatives,Gilmore,NSW,2.3.1996,, ,still_in_office,LIB
+201,,,Gayler,John,,,,representatives,Leichhardt,Qld,5.3.1983,,8.2.1993,retired,ALP
+202,,,Gear,George,,,,representatives,Canning,WA,1.12.1984,,2.3.1996,defeated,ALP
+203,,,Gear,George,,,,representatives,Tangney,WA,5.3.1983,,1.12.1984,elected_elsewhere,ALP
+204,,,Georganas,Steven,,,,representatives,Hindmarsh,SA,9.10.2004,, ,still_in_office,ALP
+205,,,George,Jennie,,,,representatives,Throsby,NSW,10.11.2001,, ,still_in_office,ALP
+87,,,Georges,George,,,,senate,,Qld,1.7.1968 ,,5.6.1987 ,defeated,IND
+206,,,Georgiou,Petro,,,,representatives,Kooyong,Vic.,19.11.1994,by_election, ,still_in_office,LIB
+207,,,Gerick,Jane,Frances,,,representatives,Canning,WA,3.10.1998,,10.11.2001,defeated,ALP
+208,,,Gibbons,Stephen,William,,,representatives,Bendigo,Vic.,3.10.1998,, ,still_in_office,ALP
+88,,,Gibbs,Brenda,,,,senate,,Qld,1.7.1996 ,,30.6.2002 ,defeated,ALP
+89,,,Gibson,Brian,Francis,,,senate,,Tas.,1.7.1993 ,,22.2.2002 ,resigned,LIB
+209,,,Gibson,Garrie,David,,,representatives,Moreton,Qld,24.3.1990,,2.3.1996,defeated,ALP
+90,,,Gietzelt,Arthur,Thomas,,,senate,,NSW,1.7.1971 ,,27.2.1989 ,resigned,ALP
+210,,,Giles,Geoffrey,O'halloran,,,representatives,Angas,SA,20.6.1964,by_election,10.12.1977,elected_elsewhere,LIB
+211,,,Giles,Geoffrey,O'halloran,,,representatives,Wakefield,SA,10.12.1977,,4.2.1983,retired,LIB
+91,,,Giles,Patricia,Jessie,,,senate,,WA,1.7.1981 ,,30.6.1993 ,retired,ALP
+212,,,Gillard,Julia,Eileen,,,representatives,Lalor,Vic.,3.10.1998,, ,still_in_office,ALP
+213,,,Gillard,Reginald,,,,representatives,Macquarie,NSW,13.12.1975,,18.10.1980,defeated,LIB
+214,,,Goodluck,Bruce,John,,,representatives,Franklin,Tas.,13.12.1975,,8.2.1993,retired,LIB
+215,,,Gorman,Russell,Neville Joseph,,,representatives,Chifley,NSW,5.3.1983,,1.12.1984,elected_elsewhere,ALP
+216,,,Gorman,Russell,Neville Joseph,,,representatives,Greenway,NSW,1.12.1984,,29.1.1996,retired,ALP
+217,,,Grace,Edward,Laurence,,,representatives,Fowler,NSW,1.12.1984,,31.8.1998,retired,ALP
+218,,,Grace,Elizabeth,Jane,,,representatives,Lilley,Qld,2.3.1996,,3.10.1998,defeated,LIB
+219,,,Graham,Bruce,William,,,representatives,North Sydney,NSW,26.11.1966,,19.9.1980,retired,LIB
+220,,,Graham,Bruce,William,,,representatives,St George,NSW,10.12.1949,,29.5.1954,defeated,LIB
+221,,,Graham,Bruce,William,,,representatives,St George,NSW,10.12.1955,,22.11.1958,defeated,LIB
+222,,,Gray,Gary,,,,representatives,Brand,WA,24.11.2007,,,still_in_office,ALP
+92,,,Greig,Brian,Andrew,,,senate,,WA,1.7.1999,,30.5.2005 ,defeated,AD
+223,,,Grierson,Sharon,Joy,,,representatives,Newcastle,NSW,10.11.2001,, ,still_in_office,ALP
+224,,,Griffin,Alan,Peter,,,representatives,Bruce,Vic.,2.3.1996,, ,still_in_office,ALP
+225,,,Griffin,Alan,Peter,,,representatives,Corinella,Vic.,13.3.1993,,2.3.1996,elected_elsewhere,ALP
+226,,,Griffiths,Alan,Gordon,,,representatives,Maribyrnong,Vic.,5.3.1983,,29.1.1996,retired,ALP
+93,,,Grimes,Donald,James,,,senate,,Tas.,18.5.1974 ,,2.4.1987 ,resigned,ALP
+227,,,Groom,Raymond,John,,,representatives,Braddon,Tas.,13.12.1975,,26.10.1984,retired,LIB
+94,,,Guilfoyle,Margaret,Georgina Constance,,,senate,,Vic.,1.7.1971 ,,5.6.1987 ,retired,LIB
+228,,,Haase,Barry,Wayne,,,representatives,Kalgoorlie,WA,3.10.1998,, ,still_in_office,LIB
+95,,,Haines,Janine,,,,senate,,SA,1.7.1981 ,,1.3.1990 ,resigned,AD
+96,,,Haines,Janine,,,,senate,,SA,14.12.1977 ,section_15,30.6.1978 ,term_expired,AD
+229,,,Hale,Damian,Francis,,,representatives,Solomon,NT,24.11.2007,,,still_in_office,ALP
+230,,,Hall,Jill,Griffiths,,,representatives,Shortland,NSW,3.10.1998,, ,still_in_office,ALP
+231,,,Hall,Raymond,Steele,,,representatives,Boothby,SA,21.2.1981,by_election,29.1.1996,retired,LIB
+232,,,Halverson,Robert,George,,,representatives,Casey,Vic.,1.12.1984,,31.8.1998,retired,LIB
+97,,,Hamer,David,John,,,senate,,Vic.,1.7.1978 ,,30.6.1990 ,retired,LIB
+233,,,Hand,Gerard,Leslie,,,representatives,Melbourne,Vic.,5.3.1983,,8.2.1993,retired,ALP
+234,,,Hanson,Pauline,Lee,,,representatives,Oxley,Qld,2.3.1996,,3.10.1998,defeated,PHON
+235,,,Hardgrave,Gary,Douglas,,,representatives,Moreton,Qld,2.3.1996,,24.11.2007,defeated,LIB
+98,,,Harradine,Brian,,,,senate,,Tas.,13.12.1975 ,,30.6.2005 ,retired,IND
+236,,,Harris,Graham,Mcdonald,,,representatives,Chisholm,Vic.,18.10.1980,,5.3.1983,defeated,LIB
+99,,,Harris,Leonard,William,,,senate,,Qld,2.7.1999,,30.6.2005 ,defeated,PHON
+237,,,Hartsuyker,Luke,,,,representatives,Cowper,NSW,10.11.2001,, ,still_in_office,NP
+238,,,Harvey,Elizabeth,Robyn,,,representatives,Hawker,SA,11.7.1987,,24.3.1990,defeated,ALP
+239,,,Haslem,John,Whitton,,,representatives,Canberra,ACT,13.12.1975,,18.10.1980,defeated,LIB
+240,,,Hatton,Michael,John,,,representatives,Blaxland,NSW,15.6.1996,by_election,17.10.2007,retired,ALP
+241,,,Haviland,Christopher,Douglas,,,representatives,Macarthur,NSW,13.3.1993,,29.1.1996,retired,ALP
+242,,,Hawke,Alexander,George,,,representatives,Mitchell,NSW,24.11.2007,,,still_in_office,LIB
+243,,,Hawke,Robert,James Lee,,,representatives,Wills,Vic.,18.10.1980,,20.2.1992,resigned,ALP
+244,,,Hawker,David,Peter Maxwell,,,representatives,Wannon,Vic.,7.5.1983,by_election,16.11.2004,changed_party,LIB
+245,,,Hawker,David,Peter Maxwell,,,representatives,Wannon,Vic.,16.11.2004,changed_party,17.10.2007,changed_party,SPK
+246,,,Hawker,David,Peter Maxwell,,,representatives,Wannon,Vic.,17.10.2007,changed_party,,still_in_office,LIB
+247,,,Hayden,William,George,,,representatives,Oxley,Qld,9.12.1961,,17.8.1988,resigned,ALP
+248,,,Hayes,Christopher,Patrick,,,representatives,Werriwa,NSW,19.3.2005,by_election, ,still_in_office,ALP
+100,,,Hearn,Jean,Margaret,,,senate,,Tas.,15.10.1980 ,section_15,30.6.1985 ,retired,ALP
+101,,,Heffernan,William,Daniel,,,senate,,NSW,18.9.1996,section_15,,still_in_office,LIB
+102,,,Hendrickson,Albion,,,,senate,,Vic.,1.7.1947 ,,30.6.1971 ,retired,ALP
+249,,,Henry,Stuart,Irwin,,,representatives,Hasluck,WA,9.10.2004,,24.11.2007,defeated,LIB
+250,,,Henzell,Marjorie,Madeline,,,representatives,Capricornia,Qld,13.3.1993,,2.3.1996,defeated,ALP
+103,,,Herron,John,Joseph,,,senate,,Qld,1.7.1990 ,,5.9.2002 ,resigned,LIB
+251,,,Hewson,John,Robert,,,representatives,Wentworth,NSW,11.7.1987,,28.2.1995,resigned,LIB
+252,,,Hicks,Noel,Jeffrey,,,representatives,Riverina,NSW,13.3.1993,,31.8.1998,retired,NPA
+253,,,Hicks,Noel,Jeffrey,,,representatives,Riverina,NSW,18.10.1980,,1.12.1984,elected_elsewhere,NPA
+254,,,Hicks,Noel,Jeffrey,,,representatives,Riverina-Darling,NSW,1.12.1984,,13.3.1993,elected_elsewhere,NPA
+104,,,Hill,Heather,Elaine,,,senate,,Qld,18.11.1998,,23.9.1999 ,disqualified,PHON
+105,,,Hill,Robert,Murray,,,senate,,SA,1.7.1981 ,,15.3.2006 ,resigned,LIB
+255,,,Hoare,Kelly,Joy,,,representatives,Charlton,NSW,3.10.1998,,17.10.2007,retired,ALP
+256,,,Hockey,Joseph,Benedict,,,representatives,North Sydney,NSW,2.3.1996,, ,still_in_office,LIB
+257,,,Hodges,John,Charles,,,representatives,Petrie,Qld,18.5.1974,,5.3.1983,defeated,LIB
+258,,,Hodges,John,Charles,,,representatives,Petrie,Qld,1.12.1984,,11.7.1987,defeated,LIB
+259,,,Hodgman,Michael,William,,,representatives,Denison,Tas.,13.12.1975,,11.7.1987,defeated,LIB
+106,,,Hogg,John,Joseph,,,senate,,Qld,1.7.1996 ,,,still_in_office,ALP
+260,,,Holding,Allan,Clyde,,,representatives,Melbourne Ports,Vic.,10.12.1977,,31.8.1998,retired,ALP
+261,,,Hollis,Colin,,,,representatives,Macarthur,NSW,5.3.1983,,1.12.1984,elected_elsewhere,ALP
+262,,,Hollis,Colin,,,,representatives,Throsby,NSW,1.12.1984,,8.10.2001,retired,ALP
+263,,,Horne,Robert,Hodges,,,representatives,Paterson,NSW,13.3.1993,,2.3.1996,defeated,ALP
+264,,,Horne,Robert,Hodges,,,representatives,Paterson,NSW,3.10.1998,,10.11.2001,defeated,ALP
+265,,,Howard,John,Winston,,,representatives,Bennelong,NSW,18.5.1974,,24.11.2007,defeated,LIB
+266,,,Howe,Brian,Leslie,,,representatives,Batman,Vic.,10.12.1977,,29.1.1996,retired,ALP
+267,,,Hull,Kay,Elizabeth,,,representatives,Riverina,NSW,3.10.1998,, ,still_in_office,NPA
+268,,,Hulls,Rob,Justin,,,representatives,Kennedy,Qld,24.3.1990,,13.3.1993,defeated,ALP
+269,,,Humphreys,Benjamin,Charles,,,representatives,Griffith,Qld,10.12.1977,,29.1.1996,retired,ALP
+107,,,Humphries,Gary,John Joseph ,,,senate,,ACT,18.2.2003 ,section_15,,still_in_office,LIB
+270,,,Hunt,Gregory,Andrew,,,representatives,Flinders,Vic.,10.11.2001,, ,still_in_office,LIB
+271,,,Hunt,Ralph,James Dunnet,,,representatives,Gwydir,NSW,7.6.1969,by_election,24.2.1989,resigned,NPA
+272,,,Hurford,Christopher,John,,,representatives,Adelaide,SA,25.10.1969,,31.12.1987,resigned,ALP
+108,,,Hurley,Annette,Kay,,,senate,,SA,1.7.2005 ,,,still_in_office,ALP
+109,,,Hutchins,Stephen,Patrick,,,senate,,NSW,14.10.1998 ,section_15,,still_in_office,ALP
+273,,,Hyde,John,Martin,,,representatives,Moore,WA,18.5.1974,,5.3.1983,defeated,LIB
+274,,,Innes,Urquhart,Edward,,,representatives,Melbourne,Vic.,2.12.1972,,4.2.1983,retired,ALP
+275,,,Irons,Stephen,James,,,representatives,Swan,WA,24.11.2007,,,still_in_office,LIB
+276,,,Irwin,Julia,Claire,,,representatives,Fowler,NSW,3.10.1998,, ,still_in_office,ALP
+277,,,Jackson,Sharryn,Maree,,,representatives,Hasluck,WA,10.11.2001,,9.10.2004,defeated,ALP
+278,,,Jackson,Sharryn,Maree,,,representatives,Hasluck,WA,24.11.2007,,,still_in_office,ALP
+279,,,Jacobi,Ralph,,,,representatives,Hawker,SA,25.10.1969,,5.6.1987,retired,ALP
+280,,,Jakobsen,Carolyn,Anne,,,representatives,Cowan,WA,1.12.1984,,13.3.1993,defeated,ALP
+281,,,James,Albert,William,,,representatives,Hunter,NSW,9.4.1960,by_election,19.9.1980,retired,ALP
+282,,,Jarman,Alan,William,,,representatives,Deakin,Vic.,26.11.1966,,5.3.1983,defeated,LIB
+283,,,Jeanes,Susan,Barbara,,,representatives,Kingston,SA,2.3.1996,,3.10.1998,defeated,LIB
+284,,,Jenkins,Henry,Alfred,,,representatives,Scullin,Vic.,25.10.1969,,20.12.1985,resigned,ALP
+285,,,Jenkins,Harry,Alfred,,,representatives,Scullin,Vic.,8.2.1986,by_election,4.5.1993,changed_party,ALP
+286,,,Jenkins,Harry,Alfred,,,representatives,Scullin,Vic.,4.5.1993,changed_party,29.1.1996,changed_party,CWM
+287,,,Jenkins,Harry,Alfred,,,representatives,Scullin,Vic.,29.1.1996,changed_party,11.2.2008,changed_party,ALP
+288,,,Jenkins,Harry,Alfred,,,representatives,Scullin,Vic.,12.2.2008,changed_party, ,still_in_office,SPK
+110,,,Jenkins,Jean,Alice,,,senate,,WA,11.7.1987 ,,30.6.1990 ,defeated,AD
+289,,,Jensen,Dennis,Geoffrey,,,representatives,Tangney,WA,9.10.2004,, ,still_in_office,LIB
+111,,,Jessop,Donald,Scott,,,senate,,SA,1.7.1971 ,,5.6.1987 ,defeated,IND
+290,,,Johns,Gary,Thomas,,,representatives,Petrie,Qld,11.7.1987,,2.3.1996,defeated,ALP
+291,,,Johnson,Leonard,Keith,,,representatives,Burke,Vic.,25.10.1969,,19.9.1980,retired,ALP
+292,,,Johnson,Leslie,Royston,,,representatives,Hughes,NSW,10.12.1955,,26.11.1966,defeated,ALP
+293,,,Johnson,Leslie,Royston,,,representatives,Hughes,NSW,25.10.1969,,19.12.1983,resigned,ALP
+294,,,Johnson,Michael,Andrew,,,representatives,Ryan,Qld,10.11.2001,, ,still_in_office,LIB
+295,,,Johnson,Peter,Francis,,,representatives,Brisbane,Qld,13.12.1975,,18.10.1980,defeated,LIB
+112,,,Johnston,David,Albert Lloyd,,,senate,,WA,1.7.2002 ,,,still_in_office,LIB
+296,,,Johnston,James,Roger,,,representatives,Hotham,Vic.,10.12.1977,,18.10.1980,defeated,LIB
+297,,,Johnston,Ricky,,,,representatives,Canning,WA,2.3.1996,,3.10.1998,defeated,LIB
+298,,,Jones,Barry,Owen,,,representatives,Lalor,Vic.,10.12.1977,,31.8.1998,retired,ALP
+299,,,Jones,Charles,Keith,,,representatives,Newcastle,NSW,22.11.1958,,4.2.1983,retired,ALP
+113,,,Jones,Gerry,Norman,,,senate,,Qld,1.7.1981 ,,30.6.1996 ,retired,ALP
+114,,,Joyce,Barnaby,Thomas Gerard,,,senate,,Qld,1.7.2005,,,still_in_office,NP
+300,,,Jull,David,Francis,,,representatives,Bowman,Qld,13.12.1975,,5.3.1983,defeated,LIB
+301,,,Jull,David,Francis,,,representatives,Fadden,Qld,1.12.1984,,17.10.2007,retired,LIB
+302,,,Katter,Robert,Carl,,,representatives,Kennedy,Qld,13.3.1993,, ,still_in_office,IND
+303,,,Katter,Robert,Cummin,,,representatives,Kennedy,Qld,26.11.1966,,19.2.1990,retired,NPA
+304,,,Keating,Paul,John,,,representatives,Blaxland,NSW,25.10.1969,,23.4.1996,resigned,ALP
+115,,,Keeffe,James,Bernard,,,senate,,Qld,1.7.1965 ,,4.2.1983 ,retired,ALP
+305,,,Keenan,Michael,Fayat,,,representatives,Stirling,WA,9.10.2004,, ,still_in_office,LIB
+306,,,Kelly,De-anne,Margaret,,,representatives,Dawson,Qld,2.3.1996,,24.11.2007,defeated,NP
+307,,,Kelly,Jacqueline,Marie,Jackie,,representatives,Lindsay,NSW,19.10.1996,by_election,17.10.2007,retired,LIB
+308,,,Kelly,Jacqueline,Marie,Jackie,,representatives,Lindsay,NSW,2.3.1996,,11.9.1996,declared_void,LIB
+309,,,Kelly,Michael,Joseph,,,representatives,Eden-Monaro,NSW,24.11.2007,,,still_in_office,ALP
+310,,,Kelly,Roslyn,Joan,,,representatives,Canberra,ACT,18.10.1980,,30.1.1995,resigned,ALP
+116,,,Kemp,Charles,Roderick,,,senate,,Vic.,1.7.1990,,,still_in_office,LIB
+311,,,Kemp,David,Alistair,,,representatives,Goldstein,Vic.,24.3.1990,,31.8.2004,retired,LIB
+312,,,Kent,Lewis,,,,representatives,Bowman,Qld,5.3.1983,,5.6.1987,retired,ALP
+313,,,Kent,Lewis,,,,representatives,Hotham,Vic.,18.10.1980,,24.3.1990,defeated,ALP
+314,,,Kent,Lewis,,,,representatives,Werriwa,NSW,23.9.1978,by_election,22.12.1993,resigned,ALP
+315,,,Kernot,Cheryl,,,,representatives,Dickson,Qld,3.10.1998,,10.11.2001,defeated,ALP
+117,,,Kernot,Cheryl,,,,senate,,Qld,1.7.1990 ,,15.10.1997 ,resigned,AD
+316,,,Kerr,Duncan,James Colquhoun,,,representatives,Denison,Tas.,11.7.1987,, ,still_in_office,ALP
+118,,,Kilgariff,Bernard,Francis,,,senate,,NT,13.12.1975 ,,5.6.1987 ,retired,LIB
+317,,,Killen,Denis,James (later Sir James),,,representatives,Moreton,Qld,10.12.1955,,15.8.1983,resigned,LIB
+318,,,King,Catherine,Fiona,,,representatives,Ballarat,Vic.,10.11.2001,, ,still_in_office,ALP
+319,,,King,Peter,Edward,,,representatives,Wentworth,NSW,10.11.2001,,9.10.2004,defeated,IND
+119,,,Kirk,Linda,Jean,,,senate,,SA,1.7.2002 ,,,still_in_office,ALP
+320,,,Klugman,Richard,Emanuel,,,representatives,Prospect,NSW,25.10.1969,,19.2.1990,retired,ALP
+120,,,Knight,John,William,,,senate,,ACT,13.12.1975 ,,4.3.1981 ,died,LIB
+321,,,Knott,Peter,John,,,representatives,Gilmore,NSW,13.3.1993,,2.3.1996,defeated,ALP
+121,,,Knowles,Susan,Christine,,,senate,,WA,1.12.1984 ,,30.6.2005 ,retired,LIB
+122,,,Lajovic,Milivoj,Emil,,,senate,,NSW,13.12.1975 ,,30.6.1985 ,retired,LIB
+322,,,Lamb,Antony,Hamilton,,,representatives,La Trobe,Vic.,2.12.1972,,13.12.1975,defeated,ALP
+323,,,Lamb,Antony,Hamilton,,,representatives,Streeton,Vic.,1.12.1984,,24.3.1990,defeated,ALP
+324,,,Laming,Andrew,Charles,,,representatives,Bowman,Qld,9.10.2004,, ,still_in_office,LIB
+325,,,Langmore,John,Vance,,,representatives,Fraser,ACT,1.12.1984,,6.12.1996,resigned,ALP
+326,,,Latham,Mark,William,,,representatives,Werriwa,NSW,29.1.1994,by_election,21.1.2005,resigned,ALP
+123,,,Laucke,Condor,Louis,,,senate,,SA,2.11.1967 ,section_15,30.6.1981 ,retired,LIB
+327,,,Lavarch,Michael,Hugh,,,representatives,Dickson,Qld,17.4.1993,,2.3.1996,defeated,ALP
+328,,,Lavarch,Michael,Hugh,,,representatives,Fisher,Qld,11.7.1987,,17.4.1993,elected_elsewhere,ALP
+329,,,Lawler,Anthony,John,,,representatives,Parkes,NSW,3.10.1998,,8.10.2001,retired,NPA
+330,,,Lawrence,Carmen,Mary,,,representatives,Fremantle,WA,12.3.1994,by_election,17.10.2007,retired,ALP
+331,,,Lee,Michael,John,,,representatives,Dobell,NSW,1.12.1984,,10.11.2001,defeated,ALP
+124,,,Lees,Meg,Heather,,,senate,,SA,4.4.1990 ,section_15,30.6.2005 ,defeated,IND
+125,,,Lewis,Austin,William Russell,,,senate,,Vic.,17.12.1976 ,section_15,30.6.1993 ,retired,LIB
+332,,,Ley,Sussan,Penelope,,,representatives,Farrer,NSW,10.11.2001,, ,still_in_office,LIB
+333,,,Lieberman,Louis,Stuart,,,representatives,Indi,Vic.,13.3.1993,,8.10.2001,retired,LIB
+126,,,Lightfoot,Philip,Ross,,,senate,,WA,19.5.1997,section_15,,still_in_office,LIB
+334,,,Lindsay,Eamon,John,,,representatives,Herbert,Qld,5.3.1983,,2.3.1996,defeated,ALP
+335,,,Lindsay,Peter,John,,,representatives,Herbert,Qld,2.3.1996,, ,still_in_office,LIB
+336,,,Livermore,Kirsten,Fiona,,,representatives,Capricornia,Qld,3.10.1998,, ,still_in_office,ALP
+337,,,Lloyd,Bruce,,,,representatives,Murray,Vic.,20.3.1971,by_election,29.1.1996,retired,NPA
+338,,,Lloyd,James,Eric,,,representatives,Robertson,NSW,2.3.1996,,24.11.2007,defeated,LIB
+127,,,Loosley,Stephen,,,,senate,,NSW,1.7.1990 ,,19.5.1995 ,resigned,ALP
+339,,,Lucock,Philip,Ernest,,,representatives,Lyne,NSW,22.3.1952,by_election,19.9.1980,retired,NCP
+128,,,Ludwig,Joseph,William,,,senate,,Qld,1.7.1999,,,still_in_office,ALP
+129,,,Lundy,Kate,Alexandra,,,senate,,ACT,2.3.1996 ,,,still_in_office,ALP
+340,,,Lusher,Stephen,Augustus,,,representatives,Hume,NSW,18.5.1974,,1.12.1984,defeated,NPA
+341,,,Lynch,Phillip,Reginald (later Sir Phillip),,,representatives,Flinders,Vic.,26.11.1966,,22.10.1982,resigned,LIB
+130,,,Macdonald,Ian,Douglas,,,senate,,Qld,1.7.1990,,,still_in_office,LIB
+131,,,Macdonald,John,Alexander Lindsay,,,senate,,NSW,1.7.1993 ,,30.6.1999 ,defeated,NP
+132,,,Macdonald,John,Alexander Lindsay,,,senate,,NSW,4.5.2000 ,section_15,,still_in_office,NP
+342,,,Macfarlane,Ian,Elgin,,,representatives,Groom,Qld,3.10.1998,, ,still_in_office,LIB
+133,,,MacGibbon,David,John,,,senate,,Qld,1.7.1978 ,,30.6.1999 ,defeated,LIB
+343,,,Mack,Edward,Carrington,,,representatives,North Sydney,NSW,24.3.1990,,29.1.1996,retired,IND
+134,,,Mackay,Susan,Mary,,,senate,,Tas.,8.3.1996 ,section_15,29.7.2005 ,resigned,ALP
+344,,,Mackellar,Michael,John Randal,,,representatives,Warringah,NSW,25.10.1969,,18.2.1994,resigned,LIB
+345,,,Mackenzie,Alexander,John,,,representatives,Calare,NSW,13.12.1975,,5.3.1983,defeated,NPA
+346,,,Macklin,Jennifer,Louise,,,representatives,Jagajaga,Vic.,2.3.1996,, ,still_in_office,ALP
+135,,,Macklin,Michael,John,,,senate,,Qld,1.7.1981 ,,30.6.1990 ,retired,AD
+347,,,Macphee,Ian,Malcolm,,,representatives,Balaclava,Vic.,18.5.1974,,1.12.1984,elected_elsewhere,LIB
+348,,,Macphee,Ian,Malcolm,,,representatives,Goldstein,Vic.,1.12.1984,,19.2.1990,retired,LIB
+136,,,Maguire,Graham,Ross,,,senate,,SA,5.3.1983 ,,30.6.1993 ,defeated,ALP
+349,,,Maher,Michael,John,,,representatives,Lowe,NSW,13.3.1982,by_election,11.7.1987,defeated,ALP
+350,,,Marek,Paul,,,,representatives,Capricornia,Qld,2.3.1996,,3.10.1998,defeated,NPA
+137,,,Margetts,Diane,Elizabeth,,,senate,,WA,1.7.1993 ,,30.6.1999 ,defeated,GWA
+351,,,Marino,Nola,Bethwyn,,,representatives,Forrest,WA,24.11.2007,,,still_in_office,LIB
+352,,,Markus,Louise,Elizabeth,,,representatives,Greenway,NSW,9.10.2004,, ,still_in_office,LIB
+353,,,Marles,Richard,Donald,,,representatives,Corio,Vic,24.11.2007,,,still_in_office,ALP
+138,,,Marshall,Gavin,Mark,,,senate,,Vic.,1.7.2002 ,,,still_in_office,ALP
+354,,,Martin,Stephen,Paul,,,representatives,Cunningham,NSW,13.3.1993,,16.8.2002,resigned,ALP
+355,,,Martin,Stephen,Paul,,,representatives,Macarthur,NSW,1.12.1984,,13.3.1993,elected_elsewhere,ALP
+356,,,Martin,Vincent,Joseph,,,representatives,Banks,NSW,25.10.1969,,19.9.1980,retired,ALP
+357,,,Martyr,John,Raymond,,,representatives,Swan,WA,13.12.1975,,18.10.1980,defeated,LIB
+139,,,Martyr,John,Raymond,,,senate,,WA,11.3.1981 ,section_15,4.2.1983 ,defeated,LIB
+140,,,Mason,Brett,John,,,senate,,Qld,1.7.1999 ,,,still_in_office,LIB
+141,,,Mason,Colin,Victor James,,,senate,,NSW,1.7.1978 ,,5.6.1987 ,retired,AD
+142,,,Maunsell,Charles,Ronald,,,senate,,Qld,1.7.1968 ,,30.6.1981 ,defeated,NCP
+358,,,May,Margaret,Ann,,,representatives,McPherson,Qld,3.10.1998,, ,still_in_office,LIB
+359,,,Mayer,Helen,,,,representatives,Chisholm,Vic.,5.3.1983,,11.7.1987,defeated,ALP
+360,,,McArthur,Fergus,Stewart,,,representatives,Corangamite,Vic.,18.2.1984,by_election,24.11.2007,defeated,LIB
+143,,,McAuliffe,Ronald,Edward,,,senate,,Qld,1.7.1971 ,,30.6.1981 ,retired,ALP
+144,,,McClelland,Douglas,,,,senate,,NSW,1.7.1962 ,,23.1.1987 ,resigned,ALP
+361,,,McClelland,Robert,Bruce,,,representatives,Barton,NSW,2.3.1996,, ,still_in_office,ALP
+362,,,McDougall,Graeme,Robert,,,representatives,Griffith,Qld,2.3.1996,,3.10.1998,defeated,LIB
+145,,,McEwen,Anne,,,,senate,,SA,1.7.2005 ,,,still_in_office,ALP
+363,,,McFarlane,Jann,Sonya,,,representatives,Stirling,WA,3.10.1998,,9.10.2004,defeated,ALP
+146,,,McGauran,Julian,John James,,,senate,,Vic.,11.7.1987 ,,30.6.1990 ,defeated,NP
+147,,,McGauran,Julian,John James,,,senate,,Vic.,1.7.1993,,,still_in_office,NP
+364,,,McGauran,Peter,John,,,representatives,Gippsland,Vic.,5.3.1983,,9.4.2008,retired,NP
+365,,,McHugh,Jeannette,,,,representatives,Grayndler,NSW,13.3.1993,,29.1.1996,retired,ALP
+366,,,McHugh,Jeannette,,,,representatives,Phillip,NSW,5.3.1983,,13.3.1993,elected_elsewhere,ALP
+148,,,McIntosh,Gordon,Douglas,,,senate,,WA,18.5.1974 ,,5.6.1987 ,retired,ALP
+367,,,McKew,Maxine,Margaret,,,representatives,Bennelong,NSW,24.11.2007,,,still_in_office,ALP
+149,,,McKiernan,James,Philip,,,senate,,WA,1.12.1984 ,,30.6.2002 ,retired,ALP
+368,,,McLachlan,Ian,Murray,,,representatives,Barker,SA,24.3.1990,,31.8.1998,retired,LIB
+150,,,McLaren,Geoffrey,Thomas,,,senate,,SA,1.7.1971 ,,4.2.1983 ,retired,ALP
+151,,,McLean,Paul,Alexander,,,senate,,NSW,11.7.1987 ,,23.8.1991 ,resigned,AD
+369,,,McLean,Ross,Malcolm,,,representatives,Perth,WA,13.12.1975,,5.3.1983,defeated,LIB
+370,,,McLeay,John,Elden,,,representatives,Boothby,SA,26.11.1966,,22.1.1981,resigned,LIB
+371,,,McLeay,Leo,Boyce,,,representatives,Grayndler,NSW,23.6.1979,by_election,13.3.1993,elected_elsewhere,ALP
+372,,,McLeay,Leo,Boyce,,,representatives,Watson,NSW,13.3.1993,,31.8.2004,retired,ALP
+152,,,McLucas,Jan,Elizabeth,,,senate,,Qld,1.7.1999,,,still_in_office,ALP
+373,,,McMahon,James,Leslie,,,representatives,Sydney,NSW,13.12.1975,,4.2.1983,retired,ALP
+374,,,McMahon,William,(later Sir William),,,representatives,Lowe,NSW,10.12.1949,,4.1.1982,resigned,LIB
+375,,,McMullan,Robert,Francis,,,representatives,Fraser,ACT,2.3.1996,, ,still_in_office,ALP
+153,,,McMullan,Robert,Francis,,,senate,,ACT,16.2.1988 ,section_15,6.2.1996 ,resigned,ALP
+376,,,McVeigh,Daniel,Thomas,,,representatives,Darling Downs,Qld,2.12.1972,,1.12.1984,elected_elsewhere,NPA
+377,,,McVeigh,Daniel,Thomas,,,representatives,Groom,Qld,1.12.1984,,29.2.1988,resigned,NPA
+378,,,Melham,Daryl,,,,representatives,Banks,NSW,24.3.1990,, ,still_in_office,ALP
+154,,,Melzer,Jean,Isobelle,,,senate,,Vic.,18.5.1974 ,,30.6.1981 ,defeated,ALP
+155,,,Messner,Anthony,John,,,senate,,SA,13.12.1975 ,,17.4.1990 ,resigned,LIB
+379,,,Mildren,John,Barry,,,representatives,Ballarat,Vic.,18.10.1980,,24.3.1990,defeated,ALP
+380,,,Miles,Christopher,Gordon,,,representatives,Braddon,Tas.,1.12.1984,,3.10.1998,defeated,LIB
+381,,,Millar,Percival,Clarence,,,representatives,Wide Bay,Qld,18.5.1974,,19.2.1990,retired,NPA
+156,,,Milne,Christine,Anne,,,senate,,Tas.,1.7.2005,,,still_in_office,GRN
+382,,,Milton,Peter,,,,representatives,La Trobe,Vic.,18.10.1980,,24.3.1990,defeated,ALP
+157,,,Minchin,Nicholas,Hugh,,,senate,,SA,1.7.1993,,,still_in_office,LIB
+383,,,Mirabella,Sophie,,,,representatives,Indi,Vic.,10.11.2001,, ,still_in_office,LIB
+158,,,Missen,Alan,Joseph,,,senate,,Vic.,18.5.1974 ,,30.3.1986 ,died,LIB
+159,,,Moore,Claire,Mary,,,senate,,Qld,1.7.2002,,,still_in_office,ALP
+384,,,Moore,John,Colinton,,,representatives,Ryan,Qld,13.12.1975,,5.2.2001,resigned,LIB
+385,,,Morris,Allan,Agapitos,,,representatives,Newcastle,NSW,5.3.1983,,8.10.2001,retired,ALP
+160,,,Morris,John,Joseph,,,senate,,NSW,1.7.1985 ,,30.6.1990 ,retired,ALP
+386,,,Morris,Peter,Frederick,,,representatives,Shortland,NSW,2.12.1972,,31.8.1998,retired,ALP
+387,,,Morris,Peter,Frederick,,,representatives,St George,NSW,18.10.1980,,26.10.1984,retired,ALP
+388,,,Morrison,Scott,John,,,representatives,Cook,NSW,24.11.2007,,,still_in_office,LIB
+389,,,Mossfield,Frank,William,,,representatives,Greenway,NSW,2.3.1996,,31.8.2004,retired,ALP
+390,,,Mountford,John,Graham,,,representatives,Banks,NSW,18.10.1980,,19.2.1990,retired,ALP
+391,,,Moylan,Judith,Eleanor,,,representatives,Pearce,WA,13.3.1993,, ,still_in_office,LIB
+161,,,Mulvihill,James,Anthony,,,senate,,NSW,1.7.1965 ,,4.2.1983 ,retired,ALP
+392,,,Murphy,John,Paul,,,representatives,Lowe,NSW,3.10.1998,, ,still_in_office,ALP
+162,,,Murphy,Shayne,Michael,,,senate,,Tas.,1.7.1993 ,,30.6.2005 ,defeated,IND
+163,,,Murray,Andrew,James Marshall,,,senate,,WA,1.7.1996,,,still_in_office,AD
+393,,,Mutch,Stephen,Bruce,,,representatives,Cook,NSW,2.3.1996,,31.8.1998,retired,LIB
+394,,,Nairn,Gary,Roy,,,representatives,Eden-Monaro,NSW,2.3.1996,,24.11.2007,defeated,LIB
+164,,,Nash,Fiona,Joy,,,senate,,NSW,1.7.2005 ,,,still_in_office,NP
+395,,,Neal,Belinda,Jane,,,representatives,Robertson,NSW,24.11.2007,,,still_in_office,ALP
+165,,,Neal,Belinda,Jane,,,senate,,NSW,8.3.1994,section_15,3.9.1998 ,resigned,ALP
+166,,,Neal,Laurence,William,,,senate,,Vic.,11.3.1980 ,section_15,30.6.1981 ,defeated,NCP
+396,,,Nehl,Garry,Barr,,,representatives,Cowper,NSW,1.12.1984,,30.4.1996,changed_party,NPA
+397,,,Nehl,Garry,Barr,,,representatives,Cowper,NSW,30.4.1996,changed_party,8.10.2001,retired,CWM
+398,,,Neil,Maurice,James,,,representatives,St George,NSW,13.12.1975,,18.10.1980,defeated,LIB
+399,,,Nelson,Brendan,John,,,representatives,Bradfield,NSW,2.3.1996,, ,still_in_office,LIB
+167,,,Nettle,Kerry,Michelle,,,senate,,NSW,1.7.2002 ,,,still_in_office,AG
+400,,,Neumann,Shayne,Kenneth,,,representatives,Blair,Qld,24.11.2007,,,still_in_office,ALP
+401,,,Neville,Paul,Christopher,,,representatives,Hinkler,Qld,13.3.1993,, ,still_in_office,NP
+402,,,Newell,Neville,Joseph,,,representatives,Richmond,NSW,24.3.1990,,2.3.1996,defeated,ALP
+168,,,Newman,Jocelyn,Margaret,,,senate,,Tas.,13.3.1986 ,section_15,1.2.2002 ,resigned,LIB
+403,,,Newman,Kevin,Eugene,,,representatives,Bass,Tas.,28.6.1975,by_election,26.10.1984,retired,LIB
+404,,,Nixon,Peter,James,,,representatives,Gippsland,Vic.,9.12.1961,,4.2.1983,retired,NPA
+405,,,Nugent,Peter,Edward,,,representatives,Aston,Vic.,24.3.1990,,24.4.2001,died,LIB
+169,,,O'Brien,Kerry,Williams Kelso,,,senate,,Tas.,5.9.1996,section_15,,still_in_office,ALP
+170,,,O'Byrne,Justin,Hilary,,,senate,,Tas.,1.7.1947 ,,30.6.1981 ,retired,ALP
+406,,,O'Byrne,Michelle,Anne,,,representatives,Bass,Tas.,3.10.1998,,9.10.2004,defeated,ALP
+171,,,O'Chee,William,George,,,senate,,Qld,8.5.1990 ,section_15,30.6.1999 ,defeated,NPA
+407,,,O'Connor,Brendan,Patrick,,,representatives,Burke,Vic.,10.11.2001,,9.10.2004,elected_elsewhere,ALP
+408,,,O'Connor,Brendan,Patrick,,,representatives,Gorton,Vic.,9.10.2004,, ,still_in_office,ALP
+409,,,O'Connor,Gavan,Michael,,,representatives,Corio,Vic.,13.3.1993,,24.11.2007,defeated,ALP
+410,,,O'Keefe,Frank,Lionel,,,representatives,Paterson,NSW,25.10.1969,,26.10.1984,retired,NPA
+411,,,O'Keefe,Neil,Patrick,,,representatives,Burke,Vic.,1.12.1984,,8.10.2001,retired,ALP
+412,,,O'Neil,Lloyd,Reginald Terrence,,,representatives,Grey,SA,5.3.1983,,8.2.1993,retired,ALP
+172,,,Olsen,John,Wayne,,,senate,,SA,7.5.1990 ,section_15,4.5.1992 ,resigned,LIB
+413,,,Organ,Michael,Keith,,,representatives,Cunningham,NSW,19.10.2002,by_election,9.10.2004,defeated,GRN
+414,,,Owens,Julie,Ann,,,representatives,Parramatta,NSW,9.10.2004,, ,still_in_office,ALP
+173,,,Panizza,John,Horace,,,senate,,WA,11.7.1987 ,,31.1.1997 ,died,LIB
+174,,,Parer,Warwick,Raymond,,,senate,,Qld,22.11.1984 ,section_15,11.2.2000 ,resigned,LIB
+415,,,Parke,Melissa,,,,representatives,Fremantle,WA,24.11.2007,,,still_in_office,ALP
+175,,,Parry,Stephen,Shane,,,senate,,Tas.,1.7.2005,,,still_in_office,LIB
+176,,,Patterson,Kay,Christine Lesley,,,senate,,Vic.,11.7.1987,,,still_in_office,LIB
+177,,,Payne,Marise,Ann,,,senate,,NSW,9.4.1997,section_15,,still_in_office,LIB
+416,,,Peacock,Andrew,Sharp,,,representatives,Kooyong,Vic.,2.4.1966,by_election,17.9.1994,resigned,LIB
+417,,,Pearce,Christopher,John,,,representatives,Aston,Vic.,14.7.2001,by_election, ,still_in_office,LIB
+418,,,Perrett,Graham,Douglas,,,representatives,Moreton,Qld,24.11.2007,,,still_in_office,ALP
+419,,,Plibersek,Tanya,Joan,,,representatives,Sydney,NSW,3.10.1998,, ,still_in_office,ALP
+420,,,Pollard,Reginald,Thomas,,,representatives,Ballaarat,Vic.,23.10.1937,,10.12.1949,elected_elsewhere,ALP
+421,,,Pollard,Reginald,Thomas,,,representatives,Lalor,Vic.,10.12.1949,,26.11.1966,defeated,ALP
+178,,,Polley,Helen,Beatrice ,,,senate,,Tas.,1.7.2005,,,still_in_office,ALP
+422,,,Porter,James,Robert,,,representatives,Barker,SA,13.12.1975,,19.2.1990,retired,LIB
+179,,,Powell,Janet,Frances,,,senate,,Vic.,26.8.1986 ,section_15,30.6.1993 ,defeated,IND
+423,,,Pratt,Michael,Philip,,,representatives,Adelaide,SA,6.2.1988,by_election,24.3.1990,defeated,LIB
+424,,,Price,Leo,Roger Spurway,,,representatives,Chifley,NSW,1.12.1984,, ,still_in_office,ALP
+180,,,Primmer,Cyril,Graham,,,senate,,Vic.,1.7.1971 ,,30.6.1985 ,retired,ALP
+425,,,Prosser,Geoffrey,Daniel,,,representatives,Forrest,WA,11.7.1987,,17.10.2007,retired,LIB
+426,,,Punch,Gary,Francis,,,representatives,Barton,NSW,5.3.1983,,29.1.1996,retired,ALP
+181,,,Puplick,Christopher,John Guelph,,,senate,,NSW,26.7.1978 ,,30.6.1981 ,defeated,LIB
+182,,,Puplick,Christopher,John Guelph,,,senate,,NSW,1.12.1984 ,,30.6.1990 ,defeated,LIB
+427,,,Pyne,Christopher,Maurice,,,representatives,Sturt,SA,13.3.1993,, ,still_in_office,LIB
+428,,,Quick,Harry,Vernon,,,representatives,Franklin,Tas.,13.3.1993,,17.10.2007,retired,IND
+183,,,Quirke,John,Andrew,,,senate,,SA,18.9.1997 ,section_15,15.8.2000 ,resigned,ALP
+184,,,Rae,Peter,Elliot,,,senate,,Tas.,1.7.1968 ,,16.1.1986 ,resigned,LIB
+429,,,Raguse,Brett,Blair,,,representatives,Forde,Qld,24.11.2007,,,still_in_office,ALP
+430,,,Ramsey,Rowan,Eric,,,representatives,Grey,SA,24.11.2007,,,still_in_office,LIB
+431,,,Randall,Donald,James,,,representatives,Canning,WA,10.11.2001,, ,still_in_office,LIB
+432,,,Randall,Donald,James,,,representatives,Swan,WA,2.3.1996,,3.10.1998,defeated,LIB
+185,,,Ray,Robert,Francis,,,senate,,Vic.,1.7.1981 ,,,still_in_office,ALP
+433,,,Rea,Kerry,Marie,,,representatives,Bonner,Qld,24.11.2007,,,still_in_office,ALP
+434,,,Reeves,John,Edward,,,representatives,Northern Territory,NT,5.3.1983,,1.12.1984,defeated,ALP
+186,,,Reid,Margaret,Elizabeth,,,senate,,ACT,5.5.1981 ,section_15,14.2.2003 ,resigned,LIB
+435,,,Reid,Nicholas,Bruce,,,representatives,Bendigo,Vic.,24.3.1990,,31.8.1998,retired,LIB
+436,,,Reith,Peter,Keaston,,,representatives,Flinders,Vic.,1.12.1984,,8.10.2001,retired,LIB
+437,,,Reith,Peter,Keaston,,,representatives,Flinders,Vic.,4.12.1982,by_election,5.3.1983,defeated,LIB
+187,,,Reynolds,Margaret,,,,senate,,Qld,5.3.1983 ,,30.6.1999 ,retired,ALP
+188,,,Richardson,Graham,Frederick,,,senate,,NSW,5.3.1983 ,,25.3.1994 ,resigned,ALP
+438,,,Richardson,Kym,Charles,,,representatives,Kingston,SA,9.10.2004,,24.11.2007,defeated,LIB
+189,,,Ridgeway,Aden,Derek,,,senate,,NSW,1.7.1999,,30.6.2005,defeated,AD
+439,,,Riggall,John,Peter,,,representatives,McMillan,Vic.,24.3.1990,,13.3.1993,defeated,LIB
+440,,,Ripoll,Bernard,Fernando,,,representatives,Oxley,Qld,3.10.1998,, ,still_in_office,ALP
+441,,,Rishworth,Amanda,Louise,,,representatives,Kingston,SA,24.11.2007,,,still_in_office,ALP
+442,,,Robb,Andrew,John,,,representatives,Goldstein,Vic.,9.10.2004,, ,still_in_office,LIB
+443,,,Robert,Stuart,Rowland,,,representatives,Fadden,Qld,24.11.2007,,,still_in_office,LIB
+190,,,Robertson,Edward,Albert,,,senate,,NT,13.12.1975 ,,5.6.1987 ,retired,ALP
+444,,,Robinson,Eric,Laidlaw,,,representatives,McPherson,Qld,2.12.1972,,7.1.1981,died,LIB
+445,,,Robinson,Ian,Louis,,,representatives,Cowper,NSW,30.11.1963,,1.12.1984,elected_elsewhere,NPA
+446,,,Robinson,Ian,Louis,,,representatives,Page,NSW,1.12.1984,,24.3.1990,defeated,NPA
+447,,,Rocher,Allan,Charles,,,representatives,Curtin,WA,21.2.1981,by_election,3.10.1998,defeated,IND
+191,,,Rocher,Allan,Charles,,,senate,,WA,1.7.1978 ,,10.2.1981 ,resigned,LIB
+448,,,Ronaldson,Michael,John Clyde,,,representatives,Ballarat,Vic.,24.3.1990,,8.10.2001,retired,LIB
+192,,,Ronaldson,Michael,John Clyde,,,senate,,Vic.,1.7.2005,,,still_in_office,LIB
+449,,,Roxon,Nicola,Louise,,,representatives,Gellibrand,Vic.,3.10.1998,, ,still_in_office,ALP
+450,,,Rudd,Kevin,Michael,,,representatives,Griffith,Qld,3.10.1998,, ,still_in_office,ALP
+451,,,Ruddock,Philip,Maxwell,,,representatives,Berowra,NSW,13.3.1993,, ,still_in_office,LIB
+452,,,Ruddock,Philip,Maxwell,,,representatives,Dundas,NSW,13.12.1975,,13.3.1993,elected_elsewhere,LIB
+453,,,Ruddock,Philip,Maxwell,,,representatives,Parramatta,NSW,22.9.1973,by_election,13.12.1975,elected_elsewhere,LIB
+193,,,Ryan,Susan,Maree,,,senate,,ACT,13.12.1975 ,,29.1.1988 ,resigned,ALP
+454,,,Saffin,Janelle,Anne,,,representatives,Page,NSW,24.11.2007,,,still_in_office,ALP
+455,,,Sainsbury,Murray,Evan,,,representatives,Eden-Monaro,NSW,13.12.1975,,5.3.1983,defeated,LIB
+194,,,Sanders,Norman,Karl,,,senate,,Tas.,1.7.1985 ,,1.3.1990 ,resigned,AD
+195,,,Santoro,Santo,,,,senate,,QLD,29.10.2002 ,section_15,11.4.2007 ,resigned,LIB
+456,,,Saunderson,John,,,,representatives,Aston,Vic.,1.12.1984,,24.3.1990,defeated,ALP
+457,,,Saunderson,John,,,,representatives,Deakin,Vic.,5.3.1983,,1.12.1984,elected_elsewhere,ALP
+458,,,Sawford,Rodney,Weston,,,representatives,Port Adelaide,SA,26.3.1988,by_election,17.10.2007,retired,ALP
+196,,,Schacht,Christopher,Cleland,,,senate,,SA,11.7.1987 ,,30.6.2002 ,defeated,ALP
+459,,,Scholes,Gordon,Glen Denton,,,representatives,Corio,Vic.,22.7.1967,by_election,8.2.1993,retired,ALP
+460,,,Schultz,Albert,John,,,representatives,Hume,NSW,3.10.1998,, ,still_in_office,LIB
+461,,,Sciacca,Concetto,Antonio,,,representatives,Bowman,Qld,3.10.1998,,9.10.2004,defeated,ALP
+462,,,Sciacca,Concetto,Antonio,,,representatives,Bowman,Qld,11.7.1987,,2.3.1996,defeated,ALP
+463,,,Scott,Bruce,Craig,,,representatives,Maranoa,Qld,24.3.1990,, ,still_in_office,NP
+197,,,Scott,Douglas,Barr,,,senate,,NSW,6.8.1970 ,section_15,20.11.1970 ,term expired ,NPA
+198,,,Scott,Douglas,Barr,,,senate,,NSW,18.5.1974 ,,30.6.1985 ,retired,NPA
+464,,,Scott,John,Lyden,,,representatives,Hindmarsh,SA,18.10.1980,,8.2.1993,retired,ALP
+465,,,Scott,Leslie,James,,,representatives,Oxley,Qld,8.10.1988,by_election,2.3.1996,defeated,ALP
+199,,,Scullion,Nigel,Gregory,,,senate,,NT,10.11.2001 ,,,still_in_office,CLP
+466,,,Secker,Patrick,Damien,,,representatives,Barker,SA,3.10.1998,, ,still_in_office,LIB
+467,,,Sercombe,Robert,Charles Grant,,,representatives,Maribyrnong,Vic.,2.3.1996,,17.10.2007,retired,ALP
+468,,,Shack,Peter,Donald,,,representatives,Tangney,WA,1.12.1984,,8.2.1993,retired,LIB
+469,,,Shack,Peter,Donald,,,representatives,Tangney,WA,10.12.1977,,5.3.1983,defeated,LIB
+470,,,Sharp,John,Randall,,,representatives,Gilmore,NSW,1.12.1984,,13.3.1993,elected_elsewhere,NPA
+471,,,Sharp,John,Randall,,,representatives,Hume,NSW,13.3.1993,,31.8.1998,retired,NPA
+472,,,Shaw,George,William,,,representatives,Dawson,Qld,30.11.1963,,9.1.1966,died,CP
+200,,,Sheil,Glenister,,,,senate,,Qld,1.12.1984 ,,30.6.1990 ,defeated,NCP
+201,,,Sheil,Glenister,,,,senate,,Qld,18.5.1974 ,,6.2.1981 ,resigned ,NCP
+202,,,Sherry,Nicholas,John,,,senate,,Tas.,1.7.1990,,,still_in_office,ALP
+473,,,Shipton,Roger,Francis,,,representatives,Higgins,Vic.,13.12.1975,,19.2.1990,retired,LIB
+474,,,Short,James,Robert,,,representatives,Ballaarat,Vic.,13.12.1975,,18.10.1980,defeated,LIB
+203,,,Short,James,Robert,,,senate,,Vic.,1.12.1984 ,,12.5.1997 ,resigned,LIB
+475,,,Short,Leonie,Marjorie,,,representatives,Ryan,Qld,17.3.2001,by_election,10.11.2001,defeated,ALP
+476,,,Shorten,William,Richard,,,representatives,Maribyrnong,Vic,24.11.2007,,,still_in_office,ALP
+204,,,Sibraa,Kerry,Walter,,,senate,,NSW,9.8.1978 ,section_15,1.2.1994 ,resigned,ALP
+205,,,Sibraa,Kerry,Walter,,,senate,,NSW,13.12.1975 ,,30.6.1978,still_in_office,ALP
+206,,,Siddons,John,Royston,,,senate,,Vic.,1.7.1981 ,,4.2.1983 ,defeated,UNITE AP
+207,,,Siddons,John,Royston,,,senate,,Vic.,1.7.1985 ,,5.6.1987 ,defeated,UNITE AP
+477,,,Sidebottom,Peter,Sid,,,representatives,Braddon,Tas.,3.10.1998,,9.10.2004,defeated,ALP
+478,,,Sidebottom,Peter,Sid,,,representatives,Braddon,Tas,24.11.2007,,,still_in_office,ALP
+208,,,Siewert,Rachel,Mary,,,senate,,WA,1.7.2005 ,,,still_in_office,GRN
+209,,,Sim,John,Peter,,,senate,,WA,26.11.1964,section_15,30.6.1981 ,retired,LIB
+479,,,Simmons,David,William,,,representatives,Calare,NSW,5.3.1983,,29.1.1996,retired,ALP
+480,,,Simon,Barry,Douglas,,,representatives,McMillan,Vic.,13.12.1975,,18.10.1980,defeated,LIB
+481,,,Simpkins,Luke,Xavier Linton,,,representatives,Cowan,WA,24.11.2007,,,still_in_office,LIB
+482,,,Sinclair,Ian,Mccahon,,,representatives,New England,NSW,30.11.1963,,31.8.1998,retired,NPA
+483,,,Slipper,Peter,Neil,,,representatives,Fisher,Qld,1.12.1984,,11.7.1987,defeated,NPA
+484,,,Slipper,Peter,Neil,,,representatives,Fisher,Qld,13.3.1993,, ,still_in_office,LIB
+485,,,Smith,Anthony,Charles,,,representatives,Dickson,Qld,2.3.1996,,3.10.1998,defeated,IND
+486,,,Smith,Anthony,David Hawthorn,,,representatives,Casey,Vic.,10.11.2001,, ,still_in_office,LIB
+487,,,Smith,Silvia,Joy,,,representatives,Bass,Tas.,13.3.1993,,2.3.1996,defeated,ALP
+488,,,Smith,Stephen,Francis,,,representatives,Perth,WA,13.3.1993,, ,still_in_office,ALP
+489,,,Smith,Warwick,Leslie,,,representatives,Bass,Tas.,2.3.1996,,3.10.1998,defeated,LIB
+490,,,Smith,Warwick,Leslie,,,representatives,Bass,Tas.,1.12.1984,,13.3.1993,defeated,LIB
+491,,,Smyth,Brendan,Michael,,,representatives,Canberra,ACT,25.3.1995,by_election,2.3.1996,defeated,LIB
+492,,,Snedden,Billy,Mackie (later Sir Billy),,,representatives,Bruce,Vic.,10.12.1955,,21.4.1983,resigned,LIB
+493,,,Snow,James,Henry,,,representatives,Eden-Monaro,NSW,5.3.1983,,2.3.1996,defeated,ALP
+494,,,Snowdon,Warren,Edward,,,representatives,Lingiari,NT,10.11.2001,, ,still_in_office,ALP
+495,,,Snowdon,Warren,Edward,,,representatives,Northern Territory,NT,11.7.1987,,2.3.1996,defeated,ALP
+496,,,Snowdon,Warren,Edward,,,representatives,Northern Territory,NT,3.10.1998,,10.11.2001,elected_elsewhere,ALP
+497,,,Somlyay,Alexander,Michael,,,representatives,Fairfax,Qld,24.3.1990,, ,still_in_office,LIB
+498,,,Southcott,Andrew,John,,,representatives,Boothby,SA,2.3.1996,, ,still_in_office,LIB
+210,,,Sowada,Karin,Nicole,,,senate,,NSW,29.8.1991 ,section_15,30.6.1993 ,defeated,AD
+499,,,Spender,John,Michael,,,representatives,North Sydney,NSW,18.10.1980,,24.3.1990,defeated,LIB
+211,,,Spindler,Sid,,,,senate,,Vic.,1.7.1990 ,,30.6.1996 ,retired,AD
+500,,,St,Clair,Stuart Roy,,,representatives,New England,NSW,3.10.1998,,10.11.2001,defeated,NPA
+501,,,Staley,Anthony,Allan,,,representatives,Chisholm,Vic.,19.9.1970,by_election,19.9.1980,retired,LIB
+502,,,Staples,Peter,Richard,,,representatives,Diamond Valley,Vic.,5.3.1983,,1.12.1984,elected_elsewhere,ALP
+503,,,Staples,Peter,Richard,,,representatives,Jagajaga,Vic.,1.12.1984,,29.1.1996,retired,ALP
+504,,,Steedman,Alan,Peter,,,representatives,Casey,Vic.,5.3.1983,,1.12.1984,defeated,ALP
+212,,,Stephens,Ursula,Mary,,,senate,,NSW,1.7.2002 ,,,still_in_office,ALP
+213,,,Sterle,Glenn,,,,senate,,WA,1.7.2005 ,,,still_in_office,ALP
+214,,,Stone,John,Owen,,,senate,,Qld,11.7.1987 ,,1.3.1990 ,resigned,NPA
+505,,,Stone,Sharman,Nancy,,,representatives,Murray,Vic.,2.3.1996,, ,still_in_office,LIB
+215,,,Stott Despoja,Natasha,Jessica,,,senate,,SA,29.11.1995,section_15,,still_in_office,AD
+506,,,Street,Anthony,Austin,,,representatives,Corangamite,Vic.,26.11.1966,,18.1.1984,resigned,LIB
+507,,,Sullivan,Jonathan,Harold,,,representatives,Longman,Qld,24.11.2007,,,still_in_office,ALP
+216,,,Sullivan,Kathryn,Jean Martin,,,senate,,Qld,18.5.1974 ,,5.11.1984 ,resigned,LIB
+508,,,Sullivan,Kathryn,Jean Martin,,,representatives,Moncrieff,Qld,1.12.1984,,8.10.2001,retired,LIB
+509,,,Swan,Wayne,Maxwell,,,representatives,Lilley,Qld,13.3.1993,,2.3.1996,defeated,ALP
+510,,,Swan,Wayne,Maxwell,,,representatives,Lilley,Qld,3.10.1998,, ,still_in_office,ALP
+511,,,Symon,Michael,Stuart,,,representatives,Deakin,Vic,24.11.2007,,,still_in_office,ALP
+217,,,Synon,Karen,Margaret,,,senate,,Vic.,13.5.1997 ,section_15,30.6.1999 ,defeated,LIB
+512,,,Tambling,Grant,Ernest John,,,representatives,Northern Territory,NT,18.10.1980,,5.3.1983,defeated,NPA
+218,,,Tambling,Grant,Ernest John,,,senate,,NT,11.7.1987 ,,9.11.2001 ,retired,CLP
+513,,,Tanner,Lindsay,James,,,representatives,Melbourne,Vic.,13.3.1993,, ,still_in_office,ALP
+219,,,Tate,Michael,Carter,,,senate,,Tas.,1.7.1978 ,,5.7.1993 ,resigned,ALP
+514,,,Taylor,William,Leonard,,,representatives,Groom,Qld,9.4.1988,by_election,31.8.1998,retired,LIB
+220,,,Tchen,Tsebin,,,,senate,,Vic.,1.7.1999 ,,30.6.2005 ,retired,LIB
+221,,,Teague,Baden,Chapman,,,senate,,SA,1.7.1978 ,,30.6.1996 ,retired,LIB
+515,,,Theophanous,Andrew,Charles,,,representatives,Burke,Vic.,18.10.1980,,1.12.1984,elected_elsewhere,ALP
+516,,,Theophanous,Andrew,Charles,,,representatives,Calwell,Vic.,1.12.1984,,10.11.2001,defeated,IND
+222,,,Thomas,Andrew,Murray,,,senate,,WA,13.12.1975 ,,4.2.1983 ,defeated,LIB
+517,,,Thompson,Cameron,Paul,,,representatives,Blair,Qld,3.10.1998,,24.11.2007,defeated,LIB
+518,,,Thomson,Andrew,Peter,,,representatives,Wentworth,NSW,8.4.1995,by_election,8.10.2001,retired,LIB
+519,,,Thomson,Craig,Robert,,,representatives,Dobell,NSW,24.11.2007,,,still_in_office,ALP
+520,,,Thomson,David,Scott,,,representatives,Leichhardt,Qld,13.12.1975,,5.3.1983,defeated,NPA
+521,,,Thomson,Kelvin,John,,,representatives,Wills,Vic.,2.3.1996,, ,still_in_office,ALP
+522,,,Ticehurst,Kenneth,Vincent,,,representatives,Dobell,NSW,10.11.2001,,24.11.2007,defeated,LIB
+523,,,Tickner,Robert,Edward,,,representatives,Hughes,NSW,18.2.1984,by_election,2.3.1996,defeated,ALP
+223,,,Tierney,John,William,,,senate,,NSW,11.2.1991 ,section_15,14.4.2005 ,resigned,LIB
+524,,,Tollner,David,William,,,representatives,Lingiari,NT,10.11.2001,,24.11.2007,defeated,CLP
+224,,,Townley,Michael,,,,senate,,Tas.,1.7.1971 ,,5.6.1987 ,retired,IND
+525,,,Trevor,Chris,Allan,,,representatives,Flynn,Qld,24.11.2007,,,still_in_office,ALP
+225,,,Troeth,Judith,Mary,,,senate,,Vic.,1.7.1993 ,,,still_in_office,LIB
+226,,,Trood,Russell,Brunell,,,senate,,Qld,1.7.2005 ,,,still_in_office,LIB
+526,,,Truss,Warren,Errol,,,representatives,Wide Bay,Qld,24.3.1990,, ,still_in_office,NP
+527,,,Tuckey,Charles,Wilson,,,representatives,O'Connor,WA,18.10.1980,, ,still_in_office,LIB
+528,,,Turnbull,Malcolm,Bligh,,,representatives,Wentworth,NSW,9.10.2004,, ,still_in_office,LIB
+529,,,Turnour,James,Pearce,,,representatives,Leichhardt,Qld,24.11.2007,,,still_in_office,ALP
+530,,,Uren,Thomas,,,,representatives,Reid,NSW,22.11.1958,,19.2.1990,retired,ALP
+531,,,Vaile,Mark,Anthony James,,,representatives,Lyne,NSW,13.3.1993,, ,still_in_office,NP
+532,,,Vale,Danna,Sue,,,representatives,Hughes,NSW,2.3.1996,, ,still_in_office,LIB
+227,,,Vallentine,Josephine,,,,senate,,WA,1.7.1985 ,,31.1.1992 ,resigned,GWA
+533,,,Vamvakinou,Maria,,,,representatives,Calwell,Vic.,10.11.2001,, ,still_in_office,ALP
+228,,,Vanstone,Amanda,Eloise,,,senate,,SA,1.12.1984 ,,26.4.2007 ,resigned,LIB
+534,,,Vasta,Ross,Xavier,,,representatives,Bonner,Qld,9.10.2004,,24.11.2007,defeated,LIB
+229,,,Vigor,David,Bernard,,,senate,,SA,1.12.1984 ,,5.6.1987 ,defeated,UNITE AP
+535,,,Viner,Robert,Ian,,,representatives,Stirling,WA,2.12.1972,,5.3.1983,defeated,LIB
+536,,,Wakelin,Barry,Hugh,,,representatives,Grey,SA,13.3.1993,,17.10.2007,retired,LIB
+537,,,Walker,Francis,John,,,representatives,Robertson,NSW,24.3.1990,,2.3.1996,defeated,ALP
+538,,,Wallis,Laurie,George,,,representatives,Grey,SA,25.10.1969,,4.2.1983,retired,ALP
+230,,,Walsh,Peter,Alexander,,,senate,,WA,18.5.1974 ,,30.6.1993 ,retired,ALP
+231,,,Walters,Mary,Shirley,,,senate,,Tas.,13.12.1975 ,,30.6.1993 ,retired,LIB
+539,,,Washer,Malcolm,James,,,representatives,Moore,WA,3.10.1998,, ,still_in_office,LIB
+540,,,Watson,David,John Hopetoun,,,representatives,Forde,Qld,1.12.1984,,11.7.1987,defeated,LIB
+232,,,Watson,John,Odin Wentworth,,,senate,,Tas.,1.7.1978 ,,,still_in_office,LIB
+233,,,Webber,Ruth,Stephanie,,,senate,,WA,1.7.2002 ,,,still_in_office,ALP
+541,,,Webster,Alasdair,Paine,,,representatives,Macquarie,NSW,1.12.1984,,13.3.1993,defeated,LIB
+234,,,Webster,James,Joseph,,,senate,,Vic.,9.12.1964 ,section_15,28.1.1980 ,resigned,NCP
+542,,,Wells,Deane,Mcmillan,,,representatives,Petrie,Qld,5.3.1983,,1.12.1984,defeated,ALP
+543,,,West,Andrea,Gail,,,representatives,Bowman,Qld,2.3.1996,,3.10.1998,defeated,LIB
+544,,,West,Stewart,John,,,representatives,Cunningham,NSW,15.10.1977,by_election,8.2.1993,retired,ALP
+235,,,West,Suzanne,Margaret,,,senate,,NSW,1.7.1990 ,,30.6.2002 ,retired,ALP
+236,,,West,Suzanne,Margaret,,,senate,,NSW,11.2.1987 ,section_15,5.6.1987 ,defeated,ALP
+237,,,Wheeldon,John,Murray,,,senate,,WA,1.7.1965 ,,30.6.1981 ,retired,ALP
+238,,,Wheelwright,Thomas,Clive,,,senate,,NSW,24.5.1995 ,section_15,30.6.1996 ,defeated,ALP
+545,,,White,Peter,Nicholson Duckett,,,representatives,McPherson,Qld,21.2.1981,by_election,19.2.1990,retired,LIB
+546,,,Wilkie,Kim,,,,representatives,Swan,WA,3.10.1998,,24.11.2007,defeated,ALP
+547,,,Williams,Daryl,Robert,,,representatives,Tangney,WA,13.3.1993,,31.8.2004,retired,LIB
+548,,,Willis,Ralph,,,,representatives,Gellibrand,Vic.,2.12.1972,,31.8.1998,retired,ALP
+549,,,Willis,Ralph,,,,representatives,Sturt,SA,2.12.1972,,8.2.1993,retired,LIB
+550,,,Wilton,Gregory,Stuart,,,representatives,Isaacs,Vic.,2.3.1996,,14.6.2000,died,ALP
+551,,,Windsor,Antony,Harold Curties,,,representatives,New England,NSW,10.11.2001,, ,still_in_office,IND
+239,,,Withers,Reginald,Greive,,,senate,,WA,17.2.1966 ,section_15,25.11.1966 ,term expired,LIB
+240,,,Withers,Reginald,Greive,,,senate,,WA,1.7.1968 ,,5.6.1987 ,retired,LIB
+241,,,Wong,Penelope,Ying Yen,,,senate,,SA,1.7.2002 ,,,still_in_office,ALP
+552,,,Wood,Jason,Peter,,,representatives,La Trobe,Vic.,9.10.2004,, ,still_in_office,LIB
+242,,,Wood,William,Robert,,,senate,,NSW,11.7.1987 ,,12.5.1988,disqualified,NDP
+243,,,Woodley,John,,,,senate,,Qld,1.7.1993 ,,27.7.2001 ,resigned,AD
+553,,,Woods,Harry,Francis,,,representatives,Page,NSW,24.3.1990,,2.3.1996,defeated,ALP
+554,,,Woods,Robert,Leslie,,,representatives,Lowe,NSW,11.7.1987,,13.3.1993,defeated,LIB
+244,,,Woods,Robert,Leslie,,,senate,,NSW,8.3.1994 ,section_15,7.3.1997 ,resigned,LIB
+555,,,Wooldridge,Michael,Richard Lewis,,,representatives,Casey,Vic.,3.10.1998,,8.10.2001,retired,LIB
+556,,,Wooldridge,Michael,Richard Lewis,,,representatives,Chisholm,Vic.,11.7.1987,,3.10.1998,elected_elsewhere,LIB
+557,,,Worth,Patricia,Mary,,,representatives,Adelaide,SA,13.3.1993,,9.10.2004,defeated,LIB
+245,,,Wortley,Dana,Johanna,,,senate,,SA,1.7.2005 ,,,still_in_office,ALP
+246,,,Wriedt,Kenneth,Shaw,,,senate,,Tas.,1.7.1968 ,,25.9.1980 ,resigned,ALP
+558,,,Wright,Keith,Webb,,,representatives,Capricornia,Qld,1.12.1984,,13.3.1993,defeated,IND
+559,,,Yates,William,,,,representatives,Holt,Vic.,13.12.1975,,18.10.1980,defeated,LIB
+247,,,Young,Harold,William,,,senate,,SA,1.7.1968 ,,4.2.1983 ,defeated,LIB
+560,,,Young,Michael,Jerome,,,representatives,Port Adelaide,SA,18.5.1974,,8.2.1988,resigned,ALP
+561,,,Zahra,Christian,John,,,representatives,McMillan,Vic.,3.10.1998,,9.10.2004,defeated,ALP
+248,,,Zakharov,Alice,Olive,,,senate,,Vic.,5.3.1983 ,,6.3.1995 ,died,ALP
+562,,,Zammit,Paul,John,,,representatives,Lowe,NSW,2.3.1996,,3.10.1998,defeated,IND
+563,,,Zappia,Antonio,,,,representatives,Makin,SA,24.11.2007,,,still_in_office,ALP

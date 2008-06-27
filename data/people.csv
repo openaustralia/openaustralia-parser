@@ -74,7 +74,10 @@ person count,title,last name,first name,middle name,nick name,post title
 72,,Brown,John,Joseph,,
 # TODO: Joseph Tilley Brown should be removed when possible
 73,,Brown,Joseph,Tilley,,
+# This is Robert Brown the former Rep
 74,,Brown,Robert,James,,
+# This is Bob Brown the Senator
+696,,Brown,Robert,James,,
 75,,Brownhill,David,Gordon Cadell,,
 76,,Brumby,John,Mansfield,,
 77,,Bryant,Gordon,Munro,,
@@ -696,3 +699,4 @@ person count,title,last name,first name,middle name,nick name,post title
 693,,Zakharov,Alice,Olive,,
 694,,Zammit,Paul,John,,
 695,,Zappia,Antonio,,,
+# Next available number is 697

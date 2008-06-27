@@ -25,6 +25,10 @@ class People < Array
     matches[0] if matches.size == 1
   end
   
+  def find_person_by_count(count)
+    find{|p| p.person_count == count}
+  end  
+  
   def find_person_by_name_current_on_date(name, date)
     matches = find_people_by_name_current_on_date(name, date)
     throw "More than one match for name #{name.full_name} found" if matches.size > 1
