@@ -143,6 +143,7 @@ member count,person count,title,last name,first name,middle name,nick name,post 
 100,,,Charlesworth,Richard,Ian,,,representatives,Perth,WA,5.3.1983,,8.2.1993,retired,ALP
 101,,,Cheeseman,Darren,Leicester,,,representatives,Corangamite,Vic,24.11.2007,,,still_in_office,ALP
 42,,,Cherry,John,Clifford,,,senate,,Qld,31.7.2001,section_15,30.6.2005,defeated,AD
+567,,,Chester,Darren,,,,representatives,Gippsland,Vic,28.6.2008,by_election,,still_in_office,NP
 43,,,Childs,Bruce,Kenneth,,,senate,,NSW,1.7.1981,,10.9.1997,resigned,ALP
 44,,,Chipp,Donald,Leslie,,,senate,,Vic.,1.7.1978,,18.8.1986,resigned,AD
 102,,,Chynoweth,Robert,Leslie,,,representatives,Dunkley,Vic.,1.12.1984,,24.3.1990,defeated,ALP
@@ -814,5 +815,5 @@ member count,person count,title,last name,first name,middle name,nick name,post 
 248,,,Zakharov,Alice,Olive,,,senate,,Vic.,5.3.1983 ,,6.3.1995 ,died,ALP
 562,,,Zammit,Paul,John,,,representatives,Lowe,NSW,2.3.1996,,3.10.1998,defeated,IND
 563,,,Zappia,Antonio,,,,representatives,Makin,SA,24.11.2007,,,still_in_office,ALP
-# Next available Rep number is 567
+# Next available Rep number is 568
 # Next available Senator number is 249
