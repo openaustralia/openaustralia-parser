@@ -24,6 +24,8 @@ These steps have only been tested on Mac OS X 10.5 (leopard). They might work as
 
 == How to install all the dependencies ==
 
+=== Max OS X Leopard ===
+
 Apache, PHP and Ruby all come with Leopard. If you need to install any of these
 on Mac OS X (if for whatever reason you don't have them installed) there's a ton
 of information online:
@@ -52,11 +54,42 @@ cpan> install XML::Twig
 cpan> install DBD::mysql
 }}}
 
+=== Ubuntu 8.04 ===
+
+Use apt-get to install the requirements:
+
+{{{
+$ sudo apt-get install apache2 php5 php5-cli mysql-server libmysqlclient15-dev git-core imagemagick libmagick9-dev ghostscript ruby rubygems ruby1.8-dev
+}}}
+
+Install the required rubygems:
+
+{{{
+$ sudo gem install builder
+$ sudo gem install rcov
+$ sudo gem install mechanize -v 0.6.10
+$ sudo gem install RMagick
+$ sudo gem install log4r
+}}}
+
+Note: Currently OpenAustralia requires an older version of mechanize (0.6.10), but this might change in the future.
+
+As the parsing of XML files to insert into the database is done with Perl (and there's quite a few scripts in Perl), you will need a few Perl CPAN modules:
+
+{{{
+$ sudo perl -MCPAN -e shell
+cpan> install Error
+cpan> install XML::Twig
+cpan> install DBD::mysql
+}}}
+
 == Installing !OpenAustralia ==
 
 === Web Application ===
 
 For development purposes we have our web application and the parser under {{{/Library/WebServer/Documents/}}} and, unless you want to patch the configuration too much, we recommend that you install it there (also, if you do it this way, you have the application available under the root of your webserver on your Mac).
+
+Note for Ubuntu/Linux users: rather than {{{/Library/WebServer/Documents/}}}, the web application should go under {{{/var/www/}}}. The rest of this document will refer to {{{/Library/WebServer/Documents/}}} however, so substitute as necessary.
 
 {{{
 $ cd /Library/WebServer/
@@ -109,9 +142,13 @@ There is a file that you need to edit (and remember NOT to commit your changes o
 
 It's well documented and quite explanatory. It contains the configuration for MySQL (database name, host, username, etc) as well as the URL and paths for the web application on your machine.
 
-== Running the Parser ==
+Just for initial testing you probably don't want to install Xapian, the search engine, so if that's the case make sure that you set
 
-You shouldn't have to do much except getting the _free_ (see license for details) proxy we've been using (this speeds up the development cycle if you have to download over and over again the speeches and member informacion). You can get it from "!WebAssistant":http://www.proxy-offline-browser.com/ . If you are not using a proxy, comment out the {{{proxy}}} entry in the {{{configuration.yml}}} file.
+{{{
+define ("XAPIANDB", '');
+}}}
+
+== Running the Parser ==
 
 Before you can run the parser, you will need to create the directories that will hold the images of the MPs.
 
@@ -119,51 +156,60 @@ Before you can run the parser, you will need to create the directories that will
 $ mkdir -p pwdata/images/mps pwdata/images/mpsL
 }}}
 
-You are now ready to download the members information. You should just use:
+You are now ready to create the members information. You should just use:
 
 {{{
-$ ruby parse-members.rb
-# you should see messages on the console similar to the following while the script downloads and parses the MP information
-# from parlinfoweb
+$ ./parse-members.rb
+# you should see messages on the console similar to the following
+Reading members data...
+Running consistency checks...
 Writing XML...
-Downloading person images...
-# You could also see messages like if an operation cannot be completed
-WARNING: Could not load image for Barry Cunningham at http://parlinfoweb.aph.gov.au/piweb/Repository/Handbook/Biogs/0G4.jpg
-Adding new member with identifier 1
+Replacing existing member with new data for 5
 This is for your information only, just check it looks OK.
 
 $VAR1 = [
-          '1',
-          '10001',
+          '5',
+          '10006',
           1,
           '',
-          'Anthony',
-          'Abbott',
-          'Warringah',
-          'LIB',
-          '1994-03-26',
-          '9999-12-31',
-          'by_election',
-          'current_member'
+          'Albert',
+          'Adermann',
+          'Fisher',
+          'National Party',
+          '1972-12-02',
+          '1984-12-01',
+          'general_election',
+          'elected_elsewhere'
         ];
+[...]
 }}}
 
-This means that the parser has completed downloading all the members information and has run successfully the import into the database. You should now parse the speeches and you would have a full database.
-
-Note that for development purposes we only use the hansard from Sept 20th, 2007.
+To download the members images:
 
 {{{
-$ ruby parse-speeches.rb
-# you will see a host of messages on the console
-# the following are some examples and will certainly change when you run it yourself
-WARNING: Not yet supporting: Procedural text: CROSS-BORDER INSOLVENCY BILL 2007: First Reading
-WARNING: Not yet supporting: Procedural text: TRADEX SCHEME AMENDMENT BILL 2007: First Reading
-WARNING: Not yet supporting: Procedural text: FAMILIES, COMMUNITY SERVICES AND INDIGENOUS AFFAIRS AND OTHER LEGISLATION AMENDMENT (EMERGENCY RESPONSE CONSOLIDATION) BILL 2007: First Reading
-WARNING: Not yet supporting: Procedural text: TAX LAWS AMENDMENT (TAXATION OF FINANCIAL ARRANGEMENTS) BILL 2007: First Reading
-WARNING: Not yet supporting: Procedural text: VETERANS' ENTITLEMENTS AMENDMENT (DISABILITY, WAR WIDOW AND WAR WIDOWER PENSIONS) BILL 2007: First Reading
-WARNING: Not yet supporting: Procedural text: COMMITTEES: Legal and Constitutional Affairs Committee: Report > 09:46:00
-WARNING: Not yet supporting: Procedural text: COMMITTEES: Legal and Constitutional Affairs Committee: Report: Referral to Main Committee
-WARNING: Not yet supporting: Procedural text: NATIONAL HEALTH AMENDMENT (PHARMACEUTICAL BENEFITS) BILL 2007: Referred to Main Committee
+$ ./member-images.rb 
+}}}
+
+If you want, though it is not particularly important initially, you can also download the links information (which goes on the Representative's pages) by running:
+{{{
+$ ./parse-member-links.rb
+}}}
+
+You should now parse the speeches and you would have a full database.
+
+To download the Hansard data (the speeches) for one day, say Sept 20th, 2007:
+
+{{{
+$ ./parse-speeches.rb 2007.09.20
+ INFO HansardParser: Parsing speeches for Thu 20 Sep 2007...
+ WARN HansardParser: Not yet supporting: Procedural text: CROSS-BORDER INSOLVENCY BILL 2007: First Reading
+ WARN HansardParser: Not yet supporting: Procedural text: TRADEX SCHEME AMENDMENT BILL 2007: First Reading
+ WARN HansardParser: Not yet supporting: Procedural text: FAMILIES, COMMUNITY SERVICES AND INDIGENOUS AFFAIRS AND OTHER LEGISLATION AMENDMENT (EMERGENCY RESPONSE CONSOLIDATION) BILL 2007: First Reading
+ WARN HansardParser: Not yet supporting: Procedural text: TAX LAWS AMENDMENT (TAXATION OF FINANCIAL ARRANGEMENTS) BILL 2007: First Reading
+ WARN HansardParser: Not yet supporting: Procedural text: VETERANS' ENTITLEMENTS AMENDMENT (DISABILITY, WAR WIDOW AND WAR WIDOWER PENSIONS) BILL 2007: First Reading
+ WARN HansardParser: Not yet supporting: Procedural text: COMMITTEES: Legal and Constitutional Affairs Committee: Report > 09:46:00
+ WARN HansardParser: Not yet supporting: Procedural text: COMMITTEES: Legal and Constitutional Affairs Committee: Report: Referral to Main Committee
+ WARN HansardParser: Not yet supporting: Procedural text: NATIONAL HEALTH AMENDMENT (PHARMACEUTICAL BENEFITS) BILL 2007: Referred to Main Committee
 [...]
 db loading debates 2007-09-20
 }}}
