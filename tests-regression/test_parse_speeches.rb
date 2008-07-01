@@ -16,6 +16,9 @@ require 'configuration'
 from_date = Date.new(2006, 1, 1)
 to_date = Date.new(2008, 6, 1)
 
+# Number of items to skip at the beginning
+skip = 0
+
 # Dates to test first before anything else
 # Update this list with any dates that have shown up problems in the past
 
@@ -79,7 +82,7 @@ class Array
 end
 
 # Randomly permute array. This means that we will cover a much broader range of dates quickly
-#srand(42)
+srand(42)
 dates = (from_date..to_date).to_a.randomly_permute
 
 test_first.each do |date|
@@ -90,9 +93,9 @@ end
 
 skip_dates.each { |date| dates.delete(date) }
 
-count = 0
+count = skip
 time0 = Time.new
-dates.each do |date|
+dates[skip..-1].each do |date|
   test_date(date, conf, parser)
   count = count + 1
   puts "Regression test progress: Done #{count}/#{dates.size}"

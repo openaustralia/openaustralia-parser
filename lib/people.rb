@@ -25,6 +25,10 @@ class People < Array
     matches[0] if matches.size == 1
   end
   
+  def find_person_by_count(count)
+    find{|p| p.person_count == count}
+  end  
+  
   def find_person_by_name_current_on_date(name, date)
     matches = find_people_by_name_current_on_date(name, date)
     throw "More than one match for name #{name.full_name} found" if matches.size > 1
@@ -37,7 +41,12 @@ class People < Array
   end
   
   def find_people_by_name(name)
-    find_people_by_lastname(name.last).find_all{|p| name.matches?(p.name)}
+    potential = find_people_by_lastname(name.last)
+    if potential.nil?
+      []
+    else
+      potential.find_all{|p| name.matches?(p.name)}
+    end
   end
   
   def find_people_by_lastname(lastname)
@@ -103,7 +112,7 @@ class People < Array
   end
   
   def all_periods
-    map {|p| p.periods}.flatten
+    map {|person| person.periods}.flatten
   end
   
   def all_house_periods

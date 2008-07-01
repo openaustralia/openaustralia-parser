@@ -33,7 +33,7 @@ class PeopleCSVReader
     data.shift
 
     data.each do |line|
-      member_count, title, lastname, firstname, middlename, nickname, post_title, house, division, state, start_date, start_reason, end_date, end_reason, party = line
+      member_count, person_count, title, lastname, firstname, middlename, nickname, post_title, house, division, state, start_date, start_reason, end_date, end_reason, party = line
       party = parse_party(party)
       start_date = parse_date(start_date)
       end_date = parse_end_date(end_date)
@@ -43,8 +43,19 @@ class PeopleCSVReader
         :nick => nickname, :title => title, :post_title => post_title)
       throw "Division is undefined for #{name.full_name}" if house == "representatives" && division.nil?
 
-      person = people.find_person_by_name(name)
-      throw "Couldn't find person #{name.full_name}" if person.nil?
+      matches = people.find_people_by_name(name)
+      if matches.size == 0
+        throw "Couldn't find person #{name.full_name}"
+      elsif matches.size > 1
+        # In a situation where several people match we use the "person count" field to disambiguate
+        if person_count != ""
+          person = people.find_person_by_count(10000 + person_count.to_i)
+        else
+          throw "More than one match for name #{name.full_name} found"
+        end
+      else
+        person = matches.first
+      end
       person.add_period(:house => house, :division => division, :party => party,
           :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason, :count => member_count.to_i)
     end
