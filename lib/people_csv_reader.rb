@@ -22,9 +22,9 @@ class PeopleCSVReader
 
     people = People.new
     data.each do |line|
-      person_count, title, lastname, firstname, middlename, nickname, post_title = line
+      person_count, title, lastname, firstname, middlename, nickname, post_title, birthday = line
       people << Person.new(Name.new(:last => lastname, :first => firstname, :middle => middlename,
-        :nick => nickname, :title => title, :post_title => post_title), 10000 + person_count.to_i)
+        :nick => nickname, :title => title, :post_title => post_title), 10000 + person_count.to_i, birthday ? Date.strptime(birthday) : nil)
     end
     
     data = read_raw_csv(members_filename)

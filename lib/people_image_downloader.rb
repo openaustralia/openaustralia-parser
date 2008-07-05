@@ -17,22 +17,27 @@ class PeopleImageDownloader
     @agent = MechanizeProxy.new
     @agent.cache_subdirectory = "member_images"
   end
-  
+
   def download(people, small_image_dir, large_image_dir)
     each_person_bio_page do |page|
-      name, image = extract_name_and_image_from_page(page)
-      # Small HACK - removing title of name
-      name = Name.new(:first => name.first, :nick => name.nick, :middle => name.middle, :last => name.last, :post_title => name.post_title) if name
+      name, birthday, image = extract_name_and_birthday_and_image_from_page(page)
+
       if name
+        # Small HACK - removing title of name
+        name = Name.new(:first => name.first, :nick => name.nick, :middle => name.middle, :last => name.last, :post_title => name.post_title)
         # HACK: Special handling for Maxine Mckew as in her bio she is referred to as Margaret Maxine McKew
         if name.matches?(Name.new(:first => "Margaret", :middle => "Maxine", :last => "McKew"))
           name = Name.new(:first => "Maxine", :middle => "Margaret", :last => "McKew")
+          person = people.find_person_by_name(name)
+        #HACK: Justine Elliot is referred to as Maria Justine Elliot in her bio, see http://trac2.assembla.com/openaustralia/ticket/148
+        elsif name.matches?(Name.new(:first => "Maria", :middle => "Justine", :last => "Elliot"))
+          name = Name.new(:first => "Justine", :middle => "Maria", :last => "Elliot")
           person = people.find_person_by_name(name)
         # HACK: Special handling for Harry Jenkins
         elsif name.matches?(Name.new(:first => "Henry", :nick => "Harry", :last => "Jenkins"))
           person = people.find_person_by_name_current_on_date(name, Date.new(2008, 3, 1))
         else
-          person = people.find_person_by_name(name)
+          person = people.find_person_by_name_and_birthday(name, birthday)
         end
         if person
           image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH, @@SMALL_THUMBNAIL_HEIGHT).write(small_image_dir + "/#{person.person_count}.jpg")
@@ -43,7 +48,7 @@ class PeopleImageDownloader
       end
     end
   end
-  
+
   def each_person_bio_page
     # Iterate over current members of house
     @agent.get(@conf.current_house_members_url).links[29..-4].each do |link|
@@ -56,19 +61,46 @@ class PeopleImageDownloader
     # Iterate over former members of house and senate
     @agent.get(@conf.former_members_house_and_senate_url).links[29..-4].each do |link|
       @agent.transact {yield @agent.click(link)}
-    end    
+    end
   end
-  
-  def extract_name_and_image_from_page(page)
-    name = Name.last_title_first(page.search("#txtTitle").inner_text.to_s[14..-1])
-    content = page.search('div#contentstart')  
+
+  def extract_name_and_birthday_and_image_from_page(page)
+    begin
+      name = Name.last_title_first(page.search("#txtTitle").inner_text.to_s[14..-1])
+    rescue
+      #Mr X strikes again! http://parlinfoweb.aph.gov.au/piweb/view_document.aspx?ID=15517&TABLE=BIOGS
+      puts "WARNING: Skipping photo download; '#{page.search("#txtTitle").inner_text.to_s[14..-1]}' is an invalid name."
+      return
+    end
+
+    #Try to scrape the member's birthday.
+    #Here's an example of what we are looking for:
+    #<H2>Personal</H2>
+    #<P>Born 9.1.42
+    # or
+    #<H2>Personal</H2><P>
+    #<P>Born 4.11.1957
+
+    born = page.parser.to_s.match("Born\\s\\d\\d?\\.\\d\\d?\\.\\d\\d(\\d\\d)?")
+    if(born and born.to_s.size > 0)
+      born_text = born.to_s[5..-1]
+      born_text = born_text.insert(-3, "19") if born_text.match("\\.\\d\\d$") # change 9.1.42 to 9.1.1942
+      birthday = Date.strptime(born_text, "%d.%m.%Y")
+    else
+      birthday = nil
+    end
+
+    #note: could use the following to output ALL birthdays for easy import into people.csv
+    #puts "#{name.informal_name} #{birthday}"
+
+    content = page.search('div#contentstart')
     img_tag = content.search("img").first
     if img_tag
       relative_image_url = img_tag.attributes['src']
       if relative_image_url != "images/top_btn.gif"
         begin
           res = @agent.get(relative_image_url)
-          return name, Magick::Image.from_blob(res.body)[0]
+          return name, birthday, Magick::Image.from_blob(res.body)[0]
         rescue RuntimeError, Magick::ImageMagickError, WWW::Mechanize::ResponseCodeError
           puts "WARNING: Could not load image for #{name.informal_name} at #{relative_image_url}"
         end

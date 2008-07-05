@@ -28,13 +28,22 @@ class People < Array
   def find_person_by_count(count)
     find{|p| p.person_count == count}
   end  
-  
+
   def find_person_by_name_current_on_date(name, date)
     matches = find_people_by_name_current_on_date(name, date)
     throw "More than one match for name #{name.full_name} found" if matches.size > 1
     matches[0] if matches.size == 1
   end
-  
+
+  def find_person_by_name_and_birthday(name, birthday)
+    matches = find_people_by_name(name)
+    return matches[0] if matches.size == 1
+    return nil if matches.size == 0
+
+    #more than one match found, use birthday
+    return matches.find {|m| m.birthday == birthday}
+  end
+
   # Returns all the people that match a particular name and have current senate/house of representatives positions on the date
   def find_people_by_name_current_on_date(name, date)
     find_people_by_name(name).find_all {|p| p.current_position_on_date?(date)} 
