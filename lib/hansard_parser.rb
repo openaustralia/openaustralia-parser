@@ -117,17 +117,21 @@ class HansardParser
         elsif class_value == "speech0" || class_value == "speech1"
           e.children[1..-1].each do |e|
             speaker = parse_speech_block(e, speaker, time, url, debates, date)
+            debates.increment_minor_count
           end
         elsif class_value == "motionnospeech" || class_value == "subspeech0" || class_value == "subspeech1" ||
             class_value == "motion" || class_value = "quote"
           speaker = parse_speech_block(e, speaker, time, url, debates, date)
+          debates.increment_minor_count
         else
           throw "Unexpected class value #{class_value} for tag #{e.name}"
         end
       elsif e.name == "p"
         speaker = parse_speech_block(e, speaker, time, url, debates, date)
+        debates.increment_minor_count
       elsif e.name == "table"
         if class_value == "division"
+          debates.increment_minor_count
           # Ignore (for the time being)
         else
           throw "Unexpected class value #{class_value} for tag #{e.name}"
