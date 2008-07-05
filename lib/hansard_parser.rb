@@ -115,7 +115,9 @@ class HansardParser
       if e.name == "div"
         if class_value == "hansardtitlegroup" || class_value == "hansardsubtitlegroup"
         elsif class_value == "speech0" || class_value == "speech1"
-          speaker = parse_speech_blocks(e.children[1..-1], speaker, time, url, debates, date)
+          e.children[1..-1].each do |e|
+            speaker = parse_speech_block(e, speaker, time, url, debates, date)
+          end
         elsif class_value == "motionnospeech" || class_value == "subspeech0" || class_value == "subspeech1" ||
             class_value == "motion" || class_value = "quote"
           speaker = parse_speech_block(e, speaker, time, url, debates, date)
@@ -142,14 +144,6 @@ class HansardParser
     # Only change speaker if a speaker name was found
     speaker = lookup_speaker(speakername, date) if speakername
     debates.add_speech(speaker, time, url, clean_speech_content(url, e))
-    speaker
-  end
-  
-  # Returns new speaker
-  def parse_speech_blocks(content, speaker, time, url, debates, date)
-    content.each do |e|
-      speaker = parse_speech_block(e, speaker, time, url, debates, date)
-    end
     speaker
   end
   
