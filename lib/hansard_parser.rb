@@ -144,14 +144,20 @@ class HansardParser
   
   # Returns new speaker
   def parse_speech_block(e, speaker, time, url, debates, date)
-    speakername = extract_speakername(e)
+    speakername, interjection = extract_speakername(e)
     # Only change speaker if a speaker name was found
-    speaker = lookup_speaker(speakername, date) if speakername
-    debates.add_speech(speaker, time, url, clean_speech_content(url, e))
-    speaker
+    this_speaker = speakername ? lookup_speaker(speakername, date) : speaker
+    debates.add_speech(this_speaker, time, url, clean_speech_content(url, e))
+    # With interjections the next speech should never be by the person doing the interjection
+    if interjection
+      speaker
+    else
+      this_speaker
+    end
   end
   
   def extract_speakername(content)
+    interjection = false
     # Try to extract speaker name from talkername tag
     tag = content.search('span.talkername a').first
     tag2 = content.search('span.speechname').first
@@ -167,6 +173,7 @@ class HansardParser
       name = tag2.inner_html
     # If that fails try an interjection
     elsif content.search("div.speechType").inner_html == "Interjection"
+      interjection = true
       text = strip_tags(content.search("div.speechType + *").first)
       m = text.match(/([a-z].*) interjecting/i)
       if m
@@ -179,8 +186,15 @@ class HansardParser
           name = nil
         end
       end
+    # As a last resort try searching for interjection text
+    else
+      m = strip_tags(content).match(/([a-z].*) interjecting/i)
+      if m
+        name = m[1]
+        interjection = true
+      end
     end
-    name
+    [name, interjection]
   end
   
   # Replace unicode characters by their equivalent
