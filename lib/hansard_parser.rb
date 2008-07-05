@@ -115,17 +115,23 @@ class HansardParser
       if e.name == "div"
         if class_value == "hansardtitlegroup" || class_value == "hansardsubtitlegroup"
         elsif class_value == "speech0" || class_value == "speech1"
-          speaker = parse_speech_blocks(e.children[1..-1], speaker, time, url, debates, date)
+          e.children[1..-1].each do |e|
+            speaker = parse_speech_block(e, speaker, time, url, debates, date)
+            debates.increment_minor_count
+          end
         elsif class_value == "motionnospeech" || class_value == "subspeech0" || class_value == "subspeech1" ||
             class_value == "motion" || class_value = "quote"
           speaker = parse_speech_block(e, speaker, time, url, debates, date)
+          debates.increment_minor_count
         else
           throw "Unexpected class value #{class_value} for tag #{e.name}"
         end
       elsif e.name == "p"
         speaker = parse_speech_block(e, speaker, time, url, debates, date)
+        debates.increment_minor_count
       elsif e.name == "table"
         if class_value == "division"
+          debates.increment_minor_count
           # Ignore (for the time being)
         else
           throw "Unexpected class value #{class_value} for tag #{e.name}"
@@ -138,22 +144,20 @@ class HansardParser
   
   # Returns new speaker
   def parse_speech_block(e, speaker, time, url, debates, date)
-    speakername = extract_speakername(e)
+    speakername, interjection = extract_speakername(e)
     # Only change speaker if a speaker name was found
-    speaker = lookup_speaker(speakername, date) if speakername
-    debates.add_speech(speaker, time, url, clean_speech_content(url, e))
-    speaker
-  end
-  
-  # Returns new speaker
-  def parse_speech_blocks(content, speaker, time, url, debates, date)
-    content.each do |e|
-      speaker = parse_speech_block(e, speaker, time, url, debates, date)
+    this_speaker = speakername ? lookup_speaker(speakername, date) : speaker
+    debates.add_speech(this_speaker, time, url, clean_speech_content(url, e))
+    # With interjections the next speech should never be by the person doing the interjection
+    if interjection
+      speaker
+    else
+      this_speaker
     end
-    speaker
   end
   
   def extract_speakername(content)
+    interjection = false
     # Try to extract speaker name from talkername tag
     tag = content.search('span.talkername a').first
     tag2 = content.search('span.speechname').first
@@ -169,6 +173,7 @@ class HansardParser
       name = tag2.inner_html
     # If that fails try an interjection
     elsif content.search("div.speechType").inner_html == "Interjection"
+      interjection = true
       text = strip_tags(content.search("div.speechType + *").first)
       m = text.match(/([a-z].*) interjecting/i)
       if m
@@ -181,8 +186,15 @@ class HansardParser
           name = nil
         end
       end
+    # As a last resort try searching for interjection text
+    else
+      m = strip_tags(content).match(/([a-z].*) interjecting/i)
+      if m
+        name = m[1]
+        interjection = true
+      end
     end
-    name
+    [name, interjection]
   end
   
   # Replace unicode characters by their equivalent

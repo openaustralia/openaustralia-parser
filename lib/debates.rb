@@ -39,7 +39,6 @@ class Debates
     # Only add new speech if the speaker has changed
     unless speaker && last_speaker && speaker == last_speaker
       @items << Speech.new(speaker, time, url, @major_count, @minor_count, @date)
-      increment_minor_count
     end
     @items.last.append_to_content(content)
   end
