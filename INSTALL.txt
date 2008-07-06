@@ -83,6 +83,23 @@ cpan> install XML::Twig
 cpan> install DBD::mysql
 }}}
 
+=== For Windows ===
+Apache, PHP and MySQL can all be installed together with the [http://www.apachefriends.org/en/xampp-windows.html Xampp for Windows] package. Perl can be downloaded from ActiveState in the [http://www.activestate.com/Products/activeperl/index.mhtml ActivePerl] package. Ruby has its own Windows versions that you need to get from [http://www.ruby-lang.org/en/downloads/ Ruby Downloads] (choose the one-click installer option).
+
+==== Perl ====
+The x86 version of ActivePerl comes with a GUI for installing packages that makes the whole process a lot easier. Refer to http://aspn.activestate.com/ASPN/docs/ActivePerl/5.10/faq/ActivePerl-faq2.html for instructions on running it. ActivePerl comes with a lot of packages already installed but there are a few you'll need to install yourself, namely: XML-Twig and DBD-mysql.
+
+If DBD-mysql fails to install try installing it manually with
+
+{{{
+ppm install http://cpan.uwinnipeg.ca/PPMPackages/10xx/DBD-mysql.ppd
+}}}
+
+Reference http://dev.mysql.com/doc/refman/5.0/en/activestate-perl.html (bottom of page).
+
+==== Ruby ====
+In addition to the Ruby gems required above you'll need to install Ruby-MySQL, which can be downloaded from http://www.tmtm.org/en/ruby/mysql/.
+
 == Installing !OpenAustralia ==
 
 === Web Application ===
@@ -115,6 +132,8 @@ The only configuration necessary is to change the web-root if you have installed
 === Configuration of the Web Application ===
 
 We now need to configure the web application, which includes creating a DB in MySQL and loading the schema. We assume that you have MySQL running and that your MySQL super user is {{{root}}} and the account has a password.
+
+Remember to edit your Apache httpd.conf file to include the httpd.conf file in \openaustralia\twfy\conf\.
 
 We need to note again that these instructions are just for developers wanting to run the application on their machines and not recommendations or best-practices in performance and security.
 
