@@ -111,8 +111,8 @@ class People < Array
     PeopleCSVReader.read_ministers(filename, self)
   end
     
-  def write_xml(people_filename, members_filename, ministers_filename)
-    PeopleXMLWriter.write(self, people_filename, members_filename, ministers_filename)
+  def write_xml(people_filename, members_filename, senators_filename, ministers_filename)
+    PeopleXMLWriter.write(self, people_filename, members_filename, senators_filename, ministers_filename)
   end
   
   def download_images(small_image_dir, large_image_dir)

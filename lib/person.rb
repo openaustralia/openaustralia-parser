@@ -33,7 +33,11 @@ class Person
   end
   
   def house_periods
-    @periods.find_all{|p| p.house == "representatives"}
+    @periods.find_all{|p| p.representative?}
+  end
+  
+  def senate_periods
+    @periods.find_all{|p| p.senator?}
   end
   
   # Returns the period which is the latest in time

@@ -3,9 +3,10 @@ require 'builder_alpha_attributes'
 
 class PeopleXMLWriter
   
-  def PeopleXMLWriter.write(people, people_filename, members_filename, ministers_filename)
+  def PeopleXMLWriter.write(people, people_filename, members_filename, senators_filename, ministers_filename)
     write_people(people, people_filename)
     write_members(people, members_filename)
+    write_senators(people, senators_filename)
     write_ministers(people, ministers_filename)
   end
   
@@ -46,6 +47,23 @@ class PeopleXMLWriter
     end
     xml.close
   end
+
+  def PeopleXMLWriter.write_senators(people, filename)
+    xml = File.open(filename, 'w')
+    x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
+    x.instruct!
+    x.publicwhip do
+      people.each do |person|
+        person.senate_periods.each do |period|
+          x.lord(:id => period.id,
+            :house => "lords", :title => period.person.name.title, :forenames => period.person.name.first,
+            :lordname => period.person.name.last, :lordofname => period.state, :affiliation => period.party,    
+            :fromdate => period.from_date, :todate => period.to_date, :fromwhy => period.from_why, :towhy => period.to_why)
+        end
+      end
+    end
+    xml.close
+  end
   
   def PeopleXMLWriter.write_people(people, filename)
     xml = File.open(filename, 'w')
@@ -54,7 +72,7 @@ class PeopleXMLWriter
     x.publicwhip do
       people.each do |person|
         x.person(:id => person.id, :latestname => person.name.informal_name) do
-          person.house_periods.each do |period|
+          person.periods.each do |period|
             if period.current?
               x.office(:id => period.id, :current => "yes")
             else

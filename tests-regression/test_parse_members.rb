@@ -34,9 +34,10 @@ people.read_ministers_csv("#{data_path}/ministers.csv")
 people.read_ministers_csv("#{data_path}/shadow-ministers.csv")
 puts "Writing XML..."
 people.write_xml("#{conf.members_xml_path}/people.xml", "#{conf.members_xml_path}/all-members.xml",
-  "#{conf.members_xml_path}/ministers.xml")
+  "#{conf.members_xml_path}/peers-ucl.xml", "#{conf.members_xml_path}/ministers.xml")
 
 ref_path = "#{File.dirname(__FILE__)}/ref"
 compare_xml("#{conf.members_xml_path}/people.xml", "#{ref_path}/people.xml")
 compare_xml("#{conf.members_xml_path}/all-members.xml", "#{ref_path}/all-members.xml")
+compare_xml("#{conf.members_xml_path}/peers-ucl.xml", "#{ref_path}/peers-ucl.xml")
 compare_xml("#{conf.members_xml_path}/ministers.xml", "#{ref_path}/ministers.xml")

@@ -38,7 +38,11 @@ class PeopleCSVReader
       start_date = parse_date(start_date)
       end_date = parse_end_date(end_date)
       start_reason = parse_start_reason(start_reason)
-
+      valid_states = ["NSW", "Tasmania", "WA", "Queensland", "Victoria", "SA", "NT", "ACT"]
+      state = "Tasmania" if state == "Tas." || state == "Tas"
+      state = "Victoria" if state == "Vic." || state == "Vic"
+      state = "Queensland" if state == "Qld" || state == "QLD"
+      throw "State #{state} is not a valid. Allowed values are #{valid_states.join(', ')}" unless valid_states.member?(state)
       name = Name.new(:last => lastname, :first => firstname, :middle => middlename,
         :nick => nickname, :title => title, :post_title => post_title)
       throw "Division is undefined for #{name.full_name}" if house == "representatives" && division.nil?
@@ -56,7 +60,7 @@ class PeopleCSVReader
       else
         person = matches.first
       end
-      person.add_period(:house => house, :division => division, :party => party,
+      person.add_period(:house => house, :division => division, :state => state, :party => party,
           :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason, :count => member_count.to_i)
     end
     

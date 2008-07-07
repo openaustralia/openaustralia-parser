@@ -45,7 +45,7 @@ end
 
 # Represents a period in the house of representatives
 class Period < PeriodBase
-  attr_accessor :from_why, :to_why, :division, :party, :house
+  attr_accessor :from_why, :to_why, :division, :state, :party, :house
   attr_reader :count
 
   def Period.reset_id_counter
@@ -77,6 +77,7 @@ class Period < PeriodBase
     @from_why =   params.delete(:from_why)
     @to_why =     params.delete(:to_why)
     @division =   params.delete(:division)
+    @state =      params.delete(:state)
     @party =      params.delete(:party)
     @house =      params.delete(:house)
     throw ":house parameter must have value 'representatives' or 'senate'" unless representative? || senator?
@@ -104,6 +105,6 @@ class Period < PeriodBase
   
   def ==(p)
     id == p.id && from_date == p.from_date && to_date == p.to_date &&
-      from_why == p.from_why && to_why == p.to_why && division == p.division && party == p.party && house == p.house
+      from_why == p.from_why && to_why == p.to_why && division == p.division && state == p.state && party == p.party && house == p.house
   end
 end
