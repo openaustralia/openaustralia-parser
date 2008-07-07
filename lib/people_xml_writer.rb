@@ -17,13 +17,11 @@ class PeopleXMLWriter
     x.publicwhip do
       people.each do |person|
         person.minister_positions.each do |p|
-          # TODO: Add "dept" and "source". matchid should links to lord as well
-          if !person.house_periods.empty?
-            x.ministerofficegroup do
-              x.moffice(:id => p.id, :name => person.name.full_name,
-                :matchid => person.house_periods.first.id, :position => p.position,
-                :fromdate => p.from_date, :todate => p.to_date, :dept => "", :source => "")
-            end
+          # TODO: Add "dept" and "source"
+          x.ministerofficegroup do
+            x.moffice(:id => p.id, :name => person.name.full_name,
+              :matchid => person.periods.first.id, :position => p.position,
+              :fromdate => p.from_date, :todate => p.to_date, :dept => "", :source => "")
           end
         end  
       end
