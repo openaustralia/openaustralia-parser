@@ -70,6 +70,12 @@ class People < Array
     member
   end
   
+  def senate_president(date)
+    member = find_senate_members_current_on(date).find {|m| m.senate_president?}
+    throw "Could not find senate president for date #{date}" if member.nil?
+    member
+  end
+  
   def deputy_house_speaker(date)
     member = find_house_members_current_on(date).find {|m| m.deputy_house_speaker?}
     throw "Could not find deputy house speaker for date #{date}" if member.nil?

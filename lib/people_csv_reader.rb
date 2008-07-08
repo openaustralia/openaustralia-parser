@@ -124,7 +124,7 @@ class PeopleCSVReader
       "Nuclear Disarmament Party"
     when "PHON"
       "Pauline Hanson's One Nation Party"
-    when "ANTI-SOC", "SPK", "CWM"
+    when "ANTI-SOC", "SPK", "CWM", "PRESIDENT"
       # Do nothing
       party
     else

@@ -37,7 +37,7 @@ class HansardParser
   end
   
   def parse_date(date, xml_reps_filename, xml_senate_filename)
-    parse_date_house(date, xml_reps_filename, "House")
+    #parse_date_house(date, xml_reps_filename, "House")
     parse_date_house(date, xml_senate_filename, "Senate")
   end
   
@@ -362,6 +362,9 @@ class HansardParser
       else
         member = @people.deputy_house_speaker(date)
       end
+    elsif speakername =~ /^the president/i
+      throw "Don't expect President in House of Representatives" unless house == "Senate"
+      member = @people.senate_president(date)
     else
       # Lookup id of member based on speakername
       name = Name.title_first_last(speakername)

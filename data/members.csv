@@ -252,7 +252,8 @@ member count,person count,title,last name,first name,middle name,nick name,post 
 176,,,Fatin,Wendy,Frances,,,representatives,Canning,WA,5.3.1983,,1.12.1984,elected_elsewhere,ALP
 77,,,Faulkner,John,Philip,,,senate,,NSW,4.4.1989,section_15,,still_in_office,ALP
 177,,,Fawcett,David,Julian,,,representatives,Wakefield,SA,9.10.2004,,24.11.2007,defeated,LIB
-78,,,Ferguson,Alan,Baird,,,senate,,SA,26.5.1992,section_15,,still_in_office,LIB
+78,,,Ferguson,Alan,Baird,,,senate,,SA,26.5.1992,section_15,14.8.2007,changed_party,LIB
+263,,,Ferguson,Alan,Baird,,,senate,,SA,14.8.2007,changed_party,,still_in_office,PRESIDENT
 178,,,Ferguson,Laurie,Donald Thomas,,,representatives,Reid,NSW,24.3.1990,,,still_in_office,ALP
 179,,,Ferguson,Martin,John,,,representatives,Batman,Vic.,2.3.1996,,,still_in_office,ALP
 180,,,Ferguson,Michael,Darrel,,,representatives,Bass,Tas.,9.10.2004,,24.11.2007,defeated,LIB
@@ -832,4 +833,4 @@ member count,person count,title,last name,first name,middle name,nick name,post 
 232,,,Watson,John,Odin Wentworth,,,senate,,Tas.,1.7.1978 ,,30.6.2008,retired,LIB
 233,,,Webber,Ruth,Stephanie,,,senate,,WA,1.7.2002 ,,30.6.2008,defeated,ALP
 # Next available Rep number is 568
-# Next available Senator number is 263
+# Next available Senator number is 264
