@@ -243,6 +243,7 @@ class HansardParser
     text = text.gsub(/\(\d{1,2}.\d\d a.m.\)/, '')
     text = text.gsub(/\(\d{1,2}.\d\d p.m.\)/, '')
     text = text.gsub('()', '')
+    text = text.gsub('<div class="separator"></div>', '')
     # Look for tags in the text and display warnings if any of them aren't being handled yet
     text.scan(/<[a-z][^>]*>/i) do |t|
       m = t.match(/<([a-z]*) [^>]*>/i)
