@@ -376,7 +376,8 @@ class HansardParser
     end
     
     if member.nil?
-      logger.warn "Unknown speaker #{speakername}"
+      speakernames_to_ignore = ["Honourable members", "Opposition members", "Government members", "Government member"]
+      logger.warn "Unknown speaker #{speakername}" unless speakernames_to_ignore.member?(speakername)
       member = UnknownSpeaker.new(speakername)
     end
     
