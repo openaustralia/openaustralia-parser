@@ -83,6 +83,10 @@ class TestName < Test::Unit::TestCase
     assert_equal("D'Ath", Name.new(:last => "d’ath").last)
   end
   
+  def test_double_barrelled
+    assert_equal("Hanson-Young", Name.new(:last => "hanson-young").last)
+  end
+  
   def test_title_first_last
     assert_equal(Name.new(:title => "Dr", :first => "John", :last => "Smith"), Name.title_first_last("Dr John Smith"))
     assert_equal(Name.new(:title => "Dr", :last => "Smith"), Name.title_first_last("Dr Smith"))
