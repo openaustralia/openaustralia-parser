@@ -293,6 +293,8 @@ class Name
     if name[0..1] == "O'" || name[0..1] == "Mc" || name[0..1] == "D'"
       name = name[0..1] + name[2..-1].capitalize
     end
+    # If name is hyphenated capitalise each side on its own
+    name = name.split('-').map{|n| capitalize_name(n)}.join('-') if name.include?('-')
     name
   end
 
