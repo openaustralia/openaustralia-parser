@@ -1,4 +1,4 @@
-class Speech
+class SpeechBase
   attr_accessor :speaker, :time, :url, :id, :content
   
   def initialize(speaker, time, url, major_count, minor_count, date)
@@ -11,10 +11,6 @@ class Speech
     @content = Hpricot::Elements.new
   end
   
-  def id
-    "uk.org.publicwhip/debate/#{@date}.#{@major_count}.#{@minor_count}"
-  end
-
   def output(x)
     if @speaker
       x.speech(:speakername => @speaker.name.full_name, :time => @time, :url => @url, :id => id,
@@ -32,4 +28,17 @@ class Speech
     end
   end
 end
+
+class HouseSpeech < SpeechBase
+  def id
+    "uk.org.publicwhip/debate/#{@date}.#{@major_count}.#{@minor_count}"
+  end
+end
+
+class SenateSpeech < SpeechBase
+  def id
+    "uk.org.publicwhip/lords/#{@date}.#{@major_count}.#{@minor_count}"
+  end
+end
+
 

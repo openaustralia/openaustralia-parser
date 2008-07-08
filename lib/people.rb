@@ -82,8 +82,18 @@ class People < Array
     matches[0] if matches.size == 1
   end
   
+  def find_senator_by_name_current_on_date(name, date)
+    matches = find_senators_by_name_current_on_date(name, date)
+    throw "More than one match for name #{name.full_name} found" if matches.size > 1
+    matches[0] if matches.size == 1
+  end
+  
   def find_members_by_name_current_on_date(name, date)
     find_house_members_current_on(date).find_all {|m| name.matches?(m.person.name)}
+  end
+  
+  def find_senators_by_name_current_on_date(name, date)
+    find_senate_members_current_on(date).find_all {|m| name.matches?(m.person.name)}
   end
   
   # Returns the house members that are currently members of the House of Representatives
@@ -94,6 +104,10 @@ class People < Array
   # Returns the house members that are members on the given date
   def find_house_members_current_on(date)
     all_house_periods.find_all {|m| m.current_on_date?(date)}
+  end
+  
+  def find_senate_members_current_on(date)
+    all_senate_periods.find_all {|m| m.current_on_date?(date)}
   end
   
   def find_house_period_by_id(id)
@@ -125,6 +139,10 @@ class People < Array
   end
   
   def all_house_periods
-    all_periods.find_all{|p| p.house == "representatives"}
+    all_periods.find_all{|p| p.representative?}
+  end
+
+  def all_senate_periods
+    all_periods.find_all{|p| p.senator?}
   end
 end

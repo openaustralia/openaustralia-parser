@@ -35,10 +35,18 @@ class Debates
     @minor_count = 1
   end
   
-  def add_speech(speaker, time, url, content)
+  def add_rep_speech(speaker, time, url, content)
     # Only add new speech if the speaker has changed
     unless speaker && last_speaker && speaker == last_speaker
-      @items << Speech.new(speaker, time, url, @major_count, @minor_count, @date)
+      @items << HouseSpeech.new(speaker, time, url, @major_count, @minor_count, @date)
+    end
+    @items.last.append_to_content(content)
+  end
+  
+  def add_senator_speech(speaker, time, url, content)
+    # Only add new speech if the speaker has changed
+    unless speaker && last_speaker && speaker == last_speaker
+      @items << SenateSpeech.new(speaker, time, url, @major_count, @minor_count, @date)
     end
     @items.last.append_to_content(content)
   end
