@@ -2,7 +2,7 @@ require 'heading'
 
 # Holds the data for debates on one day
 # Also knows how to output the XML data for that
-class Debates
+class DebatesBase
   def initialize(date)
     @date = date
     @title = ""
@@ -15,11 +15,11 @@ class Debates
   def add_heading(newtitle, newsubtitle, url)
     # Only add headings if they have changed
     if newtitle != @title
-      @items << MajorHeading.new(newtitle, @major_count, @minor_count, url, @date)
+      @items << new_major_heading(newtitle, @major_count, @minor_count, url, @date)
       increment_minor_count
     end
     if newtitle != @title || newsubtitle != @subtitle
-      @items << MinorHeading.new(newsubtitle, @major_count, @minor_count, url, @date)
+      @items << new_minor_heading(newsubtitle, @major_count, @minor_count, url, @date)
       increment_minor_count
     end
     @title = newtitle
@@ -35,18 +35,10 @@ class Debates
     @minor_count = 1
   end
   
-  def add_rep_speech(speaker, time, url, content)
+  def add_speech(speaker, time, url, content)
     # Only add new speech if the speaker has changed
     unless speaker && last_speaker && speaker == last_speaker
-      @items << HouseSpeech.new(speaker, time, url, @major_count, @minor_count, @date)
-    end
-    @items.last.append_to_content(content)
-  end
-  
-  def add_senator_speech(speaker, time, url, content)
-    # Only add new speech if the speaker has changed
-    unless speaker && last_speaker && speaker == last_speaker
-      @items << SenateSpeech.new(speaker, time, url, @major_count, @minor_count, @date)
+      @items << new_speech(speaker, time, url, @major_count, @minor_count, @date)
     end
     @items.last.append_to_content(content)
   end
@@ -65,4 +57,32 @@ class Debates
     
     xml.close
   end
+end
+
+class HouseDebates < DebatesBase
+  def new_speech(speaker, time, url, major_count, minor_count, date)
+    HouseSpeech.new(speaker, time, url, major_count, minor_count, date)
+  end
+
+  def new_major_heading(text, major_count, minor_count, url, date)
+    MajorHouseHeading.new(text, major_count, minor_count, url, date)
+  end
+  
+  def new_minor_heading(text, major_count, minor_count, url, date)
+    MinorHouseHeading.new(text, major_count, minor_count, url, date)
+  end  
+end
+
+class SenateDebates < DebatesBase
+  def new_speech(speaker, time, url, major_count, minor_count, date)
+    SenateSpeech.new(speaker, time, url, major_count, minor_count, date)
+  end
+
+  def new_major_heading(text, major_count, minor_count, url, date)
+    MajorSenateHeading.new(text, major_count, minor_count, url, date)
+  end
+  
+  def new_minor_heading(text, major_count, minor_count, url, date)
+    MinorSenateHeading.new(text, major_count, minor_count, url, date)
+  end  
 end
