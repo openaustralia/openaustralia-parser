@@ -36,33 +36,36 @@ people = People.read_members_csv("#{File.dirname(__FILE__)}/../data/people.csv",
 parser = HansardParser.new(people)
 
 def test_date(date, conf, parser)
-  xml_filename = "debates#{date}.xml"
-  new_xml_path = "#{conf.xml_path}/scrapedxml/debates/#{xml_filename}"
-  ref_xml_path = "#{File.dirname(__FILE__)}/ref/#{xml_filename}"
-  parser.parse_date(date, new_xml_path)
+  reps_xml_filename = "debates#{date}.xml"
+  senate_xml_filename = "daylord#{date}.xml"
+  new_reps_xml_path = "#{conf.xml_path}/scrapedxml/debates/#{reps_xml_filename}"
+  new_senate_xml_path = "#{conf.xml_path}/scrapedxml/lordspages/#{senate_xml_filename}"
+  ref_reps_xml_path = "#{File.dirname(__FILE__)}/ref/#{reps_xml_filename}"
+  ref_senate_xml_path = "#{File.dirname(__FILE__)}/ref/#{senate_xml_filename}"
+  parser.parse_date(date, new_reps_xml_path, new_senate_xml_path)
   
-  if File.exists?(ref_xml_path) && File.exists?(new_xml_path)
+  if File.exists?(ref_reps_xml_path) && File.exists?(new_reps_xml_path)
     # Now compare generated and reference xml
-    command = "diff #{new_xml_path} #{ref_xml_path}"
+    command = "diff #{new_reps_xml_path} #{ref_reps_xml_path}"
     puts command
     system(command)
     if $? != 0
       test = "regression_failed_text.xml"
       ref = "regression_failed_ref.xml"
       #system("rm -f #{test} #{ref}")
-      system("tidy -xml -o #{test} #{new_xml_path}")
-      system("tidy -xml -o #{ref} #{ref_xml_path}")
+      system("tidy -xml -o #{test} #{new_reps_xml_path}")
+      system("tidy -xml -o #{ref} #{ref_reps_xml_path}")
       system("opendiff #{test} #{ref}")
-      puts "ERROR: #{new_xml_path} and #{ref_xml_path} don't match"
+      puts "ERROR: #{new_reps_xml_path} and #{ref_reps_xml_path} don't match"
       puts "Regression tests FAILED on date #{date}!"
       exit
     end
-  elsif File.exists?(ref_xml_path)
-    puts "ERROR: #{new_xml_path} is missing"
+  elsif File.exists?(ref_reps_xml_path)
+    puts "ERROR: #{new_reps_xml_path} is missing"
     puts "Regression tests FAILED on date #{date}!"
     exit
-  elsif File.exists?(new_xml_path)
-    puts "ERROR: #{ref_xml_path} is missing"
+  elsif File.exists?(new_reps_xml_path)
+    puts "ERROR: #{ref_reps_xml_path} is missing"
     puts "Regression tests FAILED on date #{date}!"
     exit
   end
