@@ -37,7 +37,7 @@ class HansardParser
   end
   
   def parse_date(date, xml_reps_filename, xml_senate_filename)
-    #parse_date_house(date, xml_reps_filename, "House")
+    parse_date_house(date, xml_reps_filename, "House")
     parse_date_house(date, xml_senate_filename, "Senate")
   end
   
