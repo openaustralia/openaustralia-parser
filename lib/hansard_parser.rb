@@ -144,11 +144,9 @@ class HansardParser
   
   # Returns new speaker
   def parse_speech_block(e, speaker, time, url, debates, date)
-    speakername, interjection, hear_hear = extract_speakername(e)
+    speakername, interjection = extract_speakername(e)
     # Only change speaker if a speaker name was found
     this_speaker = speakername ? lookup_speaker(speakername, date) : speaker
-    # HACK: fix the content if it is a "Hear, hear!" response from many members
-    e =  Hpricot('<p class="italic">Hear, hear!</p>') if hear_hear
     debates.add_speech(this_speaker, time, url, clean_speech_content(url, e))
     # With interjections the next speech should never be by the person doing the interjection
     if interjection
@@ -160,8 +158,6 @@ class HansardParser
   
   def extract_speakername(content)
     interjection = false
-    hear_hear = false
-    
     # Try to extract speaker name from talkername tag
     tag = content.search('span.talkername a').first
     tag2 = content.search('span.speechname').first
@@ -190,21 +186,15 @@ class HansardParser
           name = nil
         end
       end
-    # As a last resort try searching for interjection text or "hear, hear!"
+    # As a last resort try searching for interjection text
     else
       m = strip_tags(content).match(/([a-z].*) interjecting/i)
       if m
         name = m[1]
         interjection = true
-      else
-        m = strip_tags(content).match(/([a-z].*)—Hear, hear!/i)
-        if m
-          name = m[1]
-          hear_hear = true
-        end
       end
     end
-    [name, interjection, hear_hear]
+    [name, interjection]
   end
   
   # Replace unicode characters by their equivalent
