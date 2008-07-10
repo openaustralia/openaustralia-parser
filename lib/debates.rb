@@ -4,8 +4,7 @@ require 'heading'
 # Also knows how to output the XML data for that
 class Debates
   def initialize(date, house)
-    @date = date
-    @house = house
+    @date, @house = date, house
     @title = ""
     @subtitle = ""
     @items = []
@@ -16,11 +15,11 @@ class Debates
   def add_heading(newtitle, newsubtitle, url)
     # Only add headings if they have changed
     if newtitle != @title
-      @items << new_major_heading(newtitle, @major_count, @minor_count, url, @date)
+      @items << MajorHeading.new(newtitle, @major_count, @minor_count, url, @date, @house)
       increment_minor_count
     end
     if newtitle != @title || newsubtitle != @subtitle
-      @items << new_minor_heading(newsubtitle, @major_count, @minor_count, url, @date)
+      @items << MinorHeading.new(newsubtitle, @major_count, @minor_count, url, @date, @house)
       increment_minor_count
     end
     @title = newtitle
@@ -39,7 +38,7 @@ class Debates
   def add_speech(speaker, time, url, content)
     # Only add new speech if the speaker has changed
     unless speaker && last_speaker && speaker == last_speaker
-      @items << new_speech(speaker, time, url, @major_count, @minor_count, @date)
+      @items << Speech.new(speaker, time, url, @major_count, @minor_count, @date, @house)
     end
     @items.last.append_to_content(content)
   end
@@ -57,29 +56,5 @@ class Debates
     end
     
     xml.close
-  end
-  
-  def new_speech(speaker, time, url, major_count, minor_count, date)
-    if @house.representatives?
-      HouseSpeech.new(speaker, time, url, major_count, minor_count, date)
-    else
-      SenateSpeech.new(speaker, time, url, major_count, minor_count, date)
-    end
-  end
-
-  def new_major_heading(text, major_count, minor_count, url, date)
-    if @house.representatives?
-      MajorHouseHeading.new(text, major_count, minor_count, url, date)
-    else
-      MajorSenateHeading.new(text, major_count, minor_count, url, date)
-    end
-  end
-  
-  def new_minor_heading(text, major_count, minor_count, url, date)
-    if @house.representatives?
-      MinorHouseHeading.new(text, major_count, minor_count, url, date)
-    else
-      MinorSenateHeading.new(text, major_count, minor_count, url, date)
-    end
   end  
 end

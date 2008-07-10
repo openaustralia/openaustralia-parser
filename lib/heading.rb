@@ -1,47 +1,24 @@
 class HeadingBase
-  def initialize(title, major_count, minor_count, url, date)
-    @title = title
-    @major_count = major_count
-    @minor_count = minor_count
-    @url = url
-    @date = date
+  def initialize(title, major_count, minor_count, url, date, house)
+    @title, @major_count, @minor_count, @url, @date, @house = title, major_count, minor_count, url, date, house
   end
   
-end
-
-class HouseHeading < HeadingBase
   def id
-    "uk.org.publicwhip/debate/#{@date}.#{@major_count}.#{@minor_count}"
+    if @house.representatives?
+      "uk.org.publicwhip/debate/#{@date}.#{@major_count}.#{@minor_count}"
+    else
+      "uk.org.publicwhip/lords/#{@date}.#{@major_count}.#{@minor_count}"
+    end
   end
 end
 
-class SenateHeading < HeadingBase
-  def id
-    "uk.org.publicwhip/lords/#{@date}.#{@major_count}.#{@minor_count}"
-  end
-end
-
-# Oh my... What am I doing? :-)
-
-class MajorHouseHeading < HouseHeading
+class MajorHeading < HeadingBase
   def output(x)
     x.tag!("major-heading", @title, :id => id, :url => @url)
   end
 end
 
-class MinorHouseHeading < HouseHeading
-  def output(x)
-    x.tag!("minor-heading", @title, :id => id, :url => @url)
-  end
-end
-
-class MajorSenateHeading < SenateHeading
-  def output(x)
-    x.tag!("major-heading", @title, :id => id, :url => @url)
-  end
-end
-
-class MinorSenateHeading < SenateHeading
+class MinorHeading < HeadingBase
   def output(x)
     x.tag!("minor-heading", @title, :id => id, :url => @url)
   end
