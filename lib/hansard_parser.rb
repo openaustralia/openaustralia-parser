@@ -151,7 +151,7 @@ class HansardParser
   
   # Returns new speaker
   def parse_speech_block(e, speaker, time, url, debates, date, house)
-    speakername, interjection = extract_speakername(e)
+    speakername, interjection = extract_speakername(e, house)
     # Only change speaker if a speaker name was found
     this_speaker = speakername ? lookup_speaker(speakername, date, house) : speaker
     debates.add_speech(this_speaker, time, url, clean_speech_content(url, e))
@@ -163,7 +163,7 @@ class HansardParser
     end
   end
   
-  def extract_speakername(content)
+  def extract_speakername(content, house)
     interjection = false
     # Try to extract speaker name from talkername tag
     tag = content.search('span.talkername a').first
@@ -201,7 +201,7 @@ class HansardParser
         interjection = true
       else
         m = strip_tags(content).match(/^([a-z].*)—/i)
-        name = m[1] if m and generic_speaker?(m[1])
+        name = m[1] if m and generic_speaker?(m[1], house)
       end
     end
     [name, interjection]
@@ -369,7 +369,7 @@ class HansardParser
       name = Name.title_first_last(speakername)
       member = @people.find_member_by_name_current_on_date(name, date, house)
       if member.nil?
-        logger.warn "Unknown speaker #{speakername}" unless generic_speaker?(speakername)
+        logger.warn "Unknown speaker #{speakername}" unless generic_speaker?(speakername, house)
         member = UnknownSpeaker.new(speakername)
       end
     end
@@ -377,8 +377,12 @@ class HansardParser
     member
   end
   
-  def generic_speaker?(speakername)
-    return speakername =~ /^(a )?(honourable|opposition|government) members?$/i
+  def generic_speaker?(speakername, house)
+    if house.representatives?
+      speakername =~ /^(a )?(honourable|opposition|government) members?$/i
+    else
+      speakername == "Government senators"
+    end
   end
 
   def strip_tags(doc)
