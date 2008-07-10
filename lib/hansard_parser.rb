@@ -361,7 +361,7 @@ class HansardParser
         #logger.warn "Deputy speaker is #{match[1]}"
         speakername = match[1]
         name = Name.title_first_last(speakername)
-        member = @people.find_member_by_name_current_on_date(name, date)
+        member = @people.find_member_by_name_current_on_date(name, date, House.representatives)
       else
         member = @people.deputy_house_speaker(date)
       end
@@ -372,10 +372,11 @@ class HansardParser
       # Lookup id of member based on speakername
       name = Name.title_first_last(speakername)
       if house == "House"
-        member = @people.find_member_by_name_current_on_date(name, date)
+        house2 = House.representatives
       else
-        member = @people.find_senator_by_name_current_on_date(name, date)
+        house2 = House.senate
       end
+      member = @people.find_member_by_name_current_on_date(name, date, house2)
     end
     
     if member.nil?

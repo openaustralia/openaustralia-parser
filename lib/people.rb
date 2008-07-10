@@ -1,6 +1,7 @@
 require 'people_csv_reader'
 require 'people_xml_writer'
 require 'people_image_downloader'
+require 'house'
 
 class People < Array
   
@@ -65,59 +66,39 @@ class People < Array
   # Methods that return Period objects
   
   def house_speaker(date)
-    member = find_house_members_current_on(date).find {|m| m.house_speaker?}
+    member = find_members_current_on(date, House.representatives).find {|m| m.house_speaker?}
     throw "Could not find house speaker for date #{date}" if member.nil?
     member
   end
   
   def senate_president(date)
-    member = find_senate_members_current_on(date).find {|m| m.senate_president?}
+    member = find_members_current_on(date, House.senate).find {|m| m.senate_president?}
     throw "Could not find senate president for date #{date}" if member.nil?
     member
   end
   
   def deputy_house_speaker(date)
-    member = find_house_members_current_on(date).find {|m| m.deputy_house_speaker?}
+    member = find_members_current_on(date, House.representatives).find {|m| m.deputy_house_speaker?}
     throw "Could not find deputy house speaker for date #{date}" if member.nil?
     member
   end
 
-  def find_member_by_name_current_on_date(name, date)
-    matches = find_members_by_name_current_on_date(name, date)
-    throw "More than one match for name #{name.full_name} found" if matches.size > 1
+  def find_member_by_name_current_on_date(name, date, house)
+    matches = find_members_by_name_current_on_date(name, date, house)
+    throw "More than one match for name #{name.full_name} found in #{house.name}" if matches.size > 1
     matches[0] if matches.size == 1
   end
   
-  def find_senator_by_name_current_on_date(name, date)
-    matches = find_senators_by_name_current_on_date(name, date)
-    throw "More than one match for name #{name.full_name} found" if matches.size > 1
-    matches[0] if matches.size == 1
+  def find_members_by_name_current_on_date(name, date, house)
+    find_members_current_on(date, house).find_all {|m| name.matches?(m.person.name)}
   end
   
-  def find_members_by_name_current_on_date(name, date)
-    find_house_members_current_on(date).find_all {|m| name.matches?(m.person.name)}
+  def find_current_members(house)
+    all_periods_in_house(house).find_all {|m| m.current?}
   end
   
-  def find_senators_by_name_current_on_date(name, date)
-    find_senate_members_current_on(date).find_all {|m| name.matches?(m.person.name)}
-  end
-  
-  # Returns the house members that are currently members of the House of Representatives
-  def find_current_house_members
-    all_house_periods.find_all {|m| m.current?}
-  end
-  
-  # Returns the house members that are members on the given date
-  def find_house_members_current_on(date)
-    all_house_periods.find_all {|m| m.current_on_date?(date)}
-  end
-  
-  def find_senate_members_current_on(date)
-    all_senate_periods.find_all {|m| m.current_on_date?(date)}
-  end
-  
-  def find_house_period_by_id(id)
-    all_house_periods.find{|p| p.id == id}
+  def find_members_current_on(date, house)
+    all_periods_in_house(house).find_all {|m| m.current_on_date?(date)}
   end
   
   # End of methods that return Period objects
@@ -144,11 +125,7 @@ class People < Array
     map {|person| person.periods}.flatten
   end
   
-  def all_house_periods
-    all_periods.find_all{|p| p.representative?}
-  end
-
-  def all_senate_periods
-    all_periods.find_all{|p| p.senator?}
+  def all_periods_in_house(house)
+    all_periods.find_all{|p| house.representatives? ? p.representative? : p.senator?}
   end
 end
