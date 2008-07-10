@@ -220,16 +220,21 @@ class Name
     (!has_post_title?      || !name.has_post_title?      || @post_title == name.post_title)
   end
   
+  # Return a new name with the first name and the nickname swapped around
+  def swap_first_and_nick
+    Name.new(:title => title, :nick => first, :middle => middle, :last => last, :post_title => post_title)
+  end
+
   def matches?(name)
+    if matches_simply?(name)
+      true
     # Special handling for nicknames
-    if (has_first? && name.has_first? && !has_nick? && name.has_nick?)
-      return name.matches?(self)
-    elsif (has_first? && name.has_first? && has_nick? && !name.has_nick?)
-      swapped_first_and_nick = Name.new(:title => name.title, :nick => name.first, :middle => name.middle,
-        :last => name.last, :post_title => name.post_title)
-      matches_simply?(name) || matches_simply?(swapped_first_and_nick)
+    elsif !has_nick? && name.has_nick?
+      name.matches_simply?(swap_first_and_nick)
+    elsif has_nick? && !name.has_nick?
+      matches_simply?(name.swap_first_and_nick)
     else
-      matches_simply?(name)
+      false
     end
   end
   
