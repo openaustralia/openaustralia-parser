@@ -2,9 +2,10 @@ require 'heading'
 
 # Holds the data for debates on one day
 # Also knows how to output the XML data for that
-class DebatesBase
-  def initialize(date)
+class Debates
+  def initialize(date, house)
     @date = date
+    @house = house
     @title = ""
     @subtitle = ""
     @items = []
@@ -57,32 +58,28 @@ class DebatesBase
     
     xml.close
   end
-end
-
-class HouseDebates < DebatesBase
+  
   def new_speech(speaker, time, url, major_count, minor_count, date)
-    HouseSpeech.new(speaker, time, url, major_count, minor_count, date)
+    if @house.representatives?
+      HouseSpeech.new(speaker, time, url, major_count, minor_count, date)
+    else
+      SenateSpeech.new(speaker, time, url, major_count, minor_count, date)
+    end
   end
 
   def new_major_heading(text, major_count, minor_count, url, date)
-    MajorHouseHeading.new(text, major_count, minor_count, url, date)
+    if @house.representatives?
+      MajorHouseHeading.new(text, major_count, minor_count, url, date)
+    else
+      MajorSenateHeading.new(text, major_count, minor_count, url, date)
+    end
   end
   
   def new_minor_heading(text, major_count, minor_count, url, date)
-    MinorHouseHeading.new(text, major_count, minor_count, url, date)
-  end  
-end
-
-class SenateDebates < DebatesBase
-  def new_speech(speaker, time, url, major_count, minor_count, date)
-    SenateSpeech.new(speaker, time, url, major_count, minor_count, date)
-  end
-
-  def new_major_heading(text, major_count, minor_count, url, date)
-    MajorSenateHeading.new(text, major_count, minor_count, url, date)
-  end
-  
-  def new_minor_heading(text, major_count, minor_count, url, date)
-    MinorSenateHeading.new(text, major_count, minor_count, url, date)
+    if @house.representatives?
+      MinorHouseHeading.new(text, major_count, minor_count, url, date)
+    else
+      MinorSenateHeading.new(text, major_count, minor_count, url, date)
+    end
   end  
 end
