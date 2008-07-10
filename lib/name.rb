@@ -59,6 +59,11 @@ class Name
     throw "Too few names" if names.empty?
     if names.size == 1
       last = names[0]
+    # HACK: Dealing with Stott Despoja as a special case
+    elsif names.size == 2 && names[0].downcase == "stott" && names[1].downcase == "despoja"
+      last = names[0..1].join(' ')
+      names.shift
+      names.shift
     else
       # If only one or two letters assume that these are initials
       # HACK: Added specific handling for initials DJC

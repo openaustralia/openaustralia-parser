@@ -156,6 +156,8 @@ class TestName < Test::Unit::TestCase
     # Difficult situation of two last names which aren't hyphenated
     assert_equal(Name.new(:last => "Stott Despoja", :first => "Natasha", :middle => "Jessica"),
       Name.last_title_first("STOTT DESPOJA, Natasha Jessica"))
+    assert_equal(Name.new(:last => "Stott Despoja", :title => "Senator"),
+      Name.title_first_last("Senator STOTT DESPOJA"))
   end
   
   # Class for simple (naive) way of comparing two names. Only compares parts of the name
