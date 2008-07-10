@@ -25,4 +25,8 @@ class House
   def senate?
     name == SENATE
   end
+  
+  def to_s
+    name
+  end
 end

@@ -3,6 +3,7 @@ require 'mechanize_proxy'
 require 'configuration'
 require 'debates'
 require 'builder_alpha_attributes'
+require 'house'
 
 class UnknownSpeaker
   def initialize(name)
@@ -37,16 +38,15 @@ class HansardParser
   end
   
   def parse_date(date, xml_reps_filename, xml_senate_filename)
-    parse_date_house(date, xml_reps_filename, "House")
-    parse_date_house(date, xml_senate_filename, "Senate")
+    parse_date_house(date, xml_reps_filename, House.representatives)
+    parse_date_house(date, xml_senate_filename, House.senate)
   end
   
   def parse_date_house(date, xml_filename, house)
-    throw "house can only have value House or Senate" unless house == "House" || house == "Senate"
     @logger.info "Parsing #{house} speeches for #{date.strftime('%a %d %b %Y')}..."
-    url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Chamber%20%3E%20#{house}%20Hansard%20%3E%20#{date.year}%20%3E%20#{date.day}%20#{Date::MONTHNAMES[date.month]}%20#{date.year}"
+    url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Chamber%20%3E%20#{house.representatives? ? "House" : "Senate"}%20Hansard%20%3E%20#{date.year}%20%3E%20#{date.day}%20#{Date::MONTHNAMES[date.month]}%20#{date.year}"
 
-    if house == "House"
+    if house.representatives?
       debates = HouseDebates.new(date)
     else
       debates = SenateDebates.new(date)
@@ -345,38 +345,32 @@ class HansardParser
   end
 
   def lookup_speaker(speakername, date, house)
-    throw "house can only have value House or Senate" unless house == "House" || house == "Senate"
     throw "speakername can not be nil in lookup_speaker" if speakername.nil?
 
     # HACK alert (Oh you know what this whole thing is a big hack alert)
     if speakername =~ /^the speaker/i
-      throw "Don't expect Speaker in Senate" unless house == "House"
+      throw "Don't expect Speaker in Senate" unless house.representatives?
       member = @people.house_speaker(date)
     # The name might be "The Deputy Speaker (Mr Smith)". So, take account of this
     elsif speakername =~ /^the deputy speaker/i
-      throw "Don't expect Deputy Speaker in Senate" unless house == "House"
+      throw "Don't expect Deputy Speaker in Senate" unless house.representatives?
       # Check name in brackets
       match = speakername.match(/^the deputy speaker \((.*)\)/i)
       if match
         #logger.warn "Deputy speaker is #{match[1]}"
         speakername = match[1]
         name = Name.title_first_last(speakername)
-        member = @people.find_member_by_name_current_on_date(name, date, House.representatives)
+        member = @people.find_member_by_name_current_on_date(name, date, house)
       else
         member = @people.deputy_house_speaker(date)
       end
     elsif speakername =~ /^the president/i
-      throw "Don't expect President in House of Representatives" unless house == "Senate"
+      throw "Don't expect President in House of Representatives" unless house.senate?
       member = @people.senate_president(date)
     else
       # Lookup id of member based on speakername
       name = Name.title_first_last(speakername)
-      if house == "House"
-        house2 = House.representatives
-      else
-        house2 = House.senate
-      end
-      member = @people.find_member_by_name_current_on_date(name, date, house2)
+      member = @people.find_member_by_name_current_on_date(name, date, house)
     end
     
     if member.nil?
