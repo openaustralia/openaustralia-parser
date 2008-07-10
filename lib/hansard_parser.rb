@@ -38,8 +38,8 @@ class HansardParser
   end
   
   def parse_date(date, xml_reps_filename, xml_senate_filename)
-    #parse_date_house(date, xml_reps_filename, House.representatives)
-    parse_date_house(date, xml_senate_filename, House.senate)
+    parse_date_house(date, xml_reps_filename, House.representatives)
+    #parse_date_house(date, xml_senate_filename, House.senate)
   end
   
   def parse_date_house(date, xml_filename, house)
@@ -343,39 +343,31 @@ class HansardParser
   def lookup_speaker(speakername, date, house)
     throw "speakername can not be nil in lookup_speaker" if speakername.nil?
 
-    # HACK alert (Oh you know what this whole thing is a big hack alert)
-    if speakername =~ /^the speaker/i
-      throw "Don't expect Speaker in Senate" unless house.representatives?
-      member = @people.house_speaker(date)
-    # The name might be "The Deputy Speaker (Mr Smith)". So, take account of this
-    elsif speakername =~ /^the deputy speaker/i
-      throw "Don't expect Deputy Speaker in Senate" unless house.representatives?
-      # Check name in brackets
-      match = speakername.match(/^the deputy speaker \((.*)\)/i)
-      if match
-        speakername = match[1]
-        name = Name.title_first_last(speakername)
-        member = @people.find_member_by_name_current_on_date(name, date, house)
-      else
+    # Handle speakers where they are referred to by position rather than name
+    if house.representatives?
+      if speakername =~ /^the speaker/i
+        member = @people.house_speaker(date)
+      elsif speakername =~ /^the deputy speaker \((.*)\)/i
+        speakername = $~[1]
+      elsif speakername =~ /^the deputy speaker/i
         member = @people.deputy_house_speaker(date)
       end
-    elsif speakername =~ /^the president/i
-      throw "Don't expect President in House of Representatives" unless house.senate?
-      member = @people.senate_president(date)
-    elsif speakername =~ /^The acting deputy president \((.*)\)/i
-      throw "Don't expect Acting Deputy President in House of Representatives" unless house.senate?
-      speakername = $~[1]
-      name = Name.title_first_last(speakername)
-      member = @people.find_member_by_name_current_on_date(name, date, house)      
     else
-      # Lookup id of member based on speakername
-      name = Name.title_first_last(speakername)
-      member = @people.find_member_by_name_current_on_date(name, date, house)
+      if speakername =~ /^the president/i
+        member = @people.senate_president(date)
+      elsif speakername =~ /^The acting deputy president \((.*)\)/i
+        speakername = $~[1]
+      end
     end
     
+    # If member hasn't already been set then lookup using speakername
     if member.nil?
-      logger.warn "Unknown speaker #{speakername}" unless generic_speaker?(speakername)
-      member = UnknownSpeaker.new(speakername)
+      name = Name.title_first_last(speakername)
+      member = @people.find_member_by_name_current_on_date(name, date, house)
+      if member.nil?
+        logger.warn "Unknown speaker #{speakername}" unless generic_speaker?(speakername)
+        member = UnknownSpeaker.new(speakername)
+      end
     end
     
     member
