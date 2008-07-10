@@ -38,8 +38,8 @@ class HansardParser
   end
   
   def parse_date(date, xml_reps_filename, xml_senate_filename)
-    parse_date_house(date, xml_reps_filename, House.representatives)
-    #parse_date_house(date, xml_senate_filename, House.senate)
+    #parse_date_house(date, xml_reps_filename, House.representatives)
+    parse_date_house(date, xml_senate_filename, House.senate)
   end
   
   def parse_date_house(date, xml_filename, house)
@@ -355,7 +355,7 @@ class HansardParser
     else
       if speakername =~ /^the president/i
         member = @people.senate_president(date)
-      elsif speakername =~ /^The acting deputy president \((.*)\)/i
+      elsif speakername =~ /^the acting deputy president \((.*)\)/i || speakername =~ /^the temporary chairman \((.*)\)/i
         speakername = $~[1]
       end
     end
