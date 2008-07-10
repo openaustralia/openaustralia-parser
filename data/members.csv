@@ -363,7 +363,9 @@ member count,person count,title,last name,first name,middle name,nick name,post 
 257,,,Hodges,John,Charles,,,representatives,Petrie,Qld,18.5.1974,,5.3.1983,defeated,LIB
 258,,,Hodges,John,Charles,,,representatives,Petrie,Qld,1.12.1984,,11.7.1987,defeated,LIB
 259,,,Hodgman,Michael,William,,,representatives,Denison,Tas.,13.12.1975,,11.7.1987,defeated,LIB
-106,,,Hogg,John,Joseph,,,senate,,Qld,1.7.1996 ,,,still_in_office,ALP
+# Date that John Hogg became deputy president is *not* exact
+106,,,Hogg,John,Joseph,,,senate,,Qld,1.7.1996,,1.8.2002,changed_party,ALP
+264,,,Hogg,John,Joseph,,,senate,,Qld,1.8.2002,changed_party,,still_in_office,DEPUTY PRESIDENT
 260,,,Holding,Allan,Clyde,,,representatives,Melbourne Ports,Vic.,10.12.1977,,31.8.1998,retired,ALP
 261,,,Hollis,Colin,,,,representatives,Macarthur,NSW,5.3.1983,,1.12.1984,elected_elsewhere,ALP
 262,,,Hollis,Colin,,,,representatives,Throsby,NSW,1.12.1984,,8.10.2001,retired,ALP
@@ -833,4 +835,4 @@ member count,person count,title,last name,first name,middle name,nick name,post 
 232,,,Watson,John,Odin Wentworth,,,senate,,Tas.,1.7.1978 ,,30.6.2008,retired,LIB
 233,,,Webber,Ruth,Stephanie,,,senate,,WA,1.7.2002 ,,30.6.2008,defeated,ALP
 # Next available Rep number is 568
-# Next available Senator number is 264
+# Next available Senator number is 265
