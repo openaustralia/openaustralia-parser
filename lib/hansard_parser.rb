@@ -186,7 +186,7 @@ class HansardParser
           name = nil
         end
       end
-    # As a last resort try searching for interjection text or "hear, hear!" style responses
+    # As a last resort try searching for interjection text
     else
       m = strip_tags(content).match(/([a-z].*) interjecting/i)
       if m
