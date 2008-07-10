@@ -43,7 +43,7 @@ class MinisterPosition < PeriodBase
   end  
 end
 
-# Represents a period in the house of representatives
+# Represents a period in the house of representatives or the senate
 class Period < PeriodBase
   attr_accessor :from_why, :to_why, :division, :state, :party, :house
   attr_reader :count
