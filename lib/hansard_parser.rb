@@ -94,7 +94,7 @@ class HansardParser
         link_text =~ /^REQUEST FOR DETAILED INFORMATION:/ ||
         link_text =~ /^Petition:/ || link_text =~ /^PRIVILEGE:/ || link_text == "Interruption" ||
         link_text =~ /^QUESTIONS ON NOTICE:/
-      logger.warn "Not yet supporting: #{link_text}"
+      logger.info "Not yet supporting: #{link_text}"
     else
       throw "Unsupported: #{link_text}"
     end
