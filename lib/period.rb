@@ -107,6 +107,10 @@ class Period < PeriodBase
     senator? && @party == "PRESIDENT"
   end
   
+  def deputy_senate_president?
+    senator? && @party == "DEPUTY PRESIDENT"
+  end
+  
   def ==(p)
     id == p.id && from_date == p.from_date && to_date == p.to_date &&
       from_why == p.from_why && to_why == p.to_why && division == p.division && state == p.state && party == p.party && house == p.house

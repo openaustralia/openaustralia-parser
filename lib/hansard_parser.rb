@@ -357,6 +357,10 @@ class HansardParser
         member = @people.senate_president(date)
       elsif speakername =~ /^the acting deputy president \((.*)\)/i || speakername =~ /^the temporary chairman \((.*)\)/i
         speakername = $~[1]
+      elsif speakername =~ /^(the )?chairman/i || speakername =~ /^the deputy president/i
+        # The "Chairman" in the main Senate Hansard is when the Senate is sitting as a committee of the whole Senate.
+        # In this case, the "Chairman" is the deputy president. See http://www.aph.gov.au/senate/pubs/briefs/brief06.htm#3
+        member = @people.deputy_senate_president(date)
       end
     end
     
