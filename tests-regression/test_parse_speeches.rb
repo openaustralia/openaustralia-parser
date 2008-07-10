@@ -35,7 +35,7 @@ people = People.read_members_csv("#{File.dirname(__FILE__)}/../data/people.csv",
 
 parser = HansardParser.new(people)
 
-def test_date(date, conf, parser)
+def test_date(date, conf, parser, count)
   reps_xml_filename = "debates#{date}.xml"
   senate_xml_filename = "daylord#{date}.xml"
   new_reps_xml_path = "#{conf.xml_path}/scrapedxml/debates/#{reps_xml_filename}"
@@ -57,16 +57,16 @@ def test_date(date, conf, parser)
       system("tidy -xml -o #{ref} #{ref_reps_xml_path}")
       system("opendiff #{test} #{ref}")
       puts "ERROR: #{new_reps_xml_path} and #{ref_reps_xml_path} don't match"
-      puts "Regression tests FAILED on date #{date}!"
+      puts "Regression tests FAILED on date #{date} at count #{count}!"
       exit
     end
   elsif File.exists?(ref_reps_xml_path)
     puts "ERROR: #{new_reps_xml_path} is missing"
-    puts "Regression tests FAILED on date #{date}!"
+    puts "Regression tests FAILED on date #{date} at count #{count}!"
     exit
   elsif File.exists?(new_reps_xml_path)
     puts "ERROR: #{ref_reps_xml_path} is missing"
-    puts "Regression tests FAILED on date #{date}!"
+    puts "Regression tests FAILED on date #{date} at count #{count}!"
     exit
   end
 end
@@ -99,7 +99,7 @@ skip_dates.each { |date| dates.delete(date) }
 count = skip
 time0 = Time.new
 dates[skip..-1].each do |date|
-  test_date(date, conf, parser)
+  test_date(date, conf, parser, count)
   count = count + 1
   puts "Regression test progress: Done #{count}/#{dates.size}"
   seconds_left = ((Time.new - time0) / count * (dates.size - count)).to_i

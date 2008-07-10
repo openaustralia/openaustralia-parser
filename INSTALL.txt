@@ -52,6 +52,7 @@ $ sudo perl -MCPAN -e shell
 cpan> install Error
 cpan> install XML::Twig
 cpan> install DBD::mysql
+cpan> install XML::RSS
 }}}
 
 === Ubuntu 8.04 ===
@@ -81,6 +82,7 @@ $ sudo perl -MCPAN -e shell
 cpan> install Error
 cpan> install XML::Twig
 cpan> install DBD::mysql
+cpan> install XML::RSS
 }}}
 
 === For Windows ===

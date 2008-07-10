@@ -203,6 +203,9 @@ class HansardParser
       if m
         name = m[1]
         interjection = true
+      else
+        m = strip_tags(content).match(/^([a-z].*)—/i)
+        name = m[1] if m and generic_speaker?(m[1])
       end
     end
     [name, interjection]
@@ -376,12 +379,15 @@ class HansardParser
     end
     
     if member.nil?
-      speakernames_to_ignore = ["Honourable members", "Opposition members", "Government members", "Government member"]
-      logger.warn "Unknown speaker #{speakername}" unless speakernames_to_ignore.member?(speakername)
+      logger.warn "Unknown speaker #{speakername}" unless generic_speaker?(speakername)
       member = UnknownSpeaker.new(speakername)
     end
     
     member
+  end
+  
+  def generic_speaker?(speakername)
+    return speakername =~ /^(a )?(honourable|opposition|government) members?$/i
   end
 
   def strip_tags(doc)
