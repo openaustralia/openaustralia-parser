@@ -38,7 +38,7 @@ class HansardParser
   end
   
   def parse_date(date, xml_reps_filename, xml_senate_filename)
-    parse_date_house(date, xml_reps_filename, House.representatives)
+    #parse_date_house(date, xml_reps_filename, House.representatives)
     parse_date_house(date, xml_senate_filename, House.senate)
   end
   
@@ -353,7 +353,6 @@ class HansardParser
       # Check name in brackets
       match = speakername.match(/^the deputy speaker \((.*)\)/i)
       if match
-        #logger.warn "Deputy speaker is #{match[1]}"
         speakername = match[1]
         name = Name.title_first_last(speakername)
         member = @people.find_member_by_name_current_on_date(name, date, house)
@@ -363,6 +362,11 @@ class HansardParser
     elsif speakername =~ /^the president/i
       throw "Don't expect President in House of Representatives" unless house.senate?
       member = @people.senate_president(date)
+    elsif speakername =~ /^The acting deputy president \((.*)\)/i
+      throw "Don't expect Acting Deputy President in House of Representatives" unless house.senate?
+      speakername = $~[1]
+      name = Name.title_first_last(speakername)
+      member = @people.find_member_by_name_current_on_date(name, date, house)      
     else
       # Lookup id of member based on speakername
       name = Name.title_first_last(speakername)
