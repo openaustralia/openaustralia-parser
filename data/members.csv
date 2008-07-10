@@ -161,6 +161,7 @@ member count,person count,title,last name,first name,middle name,nick name,post 
 114,,,Coleman,William,Peter,,,representatives,Wentworth,NSW,11.4.1981,by_election,5.6.1987,retired,LIB
 49,,,Collard,Stanley,James,,,senate,,Qld,13.12.1975,,5.6.1987,retired,NPA
 50,,,Collins,Jacinta,Mary Ann,,,senate,,Vic.,3.5.1995,section_15,30.6.2005,defeated,ALP
+265,,,Collins,Jacinta,Mary Ann,,,senate,,Vic.,8.5.2008,,,still_in_office,ALP
 115,,,Collins,Julie,Maree,,,representatives,Franklin,Tas,24.11.2007,,,still_in_office,ALP
 51,,,Collins,Robert,Lindsay,,,senate,,NT,11.7.1987,,30.3.1998,resigned,ALP
 52,,,Colston,Malcolm,Arthur,,,senate,,Qld,13.12.1975,,30.6.1999,retired,IND
@@ -835,4 +836,4 @@ member count,person count,title,last name,first name,middle name,nick name,post 
 232,,,Watson,John,Odin Wentworth,,,senate,,Tas.,1.7.1978 ,,30.6.2008,retired,LIB
 233,,,Webber,Ruth,Stephanie,,,senate,,WA,1.7.2002 ,,30.6.2008,defeated,ALP
 # Next available Rep number is 568
-# Next available Senator number is 265
+# Next available Senator number is 266
