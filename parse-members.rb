@@ -27,7 +27,7 @@ puts "Running consistency checks..."
 # First check that each constituency is showing a continuous period of members with there never being more than one member at any time.
 # Collect all the division names
 
-members = people.all_house_periods
+members = people.all_periods_in_house(House.representatives)
 divisions = members.map {|member| member.division}.uniq.sort
 
 # Electoral divisions that don't exist anymore
