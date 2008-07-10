@@ -87,7 +87,7 @@ class HansardParser
     elsif link_text =~ /^Procedural text:/ || link_text =~ /^QUESTIONS IN WRITING:/ || link_text =~ /^Division:/ ||
         link_text =~ /^REQUEST FOR DETAILED INFORMATION:/ ||
         link_text =~ /^Petition:/ || link_text =~ /^PRIVILEGE:/ || link_text == "Interruption"
-      logger.warn "Not yet supporting: #{link_text}"
+      logger.info "Not yet supporting: #{link_text}"
     else
       throw "Unsupported: #{link_text}"
     end
