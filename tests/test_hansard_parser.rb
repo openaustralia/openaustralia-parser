@@ -122,20 +122,20 @@ class TestHansardParser < Test::Unit::TestCase
 		
 		bad_form1 = '<p class="block">Some words.</p>'
 		bad_form2 = '<p>Mr Hunt</p>'
-		
-    assert_equal(["Mr Hunt", false], @parser.extract_speakername(Hpricot(good_form1)))
-    assert_equal(["The Deputy Speaker (Mr Hunt)", false], @parser.extract_speakername(Hpricot(good_form2)))
-    assert_equal(["Mr Smith", true], @parser.extract_speakername(Hpricot(good_form3)))
-    assert_equal(["Ms Johnson", true], @parser.extract_speakername(Hpricot(good_form4)))
-    assert_equal(["Mr BAIRD", false], @parser.extract_speakername(Hpricot(good_form5)))
+
+    assert_equal(["Mr Hunt", false], @parser.extract_speakername(Hpricot(good_form1), House.representatives))
+    assert_equal(["The Deputy Speaker (Mr Hunt)", false], @parser.extract_speakername(Hpricot(good_form2), House.representatives))
+    assert_equal(["Mr Smith", true], @parser.extract_speakername(Hpricot(good_form3), House.representatives))
+    assert_equal(["Ms Johnson", true], @parser.extract_speakername(Hpricot(good_form4), House.representatives))
+    assert_equal(["Mr BAIRD", false], @parser.extract_speakername(Hpricot(good_form5), House.representatives))
     
-    assert_equal([nil, false], @parser.extract_speakername(Hpricot(bad_form1)))
-    assert_equal([nil, false], @parser.extract_speakername(Hpricot(bad_form2)))
+    assert_equal([nil, false], @parser.extract_speakername(Hpricot(bad_form1), House.representatives))
+    assert_equal([nil, false], @parser.extract_speakername(Hpricot(bad_form2), House.representatives))
   end
   
   def test_extract_speakername_from_motionnospeech
     good_form1 = '<div class="motionnospeech"><span class="speechname">Mr ABBOTT</span></div>'
     
-    assert_equal(["Mr ABBOTT", false], @parser.extract_speakername(Hpricot(good_form1)))
+    assert_equal(["Mr ABBOTT", false], @parser.extract_speakername(Hpricot(good_form1), House.representatives))
   end
 end
