@@ -68,7 +68,7 @@ xml = File.open("#{conf.members_xml_path}/links-abc-qanda.xml", 'w')
 x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
 x.instruct!
 x.publicwhip do
-  people.find_current_house_members.each do |member|
+  people.find_current_members(House.representatives).each do |member|
     short_division = member.division.downcase[0..3]
     link = map[member.division.downcase]
     puts "ERROR: Couldn't lookup division #{member.division}" if link.nil?
