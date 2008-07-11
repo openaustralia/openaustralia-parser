@@ -42,7 +42,8 @@ def test_date(date, conf, parser, count)
   new_senate_xml_path = "#{conf.xml_path}/scrapedxml/lordspages/#{senate_xml_filename}"
   ref_reps_xml_path = "#{File.dirname(__FILE__)}/ref/#{reps_xml_filename}"
   ref_senate_xml_path = "#{File.dirname(__FILE__)}/ref/#{senate_xml_filename}"
-  parser.parse_date(date, new_reps_xml_path, new_senate_xml_path)
+  # Only checking house of Representatives for the time being
+  parser.parse_date_house(date, new_reps_xml_path, House.representatives)
   
   if File.exists?(ref_reps_xml_path) && File.exists?(new_reps_xml_path)
     # Now compare generated and reference xml

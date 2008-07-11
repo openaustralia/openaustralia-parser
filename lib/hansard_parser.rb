@@ -37,11 +37,6 @@ class HansardParser
       :formatter => Log4r::PatternFormatter.new(:pattern => "[%l] %d :: %M")))
   end
   
-  def parse_date(date, xml_reps_filename, xml_senate_filename)
-    #parse_date_house(date, xml_reps_filename, House.representatives)
-    parse_date_house(date, xml_senate_filename, House.senate)
-  end
-  
   def parse_date_house(date, xml_filename, house)
     @logger.info "Parsing #{house} speeches for #{date.strftime('%a %d %b %Y')}..."
     url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Chamber%20%3E%20#{house.representatives? ? "House" : "Senate"}%20Hansard%20%3E%20#{date.year}%20%3E%20#{date.day}%20#{Date::MONTHNAMES[date.month]}%20#{date.year}"

@@ -78,8 +78,8 @@ parser = HansardParser.new(people)
 
 date = from_date
 while date <= to_date
-  parser.parse_date(date, "#{conf.xml_path}/scrapedxml/debates/debates#{date}.xml",
-    "#{conf.xml_path}/scrapedxml/lordspages/daylord#{date}.xml")
+  parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/debates/debates#{date}.xml", House.representatives)
+  parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/lordspages/daylord#{date}.xml", House.senate)
   date = date + 1
 end
 
