@@ -61,8 +61,8 @@ class Name
       last = names[0]
     else
       # If only one or two letters assume that these are initials
-      # HACK: Added specific handling for initials DJC
-      if names[0].size <= 2 || names[0] == "DJC"
+      # HACK: Added specific handling for initials DJC, DGH
+      if names[0].size <= 2 || names[0] == "DJC" || names[0] == "DGH"
         initials = names.shift
       else
         first = names[0]
