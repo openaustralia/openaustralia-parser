@@ -193,7 +193,7 @@ class HansardParser
         name = m[1]
         interjection = true
       else
-        m = strip_tags(content).match(/^([a-z].*)—/i)
+        m = strip_tags(content).match(/^([a-z].*?)—/i)
         name = m[1] if m and generic_speaker?(m[1])
       end
     end
@@ -215,6 +215,7 @@ class HansardParser
   
   def clean_speech_content(base_url, content)
     doc = Hpricot(content.to_s)
+    doc = remove_generic_speaker_names(doc)
     doc.search('div.speechType').remove
     doc.search('span.talkername ~ b').remove
     doc.search('span.talkername').remove
@@ -251,6 +252,16 @@ class HansardParser
     doc = Hpricot(text)
     #p doc.to_s
     doc
+  end
+  
+  def remove_generic_speaker_names(content)
+    name, interjection = extract_speakername(content)
+    if generic_speaker?(name) and !interjection
+      #remove everything before the first hyphen
+      return Hpricot(content.to_s.gsub!(/^<p[^>]*>.*?—/i, "<p>"))
+    end
+    
+    return content
   end
   
   def fix_motionnospeech_tags(content)

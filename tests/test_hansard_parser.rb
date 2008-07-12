@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require 'test/unit'
@@ -119,6 +121,10 @@ class TestHansardParser < Test::Unit::TestCase
     good_form3 = '<div class="subspeech1"><div class="speechType">Interjection</div><p> <i>Mr Smith interjecting</i>—</p></div>'
     good_form4 = '<div class="subspeech1"><div class="speechType">Interjection</div><p> <i>Ms Johnson</i>—</p></div>'
     good_form5 = '<div class="subspeech1"><div class="speechType">Continue</div><p><span class="talkername"><a href="blah">Mr BAIRD</a></span>—Some words</p></div>'
+    good_form6 = '<p><b>Honourable members</b>—Hear, hear!</p>'
+    good_form7 = '<p><b>Honourable members</b>—My <b>Honourable members</b>—I beseech thee to not use greedy regexes!</p>'
+    good_form8 = '<p class="paraitalic">Honourable members interjecting—</p>'
+    good_form9 = '<p class="block"><b>Opposition members</b>—Hear, hear!</p>'
 		
 		bad_form1 = '<p class="block">Some words.</p>'
 		bad_form2 = '<p>Mr Hunt</p>'
@@ -128,6 +134,10 @@ class TestHansardParser < Test::Unit::TestCase
     assert_equal(["Mr Smith", true], @parser.extract_speakername(Hpricot(good_form3)))
     assert_equal(["Ms Johnson", true], @parser.extract_speakername(Hpricot(good_form4)))
     assert_equal(["Mr BAIRD", false], @parser.extract_speakername(Hpricot(good_form5)))
+    assert_equal(["Honourable members", false], @parser.extract_speakername(Hpricot(good_form6)))
+    assert_equal(["Honourable members", false], @parser.extract_speakername(Hpricot(good_form7)))
+    assert_equal(["Honourable members", true], @parser.extract_speakername(Hpricot(good_form8)))
+    assert_equal(["Opposition members", false], @parser.extract_speakername(Hpricot(good_form9)))
     
     assert_equal([nil, false], @parser.extract_speakername(Hpricot(bad_form1)))
     assert_equal([nil, false], @parser.extract_speakername(Hpricot(bad_form2)))
@@ -138,4 +148,24 @@ class TestHansardParser < Test::Unit::TestCase
     
     assert_equal(["Mr ABBOTT", false], @parser.extract_speakername(Hpricot(good_form1)))
   end
+  
+  def test_generic_speakers
+    assert(@parser.generic_speaker?("Honourable member"))
+    assert(@parser.generic_speaker?("Honourable members"))
+    assert(@parser.generic_speaker?("Government member"))
+    assert(@parser.generic_speaker?("Government members"))
+    assert(@parser.generic_speaker?("Opposition member"))
+    assert(@parser.generic_speaker?("Opposition members"))
+    assert(@parser.generic_speaker?("a government member"))
+    
+    assert(!@parser.generic_speaker?("John Smith"))
+    
+    assert_equal('<p>Hear, hear!</p>', @parser.remove_generic_speaker_names(Hpricot('<p><b>Honourable members</b>—Hear, hear!</p>')).to_s)
+    assert_equal('<p>Hear, hear!</p>', @parser.remove_generic_speaker_names(Hpricot('<p><b>Government members</b>—Hear, hear!</p>')).to_s)
+    assert_equal('<p>Hear, hear!</p>', @parser.remove_generic_speaker_names(Hpricot('<p><b>Opposition members</b>—Hear, hear!</p>')).to_s)
+    assert_equal('<p>Hear, hear!</p>', @parser.remove_generic_speaker_names(Hpricot('<p><b>A government member</b>—Hear, hear!</p>')).to_s)
+    assert_equal('<p>My <b>Honourable members</b>—I beseech thee to not use greedy regexes!</p>', @parser.remove_generic_speaker_names(Hpricot('<p><b>Honourable members</b>—My <b>Honourable members</b>—I beseech thee to not use greedy regexes!</p>')).to_s)
+    assert_equal('<p class="paraitalic">Honourable members interjecting—</p>', @parser.remove_generic_speaker_names(Hpricot('<p class="paraitalic">Honourable members interjecting—</p>')).to_s)
+    assert_equal('<p>Hear, hear!</p>', @parser.remove_generic_speaker_names(Hpricot('<p class="block"><b>Opposition members</b>—Hear, hear!</p>')).to_s)
+  end 
 end
