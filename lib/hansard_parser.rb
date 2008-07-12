@@ -149,7 +149,7 @@ class HansardParser
     speakername, interjection = extract_speakername(e, house)
     # Only change speaker if a speaker name was found
     this_speaker = speakername ? lookup_speaker(speakername, date, house) : speaker
-    debates.add_speech(this_speaker, time, url, clean_speech_content(url, e))
+    debates.add_speech(this_speaker, time, url, clean_speech_content(url, e, house))
     # With interjections the next speech should never be by the person doing the interjection
     if interjection
       speaker
@@ -195,7 +195,7 @@ class HansardParser
         name = m[1]
         interjection = true
       else
-        m = strip_tags(content).match(/^([a-z].*)—/i)
+        m = strip_tags(content).match(/^([a-z].*?)—/i)
         name = m[1] if m and generic_speaker?(m[1], house)
       end
     end
@@ -215,8 +215,9 @@ class HansardParser
     t
   end
   
-  def clean_speech_content(base_url, content)
+  def clean_speech_content(base_url, content, house)
     doc = Hpricot(content.to_s)
+    doc = remove_generic_speaker_names(doc, house)
     doc.search('div.speechType').remove
     doc.search('span.talkername ~ b').remove
     doc.search('span.talkername').remove
@@ -254,6 +255,16 @@ class HansardParser
     doc = Hpricot(text)
     #p doc.to_s
     doc
+  end
+  
+  def remove_generic_speaker_names(content, house)
+    name, interjection = extract_speakername(content, house)
+    if generic_speaker?(name, house) and !interjection
+      #remove everything before the first hyphen
+      return Hpricot(content.to_s.gsub!(/^<p[^>]*>.*?—/i, "<p>"))
+    end
+    
+    return content
   end
   
   def fix_motionnospeech_tags(content)
