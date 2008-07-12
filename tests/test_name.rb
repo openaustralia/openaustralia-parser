@@ -256,4 +256,14 @@ class TestName < Test::Unit::TestCase
     assert_equal("EP", Name.new(:first => "John", :middle => "Edward Peter").middle_initials)
     assert_equal("N", Name.new(:initials => "MN").middle_initials)
   end
+  
+  def test_matching_nickname_to_initial
+    name1 = Name.new(:nick => "Sid", :first => "Peter", :last => "Sidebottom")
+    name2 = Name.new(:initials => "S", :last => "Sidebottom")
+    assert(name1.matches?(name2))
+  end
+  
+  def test_another_three_letter_initial
+    assert_equal(Name.new(:title => "Hon.", :initials => "DGH", :last => "Adams"), Name.title_first_last("Hon. DGH Adams"))
+  end
 end
