@@ -14,17 +14,34 @@ class PeopleXMLWriter
   end
   
   def PeopleXMLWriter.write_ministers(people, filename)
+    conf = Configuration.new
+    
     xml = File.open(filename, 'w')
     x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
     x.instruct!
     x.publicwhip do
       people.each do |person|
         person.minister_positions.each do |p|
+          was_representative = !person.house_periods.empty?
+          was_senator = !person.senate_periods.empty?
+          
           # TODO: Add "dept" and "source"
-          x.ministerofficegroup do
-            x.moffice(:id => p.id, :name => person.name.full_name,
-              :matchid => person.periods.first.id, :position => p.position,
-              :fromdate => p.from_date, :todate => p.to_date, :dept => "", :source => "")
+          if (conf.write_xml_representatives && was_representative) ||
+             (conf.write_xml_senators && was_senator)
+            if conf.write_xml_representatives && !conf.write_xml_senators
+              matchid = person.house_periods.first.id
+            elsif conf.write_xml_senators && !conf.write_xml_representatives
+              matchid = person.senator_periods.first.id
+            elsif conf.write_xml_representatives && conf.write_xml_senators
+              matchid = person.periods.first.id
+            else
+              throw "Hmmm... what's the point of that?"
+            end
+            x.ministerofficegroup do
+              x.moffice(:id => p.id, :name => person.name.full_name,
+                :matchid => matchid, :position => p.position,
+                :fromdate => p.from_date, :todate => p.to_date, :dept => "", :source => "")
+            end
           end
         end  
       end
@@ -75,17 +92,30 @@ class PeopleXMLWriter
   end
   
   def PeopleXMLWriter.write_people(people, filename)
+    conf = Configuration.new
+    
     xml = File.open(filename, 'w')
     x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
     x.instruct!
     x.publicwhip do
       people.each do |person|
         x.person(:id => person.id, :latestname => person.name.informal_name) do
-          person.periods.each do |period|
-            if period.current?
-              x.office(:id => period.id, :current => "yes")
-            else
-              x.office(:id => period.id)
+          if conf.write_xml_representatives
+            person.house_periods.each do |period|
+              if period.current?
+                x.office(:id => period.id, :current => "yes")
+              else
+                x.office(:id => period.id)
+              end
+            end
+          end
+          if conf.write_xml_senators
+            person.senate_periods.each do |period|
+              if period.current?
+                x.office(:id => period.id, :current => "yes")
+              else
+                x.office(:id => period.id)
+              end
             end
           end
           person.minister_positions.each do |p|
