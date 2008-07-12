@@ -1,9 +1,12 @@
 require 'rubygems'
 require 'builder_alpha_attributes'
+require 'configuration'
 
 class PeopleXMLWriter
   
   def PeopleXMLWriter.write(people, people_filename, members_filename, senators_filename, ministers_filename)
+    conf = Configuration.new
+
     write_people(people, people_filename)
     write_members(people, members_filename)
     write_senators(people, senators_filename)
@@ -30,16 +33,20 @@ class PeopleXMLWriter
   end
   
   def PeopleXMLWriter.write_members(people, filename)
+    conf = Configuration.new
+    
     xml = File.open(filename, 'w')
     x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
     x.instruct!
     x.publicwhip do
-      people.each do |person|
-        person.house_periods.each do |period|
-          x.member(:id => period.id,
-            :house => "commons", :title => period.person.name.title, :firstname => period.person.name.first,
-            :lastname => period.person.name.last, :constituency => period.division, :party => period.party,
-            :fromdate => period.from_date, :todate => period.to_date, :fromwhy => period.from_why, :towhy => period.to_why)
+      if conf.write_xml_representatives
+        people.each do |person|
+          person.house_periods.each do |period|
+            x.member(:id => period.id,
+              :house => "commons", :title => period.person.name.title, :firstname => period.person.name.first,
+              :lastname => period.person.name.last, :constituency => period.division, :party => period.party,
+              :fromdate => period.from_date, :todate => period.to_date, :fromwhy => period.from_why, :towhy => period.to_why)
+          end
         end
       end
     end
@@ -47,16 +54,20 @@ class PeopleXMLWriter
   end
 
   def PeopleXMLWriter.write_senators(people, filename)
+    conf = Configuration.new
+    
     xml = File.open(filename, 'w')
     x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
     x.instruct!
     x.publicwhip do
-      people.each do |person|
-        person.senate_periods.each do |period|
-          x.lord(:id => period.id,
-            :house => "lords", :title => period.person.name.title, :forenames => period.person.name.first,
-            :lordname => period.person.name.last, :lordofname => period.state, :affiliation => period.party,    
-            :fromdate => period.from_date, :todate => period.to_date, :fromwhy => period.from_why, :towhy => period.to_why)
+      if conf.write_xml_senators
+        people.each do |person|
+          person.senate_periods.each do |period|
+            x.lord(:id => period.id,
+              :house => "lords", :title => period.person.name.title, :forenames => period.person.name.first,
+              :lordname => period.person.name.last, :lordofname => period.state, :affiliation => period.party,    
+              :fromdate => period.from_date, :todate => period.to_date, :fromwhy => period.from_why, :towhy => period.to_why)
+          end
         end
       end
     end

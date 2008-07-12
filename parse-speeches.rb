@@ -78,10 +78,18 @@ parser = HansardParser.new(people)
 
 date = from_date
 while date <= to_date
-  parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/debates/debates#{date}.xml", House.representatives)
-  parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/lordspages/daylord#{date}.xml", House.senate)
+  if conf.write_xml_representatives
+    parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/debates/debates#{date}.xml", House.representatives)
+  end
+  if conf.write_xml_senators
+    parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/lordspages/daylord#{date}.xml", House.senate)
+  end
   date = date + 1
 end
 
 # And load up the database
-system(conf.web_root + "/twfy/scripts/xml2db.pl --debates --lordsdebates --from=#{from_date} --to=#{to_date} --force") if options[:load_database]
+houses_options = ""
+houses_options = houses_options + " --debates" if conf.write_xml_representatives
+houses_options = houses_options + " --lordsdebates" if conf.write_xml_senators
+  
+system(conf.web_root + "/twfy/scripts/xml2db.pl #{houses_options} --from=#{from_date} --to=#{to_date} --force") if options[:load_database]
