@@ -17,24 +17,34 @@ people = People.read_members_csv("data/people.csv", "data/members.csv")
 
 puts "Personal home page & Contact Details (Gov website)..."
 
-page = agent.get(conf.alternative_current_house_members_url)
+def extract_links(name, people, agent, link, x)
+  person = people.find_person_by_name_current_on_date(name, Date.today)
+  if person
+    sub_page = agent.click(link)
+    home_page_tag = sub_page.links.find{|l| l.text =~ /personal home page/i}
+    
+    params = {:id => person.id, :mp_contactdetails => sub_page.uri}
+    params[:mp_website] = home_page_tag.uri if home_page_tag
+    x.personinfo(params)
+  else
+    puts "WARNING: Could not find person with name #{name.full_name}"
+  end
+end
 
 xml = File.open("#{conf.members_xml_path}/websites.xml", 'w')
 x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
 x.instruct!
 x.publicwhip do
-  page.links[19..-4].each do |link|
-    name = Name.last_title_first(link.text.split(',')[0..1].join(','))
-    person = people.find_person_by_name_current_on_date(name, Date.today)
-    if person
-      sub_page = agent.click(link)
-      home_page_tag = sub_page.links.find{|l| l.text == "Personal Home Page"}
-      
-      params = {:id => person.id, :mp_contactdetails => sub_page.uri}
-      params[:mp_website] = home_page_tag.uri if home_page_tag
-      x.personinfo(params)
-    else
-      puts "WARNING: Could not find person with name #{name.full_name}"
+  agent.get(conf.alternative_current_house_members_url).links.each do |link|
+    if link.to_s =~ /Member for/
+      name = Name.last_title_first(link.text.split(',')[0..1].join(','))
+      extract_links(name, people, agent, link, x)
+    end
+  end
+  agent.get(conf.alternative_current_senate_members_url).links.each do |link|
+    if link.to_s =~ /Senator/
+      name = Name.last_title_first(link.to_s.split('-')[0..-2].join('-'))
+      extract_links(name, people, agent, link, x)
     end
   end
 end
