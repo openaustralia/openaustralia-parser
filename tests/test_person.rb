@@ -27,16 +27,4 @@ class TestPerson < Test::Unit::TestCase
     assert_equal(john_smith1, john_smith2)
     assert_not_equal(henry_jones, john_smith2)
   end
-  
-  def test_latest_house_period
-    # John Smith got a doctorate on Jan 1 2001
-    john_smith = Name.new(:first => "John", :last => "Smith")
-    person = Person.new(john_smith)
-    
-    # Adding the periods *not* in chronological order
-    person.add_house_period(:from_date => Date.new(2001, 1, 1), :to_date => Date.new(2002, 1, 1))
-    person.add_house_period(:from_date => Date.new(2000, 1, 1), :to_date => Date.new(2001, 1, 1))
-    
-    assert_equal(Date.new(2002, 1, 1), person.latest_period.to_date)
-  end
 end

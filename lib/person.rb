@@ -40,11 +40,6 @@ class Person
     @periods.find_all{|p| p.senator?}
   end
   
-  # Returns the period which is the latest in time
-  def latest_period
-    @periods.sort {|a, b| a.to_date <=> b.to_date}.last
-  end
-  
   def add_period(params)
     @periods << Period.new(params.merge(:person => self))
   end
