@@ -40,6 +40,13 @@ class PeopleCSVReader
       start_date = parse_date(start_date)
       end_date = parse_end_date(end_date)
       start_reason = parse_start_reason(start_reason)
+      if house == "representatives"
+        house = House.representatives
+      elsif house == "senate"
+        house = House.senate
+      else
+        throw "Invalid value for house: #{house}"
+      end
       valid_states = ["NSW", "Tasmania", "WA", "Queensland", "Victoria", "SA", "NT", "ACT"]
       state = "Tasmania" if state == "Tas." || state == "Tas"
       state = "Victoria" if state == "Vic." || state == "Vic"
@@ -47,7 +54,7 @@ class PeopleCSVReader
       throw "State #{state} is not a valid. Allowed values are #{valid_states.join(', ')}" unless valid_states.member?(state)
       name = Name.new(:last => lastname, :first => firstname, :middle => middlename,
         :nick => nickname, :title => title, :post_title => post_title)
-      throw "Division is undefined for #{name.full_name}" if house == "representatives" && division.nil?
+      throw "Division is undefined for #{name.full_name}" if house.representatives? && division.nil?
 
       matches = people.find_people_by_name(name)
       if matches.size == 0
@@ -63,7 +70,7 @@ class PeopleCSVReader
         person = matches.first
       end
       count = member_count.to_i
-      if house == "senate"
+      if house.senate?
         count = count + 100000
       end
       person.add_period(:house => house, :division => division, :state => state, :party => party,

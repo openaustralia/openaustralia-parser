@@ -56,11 +56,11 @@ class Period < PeriodBase
   end
   
   def representative?
-    @house == "representatives"
+    @house.representatives?
   end
   
   def senator?
-    @house == "senate"
+    @house.senate?
   end
   
   def initialize(params)
@@ -72,7 +72,7 @@ class Period < PeriodBase
     @state =      params.delete(:state)
     @party =      params.delete(:party)
     @house =      params.delete(:house)
-    throw ":house parameter must have value 'representatives' or 'senate'" unless representative? || senator?
+    throw ":house parameter not valid" unless representative? || senator?
     @count =      params.delete(:count)
     super
   end

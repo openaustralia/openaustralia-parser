@@ -29,4 +29,8 @@ class House
   def to_s
     name
   end
+  
+  def ==(a)
+    name == a.name
+  end
 end

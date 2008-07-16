@@ -1,4 +1,5 @@
 require 'period'
+require 'house'
 
 class Person
   attr_reader :periods, :person_count, :name, :minister_positions, :birthday
@@ -12,6 +13,7 @@ class Person
     @person_count = params.delete(:count)
     @birthday = params.delete(:birthday)
     throw "Invalid keys: #{params}" unless params.empty?
+    throw ":name and :count are required parameters" unless @name && @person_count
     @periods = []
     @minister_positions = []
   end
@@ -36,7 +38,7 @@ class Person
   # Adds a single continuous period when this person was in the house of representatives
   # Note that there might be several of these per person
   def add_house_period(params)
-    add_period(params.merge(:house => "representatives"))
+    add_period(params.merge(:house => House.representatives))
   end
   
   def add_minister_position(params)
