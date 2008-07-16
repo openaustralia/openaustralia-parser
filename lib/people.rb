@@ -125,11 +125,7 @@ class People < Array
     downloader.download(self, small_image_dir, large_image_dir)
   end
   
-  def all_periods
-    map {|person| person.periods}.flatten
-  end
-  
   def all_periods_in_house(house)
-    all_periods.find_all{|p| p.house == house}
+    map {|p| p.periods}.flatten.find_all{|p| p.house == house}
   end
 end
