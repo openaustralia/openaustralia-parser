@@ -23,7 +23,7 @@ class PeopleCSVReader
 
     people = People.new
     data.each do |line|
-      person_count, title, lastname, firstname, middlename, nickname, post_title, birthday, alt_title, alt_lastname, alt_firstname, alt_middlename = line
+      person_count, title, lastname, firstname, middlename, post_title, birthday, alt_title, alt_lastname, alt_firstname, alt_middlename = line
       name = Name.new(:last => lastname, :first => firstname, :middle => middlename, :title => title, :post_title => post_title)
       if alt_title || alt_firstname || alt_middlename || alt_lastname
         alternate_names = [Name.new(:title => alt_title, :first => alt_firstname, :middle => alt_middlename, :last => alt_lastname)]

@@ -1,10 +1,10 @@
-person count,title,last name,first name,middle name,nick name,post title,birthday,alt title,alt last name, alt first name, alt middle name
+person count,title,last name,first name,middle name,post title,birthday,alt title,alt last name, alt first name, alt middle name
 ,,,,,,,
-1,,Abbott,Tony,John,,,,,Abbott,Anthony,John
+1,,Abbott,Tony,John,,,,Abbott,Anthony,John
 2,,Abel,John,Arthur,,,
 3,,Abetz,Eric,,,,
 # Hack to deal with one occurence of MrAdams in Hansard 
-4,,Adams,Dick,Godfrey Harry,,,,,MrAdams
+4,,Adams,Dick,Godfrey Harry,,,,MrAdams
 5,,Adams,Judith,Anne ,,,
 6,,Adermann,Albert,Evan,,,
 7,,Albanese,Anthony,Norman,,,
@@ -21,7 +21,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 18,,Armitage,John,Lindsay,,,
 19,,Atkinson,Rodney,Alexander,,,
 20,,Aulich,Terrence,Gordon,,,
-21,,Bailey,Fran,Esther,,,,,Bailey,Frances,Esther
+21,,Bailey,Fran,Esther,,,,Bailey,Frances,Esther
 22,,Baillieu,Marshall,,,,
 23,,Baird,Bruce,George,,,
 24,,Baker,Mark,Horden,,,
@@ -48,7 +48,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 45,,Birney,Reginald,John,,,
 46,,Bishop,Bronwyn,Kathleen,,,
 47,,Bishop,Julie,Isabel,,,
-48,,Bishop,Mark,,,,,,Bishop,Thomas,Mark
+48,,Bishop,Mark,,,,,Bishop,Thomas,Mark
 49,,Bishop,Reginald,,,,
 50,,Bjelke-Petersen,Florence,Isabel,,,
 51,,Black,John,Rees,,,
@@ -76,9 +76,9 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 # TODO: Joseph Tilley Brown should be removed when possible
 73,,Brown,Joseph,Tilley,,,
 # This is Robert Brown the former Rep
-74,,Brown,Robert,James,,,1933-12-2
+74,,Brown,Robert,James,,1933-12-2
 # This is Bob Brown the Senator
-696,,Brown,Robert,James,,,1944-12-27
+696,,Brown,Robert,James,,1944-12-27
 75,,Brownhill,David,Gordon Cadell,,,
 76,,Brumby,John,Mansfield,,,
 77,,Bryant,Gordon,Munro,,,
@@ -86,7 +86,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 79,,Bungey,Melville,Harold,,,
 # Using Mr and Ms here to ensure that Ms Burke only has one match
 80,Ms,Burke,Anna,Elizabeth,,,
-81,Mr,Burke,Tony,Stephen,,,,Mr,Burke,Anthony,Stephen
+81,Mr,Burke,Tony,Stephen,,,Mr,Burke,Anthony,Stephen
 82,,Burns,Bryant,Robert,,,
 83,,Burns,William,George,,,
 84,,Burr,Maxwell,Arthur,,,
@@ -205,7 +205,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 195,,Elliot,Justine,,,,
 196,,Elliott,Robert,Paul,,,
 197,,Ellis,Annette,Louise,,,
-198,,Ellis,Kate,Margaret,,,,,Ellis,Katherine,Margaret
+198,,Ellis,Kate,Margaret,,,,Ellis,Katherine,Margaret
 199,,Ellison,Christopher,Martin,,,
 200,,Elson,Kay,Selma,,,
 201,,Elstob,Ronald,Charles,,,
@@ -252,12 +252,12 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 242,,Gash,Joanna,,,,
 243,,Gayler,John,,,,
 244,,Gear,George,,,,
-245,,Georganas,Steve,,,,,,Georganas,Steven,
+245,,Georganas,Steve,,,,,Georganas,Steven,
 246,,George,Jennie,,,,
 247,,Georges,George,,,,
 248,,Georgiou,Petro,,,,
 249,,Gerick,Jane,Frances,,,
-250,,Gibbons,Steve,William,,,,,Gibbons,Stephen,William
+250,,Gibbons,Steve,William,,,,Gibbons,Stephen,William
 251,,Gibbs,Brenda,,,,
 252,,Gibson,Brian,Francis,,,
 253,,Gibson,Garrie,David,,,
@@ -333,7 +333,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 323,,Hutchins,Stephen,Patrick,,,
 324,,Hyde,John,Martin,,,
 325,,Innes,Urquhart,Edward,,,
-326,,Irons,Steve,James,,,,,Irons,Stephen,James
+326,,Irons,Steve,James,,,,Irons,Stephen,James
 327,,Irwin,Julia,Claire,,,
 328,,Jackson,Sharryn,Maree,,,
 329,,Jacobi,Ralph,,,,
@@ -365,7 +365,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 355,,Keeffe,James,Bernard,,,
 356,,Keenan,Michael,Fayat,,,
 357,,Kelly,De-anne,Margaret,,,
-358,,Kelly,Jackie,Marie,,,,,Kelly,Jacqueline,Marie
+358,,Kelly,Jackie,Marie,,,,Kelly,Jacqueline,Marie
 359,,Kelly,Michael,Joseph,,,
 360,,Kelly,Roslyn,Joan,,,
 361,,Kemp,Charles,Roderick,,,
@@ -468,7 +468,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 458,,Milne,Christine,Anne,,,
 459,,Milton,Peter,,,,
 460,,Minchin,Nicholas,Hugh,,,
-461,,Mirabella,Sophie,,,,,,Panopoulos,Sophie
+461,,Mirabella,Sophie,,,,,Panopoulos,Sophie
 462,,Missen,Alan,Joseph,,,
 463,,Moore,Claire,Mary,,,
 464,,Moore,John,Colinton,,,
@@ -526,7 +526,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 516,,Porter,James,Robert,,,
 517,,Powell,Janet,Frances,,,
 518,,Pratt,Michael,Philip,,,
-519,,Price,Roger,,,,,,Price,Leo,Roger Spurway
+519,,Price,Roger,,,,,Price,Leo,Roger Spurway
 520,,Primmer,Cyril,Graham,,,
 521,,Prosser,Geoffrey,Daniel,,,
 522,,Punch,Gary,Francis,,,
@@ -570,7 +570,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 560,,Sawford,Rodney,Weston,,,
 561,,Schacht,Christopher,Cleland,,,
 562,,Scholes,Gordon,Glen Denton,,,
-563,,Schultz,Alby,John,,,,,Schultz,Albert,John
+563,,Schultz,Alby,John,,,,Schultz,Albert,John
 564,,Sciacca,Concetto,Antonio,,,
 565,,Scott,Bruce,Craig,,,
 566,,Scott,Douglas,Barr,,,
@@ -590,7 +590,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 580,,Shorten,William,Richard,,,
 581,,Sibraa,Kerry,Walter,,,
 582,,Siddons,John,Royston,,,
-583,,Sidebottom,Sid,,,,,,Sidebottom,Peter,Sid
+583,,Sidebottom,Sid,,,,,Sidebottom,Peter,Sid
 584,,Siewert,Rachel,Mary,,,
 585,,Sim,John,Peter,,,
 586,,Simmons,David,William,,,
@@ -622,7 +622,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 612,,Stone,Sharman,Nancy,,,
 613,,Stott Despoja,Natasha,Jessica,,,
 614,,Street,Anthony,Austin,,,
-615,,Sullivan,Jon,Harold,,,,,Sullivan,Jonathan,Harold
+615,,Sullivan,Jon,Harold,,,,Sullivan,Jonathan,Harold
 616,,Sullivan,Kathryn,Jean Martin,,,
 617,,Swan,Wayne,Maxwell,,,
 618,,Symon,Michael,Stuart,,,
@@ -649,7 +649,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 639,,Troeth,Judith,Mary,,,
 640,,Trood,Russell,Brunell,,,
 641,,Truss,Warren,Errol,,,
-642,,Tuckey,Wilson,,,,,,Tuckey,Charles,Wilson
+642,,Tuckey,Wilson,,,,,Tuckey,Charles,Wilson
 643,,Turnbull,Malcolm,Bligh,,,
 644,,Turnour,James,Pearce,,,
 645,,Uren,Thomas,,,,
@@ -683,7 +683,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 673,,Williams,Daryl,Robert,,,
 674,,Willis,Ralph,,,,
 675,,Wilton,Gregory,Stuart,,,
-676,,Windsor,Tony,Harold Curties,,,,,Windsor,Antony,Harold Curties
+676,,Windsor,Tony,Harold Curties,,,,Windsor,Antony,Harold Curties
 677,,Withers,Reginald,Greive,,,
 678,,Wong,Penelope,Ying Yen,,,
 679,,Wood,Jason,Peter,,,
@@ -702,7 +702,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 692,,Zahra,Christian,John,,,
 693,,Zakharov,Alice,Olive,,,
 694,,Zammit,Paul,John,,,
-695,,Zappia,Tony,,,,,,Zappia,Antonio,
+695,,Zappia,Tony,,,,,Zappia,Antonio,
 699,,Keogh,Leonard,Joseph,,,
 700,,Kerin,John,Charles,,,
 701,,Morrison,William,Lawrence,,,
