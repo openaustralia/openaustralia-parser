@@ -2,7 +2,7 @@ require 'period'
 require 'house'
 
 class Person
-  attr_reader :periods, :person_count, :name, :minister_positions, :birthday
+  attr_reader :periods, :person_count, :name, :alternate_names, :minister_positions, :birthday
   
   def id
     "uk.org.publicwhip/person/#{@person_count}"
@@ -10,12 +10,17 @@ class Person
   
   def initialize(params)
     @name = params.delete(:name)
+    @alternate_names = params.delete(:alternate_names)
     @person_count = params.delete(:count)
     @birthday = params.delete(:birthday)
     throw "Invalid keys: #{params.keys}" unless params.empty?
     throw ":name and :count are required parameters" unless @name && @person_count
     @periods = []
     @minister_positions = []
+  end
+  
+  def name_matches?(a)
+    name.matches?(a) || alternate_names.any?{|n| n.matches?(a)}
   end
   
   # Does this person have current senate/house of representatives positions on the given date
