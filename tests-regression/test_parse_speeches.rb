@@ -103,7 +103,7 @@ dates[skip..-1].each do |date|
   test_date(date, conf, parser, count)
   count = count + 1
   puts "Regression test progress: Done #{count}/#{dates.size}"
-  seconds_left = ((Time.new - time0) / count * (dates.size - count)).to_i
+  seconds_left = ((Time.new - time0) / (count - skip) * (dates.size - count)).to_i
   
   minutes_left = (seconds_left / 60).to_i
   seconds_left = seconds_left - 60 * minutes_left
