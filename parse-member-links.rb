@@ -52,6 +52,7 @@ x.publicwhip do
     end
   end
 end
+xml.close
 
 if conf.write_xml_representatives
   puts "Q&A Links..."
@@ -92,3 +93,5 @@ if conf.write_xml_representatives
   end
   xml.close
 end
+
+system(conf.web_root + "/twfy/scripts/mpinfoin.pl links")
