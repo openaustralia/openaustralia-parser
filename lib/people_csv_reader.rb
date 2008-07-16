@@ -15,9 +15,8 @@ class PeopleCSVReader
     data
   end
   
-  def PeopleCSVReader.read_members(people_filename = "#{File.dirname(__FILE__)}/../data/people.csv",
-      members_filename = "#{File.dirname(__FILE__)}/../data/members.csv")
-    data = read_raw_csv(people_filename)
+  def PeopleCSVReader.read_people(filename)
+    data = read_raw_csv(filename)
     data.shift
     data.shift
 
@@ -33,8 +32,11 @@ class PeopleCSVReader
         :count => (10000 + person_count.to_i),
         :birthday => (birthday ? Date.strptime(birthday) : nil))
     end
-    
-    data = read_raw_csv(members_filename)
+    people    
+  end
+  
+  def PeopleCSVReader.read_members_csv(people, filename)
+    data = read_raw_csv(filename)
     # Remove the first two elements
     data.shift
     data.shift
@@ -82,6 +84,14 @@ class PeopleCSVReader
     end
     
     people
+  end
+  
+  def PeopleCSVReader.read_members(people_filename = "#{File.dirname(__FILE__)}/../data/people.csv",
+      representatives_filename = "#{File.dirname(__FILE__)}/../data/representatives.csv",
+      senators_filename = "#{File.dirname(__FILE__)}/../data/senators.csv")
+    people = read_people(people_filename)
+    read_members_csv(people, representatives_filename)
+    read_members_csv(people, senators_filename)    
   end
   
   # Attaches ministerial information to people
