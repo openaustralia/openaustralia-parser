@@ -7,8 +7,11 @@ class Person
     "uk.org.publicwhip/person/#{@person_count}"
   end
   
-  def initialize(name, person_count, birthday = nil)
-    @name, @person_count, @birthday = name, person_count, birthday
+  def initialize(params)
+    @name = params.delete(:name)
+    @person_count = params.delete(:count)
+    @birthday = params.delete(:birthday)
+    throw "Invalid keys: #{params}" unless params.empty?
     @periods = []
     @minister_positions = []
   end

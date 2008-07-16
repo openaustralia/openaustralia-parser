@@ -10,7 +10,7 @@ require 'date_with_future'
 
 class TestPeriod < Test::Unit::TestCase
   def setup
-    @person = Person.new(Name.new(:first => "John", :last => "Smith"), 1)
+    @person = Person.new(:name => Name.new(:first => "John", :last => "Smith"), :count => 1)
   end
   
   def test_equality
