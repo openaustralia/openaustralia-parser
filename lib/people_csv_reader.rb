@@ -40,7 +40,7 @@ class PeopleCSVReader
     data.shift
 
     data.each do |line|
-      member_count, person_count, title, lastname, firstname, middlename, nickname, post_title, house, division, state, start_date, start_reason, end_date, end_reason, party = line
+      member_count, person_count, title, lastname, firstname, middlename, house, division, state, start_date, start_reason, end_date, end_reason, party = line
       party = parse_party(party)
       start_date = parse_date(start_date)
       end_date = parse_end_date(end_date)
@@ -57,8 +57,7 @@ class PeopleCSVReader
       state = "Victoria" if state == "Vic." || state == "Vic"
       state = "Queensland" if state == "Qld" || state == "QLD"
       throw "State #{state} is not a valid. Allowed values are #{valid_states.join(', ')}" unless valid_states.member?(state)
-      name = Name.new(:last => lastname, :first => firstname, :middle => middlename,
-        :title => title, :post_title => post_title)
+      name = Name.new(:last => lastname, :first => firstname, :middle => middlename, :title => title)
       throw "Division is undefined for #{name.full_name}" if house.representatives? && division.nil?
 
       matches = people.find_people_by_name(name)
