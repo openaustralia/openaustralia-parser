@@ -2,11 +2,10 @@ class PeriodBase
   attr_accessor :from_date, :to_date, :person
   
   def initialize(params)
-    @from_date =  params[:from_date]
-    @to_date =    params[:to_date]
+    @from_date =  params.delete(:from_date)
+    @to_date =    params.delete(:to_date)
     @person =     params.delete(:person)
-    invalid_keys = params.keys - [:from_date, :to_date, :person]
-    throw "Invalid keys: #{invalid_keys}" unless invalid_keys.empty?
+    throw "Invalid keys: #{params}" unless params.empty?
   end  
 
   def current_on_date?(date)
@@ -66,7 +65,7 @@ class Period < PeriodBase
   
   def initialize(params)
     # TODO: Make some parameters compulsary and others optional
-    throw ":person and :count parameter required in HousePeriod.new" unless params[:person] && params[:count]
+    throw ":person and :count parameter required in Period.new" unless params[:person] && params[:count]
     @from_why =   params.delete(:from_why)
     @to_why =     params.delete(:to_why)
     @division =   params.delete(:division)
