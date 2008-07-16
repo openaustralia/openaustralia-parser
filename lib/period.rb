@@ -48,13 +48,6 @@ class Period < PeriodBase
   attr_accessor :from_why, :to_why, :division, :state, :party, :house
   attr_reader :count
 
-  def Period.reset_id_counter
-    @@next_rep_count = 1
-    @@next_senator_count = 1
-  end
-  
-  reset_id_counter
-  
   def id
     if senator?
       "uk.org.publicwhip/lord/#{@count}"
@@ -73,7 +66,7 @@ class Period < PeriodBase
   
   def initialize(params)
     # TODO: Make some parameters compulsary and others optional
-    throw ":person parameter required in HousePeriod.new" unless params[:person]
+    throw ":person and :count parameter required in HousePeriod.new" unless params[:person] && params[:count]
     @from_why =   params.delete(:from_why)
     @to_why =     params.delete(:to_why)
     @division =   params.delete(:division)
@@ -81,17 +74,7 @@ class Period < PeriodBase
     @party =      params.delete(:party)
     @house =      params.delete(:house)
     throw ":house parameter must have value 'representatives' or 'senate'" unless representative? || senator?
-    if params[:count]
-      @count = params.delete(:count)
-    else
-      if senator?
-        @count = @@next_senator_count
-        @@next_senator_count = @@next_senator_count + 1
-      else
-        @count = @@next_rep_count
-        @@next_rep_count = @@next_rep_count + 1
-      end
-    end
+    @count =      params.delete(:count)
     super
   end
   
