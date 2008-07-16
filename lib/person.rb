@@ -12,7 +12,7 @@ class Person
     @name = params.delete(:name)
     @person_count = params.delete(:count)
     @birthday = params.delete(:birthday)
-    throw "Invalid keys: #{params}" unless params.empty?
+    throw "Invalid keys: #{params.keys}" unless params.empty?
     throw ":name and :count are required parameters" unless @name && @person_count
     @periods = []
     @minister_positions = []

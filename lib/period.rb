@@ -5,7 +5,7 @@ class PeriodBase
     @from_date =  params.delete(:from_date)
     @to_date =    params.delete(:to_date)
     @person =     params.delete(:person)
-    throw "Invalid keys: #{params}" unless params.empty?
+    throw "Invalid keys: #{params.keys}" unless params.empty?
   end  
 
   def current_on_date?(date)
@@ -36,7 +36,11 @@ class MinisterPosition < PeriodBase
   
   def initialize(params)
     @position = params.delete(:position)
-    @minister_count = @@next_minister_count
+    if params[:count]
+      @minister_count = params.delete(:count)
+    else
+      @minister_count = @@next_minister_count
+    end
     @@next_minister_count = @@next_minister_count + 1
     super
   end  
