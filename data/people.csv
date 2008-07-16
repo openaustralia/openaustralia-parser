@@ -1,9 +1,10 @@
-person count,title,last name,first name,middle name,nick name,post title,birthday,alt last name, alt first name, alt middle name
+person count,title,last name,first name,middle name,nick name,post title,birthday,alt title,alt last name, alt first name, alt middle name
 ,,,,,,,
 1,,Abbott,Tony,John,,,,,Abbott,Anthony,John
 2,,Abel,John,Arthur,,,
 3,,Abetz,Eric,,,,
-4,,Adams,Dick,Godfrey Harry,,,
+# Hack to deal with one occurence of MrAdams in Hansard 
+4,,Adams,Dick,Godfrey Harry,,,,,MrAdams
 5,,Adams,Judith,Anne ,,,
 6,,Adermann,Albert,Evan,,,
 7,,Albanese,Anthony,Norman,,,
@@ -467,7 +468,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 458,,Milne,Christine,Anne,,,
 459,,Milton,Peter,,,,
 460,,Minchin,Nicholas,Hugh,,,
-461,,Mirabella,Sophie,,,,
+461,,Mirabella,Sophie,,,,,,Panopoulos,Sophie
 462,,Missen,Alan,Joseph,,,
 463,,Moore,Claire,Mary,,,
 464,,Moore,John,Colinton,,,
