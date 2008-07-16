@@ -12,8 +12,10 @@ class People < Array
   
   # Override method to populate @last_names
   def <<(person)
-    @last_names[person.name.last] = [] unless @last_names.has_key?(person.name.last)
-    @last_names[person.name.last] << person
+    person.all_names.each do |name|
+      @last_names[name.last] = [] unless @last_names.has_key?(name.last)
+      @last_names[name.last] << person
+    end
     super
   end
   
@@ -55,7 +57,7 @@ class People < Array
     if potential.nil?
       []
     else
-      potential.find_all{|p| name.matches?(p.name)}
+      potential.find_all{|p| p.name_matches?(name)}
     end
   end
   
@@ -95,8 +97,12 @@ class People < Array
     matches[0] if matches.size == 1
   end
   
+  def find_members_by_name(name)
+    find_people_by_name(name).map{|p| p.periods}.flatten
+  end
+  
   def find_members_by_name_current_on_date(name, date, house)
-    find_members_current_on(date, house).find_all {|m| name.matches?(m.person.name)}
+    find_members_by_name(name).find_all{|m| m.current_on_date?(date) && m.house == house}
   end
   
   def find_current_members(house)
@@ -124,6 +130,6 @@ class People < Array
   end
   
   def all_periods_in_house(house)
-    all_periods.find_all{|p| house.representatives? ? p.representative? : p.senator?}
+    all_periods.find_all{|p| p.house == house}
   end
 end
