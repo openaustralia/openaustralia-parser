@@ -3,28 +3,14 @@ require 'period'
 class Person
   attr_reader :periods, :person_count, :name, :minister_positions, :birthday
   
-  def Person.reset_id_counter
-    @@next_person_count = 10001
-  end
-  
-  reset_id_counter
-  
   def id
     "uk.org.publicwhip/person/#{@person_count}"
   end
   
-  def initialize(name, override_person_count = nil, birthday = nil)
+  def initialize(name, person_count, birthday = nil)
+    @name, @person_count, @birthday = name, person_count, birthday
     @periods = []
     @minister_positions = []
-    if override_person_count
-      @person_count = override_person_count
-    else
-      #We should think about getting rid of this if it is never called, and making override_person_count mandatory.
-      @person_count = @@next_person_count
-      @@next_person_count = @@next_person_count + 1
-    end
-    @name = name
-    @birthday = birthday
   end
   
   # Does this person have current senate/house of representatives positions on the given date

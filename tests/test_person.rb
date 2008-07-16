@@ -8,7 +8,7 @@ require 'name'
 
 class TestPerson < Test::Unit::TestCase
   def test_equality
-    john_smith1 = Person.new(Name.new(:first => "John", :last => "Smith"))
+    john_smith1 = Person.new(Name.new(:first => "John", :last => "Smith"), 1)
     john_smith1.add_house_period(:division => "division1", :party => "party1",
       :from_date => Date.new(2000, 1, 1), :to_date => Date.new(2001, 1, 1),
       :from_why => "general_election", :to_why => "defeated")
@@ -19,7 +19,7 @@ class TestPerson < Test::Unit::TestCase
         :from_why => "general_election", :to_why => "defeated",
         :count => john_smith1.periods[0].count)
     
-    henry_jones = Person.new(Name.new(:first => "Henry", :last => "Jones"))
+    henry_jones = Person.new(Name.new(:first => "Henry", :last => "Jones"), 2)
     henry_jones.add_house_period(:division => "division2", :party => "party2",
       :from_date => Date.new(2000, 1, 1), :to_date => Date.new(2001, 1, 1),
       :from_why => "general_election", :to_why => "defeated")
