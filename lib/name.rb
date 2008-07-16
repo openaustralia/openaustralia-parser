@@ -9,14 +9,14 @@ class Name
   attr_reader :title, :first, :nick, :middle, :initials, :last, :post_title
   
   def initialize(params)
+    @nick = ""
     @title = params[:title] || ""
     @first = (Name.capitalize_name(params[:first]) if params[:first]) || ""
-    @nick = (Name.capitalize_name(params[:nick]) if params[:nick]) || ""
     @middle = (Name.capitalize_each_name(params[:middle]) if params[:middle]) || ""
     @initials = (params[:initials].upcase if params[:initials]) || ""
     @post_title = (params[:post_title].upcase if params[:post_title]) || ""
     @last = (Name.capitalize_each_name(params[:last]) if params[:last]) || ""
-    invalid_keys = params.keys - [:title, :first, :nick, :middle, :initials, :last, :post_title]
+    invalid_keys = params.keys - [:title, :first, :middle, :initials, :last, :post_title]
     throw "Invalid keys #{invalid_keys} used" unless invalid_keys.empty?
   end
   
@@ -41,7 +41,7 @@ class Name
     throw "Too few names" if first.nil?
     post_title = extract_post_title_at_end(names)
     middle = names[0..-1].join(' ')
-    Name.new(:title => title, :last => last, :first => first, :nick => nick, :middle => middle, :post_title => post_title)
+    Name.new(:title => title, :last => last, :first => first, :middle => middle, :post_title => post_title)
   end
   
   # Extract a post title from the end if one is available

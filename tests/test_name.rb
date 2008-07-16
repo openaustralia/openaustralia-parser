@@ -52,7 +52,7 @@ class TestName < Test::Unit::TestCase
   end
   
   def test_nickname
-    assert_equal(Name.new(:last => "Abbott", :title => "the Hon.", :first => "Anthony", :nick => "Tony", :middle => "John"),
+    assert_equal(Name.new(:last => "Abbott", :title => "the Hon.", :first => "Anthony", :middle => "John"),
       Name.last_title_first("ABBOTT, the Hon. Anthony (Tony) John"))
   end
   
@@ -63,12 +63,11 @@ class TestName < Test::Unit::TestCase
   
   def test_informal_name
     assert_equal("Matthew Landauer", Name.new(:first => "Matthew", :last => "Landauer", :title => "Dr").informal_name)
-    assert_equal("Matt Landauer", Name.new(:first => "Matthew", :nick => "Matt", :last => "Landauer", :title => "Dr").informal_name)
   end
   
   def test_full_name
-    name = Name.new(:last => "Abbott", :title => "the Hon.", :first => "Anthony", :nick => "Tony", :middle => "John")
-    assert_equal("the Hon. Anthony (Tony) John Abbott", name.full_name)
+    name = Name.new(:last => "Abbott", :title => "the Hon.", :first => "Anthony", :middle => "John")
+    assert_equal("the Hon. Anthony John Abbott", name.full_name)
   end
   
   def test_capitals_irish_name
@@ -103,7 +102,6 @@ class TestName < Test::Unit::TestCase
     assert_equal("Debus", name.last)
     assert_equal("Hon.", name.title)
     assert_equal("Robert", name.first)
-    assert_equal("Bob", name.nick)
     assert_equal("John", name.middle)
   end
   
@@ -113,7 +111,6 @@ class TestName < Test::Unit::TestCase
     assert_equal("Combet", name.last)
     assert_equal("the Hon.", name.title)
     assert_equal("Gregory", name.first)
-    assert_equal("Greg", name.nick)
     assert_equal("Ivan", name.middle)
     assert_equal("AM", name.post_title)
   end
@@ -175,20 +172,8 @@ class TestName < Test::Unit::TestCase
   end
   
   def test_nickname_after_middle_names
-    assert_equal(Name.new(:last => "Macdonald", :title => "the Hon.", :first => "John", :middle => "Alexander Lindsay", :nick => "Sandy"),
+    assert_equal(Name.new(:last => "Macdonald", :title => "the Hon.", :first => "John", :middle => "Alexander Lindsay"),
       Name.last_title_first("MACDONALD, the Hon. John Alexander Lindsay (Sandy)"))
-  end
-  
-  def test_matches_when_firstname_is_actually_nickname
-    # The form of the name that's used in one of the speeches
-    # Note that the first name is actually a nickname
-    name_speech = Name.new(:first => "Fran", :last => "Bailey")
-    # Form of the name as it is stored internally (from members.csv)
-    name_members = Name.new(:first => "Frances", :last => "Bailey", :nick => "Fran")
-    
-    # We need these two forms to match
-    assert(name_speech.matches?(name_members))
-    assert(name_members.matches?(name_speech))
   end
   
   # This test for the regression introduced by adding support for initials
@@ -257,12 +242,6 @@ class TestName < Test::Unit::TestCase
   def test_middle_initials
     assert_equal("EP", Name.new(:first => "John", :middle => "Edward Peter").middle_initials)
     assert_equal("N", Name.new(:initials => "MN").middle_initials)
-  end
-  
-  def test_matching_nickname_to_initial
-    name1 = Name.new(:nick => "Sid", :first => "Peter", :last => "Sidebottom")
-    name2 = Name.new(:initials => "S", :last => "Sidebottom")
-    assert(name1.matches?(name2))
   end
   
   def test_another_three_letter_initial
