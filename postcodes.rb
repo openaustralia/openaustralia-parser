@@ -21,7 +21,7 @@ data.shift
 data.shift
 
 puts "Reading members data..."
-people = People.read_members_csv("data/people.csv", "data/members.csv")
+people = PeopleCSVReader.read_members
 all_members = people.all_periods_in_house(House.representatives)
 
 # First check that all the constituencies are valid

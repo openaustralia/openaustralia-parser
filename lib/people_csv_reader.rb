@@ -15,7 +15,8 @@ class PeopleCSVReader
     data
   end
   
-  def PeopleCSVReader.read_members(people_filename, members_filename)
+  def PeopleCSVReader.read_members(people_filename = "#{File.dirname(__FILE__)}/../data/people.csv",
+      members_filename = "#{File.dirname(__FILE__)}/../data/members.csv")
     data = read_raw_csv(people_filename)
     data.shift
     data.shift
@@ -81,7 +82,7 @@ class PeopleCSVReader
   end
   
   # Attaches ministerial information to people
-  def PeopleCSVReader.read_ministers(filename, people)
+  def PeopleCSVReader.read_ministers(people, filename)
     data = CSV.readlines(filename)
     # Remove the first two rows
     data.shift
@@ -99,6 +100,12 @@ class PeopleCSVReader
       throw "Can't find #{name} for date #{from_date}" if person.nil?
       person.add_minister_position(:from_date => from_date, :to_date => to_date, :position => position)
     end
+  end
+  
+  def PeopleCSVReader.read_all_ministers(people, ministers_filename = "#{File.dirname(__FILE__)}/../data/ministers.csv",
+    shadow_ministers_filename = "#{File.dirname(__FILE__)}/../data/shadow-ministers.csv")
+    read_ministers(people, ministers_filename)
+    read_ministers(people, shadow_ministers_filename)
   end
   
   private

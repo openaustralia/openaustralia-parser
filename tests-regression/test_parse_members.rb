@@ -29,9 +29,8 @@ system("mkdir -p #{conf.members_xml_path}")
 
 puts "Reading CSV data..."
 data_path = "#{File.dirname(__FILE__)}/../data"
-people = People.read_members_csv("#{data_path}/people.csv", "#{data_path}/members.csv")
-people.read_ministers_csv("#{data_path}/ministers.csv")
-people.read_ministers_csv("#{data_path}/shadow-ministers.csv")
+people = PeopleCSVReader.read_members
+PeopleCSVReader.read_all_ministers(people)
 puts "Writing XML..."
 people.write_xml("#{conf.members_xml_path}/people.xml", "#{conf.members_xml_path}/all-members.xml",
   "#{conf.members_xml_path}/peers-ucl.xml", "#{conf.members_xml_path}/ministers.xml")

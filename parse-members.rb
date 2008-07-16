@@ -20,9 +20,8 @@ system("mkdir -p #{conf.members_xml_path}")
 end
 
 puts "Reading members data..."
-people = People.read_members_csv("data/people.csv", "data/members.csv")
-people.read_ministers_csv("data/ministers.csv")
-people.read_ministers_csv("data/shadow-ministers.csv")
+people = PeopleCSVReader.read_members
+PeopleCSVReader.read_all_ministers(people)
 puts "Running consistency checks..."
 # First check that each constituency is showing a continuous period of members with there never being more than one member at any time.
 # Collect all the division names

@@ -13,9 +13,8 @@ class TestPeopleCSVReader < Test::Unit::TestCase
     ref.add_minister_position(:count => 790, :from_date => Date.new(2007,12,6), :to_date => DateWithFuture.future,
       :position => "Shadow Parliamentary Secretary for Local Government")
 
-    people = People.read_members_csv("#{File.dirname(__FILE__)}/../data/people.csv", "#{File.dirname(__FILE__)}/../data/members.csv")
-    people.read_ministers_csv("#{File.dirname(__FILE__)}/../data/ministers.csv")
-    people.read_ministers_csv("#{File.dirname(__FILE__)}/../data/shadow-ministers.csv")
+    people = PeopleCSVReader.read_members
+    PeopleCSVReader.read_all_ministers(people)
     sophie_mirabella = people.find_person_by_name(Name.new(:first => "Sophie", :last => "Mirabella"))
     
     assert_equal(ref, sophie_mirabella)

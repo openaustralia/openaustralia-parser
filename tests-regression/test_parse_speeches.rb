@@ -31,7 +31,7 @@ skip_dates = []
 conf = Configuration.new
 
 # First load people back in so that we can look up member id's
-people = People.read_members_csv("#{File.dirname(__FILE__)}/../data/people.csv", "#{File.dirname(__FILE__)}/../data/members.csv")
+people = PeopleCSVReader.read_members
 
 parser = HansardParser.new(people)
 
