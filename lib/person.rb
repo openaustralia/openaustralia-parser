@@ -10,7 +10,7 @@ class Person
   
   def initialize(params)
     @name = params.delete(:name)
-    @alternate_names = params.delete(:alternate_names)
+    @alternate_names = params.delete(:alternate_names) || []
     @person_count = params.delete(:count)
     @birthday = params.delete(:birthday)
     throw "Invalid keys: #{params.keys}" unless params.empty?
