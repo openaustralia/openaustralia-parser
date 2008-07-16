@@ -24,21 +24,8 @@ class PeopleImageDownloader
 
       if name
         # Small HACK - removing title of name
-        name = Name.new(:first => name.first, :nick => name.nick, :middle => name.middle, :last => name.last, :post_title => name.post_title)
-        # HACK: Special handling for Maxine Mckew as in her bio she is referred to as Margaret Maxine McKew
-        if name.matches?(Name.new(:first => "Margaret", :middle => "Maxine", :last => "McKew"))
-          name = Name.new(:first => "Maxine", :middle => "Margaret", :last => "McKew")
-          person = people.find_person_by_name(name)
-        #HACK: Justine Elliot is referred to as Maria Justine Elliot in her bio, see http://trac2.assembla.com/openaustralia/ticket/148
-        elsif name.matches?(Name.new(:first => "Maria", :middle => "Justine", :last => "Elliot"))
-          name = Name.new(:first => "Justine", :middle => "Maria", :last => "Elliot")
-          person = people.find_person_by_name(name)
-        # HACK: Special handling for Harry Jenkins
-        elsif name.matches?(Name.new(:first => "Henry", :nick => "Harry", :last => "Jenkins"))
-          person = people.find_person_by_name_current_on_date(name, Date.new(2008, 3, 1))
-        else
-          person = people.find_person_by_name_and_birthday(name, birthday)
-        end
+        name = Name.new(:first => name.first, :middle => name.middle, :last => name.last, :post_title => name.post_title)
+        person = people.find_person_by_name_and_birthday(name, birthday)
         if person
           image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH, @@SMALL_THUMBNAIL_HEIGHT).write(small_image_dir + "/#{person.person_count}.jpg")
           image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH * 2, @@SMALL_THUMBNAIL_HEIGHT * 2).write(large_image_dir + "/#{person.person_count}.jpg")
