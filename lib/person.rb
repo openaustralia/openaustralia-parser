@@ -35,12 +35,6 @@ class Person
     @periods << Period.new(params.merge(:person => self))
   end
   
-  # Adds a single continuous period when this person was in the house of representatives
-  # Note that there might be several of these per person
-  def add_house_period(params)
-    add_period(params.merge(:house => House.representatives))
-  end
-  
   def add_minister_position(params)
     @minister_positions << MinisterPosition.new(params.merge(:person => self))
   end
