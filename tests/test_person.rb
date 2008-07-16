@@ -33,6 +33,7 @@ class TestPerson < Test::Unit::TestCase
     person = Person.new(:count => 1, :name => john_smith, :alternate_names => [jack_smith])
     assert_equal(john_smith, person.name)
     assert_equal([jack_smith], person.alternate_names)
+    assert_equal([john_smith, jack_smith], person.all_names)
   end
   
   def test_name_matches

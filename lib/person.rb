@@ -19,8 +19,12 @@ class Person
     @minister_positions = []
   end
   
+  def all_names
+    [name] + alternate_names
+  end
+  
   def name_matches?(a)
-    name.matches?(a) || alternate_names.any?{|n| n.matches?(a)}
+    all_names.any?{|n| n.matches?(a)}
   end
   
   # Does this person have current senate/house of representatives positions on the given date
