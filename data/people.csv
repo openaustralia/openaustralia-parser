@@ -20,7 +20,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 18,,Armitage,John,Lindsay,,,
 19,,Atkinson,Rodney,Alexander,,,
 20,,Aulich,Terrence,Gordon,,,
-21,,Bailey,Fran,Esther,,,,Bailey,Frances,Esther
+21,,Bailey,Fran,Esther,,,,,Bailey,Frances,Esther
 22,,Baillieu,Marshall,,,,
 23,,Baird,Bruce,George,,,
 24,,Baker,Mark,Horden,,,
@@ -47,7 +47,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 45,,Birney,Reginald,John,,,
 46,,Bishop,Bronwyn,Kathleen,,,
 47,,Bishop,Julie,Isabel,,,
-48,,Bishop,Mark,,,,,Bishop,Thomas,Mark
+48,,Bishop,Mark,,,,,,Bishop,Thomas,Mark
 49,,Bishop,Reginald,,,,
 50,,Bjelke-Petersen,Florence,Isabel,,,
 51,,Black,John,Rees,,,
@@ -203,7 +203,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 195,,Elliot,Justine,,,,
 196,,Elliott,Robert,Paul,,,
 197,,Ellis,Annette,Louise,,,
-198,,Ellis,Kate,Margaret,,,,Ellis,Katherine,Margaret
+198,,Ellis,Kate,Margaret,,,,,Ellis,Katherine,Margaret
 199,,Ellison,Christopher,Martin,,,
 200,,Elson,Kay,Selma,,,
 201,,Elstob,Ronald,Charles,,,
@@ -363,7 +363,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 355,,Keeffe,James,Bernard,,,
 356,,Keenan,Michael,Fayat,,,
 357,,Kelly,De-anne,Margaret,,,
-358,,Kelly,Jackie,Marie,,,,Kelly,Jacqueline,Marie
+358,,Kelly,Jackie,Marie,,,,,Kelly,Jacqueline,Marie
 359,,Kelly,Michael,Joseph,,,
 360,,Kelly,Roslyn,Joan,,,
 361,,Kemp,Charles,Roderick,,,
@@ -588,7 +588,7 @@ person count,title,last name,first name,middle name,nick name,post title,birthda
 580,,Shorten,William,Richard,,,
 581,,Sibraa,Kerry,Walter,,,
 582,,Siddons,John,Royston,,,
-583,,Sidebottom,Sid,,,,,Sidebottom,Peter,Sid
+583,,Sidebottom,Sid,,,,,,Sidebottom,Peter,Sid
 584,,Siewert,Rachel,Mary,,,
 585,,Sim,John,Peter,,,
 586,,Simmons,David,William,,,

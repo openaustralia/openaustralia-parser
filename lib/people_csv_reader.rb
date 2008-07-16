@@ -23,11 +23,10 @@ class PeopleCSVReader
 
     people = People.new
     data.each do |line|
-      person_count, title, lastname, firstname, middlename, nickname, post_title, birthday, alt_lastname, alt_firstname, alt_middlename = line
-      name = Name.new(:last => lastname, :first => firstname, :middle => middlename, :nick => nickname, :title => title,
-        :post_title => post_title)
-      if alt_firstname || alt_middlename || alt_lastname
-        alternate_names = [Name.new(:first => alt_firstname, :middle => alt_middlename, :last => alt_lastname)]
+      person_count, title, lastname, firstname, middlename, nickname, post_title, birthday, alt_title, alt_lastname, alt_firstname, alt_middlename = line
+      name = Name.new(:last => lastname, :first => firstname, :middle => middlename, :title => title, :post_title => post_title)
+      if alt_title || alt_firstname || alt_middlename || alt_lastname
+        alternate_names = [Name.new(:title => alt_title, :first => alt_firstname, :middle => alt_middlename, :last => alt_lastname)]
       end
       people << Person.new(
         :name => name, :alternate_names => alternate_names,
@@ -59,7 +58,7 @@ class PeopleCSVReader
       state = "Queensland" if state == "Qld" || state == "QLD"
       throw "State #{state} is not a valid. Allowed values are #{valid_states.join(', ')}" unless valid_states.member?(state)
       name = Name.new(:last => lastname, :first => firstname, :middle => middlename,
-        :nick => nickname, :title => title, :post_title => post_title)
+        :title => title, :post_title => post_title)
       throw "Division is undefined for #{name.full_name}" if house.representatives? && division.nil?
 
       matches = people.find_people_by_name(name)
