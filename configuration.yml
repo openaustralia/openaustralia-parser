@@ -29,4 +29,4 @@ qanda_electorate_url: "http://www.abc.net.au/tv/qanda/find-your-local-mp-by-elec
 
 # Selectively allows us to turn off and on the writing of the XML
 write_xml_representatives: true
-write_xml_senators: true
+write_xml_senators: false
