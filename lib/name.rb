@@ -6,10 +6,9 @@ end
 
 # Handle all our silly name parsing needs
 class Name
-  attr_reader :title, :first, :nick, :middle, :initials, :last, :post_title
+  attr_reader :title, :first, :middle, :initials, :last, :post_title
   
   def initialize(params)
-    @nick = ""
     @title = params[:title] || ""
     @first = (Name.capitalize_name(params[:first]) if params[:first]) || ""
     @middle = (Name.capitalize_each_name(params[:middle]) if params[:middle]) || ""
@@ -22,12 +21,8 @@ class Name
   
   def Name.last_title_first(text)
     names = text.delete(',').split(' ')
-    # Check for a name in brackets which we take as the nickname
-    nickname_text = names.find{|n| n.surrounded_by_brackets?}
-    if nickname_text
-      nick = nickname_text[1..-2]
-      names.delete(nickname_text)
-    end
+    # Check for a name in brackets which we take as a nickname and ignore
+    names.delete_if{|n| n.surrounded_by_brackets?}
     # Hack to deal with a specific person who has two last names that aren't hyphenated
     if names.size >= 2 && names[0].downcase == "stott" && names[1].downcase == "despoja"
       last = names[0..1].join(' ')
@@ -97,18 +92,13 @@ class Name
   
   def informal_name
     throw "No last name" unless has_last?
-    if @nick != ""
-      "#{@nick} #{@last}"
-    else
-      "#{@first} #{@last}"
-    end
+    "#{@first} #{@last}"
   end
   
   def full_name
     t = ""
     t = t + "#{title} " if has_title?
     t = t + "#{first} " if has_first?
-    t = t + "(#{nick}) " if has_nick?
     t = t + "#{middle} " if has_middle?
     t = t + "#{last}"
     t = t + ", #{post_title}" if has_post_title?
@@ -121,10 +111,6 @@ class Name
   
   def has_first?
     @first != ""
-  end
-  
-  def has_nick?
-    @nick != ""
   end
   
   def has_middle?
@@ -213,38 +199,19 @@ class Name
   
   # Names don't have to be identical to match but rather the parts of the name
   # that exist in both names have to match
-  def matches_simply?(name)
+  def matches?(name)
     # Both names need to have a last name to match
     return false unless has_last? && name.has_last?
     
     (!has_title?           || !name.has_title?           || @title      == name.title) &&
     first_matches?(name) &&
-    (!has_nick?            || !name.has_nick?            || @nick       == name.nick) &&
     middle_matches?(name) &&
     (!has_last?            || !name.has_last?            || @last       == name.last) &&
     (!has_post_title?      || !name.has_post_title?      || @post_title == name.post_title)
   end
   
-  # Return a new name with the first name and the nickname swapped around
-  def swap_first_and_nick
-    Name.new(:title => title, :nick => first, :middle => middle, :last => last, :post_title => post_title)
-  end
-
-  def matches?(name)
-    if matches_simply?(name)
-      true
-    # Special handling for nicknames
-    elsif !has_nick? && name.has_nick?
-      name.matches_simply?(swap_first_and_nick)
-    elsif has_nick? && !name.has_nick?
-      matches_simply?(name.swap_first_and_nick)
-    else
-      false
-    end
-  end
-  
   def ==(name)
-    @title == name.title && @first == name.first && @nick == name.nick &&
+    @title == name.title && @first == name.first &&
       @middle == name.middle && @initials == name.initials && @last == name.last && @post_title == name.post_title
   end
   
