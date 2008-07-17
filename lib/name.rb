@@ -143,45 +143,8 @@ class Name
       end
     elsif first.size < name.first.size
       name.first_matches?(self)
-    else 
-      if first == name.first
-        true
-      else
-        # first.size >= name.first.size
-        first_name_shortened_forms = {
-          "Alexander" => "Alex",
-          "Anthony" => "Tony",
-          "Archibald" => "Arch",
-          "Bernard" => "Bernie",
-          "Christine" => "Chris",
-          "Christopher" => "Chris",
-          "Concetto" => "Con",
-          "Donald" => "Don",
-          "Edward" => "Ted",
-          "Geoffrey" => "Geoff",
-          "Gregory" => "Greg",
-          "James" => "Jim",
-          "Jennifer" => "Jenny",
-          "Joseph" => "Joe",
-          "Judith" => "Judi",
-          "Kathryn" => "Kathy",
-          "Lawrence" => "Larry",
-          "Malcolm" => "Mal",
-          "Michael" => "Mike",
-          "Nicholas" => "Nick",
-          "Patricia" => "Trish",
-          "Patrick" => "Pat",
-          "Penelope" => "Penny",
-          "Robert" => "Bob",
-          "Roderick" => "Rod",
-          "Rodney" => "Rod",
-          "Ronald" => "Ron",
-          "Susan" => "Sue",
-          "Timothy" => "Tim",
-          "William" => "Bill"
-          }
-        first_name_shortened_forms.detect {|p| first == p[0] && name.first == p[1]}
-      end
+    else
+      first == name.first
     end
   end
 
