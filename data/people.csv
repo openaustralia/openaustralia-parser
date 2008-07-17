@@ -202,7 +202,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 192,,Edwards,Ronald,Frederick,,,
 193,,Eggleston,Alan,,,,
 194,,Ellicott,Robert,James,,,
-195,,Elliot,Justine,,,,
+195,,Elliot,Justine,,,,,Elliot,Maria,Justine
 196,,Elliott,Robert,Paul,,,
 197,,Ellis,Annette,Louise,,,
 198,,Ellis,Kate,Margaret,,,,Ellis,Katherine,Margaret
@@ -446,8 +446,8 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 436,,McGauran,Peter,John,,,
 437,,McHugh,Jeannette,,,,
 438,,McIntosh,Gordon,Douglas,,,
-439,,McKew,Maxine,Margaret,,,
-440,,McKiernan,James,Philip,,,
+439,,McKew,Maxine,,,,,McKew,Margaret,Maxine
+440,,McKiernan,Jim,Philip,,,,McKiernan,James,Philip
 441,,McLachlan,Ian,Murray,,,
 442,,McLaren,Geoffrey,Thomas,,,
 443,,McLean,Paul,Alexander,,,
@@ -711,9 +711,9 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 # New Senators starting on 1 July 2008
 704,,Arbib,Mark,,,,
 705,,Bilyk,Catryna,,,,
-706,,Cameron,Doug,,,,
+706,,Cameron,Doug,,,,,Cameron,Douglas,Niven
 707,,Cash,Michaelia,,,,
-708,,Farrell,Don,,,,
+708,,Farrell,Don,,,,,Farrell,Donald,Edward
 709,,Feeney,David,,,,
 710,,Furner,Mark,,,,
 711,,Hanson-Young,Sarah,,,,
@@ -722,5 +722,5 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 714,,Pratt,Louise,,,,
 715,,Ryan,Scott,,,,
 716,,Williams,John,,,,
-717,,Xenophon,Nick,,,,
+717,,Xenophon,Nick,,,,,Xenophon,Nicholas
 # Next available number is 718
