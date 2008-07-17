@@ -1,6 +1,7 @@
 require 'csv'
 require 'ostruct'
 require 'date_with_future'
+require 'enumerator'
 
 require 'people'
 require 'person'
@@ -22,10 +23,14 @@ class PeopleCSVReader
 
     people = People.new
     data.each do |line|
-      person_count, title, lastname, firstname, middlename, post_title, birthday, alt_title, alt_lastname, alt_firstname, alt_middlename = line
+      person_count, title, lastname, firstname, middlename, post_title, birthday = line[0..6]
       name = Name.new(:last => lastname, :first => firstname, :middle => middlename, :title => title, :post_title => post_title)
-      if alt_title || alt_firstname || alt_middlename || alt_lastname
-        alternate_names = [Name.new(:title => alt_title, :first => alt_firstname, :middle => alt_middlename, :last => alt_lastname)]
+
+      # You can specify multiple alternate names by filling out the next columns
+      alternate_names = []
+      line[7..-1].each_slice(4) do |slice|
+        alt_title, alt_lastname, alt_firstname, alt_middlename = slice
+        alternate_names << Name.new(:title => alt_title, :first => alt_firstname, :middle => alt_middlename, :last => alt_lastname)
       end
       people << Person.new(
         :name => name, :alternate_names => alternate_names,

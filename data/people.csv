@@ -86,7 +86,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 79,,Bungey,Melville,Harold,,,
 # Using Mr and Ms here to ensure that Ms Burke only has one match
 80,Ms,Burke,Anna,Elizabeth,,,
-81,Mr,Burke,Tony,Stephen,,,Mr,Burke,Anthony,Stephen
+81,Mr,Burke,Tony,Stephen,,,Mr,Burke,Anthony,Stephen,the Hon.,Burke,Tony,Stephen
 82,,Burns,Bryant,Robert,,,
 83,,Burns,William,George,,,
 84,,Burr,Maxwell,Arthur,,,
