@@ -62,7 +62,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 59,,Bourne,Vicki,Worrall,,,
 60,,Bowen,Chris,Eyles,,,,Bowen,Christopher,Eyles
 61,,Bowen,Lionel,Frost,,,
-62,,Boyce,Suzanne,Kay,,,
+62,,Boyce,Sue,Kay,,,,Boyce,Suzanne,Kay
 63,,Bradbury,David,John,,,
 64,,Bradfield,James,Mark,,,
 65,,Bradford,John,Walter,,,
@@ -78,7 +78,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 # This is Robert Brown the former Rep
 74,,Brown,Robert,James,,1933-12-2
 # This is Bob Brown the Senator
-696,,Brown,Robert,James,,1944-12-27
+696,,Brown,Bob,James,,1944-12-27,,Brown,Robert,James
 75,,Brownhill,David,Gordon Cadell,,,
 76,,Brumby,John,Mansfield,,,
 77,,Bryant,Gordon,Munro,,,
@@ -116,7 +116,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 108,,Causley,Ian,Raymond,,,
 109,,Cavanagh,James,Luke,,,
 110,,Chamarette,Christabel,Marguerite Alain,,,
-111,,Champion,Nicholas,David,,,
+111,,Champion,Nick,David,,,,Champion,Nicholas,David
 112,,Chaney,Frederick,Michael,,,
 113,,Chapman,Hedley,Grant Pearson,,,
 114,,Charles,David,Ernest,,,
@@ -167,7 +167,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 158,,Crean,Simon,Findlay,,,
 159,,Crichton-Browne,Noel,Ashley,,,
 160,,Crosio,Janice,Ann,,,
-161,,Crossin,Patricia,Margaret,,,
+161,,Crossin,Trish,Margaret,,,,Crossin,Patricia,Margaret
 162,,Crowley,Rosemary,Anne,,,
 163,,Cunningham,Barry,Thomas,,,
 164,,D'ath,Yvette,Maree,,,
@@ -231,7 +231,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 221,,Fielding,Steve,,,,
 222,,Fierravanti-Wells,Concetta,Anna,,,
 223,,Fife,Wallace,Clyde,,,
-224,,Fifield,Mitchell,Peter,,,
+224,,Fifield,Mitch,Peter,,,,Fifield,Mitchell,Peter
 225,,Filing,Paul,Anthony,,,
 226,,Fischer,Tim,Andrew,,,,Fischer,Timothy,Andrew
 227,,Fisher,Mary,Jo,,,
@@ -297,11 +297,11 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 287,,Haslem,John,Whitton,,,
 288,,Hatton,Michael,John,,,
 289,,Haviland,Christopher,Douglas,,,
-290,,Hawke,Alexander,George,,,
+290,,Hawke,Alex,George,,,,Hawke,Alexander,George
 291,,Hawke,Robert,James Lee,,,
 292,,Hawker,David,Peter Maxwell,,,
 293,,Hayden,William,George,,,
-294,,Hayes,Christopher,Patrick,,,
+294,,Hayes,Chris,Patrick,,,,Hayes,Christopher,Patrick
 295,,Hearn,Jean,Margaret,,,
 296,,Heffernan,Bill,Daniel,,,,Heffernan,William,Daniel
 297,,Hendrickson,Albion,,,,
@@ -330,7 +330,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 320,,Hunt,Ralph,James Dunnet,,,
 321,,Hurford,Christopher,John,,,
 322,,Hurley,Annette,Kay,,,
-323,,Hutchins,Stephen,Patrick,,,
+323,,Hutchins,Steve,Patrick,,,,Hutchins,Stephen,Patrick
 324,,Hyde,John,Martin,,,
 325,,Innes,Urquhart,Edward,,,
 326,,Irons,Steve,James,,,,Irons,Stephen,James
@@ -359,7 +359,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 349,,Jones,Gerry,Norman,,,
 350,,Joyce,Barnaby,Thomas Gerard,,,
 351,,Jull,David,Francis,,,
-352,,Katter,Robert,Carl,,,
+352,,Katter,Bob,Carl,,,,Katter,Robert,Carl
 353,,Katter,Robert,Cummin,,,
 354,,Keating,Paul,John,,,
 355,,Keeffe,James,Bernard,,,
@@ -404,7 +404,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 394,,Lloyd,Jim,Eric,,,,Lloyd,James,Eric
 395,,Loosley,Stephen,,,,
 396,,Lucock,Philip,Ernest,,,
-397,,Ludwig,Joseph,William,,,
+397,,Ludwig,Joe,William,,,,Ludwig,Joseph,William
 398,,Lundy,Kate,Alexandra,,,
 399,,Lusher,Stephen,Augustus,,,
 400,,Lynch,Phillip,Reginald (later Sir Phillip),,,
@@ -625,7 +625,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 615,,Sullivan,Jon,Harold,,,,Sullivan,Jonathan,Harold
 616,,Sullivan,Kathy,Jean Martin,,,,Sullivan,Kathryn,Jean Martin
 617,,Swan,Wayne,Maxwell,,,
-618,,Symon,Michael,Stuart,,,
+618,,Symon,Mike,Stuart,,,,Symon,Michael,Stuart
 619,,Synon,Karen,Margaret,,,
 620,,Tambling,Grant,Ernest John,,,
 621,,Tanner,Lindsay,James,,,
@@ -651,7 +651,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 641,,Truss,Warren,Errol,,,
 642,,Tuckey,Wilson,,,,,Tuckey,Charles,Wilson
 643,,Turnbull,Malcolm,Bligh,,,
-644,,Turnour,James,Pearce,,,
+644,,Turnour,Jim,Pearce,,,,Turnour,James,Pearce
 645,,Uren,Thomas,,,,
 646,,Vaile,Mark,Anthony James,,,
 647,,Vale,Danna,Sue,,,
@@ -666,7 +666,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 656,,Wallis,Laurie,George,,,
 657,,Walsh,Peter,Alexander,,,
 658,,Walters,Mary,Shirley,,,
-659,,Washer,Malcolm,James,,,
+659,,Washer,Mal,James,,,,Washer,Malcolm,James
 660,,Watson,David,John Hopetoun,,,
 661,,Watson,John,Odin Wentworth,,,
 662,,Webber,Ruth,Stephanie,,,
