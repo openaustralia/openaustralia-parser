@@ -53,7 +53,7 @@ class Period < PeriodBase
 
   def id
     if senator?
-      "uk.org.publicwhip/lord/#{@count}"
+      "uk.org.publicwhip/lord/#{100000 + @count}"
     else
       "uk.org.publicwhip/member/#{@count}"
     end

@@ -5,7 +5,7 @@ class Person
   attr_reader :periods, :person_count, :name, :alternate_names, :minister_positions, :birthday
   
   def id
-    "uk.org.publicwhip/person/#{@person_count}"
+    "uk.org.publicwhip/person/#{10000 + @person_count}"
   end
   
   def initialize(params)

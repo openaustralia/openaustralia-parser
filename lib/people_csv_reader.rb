@@ -36,7 +36,7 @@ class PeopleCSVReader
       end
       people << Person.new(
         :name => name, :alternate_names => alternate_names,
-        :count => (10000 + person_count.to_i),
+        :count => person_count.to_i,
         :birthday => (birthday ? Date.strptime(birthday) : nil))
     end
     people    
@@ -75,19 +75,15 @@ class PeopleCSVReader
       elsif matches.size > 1
         # In a situation where several people match we use the "person count" field to disambiguate
         if person_count != ""
-          person = people.find_person_by_count(10000 + person_count.to_i)
+          person = people.find_person_by_count(person_count.to_i)
         else
           throw "More than one match for name #{name.full_name} found"
         end
       else
         person = matches.first
       end
-      count = member_count.to_i
-      if house.senate?
-        count = count + 100000
-      end
       person.add_period(:house => house, :division => division, :state => state, :party => party,
-          :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason, :count => count)
+          :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason, :count => member_count.to_i)
     end
     
     people

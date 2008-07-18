@@ -6,7 +6,7 @@ require 'people_csv_reader'
 
 class TestPeopleCSVReader < Test::Unit::TestCase
   def test_sophie_mirabella
-    ref = Person.new(:name => Name.new(:first => "Sophie", :last => "Mirabella"), :count => 10461)
+    ref = Person.new(:name => Name.new(:first => "Sophie", :last => "Mirabella"), :count => 461)
     ref.add_period(:house => House.representatives, :from_date => Date.new(2001, 11, 10), :to_date => DateWithFuture.future,
       :from_why => "general_election", :to_why => "still_in_office",
       :division => "Indi", :state => "Victoria", :party => "Liberal Party", :count => 383)
