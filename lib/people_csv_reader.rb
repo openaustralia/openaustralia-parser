@@ -30,7 +30,9 @@ class PeopleCSVReader
       alternate_names = []
       line[7..-1].each_slice(4) do |slice|
         alt_title, alt_lastname, alt_firstname, alt_middlename = slice
-        alternate_names << Name.new(:title => alt_title, :first => alt_firstname, :middle => alt_middlename, :last => alt_lastname)
+        if alt_title || alt_lastname || alt_firstname || alt_middlename
+          alternate_names << Name.new(:title => alt_title, :first => alt_firstname, :middle => alt_middlename, :last => alt_lastname)
+        end
       end
       people << Person.new(
         :name => name, :alternate_names => alternate_names,
