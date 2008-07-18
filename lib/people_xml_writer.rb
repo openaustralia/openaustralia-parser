@@ -31,7 +31,7 @@ class PeopleXMLWriter
             if conf.write_xml_representatives && !conf.write_xml_senators
               matchid = person.house_periods.first.id
             elsif conf.write_xml_senators && !conf.write_xml_representatives
-              matchid = person.senator_periods.first.id
+              matchid = person.senate_periods.first.id
             elsif conf.write_xml_representatives && conf.write_xml_senators
               matchid = person.periods.first.id
             else
