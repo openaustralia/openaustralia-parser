@@ -193,18 +193,6 @@ class TestName < Test::Unit::TestCase
       Name.new(:title => "Senator the Hon.", :first => "Nick", :last => "Minchin"))
   end
   
-  def test_Nick_and_Nicholas_matching
-    name1 = Name.new(:first => "Nick", :last => "Minchin")
-    name2 = Name.new(:first => "Nicholas", :last => "Minchin")
-    assert(name1.matches?(name2))
-  end
-  
-  def test_Tony_and_Anthony_matching
-    name1 = Name.new(:first => "Tony", :last => "Abbott")
-    name2 = Name.new(:first => "Anthony", :last => "Abbott")
-    assert(name1.matches?(name2))
-  end
-  
   def test_title_first_last_djc_kerr
     assert_equal(Name.new(:initials => "DJC", :last => "Kerr"), Name.title_first_last("DJC Kerr"))
   end
