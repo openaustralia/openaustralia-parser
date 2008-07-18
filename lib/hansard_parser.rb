@@ -254,7 +254,7 @@ class HansardParser
       end
       allowed_tags = ["b", "i", "dl", "dt", "dd", "ul", "li", "a", "table", "td", "tr", "img"]
       if !allowed_tags.include?(tag) && t != "<p>" && t != '<p class="italic">'
-        throw "Tag #{t} is present in speech contents: " + text
+        logger.error "Tag #{t} is present in speech contents: " + text
       end
     end
     doc = Hpricot(text)
@@ -286,13 +286,14 @@ class HansardParser
     content.search('p').each do |e|
       class_value = e.get_attribute('class')
       if class_value == "block" || class_value == "parablock" || class_value == "parasmalltablejustified" ||
-          class_value == "parasmalltableleft" || class_value == "parabold" || class_value == "paraheading"
+          class_value == "parasmalltableleft" || class_value == "parabold" || class_value == "paraheading" || class_value = "paracentre"
         e.remove_attribute('class')
       elsif class_value == "paraitalic"
         e.set_attribute('class', 'italic')
       elsif class_value == "italic" && e.get_attribute('style')
         e.remove_attribute('style')
       end
+      e.remove_attribute('style')
     end
   end
   
@@ -392,7 +393,7 @@ class HansardParser
     if house.representatives?
       speakername =~ /^(a )?(honourable|opposition|government) members?$/i
     else
-      speakername == "Government senators"
+      speakername =~ /^(an )?(honourable|opposition|government) senators?$/i
     end
   end
 
