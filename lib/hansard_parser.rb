@@ -79,6 +79,11 @@ class HansardParser
       split = link_text.split('>').map{|a| a.strip}
       logger.error "Expected split to have length 3 in link text: #{link_text}" unless split.size == 3
       time = split[2]
+      # Check that time is something valid
+      unless time =~ /^\d\d:\d\d:\d\d$/
+        logger.error "Time #{time} invalid on link #{link_text}"
+        time = nil
+      end
       parse_sub_day_speech_page(sub_page, time, debates, date, house)
     #elsif link_text =~ /^Procedural text:/
     #  # Assuming no time recorded for Procedural text
