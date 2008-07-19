@@ -74,7 +74,7 @@ class PeopleCSVReader
         throw "Couldn't find person #{name.full_name}"
       elsif matches.size > 1
         # In a situation where several people match we use the "person count" field to disambiguate
-        if person_count != ""
+        if person_count
           person = people.find_person_by_count(person_count.to_i)
         else
           throw "More than one match for name #{name.full_name} found"
