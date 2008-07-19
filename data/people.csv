@@ -9,7 +9,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 6,,Adermann,Albert,Evan,,,
 7,,Albanese,Anthony,Norman,,,
 8,,Aldred,Kenneth,James,,,
-9,,Allison,Lynette,Fay,,,
+9,,Allison,Lyn,Fay,,,,Allison,Lynette,Fay
 10,,Alston,Richard,Kenneth Robert,,,
 11,,Anderson,John,Duncan,,,
 12,,Andren,Peter,James,,,
@@ -118,7 +118,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 110,,Chamarette,Christabel,Marguerite Alain,,,
 111,,Champion,Nick,David,,,,Champion,Nicholas,David
 112,,Chaney,Frederick,Michael,,,
-113,,Chapman,Hedley,Grant Pearson,,,
+113,,Chapman,Grant,,,,,Chapman,Hedley,Grant Pearson
 114,,Charles,David,Ernest,,,
 115,,Charles,Robert,Edwin,,,
 116,,Charlesworth,Richard,Ian,,,
@@ -128,7 +128,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 119,,Childs,Bruce,Kenneth,,,
 120,,Chipp,Donald,Leslie,,,
 121,,Chynoweth,Robert,Leslie,,,
-122,,Ciobo,Steven,Michele,,,
+122,,Ciobo,Steven,Michele,,,,Ciobo,Steve,Michele
 123,,Clare,Jason,Dean,,,
 124,,Cleary,Philip,Ronald,,,
 125,,Cleeland,Peter,Robert,,,
@@ -368,7 +368,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 358,,Kelly,Jackie,Marie,,,,Kelly,Jacqueline,Marie
 359,,Kelly,Mike,Joseph,,,,Kelly,Michael,Joseph
 360,,Kelly,Roslyn,Joan,,,
-361,,Kemp,Charles,Roderick,,,
+361,,Kemp,Rod,,,,,Kemp,Charles,Roderick
 362,,Kemp,David,Alistair,,,
 363,,Kent,Lewis,,,,
 364,,Kernot,Cheryl,,,,
@@ -396,7 +396,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 386,,Lewis,Austin,William Russell,,,
 387,,Ley,Sussan,Penelope,,,
 388,,Lieberman,Louis,Stuart,,,
-389,,Lightfoot,Philip,Ross,,,
+389,,Lightfoot,Ross,,,,,Lightfoot,Philip,Ross
 390,,Lindsay,Eamon,John,,,
 391,,Lindsay,Peter,John,,,
 392,,Livermore,Kirsten,Fiona,,,
