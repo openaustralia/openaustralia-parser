@@ -37,14 +37,16 @@ class People < Array
     throw "More than one match for name #{name.full_name} found" if matches.size > 1
     matches[0] if matches.size == 1
   end
-
+  
   def find_person_by_name_and_birthday(name, birthday)
-    matches = find_people_by_name(name)
-    return matches[0] if matches.size == 1
-    return nil if matches.size == 0
+    matches = find_people_by_name_and_birthday(name, birthday)
+    throw "More than one match for name #{name.full_name} with birthday #{birthday} found" if matches.size > 1
+    matches[0] if matches.size == 1
+  end
 
-    #more than one match found, use birthday
-    return matches.find {|m| m.birthday == birthday}
+  def find_people_by_name_and_birthday(name, birthday)
+    # Only use the birthday to match if it has been set
+    find_people_by_name(name).find_all {|m| m.birthday.nil? || m.birthday == birthday}
   end
 
   # Returns all the people that match a particular name and have current senate/house of representatives positions on the date
