@@ -65,11 +65,18 @@ class Name
       if names[0].size <= 2 || names[0] == "DJC" || names[0] == "DGH"
         initials = names.shift
       else
-        first = names[0]
+        first = names.shift
       end
       post_title = extract_post_title_at_end(names)
-      last = names[-1]
-      middle = names[1..-2].join(' ')
+      # HACK: Another Stott Despoja hack
+      if names.size >= 2 && names[-2].downcase == "stott" && names[-1].downcase == "despoja"
+        last = names[-2..-1].join(' ')
+        names.pop
+      else
+        last = names[-1]
+      end
+      names.pop
+      middle = names[0..-1].join(' ')
     end
     Name.new(:title => title, :last => last, :first => first, :middle => middle, :initials => initials, :post_title => post_title)
   end

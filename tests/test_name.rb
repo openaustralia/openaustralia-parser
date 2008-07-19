@@ -155,6 +155,8 @@ class TestName < Test::Unit::TestCase
       Name.last_title_first("STOTT DESPOJA, Natasha Jessica"))
     assert_equal(Name.new(:last => "Stott Despoja", :title => "Senator"),
       Name.title_first_last("Senator STOTT DESPOJA"))
+    assert_equal(Name.new(:last => "Stott Despoja", :first => "Natasha"),
+      Name.title_first_last("Natasha Stott Despoja"))
   end
   
   # Class for simple (naive) way of comparing two names. Only compares parts of the name
