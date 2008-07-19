@@ -18,7 +18,7 @@ def extract_links_from_wikipedia(doc, filename, people)
       link = row.search('td a')[0]
       if link
         name = Name.title_first_last(link.inner_html)
-        person = people.find_person_by_name_current_on_date(name, Date.today)
+        person = people.find_person_by_name(name)
         if person
           x.personinfo(:id => person.id, :wikipedia_url => "http://en.wikipedia.org#{link.get_attribute("href")}")
         else
@@ -43,3 +43,5 @@ puts "Wikipedia links for Senators..."
 extract_links_from_wikipedia(
   Hpricot(open("http://en.wikipedia.org/wiki/Members_of_the_Australian_Senate%2C_2005-2008")),
   "#{conf.members_xml_path}/wikipedia-lords.xml", people) if conf.write_xml_senators
+
+system(conf.web_root + "/twfy/scripts/mpinfoin.pl links")
