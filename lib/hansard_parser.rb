@@ -286,7 +286,7 @@ class HansardParser
     content.search('p').each do |e|
       class_value = e.get_attribute('class')
       if class_value == "block" || class_value == "parablock" || class_value == "parasmalltablejustified" ||
-          class_value == "parasmalltableleft" || class_value == "parabold" || class_value == "paraheading" || class_value = "paracentre"
+          class_value == "parasmalltableleft" || class_value == "parabold" || class_value == "paraheading" || class_value == "paracentre"
         e.remove_attribute('class')
       elsif class_value == "paraitalic"
         e.set_attribute('class', 'italic')
