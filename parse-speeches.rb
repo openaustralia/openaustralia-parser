@@ -92,5 +92,6 @@ end
 houses_options = ""
 houses_options = houses_options + " --debates" if conf.write_xml_representatives
 houses_options = houses_options + " --lordsdebates" if conf.write_xml_senators
-  
+
+# Starts with 'perl' to be friendly with Windows
 system("perl #{conf.web_root}/twfy/scripts/xml2db.pl #{houses_options} --from=#{from_date} --to=#{to_date} --force") if options[:load_database]
