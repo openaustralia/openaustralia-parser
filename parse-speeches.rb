@@ -66,7 +66,8 @@ end
 
 conf = Configuration.new
 
-system("mkdir -p #{conf.xml_path}/scrapedxml/debates #{conf.xml_path}/scrapedxml/lordspages #{conf.xml_path}/scrapedxml/regmem")
+FileUtils.mkdir_p "#{conf.xml_path}/scrapedxml/debates"
+FileUtils.mkdir_p "#{conf.xml_path}/scrapedxml/regmem"
 
 # Copy across file that is needed for the script xml2db to run but is not yet populated with data
 system("cp #{File.dirname(__FILE__)}/data/empty-template.xml #{conf.xml_path}/scrapedxml/regmem/regmem2000-01-01.xml")
@@ -92,4 +93,4 @@ houses_options = ""
 houses_options = houses_options + " --debates" if conf.write_xml_representatives
 houses_options = houses_options + " --lordsdebates" if conf.write_xml_senators
   
-system(conf.web_root + "/twfy/scripts/xml2db.pl #{houses_options} --from=#{from_date} --to=#{to_date} --force") if options[:load_database]
+system("perl #{conf.web_root}/twfy/scripts/xml2db.pl #{houses_options} --from=#{from_date} --to=#{to_date} --force") if options[:load_database]
