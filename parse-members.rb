@@ -8,7 +8,7 @@ require 'enumerator'
 
 conf = Configuration.new
 
-system("mkdir -p #{conf.members_xml_path}")
+FileUtils.mkdir_p conf.members_xml_path
 
 # Copy across files that are needed for the script xml2db to run but are not yet populated with data
 ["bbc-links.xml", "constituencies.xml", "diocese-bishops.xml", "edm-links.xml", "expenses200102.xml",
@@ -16,7 +16,7 @@ system("mkdir -p #{conf.members_xml_path}")
   "expenses200607.xml", "guardian-links.xml", "journa-list.xml", "lordbiogs.xml", "ni-members.xml",
   "royals.xml", "sp-members.xml", "wikipedia-commons.xml", "wikipedia-lords.xml", "wikipedia-mla.xml",
   "wikipedia-msp.xml"].each do |file|
-    system("cp data/empty-template.xml #{conf.members_xml_path}/#{file}")
+    FileUtils.cp File.join("data", "empty-template.xml"), File.join(conf.members_xml_path, file)
 end
 
 puts "Reading members data..."
@@ -70,4 +70,5 @@ people.write_xml("#{conf.members_xml_path}/people.xml", "#{conf.members_xml_path
   "#{conf.members_xml_path}/ministers.xml")
 
 # And load up the database
-system("#{conf.web_root}/twfy/scripts/xml2db.pl --members --all --force")
+# Starts with 'perl' to be friendly with Windows
+system("perl #{conf.web_root}/twfy/scripts/xml2db.pl --members --all --force")
