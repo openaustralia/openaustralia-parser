@@ -16,7 +16,7 @@ These steps have only been tested on Mac OS X 10.5 (leopard). They might work as
  *  the following rubygems
    *  mechanize
    *  builder
-   *  RMagick 
+   *  RMagick
    (this has dependencies like !GraphicsMagick/!ImageMagick, which in turn needs
    ghostscript)
    *  rcov
@@ -89,7 +89,7 @@ cpan> install XML::RSS
 Apache, PHP and MySQL can all be installed together with the [http://www.apachefriends.org/en/xampp-windows.html Xampp for Windows] package. Perl can be downloaded from !ActiveState in the [http://www.activestate.com/Products/activeperl/index.mhtml ActivePerl] package. Ruby has its own Windows versions that you need to get from [http://www.ruby-lang.org/en/downloads/ Ruby Downloads] (choose the one-click installer option).
 
 ==== Perl ====
-The x86 version of !ActivePerl comes with a GUI for installing packages that makes the whole process a lot easier. Refer to http://aspn.activestate.com/ASPN/docs/ActivePerl/5.10/faq/ActivePerl-faq2.html for instructions on running it. !ActivePerl comes with a lot of packages already installed but there are a few you'll need to install yourself, namely: XML-Twig and DBD-mysql.
+The x86 version of !ActivePerl comes with a GUI for installing packages that makes the whole process a lot easier. Refer to http://aspn.activestate.com/ASPN/docs/ActivePerl/5.10/faq/ActivePerl-faq2.html for instructions on running it. !ActivePerl comes with a lot of packages already installed but there are a few you'll need to install yourself, namely: XML-Twig, DBD-mysql and Error.
 
 If DBD-mysql fails to install try installing it manually with
 
