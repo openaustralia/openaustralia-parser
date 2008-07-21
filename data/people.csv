@@ -187,7 +187,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 177,,Dodd,Peter,George,,,
 178,,Dondas,Nicholas,Manuel,,,
 179,,Downer,Alexander,John Gosse,,,
-180,,Draper,Patricia,,,,
+180,,Draper,Trish,,,,,Draper,Patricia
 181,,Dreyfus,Mark,Alfred,,,
 182,,Drummond,Peter,Hertford,,,
 183,,Dubois,Stephen,Cairfield,,,
@@ -435,7 +435,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 425,,Maunsell,Charles,Ronald,,,
 426,,May,Margaret,Ann,,,
 427,,Mayer,Helen,,,,
-428,,McArthur,Fergus,Stewart,,,
+428,,McArthur,Stewart,,,,,McArthur,Fergus,Stewart
 429,,McAuliffe,Ronald,Edward,,,
 430,,McClelland,Douglas,,,,
 431,,McClelland,Robert,Bruce,,,
@@ -640,10 +640,10 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 630,,Thomson,Craig,Robert,,,
 631,,Thomson,David,Scott,,,
 632,,Thomson,Kelvin,John,,,
-633,,Ticehurst,Kenneth,Vincent,,,
+633,,Ticehurst,Ken,Vincent,,,,Ticehurst,Kenneth,Vincent
 634,,Tickner,Robert,Edward,,,
 635,,Tierney,John,William,,,
-636,,Tollner,David,William,,,
+636,,Tollner,Dave,William,,,,Tollner,David,William
 637,,Townley,Michael,,,,
 638,,Trevor,Chris,Allan,,,
 639,,Troeth,Judith,Mary,,,
