@@ -126,6 +126,10 @@ class MechanizeProxy
     @cache.cache_subdirectory = path
   end
   
+  def user_agent_alias=(a)
+    @agent.user_agent_alias = a
+  end
+  
   def get(url)
     uri = URI.parse(url)
     @cache.load_and_cache_page(uri) { @agent.get(url) }
