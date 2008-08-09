@@ -51,7 +51,7 @@ class Name
   def Name.title_first_last(text)
     names = text.delete(',').split(' ')
     title = Name.extract_title_at_start(names)
-    throw "Too few names" if names.empty?
+    throw "Too few names in '#{text}'" if names.empty?
     if names.size == 1
       last = names[0]
     # HACK: Dealing with Stott Despoja as a special case
