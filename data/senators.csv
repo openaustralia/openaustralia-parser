@@ -34,7 +34,7 @@ member count,person count,title,last name,first name,middle name,house,Division,
 32,,,Button,John,Norman,senate,,Vic.,18.5.1974,,31.3.1993,resigned,ALP
 33,,,Calvert,Paul,Henry,senate,,Tas.,11.7.1987,,19.08.2002,changed_party,LIB
 275,,,Calvert,Paul,Henry,senate,,Tas.,19.08.2002,changed_party,14.08.2007,changed_party,PRESIDENT
-276,,,Calvert,Paul,Henry,senate,,Tas.,14.08.2007,changed_party,29.8.2007,resigned,LIB
+276,,,Calvert,Paul,Henry,senate,,Tas.,15.08.2007,changed_party,29.8.2007,resigned,LIB
 35,,,Campbell,Ian,Gordon,senate,,WA,16.5.1990,section_15,31.5.2007,resigned,LIB
 36,,,Carr,Kim,John,senate,,Vic.,28.4.1993,section_15,,still_in_office,ALP
 37,,,Carrick,John,Leslie,senate,,NSW,1.7.1971,,5.6.1987,retired,LIB
@@ -79,7 +79,7 @@ member count,person count,title,last name,first name,middle name,house,Division,
 76,,,Evans,John,Gordon,senate,,WA,5.3.1983 ,,30.6.1985 ,defeated,AD
 77,,,Faulkner,John,Philip,senate,,NSW,4.4.1989,section_15,,still_in_office,ALP
 78,,,Ferguson,Alan,Baird,senate,,SA,26.5.1992,section_15,14.8.2007,changed_party,LIB
-263,,,Ferguson,Alan,Baird,senate,,SA,14.8.2007,changed_party,,still_in_office,PRESIDENT
+263,,,Ferguson,Alan,Baird,senate,,SA,15.8.2007,changed_party,,still_in_office,PRESIDENT
 79,,,Ferris,Jeannie,Margaret,senate,,SA,1.7.1996 ,,12.7.1996 ,resigned; ,LIB
 80,,,Ferris,Jeannie,Margaret,senate,,SA,24.7.1996 ,section_15,2.4.2007 ,died,LIB
 81,,,Fielding,Steve,,senate,,Vic.,1.7.2005 ,,,still_in_office,FFP
