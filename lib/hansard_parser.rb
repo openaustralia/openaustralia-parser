@@ -95,7 +95,7 @@ class HansardParser
     elsif link_text == "Official Hansard" || link_text =~ /^Start of Business/ || link_text == "Adjournment"
       # Do nothing - skip this entirely
     elsif link_text =~ /^Procedural text:/ || link_text =~ /^QUESTIONS IN WRITING:/ || link_text =~ /^Division:/ ||
-        link_text =~ /^REQUEST FOR DETAILED INFORMATION:/ ||
+        link_text =~ /^REQUESTS? FOR DETAILED INFORMATION:/ ||
         link_text =~ /^Petition:/ || link_text =~ /^PRIVILEGE:/ || link_text == "Interruption" ||
         link_text =~ /^QUESTIONS ON NOTICE:/
       logger.info "Not yet supporting: #{link_text}"
@@ -383,7 +383,8 @@ class HansardParser
     end
     
     # If member hasn't already been set then lookup using speakername
-    if member.nil?
+    # HACK checking for speakername be zero size to deal with Hansard problem on 2005.2.9
+    if member.nil? && speakername.size > 0
       name = Name.title_first_last(speakername)
       member = @people.find_member_by_name_current_on_date(name, date, house)
     end
@@ -395,25 +396,26 @@ class HansardParser
     if speaker_url =~ /^view_document.aspx\?TABLE=biogs&ID=(\d+)$/
       @people.find_person_by_aph_id($~[1].to_i)
     else
-      logger.error "Speaker link has unexpected format"
+      logger.error "Speaker link has unexpected format: #{speaker_url}"
+      nil
     end
   end
   
   def lookup_speaker(speakername, speaker_url, date, house)
     #puts "speakername: #{speakername}, speaker_url: #{speaker_url}"
     member = lookup_speaker_by_name(speakername, date, house)
-    if speaker_url
-      person = lookup_speaker_by_url(speaker_url)
-      throw "Can't resolve link" if person.nil?
-      if member
-        if member.person != person
-          throw "Look up of member by url and name does not match"
-        end
-      else
-        logger.warn "Link seems to be valid but not the speakername"
-      end
-    else
+    if speaker_url.nil?
       logger.warn "Link missing for speaker: #{speakername}" unless generic_speaker?(speakername, house) || speakername =~ /speaker/i
+    else
+      person = lookup_speaker_by_url(speaker_url)
+      if person.nil?
+        logger.error "Can't figure out which person the link #{speaker_url} belongs to"
+      elsif member.nil?
+        logger.warn "Link (to #{person.name.full_name}) seems to be valid but not the speakername (#{speakername})"
+        member = @people.find_member_by_name_current_on_date(person.name, date, house)
+      elsif member.person != person
+        throw "Look up of member by url and name does not match"
+      end
     end
     if member.nil?
       logger.warn "Unknown speaker #{speakername}" unless generic_speaker?(speakername, house)
