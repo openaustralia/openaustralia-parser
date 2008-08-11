@@ -3,6 +3,7 @@ require 'house'
 
 class Person
   attr_reader :periods, :person_count, :name, :alternate_names, :minister_positions, :birthday
+  attr_accessor :aph_id
   
   def id
     "uk.org.publicwhip/person/#{id_count}"

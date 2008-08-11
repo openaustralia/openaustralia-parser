@@ -4,6 +4,7 @@ require 'mechanize_proxy'
 
 require 'configuration'
 
+# TODO: Rename class
 class PeopleImageDownloader
   @@SMALL_THUMBNAIL_WIDTH = 44
   @@SMALL_THUMBNAIL_HEIGHT = 59
@@ -20,38 +21,86 @@ class PeopleImageDownloader
 
   def download(people, small_image_dir, large_image_dir)
     each_person_bio_page do |page|
-      name, birthday, image = extract_name_and_birthday_and_image_from_page(page)
+      name, birthday, image = extract_name(page), extract_birthday(page), extract_image(page)
 
       if name
         # Small HACK - removing title of name
         name = Name.new(:first => name.first, :middle => name.middle, :last => name.last, :post_title => name.post_title)
         person = people.find_person_by_name_and_birthday(name, birthday)
         if person
-          image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH, @@SMALL_THUMBNAIL_HEIGHT).write(small_image_dir + "/#{person.id_count}.jpg")
-          image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH * 2, @@SMALL_THUMBNAIL_HEIGHT * 2).write(large_image_dir + "/#{person.id_count}.jpg")
+          # If no image was found then silently skip over saving the image
+          if image
+            image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH, @@SMALL_THUMBNAIL_HEIGHT).write(small_image_dir + "/#{person.id_count}.jpg")
+            image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH * 2, @@SMALL_THUMBNAIL_HEIGHT * 2).write(large_image_dir + "/#{person.id_count}.jpg")
+          end
         else
           puts "WARNING: Skipping photo for #{name.full_name} because they don't exist in the list of people"
         end
+      else
+        puts "WARNING: Couldn't find name on page"
       end
     end
   end
 
-  def each_person_bio_page
+  # For each person lookup their biography page on aph and use that to determine their aph_person_id. This is used
+  # later on to lookup speakers based on the link to their biography page. This is turn is double-checked with their
+  # name.
+  def attach_aph_person_ids(people)
+    each_person_bio_link do |link|
+      if link.to_s =~ /^Biography for (.*)$/
+        name = Name.last_title_first($~[1])
+        matches = people.find_people_by_name(name)
+        # If there's more than one match for this person based on the name alone, click on the link, lookup their birthday
+        # and use that in a match as well
+        if matches.size > 1
+          birthday = extract_birthday(@agent.click(link))
+          person = people.find_person_by_name_and_birthday(name, birthday)
+        else
+          person = matches.first
+        end
+        if person.nil?
+          throw "WARNING: Can not find '#{name.full_name}'"
+        else
+          if link.href =~ /^view_document.aspx\?ID=(\d+)&TABLE=BIOGS/
+            person.aph_id = $~[1].to_i
+          else
+            logger.error("Link href: '#{link.href}' on biography page has unexpected format")
+          end
+        end
+      else
+        logger.error("Link text: '#{link}' on biography page has unexpected format")
+      end 
+    end
+    
+    # Step through all the people and highlight the people that don't have aph person id's
+    #people_without_ids = people.find_all{|person| person.aph_id.nil?}
+    #unless people_without_ids.empty?
+    #  puts "WARNING: The following people don't have aph person id's: #{people_without_ids.map{|person| person.name.full_name}.join(', ')}"
+    #end
+  end
+  
+  def each_person_bio_link
     # Iterate over current members of house
     @agent.get(@conf.current_house_members_url).links[29..-4].each do |link|
-      @agent.transact {yield @agent.click(link)}
+      yield link
     end
     # Iterate over current members of senate
     @agent.get(@conf.current_senate_members_url).links[29..-4].each do |link|
-      @agent.transact {yield @agent.click(link)}
+      yield link
     end
     # Iterate over former members of house and senate
     @agent.get(@conf.former_members_house_and_senate_url).links[29..-4].each do |link|
+      yield link
+    end
+  end
+  
+  def each_person_bio_page
+    each_person_bio_link do |link|
       @agent.transact {yield @agent.click(link)}
     end
   end
 
-  def extract_name_and_birthday_and_image_from_page(page)
+  def extract_name(page)
     begin
       name = Name.last_title_first(page.search("#txtTitle").inner_text.to_s[14..-1])
     rescue
@@ -59,7 +108,10 @@ class PeopleImageDownloader
       puts "WARNING: Skipping photo download; '#{page.search("#txtTitle").inner_text.to_s[14..-1]}' is an invalid name."
       return
     end
-
+    name
+  end
+  
+  def extract_birthday(page)
     #Try to scrape the member's birthday.
     #Here's an example of what we are looking for:
     #<H2>Personal</H2>
@@ -76,20 +128,19 @@ class PeopleImageDownloader
     else
       birthday = nil
     end
-
-    #note: could use the following to output ALL birthdays for easy import into people.csv
-    #puts "#{name.informal_name} #{birthday}"
-
-    content = page.search('div#contentstart')
-    img_tag = content.search("img").first
+    birthday
+  end
+  
+  def extract_image(page)
+    img_tag = page.search('div#contentstart').search("img").first
     if img_tag
       relative_image_url = img_tag.attributes['src']
       if relative_image_url != "images/top_btn.gif"
         begin
           res = @agent.get(relative_image_url)
-          return name, birthday, Magick::Image.from_blob(res.body)[0]
+          return Magick::Image.from_blob(res.body)[0]
         rescue RuntimeError, Magick::ImageMagickError, WWW::Mechanize::ResponseCodeError
-          puts "WARNING: Could not load image for #{name.informal_name} at #{relative_image_url}"
+          return nil
         end
       end
     end
