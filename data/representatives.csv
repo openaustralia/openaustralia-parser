@@ -1,7 +1,6 @@
 member count,person count,title,last name,first name,middle name,house,Division,State/Territory,Date of election,Type of election,Date ceased to be a Member,reason,Most recent party
 ,,,,,,,,,,,,,,
 1,,,Abbott,Anthony,John,representatives,Warringah,NSW,26.3.1994,by_election, ,still_in_office,LIB
-2,,,Abel,John,Arthur,representatives,Evans,NSW,13.12.1975,,10.11.1977,retired,LIB
 3,,,Adams,Dick,Godfrey Harry,representatives,Lyons,Tas.,13.3.1993,, ,still_in_office,ALP
 4,,,Adermann,Albert,Evan,representatives,Fairfax,Qld,1.12.1984,,19.2.1990,retired,NPA
 5,,,Adermann,Albert,Evan,representatives,Fisher,Qld,2.12.1972,,1.12.1984,elected_elsewhere,NPA
@@ -63,7 +62,9 @@ member count,person count,title,last name,first name,middle name,house,Division,
 60,,,Brown,Joseph,Tilley,representatives,Indi,Vic.,12.12.1906,,13.4.1910,defeated,ANTI-SOC
 62,74,,Brown,Robert,James,representatives,Charlton,NSW,1.12.1984,,31.8.1998,retired,ALP
 63,74,,Brown,Robert,James,representatives,Hunter,NSW,18.10.1980,,1.12.1984,elected_elsewhere,ALP
-# TODO: We're also missing Neil Anthony Brown QC
+568,,,Brown,Neil,Anthony,representatives,Menzies,Vic,25.10.1969,,2.12.1972,defeated,LIB
+569,,,Brown,Neil,Anthony,representatives,Diamond Valley,Vic,13.12.1975,,5.3.1983,defeated,LIB
+570,,,Brown,Neil,Anthony,representatives,Menzies,Vic,1.12.1984,,25.2.1991,resigned,LIB
 64,,,Brumby,John,Mansfield,representatives,Bendigo,Vic.,5.3.1983,,24.3.1990,defeated,ALP
 65,,,Bryant,Gordon,Munro,representatives,Wills,Vic.,10.12.1955,,19.9.1980,retired,ALP
 66,,,Bungey,Melville,Harold,representatives,Canning,WA,18.5.1974,,5.3.1983,defeated,LIB
@@ -129,6 +130,8 @@ member count,person count,title,last name,first name,middle name,house,Division,
 126,,,Cox,David,Alexander,representatives,Kingston,SA,3.10.1998,,9.10.2004,defeated,ALP
 127,,,Crawford,Mary,Catherine,representatives,Forde,Qld,11.7.1987,,2.3.1996,defeated,ALP
 128,,,Crean,Simon,Findlay,representatives,Hotham,Vic.,24.3.1990,,,still_in_office,ALP
+571,,,Cross,Manfred,Douglas,representatives,Brisbane,Qld,9.12.1961,,13.12.1975,defeated,ALP
+572,,,Cross,Manfred,Douglas,representatives,Brisbane,Qld,18.10.1980,,24.3.1990,retired,ALP
 129,,,Crosio,Janice,Ann,representatives,Brisbane,Qld,18.10.1980,,19.2.1990,retired,ALP
 130,,,Crosio,Janice,Ann,representatives,Prospect,NSW,24.3.1990,,31.8.2004,retired,ALP
 131,,,Cunningham,Barry,Thomas,representatives,McMillan,Vic.,18.10.1980,,24.3.1990,defeated,ALP
@@ -567,4 +570,4 @@ member count,person count,title,last name,first name,middle name,house,Division,
 562,,,Zammit,Paul,John,representatives,Lowe,NSW,2.3.1996,,3.10.1998,defeated,IND
 563,,,Zappia,Antonio,,representatives,Makin,SA,24.11.2007,,,still_in_office,ALP
 96,,,Chapman,Hedley,Grant Pearson,representatives,Kingston,SA,13.12.1975,,5.3.1983,defeated,LIB
-# Next available Rep number is 568
+# Next available Rep number is 573

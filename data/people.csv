@@ -1,7 +1,6 @@
 person count,title,last name,first name,middle name,post title,birthday,alt title,alt last name, alt first name, alt middle name
 ,,,,,,,
 1,,Abbott,Tony,John,,,,Abbott,Anthony,John
-2,,Abel,John,Arthur,,,
 3,,Abetz,Eric,,,,
 # Hack to deal with one occurence of MrAdams in Hansard 
 4,,Adams,Dick,Godfrey Harry,,,,MrAdams
@@ -50,7 +49,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 47,,Bishop,Julie,Isabel,,,
 48,,Bishop,Mark,,,,,Bishop,Thomas,Mark
 49,,Bishop,Reginald,,,,
-50,,Bjelke-Petersen,Florence,Isabel,,,
+50,Lady,Bjelke-Petersen,Florence,Isabel,,,
 51,,Black,John,Rees,,,
 52,,Blanchard,Cecil,Allen,,,
 53,,Blewett,Neal,,,,
@@ -79,6 +78,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 74,,Brown,Robert,James,,1933-12-2
 # This is Bob Brown the Senator
 696,,Brown,Bob,James,,1944-12-27,,Brown,Robert,James
+718,,Brown,Neil,Anthony,,,
 75,,Brownhill,David,Gordon Cadell,,,
 76,,Brumby,John,Mansfield,,,
 77,,Bryant,Gordon,Munro,,,
@@ -86,7 +86,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 79,,Bungey,Melville,Harold,,,
 # Using Mr and Ms here to ensure that Ms Burke only has one match
 80,Ms,Burke,Anna,Elizabeth,,,
-81,Mr,Burke,Tony,Stephen,,,Mr,Burke,Anthony,Stephen,the Hon.,Burke,Tony,Stephen
+81,Mr,Burke,Tony,Stephen,,,Mr,Burke,Anthony,Stephen,the Hon.,Burke,Tony,Stephen,the Hon.,Burke,Anthony,Stephen
 82,,Burns,Bryant,Robert,,,
 83,,Burns,William,George,,,
 84,,Burr,Maxwell,Arthur,,,
@@ -167,6 +167,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 158,,Crean,Simon,Findlay,,,
 159,,Crichton-Browne,Noel,Ashley,,,
 160,,Crosio,Janice,Ann,,,
+719,,Cross,Manfred,Douglas,,,
 161,,Crossin,Trish,Margaret,,,,Crossin,Patricia,Margaret
 162,,Crowley,Rosemary,Anne,,,
 163,,Cunningham,Barry,Thomas,,,
@@ -193,7 +194,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 183,,Dubois,Stephen,Cairfield,,,
 184,,Duffy,Michael,John,,,
 185,,Duncan,Peter,,,,
-186,,Dunn,Patricia,Irene (Irina),,,
+186,,Dunn,Patricia,Irene,,,
 187,,Durack,Peter,Drew,,,
 188,,Dutton,Peter,Craig,,,
 189,,Easson,Mary,Louise,,,
@@ -723,4 +724,4 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 715,,Ryan,Scott,,,,
 716,,Williams,John,,,,
 717,,Xenophon,Nick,,,,,Xenophon,Nicholas
-# Next available number is 718
+# Next available number is 720
