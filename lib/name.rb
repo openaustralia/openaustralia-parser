@@ -1,9 +1,3 @@
-class String
-  def surrounded_by_brackets?
-    self[0..0] == '(' && self[-1..-1] == ')'
-  end
-end
-
 # Handle all our silly name parsing needs
 class Name
   attr_reader :title, :first, :middle, :initials, :last, :post_title
@@ -19,10 +13,23 @@ class Name
     throw "Invalid keys #{invalid_keys} used" unless invalid_keys.empty?
   end
   
+  def Name.remove_text_in_brackets(text)
+    open = text.index('(')
+    if open
+      close = text.index(')', open)
+      if close
+        text = text[0..open-1] + text[close+1..-1]
+      end
+    end
+
+    # Remove extra spaces
+    text.squeeze(' ')
+  end
+  
   def Name.last_title_first(text)
+    # Do the following before the split so we can handle things like "(foo bar)"
+    text = remove_text_in_brackets(text)
     names = text.delete(',').split(' ')
-    # Check for a name in brackets which we take as a nickname and ignore
-    names.delete_if{|n| n.surrounded_by_brackets?}
     # Hack to deal with a specific person who has two last names that aren't hyphenated
     if names.size >= 2 && names[0].downcase == "stott" && names[1].downcase == "despoja"
       last = names[0..1].join(' ')
@@ -33,7 +40,6 @@ class Name
     end
     title = Name.extract_title_at_start(names)
     first = names.shift
-    throw "Too few names" if first.nil?
     post_title = extract_post_title_at_end(names)
     middle = names[0..-1].join(' ')
     Name.new(:title => title, :last => last, :first => first, :middle => middle, :post_title => post_title)
@@ -223,7 +229,7 @@ class Name
         "Hon."
     elsif names.size >= 1
       title = names[0]
-      if title == "Dr" || title == "Mr" || title == "Mrs" || title == "Ms" || title == "Miss" || title == "Senator"
+      if title == "Dr" || title == "Mr" || title == "Mrs" || title == "Ms" || title == "Miss" || title == "Senator" || title == "Lady"
         names.shift
         title
       end

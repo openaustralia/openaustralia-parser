@@ -237,4 +237,8 @@ class TestName < Test::Unit::TestCase
   def test_another_three_letter_initial
     assert_equal(Name.new(:title => "Hon.", :initials => "DGH", :last => "Adams"), Name.title_first_last("Hon. DGH Adams"))
   end
+  
+  def test_lady_bjelke_petersen
+    assert_equal(Name.new(:last => "Bjelke-Petersen", :title => "Lady"), Name.last_title_first("BJELKE-PETERSEN, Lady (Florence Isabel)"))
+  end
 end
