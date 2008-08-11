@@ -236,9 +236,18 @@ class TestName < Test::Unit::TestCase
   
   def test_another_three_letter_initial
     assert_equal(Name.new(:title => "Hon.", :initials => "DGH", :last => "Adams"), Name.title_first_last("Hon. DGH Adams"))
+    assert_equal(Name.new(:title => "Hon.", :initials => "DGH", :last => "Adams"), Name.title_first_last("Hon. D.G.H. Adams"))
   end
   
   def test_lady_bjelke_petersen
     assert_equal(Name.new(:last => "Bjelke-Petersen", :title => "Lady"), Name.last_title_first("BJELKE-PETERSEN, Lady (Florence Isabel)"))
+  end
+  
+  def test_initials_with_fullstops
+    assert("DGH", Name.initials_with_fullstops("D.G.H."))
+    assert("AB", Name.initials_with_fullstops("A.B."))
+    assert_nil(Name.initials_with_fullstops("AB."))
+    assert_nil(Name.initials_with_fullstops("AB"))
+    assert_nil(Name.initials_with_fullstops(".."))
   end
 end

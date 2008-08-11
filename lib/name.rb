@@ -1,3 +1,5 @@
+require 'enumerator'
+
 # Handle all our silly name parsing needs
 class Name
   attr_reader :title, :first, :middle, :initials, :last, :post_title
@@ -51,6 +53,29 @@ class Name
     names.pop if valid_post_titles.include?(names.last)
   end
   
+  # Returns initials if the name could be a set of initials
+  def Name.initials(name)
+    # If only one or two letters assume that these are initials
+    # HACK: Added specific handling for initials DJC, DGH
+    if name.size <= 2 || name == "DJC" || name == "DGH"
+      name
+    elsif initials_with_fullstops(name)
+      initials_with_fullstops(name)
+    end
+  end
+  
+  # Returns true if the name could be a set of initials with full stops in them (e.g. "A.B.")
+  def Name.initials_with_fullstops(name)
+    initials = ""
+    return nil unless name.size % 2 == 0
+    while name.size > 0 do
+      return nil unless name[0..0] != '.' && name[1..1] == '.'
+      initials = initials + name[0..0]
+      name = name[2..-1]
+    end
+    initials
+  end
+  
   def Name.title_first_last(text)
     names = text.delete(',').split(' ')
     title = Name.extract_title_at_start(names)
@@ -63,10 +88,8 @@ class Name
       names.shift
       names.shift
     else
-      # If only one or two letters assume that these are initials
-      # HACK: Added specific handling for initials DJC, DGH
-      if names[0].size <= 2 || names[0] == "DJC" || names[0] == "DGH"
-        initials = names.shift
+      if initials(names[0])
+        initials = initials(names.shift)
       else
         first = names.shift
       end
