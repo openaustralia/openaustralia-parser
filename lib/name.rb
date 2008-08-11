@@ -47,11 +47,8 @@ class Name
   
   # Extract a post title from the end if one is available
   def Name.post_title(names)
-    if names.last == "AM" || names.last == "SC" || names.last == "AO" ||
-      names.last == "MBE" || names.last == "QC" || names.last == "OBE" ||
-      names.last == "KSJ" || names.last == "JP" || names.last == "MP"
-      names.pop
-    end
+    valid_post_titles = ["AM", "SC", "AO", "MBE", "QC", "OBE", "KSJ", "JP", "MP", "AC", "RFD", "OAM", "MC"]
+    names.pop if valid_post_titles.include?(names.last)
   end
   
   def Name.title_first_last(text)
