@@ -28,6 +28,10 @@ class People < Array
     matches[0] if matches.size == 1
   end
   
+  def find_person_by_aph_id(aph_id)
+    find{|p| p.aph_id == aph_id}
+  end
+  
   def find_person_by_count(count)
     find{|p| p.person_count == count}
   end  

@@ -4,6 +4,7 @@ require 'configuration'
 require 'debates'
 require 'builder_alpha_attributes'
 require 'house'
+require 'people_image_downloader'
 
 class UnknownSpeaker
   def initialize(name)
@@ -35,6 +36,9 @@ class HansardParser
     @logger.add(Log4r::Outputter.stdout)
     @logger.add(Log4r::FileOutputter.new('foo', :filename => conf.log_path, :trunc => false,
       :formatter => Log4r::PatternFormatter.new(:pattern => "[%l] %d :: %M")))
+
+    bio = PeopleImageDownloader.new
+    bio.attach_aph_person_ids(people)
   end
   
   def parse_date_house(date, xml_filename, house)
@@ -151,9 +155,9 @@ class HansardParser
   
   # Returns new speaker
   def parse_speech_block(e, speaker, time, url, debates, date, house)
-    speakername, interjection = extract_speakername(e, house)
+    speakername, speaker_url, interjection = extract_speakername(e, house)
     # Only change speaker if a speaker name was found
-    this_speaker = speakername ? lookup_speaker(speakername, date, house) : speaker
+    this_speaker = speakername ? lookup_speaker(speakername, speaker_url, date, house) : speaker
     debates.add_speech(this_speaker, time, url, clean_speech_content(url, e, house))
     # With interjections the next speech should never be by the person doing the interjection
     if interjection
@@ -165,11 +169,13 @@ class HansardParser
   
   def extract_speakername(content, house)
     interjection = false
+    speaker_url = nil
     # Try to extract speaker name from talkername tag
     tag = content.search('span.talkername a').first
     tag2 = content.search('span.speechname').first
     if tag
       name = tag.inner_html
+      speaker_url = tag.attributes['href']
       # Now check if there is something like <span class="talkername"><a>Some Text</a></span> <b>(Some Text)</b>
       tag = content.search('span.talkername ~ b').first
       # Only use it if it is surrounded by brackets
@@ -204,7 +210,7 @@ class HansardParser
         name = m[1] if m and generic_speaker?(m[1], house)
       end
     end
-    [name, interjection]
+    [name, speaker_url, interjection]
   end
   
   # Replace unicode characters by their equivalent
@@ -263,7 +269,7 @@ class HansardParser
   end
   
   def remove_generic_speaker_names(content, house)
-    name, interjection = extract_speakername(content, house)
+    name, speaker_url, interjection = extract_speakername(content, house)
     if generic_speaker?(name, house) and !interjection
       #remove everything before the first hyphen
       return Hpricot(content.to_s.gsub!(/^<p[^>]*>.*?—/i, "<p>"))
@@ -352,7 +358,7 @@ class HansardParser
     text.sub('&', '&amp;')
   end
 
-  def lookup_speaker(speakername, date, house)
+  def lookup_speaker_by_name(speakername, date, house)
     throw "speakername can not be nil in lookup_speaker" if speakername.nil?
 
     # Handle speakers where they are referred to by position rather than name
@@ -380,12 +386,39 @@ class HansardParser
     if member.nil?
       name = Name.title_first_last(speakername)
       member = @people.find_member_by_name_current_on_date(name, date, house)
-      if member.nil?
-        logger.warn "Unknown speaker #{speakername}" unless generic_speaker?(speakername, house)
-        member = UnknownSpeaker.new(speakername)
-      end
     end
     
+    member
+  end
+  
+  def lookup_speaker_by_url(speaker_url)
+    if speaker_url =~ /^view_document.aspx\?TABLE=biogs&ID=(\d+)$/
+      @people.find_person_by_aph_id($~[1].to_i)
+    else
+      logger.error "Speaker link has unexpected format"
+    end
+  end
+  
+  def lookup_speaker(speakername, speaker_url, date, house)
+    #puts "speakername: #{speakername}, speaker_url: #{speaker_url}"
+    member = lookup_speaker_by_name(speakername, date, house)
+    if speaker_url
+      person = lookup_speaker_by_url(speaker_url)
+      throw "Can't resolve link" if person.nil?
+      if member
+        if member.person != person
+          throw "Look up of member by url and name does not match"
+        end
+      else
+        logger.warn "Link seems to be valid but not the speakername"
+      end
+    else
+      logger.warn "Link missing for speaker: #{speakername}" unless generic_speaker?(speakername, house) || speakername =~ /speaker/i
+    end
+    if member.nil?
+      logger.warn "Unknown speaker #{speakername}" unless generic_speaker?(speakername, house)
+      member = UnknownSpeaker.new(speakername)
+    end
     member
   end
   

@@ -59,16 +59,16 @@ class PeopleImageDownloader
           person = matches.first
         end
         if person.nil?
-          throw "WARNING: Can not find '#{name.full_name}'"
+          puts "WARNING: Can not find '#{name.full_name}'"
         else
           if link.href =~ /^view_document.aspx\?ID=(\d+)&TABLE=BIOGS/
             person.aph_id = $~[1].to_i
           else
-            logger.error("Link href: '#{link.href}' on biography page has unexpected format")
+            puts "ERROR: Link href: '#{link.href}' on biography page has unexpected format"
           end
         end
       else
-        logger.error("Link text: '#{link}' on biography page has unexpected format")
+        puts "ERROR: Link text: '#{link}' on biography page has unexpected format"
       end 
     end
     
