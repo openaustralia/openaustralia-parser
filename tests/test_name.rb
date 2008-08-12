@@ -250,4 +250,9 @@ class TestName < Test::Unit::TestCase
     assert_nil(Name.initials_with_fullstops("AB"))
     assert_nil(Name.initials_with_fullstops(".."))
   end
+  
+  def test_empty_name
+    assert_equal(Name.new({}), Name.title_first_last(""))
+    assert_equal(Name.new({}), Name.last_title_first(""))
+  end
 end
