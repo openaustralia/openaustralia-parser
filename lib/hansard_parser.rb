@@ -130,6 +130,8 @@ class HansardParser
 
     speaker = nil
     top_content_tag.children.each do |e|
+      break unless e.respond_to?(:attributes)
+      
       class_value = e.attributes["class"]
       if e.name == "div"
         if class_value == "hansardtitlegroup" || class_value == "hansardsubtitlegroup"
