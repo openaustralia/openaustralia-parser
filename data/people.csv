@@ -45,8 +45,8 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 43,,Bird,Sharon,Leah,,,
 44,,Birmingham,Simon,John,,,
 45,,Birney,Reginald,John,,,
-46,,Bishop,Bronwyn,Kathleen,,,
-47,,Bishop,Julie,Isabel,,,
+46,Mrs,Bishop,Bronwyn,Kathleen,,,the Hon.,Bishop,Bronwyn,Kathleen
+47,Ms,Bishop,Julie,Isabel,,,the Hon.,Bishop,Julie,Isabel
 48,,Bishop,Mark,,,,,Bishop,Thomas,Mark
 49,,Bishop,Reginald,,,,
 50,Lady,Bjelke-Petersen,Florence,Isabel,,,
@@ -376,8 +376,8 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 365,,Kerr,Duncan,James Colquhoun,,,
 366,,Kilgariff,Bernard,Francis,,,
 367,,Killen,Denis,James (later Sir James),,,
-368,,King,Catherine,Fiona,,,
-369,,King,Peter,Edward,,,
+368,Ms,King,Catherine,Fiona,,,
+369,Mr,King,Peter,Edward,,,
 370,,Kirk,Linda,Jean,,,
 371,,Klugman,Richard,Emanuel,,,
 372,,Knight,John,William,,,
