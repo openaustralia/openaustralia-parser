@@ -414,7 +414,7 @@ class HansardParser
     #puts "speakername: #{speakername}, speaker_url: #{speaker_url}"
     member = lookup_speaker_by_name(speakername, date, house)
     if speaker_url.nil?
-      logger.warn "Link missing for speaker: #{speakername}" unless generic_speaker?(speakername, house) || speakername =~ /speaker/i
+      logger.warn "Link missing for speaker: #{speakername}" unless generic_speaker?(speakername, house) || speakername =~ /(speaker|clerk)/i
     else
       person = lookup_speaker_by_url(speaker_url)
       if person.nil?
@@ -423,7 +423,7 @@ class HansardParser
         logger.warn "Link (to #{person.name.full_name}) seems to be valid but not the speakername (#{speakername})"
         member = @people.find_member_by_name_current_on_date(person.name, date, house)
       elsif member.person != person
-        throw "Look up of member by url and name does not match"
+        logger.error "Look up of member by url and name does not match"
       end
     end
     if member.nil?
