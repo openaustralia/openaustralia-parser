@@ -82,7 +82,7 @@ class HansardParser
   
   def parse_sub_day_page(link_text, sub_page, debates, date, house)
     # Only going to consider speeches for the time being
-    if link_text =~ /^Speech:/ || link_text =~ /^QUESTIONS WITHOUT NOTICE:/ || link_text =~ /^QUESTIONS TO THE SPEAKER:/
+    if link_text =~ /^Speech:/ || link_text =~ /^QUESTIONS? WITHOUT NOTICE/i || link_text =~ /^QUESTIONS TO THE SPEAKER:/
       # Link text for speech has format:
       # HEADING > NAME > HOUR:MINS:SECS
       split = link_text.split('>').map{|a| a.strip}
@@ -102,8 +102,11 @@ class HansardParser
     elsif link_text =~ /^Procedural text:/ || link_text =~ /^QUESTIONS IN WRITING:/ || link_text =~ /^Division:/ ||
         link_text =~ /^REQUESTS? FOR DETAILED INFORMATION:/ ||
         link_text =~ /^Petition:/ || link_text =~ /^PRIVILEGE:/ || link_text == "Interruption" ||
-        link_text =~ /^QUESTIONS ON NOTICE:/
-      logger.info "Not yet supporting: #{link_text}"
+        link_text =~ /^QUESTIONS? ON NOTICE:/i || link_text =~ /^QUESTIONS TO THE SPEAKER/
+      #logger.info "Not yet supporting: #{link_text}"
+    # Hack to deal with incorrectly titled page on 31 Oct 2005 
+    elsif link_text =~ /^IRAQ/
+      #logger.info "Not yet supporting: #{link_text}"
     else
       throw "Unsupported: #{link_text}"
     end
