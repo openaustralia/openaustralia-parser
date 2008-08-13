@@ -388,8 +388,7 @@ class HansardParser
     end
     
     # If member hasn't already been set then lookup using speakername
-    # HACK checking for speakername be zero size to deal with Hansard problem on 2005.2.9
-    if member.nil? && speakername.size > 0
+    if member.nil?
       name = Name.title_first_last(speakername)
       member = @people.find_member_by_name_current_on_date(name, date, house)
     end
