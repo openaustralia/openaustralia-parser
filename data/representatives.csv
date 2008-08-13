@@ -10,7 +10,8 @@ member count,person count,title,last name,first name,middle name,house,Division,
 9,,,Aldred,Kenneth,James,representatives,Henty,Vic.,13.12.1975,,18.10.1980,defeated,LIB
 10,,,Anderson,John,Duncan,representatives,Gwydir,NSW,15.4.1989,by_election,17.10.2007,retired,NP
 11,,,Andren,Peter,James,representatives,Calare,NSW,2.3.1996,,17.10.2007,retired,IND
-12,,,Andrew,John,Neil,representatives,Wakefield,SA,5.3.1983,,31.8.2004,retired,LIB
+12,,,Andrew,John,Neil,representatives,Wakefield,SA,5.3.1983,,10.11.1998,changed_party,LIB
+584,,,Andrew,John,Neil,representatives,Wakefield,SA,10.11.1998,changed_party,31.8.2004,retired,SPK
 13,,,Andrews,Kevin,James,representatives,Menzies,Vic.,11.5.1991,by_election, ,still_in_office,LIB
 14,,,Anthony,John,Douglas,representatives,Richmond,NSW,14.9.1957,by_election,18.1.1984,resigned,NPA
 15,,,Anthony,Lawrence,James,representatives,Richmond,NSW,2.3.1996,,9.10.2004,defeated,NP
@@ -98,7 +99,9 @@ member count,person count,title,last name,first name,middle name,house,Division,
 95,,,Chaney,Frederick,Michael,representatives,Pearce,WA,24.3.1990,,8.2.1993,retired,LIB
 97,,,Charles,David,Ernest,representatives,Isaacs,Vic.,18.10.1980,,19.2.1990,retired,ALP
 98,,,Charles,Robert,Edwin,representatives,La Trobe,Vic.,24.3.1990,,31.8.2004,retired,LIB
-99,,,Child,Joan,,representatives,Henty,Vic.,18.10.1980,,19.2.1990,retired,ALP
+99,,,Child,Joan,,representatives,Henty,Vic.,18.10.1980,,11.2.1986,changed_party,ALP
+575,,,Child,Joan,,representatives,Henty,Vic.,11.2.1986,changed_party,29.8.1989,changed_party,SPK
+576,,,Child,Joan,,representatives,Henty,Vic.,29.8.1989,changed_party,19.2.1990,retired,ALP
 100,,,Charlesworth,Richard,Ian,representatives,Perth,WA,5.3.1983,,8.2.1993,retired,ALP
 101,,,Cheeseman,Darren,Leicester,representatives,Corangamite,Vic,24.11.2007,,,still_in_office,ALP
 567,,,Chester,Darren,,representatives,Gippsland,Vic,28.6.2008,by_election,,still_in_office,NP
@@ -236,7 +239,9 @@ member count,person count,title,last name,first name,middle name,house,Division,
 229,,,Hale,Damian,Francis,representatives,Solomon,NT,24.11.2007,,,still_in_office,ALP
 230,,,Hall,Jill,Griffiths,representatives,Shortland,NSW,3.10.1998,, ,still_in_office,ALP
 231,,,Hall,Raymond,Steele,representatives,Boothby,SA,21.2.1981,by_election,29.1.1996,retired,LIB
-232,,,Halverson,Robert,George,representatives,Casey,Vic.,1.12.1984,,31.8.1998,retired,LIB
+232,,,Halverson,Robert,George,representatives,Casey,Vic.,1.12.1984,,30.4.1996,changed_party,LIB
+581,,,Halverson,Robert,George,representatives,Casey,Vic.,30.4.1996,changed_party,4.3.1998,changed_party,SPK
+582,,,Halverson,Robert,George,representatives,Casey,Vic.,4.3.1998,changed_party,31.8.1998,retired,LIB
 233,,,Hand,Gerard,Leslie,representatives,Melbourne,Vic.,5.3.1983,,8.2.1993,retired,ALP
 234,,,Hanson,Pauline,Lee,representatives,Oxley,Qld,2.3.1996,,3.10.1998,defeated,PHON
 235,,,Hardgrave,Gary,Douglas,representatives,Moreton,Qld,2.3.1996,,24.11.2007,defeated,LIB
@@ -288,7 +293,8 @@ member count,person count,title,last name,first name,middle name,house,Division,
 281,,,James,Albert,William,representatives,Hunter,NSW,9.4.1960,by_election,19.9.1980,retired,ALP
 282,,,Jarman,Alan,William,representatives,Deakin,Vic.,26.11.1966,,5.3.1983,defeated,LIB
 283,,,Jeanes,Susan,Barbara,representatives,Kingston,SA,2.3.1996,,3.10.1998,defeated,LIB
-284,334,,Jenkins,Henry,Alfred,representatives,Scullin,Vic.,25.10.1969,,20.12.1985,resigned,ALP
+284,334,,Jenkins,Henry,Alfred,representatives,Scullin,Vic.,25.10.1969,,21.4.1983,changed_party,ALP
+574,334,,Jenkins,Henry,Alfred,representatives,Scullin,Vic.,21.4.1983,changed_party,20.12.1985,resigned,SPK
 285,,,Jenkins,Harry,Alfred,representatives,Scullin,Vic.,8.2.1986,by_election,4.5.1993,changed_party,ALP
 286,,,Jenkins,Harry,Alfred,representatives,Scullin,Vic.,4.5.1993,changed_party,29.1.1996,changed_party,CWM
 287,,,Jenkins,Harry,Alfred,representatives,Scullin,Vic.,29.1.1996,changed_party,11.2.2008,changed_party,ALP
@@ -358,8 +364,10 @@ member count,person count,title,last name,first name,middle name,house,Division,
 351,,,Marino,Nola,Bethwyn,representatives,Forrest,WA,24.11.2007,,,still_in_office,LIB
 352,,,Markus,Louise,Elizabeth,representatives,Greenway,NSW,9.10.2004,, ,still_in_office,LIB
 353,,,Marles,Richard,Donald,representatives,Corio,Vic,24.11.2007,,,still_in_office,ALP
-354,,,Martin,Stephen,Paul,representatives,Cunningham,NSW,13.3.1993,,16.8.2002,resigned,ALP
 355,,,Martin,Stephen,Paul,representatives,Macarthur,NSW,1.12.1984,,13.3.1993,elected_elsewhere,ALP
+354,,,Martin,Stephen,Paul,representatives,Cunningham,NSW,13.3.1993,,4.5.1993,changed_party,ALP
+579,,,Martin,Stephen,Paul,representatives,Cunningham,NSW,4.5.1993,changed_party,30.4.1996,changed_party,SPK
+580,,,Martin,Stephen,Paul,representatives,Cunningham,NSW,30.4.1996,changed_party,16.8.2002,resigned,ALP
 356,,,Martin,Vincent,Joseph,representatives,Banks,NSW,25.10.1969,,19.9.1980,retired,ALP
 357,,,Martyr,John,Raymond,representatives,Swan,WA,13.12.1975,,18.10.1980,defeated,LIB
 358,,,May,Margaret,Ann,representatives,McPherson,Qld,3.10.1998,, ,still_in_office,LIB
@@ -375,8 +383,10 @@ member count,person count,title,last name,first name,middle name,house,Division,
 368,,,McLachlan,Ian,Murray,representatives,Barker,SA,24.3.1990,,31.8.1998,retired,LIB
 369,,,McLean,Ross,Malcolm,representatives,Perth,WA,13.12.1975,,5.3.1983,defeated,LIB
 370,,,McLeay,John,Elden,representatives,Boothby,SA,26.11.1966,,22.1.1981,resigned,LIB
-371,,,McLeay,Leo,Boyce,representatives,Grayndler,NSW,23.6.1979,by_election,13.3.1993,elected_elsewhere,ALP
-372,,,McLeay,Leo,Boyce,representatives,Watson,NSW,13.3.1993,,31.8.2004,retired,ALP
+371,,,McLeay,Leo,Boyce,representatives,Grayndler,NSW,23.6.1979,by_election,29.8.1989,changed_party,ALP
+577,,,McLeay,Leo,Boyce,representatives,Grayndler,NSW,29.8.1989,changed_party,13.3.1993,elected_elsewhere,SPK
+372,,,McLeay,Leo,Boyce,representatives,Watson,NSW,13.3.1993,,4.5.1993,changed_party,SPK
+578,,,McLeay,Leo,Boyce,representatives,Watson,NSW,4.5.1993,changed_party,31.8.2004,retired,ALP
 373,,,McMahon,James,Leslie,representatives,Sydney,NSW,13.12.1975,,4.2.1983,retired,ALP
 374,,,McMahon,William,(later Sir William),representatives,Lowe,NSW,10.12.1949,,4.1.1982,resigned,LIB
 375,,,McMullan,Robert,Francis,representatives,Fraser,ACT,3.10.1998,, ,still_in_office,ALP
@@ -487,7 +497,8 @@ member count,person count,title,last name,first name,middle name,house,Division,
 479,,,Simmons,David,William,representatives,Calare,NSW,5.3.1983,,29.1.1996,retired,ALP
 480,,,Simon,Barry,Douglas,representatives,McMillan,Vic.,13.12.1975,,18.10.1980,defeated,LIB
 481,,,Simpkins,Luke,Xavier Linton,representatives,Cowan,WA,24.11.2007,,,still_in_office,LIB
-482,,,Sinclair,Ian,Mccahon,representatives,New England,NSW,30.11.1963,,31.8.1998,retired,NPA
+482,,,Sinclair,Ian,Mccahon,representatives,New England,NSW,30.11.1963,,4.3.1998,changed_party,NPA
+583,,,Sinclair,Ian,Mccahon,representatives,New England,NSW,4.3.1998,changed_party,31.8.1998,retired,SPK
 483,,,Slipper,Peter,Neil,representatives,Fisher,Qld,1.12.1984,,11.7.1987,defeated,NPA
 484,,,Slipper,Peter,Neil,representatives,Fisher,Qld,13.3.1993,, ,still_in_office,LIB
 485,,,Smith,Anthony,Charles,representatives,Dickson,Qld,2.3.1996,,3.10.1998,defeated,IND
@@ -497,7 +508,8 @@ member count,person count,title,last name,first name,middle name,house,Division,
 489,,,Smith,Warwick,Leslie,representatives,Bass,Tas.,2.3.1996,,3.10.1998,defeated,LIB
 490,,,Smith,Warwick,Leslie,representatives,Bass,Tas.,1.12.1984,,13.3.1993,defeated,LIB
 491,,,Smyth,Brendan,Michael,representatives,Canberra,ACT,25.3.1995,by_election,2.3.1996,defeated,LIB
-492,,,Snedden,Billy,Mackie (later Sir Billy),representatives,Bruce,Vic.,10.12.1955,,21.4.1983,resigned,LIB
+492,,,Snedden,Billy,Mackie (later Sir Billy),representatives,Bruce,Vic.,10.12.1955,,17.2.1976,changed_party,LIB
+573,,,Snedden,Billy,Mackie (later Sir Billy),representatives,Bruce,Vic.,17.2.1976,changed_party,21.4.1983,resigned,SPK
 493,,,Snow,James,Henry,representatives,Eden-Monaro,NSW,5.3.1983,,2.3.1996,defeated,ALP
 495,,,Snowdon,Warren,Edward,representatives,Northern Territory,NT,11.7.1987,,2.3.1996,defeated,ALP
 496,,,Snowdon,Warren,Edward,representatives,Northern Territory,NT,3.10.1998,,10.11.2001,elected_elsewhere,ALP
@@ -570,4 +582,4 @@ member count,person count,title,last name,first name,middle name,house,Division,
 562,,,Zammit,Paul,John,representatives,Lowe,NSW,2.3.1996,,3.10.1998,defeated,IND
 563,,,Zappia,Antonio,,representatives,Makin,SA,24.11.2007,,,still_in_office,ALP
 96,,,Chapman,Hedley,Grant Pearson,representatives,Kingston,SA,13.12.1975,,5.3.1983,defeated,LIB
-# Next available Rep number is 573
+# Next available Rep number is 585
