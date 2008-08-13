@@ -3,6 +3,7 @@ require 'RMagick'
 require 'mechanize_proxy'
 
 require 'configuration'
+require 'name'
 
 # TODO: Rename class
 class PeopleImageDownloader

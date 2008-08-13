@@ -26,6 +26,8 @@ require 'log4r'
 class HansardParser
   attr_reader :logger
   
+  # people passed in initializer have to have their aph_id's set. This can be done by
+  # calling PeopleImageDownloader.new.attach_aph_person_ids(people)
   def initialize(people)
     @people = people
     conf = Configuration.new
@@ -36,9 +38,6 @@ class HansardParser
     @logger.add(Log4r::Outputter.stdout)
     @logger.add(Log4r::FileOutputter.new('foo', :filename => conf.log_path, :trunc => false,
       :formatter => Log4r::PatternFormatter.new(:pattern => "[%l] %d :: %M")))
-
-    bio = PeopleImageDownloader.new
-    bio.attach_aph_person_ids(people)
   end
   
   def parse_date_house(date, xml_filename, house)

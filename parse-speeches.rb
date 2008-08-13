@@ -74,6 +74,8 @@ system("cp #{File.dirname(__FILE__)}/data/empty-template.xml #{conf.xml_path}/sc
 
 # First load people back in so that we can look up member id's
 people = PeopleCSVReader.read_members
+# Need to do this before using the HansardParser
+PeopleImageDownloader.new.attach_aph_person_ids(people)
 
 parser = HansardParser.new(people)
 
