@@ -165,9 +165,14 @@ class HansardParser
   # Returns new speaker
   def parse_speech_block(e, speaker, time, url, debates, date, house)
     speakername, speaker_url, interjection = extract_speakername(e, house)
-    # Only change speaker if a speaker name was found
-    this_speaker = speakername ? lookup_speaker(speakername, speaker_url, date, house) : speaker
-    debates.add_speech(this_speaker, time, url, clean_speech_content(url, e, house))
+    # Only change speaker if a speaker name or url was found
+    this_speaker = (speakername || speaker_url) ? lookup_speaker(speakername, speaker_url, date, house) : speaker
+    content = clean_speech_content(url, e, house)
+    if content.inner_text.strip == ""
+      logger.error "Empty speech by #{this_speaker.person.name.full_name} at approximate time #{time}"
+    end
+    #p content.inner_text.strip
+    debates.add_speech(this_speaker, time, url, content)
     # With interjections the next speech should never be by the person doing the interjection
     if interjection
       speaker
@@ -254,6 +259,7 @@ class HansardParser
     # Do pure string manipulations from here
     text = doc.to_s
     text = text.gsub("(\342\200\224)", '')
+    text = text.gsub("\302\240", '')
     text = text.gsub(/([^\w])\342\200\224/) {|m| m[0..0]}
     text = text.gsub(/\(\d{1,2}.\d\d a.m.\)/, '')
     text = text.gsub(/\(\d{1,2}.\d\d p.m.\)/, '')
