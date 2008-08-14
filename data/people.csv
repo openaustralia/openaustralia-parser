@@ -45,8 +45,8 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 43,,Bird,Sharon,Leah,,,
 44,,Birmingham,Simon,John,,,
 45,,Birney,Reginald,John,,,
-46,Mrs,Bishop,Bronwyn,Kathleen,,,the Hon.,Bishop,Bronwyn,Kathleen
-47,Ms,Bishop,Julie,Isabel,,,the Hon.,Bishop,Julie,Isabel
+46,Mrs,Bishop,Bronwyn,Kathleen,,,the Hon.,Bishop,Bronwyn,Kathleen,Hon.,Bishop,Bronwyn,Kathleen
+47,Ms,Bishop,Julie,Isabel,,,the Hon.,Bishop,Julie,Isabel,Hon.,Bishop,Julie,Isabel
 48,,Bishop,Mark,,,,,Bishop,Thomas,Mark
 49,,Bishop,Reginald,,,,
 50,Lady,Bjelke-Petersen,Florence,Isabel,,,
