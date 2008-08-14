@@ -373,42 +373,64 @@ class HansardParser
     text.sub('&', '&amp;')
   end
 
+  def lookup_speaker_by_title(speakername, date, house)
+    # Some sanity checking.
+    if speakername =~ /speaker/i && house.senate?
+      logger.error "The Speaker is not expected in the Senate"
+      return nil
+    elsif speakername =~ /president/i && house.representatives?
+      logger.error "The President is not expected in the House of Representatives"
+      return nil
+    elsif speakername =~ /chairman/i && house.representatives?
+      logger.error "The Chairman is not expected in the House of Representatives"
+      return nil
+    end
+    
+    # Handle speakers where they are referred to by position rather than name
+    if speakername =~ /^the speaker/i
+      @people.house_speaker(date)
+    elsif speakername =~ /^the deputy speaker/i
+      @people.deputy_house_speaker(date)
+    elsif speakername =~ /^the president/i
+      @people.senate_president(date)
+    elsif speakername =~ /^(the )?chairman/i || speakername =~ /^the deputy president/i
+      # The "Chairman" in the main Senate Hansard is when the Senate is sitting as a committee of the whole Senate.
+      # In this case, the "Chairman" is the deputy president. See http://www.aph.gov.au/senate/pubs/briefs/brief06.htm#3
+      @people.deputy_senate_president(date)
+    # Handle names in brackets
+    elsif speakername =~ /^the (deputy speaker|acting deputy president|temporary chairman) \((.*)\)/i
+      @people.find_member_by_name_current_on_date(Name.title_first_last($~[2]), date, house)
+    end
+  end
+  
+  def is_speaker?(speakertitle, date, house)
+    lookup_speaker_by_title(speakertitle, date, house)
+  end
+  
   def lookup_speaker_by_name(speakername, date, house)
     throw "speakername can not be nil in lookup_speaker" if speakername.nil?
 
-    # Handle speakers where they are referred to by position rather than name
-    if house.representatives?
-      if speakername =~ /^the speaker/i
-        member = @people.house_speaker(date)
-      elsif speakername =~ /^the deputy speaker \((.*)\)/i
-        speakername = $~[1]
-      elsif speakername =~ /^the deputy speaker/i
-        member = @people.deputy_house_speaker(date)
-      end
-    else
-      if speakername =~ /^the president/i
-        member = @people.senate_president(date)
-      elsif speakername =~ /^the acting deputy president \((.*)\)/i || speakername =~ /^the temporary chairman \((.*)\)/i
-        speakername = $~[1]
-      elsif speakername =~ /^(the )?chairman/i || speakername =~ /^the deputy president/i
-        # The "Chairman" in the main Senate Hansard is when the Senate is sitting as a committee of the whole Senate.
-        # In this case, the "Chairman" is the deputy president. See http://www.aph.gov.au/senate/pubs/briefs/brief06.htm#3
-        member = @people.deputy_senate_president(date)
-      end
-    end
-    
+    member = lookup_speaker_by_title(speakername, date, house)    
     # If member hasn't already been set then lookup using speakername
     if member.nil?
       name = Name.title_first_last(speakername)
       member = @people.find_member_by_name_current_on_date(name, date, house)
     end
-    
     member
   end
   
-  def lookup_speaker_by_url(speaker_url)
+  def lookup_speaker_by_url(speaker_url, date, house)
     if speaker_url =~ /^view_document.aspx\?TABLE=biogs&ID=(\d+)$/
-      @people.find_person_by_aph_id($~[1].to_i)
+      person = @people.find_person_by_aph_id($~[1].to_i)
+      if person
+        # Now find the member for that person who is current on the given date
+        @people.find_member_by_name_current_on_date(person.name, date, house)
+      else
+        logger.error "Can't figure out which person the link #{speaker_url} belongs to"
+        nil
+      end
+    elsif speaker_url.nil? || speaker_url == "view_document.aspx?TABLE=biogs&ID="
+      nil
     else
       logger.error "Speaker link has unexpected format: #{speaker_url}"
       nil
@@ -417,20 +439,25 @@ class HansardParser
   
   def lookup_speaker(speakername, speaker_url, date, house)
     #puts "speakername: #{speakername}, speaker_url: #{speaker_url}"
-    member = lookup_speaker_by_name(speakername, date, house)
-    if speaker_url.nil?
-      logger.warn "Link missing for speaker: #{speakername}" unless generic_speaker?(speakername, house) || speakername =~ /(speaker|clerk)/i
+    member_name = lookup_speaker_by_name(speakername, date, house)
+    member_url = lookup_speaker_by_url(speaker_url, date, house)
+
+    if member_url && member_name.nil?
+      # If link is valid use that to look up the member
+      member = member_url
+      logger.warn "Determined speaker #{member.person.name.full_name} by link only. Valid name missing."
+    elsif member_name && member_url.nil?
+      member = member_name
+      # Commenting out the warning below because it is so common. Interjections don't usually have a link
+      #logger.warn "Determined speaker #{member.person.name.full_name} by name only. Valid link missing." unless is_speaker?(speakername, date, house)
+    elsif member_name && member_url
+      # Always use member_name but check that the two match
+      member = member_name
+      logger.error "Look up of member by url and name does not match. Using name." unless member_url == member_name
     else
-      person = lookup_speaker_by_url(speaker_url)
-      if person.nil?
-        logger.error "Can't figure out which person the link #{speaker_url} belongs to"
-      elsif member.nil?
-        logger.warn "Link (to #{person.name.full_name}) seems to be valid but not the speakername (#{speakername})"
-        member = @people.find_member_by_name_current_on_date(person.name, date, house)
-      elsif member.person != person
-        logger.error "Look up of member by url and name does not match"
-      end
+      member = nil
     end
+    
     if member.nil?
       logger.warn "Unknown speaker #{speakername}" unless generic_speaker?(speakername, house)
       member = UnknownSpeaker.new(speakername)
