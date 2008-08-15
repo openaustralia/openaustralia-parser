@@ -235,6 +235,7 @@ class HansardParser
     t = text.gsub("\342\200\230", "'")
     t.gsub!("\342\200\231", "'")
     t.gsub!("\342\200\224", "-")
+    t.gsub!("\302\240", '')
     t.each_byte do |c|
       if c > 127
         logger.warn "Found invalid characters in: #{t.dump} on #{@sub_page_permanent_url}"
@@ -461,9 +462,9 @@ class HansardParser
   
   def generic_speaker?(speakername, house)
     if house.representatives?
-      speakername =~ /^(a )?(honourable|opposition|government) members?$/i
+      speakername =~ /^(an? )?(honourable|opposition|government) members?$/i
     else
-      speakername =~ /^(an )?(honourable|opposition|government) senators?$/i
+      speakername =~ /^(an? )?(honourable|opposition|government) senators?$/i
     end
   end
 
