@@ -47,30 +47,27 @@ class PeopleImageDownloader
   # later on to lookup speakers based on the link to their biography page. This is turn is double-checked with their
   # name.
   def attach_aph_person_ids(people)
-    each_person_bio_link do |link|
-      if link.to_s =~ /^Biography for (.*)$/
-        name = Name.last_title_first($~[1])
-        matches = people.find_people_by_name(name)
-        # If there's more than one match for this person based on the name alone, click on the link, lookup their birthday
-        # and use that in a match as well
-        if matches.size > 1
-          birthday = extract_birthday(@agent.click(link))
-          person = people.find_person_by_name_and_birthday(name, birthday)
-        else
-          person = matches.first
-        end
-        if person.nil?
-          puts "WARNING: Can not find '#{name.full_name}'"
-        else
-          if link.href =~ /^view_document.aspx\?ID=(\d+)&TABLE=BIOGS/
-            person.aph_id = $~[1].to_i
-          else
-            puts "ERROR: Link href: '#{link.href}' on biography page has unexpected format"
-          end
-        end
+    each_person_bio_link do |link, name_text|
+      name = Name.last_title_first(name_text)
+      matches = people.find_people_by_name(name)
+      # If there's more than one match for this person based on the name alone, click on the link, lookup their birthday
+      # and use that in a match as well
+      if matches.size > 1
+        birthday = extract_birthday(@agent.click(link))
+        person = people.find_person_by_name_and_birthday(name, birthday)
       else
-        puts "ERROR: Link text: '#{link}' on biography page has unexpected format"
-      end 
+        person = matches.first
+      end
+      if person.nil?
+        puts "WARNING: Can not find '#{name.full_name}'"
+      else
+        if link.href =~ /^view_document.aspx\?ID=(\d+)&TABLE=BIOGS/
+          person.aph_id = $~[1].to_i
+          puts "INFO: #{person.name.full_name} has aph_id #{person.aph_id}"
+        else
+          puts "ERROR: Link href: '#{link.href}' on biography page has unexpected format"
+        end
+      end
     end
     
     # Step through all the people and highlight the people that don't have aph person id's
@@ -81,22 +78,17 @@ class PeopleImageDownloader
   end
   
   def each_person_bio_link
-    # Iterate over current members of house
-    @agent.get(@conf.current_house_members_url).links[29..-4].each do |link|
-      yield link
-    end
-    # Iterate over current members of senate
-    @agent.get(@conf.current_senate_members_url).links[29..-4].each do |link|
-      yield link
-    end
-    # Iterate over former members of house and senate
-    @agent.get(@conf.former_members_house_and_senate_url).links[29..-4].each do |link|
-      yield link
+    links = @agent.get(@conf.current_house_members_url).links + @agent.get(@conf.current_senate_members_url).links +
+      @agent.get(@conf.former_members_house_and_senate_url).links
+    links.each do |link|
+      if link.to_s =~ /^Biography for (.*)$/
+        yield link, $~[1]
+      end
     end
   end
   
   def each_person_bio_page
-    each_person_bio_link do |link|
+    each_person_bio_link do |link, name_text|
       @agent.transact {yield @agent.click(link)}
     end
   end
