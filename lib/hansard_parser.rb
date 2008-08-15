@@ -438,24 +438,19 @@ class HansardParser
   end
   
   def lookup_speaker(speakername, speaker_url, date, house)
-    #puts "speakername: #{speakername}, speaker_url: #{speaker_url}"
     member_name = lookup_speaker_by_name(speakername, date, house)
-    member_url = lookup_speaker_by_url(speaker_url, date, house)
-
-    if member_url && member_name.nil?
-      # If link is valid use that to look up the member
-      member = member_url
-      logger.warn "Determined speaker #{member.person.name.full_name} by link only. Valid name missing."
-    elsif member_name && member_url.nil?
+    if member_name
       member = member_name
-      # Commenting out the warning below because it is so common. Interjections don't usually have a link
-      #logger.warn "Determined speaker #{member.person.name.full_name} by name only. Valid link missing." unless is_speaker?(speakername, date, house)
-    elsif member_name && member_url
-      # Always use member_name but check that the two match
-      member = member_name
-      logger.error "Look up of member by url and name does not match. Using name." unless member_url == member_name
     else
-      member = nil
+      # Only try to use the link if we can't look up by name
+      member_url = lookup_speaker_by_url(speaker_url, date, house)
+      if member_url
+        # If link is valid use that to look up the member
+        member = member_url
+        logger.error "Determined speaker #{member.person.name.full_name} by link only. Valid name missing."
+      else
+        member = nil
+      end
     end
     
     if member.nil?
