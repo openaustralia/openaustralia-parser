@@ -63,7 +63,6 @@ class PeopleImageDownloader
       else
         if link.href =~ /^view_document.aspx\?ID=(\d+)&TABLE=BIOGS/
           person.aph_id = $~[1].to_i
-          puts "INFO: #{person.name.full_name} has aph_id #{person.aph_id}"
         else
           puts "ERROR: Link href: '#{link.href}' on biography page has unexpected format"
         end
