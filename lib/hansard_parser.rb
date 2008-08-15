@@ -198,10 +198,12 @@ class HansardParser
       m = text.match(/([a-z].*) interjecting/i)
       if m
         name = m[1]
+        talker_not_correctly_marked_up = true
       else
         m = text.match(/([a-z].*)—/i)
         if m
           name = m[1]
+          talker_not_correctly_marked_up = true
         else
           name = nil
         end
@@ -211,11 +213,19 @@ class HansardParser
       m = strip_tags(content).match(/([a-z].*) interjecting/i)
       if m
         name = m[1]
+        talker_not_correctly_marked_up = true
         interjection = true
       else
         m = strip_tags(content).match(/^([a-z].*?)—/i)
-        name = m[1] if m and generic_speaker?(m[1], house)
+        if m and generic_speaker?(m[1], house)
+          name = m[1]
+          talker_not_correctly_marked_up = true
+        end
       end
+    end
+    
+    if talker_not_correctly_marked_up
+      logger.warn "Speech by #{name} not specified by talkername in #{@sub_page_permanent_url}" unless generic_speaker?(name, house)
     end
     [name, speaker_url, interjection]
   end
