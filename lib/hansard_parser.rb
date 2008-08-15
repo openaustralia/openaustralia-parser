@@ -84,9 +84,8 @@ class HansardParser
     if link_text =~ /^Speech:/ || link_text =~ /^QUESTIONS? WITHOUT NOTICE/i || link_text =~ /^QUESTIONS TO THE SPEAKER:/
       # Link text for speech has format:
       # HEADING > NAME > HOUR:MINS:SECS
-      split = link_text.split('>').map{|a| a.strip}
-      logger.error "Expected split to have length 3 in link text: #{link_text}" unless split.size == 3
-      time = split[2]
+      time = link_text.split('>')[2]
+      time.strip! unless time.nil?
       # Check that time is something valid
       unless time =~ /^\d\d:\d\d:\d\d$/
         logger.error "Time #{time} invalid on link #{link_text}"
