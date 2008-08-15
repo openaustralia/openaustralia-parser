@@ -68,7 +68,7 @@ class HansardParser
       begin
         parse_sub_day_page(link.to_s, agent.click(link), debates, date, house)
       rescue
-        logger.error "Exception thrown during processing of sub page: #{link}"
+        logger.error "Exception thrown during processing of sub page: #{@sub_page_permanent_url}"
         raise $!
       end
       # This ensures that every sub day page has a different major count which limits the impact
@@ -115,9 +115,8 @@ class HansardParser
     top_content_tag = sub_page.search('div#contentstart').first
     throw "Page on date #{date} at time #{time} has no content" if top_content_tag.nil?
     
-    # Extract permanent URL of this subpage. Also, quoting because there is a bug
-    # in XML Builder that for some reason is not quoting attributes properly
-    url = quote(sub_page.links.text("[Permalink]").uri.to_s)
+    # Extract permanent URL of this subpage.
+    @sub_page_permanent_url = sub_page.links.text("[Permalink]").uri.to_s
 
     newtitle = sub_page.search('div#contentstart div.hansardtitle').map { |m| m.inner_html }.join('; ')
     newsubtitle = sub_page.search('div#contentstart div.hansardsubtitle').map { |m| m.inner_html }.join('; ')
@@ -125,7 +124,7 @@ class HansardParser
     newtitle = replace_unicode(newtitle)
     newsubtitle = replace_unicode(newsubtitle)
 
-    debates.add_heading(newtitle, newsubtitle, url)
+    debates.add_heading(newtitle, newsubtitle, @sub_page_permanent_url)
 
     speaker = nil
     top_content_tag.children.each do |e|
@@ -136,18 +135,18 @@ class HansardParser
         if class_value == "hansardtitlegroup" || class_value == "hansardsubtitlegroup"
         elsif class_value == "speech0" || class_value == "speech1"
           e.children[1..-1].each do |e|
-            speaker = parse_speech_block(e, speaker, time, url, debates, date, house)
+            speaker = parse_speech_block(e, speaker, time, @sub_page_permanent_url, debates, date, house)
             debates.increment_minor_count
           end
         elsif class_value == "motionnospeech" || class_value == "subspeech0" || class_value == "subspeech1" ||
             class_value == "motion" || class_value = "quote"
-          speaker = parse_speech_block(e, speaker, time, url, debates, date, house)
+          speaker = parse_speech_block(e, speaker, time, @sub_page_permanent_url, debates, date, house)
           debates.increment_minor_count
         else
           throw "Unexpected class value #{class_value} for tag #{e.name}"
         end
       elsif e.name == "p"
-        speaker = parse_speech_block(e, speaker, time, url, debates, date, house)
+        speaker = parse_speech_block(e, speaker, time, @sub_page_permanent_url, debates, date, house)
         debates.increment_minor_count
       elsif e.name == "table"
         if class_value == "division"
@@ -169,7 +168,7 @@ class HansardParser
     this_speaker = (speakername || speaker_url) ? lookup_speaker(speakername, speaker_url, date, house) : speaker
     content = clean_speech_content(url, e, house)
     if content.inner_text.strip == ""
-      logger.error "Empty speech by #{this_speaker.person.name.full_name} at approximate time #{time}"
+      logger.error "Empty speech by #{this_speaker.person.name.full_name} on #{@sub_page_permanent_url}"
     end
     #p content.inner_text.strip
     debates.add_speech(this_speaker, time, url, content)
@@ -234,7 +233,7 @@ class HansardParser
     t.gsub!("\342\200\224", "-")
     t.each_byte do |c|
       if c > 127
-        logger.warn "Found invalid characters in: #{t.dump}"
+        logger.warn "Found invalid characters in: #{t.dump} on #{@sub_page_permanent_url}"
       end
     end
     t
@@ -275,7 +274,7 @@ class HansardParser
       end
       allowed_tags = ["b", "i", "dl", "dt", "dd", "ul", "li", "a", "table", "td", "tr", "img"]
       if !allowed_tags.include?(tag) && t != "<p>" && t != '<p class="italic">'
-        logger.error "Tag #{t} is present in speech contents: " + text
+        logger.error "Tag #{t} is present in speech contents: #{text} on #{@sub_page_permanent_url}"
       end
     end
     doc = Hpricot(text)
@@ -369,20 +368,16 @@ class HansardParser
     content
   end
   
-  def quote(text)
-    text.sub('&', '&amp;')
-  end
-
   def lookup_speaker_by_title(speakername, date, house)
     # Some sanity checking.
     if speakername =~ /speaker/i && house.senate?
-      logger.error "The Speaker is not expected in the Senate"
+      logger.error "The Speaker is not expected in the Senate on #{@sub_page_permanent_url}"
       return nil
     elsif speakername =~ /president/i && house.representatives?
-      logger.error "The President is not expected in the House of Representatives"
+      logger.error "The President is not expected in the House of Representatives on #{@sub_page_permanent_url}"
       return nil
     elsif speakername =~ /chairman/i && house.representatives?
-      logger.error "The Chairman is not expected in the House of Representatives"
+      logger.error "The Chairman is not expected in the House of Representatives on #{@sub_page_permanent_url}"
       return nil
     end
     
@@ -426,13 +421,13 @@ class HansardParser
         # Now find the member for that person who is current on the given date
         @people.find_member_by_name_current_on_date(person.name, date, house)
       else
-        logger.error "Can't figure out which person the link #{speaker_url} belongs to"
+        logger.error "Can't figure out which person the link #{speaker_url} belongs to on #{@sub_page_permanent_url}"
         nil
       end
     elsif speaker_url.nil? || speaker_url == "view_document.aspx?TABLE=biogs&ID="
       nil
     else
-      logger.error "Speaker link has unexpected format: #{speaker_url}"
+      logger.error "Speaker link has unexpected format: #{speaker_url} on #{@sub_page_permanent_url}"
       nil
     end
   end
@@ -447,14 +442,14 @@ class HansardParser
       if member_url
         # If link is valid use that to look up the member
         member = member_url
-        logger.error "Determined speaker #{member.person.name.full_name} by link only. Valid name missing."
+        logger.error "Determined speaker #{member.person.name.full_name} by link only on #{@sub_page_permanent_url}. Valid name missing."
       else
         member = nil
       end
     end
     
     if member.nil?
-      logger.warn "Unknown speaker #{speakername}" unless generic_speaker?(speakername, house)
+      logger.warn "Unknown speaker #{speakername} in #{@sub_page_permanent_url}" unless generic_speaker?(speakername, house)
       member = UnknownSpeaker.new(speakername)
     end
     member
