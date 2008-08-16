@@ -90,11 +90,11 @@ class Period < PeriodBase
   end
   
   def senate_president?
-    senator? && @party == "PRESIDENT"
+    senator? && @party == "PRES"
   end
   
   def deputy_senate_president?
-    senator? && @party == "DEPUTY PRESIDENT"
+    senator? && @party == "DPRES"
   end
   
   def ==(p)

@@ -9,7 +9,7 @@ member count,person count,title,last name,first name,middle name,house,Division,
 9,,,Baume,Michael,Ehrenfried,senate,,NSW,1.7.1985,,9.9.1996 ,resigned,LIB
 10,,,Baume,Peter,Erne,senate,,NSW,18.5.1974,,28.1.1991,resigned,LIB
 11,,,Beahan,Michael,Eamon,senate,,WA,11.7.1987,,01.02.1994,changed_party,ALP
-272,,,Beahan,Michael,Eamon,senate,,WA,01.02.1994,changed_party,30.6.1996,defeated,PRESIDENT
+272,,,Beahan,Michael,Eamon,senate,,WA,01.02.1994,changed_party,30.6.1996,defeated,PRES
 12,,,Bell,Robert,John,senate,,Tas.,7.3.1990,section_15,30.6.1996,defeated,AD
 13,,,Bernardi,Cory,,senate,,SA,4.5.2006,section_15,,still_in_office,LIB
 14,,,Birmingham,Simon,John,senate,,SA,3.5.2007,section_15,,still_in_office,LIB
@@ -33,7 +33,7 @@ member count,person count,title,last name,first name,middle name,house,Division,
 31,,,Bushby,David,Christopher,senate,,Tasmania,30.8.2007,section_15,,still_in_office,LIB
 32,,,Button,John,Norman,senate,,Vic.,18.5.1974,,31.3.1993,resigned,ALP
 33,,,Calvert,Paul,Henry,senate,,Tas.,11.7.1987,,19.08.2002,changed_party,LIB
-275,,,Calvert,Paul,Henry,senate,,Tas.,19.08.2002,changed_party,14.08.2007,changed_party,PRESIDENT
+275,,,Calvert,Paul,Henry,senate,,Tas.,19.08.2002,changed_party,14.08.2007,changed_party,PRES
 276,,,Calvert,Paul,Henry,senate,,Tas.,15.08.2007,changed_party,29.8.2007,resigned,LIB
 35,,,Campbell,Ian,Gordon,senate,,WA,16.5.1990,section_15,31.5.2007,resigned,LIB
 36,,,Carr,Kim,John,senate,,Vic.,28.4.1993,section_15,,still_in_office,ALP
@@ -79,7 +79,7 @@ member count,person count,title,last name,first name,middle name,house,Division,
 76,,,Evans,John,Gordon,senate,,WA,5.3.1983 ,,30.6.1985 ,defeated,AD
 77,,,Faulkner,John,Philip,senate,,NSW,4.4.1989,section_15,,still_in_office,ALP
 78,,,Ferguson,Alan,Baird,senate,,SA,26.5.1992,section_15,14.8.2007,changed_party,LIB
-263,,,Ferguson,Alan,Baird,senate,,SA,15.8.2007,changed_party,,still_in_office,PRESIDENT
+263,,,Ferguson,Alan,Baird,senate,,SA,15.8.2007,changed_party,,still_in_office,PRES
 79,,,Ferris,Jeannie,Margaret,senate,,SA,1.7.1996 ,,12.7.1996 ,resigned; ,LIB
 80,,,Ferris,Jeannie,Margaret,senate,,SA,24.7.1996 ,section_15,2.4.2007 ,died,LIB
 81,,,Fielding,Steve,,senate,,Vic.,1.7.2005 ,,,still_in_office,FFP
@@ -108,7 +108,7 @@ member count,person count,title,last name,first name,middle name,house,Division,
 104,,,Hill,Heather,Elaine,senate,,Qld,18.11.1998,,23.9.1999 ,disqualified,PHON
 105,,,Hill,Robert,Murray,senate,,SA,1.7.1981 ,,15.3.2006 ,resigned,LIB
 106,,,Hogg,John,Joseph,senate,,Qld,1.7.1996,,19.8.2002,changed_party,ALP
-264,,,Hogg,John,Joseph,senate,,Qld,19.8.2002,changed_party,,still_in_office,DEPUTY PRESIDENT
+264,,,Hogg,John,Joseph,senate,,Qld,19.8.2002,changed_party,,still_in_office,DPRES
 107,,,Humphries,Gary,John Joseph ,senate,,ACT,18.2.2003 ,section_15,,still_in_office,LIB
 108,,,Hurley,Annette,Kay,senate,,SA,1.7.2005 ,,,still_in_office,ALP
 109,,,Hutchins,Stephen,Patrick,senate,,NSW,14.10.1998 ,section_15,,still_in_office,ALP
@@ -124,7 +124,7 @@ member count,person count,title,last name,first name,middle name,house,Division,
 121,,,Knowles,Susan,Christine,senate,,WA,1.12.1984 ,,30.6.2005 ,retired,LIB
 122,,,Lajovic,Milivoj,Emil,senate,,NSW,13.12.1975 ,,30.6.1985 ,retired,LIB
 123,,,Laucke,Condor,Louis,senate,,SA,2.11.1967,section_15,17.02.1976,changed_party,LIB
-266,,,Laucke,Condor,Louis,senate,,SA,17.02.1976,changed_party,30.6.1981,retired,PRESIDENT
+266,,,Laucke,Condor,Louis,senate,,SA,17.02.1976,changed_party,30.6.1981,retired,PRES
 24,,,Lees,Meg,Heather,senate,,SA,4.4.1990 ,section_15,30.6.2005 ,defeated,IND
 125,,,Lewis,Austin,William Russell,senate,,Vic.,17.12.1976 ,section_15,30.6.1993 ,retired,LIB
 127,,,Loosley,Stephen,,senate,,NSW,1.7.1990 ,,19.5.1995 ,resigned,ALP
@@ -143,7 +143,7 @@ member count,person count,title,last name,first name,middle name,house,Division,
 142,,,Maunsell,Charles,Ronald,senate,,Qld,1.7.1968 ,,30.6.1981 ,defeated,NCP
 143,,,McAuliffe,Ronald,Edward,senate,,Qld,1.7.1971 ,,30.6.1981 ,retired,ALP
 144,,,McClelland,Douglas,,senate,,NSW,1.7.1962,,21.04.1983,changed_party,ALP
-268,,,McClelland,Douglas,,senate,,NSW,21.04.1983,changed_party,23.1.1987,resigned,PRESIDENT
+268,,,McClelland,Douglas,,senate,,NSW,21.04.1983,changed_party,23.1.1987,resigned,PRES
 145,,,McEwen,Anne,,senate,,SA,1.7.2005 ,,,still_in_office,ALP
 146,,,McGauran,Julian,John James,senate,,Vic.,11.7.1987 ,,30.6.1990 ,defeated,NP
 147,,,McGauran,Julian,John James,senate,,Vic.,1.7.1993,,,still_in_office,NP
@@ -183,7 +183,7 @@ member count,person count,title,last name,first name,middle name,house,Division,
 184,,,Rae,Peter,Elliot,senate,,Tas.,1.7.1968 ,,16.1.1986 ,resigned,LIB
 185,,,Ray,Robert,Francis,senate,,Vic.,1.7.1981 ,,,still_in_office,ALP
 186,,,Reid,Margaret,Elizabeth,senate,,ACT,5.5.1981,section_15,20.08.1996,changed_party,LIB
-273,,,Reid,Margaret,Elizabeth,senate,,ACT,20.08.1996,changed_party,18.08.2002,changed_party,PRESIDENT
+273,,,Reid,Margaret,Elizabeth,senate,,ACT,20.08.1996,changed_party,18.08.2002,changed_party,PRES
 274,,,Reid,Margaret,Elizabeth,senate,,ACT,18.08.2002,changed_party,14.2.2003,resigned,LIB
 187,,,Reynolds,Margaret,,senate,,Qld,5.3.1983 ,,30.6.1999 ,retired,ALP
 188,,,Richardson,Graham,Frederick,senate,,NSW,5.3.1983 ,,25.3.1994 ,resigned,ALP
@@ -204,9 +204,9 @@ member count,person count,title,last name,first name,middle name,house,Division,
 203,,,Short,James,Robert,senate,,Vic.,1.12.1984 ,,12.5.1997 ,resigned,LIB
 205,,,Sibraa,Kerry,Walter,senate,,NSW,13.12.1975,,30.6.1978,defeated,ALP
 204,,,Sibraa,Kerry,Walter,senate,,NSW,9.8.1978,section_15,17.02.1987,changed_party,ALP
-269,,,Sibraa,Kerry,Walter,senate,,NSW,17.02.1987,changed_party,05.06.1987,changed_party,PRESIDENT
+269,,,Sibraa,Kerry,Walter,senate,,NSW,17.02.1987,changed_party,05.06.1987,changed_party,PRES
 270,,,Sibraa,Kerry,Walter,senate,,NSW,05.06.1987,changed_party,14.09.1987,changed_party,ALP
-271,,,Sibraa,Kerry,Walter,senate,,NSW,14.09.1987,changed_party,1.2.1994,resigned,PRESIDENT
+271,,,Sibraa,Kerry,Walter,senate,,NSW,14.09.1987,changed_party,1.2.1994,resigned,PRES
 206,,,Siddons,John,Royston,senate,,Vic.,1.7.1981 ,,4.2.1983 ,defeated,UNITE AP
 207,,,Siddons,John,Royston,senate,,Vic.,1.7.1985 ,,5.6.1987 ,defeated,UNITE AP
 208,,,Siewert,Rachel,Mary,senate,,WA,1.7.2005 ,,,still_in_office,GRN
@@ -246,7 +246,7 @@ member count,person count,title,last name,first name,middle name,house,Division,
 245,,,Wortley,Dana,Johanna,senate,,SA,1.7.2005 ,,,still_in_office,ALP
 246,,,Wriedt,Kenneth,Shaw,senate,,Tas.,1.7.1968 ,,25.9.1980 ,resigned,ALP
 247,,,Young,Harold,William,senate,,SA,1.7.1968,,18.08.1981,changed_party,LIB
-267,,,Young,Harold,William,senate,,SA,18.08.1981,changed_party,4.2.1983,defeated,PRESIDENT
+267,,,Young,Harold,William,senate,,SA,18.08.1981,changed_party,4.2.1983,defeated,PRES
 248,,,Zakharov,Alice,Olive,senate,,Vic.,5.3.1983 ,,6.3.1995 ,died,ALP
 # Senators that started on 1 July 2008
 249,,,Arbib,Mark,,senate,,NSW,1.7.2008,,,still_in_office,ALP
