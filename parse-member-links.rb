@@ -54,8 +54,11 @@ x.publicwhip do
 end
 xml.close
 
+puts "Q&A Links..."
+
+data = {}
+
 if conf.write_xml_representatives
-  puts "Q&A Links..."
 
   # First get mapping between constituency name and web page
   page = agent.get(conf.qanda_electorate_url)
@@ -80,18 +83,42 @@ if conf.write_xml_representatives
   # Clear out bad divisions
   bad_divisions.each { |division| map.delete(division) }
 
-  xml = File.open("#{conf.members_xml_path}/links-abc-qanda.xml", 'w')
-  x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
-  x.instruct!
-  x.publicwhip do
-    people.find_current_members(House.representatives).each do |member|
-      short_division = member.division.downcase[0..3]
-      link = map[member.division.downcase]
-      puts "ERROR: Couldn't lookup division #{member.division}" if link.nil?
-      x.personinfo(:id => member.person.id, :mp_biography_qanda => link)
+  people.find_current_members(House.representatives).each do |member|
+    short_division = member.division.downcase[0..3]
+    link = map[member.division.downcase]
+    data[member.person.id] = link
+    puts "ERROR: Couldn't lookup division #{member.division}" if link.nil?
+  end
+end
+
+if conf.write_xml_senators
+  page = agent.get(conf.qanda_all_senators_url)
+  page.links.each do |link|
+    if link.uri.to_s =~ /^\/tv\/qanda\/senators\//
+      # HACK to handle Unicode in Kerry O'Brien's name on Q&A site
+      if link.to_s == "Kerry O\222Brien"
+        name_text = "Kerry O'Brien"
+      else
+        name_text = link.to_s
+      end
+      member = people.find_member_by_name_current_on_date(Name.title_first_last(name_text), Date.today, House.senate)
+      if member.nil?
+        puts "WARNING: Can't find Senator #{link}"
+      else
+        data[member.person.id] = page.uri + link.uri
+      end
     end
   end
-  xml.close
 end
+
+xml = File.open("#{conf.members_xml_path}/links-abc-qanda.xml", 'w')
+x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
+x.instruct!
+x.publicwhip do
+  data.each do |id, link|
+    x.personinfo(:id => id, :mp_biography_qanda => link)
+  end
+end
+xml.close
 
 system(conf.web_root + "/twfy/scripts/mpinfoin.pl links")

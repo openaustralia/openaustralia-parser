@@ -26,7 +26,8 @@ alternative_current_senate_members_url: "http://www.aph.gov.au/Senate/senators/h
 
 # List of electorates from website for the ABC's Q&A programme
 qanda_electorate_url: "http://www.abc.net.au/tv/qanda/find-your-local-mp-by-electorate.htm"
+qanda_all_senators_url: "http://www.abc.net.au/tv/qanda/find-a-senate-member-by-a-z.htm"
 
 # Selectively allows us to turn off and on the writing of the XML
 write_xml_representatives: true
-write_xml_senators: false
+write_xml_senators: true
