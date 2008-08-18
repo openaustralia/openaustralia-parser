@@ -13,8 +13,8 @@ require 'configuration'
 
 # Range of dates to test
 
-from_date = Date.new(2006, 1, 1)
-to_date = Date.new(2008, 6, 1)
+from_date = Date.new(2007, 1, 1)
+to_date = Date.new(2008, 1, 1) - 1
 
 # Number of items to skip at the beginning
 skip = 0
@@ -22,7 +22,7 @@ skip = 0
 # Dates to test first before anything else
 # Update this list with any dates that have shown up problems in the past
 
-test_first = [Date.new(2007,8,8), Date.new(2008,3,12)]
+test_first = [Date.new(2007,8,8), Date.new(2007,8,14)]
 
 skip_dates = []
 
@@ -35,6 +35,33 @@ people = PeopleCSVReader.read_members
 
 parser = HansardParser.new(people)
 
+def compare_xml(path1, path2)
+  if File.exists?(path1) && File.exists?(path2)
+    command = "diff #{path2} #{path1}"
+    puts command
+    system(command)
+    if $? != 0
+      test = "regression_failed_text.xml"
+      ref = "regression_failed_ref.xml"
+      #system("rm -f #{test} #{ref}")
+      system("tidy -xml -o #{test} #{path2}")
+      system("tidy -xml -o #{ref} #{path1}")
+      system("opendiff #{test} #{ref}")
+      puts "ERROR: #{path2} and #{path1} don't match"
+      puts "Regression tests FAILED on date #{date} at count #{count}!"
+      exit
+    end
+  elsif File.exists?(path1)
+    puts "ERROR: #{path2} is missing"
+    puts "Regression tests FAILED on date #{date} at count #{count}!"
+    exit
+  elsif File.exists?(path2)
+    puts "ERROR: #{path1} is missing"
+    puts "Regression tests FAILED on date #{date} at count #{count}!"
+    exit
+  end
+end
+
 def test_date(date, conf, parser, count)
   reps_xml_filename = "debates#{date}.xml"
   senate_xml_filename = "daylord#{date}.xml"
@@ -42,34 +69,10 @@ def test_date(date, conf, parser, count)
   new_senate_xml_path = "#{conf.xml_path}/scrapedxml/lordspages/#{senate_xml_filename}"
   ref_reps_xml_path = "#{File.dirname(__FILE__)}/../../ref/#{reps_xml_filename}"
   ref_senate_xml_path = "#{File.dirname(__FILE__)}/../../ref/#{senate_xml_filename}"
-  # Only checking house of Representatives for the time being
   parser.parse_date_house(date, new_reps_xml_path, House.representatives)
-  
-  if File.exists?(ref_reps_xml_path) && File.exists?(new_reps_xml_path)
-    # Now compare generated and reference xml
-    command = "diff #{new_reps_xml_path} #{ref_reps_xml_path}"
-    puts command
-    system(command)
-    if $? != 0
-      test = "regression_failed_text.xml"
-      ref = "regression_failed_ref.xml"
-      #system("rm -f #{test} #{ref}")
-      system("tidy -xml -o #{test} #{new_reps_xml_path}")
-      system("tidy -xml -o #{ref} #{ref_reps_xml_path}")
-      system("opendiff #{test} #{ref}")
-      puts "ERROR: #{new_reps_xml_path} and #{ref_reps_xml_path} don't match"
-      puts "Regression tests FAILED on date #{date} at count #{count}!"
-      exit
-    end
-  elsif File.exists?(ref_reps_xml_path)
-    puts "ERROR: #{new_reps_xml_path} is missing"
-    puts "Regression tests FAILED on date #{date} at count #{count}!"
-    exit
-  elsif File.exists?(new_reps_xml_path)
-    puts "ERROR: #{ref_reps_xml_path} is missing"
-    puts "Regression tests FAILED on date #{date} at count #{count}!"
-    exit
-  end
+  compare_xml(ref_reps_xml_path, new_reps_xml_path)
+  parser.parse_date_house(date, new_senate_xml_path, House.senate)
+  compare_xml(ref_senate_xml_path, new_senate_xml_path)  
 end
 
 class Array
