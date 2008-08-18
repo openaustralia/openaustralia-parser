@@ -13,13 +13,18 @@ class Speech
       @logger.error "Empty speech by #{@speaker.person.name.full_name} on #{@sub_page_permanent_url}"
     end
     if @speaker
-      x.speech(:speakername => @speaker.name.full_name, :time => time, :url => @url, :id => id,
+      x.speech(:speakername => @speaker.name.full_name, :time => time, :url => url_quote(@url), :id => id,
         :speakerid => @speaker.id) { x << @content.to_s }
     else
-      x.speech(:speakername => "unknown", :time => time, :url => @url, :id => id) { x << @content.to_s }
+      x.speech(:speakername => "unknown", :time => time, :url => url_quote(@url), :id => id) { x << @content.to_s }
     end
   end
 
+  # Quoting of url's is required to be nice and standards compliant
+  def url_quote(url)
+    url.gsub('&', '&amp;')
+  end
+  
   def append_to_content(content)
     if content.kind_of?(Array)
       @content = @content + content
