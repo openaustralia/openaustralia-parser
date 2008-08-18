@@ -123,9 +123,6 @@ class HansardParser
 
     newtitle = sub_page.search('div#contentstart div.hansardtitle').map { |m| m.inner_html }.join('; ')
     newsubtitle = sub_page.search('div#contentstart div.hansardsubtitle').map { |m| m.inner_html }.join('; ')
-    # Replace any unicode characters
-    newtitle = replace_unicode(newtitle)
-    newsubtitle = replace_unicode(newsubtitle)
 
     debates.add_heading(newtitle, newsubtitle, @sub_page_permanent_url)
 
@@ -234,17 +231,6 @@ class HansardParser
     [name, speaker_url, interjection]
   end
   
-  # Replace unicode characters by their equivalent
-  def replace_unicode(text)
-    text = text.chars.normalize
-    text.each_byte do |c|
-      if c > 127
-        logger.warn "Found invalid characters in: #{t.dump} on #{@sub_page_permanent_url}"
-      end
-    end
-    text
-  end
-  
   def clean_speech_content(base_url, content, house)
     doc = Hpricot(content.to_s)
     talkername_tags = doc.search('span.talkername ~ b ~ *')
@@ -274,7 +260,7 @@ class HansardParser
     fix_attributes_of_td_tags(doc)
     fix_motionnospeech_tags(doc)
     # Do pure string manipulations from here
-    text = doc.to_s.chars
+    text = doc.to_s.chars.normalize(:c)
     text = text.gsub(/\(\d{1,2}.\d\d (a|p).m.\)—/, '')
     text = text.gsub('()', '')
     text = text.gsub('<div class="separator"></div>', '')
@@ -294,8 +280,9 @@ class HansardParser
     # Reparse
     doc = Hpricot(text)
     doc.traverse_element do |node|
-      if node.to_s.chars[0] == 160 || node.to_s.chars[0..0] == '—'
-        node.swap(node.to_s.chars[1..-1])
+      text = node.to_s.chars
+      if text[0..0] == '—' || text[0..0] == [160].pack('U*')
+        node.swap(text[1..-1].to_s)
       end
     end
     doc
