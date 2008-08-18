@@ -44,8 +44,8 @@ def compare_xml(path1, path2)
       test = "regression_failed_text.xml"
       ref = "regression_failed_ref.xml"
       #system("rm -f #{test} #{ref}")
-      system("tidy -xml -o #{test} #{path2}")
-      system("tidy -xml -o #{ref} #{path1}")
+      system("tidy -xml -utf8 -o #{test} #{path2}")
+      system("tidy -xml -utf8 -o #{ref} #{path1}")
       system("opendiff #{test} #{ref}")
       puts "ERROR: #{path2} and #{path1} don't match"
       puts "Regression tests FAILED on date #{date} at count #{count}!"
@@ -80,7 +80,7 @@ class Array
     temp = clone
     result = []
     (1..size).each do
-      i = rand(temp.size)
+      i = Kernel.rand(temp.size)
       result << temp[i]
       temp.delete_at(i)
     end
