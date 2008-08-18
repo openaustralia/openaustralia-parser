@@ -5,6 +5,10 @@ require 'debates'
 require 'builder_alpha_attributes'
 require 'house'
 require 'people_image_downloader'
+# Using Active Support (part of Ruby on Rails) for Unicode support
+require 'activesupport'
+
+$KCODE = 'u'
 
 class UnknownSpeaker
   def initialize(name)
@@ -232,20 +236,29 @@ class HansardParser
   
   # Replace unicode characters by their equivalent
   def replace_unicode(text)
-    t = text.gsub("\342\200\230", "'")
-    t.gsub!("\342\200\231", "'")
-    t.gsub!("\342\200\224", "-")
-    t.gsub!("\302\240", '')
-    t.each_byte do |c|
+    text = text.chars.normalize
+    text.each_byte do |c|
       if c > 127
         logger.warn "Found invalid characters in: #{t.dump} on #{@sub_page_permanent_url}"
       end
     end
-    t
+    text
   end
   
   def clean_speech_content(base_url, content, house)
     doc = Hpricot(content.to_s)
+    talkername_tags = doc.search('span.talkername ~ b ~ *')
+    talkername_tags.each do |tag|
+      if tag.to_s.chars[0..0] == '—'
+        tag.swap(tag.to_s.chars[1..-1])
+      end
+    end
+    talkername_tags = doc.search('span.talkername ~ *')
+    talkername_tags.each do |tag|
+      if tag.to_s.chars[0..0] == '—'
+        tag.swap(tag.to_s.chars[1..-1])
+      end
+    end
     doc = remove_generic_speaker_names(doc, house)
     doc.search('div.speechType').remove
     doc.search('span.talkername ~ b').remove
@@ -261,12 +274,8 @@ class HansardParser
     fix_attributes_of_td_tags(doc)
     fix_motionnospeech_tags(doc)
     # Do pure string manipulations from here
-    text = doc.to_s
-    text = text.gsub("(\342\200\224)", '')
-    text = text.gsub("\302\240", '')
-    text = text.gsub(/([^\w])\342\200\224/) {|m| m[0..0]}
-    text = text.gsub(/\(\d{1,2}.\d\d a.m.\)/, '')
-    text = text.gsub(/\(\d{1,2}.\d\d p.m.\)/, '')
+    text = doc.to_s.chars
+    text = text.gsub(/\(\d{1,2}.\d\d (a|p).m.\)—/, '')
     text = text.gsub('()', '')
     text = text.gsub('<div class="separator"></div>', '')
     # Look for tags in the text and display warnings if any of them aren't being handled yet
@@ -282,8 +291,13 @@ class HansardParser
         logger.error "Tag #{t} is present in speech contents: #{text} on #{@sub_page_permanent_url}"
       end
     end
+    # Reparse
     doc = Hpricot(text)
-    #p doc.to_s
+    doc.traverse_element do |node|
+      if node.to_s.chars[0] == 160 || node.to_s.chars[0..0] == '—'
+        node.swap(node.to_s.chars[1..-1])
+      end
+    end
     doc
   end
   
