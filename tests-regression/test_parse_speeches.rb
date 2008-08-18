@@ -51,7 +51,7 @@ def compare_xml(ref_path, test_path, date, count)
       puts "Regression tests FAILED on date #{date} at count #{count}!"
       # Give the user the option to overwrite the reference file and continue
       puts "Press return to exit or 'o' to overwrite reference file and continue"
-      if gets == 'o'
+      if gets == "o\n"
         system("cp #{test_path} #{ref_path}")
       else
         exit
