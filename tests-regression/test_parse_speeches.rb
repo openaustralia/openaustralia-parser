@@ -35,28 +35,34 @@ people = PeopleCSVReader.read_members
 
 parser = HansardParser.new(people)
 
-def compare_xml(path1, path2)
-  if File.exists?(path1) && File.exists?(path2)
-    command = "diff #{path2} #{path1}"
+def compare_xml(ref_path, test_path, date, count)
+  if File.exists?(ref_path) && File.exists?(test_path)
+    command = "diff #{test_path} #{ref_path}"
     puts command
     system(command)
     if $? != 0
       test = "regression_failed_text.xml"
       ref = "regression_failed_ref.xml"
       #system("rm -f #{test} #{ref}")
-      system("tidy -xml -utf8 -o #{test} #{path2}")
-      system("tidy -xml -utf8 -o #{ref} #{path1}")
+      system("tidy -xml -utf8 -o #{test} #{test_path}")
+      system("tidy -xml -utf8 -o #{ref} #{ref_path}")
       system("opendiff #{test} #{ref}")
-      puts "ERROR: #{path2} and #{path1} don't match"
+      puts "ERROR: #{test_path} and #{ref_path} don't match"
       puts "Regression tests FAILED on date #{date} at count #{count}!"
-      exit
+      # Give the user the option to overwrite the reference file and continue
+      puts "Press return to exit or 'o' to overwrite reference file and continue"
+      if gets == 'o'
+        system("cp #{test_path} #{ref_path}")
+      else
+        exit
+      end
     end
-  elsif File.exists?(path1)
-    puts "ERROR: #{path2} is missing"
+  elsif File.exists?(ref_path)
+    puts "ERROR: #{test_path} is missing"
     puts "Regression tests FAILED on date #{date} at count #{count}!"
     exit
-  elsif File.exists?(path2)
-    puts "ERROR: #{path1} is missing"
+  elsif File.exists?(test_path)
+    puts "ERROR: #{ref_path} is missing"
     puts "Regression tests FAILED on date #{date} at count #{count}!"
     exit
   end
@@ -70,9 +76,9 @@ def test_date(date, conf, parser, count)
   ref_reps_xml_path = "#{File.dirname(__FILE__)}/../../ref/#{reps_xml_filename}"
   ref_senate_xml_path = "#{File.dirname(__FILE__)}/../../ref/#{senate_xml_filename}"
   parser.parse_date_house(date, new_reps_xml_path, House.representatives)
-  compare_xml(ref_reps_xml_path, new_reps_xml_path)
+  compare_xml(ref_reps_xml_path, new_reps_xml_path, date, count)
   parser.parse_date_house(date, new_senate_xml_path, House.senate)
-  compare_xml(ref_senate_xml_path, new_senate_xml_path)  
+  compare_xml(ref_senate_xml_path, new_senate_xml_path, date, count)  
 end
 
 class Array
