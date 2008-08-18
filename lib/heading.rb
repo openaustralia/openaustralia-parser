@@ -14,12 +14,12 @@ end
 
 class MajorHeading < HeadingBase
   def output(x)
-    x.tag!("major-heading", @title, :id => id, :url => @url)
+    x.tag!("major-heading", :id => id, :url => @url) { x << @title }
   end
 end
 
 class MinorHeading < HeadingBase
   def output(x)
-    x.tag!("minor-heading", @title, :id => id, :url => @url)
+    x.tag!("minor-heading", :id => id, :url => @url) { x << @title }
   end
 end
