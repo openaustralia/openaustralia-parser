@@ -1,7 +1,10 @@
+require 'rubygems'
+require 'hpricot'
+
 class Speech
   attr_accessor :speaker, :time, :url, :id, :content
   
-  def initialize(speaker, time, url, major_count, minor_count, date, house, logger, sub_page_permanent_url)
+  def initialize(speaker, time, url, major_count, minor_count, date, house, logger = nil, sub_page_permanent_url = nil)
     @speaker, @time, @url, @major_count, @minor_count, @date, @house, @logger, @sub_page_permanent_url =
       speaker, time, url, major_count, minor_count, date, house, logger, sub_page_permanent_url
     @content = Hpricot::Elements.new
@@ -9,7 +12,7 @@ class Speech
   
   def output(x)
     time = @time.nil? ? "unknown" : @time
-    if @content.inner_text.strip == ""
+    if @logger && @content.inner_text.strip == ""
       @logger.error "Empty speech by #{@speaker.person.name.full_name} on #{@sub_page_permanent_url}"
     end
     if @speaker
@@ -19,13 +22,19 @@ class Speech
       x.speech(:speakername => "unknown", :time => time, :url => url_quote(@url), :id => id) { x << @content.to_s }
     end
   end
-
+  
   # Quoting of url's is required to be nice and standards compliant
   def url_quote(url)
     url.gsub('&', '&amp;')
   end
   
   def append_to_content(content)
+    # Put html entities back into the content so that, for instance, '&' becomes '&amp;'
+    coder = HTMLEntities.new
+    content.traverse_text do |text|
+      text.swap(coder.encode(text, :named))
+    end
+    # Append to stored content
     if content.kind_of?(Array)
       @content = @content + content
     else
