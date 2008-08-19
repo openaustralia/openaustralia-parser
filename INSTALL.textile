@@ -20,6 +20,7 @@ h2. Requirements
    (this has dependencies like GraphicsMagick/ImageMagick, which in turn needs
    ghostscript)
 **  rcov
+** htmlentities
 *  "git":http://git.or.cz/
 
 h2. How to install all the dependencies
