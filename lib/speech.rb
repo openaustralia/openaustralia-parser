@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'hpricot'
+require 'htmlentities'
 
 class Speech
   attr_accessor :speaker, :time, :url, :id, :content

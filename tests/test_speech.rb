@@ -10,7 +10,6 @@ require 'speech'
 require 'date'
 require 'builder_alpha_attributes'
 require 'activesupport'
-require 'htmlentities'
 
 $KCODE = 'u'
 
