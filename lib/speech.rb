@@ -30,10 +30,12 @@ class Speech
   end
   
   def append_to_content(content)
-    # Put html entities back into the content so that, for instance, '&' becomes '&amp;'
+    # Put entities back into the content so that, for instance, '&' becomes '&amp;'
+    # Since we are outputting XML rather than HTML in order to save us the trouble of putting the HTML entities in the XML
+    # we are only encoding the basic XML entities
     coder = HTMLEntities.new
     content.traverse_text do |text|
-      text.swap(coder.encode(text, :named))
+      text.swap(coder.encode(text, :basic))
     end
     # Append to stored content
     if content.kind_of?(Array)

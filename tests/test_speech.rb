@@ -37,11 +37,11 @@ class TestSpeech < Test::Unit::TestCase
     assert_equal("<p>Q&A#{nbsp}—</p>".chars.normalize, doc.to_s.chars.normalize)
     
     coder = HTMLEntities.new
-    assert_equal("Q&amp;A&nbsp;&mdash;", coder.encode("Q&A#{nbsp}—", :named))
+    assert_equal("Q&amp;A#{nbsp}—", coder.encode("Q&A#{nbsp}—", :basic))
     
     @speech.append_to_content(doc)
     assert_equal(
-      '<speech id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" time="05:00:00" url="http://foo.co.uk/"><p>Q&amp;A&nbsp;&mdash;</p></speech>',
+      '<speech id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" time="05:00:00" url="http://foo.co.uk/"><p>Q&amp;A' + nbsp + '—</p></speech>',
       @speech.output(Builder::XmlMarkup.new))    
   end
 end
