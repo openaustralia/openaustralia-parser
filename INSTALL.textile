@@ -1,185 +1,188 @@
-= How to Install =
+h1. How to Install
 
-== Assumptions ==
+h2. Assumptions
 
-This document goes over how we have set up !OpenAustralia on our development machines. For a server set up, you can use this as a base however it might require a different approach unless you have complete control (i.e. you are root) on the server and can install all the dependencies, secure the machine, etc.
+This document goes over how we have set up OpenAustralia on our development machines. For a server set up, you can use this as a base however it might require a different approach unless you have complete control (i.e. you are root) on the server and can install all the dependencies, secure the machine, etc.
 
 Configuring Apache, PHP, MySQL or any other application for optimal performance is beyond the scope of this document. You should be able to find enough information online to help you along the way.
 
 These steps have only been tested on Mac OS X 10.5 (leopard). They might work as well on other Unix derivatives.
 
-== Requirements ==
+h2. Requirements
 
- *  Unix
- *  Apache + PHP + MySQL (we've tested with Apache 2.X.X, PHP5, MySQL 5.0.x)
- *  Ruby (we've used the included version in Leopard)
- *  the following rubygems
-   *  mechanize
-   *  builder
-   *  RMagick
-   (this has dependencies like !GraphicsMagick/!ImageMagick, which in turn needs
+*  Unix
+*  Apache + PHP + MySQL (we've tested with Apache 2.X.X, PHP5, MySQL 5.0.x)
+*  Ruby (we've used the included version in Leopard)
+*  the following rubygems
+**  mechanize
+**  builder
+**  RMagick
+   (this has dependencies like GraphicsMagick/ImageMagick, which in turn needs
    ghostscript)
-   *  rcov
- *  [http://git.or.cz/ git]
+**  rcov
+*  "git":http://git.or.cz/
 
-== How to install all the dependencies ==
+h2. How to install all the dependencies
 
-=== Max OS X Leopard ===
+h3. Max OS X Leopard
 
 Apache, PHP and Ruby all come with Leopard. If you need to install any of these
 on Mac OS X (if for whatever reason you don't have them installed) there's a ton
 of information online:
 
- 1. "Entropy's Instructions":http://www.entropy.ch/software/macosx/
- 1. "Hivelogic's Instructions":http://hivelogic.com/articles/ruby_rails_lighttpd_mysql_tiger/
+# "Entropy's Instructions":http://www.entropy.ch/software/macosx/
+# "Hivelogic's Instructions":http://hivelogic.com/articles/ruby_rails_lighttpd_mysql_tiger/
 
 You should also be able to get MySQL from "MySQL's website":http://www.mysql.com/ as they now distribute binary versions for Mac OS X (at the time of writing this document, you can find the 5.0.51a MySQL Community Server at "MySQL Community Server":http://dev.mysql.com/downloads/mysql/5.0.html#macosx-dmg).
 
-Install "!DarwinPorts":http://darwinports.com/ and then install git, !ImageMagick and ghostscript:
+Install "DarwinPorts":http://darwinports.com/ and then install git, ImageMagick and ghostscript:
 
-{{{
+<pre>
 $ sudo port install git-core
 $ sudo port install ImageMagick
 $ sudo port install ghostscript
-}}}
+</pre>
 
 Note: the previous step takes a long while to complete, make yourself a coffee (or two)
 
 As the parsing of XML files to insert into the database is done with Perl (and there's quite a few scripts in Perl), you will need a few Perl CPAN modules:
 
-{{{
+<pre>
 $ sudo perl -MCPAN -e shell
 cpan> install Error
 cpan> install XML::Twig
 cpan> install DBD::mysql
 cpan> install XML::RSS
-}}}
+</pre>
 
-=== Ubuntu 8.04 ===
+h3. Ubuntu 8.04
 
 Use apt-get to install the requirements:
 
-{{{
+<pre>
 $ sudo apt-get install apache2 php5 php5-cli mysql-server libmysqlclient15-dev git-core imagemagick libmagick9-dev ghostscript ruby rubygems ruby1.8-dev
-}}}
+</pre>
 
 Install the required rubygems:
 
-{{{
+<pre>
 $ sudo gem install builder
 $ sudo gem install rcov
 $ sudo gem install mechanize -v 0.6.10
 $ sudo gem install RMagick
 $ sudo gem install log4r
-}}}
+</pre>
 
-Note: Currently !OpenAustralia requires an older version of mechanize (0.6.10), but this might change in the future.
+Note: Currently OpenAustralia requires an older version of mechanize (0.6.10), but this might change in the future.
 
 As the parsing of XML files to insert into the database is done with Perl (and there's quite a few scripts in Perl), you will need a few Perl CPAN modules:
 
-{{{
+<pre>
 $ sudo perl -MCPAN -e shell
 cpan> install Error
 cpan> install XML::Twig
 cpan> install DBD::mysql
 cpan> install XML::RSS
-}}}
+</pre>
 
-=== For Windows ===
-Apache, PHP and MySQL can all be installed together with the [http://www.apachefriends.org/en/xampp-windows.html Xampp for Windows] package. Perl can be downloaded from !ActiveState in the [http://www.activestate.com/Products/activeperl/index.mhtml ActivePerl] package. Ruby has its own Windows versions that you need to get from [http://www.ruby-lang.org/en/downloads/ Ruby Downloads] (choose the one-click installer option).
+h3. For Windows
 
-==== Perl ====
-The x86 version of !ActivePerl comes with a GUI for installing packages that makes the whole process a lot easier. Refer to http://aspn.activestate.com/ASPN/docs/ActivePerl/5.10/faq/ActivePerl-faq2.html for instructions on running it. !ActivePerl comes with a lot of packages already installed but there are a few you'll need to install yourself, namely: XML-Twig, DBD-mysql and Error.
+Apache, PHP and MySQL can all be installed together with the "Xampp for Windows":http://www.apachefriends.org/en/xampp-windows.html package. Perl can be downloaded from ActiveState in the "ActivePerl":http://www.activestate.com/Products/activeperl/index.mhtml package. Ruby has its own Windows versions that you need to get from "Ruby Downloads":http://www.ruby-lang.org/en/downloads/ (choose the one-click installer option).
+
+h4. Perl
+
+The x86 version of ActivePerl comes with a GUI for installing packages that makes the whole process a lot easier. Refer to http://aspn.activestate.com/ASPN/docs/ActivePerl/5.10/faq/ActivePerl-faq2.html for instructions on running it. ActivePerl comes with a lot of packages already installed but there are a few you'll need to install yourself, namely: XML-Twig, DBD-mysql and Error.
 
 If DBD-mysql fails to install try installing it manually with
 
-{{{
+<pre>
 ppm install http://cpan.uwinnipeg.ca/PPMPackages/10xx/DBD-mysql.ppd
-}}}
+</pre>
 
 Reference http://dev.mysql.com/doc/refman/5.0/en/activestate-perl.html (bottom of page).
 
-==== Ruby ====
+h4. Ruby
+
 In addition to the Ruby gems required above you'll need to install Ruby-MySQL, which can be downloaded from http://www.tmtm.org/en/ruby/mysql/.
 
-== Installing !OpenAustralia ==
+h2. Installing OpenAustralia
 
-=== Web Application ===
+h3. Web Application
 
-For development purposes we have our web application and the parser under {{{/Library/WebServer/Documents/}}} and, unless you want to patch the configuration too much, we recommend that you install it there (also, if you do it this way, you have the application available under the root of your webserver on your Mac).
+For development purposes we have our web application and the parser under <code>/Library/WebServer/Documents/</code> and, unless you want to patch the configuration too much, we recommend that you install it there (also, if you do it this way, you have the application available under the root of your webserver on your Mac).
 
-Note for Ubuntu/Linux users: rather than {{{/Library/WebServer/Documents/}}}, the web application should go under {{{/var/www/}}}. The rest of this document will refer to {{{/Library/WebServer/Documents/}}} however, so substitute as necessary.
+Note for Ubuntu/Linux users: rather than <code>/Library/WebServer/Documents/</code>, the web application should go under <code>/var/www/</code>. The rest of this document will refer to <code>/Library/WebServer/Documents/</code> however, so substitute as necessary.
 
-{{{
+<pre>
 $ cd /Library/WebServer/
 $ sudo chown -R $USER:staff Documents
-}}}
+</pre>
 And enter your admin password. This is necessary so that you don't have to always use sudo when editing files or coding on the website.
 
-{{{
+<pre>
 $ cd Documents
 $ git clone git://github.com/mlandauer/openaustralia.git
 $ cd openaustralia
 $ git submodule init
 $ git submodule update
-}}}
+</pre>
 
-You should now have the website files located at {{{/Library/WebServer/Documents/openaustralia}}}. Also, you should now have the parser
-installed under {{{/Library/WebServer/Documents/openaustralia/openaustralia-parser}}}.
+You should now have the website files located at <code>/Library/WebServer/Documents/openaustralia</code>. Also, you should now have the parser
+installed under <code>/Library/WebServer/Documents/openaustralia/openaustralia-parser</code>.
 
-=== Configuration of the Parser ===
+h3. Configuration of the Parser
 
-The only configuration necessary is to change the web-root if you have installed the web application in another location. That value is {{{web_root}}} in the {{{configuration.yml}}} file at the root of the {{{openaustralia-parser}}}.
+The only configuration necessary is to change the web-root if you have installed the web application in another location. That value is <code>web_root</code> in the <code>configuration.yml</code> file at the root of the <code>openaustralia-parser</code>.
 
-=== Configuration of the Web Application ===
+h3. Configuration of the Web Application
 
-We now need to configure the web application, which includes creating a DB in MySQL and loading the schema. We assume that you have MySQL running and that your MySQL super user is {{{root}}} and the account has a password.
+We now need to configure the web application, which includes creating a DB in MySQL and loading the schema. We assume that you have MySQL running and that your MySQL super user is <code>root</code> and the account has a password.
 
 Remember to edit your Apache httpd.conf file to include the httpd.conf file in \openaustralia\twfy\conf\.
 
 We need to note again that these instructions are just for developers wanting to run the application on their machines and not recommendations or best-practices in performance and security.
 
-==== MySQL ====
+h4. MySQL
 
 We need to create the database. This is pretty simple:
 
-{{{
+<pre>
 $ mysqladmin -u root -p create openaustralia
 Enter password: ******
-}}}
+</pre>
 
 You are now ready to import the schema
 
-{{{
+<pre>
 $ mysql -u root -p openaustralia < /Library/WebServer/Documents/openaustralia/twfy/db/schema.sql
 Enter password: ******
-}}}
+</pre>
 
-==== Configuration ====
+h4. Configuration
 
 There is a file that you need to edit (and remember NOT to commit your changes on that file) on the web application:
 
-{{{/Library/WebServer/Documents/openaustralia/twfy/conf/general}}}
+<code>/Library/WebServer/Documents/openaustralia/twfy/conf/general</code>
 
 It's well documented and quite explanatory. It contains the configuration for MySQL (database name, host, username, etc) as well as the URL and paths for the web application on your machine.
 
 Just for initial testing you probably don't want to install Xapian, the search engine, so if that's the case make sure that you set
 
-{{{
+<pre>
 define ("XAPIANDB", '');
-}}}
+</pre>
 
-== Running the Parser ==
+h2. Running the Parser
 
 Before you can run the parser, you will need to create the directories that will hold the images of the MPs.
 
-{{{
+<pre>
 $ mkdir -p pwdata/images/mps pwdata/images/mpsL
-}}}
+</pre>
 
 You are now ready to create the members information. You should just use:
 
-{{{
+<pre>
 $ ./parse-members.rb
 # you should see messages on the console similar to the following
 Reading members data...
@@ -203,24 +206,24 @@ $VAR1 = [
           'elected_elsewhere'
         ];
 [...]
-}}}
+</pre>
 
 To download the members images:
 
-{{{
+<pre>
 $ ./member-images.rb 
-}}}
+</pre>
 
 If you want, though it is not particularly important initially, you can also download the links information (which goes on the Representative's pages) by running:
-{{{
+<pre>
 $ ./parse-member-links.rb
-}}}
+</pre>
 
 You should now parse the speeches and you would have a full database.
 
 To download the Hansard data (the speeches) for one day, say Sept 20th, 2007:
 
-{{{
+<pre>
 $ ./parse-speeches.rb 2007.09.20
  INFO HansardParser: Parsing speeches for Thu 20 Sep 2007...
  WARN HansardParser: Not yet supporting: Procedural text: CROSS-BORDER INSOLVENCY BILL 2007: First Reading
@@ -233,7 +236,7 @@ $ ./parse-speeches.rb 2007.09.20
  WARN HansardParser: Not yet supporting: Procedural text: NATIONAL HEALTH AMENDMENT (PHARMACEUTICAL BENEFITS) BILL 2007: Referred to Main Committee
 [...]
 db loading debates 2007-09-20
-}}}
+</pre>
 
 You should now be able to view the results at "Your Webserver URL":http://localhost/openaustralia/twfy/www/docs/
 
