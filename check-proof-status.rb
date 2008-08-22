@@ -22,7 +22,8 @@ def check_proof_status(date, house, delete_html_cache)
       if delete_html_cache
         puts "Deleting all cached html for #{date} because at least one sub page is in proof stage."
         FileUtils.rm_rf("#{conf.html_cache_path}/#{parser.cache_subdirectory(date, house)}")
-        # No need to continue checking any other pages for this date
+        puts "Redownloading and checking the pages for #{date}"
+        check_proof_status(date, house, false)
         return
       else
         puts "Page #{url} is in proof stage"
