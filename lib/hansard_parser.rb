@@ -44,6 +44,11 @@ class HansardParser
       :formatter => Log4r::PatternFormatter.new(:pattern => "[%l] %d :: %M")))
   end
   
+  # Returns the subdirectory where html_cache files for a particular date are stored
+  def cache_subdirectory(date, house)
+    date.to_s
+  end
+  
   def each_page_on_date(date, house)
     url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Chamber%20%3E%20#{house.representatives? ? "House" : "Senate"}%20Hansard%20%3E%20#{date.year}%20%3E%20#{date.day}%20#{Date::MONTHNAMES[date.month]}%20#{date.year}"
 
@@ -52,7 +57,7 @@ class HansardParser
     Hpricot.buffer_size = 1600000
 
     agent = MechanizeProxy.new
-    agent.cache_subdirectory = date.to_s
+    agent.cache_subdirectory = cache_subdirectory(date, house)
 
     begin
       page = agent.get(url)
