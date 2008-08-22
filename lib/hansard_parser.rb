@@ -68,8 +68,7 @@ class HansardParser
     page.links[30..-4].each do |link|
       begin
         sub_page = agent.click(link)
-        # Extract permanent URL of this subpage.
-        @sub_page_permanent_url = sub_page.links.text("[Permalink]").uri.to_s
+        @sub_page_permanent_url = extract_permanent_url(sub_page)
 
         yield link, sub_page
       rescue
@@ -77,6 +76,10 @@ class HansardParser
         raise $!
       end
     end
+  end
+  
+  def extract_permanent_url(page)
+    page.links.text("[Permalink]").uri.to_s
   end
   
   def parse_date_house(date, xml_filename, house)
@@ -125,6 +128,21 @@ class HansardParser
     else
       throw "Unsupported: #{link_text}"
     end
+  end
+
+  # Given a sub-page extract a hash of all the metadata tags and values
+  def extract_metadata_tags(page)
+    # Extract metadata tags
+    i = 0
+    metadata = {}
+    while true
+      label_tag = page.search("span#dlMetadata__ctl#{i}_Label2").first
+      value_tag = page.search("span#dlMetadata__ctl#{i}_Label3").first
+      break if label_tag.nil? && value_tag.nil?
+      metadata[label_tag.inner_text] = value_tag.inner_text.strip
+      i = i + 1
+    end
+    metadata
   end
 
   def parse_sub_day_speech_page(sub_page, time, debates, date, house)
