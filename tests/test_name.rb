@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require 'test/unit'
@@ -80,6 +82,16 @@ class TestName < Test::Unit::TestCase
   
   def test_dath
     assert_equal("D'Ath", Name.new(:last => "d’ath").last)
+  end
+  
+  def test_non_breaking_space
+    # First check names without any unicode
+    #assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.title_first_last("Mr John Smith"))
+    #assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.last_title_first("Smith, Mr John"))
+    # Now check similar names with unicode
+    nbsp = [160].pack('U')
+    assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.title_first_last("Mr#{nbsp}John#{nbsp}Smith"))
+    #assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.last_title_first("Smith,#{nbsp}Mr#{nbsp}John"))    
   end
   
   def test_double_barrelled

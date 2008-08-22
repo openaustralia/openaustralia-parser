@@ -1,10 +1,17 @@
 require 'enumerator'
+require 'rubygems'
+require 'activesupport'
+
+$KCODE = 'u'
 
 # Handle all our silly name parsing needs
 class Name
   attr_reader :title, :first, :middle, :initials, :last, :post_title
   
   def initialize(params)
+    # First normalize the unicode.
+    params.map {|key, value| [key, (value.chars.normalize if value)]}
+    
     @title = params[:title] || ""
     @first = (Name.capitalize_name(params[:first]) if params[:first]) || ""
     @middle = (Name.capitalize_each_name(params[:middle]) if params[:middle]) || ""
@@ -29,6 +36,8 @@ class Name
   end
   
   def Name.last_title_first(text)
+    # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
+    text = text.chars.normalize
     # Do the following before the split so we can handle things like "(foo bar)"
     text = remove_text_in_brackets(text)
     names = text.delete(',').split(' ')
@@ -77,6 +86,8 @@ class Name
   end
   
   def Name.title_first_last(text)
+    # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
+    text = text.chars.normalize
     names = text.delete(',').split(' ')
     title = Name.extract_title_at_start(names)
     if names.size == 1
@@ -266,7 +277,9 @@ class Name
       name = name[0..1] + name[2..-1].capitalize
     end
     # If name is hyphenated capitalise each side on its own
-    name = name.split('-').map{|n| capitalize_name(n)}.join('-') if name.include?('-')
+    # TODO: Fix 'activesupport' gem so that multibyte chars properly pass through include?
+    # Cast to normal string for include? necessary because of bug in activesupport multibyte chars
+    name = name.split('-').map{|n| capitalize_name(n)}.join('-') if name.to_s.include?('-')
     name
   end
 
