@@ -49,6 +49,16 @@ class HansardParser
     date.to_s
   end
   
+  # Returns true if any pages on the given date are at "proof" stage which means they might not be finalised
+  def has_subpages_in_proof?(date, house)
+    each_page_on_date(date, house) do |link, sub_page|
+      proof = extract_metadata_tags(sub_page)["Proof"]
+      throw "Unexpected value '#{proof}' for metadata 'Proof'" unless proof == "Yes" || proof == "No"
+      return true if proof == "Yes"
+    end
+    false
+  end
+
   def each_page_on_date(date, house)
     url = "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Chamber%20%3E%20#{house.representatives? ? "House" : "Senate"}%20Hansard%20%3E%20#{date.year}%20%3E%20#{date.day}%20#{Date::MONTHNAMES[date.month]}%20#{date.year}"
 

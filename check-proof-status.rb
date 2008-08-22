@@ -13,21 +13,15 @@ def check_proof_status(date, house, delete_html_cache)
   parser = HansardParser.new(People.new)
   conf = Configuration.new
   
-  parser.each_page_on_date(date, house) do |link, sub_page|
-    proof = parser.extract_metadata_tags(sub_page)["Proof"]
-    throw "Unexpected value '#{proof}' for metadata 'Proof'" unless proof == "Yes" || proof == "No"
-    proof = (proof == "Yes")
-    url = parser.extract_permanent_url(sub_page)
-    if proof
-      if delete_html_cache
-        puts "Deleting all cached html for #{date} because at least one sub page is in proof stage."
-        FileUtils.rm_rf("#{conf.html_cache_path}/#{parser.cache_subdirectory(date, house)}")
-        puts "Redownloading and checking the pages for #{date}"
-        check_proof_status(date, house, false)
-        return
-      else
-        puts "Page #{url} is in proof stage"
-      end
+  if parser.has_subpages_in_proof?(date, house)
+    if delete_html_cache
+      puts "Deleting all cached html for #{date} because at least one sub page is in proof stage."
+      FileUtils.rm_rf("#{conf.html_cache_path}/#{parser.cache_subdirectory(date, house)}")
+      puts "Redownloading and checking the pages for #{date}"
+      check_proof_status(date, house, false)
+      return
+    else
+      puts "One or more pages on #{date} are in proof stage"
     end
   end
 end
