@@ -30,7 +30,7 @@ def parse_date(text)
 end
 
 # Defaults
-options = {:load_database => true}
+options = {:load_database => true, :proof => false}
 
 OptionParser.new do |opts|
   opts.banner = <<EOF
@@ -48,6 +48,9 @@ Usage: parse-speeches.rb [options] <from-date> [<to-date>]
 EOF
   opts.on("--no-load", "Just generate XML and don't load up database") do |l|
     options[:load_database] = l
+  end
+  opts.on("--proof", "Only parse dates that are at proof stage. Will redownload and populate html cache for those dates.") do |l|
+    options[:proof] = l
   end
 end.parse!
 
@@ -79,15 +82,24 @@ PeopleImageDownloader.new.attach_aph_person_ids(people)
 
 parser = HansardParser.new(people)
 
-date = from_date
-while date <= to_date
+# Kind of helpful to start at the end date and go backwards when using the "--proof" option. So, always going to do this now.
+date = to_date
+while date >= from_date
   if conf.write_xml_representatives
-    parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/debates/debates#{date}.xml", House.representatives)
+    if options[:proof]
+      parser.parse_date_house_only_in_proof(date, "#{conf.xml_path}/scrapedxml/debates/debates#{date}.xml", House.representatives)
+    else
+      parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/debates/debates#{date}.xml", House.representatives)
+    end
   end
   if conf.write_xml_senators
-    parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/lordspages/daylord#{date}.xml", House.senate)
+    if options[:proof]
+      parser.parse_date_house_only_in_proof(date, "#{conf.xml_path}/scrapedxml/lordspages/daylord#{date}.xml", House.senate)
+    else
+      parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/lordspages/daylord#{date}.xml", House.senate)
+    end
   end
-  date = date + 1
+  date = date - 1
 end
 
 # And load up the database

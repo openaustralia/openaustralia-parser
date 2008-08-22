@@ -34,13 +34,13 @@ class HansardParser
   # calling PeopleImageDownloader.new.attach_aph_person_ids(people)
   def initialize(people)
     @people = people
-    conf = Configuration.new
+    @conf = Configuration.new
     
     # Set up logging
     @logger = Log4r::Logger.new 'HansardParser'
     # Log to both standard out and the file set in configuration.yml
     @logger.add(Log4r::Outputter.stdout)
-    @logger.add(Log4r::FileOutputter.new('foo', :filename => conf.log_path, :trunc => false,
+    @logger.add(Log4r::FileOutputter.new('foo', :filename => @conf.log_path, :trunc => false,
       :formatter => Log4r::PatternFormatter.new(:pattern => "[%l] %d :: %M")))
   end
   
@@ -49,12 +49,16 @@ class HansardParser
     date.to_s
   end
   
+  def page_in_proof?(page)
+    proof = extract_metadata_tags(page)["Proof"]
+    logger.error "Unexpected value '#{proof}' for metadata 'Proof'" unless proof == "Yes" || proof == "No"
+    proof == "Yes"
+  end
+  
   # Returns true if any pages on the given date are at "proof" stage which means they might not be finalised
   def has_subpages_in_proof?(date, house)
     each_page_on_date(date, house) do |link, sub_page|
-      proof = extract_metadata_tags(sub_page)["Proof"]
-      throw "Unexpected value '#{proof}' for metadata 'Proof'" unless proof == "Yes" || proof == "No"
-      return true if proof == "Yes"
+      return true if page_in_proof?(sub_page)
     end
     false
   end
@@ -97,22 +101,34 @@ class HansardParser
     page.links.text("[Permalink]").uri.to_s
   end
   
+  # Parse but only if there is a page that is at "proof" stage
+  def parse_date_house_only_in_proof(date, xml_filename, house)
+    if has_subpages_in_proof?(date, house)
+      logger.info "Deleting all cached html for #{date} because at least one sub page is in proof stage."
+      FileUtils.rm_rf("#{@conf.html_cache_path}/#{cache_subdirectory(date, house)}")
+      logger.info "Redownloading pages on #{date}..."
+      parse_date_house(date, xml_filename, house)
+    end
+  end
+  
   def parse_date_house(date, xml_filename, house)
-    @logger.info "Parsing #{house} speeches for #{date.strftime('%a %d %b %Y')}..."
+    @logger.info "Parsing #{house} speeches for #{date.strftime('%a %d %b %Y')}..."    
     debates = Debates.new(date, house, @logger)
-      
+    
     content = false
     each_page_on_date(date, house) do |link, sub_page|
       content = true
+      logger.warn "Page #{@sub_page_permanent_url} is in proof stage" if page_in_proof?(sub_page)
       parse_sub_day_page(link.to_s, sub_page, debates, date, house)
       # This ensures that every sub day page has a different major count which limits the impact
       # of when we start supporting things like written questions, procedurial text, etc..
       debates.increment_major_count      
     end
-    
+  
     # Only output the debate file if there's going to be something in it
     debates.output(xml_filename) if content
   end
+  
   
   def parse_sub_day_page(link_text, sub_page, debates, date, house)
     # Only going to consider speeches for the time being
