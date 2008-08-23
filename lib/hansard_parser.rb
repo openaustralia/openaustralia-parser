@@ -111,16 +111,14 @@ class HansardParser
       if page.supported?
         debates.add_heading(page.hansard_title, page.hansard_subtitle, page.permanent_url)
         speaker = nil
-        page.speech_blocks.each do |e|
-          if e
-            speakername, aph_id, interjection, clean_speech = page.parse_speech_block2(e)
-
+        page.speeches.each do |speech|
+          if speech
             # Only change speaker if a speaker name or url was found
-            this_speaker = (speakername || aph_id) ? lookup_speaker(page, speakername, aph_id, date, house) : speaker
+            this_speaker = (speech.speakername || speech.aph_id) ? lookup_speaker(speech, date, house) : speaker
             # With interjections the next speech should never be by the person doing the interjection
-            speaker = this_speaker unless interjection
+            speaker = this_speaker unless speech.interjection?
 
-            debates.add_speech(this_speaker, page.time, page.permanent_url, clean_speech)
+            debates.add_speech(this_speaker, speech.time, speech.permanent_url, speech.clean_content)
           end
           debates.increment_minor_count
         end
@@ -134,77 +132,73 @@ class HansardParser
     debates.output(xml_filename) if content
   end
   
-  def lookup_speaker_by_title(page, speakername, date, house)
+  def lookup_speaker_by_title(speech, date, house)
     # Some sanity checking.
-    if speakername =~ /speaker/i && house.senate?
-      logger.error "The Speaker is not expected in the Senate on #{page.permanent_url}"
+    if speech.speakername =~ /speaker/i && house.senate?
+      logger.error "The Speaker is not expected in the Senate on #{speech.permanent_url}"
       return nil
-    elsif speakername =~ /president/i && house.representatives?
-      logger.error "The President is not expected in the House of Representatives on #{page.permanent_url}"
+    elsif speech.speakername =~ /president/i && house.representatives?
+      logger.error "The President is not expected in the House of Representatives on #{speech.permanent_url}"
       return nil
-    elsif speakername =~ /chairman/i && house.representatives?
-      logger.error "The Chairman is not expected in the House of Representatives on #{page.permanent_url}"
+    elsif speech.speakername =~ /chairman/i && house.representatives?
+      logger.error "The Chairman is not expected in the House of Representatives on #{speech.permanent_url}"
       return nil
     end
     
     # Handle speakers where they are referred to by position rather than name
-    if speakername =~ /^the speaker/i
+    if speech.speakername =~ /^the speaker/i
       @people.house_speaker(date)
-    elsif speakername =~ /^the deputy speaker/i
+    elsif speech.speakername =~ /^the deputy speaker/i
       @people.deputy_house_speaker(date)
-    elsif speakername =~ /^the president/i
+    elsif speech.speakername =~ /^the president/i
       @people.senate_president(date)
-    elsif speakername =~ /^(the )?chairman/i || speakername =~ /^the deputy president/i
+    elsif speech.speakername =~ /^(the )?chairman/i || speech.speakername =~ /^the deputy president/i
       # The "Chairman" in the main Senate Hansard is when the Senate is sitting as a committee of the whole Senate.
       # In this case, the "Chairman" is the deputy president. See http://www.aph.gov.au/senate/pubs/briefs/brief06.htm#3
       @people.deputy_senate_president(date)
     # Handle names in brackets
-    elsif speakername =~ /^the (deputy speaker|acting deputy president|temporary chairman) \((.*)\)/i
+    elsif speech.speakername =~ /^the (deputy speaker|acting deputy president|temporary chairman) \((.*)\)/i
       @people.find_member_by_name_current_on_date(Name.title_first_last($~[2]), date, house)
     end
   end
   
-  def is_speaker?(speakertitle, date, house)
-    lookup_speaker_by_title(page, speakertitle, date, house)
-  end
-  
-  def lookup_speaker_by_name(page, speakername, date, house)
-    throw "speakername can not be nil in lookup_speaker" if speakername.nil?
+  def lookup_speaker_by_name(speech, date, house)
+    throw "speakername can not be nil in lookup_speaker" if speech.speakername.nil?
     
-    member = lookup_speaker_by_title(page, speakername, date, house)    
+    member = lookup_speaker_by_title(speech, date, house)    
     # If member hasn't already been set then lookup using speakername
     if member.nil?
-      name = Name.title_first_last(speakername)
+      name = Name.title_first_last(speech.speakername)
       member = @people.find_member_by_name_current_on_date(name, date, house)
     end
     member
   end
   
-  def lookup_speaker_by_aph_id(page, aph_id, date, house)
-    person = @people.find_person_by_aph_id(aph_id)
+  def lookup_speaker_by_aph_id(speech, date, house)
+    person = @people.find_person_by_aph_id(speech.aph_id)
     if person
       # Now find the member for that person who is current on the given date
       @people.find_member_by_name_current_on_date(person.name, date, house)
     else
-      logger.error "Can't figure out which person the aph id #{aph_id} belongs to on #{page.permanent_url}"
+      logger.error "Can't figure out which person the aph id #{speech.aph_id} belongs to on #{speech.permanent_url}"
       nil
     end
   end
   
-  def lookup_speaker(page, speakername, aph_id, date, house)
-    member = lookup_speaker_by_name(page, speakername, date, house)
+  def lookup_speaker(speech, date, house)
+    member = lookup_speaker_by_name(speech, date, house)
     if member.nil?
       # Only try to use the aph id if we can't look up by name
-      member = lookup_speaker_by_aph_id(page, aph_id, date, house) if aph_id
+      member = lookup_speaker_by_aph_id(speech, date, house) if speech.aph_id
       if member
         # If link is valid use that to look up the member
-        logger.error "Determined speaker #{member.person.name.full_name} by link only on #{page.permanent_url}. Valid name missing."
+        logger.error "Determined speaker #{member.person.name.full_name} by link only on #{speech.permanent_url}. Valid name missing."
       end
     end
     
     if member.nil?
-      logger.warn "Unknown speaker #{speakername} in #{page.permanent_url}" unless page.generic_speaker?(speakername)
-      member = UnknownSpeaker.new(speakername)
+      logger.warn "Unknown speaker #{speech.speakername} in #{speech.permanent_url}" unless speech.generic_speaker?(speech.speakername)
+      member = UnknownSpeaker.new(speech.speakername)
     end
     member
   end
