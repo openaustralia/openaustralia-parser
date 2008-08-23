@@ -27,6 +27,51 @@ end
 require 'rubygems'
 require 'log4r'
 
+class HansardPage
+  attr_reader :page, :link, :logger
+  
+  # 'link' is the link that got us to this page 'page'
+  def initialize(page, link, logger)
+    @page, @link, @logger = page, link, logger
+  end
+  
+  def in_proof?
+    proof = extract_metadata_tags["Proof"]
+    logger.error "Unexpected value '#{proof}' for metadata 'Proof'" unless proof == "Yes" || proof == "No"
+    proof == "Yes"
+  end
+
+  # Extract a hash of all the metadata tags and values
+  def extract_metadata_tags
+    i = 0
+    metadata = {}
+    while true
+      label_tag = @page.search("span#dlMetadata__ctl#{i}_Label2").first
+      value_tag = @page.search("span#dlMetadata__ctl#{i}_Label3").first
+      break if label_tag.nil? && value_tag.nil?
+      metadata[label_tag.inner_text] = value_tag.inner_text.strip
+      i = i + 1
+    end
+    metadata
+  end
+  
+  def extract_permanent_url
+    @page.links.text("[Permalink]").uri.to_s
+  end
+  
+  def hansard_title
+    @page.search('div#contentstart div.hansardtitle').map { |m| m.inner_html }.join('; ')
+  end
+  
+  def hansard_subtitle
+    @page.search('div#contentstart div.hansardsubtitle').map { |m| m.inner_html }.join('; ')
+  end
+  
+  def content_start
+    @page.search('div#contentstart').first
+  end
+end
+
 class HansardParser
   attr_reader :logger
   
@@ -49,16 +94,10 @@ class HansardParser
     date.to_s
   end
   
-  def page_in_proof?(page)
-    proof = extract_metadata_tags(page)["Proof"]
-    logger.error "Unexpected value '#{proof}' for metadata 'Proof'" unless proof == "Yes" || proof == "No"
-    proof == "Yes"
-  end
-  
   # Returns true if any pages on the given date are at "proof" stage which means they might not be finalised
   def has_subpages_in_proof?(date, house)
-    each_page_on_date(date, house) do |link, sub_page|
-      return true if page_in_proof?(sub_page)
+    each_page_on_date(date, house) do |page|
+      return true if page.in_proof?
     end
     false
   end
@@ -86,19 +125,14 @@ class HansardParser
     # Structure of the page is such that we are only interested in some of the links
     page.links[30..-4].each do |link|
       begin
-        sub_page = agent.click(link)
-        @sub_page_permanent_url = extract_permanent_url(sub_page)
-
-        yield link, sub_page
+        page = HansardPage.new(agent.click(link), link, logger)
+        @sub_page_permanent_url = page.extract_permanent_url
+        yield page
       rescue
         logger.error "Exception thrown during processing of sub page: #{@sub_page_permanent_url}"
         raise $!
       end
     end
-  end
-  
-  def extract_permanent_url(page)
-    page.links.text("[Permalink]").uri.to_s
   end
   
   # Parse but only if there is a page that is at "proof" stage
@@ -116,10 +150,10 @@ class HansardParser
     debates = Debates.new(date, house, @logger)
     
     content = false
-    each_page_on_date(date, house) do |link, sub_page|
+    each_page_on_date(date, house) do |page|
       content = true
-      logger.warn "Page #{@sub_page_permanent_url} is in proof stage" if page_in_proof?(sub_page)
-      parse_sub_day_page(link.to_s, sub_page, debates, date, house)
+      logger.warn "Page #{@sub_page_permanent_url} is in proof stage" if page.in_proof?
+      parse_sub_day_page(page, debates, date, house)
       # This ensures that every sub day page has a different major count which limits the impact
       # of when we start supporting things like written questions, procedurial text, etc..
       debates.increment_major_count      
@@ -130,60 +164,42 @@ class HansardParser
   end
   
   
-  def parse_sub_day_page(link_text, sub_page, debates, date, house)
+  def parse_sub_day_page(page, debates, date, house)
     # Only going to consider speeches for the time being
-    if link_text =~ /^Speech:/ || link_text =~ /^QUESTIONS? WITHOUT NOTICE/i || link_text =~ /^QUESTIONS TO THE SPEAKER:/
+    if page.link.to_s =~ /^Speech:/ || page.link.to_s =~ /^QUESTIONS? WITHOUT NOTICE/i || page.link.to_s =~ /^QUESTIONS TO THE SPEAKER:/
       # Link text for speech has format:
       # HEADING > NAME > HOUR:MINS:SECS
-      time = link_text.split('>')[2]
+      time = page.link.to_s.split('>')[2]
       time.strip! unless time.nil?
       # Check that time is something valid
       unless time =~ /^\d\d:\d\d:\d\d$/
-        logger.error "Time #{time} invalid on link #{link_text}"
+        logger.error "Time #{time} invalid on link #{page.link}"
         time = nil
       end
-      parse_sub_day_speech_page(sub_page, time, debates, date, house)
-    #elsif link_text =~ /^Procedural text:/
+      parse_sub_day_speech_page(page, time, debates, date, house)
+    #elsif page.link.to_s =~ /^Procedural text:/
     #  # Assuming no time recorded for Procedural text
-    #  parse_sub_day_speech_page(sub_page, nil, debates, date)
-    elsif link_text == "Official Hansard" || link_text =~ /^Start of Business/ || link_text == "Adjournment"
+    #  parse_sub_day_speech_page(page, nil, debates, date)
+    elsif page.link.to_s == "Official Hansard" || page.link.to_s =~ /^Start of Business/ || page.link.to_s == "Adjournment"
       # Do nothing - skip this entirely
-    elsif link_text =~ /^Procedural text:/ || link_text =~ /^QUESTIONS IN WRITING:/ || link_text =~ /^Division:/ ||
-        link_text =~ /^REQUESTS? FOR DETAILED INFORMATION:/ ||
-        link_text =~ /^Petition:/ || link_text =~ /^PRIVILEGE:/ || link_text == "Interruption" ||
-        link_text =~ /^QUESTIONS? ON NOTICE:/i || link_text =~ /^QUESTIONS TO THE SPEAKER/
-      #logger.info "Not yet supporting: #{link_text}"
+    elsif page.link.to_s =~ /^Procedural text:/ || page.link.to_s =~ /^QUESTIONS IN WRITING:/ || page.link.to_s =~ /^Division:/ ||
+        page.link.to_s =~ /^REQUESTS? FOR DETAILED INFORMATION:/ ||
+        page.link.to_s =~ /^Petition:/ || page.link.to_s =~ /^PRIVILEGE:/ || page.link.to_s == "Interruption" ||
+        page.link.to_s =~ /^QUESTIONS? ON NOTICE:/i || page.link.to_s =~ /^QUESTIONS TO THE SPEAKER/
+      #logger.info "Not yet supporting: #{page.link}"
     # Hack to deal with incorrectly titled page on 31 Oct 2005 
-    elsif link_text =~ /^IRAQ/
-      #logger.info "Not yet supporting: #{link_text}"
+    elsif page.link.to_s =~ /^IRAQ/
+      #logger.info "Not yet supporting: #{page.link}"
     else
-      throw "Unsupported: #{link_text}"
+      throw "Unsupported: #{page.link}"
     end
   end
 
-  # Given a sub-page extract a hash of all the metadata tags and values
-  def extract_metadata_tags(page)
-    # Extract metadata tags
-    i = 0
-    metadata = {}
-    while true
-      label_tag = page.search("span#dlMetadata__ctl#{i}_Label2").first
-      value_tag = page.search("span#dlMetadata__ctl#{i}_Label3").first
-      break if label_tag.nil? && value_tag.nil?
-      metadata[label_tag.inner_text] = value_tag.inner_text.strip
-      i = i + 1
-    end
-    metadata
-  end
-
-  def parse_sub_day_speech_page(sub_page, time, debates, date, house)
-    top_content_tag = sub_page.search('div#contentstart').first
+  def parse_sub_day_speech_page(page, time, debates, date, house)
+    top_content_tag = page.content_start
     throw "Page on date #{date} at time #{time} has no content" if top_content_tag.nil?
     
-    newtitle = sub_page.search('div#contentstart div.hansardtitle').map { |m| m.inner_html }.join('; ')
-    newsubtitle = sub_page.search('div#contentstart div.hansardsubtitle').map { |m| m.inner_html }.join('; ')
-
-    debates.add_heading(newtitle, newsubtitle, @sub_page_permanent_url)
+    debates.add_heading(page.hansard_title, page.hansard_subtitle, @sub_page_permanent_url)
 
     speaker = nil
     top_content_tag.children.each do |e|
