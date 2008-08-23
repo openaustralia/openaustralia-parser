@@ -31,7 +31,7 @@ class HansardPage
   end
   
   def permanent_url
-    @page.links.text("[Permalink]").uri.to_s
+    @page.search("a[@href]").find{|e| e.inner_text == "[Permalink]"}.attributes['href']
   end
   
   def hansard_title

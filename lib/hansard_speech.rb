@@ -1,7 +1,7 @@
 class HansardSpeech
   attr_reader :logger
   
-  def initialize(content, page, logger)
+  def initialize(content, page, logger = nil)
     @content, @page, @logger = content, page, logger
   end
   
@@ -236,7 +236,7 @@ class HansardSpeech
     elsif speaker_url.nil? || speaker_url == "view_document.aspx?TABLE=biogs&ID="
       nil
     else
-      logger.error "Speaker link has unexpected format: #{speaker_url} on #{@page.permanent_url}"
+      logger.error "Speaker link has unexpected format: #{speaker_url} on #{@page.permanent_url}" if logger
       nil
     end
   end  
