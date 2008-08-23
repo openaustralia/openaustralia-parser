@@ -71,9 +71,10 @@ class HansardPage
     @page.search('div#contentstart').first
   end
   
-  def parse_speech_block2(e, url, house)
+  def parse_speech_block2(e, house)
     speakername, speaker_url, interjection = extract_speakername(e, house)
-    [speakername, speaker_url, interjection, clean_speech_content(url, e, house)]
+    aph_id = extract_aph_id_from_speaker_url(speaker_url)
+    [speakername, aph_id, interjection, clean_speech_content(e, house)]
   end
   
   def extract_speakername(content, house)
@@ -132,7 +133,7 @@ class HansardPage
     [name, speaker_url, interjection]
   end
   
-  def clean_speech_content(base_url, content, house)
+  def clean_speech_content(content, house)
     doc = Hpricot(content.to_s)
     talkername_tags = doc.search('span.talkername ~ b ~ *')
     talkername_tags.each do |tag|
@@ -155,7 +156,7 @@ class HansardPage
     doc.search('hr').remove
     make_motions_and_quotes_italic(doc)
     remove_subspeech_tags(doc)
-    fix_links(base_url, doc)
+    fix_links(doc)
     make_amendments_italic(doc)
     fix_attributes_of_p_tags(doc)
     fix_attributes_of_td_tags(doc)
@@ -238,18 +239,18 @@ class HansardPage
     end
   end
   
-  def fix_links(base_url, content)
+  def fix_links(content)
     content.search('a').each do |e|
       href_value = e.get_attribute('href')
       if href_value.nil?
         # Remove a tags
         e.swap(e.inner_html)
       else
-        e.set_attribute('href', URI.join(base_url, href_value))
+        e.set_attribute('href', URI.join(permanent_url, href_value))
       end
     end
     content.search('img').each do |e|
-      e.set_attribute('src', URI.join(base_url, e.get_attribute('src')))
+      e.set_attribute('src', URI.join(permanent_url, e.get_attribute('src')))
     end
     content
   end
@@ -287,6 +288,87 @@ class HansardPage
     str=doc.to_s
     str.gsub(/<\/?[^>]*>/, "")
   end
+
+  # Returns an array of blocks of html that contain a person making a speech
+  # if a block is nil it should be skipped but the minor_count should still be incremented
+  def speech_blocks
+    throw "No content in #{permanent_url}" if content_start.nil?
+    
+    speech_blocks = []
+    content_start.children.each do |e|
+      break unless e.respond_to?(:attributes)
+      
+      class_value = e.attributes["class"]
+      if e.name == "div"
+        if class_value == "hansardtitlegroup" || class_value == "hansardsubtitlegroup"
+        elsif class_value == "speech0" || class_value == "speech1"
+          e.children[1..-1].each do |e|
+            speech_blocks << e
+          end
+        elsif class_value == "motionnospeech" || class_value == "subspeech0" || class_value == "subspeech1" ||
+            class_value == "motion" || class_value = "quote"
+          speech_blocks << e
+        else
+          throw "Unexpected class value #{class_value} for tag #{e.name}"
+        end
+      elsif e.name == "p"
+        speech_blocks << e
+      elsif e.name == "table"
+        if class_value == "division"
+          # By adding nil the minor_count will be incremented
+          speech_blocks << nil
+        else
+          throw "Unexpected class value #{class_value} for tag #{e.name}"
+        end
+      else
+        throw "Unexpected tag #{e.name}"
+      end
+    end
+    speech_blocks
+  end  
+
+  # Is this a sub-page that we are currently supporting?
+  def supported?
+    @link.to_s =~ /^Speech:/ || @link.to_s =~ /^QUESTIONS? WITHOUT NOTICE/i || @link.to_s =~ /^QUESTIONS TO THE SPEAKER:/
+  end
+  
+  def to_skip?
+    @link.to_s == "Official Hansard" || @link.to_s =~ /^Start of Business/ || @link.to_s == "Adjournment"
+  end
+  
+  def not_yet_supported?
+    @link.to_s =~ /^Procedural text:/ || @link.to_s =~ /^QUESTIONS IN WRITING:/ || @link.to_s =~ /^Division:/ ||
+      @link.to_s =~ /^REQUESTS? FOR DETAILED INFORMATION:/ ||
+      @link.to_s =~ /^Petition:/ || @link.to_s =~ /^PRIVILEGE:/ || @link.to_s == "Interruption" ||
+      @link.to_s =~ /^QUESTIONS? ON NOTICE:/i || @link.to_s =~ /^QUESTIONS TO THE SPEAKER/ ||
+      # Hack to deal with incorrectly titled page on 31 Oct 2005
+      @link.to_s =~ /^IRAQ/
+  end  
+
+  # Returns the time (as a string) that the current debate took place
+  def time
+    # Link text for speech has format:
+    # HEADING > NAME > HOUR:MINS:SECS
+    time = @link.to_s.split('>')[2]
+    time.strip! unless time.nil?
+    # Check that time is something valid
+    unless time =~ /^\d\d:\d\d:\d\d$/
+      logger.error "Time #{time} invalid on link #{@link}"
+      time = nil
+    end
+    time
+  end  
+
+  def extract_aph_id_from_speaker_url(speaker_url)
+    if speaker_url =~ /^view_document.aspx\?TABLE=biogs&ID=(\d+)$/
+      $~[1].to_i
+    elsif speaker_url.nil? || speaker_url == "view_document.aspx?TABLE=biogs&ID="
+      nil
+    else
+      logger.error "Speaker link has unexpected format: #{speaker_url} on #{@page.permanent_url}"
+      nil
+    end
+  end  
 end
 
 class HansardParser
@@ -369,7 +451,22 @@ class HansardParser
     each_page_on_date(date, house) do |page|
       content = true
       logger.warn "Page #{page.permanent_url} is in proof stage" if page.in_proof?
-      parse_sub_day_page(page, debates, date, house)
+      throw "Unsupported: #{page.link}" unless page.supported? || page.to_skip? || page.not_yet_supported?
+      if page.supported?
+        debates.add_heading(page.hansard_title, page.hansard_subtitle, page.permanent_url)
+        speaker = nil
+        page.speech_blocks.each do |e|
+          speakername, aph_id, interjection, clean_speech = page.parse_speech_block2(e, house)
+
+          # Only change speaker if a speaker name or url was found
+          this_speaker = (speakername || aph_id) ? lookup_speaker(page, speakername, aph_id, date, house) : speaker
+          # With interjections the next speech should never be by the person doing the interjection
+          speaker = this_speaker unless interjection
+
+          debates.add_speech(this_speaker, page.time, page.permanent_url, clean_speech)
+          debates.increment_minor_count
+        end
+      end
       # This ensures that every sub day page has a different major count which limits the impact
       # of when we start supporting things like written questions, procedurial text, etc..
       debates.increment_major_count      
@@ -379,94 +476,6 @@ class HansardParser
     debates.output(xml_filename) if content
   end
   
-  
-  def parse_sub_day_page(page, debates, date, house)
-    # Only going to consider speeches for the time being
-    if page.link.to_s =~ /^Speech:/ || page.link.to_s =~ /^QUESTIONS? WITHOUT NOTICE/i || page.link.to_s =~ /^QUESTIONS TO THE SPEAKER:/
-      # Link text for speech has format:
-      # HEADING > NAME > HOUR:MINS:SECS
-      time = page.link.to_s.split('>')[2]
-      time.strip! unless time.nil?
-      # Check that time is something valid
-      unless time =~ /^\d\d:\d\d:\d\d$/
-        logger.error "Time #{time} invalid on link #{page.link}"
-        time = nil
-      end
-      debates.add_heading(page.hansard_title, page.hansard_subtitle, page.permanent_url)
-      parse_sub_day_speech_page(page, time, debates, date, house)
-    #elsif page.link.to_s =~ /^Procedural text:/
-    #  # Assuming no time recorded for Procedural text
-    #  debates.add_heading(page.hansard_title, page.hansard_subtitle, page.permanent_url)
-    #  parse_sub_day_speech_page(page, nil, debates, date)
-    elsif page.link.to_s == "Official Hansard" || page.link.to_s =~ /^Start of Business/ || page.link.to_s == "Adjournment"
-      # Do nothing - skip this entirely
-    elsif page.link.to_s =~ /^Procedural text:/ || page.link.to_s =~ /^QUESTIONS IN WRITING:/ || page.link.to_s =~ /^Division:/ ||
-        page.link.to_s =~ /^REQUESTS? FOR DETAILED INFORMATION:/ ||
-        page.link.to_s =~ /^Petition:/ || page.link.to_s =~ /^PRIVILEGE:/ || page.link.to_s == "Interruption" ||
-        page.link.to_s =~ /^QUESTIONS? ON NOTICE:/i || page.link.to_s =~ /^QUESTIONS TO THE SPEAKER/
-      #logger.info "Not yet supporting: #{page.link}"
-    # Hack to deal with incorrectly titled page on 31 Oct 2005 
-    elsif page.link.to_s =~ /^IRAQ/
-      #logger.info "Not yet supporting: #{page.link}"
-    else
-      throw "Unsupported: #{page.link}"
-    end
-  end
-
-  def parse_sub_day_speech_page(page, time, debates, date, house)
-    top_content_tag = page.content_start
-    throw "Page on date #{date} at time #{time} has no content" if top_content_tag.nil?
-    
-    speaker = nil
-    top_content_tag.children.each do |e|
-      break unless e.respond_to?(:attributes)
-      
-      class_value = e.attributes["class"]
-      if e.name == "div"
-        if class_value == "hansardtitlegroup" || class_value == "hansardsubtitlegroup"
-        elsif class_value == "speech0" || class_value == "speech1"
-          e.children[1..-1].each do |e|
-            speaker = parse_speech_block(page, e, speaker, time, page.permanent_url, debates, date, house)
-            debates.increment_minor_count
-          end
-        elsif class_value == "motionnospeech" || class_value == "subspeech0" || class_value == "subspeech1" ||
-            class_value == "motion" || class_value = "quote"
-          speaker = parse_speech_block(page, e, speaker, time, page.permanent_url, debates, date, house)
-          debates.increment_minor_count
-        else
-          throw "Unexpected class value #{class_value} for tag #{e.name}"
-        end
-      elsif e.name == "p"
-        speaker = parse_speech_block(page, e, speaker, time, page.permanent_url, debates, date, house)
-        debates.increment_minor_count
-      elsif e.name == "table"
-        if class_value == "division"
-          debates.increment_minor_count
-          # Ignore (for the time being)
-        else
-          throw "Unexpected class value #{class_value} for tag #{e.name}"
-        end
-      else
-        throw "Unexpected tag #{e.name}"
-      end
-    end
-  end
-  
-  # Returns new speaker
-  def parse_speech_block(page, e, speaker, time, url, debates, date, house)
-    speakername, speaker_url, interjection, clean_speech = page.parse_speech_block2(e, url, house)
-    
-    # Only change speaker if a speaker name or url was found
-    this_speaker = (speakername || speaker_url) ? lookup_speaker(page, speakername, speaker_url, date, house) : speaker
-    debates.add_speech(this_speaker, time, url, clean_speech, page.permanent_url)
-    # With interjections the next speech should never be by the person doing the interjection
-    if interjection
-      speaker
-    else
-      this_speaker
-    end
-  end
-      
   def lookup_speaker_by_title(page, speakername, date, house)
     # Some sanity checking.
     if speakername =~ /speaker/i && house.senate?
@@ -513,37 +522,25 @@ class HansardParser
     member
   end
   
-  def lookup_speaker_by_url(page, speaker_url, date, house)
-    if speaker_url =~ /^view_document.aspx\?TABLE=biogs&ID=(\d+)$/
-      person = @people.find_person_by_aph_id($~[1].to_i)
-      if person
-        # Now find the member for that person who is current on the given date
-        @people.find_member_by_name_current_on_date(person.name, date, house)
-      else
-        logger.error "Can't figure out which person the link #{speaker_url} belongs to on #{page.permanent_url}"
-        nil
-      end
-    elsif speaker_url.nil? || speaker_url == "view_document.aspx?TABLE=biogs&ID="
-      nil
+  def lookup_speaker_by_aph_id(page, aph_id, date, house)
+    person = @people.find_person_by_aph_id(aph_id)
+    if person
+      # Now find the member for that person who is current on the given date
+      @people.find_member_by_name_current_on_date(person.name, date, house)
     else
-      logger.error "Speaker link has unexpected format: #{speaker_url} on #{page.permanent_url}"
+      logger.error "Can't figure out which person the aph id #{aph_id} belongs to on #{page.permanent_url}"
       nil
     end
   end
   
-  def lookup_speaker(page, speakername, speaker_url, date, house)
-    member_name = lookup_speaker_by_name(page, speakername, date, house)
-    if member_name
-      member = member_name
-    else
-      # Only try to use the link if we can't look up by name
-      member_url = lookup_speaker_by_url(page, speaker_url, date, house)
-      if member_url
+  def lookup_speaker(page, speakername, aph_id, date, house)
+    member = lookup_speaker_by_name(page, speakername, date, house)
+    if member.nil?
+      # Only try to use the aph id if we can't look up by name
+      member = lookup_speaker_by_aph_id(page, aph_id, date, house) if aph_id
+      if member
         # If link is valid use that to look up the member
-        member = member_url
         logger.error "Determined speaker #{member.person.name.full_name} by link only on #{page.permanent_url}. Valid name missing."
-      else
-        member = nil
       end
     end
     

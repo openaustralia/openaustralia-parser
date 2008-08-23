@@ -35,10 +35,10 @@ class Debates
     @minor_count = 1
   end
   
-  def add_speech(speaker, time, url, content, sub_page_permanent_url)
+  def add_speech(speaker, time, url, content)
     # Only add new speech if the speaker has changed
     unless speaker && last_speaker && speaker == last_speaker
-      @items << Speech.new(speaker, time, url, @major_count, @minor_count, @date, @house, @logger, sub_page_permanent_url)
+      @items << Speech.new(speaker, time, url, @major_count, @minor_count, @date, @house, @logger)
     end
     @items.last.append_to_content(content)
   end

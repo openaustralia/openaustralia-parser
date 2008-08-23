@@ -5,16 +5,16 @@ require 'htmlentities'
 class Speech
   attr_accessor :speaker, :time, :url, :id, :content
   
-  def initialize(speaker, time, url, major_count, minor_count, date, house, logger = nil, sub_page_permanent_url = nil)
-    @speaker, @time, @url, @major_count, @minor_count, @date, @house, @logger, @sub_page_permanent_url =
-      speaker, time, url, major_count, minor_count, date, house, logger, sub_page_permanent_url
+  def initialize(speaker, time, url, major_count, minor_count, date, house, logger = nil)
+    @speaker, @time, @url, @major_count, @minor_count, @date, @house, @logger  =
+      speaker, time, url, major_count, minor_count, date, house, logger
     @content = Hpricot::Elements.new
   end
   
   def output(x)
     time = @time.nil? ? "unknown" : @time
     if @logger && @content.inner_text.strip == ""
-      @logger.error "Empty speech by #{@speaker.person.name.full_name} on #{@sub_page_permanent_url}"
+      @logger.error "Empty speech by #{@speaker.person.name.full_name} on #{@url}"
     end
     if @speaker
       x.speech(:speakername => @speaker.name.full_name, :time => time, :url => url_quote(@url), :id => id,
