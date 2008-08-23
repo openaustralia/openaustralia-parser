@@ -16,11 +16,13 @@ class HansardPage
 
   # Extract a hash of all the metadata tags and values
   def extract_metadata_tags
+    # Start point of search for all metadata
+    a = @page.search("table#dlMetadata")
     i = 0
     metadata = {}
     while true
-      label_tag = @page.search("span#dlMetadata__ctl#{i}_Label2").first
-      value_tag = @page.search("span#dlMetadata__ctl#{i}_Label3").first
+      label_tag = a.search("span#dlMetadata__ctl#{i}_Label2").first
+      value_tag = a.search("span#dlMetadata__ctl#{i}_Label3").first
       break if label_tag.nil? && value_tag.nil?
       metadata[label_tag.inner_text] = value_tag.inner_text.strip
       i = i + 1
