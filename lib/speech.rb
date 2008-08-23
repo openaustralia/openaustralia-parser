@@ -6,6 +6,7 @@ class Speech
   attr_accessor :speaker, :time, :url, :id, :content
   
   def initialize(speaker, time, url, major_count, minor_count, date, house, logger = nil)
+    throw "speaker can't be nil in Speech" if speaker.nil?
     @speaker, @time, @url, @major_count, @minor_count, @date, @house, @logger  =
       speaker, time, url, major_count, minor_count, date, house, logger
     @content = Hpricot::Elements.new
@@ -16,12 +17,8 @@ class Speech
     if @logger && @content.inner_text.strip == ""
       @logger.error "Empty speech by #{@speaker.person.name.full_name} on #{@url}"
     end
-    if @speaker
-      x.speech(:speakername => @speaker.name.full_name, :time => time, :url => url_quote(@url), :id => id,
-        :speakerid => @speaker.id) { x << @content.to_s }
-    else
-      x.speech(:speakername => "unknown", :time => time, :url => url_quote(@url), :id => id) { x << @content.to_s }
-    end
+    x.speech(:speakername => @speaker.name.full_name, :time => time, :url => url_quote(@url), :id => id,
+      :speakerid => @speaker.id) { x << @content.to_s }
   end
   
   # Quoting of url's is required to be nice and standards compliant
