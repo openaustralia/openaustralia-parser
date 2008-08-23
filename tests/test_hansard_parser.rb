@@ -12,7 +12,7 @@ class TestHansardParser < Test::Unit::TestCase
   def setup
     doc = Hpricot('<a href="http://website/bar/blah.html">[Permalink]</a>')
     @page = HansardPage.new(doc, nil, nil)
-    @speech = HansardSpeech.new(nil, @page)
+    @speech = HansardSpeech.new(Hpricot(''), @page)
   end
   
   def test_permanent_url

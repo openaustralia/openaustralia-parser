@@ -1,8 +1,10 @@
 class HansardSpeech
-  attr_reader :logger
+  attr_reader :logger, :speakername, :aph_id, :interjection
   
   def initialize(content, page, logger = nil)
     @content, @page, @logger = content, page, logger
+    # Caching
+    @speakername, @aph_id, @interjection = extract_speakername
   end
   
   # The url of a speech is just the url of the page that it comes from
@@ -15,18 +17,6 @@ class HansardSpeech
     @page.time
   end
   
-  def speakername
-    extract_speakername[0]
-  end
-  
-  def aph_id
-    extract_speakername[1]
-  end
-  
-  def interjection?
-    extract_speakername[2]
-  end
-
   def extract_speakername
     interjection = false
     speaker_url = nil
@@ -141,8 +131,7 @@ class HansardSpeech
   end
 
   def remove_generic_speaker_names(content)
-    name, aph_id, interjection = extract_speakername
-    if generic_speaker?(name) and !interjection
+    if generic_speaker?(speakername) and !interjection
       #remove everything before the first hyphen
       return Hpricot(content.to_s.gsub!(/^<p[^>]*>.*?—/i, "<p>"))
     end
