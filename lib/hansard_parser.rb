@@ -127,7 +127,7 @@ class HansardPage
     end
     
     if talker_not_correctly_marked_up
-      logger.warn "Speech by #{name} not specified by talkername in #{permanent_url}" unless generic_speaker?(name, house)
+      logger.warn "Speech by #{name} not specified by talkername in #{permanent_url}" unless generic_speaker?(name, house) || logger.nil?
     end
     [name, speaker_url, interjection]
   end
