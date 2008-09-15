@@ -79,8 +79,8 @@ class HansardParser
     end
     # Structure of the page is such that we are only interested in some of the links
     page.links[30..-4].each do |link|
+      page = HansardPage.new(agent.click(link), link, logger)
       begin
-        page = HansardPage.new(agent.click(link), link, logger)
         yield page
       rescue
         logger.error "Exception thrown during processing of sub page: #{page.permanent_url}"
