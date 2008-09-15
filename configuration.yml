@@ -14,6 +14,11 @@ log_path: "/Library/WebServer/Documents/openaustralia/openaustralia-parser/parse
 
 # Should hopefully not have to change anything below here
 
+# This is where the parser looks for Hansard data
+parlinfo_web_root: "http://parlinfoweb.aph.gov.au/piweb"
+# This is the path to the Hansard data that is used for generating links
+permalink_parlinfo_web_root: "http://parlinfoweb.aph.gov.au/piweb"
+
 # Links to the biographies of all *current* house members and senators
 current_house_members_url: "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Handbook%20%3E%20Biographies%20%3E%20Current%20Members"
 current_senate_members_url: "http://parlinfoweb.aph.gov.au/piweb/browse.aspx?path=Parliamentary%20Handbook%20%3E%20Biographies%20%3E%20Current%20Senators"

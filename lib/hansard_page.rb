@@ -1,4 +1,5 @@
 require 'hansard_speech'
+require 'configuration'
 
 class HansardPage
   attr_reader :page, :link, :logger
@@ -6,6 +7,7 @@ class HansardPage
   # 'link' is the link that got us to this page 'page'
   def initialize(page, link, logger)
     @page, @link, @logger = page, link, logger
+    @conf = Configuration.new
   end
   
   def in_proof?
@@ -31,7 +33,9 @@ class HansardPage
   end
   
   def permanent_url
-    @page.search("a[@href]").find{|e| e.inner_text == "[Permalink]"}.attributes['href']
+    url = @page.search("a[@href]").find{|e| e.inner_text == "[Permalink]"}.attributes['href']
+    # Rewrite the URL using the configuration
+    url.sub(@conf.parlinfo_web_root, @conf.permalink_parlinfo_web_root)
   end
   
   def hansard_title
