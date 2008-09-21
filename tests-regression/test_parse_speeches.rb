@@ -35,6 +35,16 @@ people = PeopleCSVReader.read_members
 
 parser = HansardParser.new(people)
 
+# Remove a bunch of attributes from the XML to compare. Just doing this in the short term so it's easier
+# to spot significant content differences
+def process_xml(input, output)
+  doc = File.open(input) { |f| Hpricot.XML(f) }
+  doc.search('*[@url]').set(:url, '*deleted*')
+  doc.search('*[@time]').set(:time, '*deleted*')
+  doc.search('*[@id]').set(:id, '*deleted*')
+  File.open(output, 'w') { |f| f << doc }
+end
+
 def compare_xml(ref_path, test_path, date, count)
   if File.exists?(ref_path) && File.exists?(test_path)
     command = "diff #{test_path} #{ref_path}"
@@ -43,9 +53,12 @@ def compare_xml(ref_path, test_path, date, count)
     if $? != 0
       test = "regression_failed_text.xml"
       ref = "regression_failed_ref.xml"
+      # Remove url entries (temporary)
+      process_xml(ref_path, ref)
+      process_xml(test_path, test)
       #system("rm -f #{test} #{ref}")
-      system("tidy -xml -utf8 -o #{test} #{test_path}")
-      system("tidy -xml -utf8 -o #{ref} #{ref_path}")
+      system("tidy -xml -utf8 -o #{test} #{test}")
+      system("tidy -xml -utf8 -o #{ref} #{ref}")
       system("opendiff #{test} #{ref}")
       puts "ERROR: #{test_path} and #{ref_path} don't match"
       puts "Regression tests FAILED on date #{date} at count #{count}!"
