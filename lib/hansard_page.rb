@@ -33,13 +33,10 @@ class HansardPage
   end
   
   def house
-    text = @page.at('chamber').inner_html
-    if text == "SENATE"
-      House.senate
-    elsif text == "REPS"
-      House.representatives
-    else
-      throw "Unexpected value #{text} for contents of <chamber> tag"
+    case @page.at('chamber').inner_html
+      when "SENATE" then House.senate
+      when "REPS" then House.representatives
+      else throw "Unexpected value for contents of <chamber> tag"
     end
   end
   
