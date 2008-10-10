@@ -159,6 +159,7 @@ class FileProxy
 end
 
 class PageProxy
+  extend Forwardable
   attr_reader :uri
   
   def initialize(doc, uri)
@@ -174,10 +175,10 @@ class PageProxy
     WWW::Mechanize::List.new(@doc.search('a').map{|e| LinkProxy.new(e, self)})
   end
   
-  def search(text)
-    @doc.search(text)
-  end
-  
+  def_delegator :@doc, :search, :search
+  def_delegator :@doc, :/, :/
+  def_delegator :@doc, :at, :at
+
   def title
     @doc.search('title').inner_text
   end
