@@ -32,10 +32,24 @@ class HansardPage
     metadata
   end
   
+  def house
+    text = @page.at('chamber').inner_html
+    if text == "SENATE"
+      House.senate
+    elsif text == "REPRESENTATIVES"
+      House.representatives
+    else
+      throw "Unexpected value #{text} for contents of <chamber> tag"
+    end
+  end
+  
+  def date
+    Date.parse(@page.at('date').inner_html)
+  end
+  
   def permanent_url
-    url = @page.search("a[@href]").find{|e| e.inner_text == "[Permalink]"}.attributes['href']
-    # Rewrite the URL using the configuration
-    url.sub(@conf.parlinfo_web_root, @conf.permalink_parlinfo_web_root)
+    house_letter = house.representatives? ? "r" : "s"
+    "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:chamber/hansard#{house_letter}/#{date}/0000"
   end
   
   def hansard_title
