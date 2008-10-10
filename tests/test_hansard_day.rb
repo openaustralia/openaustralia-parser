@@ -2,14 +2,14 @@ $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require "test/unit"
 
-require "hansard_page"
+require "hansard_day"
 require 'rubygems'
 require 'hpricot'
 require 'house'
 
-class TestHansardPage < Test::Unit::TestCase
+class TestHansardDay < Test::Unit::TestCase
   def setup
-    @header = HansardPage.new(Hpricot.XML('
+    @header = HansardDay.new(Hpricot.XML('
     <hansard xsi:noNamespaceSchemaLocation="../../hansard.xsd" version="2.1">
       <session.header>
         <date>2008-09-25</date>
