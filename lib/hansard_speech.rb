@@ -96,7 +96,6 @@ class HansardSpeech
   end
   
   def HansardSpeech.clean_content_list(e)
-    puts "Cleaning list: #{e}"
     l = ""
     if e.attributes.keys == ['type']
       if ['loweralpha', 'unadorned', 'decimal'].include?(e.attributes['type'])
@@ -105,16 +104,18 @@ class HansardSpeech
           if e.name == 'item'
             if e.attributes.keys == ['label']
               l << '<dt>' + e.attributes['label'] + '</dt>'
+              d = ""
               e.children.each do |e|
                 next unless e.respond_to?(:name)
                 if e.name == 'para'
-                  l << '<dd>' + e.inner_html + '</dd>'
+                  d << e.inner_html
                 elsif e.name == 'list'
-                  l << clean_content_list(e)
+                  d << clean_content_list(e)
                 else
                   throw "Unexpected tag #{e.name}"
                 end
               end
+              l << '<dd>' + d + '</dd>'
             else
               throw "Unexpected attributes #{e.attributes.keys.join(', ')}"
             end

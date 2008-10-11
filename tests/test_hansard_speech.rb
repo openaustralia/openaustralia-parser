@@ -71,4 +71,10 @@ class TestHansardSpeech < Test::Unit::TestCase
     expected = '<b>Some text</b>'
     assert_equal(expected, HansardSpeech.clean_content_inline(Hpricot.XML(content).at('inline')))    
   end
+  
+  def test_clean_content_list
+    content = '<list type="unadorned"><item label=""><para>Some text</para><list type="loweralpha"><item label="(b)"><para>Section b</para></item></list></item></list>'
+    expected = '<dl><dt></dt><dd>Some text<dl><dt>(b)</dt><dd>Section b</dd></dl></dd></dl>'
+    assert_equal(expected, HansardSpeech.clean_content_list(Hpricot.XML(content).at('list')))
+  end
 end
