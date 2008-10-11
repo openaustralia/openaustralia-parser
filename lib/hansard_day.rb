@@ -37,9 +37,16 @@ class HansardDay
       if e.search('/(subdebate.1)').empty?
         p << HansardPage.new(e, title, nil, self)
       else
-        e.search('/(subdebate.1)').each do |s|
-          subtitle = s.at('title').inner_html
-          p <<HansardPage.new(s, title, subtitle, self)
+        e.search('/(subdebate.1)').each do |s1|
+          subtitle1 = s1.at('title').inner_html
+          if s1.search('/(subdebate.2)').empty?
+            p << HansardPage.new(s1, title, subtitle1, self)
+          else
+            s1.search('/(subdebate.2)').each do |s2|
+              subtitle2 = s2.at('title').inner_html
+              p << HansardPage.new(s2, title, subtitle1 + "; " + subtitle2, self)
+            end
+          end
         end
       end
     end

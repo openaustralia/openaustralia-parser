@@ -55,6 +55,16 @@ class TestHansardDay < Test::Unit::TestCase
             <subdebateinfo><title>9</title></subdebateinfo>
           </subdebate.1>
         </debate>
+        
+        <debate>
+    			<debateinfo><title>10</title></debateinfo>
+    			<subdebate.1>
+    				<subdebateinfo><title>11</title></subdebateinfo>
+    				<subdebate.2>
+    					<subdebateinfo><title>12</title></subdebateinfo>
+    				</subdebate.2>
+    			</subdebate.1>
+    		</debate>
       </chamber.xscript>
     </hansard>'))
   end
@@ -74,7 +84,7 @@ class TestHansardDay < Test::Unit::TestCase
   end
   
   def test_titles
-    assert_equal([["1", nil], ["2", "3"], ["4", "5"], ["4", "6"], ["7", "8"], ["7", "9"]],
+    assert_equal([["1", nil], ["2", "3"], ["4", "5"], ["4", "6"], ["7", "8"], ["7", "9"], ["10", "11; 12"]],
       @titles.pages.map {|page| [page.hansard_title, page.hansard_subtitle]})
   end
 end

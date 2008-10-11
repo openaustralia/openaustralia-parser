@@ -54,11 +54,22 @@ class HansardPage
   # Returns an array of speech objects that contain a person making a speech
   # if an element is nil it should be skipped but the minor_count should still be incremented
   def speeches
-    #throw "No content in #{permanent_url}" if content_start.nil?
-    
-    return []
-    
     speech_blocks = []
+    @page.children.each do |e|
+      next unless e.respond_to?(:name)
+      if ['speech', 'motionnospeech', 'interjection'].include?(e.name)
+        speech_blocks << e
+      elsif ['debateinfo', 'subdebateinfo', 'division', 'para', 'motion', 'question', 'answer', 'quote'].include?(e.name)
+        # Skip
+      else
+        throw "Don't know what to do with the tag #{e.name} yet"
+      end
+    end
+ 
+    return speech_blocks.map {|e| HansardSpeech.new(e, self, logger) if e}
+    
+    #
+    
     content_start.children.each do |e|
       break unless e.respond_to?(:attributes)
       
@@ -114,15 +125,6 @@ class HansardPage
 
   # Returns the time (as a string) that the current debate took place
   def time
-    # Link text for speech has format:
-    # HEADING > NAME > HOUR:MINS:SECS
-    time = @link.to_s.split('>')[2]
-    time.strip! unless time.nil?
-    # Check that time is something valid
-    unless time =~ /^\d\d:\d\d:\d\d$/
-      logger.error "Time #{time} invalid on link #{@link}"
-      time = nil
-    end
-    time
+    "??"
   end  
 end
