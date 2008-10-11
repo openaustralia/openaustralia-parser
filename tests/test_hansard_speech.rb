@@ -47,4 +47,10 @@ class TestHansardSpeech < Test::Unit::TestCase
 		expected_result = '<p>I move:</p>'
 		assert_equal(expected_result, speech.clean_content.to_s)
   end
+  
+  def test_clean_content_on_motion
+    content = '<motion><para><inline>Some intro</inline></para><list type="loweralpha"><item label="(a)"><para>Point a</para></item><item label="(b)"><para>Point b</para></item></list></motion>'		
+		expected_result = '<p class="italic">Some intro</p><dl><dt>(a)</dt><dd>Point a</dd><dt>(b)</dt><dd>Point b</dd></dl>'
+		assert_equal(expected_result, HansardSpeech.new(Hpricot.XML(content).at('motion'), nil).clean_content.to_s)
+  end
 end
