@@ -33,6 +33,8 @@ class HansardDay
     p = []
     @page.search('debate').each do |e|
       title = e.at('title').inner_html
+      cognates = e.search('cognateinfo > title').map{|a| a.inner_html}
+      title = ([title] + cognates).join('; ')
       # If there are no sub-debates then make this a page on its own
       if e.search('/(subdebate.1)').empty?
         p << HansardPage.new(e, title, nil, self)

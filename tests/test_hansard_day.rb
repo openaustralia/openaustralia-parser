@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require "test/unit"
@@ -47,7 +49,12 @@ class TestHansardDay < Test::Unit::TestCase
         </debate>
 
         <debate>
-          <debateinfo><title>7</title></debateinfo>
+          <debateinfo>
+            <title>7</title>
+            <cognate>
+              <cognateinfo><title>13</title></cognateinfo>
+            </cognate>
+          </debateinfo>
           <subdebate.1>
             <subdebateinfo><title>8</title></subdebateinfo>
           </subdebate.1>
@@ -84,7 +91,7 @@ class TestHansardDay < Test::Unit::TestCase
   end
   
   def test_titles
-    assert_equal([["1", nil], ["2", "3"], ["4", "5"], ["4", "6"], ["7", "8"], ["7", "9"], ["10", "11; 12"]],
+    assert_equal([["1", nil], ["2", "3"], ["4", "5"], ["4", "6"], ["7; 13", "8"], ["7; 13", "9"], ["10", "11; 12"]],
       @titles.pages.map {|page| [page.hansard_title, page.hansard_subtitle]})
   end
 end
