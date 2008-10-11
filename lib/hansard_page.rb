@@ -51,15 +51,19 @@ class HansardPage
     @subtitle
   end
   
+  def has_content?
+    !speeches.empty?
+  end
+  
   # Returns an array of speech objects that contain a person making a speech
   # if an element is nil it should be skipped but the minor_count should still be incremented
   def speeches
     speech_blocks = []
     @page.children.each do |e|
       next unless e.respond_to?(:name)
-      if ['speech', 'motionnospeech', 'interjection'].include?(e.name)
+      if ['speech'].include?(e.name)
         speech_blocks << e
-      elsif ['debateinfo', 'subdebateinfo', 'division', 'para', 'motion', 'question', 'answer', 'quote'].include?(e.name)
+      elsif ['interjection', 'motionnospeech', 'debateinfo', 'subdebateinfo', 'division', 'para', 'motion', 'question', 'answer', 'quote'].include?(e.name)
         # Skip
       else
         throw "Don't know what to do with the tag #{e.name} yet"

@@ -44,7 +44,7 @@ class HansardSpeech
     [talkername_tag.inner_html, aph_id_tag ? aph_id_tag.inner_html : nil, interjection]
   end  
 
-  def strip_leading_dash(text)
+  def HansardSpeech.strip_leading_dash(text)
     if text.chars[0..0] == '—'
       text.chars[1..-1]
     else
@@ -52,18 +52,50 @@ class HansardSpeech
     end
   end
   
-  def clean_content_para(e)
-    replace_with_inner_html(e, 'inline')
+  def HansardSpeech.clean_content_inline(e)
+    if e.attributes.keys == ['ref']
+      '<a href="??">' + e.inner_html + '</a>'
+    elsif e.attributes.keys == ['font-size']
+      e.inner_html
+    elsif e.attributes.keys == ['font-style']
+      if e.attributes['font-style'] == 'italic'
+        '<i>' + e.inner_html + '</i>'
+      else
+        throw "Unexpected font-style value #{e.attributes['font-style']}"
+      end
+    elsif e.attributes.keys == ['font-weight']
+      if e.attributes['font-weight'] == 'bold'
+        '<b>' + e.inner_html + '</b>'
+      else
+        throw "Unexpected font-weight value #{e.attributes['font-weight']}"
+      end
+    else
+      throw "Unexpected attributes #{e.attributes.keys.join(', ')}"
+    end
+  end
+  
+  def HansardSpeech.clean_content_para(e)
+    t = ""
+    e.children.each do |c|
+      if !c.respond_to?(:name)
+        t << c.to_s
+      elsif c.name == 'inline'
+        t << clean_content_inline(c)
+      else
+        throw "Unexpected tag #{c.name}"
+      end
+    end
+    
     if e.parent.name == 'motion'
-      '<p class="italic">' + strip_leading_dash(e.inner_html) + '</p>'
+      '<p class="italic">' + strip_leading_dash(t) + '</p>'
     elsif ['talk.start', 'speech', 'motionnospeech'].include?(e.parent.name)
-      '<p>' + strip_leading_dash(e.inner_html) + '</p>'
+      '<p>' + strip_leading_dash(t) + '</p>'
     else
       throw "Unexpected tag #{e.parent.name}"
     end
   end
   
-  def clean_content_list(e)
+  def HansardSpeech.clean_content_list(e)
     l = ""
     e.children.each do |e|
       next unless e.respond_to?(:name)
@@ -92,7 +124,7 @@ class HansardSpeech
         e.children.each do |e|
           next unless e.respond_to?(:name)
           if e.name == 'para'
-            c << clean_content_para(e)
+            c << HansardSpeech.clean_content_para(e)
           elsif e.name == 'talker'
             # Skip
           else
@@ -103,17 +135,17 @@ class HansardSpeech
         e.children.each do |e|
           next unless e.respond_to?(:name)
           if e.name == 'para'
-            c << clean_content_para(e)
+            c << HansardSpeech.clean_content_para(e)
           elsif e.name == 'list'
-            c << clean_content_list(e)
+            c << HansardSpeech.clean_content_list(e)
           else
             throw "Unexpected tag #{e.name}"
           end
         end
       elsif e.name == 'list'
-        c << clean_content_list(e)
+        c << HansardSpeech.clean_content_list(e)
       elsif e.name == 'para'
-        c << clean_content_para(e)
+        c << HansardSpeech.clean_content_para(e)
       elsif ['name', 'electorate', 'role', 'time.stamp', 'inline', 'quote', 'interjection', 'continue', 'amendments', 'table', 'interrupt'].include?(e.name)
         # Skip
       else

@@ -49,8 +49,26 @@ class TestHansardSpeech < Test::Unit::TestCase
   end
   
   def test_clean_content_on_motion
-    content = '<motion><para><inline>Some intro</inline></para><list type="loweralpha"><item label="(a)"><para>Point a</para></item><item label="(b)"><para>Point b</para></item></list></motion>'		
+    content = '<motion><para><inline font-size="9pt">Some intro</inline></para><list type="loweralpha"><item label="(a)"><para>Point a</para></item><item label="(b)"><para>Point b</para></item></list></motion>'		
 		expected_result = '<p class="italic">Some intro</p><dl><dt>(a)</dt><dd>Point a</dd><dt>(b)</dt><dd>Point b</dd></dl>'
 		assert_equal(expected_result, HansardSpeech.new(Hpricot.XML(content).at('motion'), nil).clean_content.to_s)
+  end
+  
+  def test_clean_content_inline
+    content = '<inline font-size="9.5pt">Some text</inline>'
+    expected = 'Some text'
+    assert_equal(expected, HansardSpeech.clean_content_inline(Hpricot.XML(content).at('inline')))
+    
+    content = '<inline ref="R2715">Some text</inline>'
+    expected = '<a href="??">Some text</a>'
+    assert_equal(expected, HansardSpeech.clean_content_inline(Hpricot.XML(content).at('inline')))
+    
+    content = '<inline font-style="italic">Some text</inline>'
+    expected = '<i>Some text</i>'
+    assert_equal(expected, HansardSpeech.clean_content_inline(Hpricot.XML(content).at('inline')))
+    
+    content = '<inline font-weight="bold">Some text</inline>'
+    expected = '<b>Some text</b>'
+    assert_equal(expected, HansardSpeech.clean_content_inline(Hpricot.XML(content).at('inline')))    
   end
 end
