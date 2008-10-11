@@ -1,3 +1,8 @@
+require 'rubygems'
+require 'activesupport'
+
+$KCODE = 'u'
+
 class HansardSpeech
   attr_reader :logger
   
@@ -40,7 +45,32 @@ class HansardSpeech
   end  
 
   def clean_content
-    @content
+    c = ""
+    @content.children.each do |e|
+      next unless e.respond_to?(:name)
+      if e.name == 'talk.start'
+        e.children.each do |e|
+          next unless e.respond_to?(:name)
+          if e.name == 'para'
+            text = e.inner_html.chars
+            # Strip off leading dash
+            if text[0..0] == '—'
+              text = text[1..-1]
+            end
+            c << '<p>' + text + '</p>'
+          elsif e.name == 'talker'
+            # Skip
+          else
+            throw "Unexpected tag #{e.name}"
+          end
+        end
+      elsif ['motion', 'para', 'name', 'electorate', 'role', 'time.stamp', 'inline', 'quote', 'interjection', 'continue', 'amendments', 'table', 'interrupt'].include?(e.name)
+        # Skip
+      else
+        puts "Unexpected tag #{e.name}"
+      end
+    end
+    Hpricot.XML(c)
   end
 
   def remove_generic_speaker_names(content)
