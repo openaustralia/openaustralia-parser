@@ -96,24 +96,77 @@ class HansardSpeech
   end
   
   def HansardSpeech.clean_content_list(e)
+    puts "Cleaning list: #{e}"
     l = ""
-    e.children.each do |e|
-      next unless e.respond_to?(:name)
-      if e.name == 'item'
-        l << '<dt>' + e.attributes['label'] + '</dt>'
+    if e.attributes.keys == ['type']
+      if ['loweralpha', 'unadorned', 'decimal'].include?(e.attributes['type'])
         e.children.each do |e|
           next unless e.respond_to?(:name)
-          if e.name == 'para'
-            l << '<dd>' + e.inner_html + '</dd>'
+          if e.name == 'item'
+            if e.attributes.keys == ['label']
+              l << '<dt>' + e.attributes['label'] + '</dt>'
+              e.children.each do |e|
+                next unless e.respond_to?(:name)
+                if e.name == 'para'
+                  l << '<dd>' + e.inner_html + '</dd>'
+                elsif e.name == 'list'
+                  l << clean_content_list(e)
+                else
+                  throw "Unexpected tag #{e.name}"
+                end
+              end
+            else
+              throw "Unexpected attributes #{e.attributes.keys.join(', ')}"
+            end
           else
             throw "Unexpected tag #{e.name}"
           end
         end
+        '<dl>' + l + '</dl>'
+      elsif ['bullet'].include?(e.attributes['type'])
+        e.children.each do |e|
+          next unless e.respond_to?(:name)
+          if e.name == 'item'
+            if e.attributes.keys.empty?
+              e.children.each do |e|
+                next unless e.respond_to?(:name)
+                if e.name == 'para'
+                  l << '<li>' + e.inner_html + '</li>'
+                elsif e.name == 'list'
+                  l << clean_content_list(e)
+                else
+                  throw "Unexpected tag #{e.name}"
+                end
+              end
+            else
+              throw "Unexpected attributes #{e.attributes.keys.join(', ')}"
+            end
+          else
+            throw "Unexpected tag #{e.name}"
+          end
+        end
+        '<ul>' + l + '</ul>'        
+      else
+        throw "Unexpected type value #{e.attributes['type']}"
+      end      
+    else
+      throw "Unexpected attributes #{e.attributes.keys.join(', ')}"
+    end
+  end
+  
+  def HansardSpeech.clean_content_quote(e)
+    t = ""
+    e.children.each do |e|
+      next unless e.respond_to?(:name)
+      if e.name == 'para'
+        t << '<p class="italic">' + e.inner_html + '</p>'
+      elsif e.name == 'list'
+        t << clean_content_list(e)
       else
         throw "Unexpected tag #{e.name}"
       end
     end
-    '<dl>' + l + '</dl>'
+    t
   end
   
   def clean_content
@@ -146,7 +199,9 @@ class HansardSpeech
         c << HansardSpeech.clean_content_list(e)
       elsif e.name == 'para'
         c << HansardSpeech.clean_content_para(e)
-      elsif ['name', 'electorate', 'role', 'time.stamp', 'inline', 'quote', 'interjection', 'continue', 'amendments', 'table', 'interrupt'].include?(e.name)
+      elsif e.name == 'quote'
+        c << HansardSpeech.clean_content_quote(e)
+      elsif ['name', 'electorate', 'role', 'time.stamp', 'inline', 'interjection', 'continue', 'amendments', 'table', 'interrupt'].include?(e.name)
         # Skip
       else
         throw "Unexpected tag #{e.name}"
