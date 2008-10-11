@@ -2,18 +2,20 @@ require 'hansard_speech'
 require 'configuration'
 
 class HansardPage
-  attr_reader :page, :link, :logger
+  attr_reader :page, :logger
   
   # 'link' is the link that got us to this page 'page'
-  def initialize(page, link, logger)
-    @page, @link, @logger = page, link, logger
+  def initialize(page, title, subtitle, day, logger = nil)
+    @page, @title, @subtitle, @day, @logger = page, title, subtitle, day, logger
     @conf = Configuration.new
   end
   
   def in_proof?
-    proof = extract_metadata_tags["Proof"]
-    logger.error "Unexpected value '#{proof}' for metadata 'Proof'" unless proof == "Yes" || proof == "No"
-    proof == "Yes"
+    @day.in_proof?
+  end
+  
+  def permanent_url
+    @day.permanent_url
   end
 
   # Extract a hash of all the metadata tags and values
@@ -32,22 +34,29 @@ class HansardPage
     metadata
   end
   
+  # A single string that contains the title and subtitle in one
+  def full_hansard_title
+    if hansard_subtitle != ""
+      hansard_title + "; " + hansard_subtitle
+    else
+      hansard_title
+    end
+  end
+  
   def hansard_title
-    @page.search('div#contentstart div.hansardtitle').map { |m| m.inner_html }.join('; ')
+    @title
   end
   
   def hansard_subtitle
-    @page.search('div#contentstart div.hansardsubtitle').map { |m| m.inner_html }.join('; ')
-  end
-  
-  def content_start
-    @page.search('div#contentstart').first
+    @subtitle
   end
   
   # Returns an array of speech objects that contain a person making a speech
   # if an element is nil it should be skipped but the minor_count should still be incremented
   def speeches
-    throw "No content in #{permanent_url}" if content_start.nil?
+    #throw "No content in #{permanent_url}" if content_start.nil?
+    
+    return []
     
     speech_blocks = []
     content_start.children.each do |e|
@@ -84,20 +93,23 @@ class HansardPage
 
   # Is this a sub-page that we are currently supporting?
   def supported?
-    @link.to_s =~ /^Speech:/ || @link.to_s =~ /^QUESTIONS? WITHOUT NOTICE/i || @link.to_s =~ /^QUESTIONS TO THE SPEAKER:/
+  #  @link.to_s =~ /^Speech:/ || @link.to_s =~ /^QUESTIONS? WITHOUT NOTICE/i || @link.to_s =~ /^QUESTIONS TO THE SPEAKER:/
+    true
   end
   
   def to_skip?
-    @link.to_s == "Official Hansard" || @link.to_s =~ /^Start of Business/ || @link.to_s == "Adjournment"
+    #@link.to_s == "Official Hansard" || @link.to_s =~ /^Start of Business/ || @link.to_s == "Adjournment"
+    false
   end
   
   def not_yet_supported?
-    @link.to_s =~ /^Procedural text:/ || @link.to_s =~ /^QUESTIONS IN WRITING:/ || @link.to_s =~ /^Division:/ ||
-      @link.to_s =~ /^REQUESTS? FOR DETAILED INFORMATION:/ ||
-      @link.to_s =~ /^Petition:/ || @link.to_s =~ /^PRIVILEGE:/ || @link.to_s == "Interruption" ||
-      @link.to_s =~ /^QUESTIONS? ON NOTICE:/i || @link.to_s =~ /^QUESTIONS TO THE SPEAKER/ ||
-      # Hack to deal with incorrectly titled page on 31 Oct 2005
-      @link.to_s =~ /^IRAQ/
+    #@link.to_s =~ /^Procedural text:/ || @link.to_s =~ /^QUESTIONS IN WRITING:/ || @link.to_s =~ /^Division:/ ||
+    #  @link.to_s =~ /^REQUESTS? FOR DETAILED INFORMATION:/ ||
+    #  @link.to_s =~ /^Petition:/ || @link.to_s =~ /^PRIVILEGE:/ || @link.to_s == "Interruption" ||
+    #  @link.to_s =~ /^QUESTIONS? ON NOTICE:/i || @link.to_s =~ /^QUESTIONS TO THE SPEAKER/ ||
+    #  # Hack to deal with incorrectly titled page on 31 Oct 2005
+    #  @link.to_s =~ /^IRAQ/
+    false
   end  
 
   # Returns the time (as a string) that the current debate took place

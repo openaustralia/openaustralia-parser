@@ -21,6 +21,42 @@ class TestHansardDay < Test::Unit::TestCase
         <proof>1</proof>
       </session.header>
     </hansard>'))
+    
+    @titles = HansardDay.new(Hpricot.XML('
+    <hansard>
+      <chamber.xscript>
+        <debate>
+       		<debateinfo><title>1</title></debateinfo>
+        </debate>
+
+        <debate>
+          <debateinfo><title>2</title></debateinfo>
+          <subdebate.1>
+            <subdebateinfo><title>3</title></subdebateinfo>
+          </subdebate.1>
+        </debate>
+
+        <debate>
+          <debateinfo><title>4</title></debateinfo>
+          <subdebate.1>
+            <subdebateinfo><title>5</title></subdebateinfo>
+          </subdebate.1>
+          <subdebate.1>
+            <subdebateinfo><title>6</title></subdebateinfo>
+          </subdebate.1>
+        </debate>
+
+        <debate>
+          <debateinfo><title>7</title></debateinfo>
+          <subdebate.1>
+            <subdebateinfo><title>8</title></subdebateinfo>
+          </subdebate.1>
+          <subdebate.1>
+            <subdebateinfo><title>9</title></subdebateinfo>
+          </subdebate.1>
+        </debate>
+      </chamber.xscript>
+    </hansard>'))
   end
   
   def test_house
@@ -35,5 +71,10 @@ class TestHansardDay < Test::Unit::TestCase
     # Make permanent url links back to the Parlinfo Search result. For the time being we will always link back to the top level
     # result for that date rather than the individual speeches.
     assert_equal("http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:chamber/hansards/2008-09-25/0000", @header.permanent_url)
+  end
+  
+  def test_titles
+    assert_equal([["1", nil], ["2", "3"], ["4", "5"], ["4", "6"], ["7", "8"], ["7", "9"]],
+      @titles.pages.map {|page| [page.hansard_title, page.hansard_subtitle]})
   end
 end
