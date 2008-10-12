@@ -102,7 +102,8 @@ class HansardSpeech
     end
   end
   
-  def HansardSpeech.clean_content_para(e)
+  # Pass a <para>Some text</para> block. Returns cleaned "Some text"
+  def HansardSpeech.clean_content_para_content(e)
     t = ""
     e.children.each do |c|
       if !c.respond_to?(:name)
@@ -113,7 +114,11 @@ class HansardSpeech
         throw "Unexpected tag #{c.name}"
       end
     end
-
+    t
+  end
+  
+  # Pass a <para>Some text</para> block. Returns cleaned "<p>Some text</p>"
+  def HansardSpeech.clean_content_para(e)
     atts = e.attributes.keys
     # We're not going to pay any attention to the following attribute
     atts.delete('pgwide')
@@ -137,9 +142,9 @@ class HansardSpeech
     end
 
     if type == ""
-      '<p>' + t + '</p>'
+      '<p>' + clean_content_para_content(e) + '</p>'
     else
-      '<p class="' + type + '">' + t + '</p>'
+      '<p class="' + type + '">' + clean_content_para_content(e) + '</p>'
     end
   end
   
@@ -298,7 +303,7 @@ class HansardSpeech
     e.children.each do |e|
       next unless e.respond_to?(:name)
       if e.name == 'para'
-        t << '<p class="italic">' + e.inner_html + '</p>'
+        t << '<p class="italic">' + clean_content_para_content(e) + '</p>'
       elsif e.name == 'list'
         t << clean_content_list(e)
       elsif e.name == 'table'
