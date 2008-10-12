@@ -154,6 +154,10 @@ class HansardParser
     if member.nil?
       name = Name.title_first_last(speech.speakername)
       member = @people.find_member_by_name_current_on_date(name, date, house)
+      if member.nil?
+        name = Name.last_title_first(speech.speakername)
+        member = @people.find_member_by_name_current_on_date(name, date, house)
+      end
     end
     member
   end
