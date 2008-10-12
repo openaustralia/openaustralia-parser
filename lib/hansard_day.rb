@@ -31,7 +31,7 @@ class HansardDay
   def pages
     # Step through the top-level debates
     p = []
-    @page.search('debate').each do |e|
+    (@page.search('//(chamber.xscript)/debate') + @page.search('//(maincomm.xscript)/debate')).each do |e|
       title = e.at('title').inner_html
       cognates = e.search('cognateinfo > title').map{|a| a.inner_html}
       title = ([title] + cognates).join('; ')

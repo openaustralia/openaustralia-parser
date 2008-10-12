@@ -416,6 +416,19 @@ class HansardSpeech
     t
   end
   
+  def HansardSpeech.clean_content_interrupt(e)
+    t = ""
+    e.children.each do |c|
+      next unless c.respond_to?(:name)
+      if c.name == 'para'
+        t << clean_content_para(c)
+      else
+        throw "Unexpected tag #{c.name}"
+      end
+    end
+    '<b>' + t + '</b>'
+  end
+  
   def clean_content
     c = ""
     e = @content
@@ -438,7 +451,9 @@ class HansardSpeech
       c << HansardSpeech.clean_content_continue(e)
     elsif e.name == 'motionnospeech'
       c << HansardSpeech.clean_content_motionnospeech(e)
-    elsif ['tggroup', 'tgroup', 'amendment', 'talker', 'name', 'electorate', 'role', 'time.stamp', 'inline', 'interjection', 'table', 'interrupt'].include?(e.name)
+    elsif e.name == 'interrupt'
+      c << HansardSpeech.clean_content_interrupt(e)
+    elsif ['tggroup', 'tgroup', 'amendment', 'talker', 'name', 'electorate', 'role', 'time.stamp', 'inline', 'interjection', 'table'].include?(e.name)
       # Skip
     else
       throw "Unexpected tag #{e.name}"
