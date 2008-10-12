@@ -247,6 +247,21 @@ class HansardSpeech
     t
   end
   
+  def HansardSpeech.clean_content_motion(e)
+    c = ""
+    e.children.each do |e|
+      next unless e.respond_to?(:name)
+      if e.name == 'para'
+        c << HansardSpeech.clean_content_para(e)
+      elsif e.name == 'list'
+        c << HansardSpeech.clean_content_list(e)
+      else
+        throw "Unexpected tag #{e.name}"
+      end
+    end
+    c
+  end
+  
   def clean_content
     c = ""
     e = @content
@@ -254,16 +269,7 @@ class HansardSpeech
     if e.name == 'talk.start'
       c << HansardSpeech.clean_content_talk_start(e)
     elsif e.name == 'motion'
-      e.children.each do |e|
-        next unless e.respond_to?(:name)
-        if e.name == 'para'
-          c << HansardSpeech.clean_content_para(e)
-        elsif e.name == 'list'
-          c << HansardSpeech.clean_content_list(e)
-        else
-          throw "Unexpected tag #{e.name}"
-        end
-      end
+      c << HansardSpeech.clean_content_motion(e)
     elsif e.name == 'list'
       c << HansardSpeech.clean_content_list(e)
     elsif e.name == 'para'
@@ -276,7 +282,7 @@ class HansardSpeech
       c << HansardSpeech.clean_content_amendments(e)
     elsif e.name == 'continue'
       c << HansardSpeech.clean_content_continue(e)
-    elsif ['tggroup', 'tgroup', 'amendment', 'talker', 'name', 'electorate', 'role', 'time.stamp', 'inline', 'interjection', 'continue', 'table', 'interrupt'].include?(e.name)
+    elsif ['tggroup', 'tgroup', 'amendment', 'talker', 'name', 'electorate', 'role', 'time.stamp', 'inline', 'interjection', 'table', 'interrupt'].include?(e.name)
       # Skip
     else
       throw "Unexpected tag #{e.name}"
