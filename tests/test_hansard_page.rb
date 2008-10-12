@@ -48,9 +48,10 @@ class TestHansardPage < Test::Unit::TestCase
     ').at('debate'), nil, nil, nil)
   end
   
-  #def test_speaker
-  #  assert_equal(5, @speaker.speeches.size)
-  #end
+  def test_speaker
+    # We're only using the <speech> data for the time being
+    assert_equal(2, @speaker.speeches.size)
+  end
   
   #def test_interjection_within_speech
   #  # The contents of <speech> tag should get split into 3 separate speeches as the initial bit of the speech, the interjection and 
