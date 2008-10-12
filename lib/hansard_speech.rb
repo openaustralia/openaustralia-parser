@@ -97,11 +97,33 @@ class HansardSpeech
         throw "Unexpected tag #{c.name}"
       end
     end
+
+    atts = e.attributes.keys
+    # We're not going to pay any attention to the following attribute
+    atts.delete('pgwide')
     
+    type = ""
     if ['motion', 'quote', 'amendment'].include?(e.parent.name)
-      '<p class="italic">' + t + '</p>'
+      type = "italic"
+    end
+    if atts.empty?
+      # Do nothing
+    elsif atts == ['class']
+      if ['block', 'ParlAmend', 'hdg5s', 'subsection'].include?(e.attributes['class'])
+        # Do nothing
+      elsif ['italic'].include?(e.attributes['class'])
+        type = 'italic'
+      else
+        throw "Unexpected value for <para> class attribute #{e.attributes['class']}"
+      end
     else
+      throw "Unexpected <para> attributes #{atts.join(', ')}"
+    end
+
+    if type == ""
       '<p>' + t + '</p>'
+    else
+      '<p class="' + type + '">' + t + '</p>'
     end
   end
   
