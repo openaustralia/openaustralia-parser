@@ -45,21 +45,28 @@ class HansardSpeech
   end  
 
   def HansardSpeech.strip_leading_dash(text)
+    # TODO: Not handling dashes and nbsp the same here. Should really be stripping whitespace completely before doing
+    # anything for consistency sake.
     if text.chars.strip[0..0] == '—'
       text.chars.strip[1..-1]
+    # Also remove first non-breaking space (Really should remove them all but we're doing it this way for compatibility
+    # with the previous parser
+    elsif text.chars[0] == 160
+      text.chars[1..-1]
     else
       text
     end
   end
   
   def HansardSpeech.clean_content_inline(e)
+    text = strip_leading_dash(e.inner_html)
     if e.attributes.keys == ['ref']
-      '<a href="??">' + e.inner_html + '</a>'
+      '<a href="??">' + text + '</a>'
     elsif e.attributes.keys == ['font-size']
-      e.inner_html
+      text
     elsif e.attributes.keys == ['font-style']
       if e.attributes['font-style'] == 'italic'
-        '<i>' + e.inner_html + '</i>'
+        '<i>' + text + '</i>'
       else
         throw "Unexpected font-style value #{e.attributes['font-style']}"
       end
@@ -69,7 +76,7 @@ class HansardSpeech
         if e.inner_html[0..0] == '(' && e.inner_html[-1..-1] == ')'
           ''
         else
-          '<b>' + e.inner_html + '</b>'
+          '<b>' + text + '</b>'
         end
       else
         throw "Unexpected font-weight value #{e.attributes['font-weight']}"
