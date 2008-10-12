@@ -35,13 +35,27 @@ class HansardSpeech
   def extract_speakername
     # If there are multiple <name> tags prefer the one with the attribute role='display'
     talkername_tag = @content.at('name[@role="display"]') || @content.at('name')
-    #if talkername_tag.nil?
-    #  p @content
-    #  throw "Couldn't find a speaker"
-    #end
+    name = talkername_tag ? talkername_tag.inner_html : nil
     aph_id_tag = @content.at('//(name.id)')
+    aph_id = aph_id_tag ? aph_id_tag.inner_html : nil
     interjection = !@content.at('interjection').nil?
-    [talkername_tag ? talkername_tag.inner_html : nil, aph_id_tag ? aph_id_tag.inner_html : nil, interjection]
+    
+    if name.nil? && aph_id.nil?
+      # As a last resort try searching for interjection text
+      m = strip_tags(@content).match(/([a-z].*) interjecting/i)
+      if m
+        name = m[1]
+        interjection = true
+      else
+        m = strip_tags(@content).match(/^([a-z].*?)—/i)
+        if m and generic_speaker?(m[1])
+          name = m[1]
+          interjection = false
+        end
+      end
+    end
+    
+    [name, aph_id, interjection]
   end  
 
   def HansardSpeech.strip_leading_dash(text)
