@@ -45,8 +45,8 @@ class HansardSpeech
   end  
 
   def HansardSpeech.strip_leading_dash(text)
-    if text.chars[0..0] == '—'
-      text.chars[1..-1]
+    if text.chars.strip[0..0] == '—'
+      text.chars.strip[1..-1]
     else
       text
     end
@@ -65,7 +65,12 @@ class HansardSpeech
       end
     elsif e.attributes.keys == ['font-weight']
       if e.attributes['font-weight'] == 'bold'
-        '<b>' + e.inner_html + '</b>'
+        # Workaround for badly marked up content. If a bold item is surrounded in brackets assume it is a name and remove it
+        if e.inner_html[0..0] == '(' && e.inner_html[-1..-1] == ')'
+          ''
+        else
+          '<b>' + e.inner_html + '</b>'
+        end
       else
         throw "Unexpected font-weight value #{e.attributes['font-weight']}"
       end

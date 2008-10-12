@@ -85,4 +85,16 @@ class TestHansardSpeech < Test::Unit::TestCase
     speech = HansardSpeech.new(Hpricot.XML(content).at('para'), nil)
     assert_equal(expected, speech.clean_content.to_s)
   end
+  
+  def test_clean_content_inline_in_brackets
+    # This happens when a name hasn't been marked up correctly
+    content = '<inline font-weight="bold">(A name)</inline>'
+    assert_equal('', HansardSpeech.clean_content_inline(Hpricot.XML(content).at('inline')))
+  end
+  
+  def test_clean_content_para_with_badly_marked_up_speaker
+    content = '<speech><para><inline font-weight="bold">(A name)</inline>—Some text</para></speech>'
+    expected = '<p>Some text</p>'
+    assert_equal(expected, HansardSpeech.clean_content_para(Hpricot.XML(content).at('para')))
+  end
 end
