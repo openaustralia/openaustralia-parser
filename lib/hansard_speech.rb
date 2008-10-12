@@ -48,7 +48,7 @@ class HansardSpeech
     # TODO: Not handling dashes and nbsp the same here. Should really be stripping whitespace completely before doing
     # anything for consistency sake.
     if text.chars.strip[0..0] == '—'
-      text.chars.strip[1..-1]
+      text.sub('—', '')
     # Also remove first non-breaking space (Really should remove them all but we're doing it this way for compatibility
     # with the previous parser
     elsif text.chars[0] == 160
@@ -90,7 +90,7 @@ class HansardSpeech
     t = ""
     e.children.each do |c|
       if !c.respond_to?(:name)
-        t << c.to_s
+        t << strip_leading_dash(c.to_s)
       elsif c.name == 'inline'
         t << clean_content_inline(c)
       else
@@ -99,9 +99,9 @@ class HansardSpeech
     end
     
     if ['motion', 'quote', 'amendment'].include?(e.parent.name)
-      '<p class="italic">' + strip_leading_dash(t) + '</p>'
+      '<p class="italic">' + t + '</p>'
     else
-      '<p>' + strip_leading_dash(t) + '</p>'
+      '<p>' + t + '</p>'
     end
   end
   
