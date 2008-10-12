@@ -234,6 +234,19 @@ class HansardSpeech
     t
   end
   
+  def HansardSpeech.clean_content_continue(e)
+    t = ""
+    e.children.each do |c|
+      next unless c.respond_to?(:name)
+      if c.name == 'talk.start'
+        t << clean_content_talk_start(c)
+      else
+        throw "Unexpected tag #{c.name}"
+      end
+    end
+    t
+  end
+  
   def clean_content
     c = ""
     e = @content
@@ -261,6 +274,8 @@ class HansardSpeech
       c << HansardSpeech.clean_content_interjection(e)
     elsif e.name == 'amendments'
       c << HansardSpeech.clean_content_amendments(e)
+    elsif e.name == 'continue'
+      c << HansardSpeech.clean_content_continue(e)
     elsif ['tggroup', 'tgroup', 'amendment', 'talker', 'name', 'electorate', 'role', 'time.stamp', 'inline', 'interjection', 'continue', 'table', 'interrupt'].include?(e.name)
       # Skip
     else
