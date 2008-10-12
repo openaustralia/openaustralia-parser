@@ -105,4 +105,14 @@ class TestHansardSpeech < Test::Unit::TestCase
     expected = "<p>#{nbsp}#{nbsp} Foo</p>"
     assert_equal(expected.chars.normalize, HansardSpeech.clean_content_para(Hpricot.XML(content).at('para')).chars.normalize)
   end
+  
+  def test_clean_content_table
+    content_heading = '<thead><row><entry><para>1</para></entry><entry><para>2</para></entry></row></thead>'
+    content_row1 = '<row><entry><para>3</para></entry><entry><para>4</para></entry></row>'
+    content_row2 = '<row><entry><para>5</para></entry><entry><para>6</para></entry></row>'
+    content = "<table><tgroup><colspec/><colspec/>#{content_heading}<tbody>#{content_row1}#{content_row2}</tbody></tgroup></table>"
+    
+    expected = '<table><tr><th>1</th><th>2</th></tr><tr><td>3</td><td>4</td></tr><tr><td>5</td><td>6</td></tr></table>'
+    assert_equal(expected, HansardSpeech.clean_content_table(Hpricot.XML(content).at('table')))
+  end
 end

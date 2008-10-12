@@ -121,6 +121,8 @@ class HansardSpeech
                   d << e.inner_html
                 elsif e.name == 'list'
                   d << clean_content_list(e)
+                elsif e.name == 'table'
+                  d << clean_content_table(e)
                 else
                   throw "Unexpected tag #{e.name}"
                 end
@@ -164,6 +166,94 @@ class HansardSpeech
       throw "Unexpected attributes #{e.attributes.keys.join(', ')}"
     end
   end
+
+  def HansardSpeech.clean_content_entry(e)
+    t = ""
+    e.children.each do |c|
+      next unless c.respond_to?(:name)
+      if c.name == 'para'
+        t << c.inner_html
+      else
+        throw "Unexpected tag #{c.name}"
+      end
+    end
+    t
+  end
+  
+  def HansardSpeech.clean_content_row(e)
+    t = ""
+    e.children.each do |c|
+      next unless c.respond_to?(:name)
+      if c.name == 'entry'
+        if c.parent.parent.name == 'thead'
+          t << '<th>' + clean_content_entry(c) + '</th>'
+        elsif c.parent.parent.name == 'tbody'
+          t << '<td>' + clean_content_entry(c) + '</td>'
+        else
+          throw "Unexpected tag #{c.parent.parent.name}"
+        end
+      else
+        throw "Unexpected tag #{c.name}"
+      end
+    end
+    '<tr>' + t + '</tr>'
+  end
+  
+  def HansardSpeech.clean_content_thead(e)
+    t = ""
+    e.children.each do |c|
+      next unless c.respond_to?(:name)
+      if c.name == 'row'
+        t << clean_content_row(c)
+      else
+        throw "Unexpected tag #{c.name}"
+      end
+    end
+    t
+  end
+  
+  def HansardSpeech.clean_content_tbody(e)
+    t = ""
+    e.children.each do |c|
+      next unless c.respond_to?(:name)
+      if c.name == 'row'
+        t << clean_content_row(c)
+      else
+        throw "Unexpected tag #{c.name}"
+      end
+    end
+    t
+  end
+  
+  def HansardSpeech.clean_content_tgroup(e)
+    t = ""
+    e.children.each do |c|
+      next unless c.respond_to?(:name)
+      if c.name == "colspec"
+        # Skip
+      elsif c.name == "thead"
+        t << clean_content_thead(c)
+      elsif c.name == "tbody"
+        t << clean_content_tbody(c)
+      else
+        throw "Unexpected tag #{c.name}"
+      end
+    end
+    t    
+  end
+  
+  def HansardSpeech.clean_content_table(e)
+    t = ""
+    e.children.each do |c|
+      next unless c.respond_to?(:name)
+      if c.name == 'tgroup'
+        t << clean_content_tgroup(c)
+      else
+        throw "Unexpected tag #{c.name}"
+      end
+    end
+    '<table>' + t + '</table>'
+  end
   
   def HansardSpeech.clean_content_quote(e)
     t = ""
@@ -173,6 +263,8 @@ class HansardSpeech
         t << '<p class="italic">' + e.inner_html + '</p>'
       elsif e.name == 'list'
         t << clean_content_list(e)
+      elsif e.name == 'table'
+        t << clean_content_table(e)
       else
         throw "Unexpected tag #{e.name}"
       end

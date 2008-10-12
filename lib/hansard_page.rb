@@ -61,13 +61,13 @@ class HansardPage
     speech_blocks = []
     @page.children.each do |e|
       next unless e.respond_to?(:name)
-      if ['speech'].include?(e.name)
+      if ['speech', 'question', 'answer'].include?(e.name)
         # Add each child as a seperate speech_block
         e.children.each do |c|
           next unless c.respond_to?(:name)
           speech_blocks << c
         end
-      elsif ['interjection', 'motionnospeech', 'debateinfo', 'subdebateinfo', 'division', 'para', 'motion', 'question', 'answer', 'quote'].include?(e.name)
+      elsif ['interjection', 'motionnospeech', 'debateinfo', 'subdebateinfo', 'division', 'para', 'motion', 'quote'].include?(e.name)
         # Skip
       else
         throw "Don't know what to do with the tag #{e.name} yet"
