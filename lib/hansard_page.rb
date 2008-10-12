@@ -67,7 +67,9 @@ class HansardPage
           next unless c.respond_to?(:name)
           speech_blocks << c
         end
-      elsif ['interjection', 'motionnospeech', 'debateinfo', 'subdebateinfo', 'division', 'para', 'motion', 'quote'].include?(e.name)
+      elsif e.name == 'motionnospeech'
+        #speech_blocks << e
+      elsif ['interjection', 'debateinfo', 'subdebateinfo', 'division', 'para', 'motion', 'quote'].include?(e.name)
         # Skip
       else
         throw "Don't know what to do with the tag #{e.name} yet"

@@ -95,6 +95,8 @@ class HansardSpeech
       else
         throw "Unexpected font-weight value #{e.attributes['font-weight']}"
       end
+    elsif e.attributes.keys.empty?
+      '<p>' + text + '</p>'
     else
       throw "Unexpected attributes #{e.attributes.keys.join(', ')}"
     end
@@ -390,6 +392,25 @@ class HansardSpeech
     c
   end
   
+  def HansardSpeech.clean_content_motionnospeech(e)
+    t = ""
+    e.children.each do |c|
+      next unless c.respond_to?(:name)
+      if ['name', 'electorate', 'role', 'time.stamp'].include?(c.name)
+        # Skip and do nothing
+      elsif c.name == 'inline'
+        t << clean_content_inline(c)
+      elsif c.name == 'motion'
+        t << clean_content_motion(c)
+      elsif c.name == 'para'
+        t << clean_content_para(c)
+      else
+        throw "Unexpected tag #{c.name}"
+      end
+    end
+    t
+  end
+  
   def clean_content
     c = ""
     e = @content
@@ -410,6 +431,8 @@ class HansardSpeech
       c << HansardSpeech.clean_content_amendments(e)
     elsif e.name == 'continue'
       c << HansardSpeech.clean_content_continue(e)
+    elsif e.name == 'motionnospeech'
+      c << HansardSpeech.clean_content_motionnospeech(e)
     elsif ['tggroup', 'tgroup', 'amendment', 'talker', 'name', 'electorate', 'role', 'time.stamp', 'inline', 'interjection', 'table', 'interrupt'].include?(e.name)
       # Skip
     else
