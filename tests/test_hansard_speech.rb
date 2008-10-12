@@ -43,7 +43,7 @@ class TestHansardSpeech < Test::Unit::TestCase
   end
   
   def test_clean_content1
-    speech = HansardSpeech.new(Hpricot.XML('<speech><talk.start><para>—I move:</para></talk.start></speech>').at('speech'), nil)
+    speech = HansardSpeech.new(Hpricot.XML('<speech><talk.start><para>—I move:</para></talk.start></speech>').at('//(talk.start)'), nil)
 		expected_result = '<p>I move:</p>'
 		assert_equal(expected_result, speech.clean_content.to_s)
   end
@@ -76,5 +76,13 @@ class TestHansardSpeech < Test::Unit::TestCase
     content = '<list type="unadorned"><item label=""><para>Some text</para><list type="loweralpha"><item label="(b)"><para>Section b</para></item></list></item></list>'
     expected = '<dl><dt></dt><dd>Some text<dl><dt>(b)</dt><dd>Section b</dd></dl></dd></dl>'
     assert_equal(expected, HansardSpeech.clean_content_list(Hpricot.XML(content).at('list')))
+  end
+  
+  def test_clean_content_para
+    content = '<speech><para class="block">Some text</para></speech>'
+    expected = '<p>Some text</p>'
+    assert_equal(expected, HansardSpeech.clean_content_para(Hpricot.XML(content).at('para')))
+    speech = HansardSpeech.new(Hpricot.XML(content).at('para'), nil)
+    assert_equal(expected, speech.clean_content.to_s)
   end
 end

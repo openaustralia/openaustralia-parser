@@ -62,7 +62,11 @@ class HansardPage
     @page.children.each do |e|
       next unless e.respond_to?(:name)
       if ['speech'].include?(e.name)
-        speech_blocks << e
+        # Add each child as a seperate speech_block
+        e.children.each do |c|
+          next unless c.respond_to?(:name)
+          speech_blocks << c
+        end
       elsif ['interjection', 'motionnospeech', 'debateinfo', 'subdebateinfo', 'division', 'para', 'motion', 'question', 'answer', 'quote'].include?(e.name)
         # Skip
       else

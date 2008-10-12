@@ -12,7 +12,11 @@ class TestHansardPage < Test::Unit::TestCase
   def setup
     @speaker = HansardPage.new(Hpricot.XML('
     <debate>
-			<speech></speech>
+			<speech>
+			  <talk.start></talk.start>
+			  <interjection></interjection>
+			  <para></para>
+			</speech>
 			<motionnospeech></motionnospeech>
 			<interjection></interjection>
 			<speech></speech>
@@ -50,7 +54,7 @@ class TestHansardPage < Test::Unit::TestCase
   
   def test_speaker
     # We're only using the <speech> data for the time being
-    assert_equal(2, @speaker.speeches.size)
+    assert_equal(3, @speaker.speeches.size)
   end
   
   #def test_interjection_within_speech

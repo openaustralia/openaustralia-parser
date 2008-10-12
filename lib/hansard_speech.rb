@@ -35,13 +35,13 @@ class HansardSpeech
   def extract_speakername
     # If there are multiple <name> tags prefer the one with the attribute role='display'
     talkername_tag = @content.at('name[@role="display"]') || @content.at('name')
-    if talkername_tag.nil?
-      p @content
-      throw "Couldn't find a speaker"
-    end
+    #if talkername_tag.nil?
+    #  p @content
+    #  throw "Couldn't find a speaker"
+    #end
     aph_id_tag = @content.at('//(name.id)')
     interjection = !@content.at('interjection').nil?
-    [talkername_tag.inner_html, aph_id_tag ? aph_id_tag.inner_html : nil, interjection]
+    [talkername_tag ? talkername_tag.inner_html : nil, aph_id_tag ? aph_id_tag.inner_html : nil, interjection]
   end  
 
   def HansardSpeech.strip_leading_dash(text)
@@ -86,9 +86,9 @@ class HansardSpeech
       end
     end
     
-    if e.parent.name == 'motion'
+    if ['motion', 'quote'].include?(e.parent.name)
       '<p class="italic">' + strip_leading_dash(t) + '</p>'
-    elsif ['talk.start', 'speech', 'motionnospeech'].include?(e.parent.name)
+    elsif ['talk.start', 'speech', 'motionnospeech', 'interrupt'].include?(e.parent.name)
       '<p>' + strip_leading_dash(t) + '</p>'
     else
       throw "Unexpected tag #{e.parent.name}"
@@ -200,35 +200,35 @@ class HansardSpeech
   
   def clean_content
     c = ""
-    @content.children.each do |e|
-      next unless e.respond_to?(:name)
-      if e.name == 'talk.start'
-        c << HansardSpeech.clean_content_talk_start(e)
-      elsif e.name == 'motion'
-        e.children.each do |e|
-          next unless e.respond_to?(:name)
-          if e.name == 'para'
-            c << HansardSpeech.clean_content_para(e)
-          elsif e.name == 'list'
-            c << HansardSpeech.clean_content_list(e)
-          else
-            throw "Unexpected tag #{e.name}"
-          end
+    e = @content
+
+    if e.name == 'talk.start'
+      c << HansardSpeech.clean_content_talk_start(e)
+    elsif e.name == 'motion'
+      e.children.each do |e|
+        next unless e.respond_to?(:name)
+        if e.name == 'para'
+          c << HansardSpeech.clean_content_para(e)
+        elsif e.name == 'list'
+          c << HansardSpeech.clean_content_list(e)
+        else
+          throw "Unexpected tag #{e.name}"
         end
-      elsif e.name == 'list'
-        c << HansardSpeech.clean_content_list(e)
-      elsif e.name == 'para'
-        c << HansardSpeech.clean_content_para(e)
-      elsif e.name == 'quote'
-        c << HansardSpeech.clean_content_quote(e)
-      elsif e.name == 'interjection'
-        c << HansardSpeech.clean_content_interjection(e)
-      elsif ['name', 'electorate', 'role', 'time.stamp', 'inline', 'interjection', 'continue', 'amendments', 'table', 'interrupt'].include?(e.name)
-        # Skip
-      else
-        throw "Unexpected tag #{e.name}"
       end
+    elsif e.name == 'list'
+      c << HansardSpeech.clean_content_list(e)
+    elsif e.name == 'para'
+      c << HansardSpeech.clean_content_para(e)
+    elsif e.name == 'quote'
+      c << HansardSpeech.clean_content_quote(e)
+    elsif e.name == 'interjection'
+      c << HansardSpeech.clean_content_interjection(e)
+    elsif ['tggroup', 'tgroup', 'amendment', 'talker', 'name', 'electorate', 'role', 'time.stamp', 'inline', 'interjection', 'continue', 'amendments', 'table', 'interrupt'].include?(e.name)
+      # Skip
+    else
+      throw "Unexpected tag #{e.name}"
     end
+
     Hpricot.XML(c)
   end
 

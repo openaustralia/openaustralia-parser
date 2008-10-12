@@ -48,7 +48,7 @@ end
 
 def compare_xml(ref_path, test_path, date, count)
   if File.exists?(ref_path) && File.exists?(test_path)
-    command = "diff #{test_path} #{ref_path}"
+    command = "diff -q #{test_path} #{ref_path}"
     puts command
     system(command)
     if $? != 0
