@@ -130,12 +130,8 @@ class HansardSpeech
     if atts.empty?
       # Do nothing
     elsif atts == ['class']
-      if ['block', 'ParlAmend', 'hdg5s', 'subsection'].include?(e.attributes['class'])
-        # Do nothing
-      elsif ['italic'].include?(e.attributes['class'])
+      if e.attributes['class'] == 'italic'
         type = 'italic'
-      else
-        throw "Unexpected value for <para> class attribute #{e.attributes['class']}"
       end
     else
       throw "Unexpected <para> attributes #{atts.join(', ')}"
@@ -215,7 +211,7 @@ class HansardSpeech
     e.children.each do |c|
       next unless c.respond_to?(:name)
       if c.name == 'para'
-        t << c.inner_html
+        t << clean_content_para(c)
       else
         throw "Unexpected tag #{c.name}"
       end
@@ -229,7 +225,8 @@ class HansardSpeech
       next unless c.respond_to?(:name)
       if c.name == 'entry'
         if c.parent.parent.name == 'thead'
-          t << '<th>' + clean_content_entry(c) + '</th>'
+          #t << '<th>' + clean_content_entry(c) + '</th>'
+          t << '<td>' + clean_content_entry(c) + '</td>'
         elsif c.parent.parent.name == 'tbody'
           t << '<td>' + clean_content_entry(c) + '</td>'
         else
@@ -295,7 +292,8 @@ class HansardSpeech
         throw "Unexpected tag #{c.name}"
       end
     end
-    '<table>' + t + '</table>'
+    # Not sure if I really should put border="0" here. Hmmm...
+    '<table border="0">' + t + '</table>'
   end
   
   def HansardSpeech.clean_content_quote(e)
@@ -453,7 +451,9 @@ class HansardSpeech
       c << HansardSpeech.clean_content_motionnospeech(e)
     elsif e.name == 'interrupt'
       c << HansardSpeech.clean_content_interrupt(e)
-    elsif ['tggroup', 'tgroup', 'amendment', 'talker', 'name', 'electorate', 'role', 'time.stamp', 'inline', 'interjection', 'table'].include?(e.name)
+    elsif e.name == 'table'
+      c << HansardSpeech.clean_content_table(e)
+    elsif ['tggroup', 'tgroup', 'amendment', 'talker', 'name', 'electorate', 'role', 'time.stamp', 'inline', 'interjection'].include?(e.name)
       # Skip
     else
       throw "Unexpected tag #{e.name}"
