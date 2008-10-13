@@ -45,7 +45,6 @@ class HansardPage
   
   def hansard_title
     # nasty HACK
-    p @title
     HansardSpeech.clean_content_title_content(Hpricot.XML(@title.to_s))
   end
   
