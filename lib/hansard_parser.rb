@@ -90,9 +90,10 @@ class HansardParser
     content = false
     each_page_on_date(date, house) do |page|
       content = true
-      logger.warn "Page #{page.permanent_url} is in proof stage" if page.in_proof?
-      throw "Unsupported: #{page.full_hansard_title}" unless page.supported? || page.to_skip? || page.not_yet_supported?
-      if page.supported?
+      #logger.warn "Page #{page.permanent_url} is in proof stage" if page.in_proof?
+      #throw "Unsupported: #{page.full_hansard_title}" unless page.supported? || page.to_skip? || page.not_yet_supported?
+      #if page.supported?
+      if page
         debates.add_heading(page.hansard_title, page.hansard_subtitle, page.permanent_url) if page.has_content?
         speaker = nil
         page.speeches.each do |speech|

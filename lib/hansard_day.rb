@@ -28,30 +28,58 @@ class HansardDay
     proof == "1"
   end
 
-  def pages
-    # Step through the top-level debates
+  def pages_from_debate(e)
     p = []
-    (@page.search('//(chamber.xscript)/debate') + @page.search('//(maincomm.xscript)/debate')).each do |e|
-      title = e.at('title').inner_html
-      cognates = e.search('cognateinfo > title').map{|a| a.inner_html}
-      title = ([title] + cognates).join('; ')
-      # If there are no sub-debates then make this a page on its own
-      if e.search('/(subdebate.1)').empty?
-        p << HansardPage.new(e, title, nil, self)
-      else
-        e.search('/(subdebate.1)').each do |s1|
-          subtitle1 = s1.at('title').inner_html
-          if s1.search('/(subdebate.2)').empty?
-            p << HansardPage.new(s1, title, subtitle1, self)
-          else
-            s1.search('/(subdebate.2)').each do |s2|
-              subtitle2 = s2.at('title').inner_html
-              p << HansardPage.new(s2, title, subtitle1 + "; " + subtitle2, self)
-            end
+    title = e.at('title').inner_html
+    cognates = e.search('cognateinfo > title').map{|a| a.inner_html}
+    title = ([title] + cognates).join('; ')
+    # If there are no sub-debates then make this a page on its own
+    if e.search('/(subdebate.1)').empty?
+      p << HansardPage.new(e, title, nil, self)
+    else
+      e.search('/(subdebate.1)').each do |s1|
+        subtitle1 = s1.at('title').inner_html
+        if s1.search('/(subdebate.2)').empty?
+          p << HansardPage.new(s1, title, subtitle1, self)
+        else
+          s1.search('/(subdebate.2)').each do |s2|
+            subtitle2 = s2.at('title').inner_html
+            p << HansardPage.new(s2, title, subtitle1 + "; " + subtitle2, self)
           end
         end
       end
     end
+    p
+  end
+  
+  def pages
+    # Step through the top-level debates
+    p = []
+    @page.at('hansard').children.each do |e|
+      next unless e.respond_to?(:name)      
+      if e.name == 'session.header'
+        # Ignore
+      elsif e.name == 'chamber.xscript' || e.name == 'maincomm.xscript'
+        e.children.each do |e|
+          next unless e.respond_to?(:name)
+          if e.name == 'business.start'
+            p << nil
+            p << nil
+          elsif e.name == 'debate'
+            p = p + pages_from_debate(e)
+          elsif e.name == 'adjournment'
+            p << nil
+          else
+            throw "Unexpected tag #{e.name}"
+          end
+        end
+      elsif e.name == 'answers.to.questions'
+        # This is going to definitely be wrong
+        p << nil
+      else
+        throw "Unexpected tag #{e.name}"
+      end
+    end    
     p
   end  
 end
