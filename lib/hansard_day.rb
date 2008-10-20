@@ -1,5 +1,16 @@
 require 'hansard_page'
 
+module Hpricot
+  module Traverse
+    # Iterate over the children that aren't text nodes
+    def each_child_node
+      children.each do |c|
+        yield c if c.respond_to?(:name)
+      end
+    end
+  end
+end
+
 class HansardDay
   def initialize(page, logger = nil)
     @page, @logger = page, logger
@@ -55,18 +66,15 @@ class HansardDay
   def pages
     # Step through the top-level debates
     p = []
-    @page.at('hansard').children.each do |e|
-      next unless e.respond_to?(:name)
+    @page.at('hansard').each_child_node do |e|
       case e.name
         when 'session.header'
           # Ignore
         when 'chamber.xscript', 'maincomm.xscript'
-          e.children.each do |e|
-            next unless e.respond_to?(:name)
+          e.each_child_node do |e|
             case e.name
               when 'business.start'
-                e.children.each do |e|
-                  next unless e.respond_to?(:name)
+                e.each_child_node do |e|
                   case e.name
                     when 'day.start'
                       p << nil
