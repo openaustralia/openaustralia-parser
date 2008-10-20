@@ -1,0 +1,305 @@
+start = element hansard {
+  attribute version { "2.1" }
+  ,session.header
+  ,element chamber.xscript {
+    business.start
+    ,debate+
+    ,adjournment
+    ,debate+
+  }
+  ,element maincomm.xscript {
+    business.start
+    ,debate+
+    ,adjournment
+  }
+  ,element answers.to.questions {
+    debate
+	}
+}
+
+business.start =
+  element business.start {
+    element day.start { text }
+    ,element separator { empty }?
+    ,para
+  }  
+
+adjournment =
+  element adjournment {
+    element adjournmentinfo {
+      element page.no { xsd:integer }
+      ,element time.stamp { xsd:time }
+    }
+    ,para
+  }
+
+debate =
+  element debate {
+    debateinfo
+    ,(subdebate.1 | motionnospeech | division | interjection | speech | para | motion)*
+  }
+
+debateinfo =
+  element debateinfo {
+    title
+    ,element page.no { xsd:integer }
+    ,element time.stamp { xsd:time }?
+    ,element type { text }
+    ,element id.no { text }?
+    ,element cognate {
+      para?
+      ,element cognateinfo {
+        title
+        ,element page.no { xsd:integer }
+        ,element type { text }
+        ,element id.no { text }
+      }
+    }*
+  }
+  
+title = 
+  element title {
+    para-text | title
+  }
+
+subdebate.1 =
+  element subdebate.1 {
+    subdebateinfo
+    ,(subdebate.2* |
+    (motionnospeech | division | speech | para | motion | question | answer | interjection | quote)+)
+  }
+
+subdebateinfo =
+  element subdebateinfo {
+    element title { text }
+    ,element page.no { xsd:integer }*
+    ,element id.no { xsd:integer }?
+  }
+
+subdebate.2 =
+  element subdebate.2 {
+    subdebateinfo
+    ,motionnospeech
+  }
+
+question =
+  element question {
+    talk.start
+    ,(quote | para | continue | interjection)*
+  }
+
+answer =
+  element answer {
+    talk.start
+    ,(quote | para | continue | interjection | motion)*
+  }
+
+interjection =
+  element interjection {
+    talk.start
+  }
+
+division =
+  element division {
+    element division.header {
+      element time.stamp { xsd:time }
+      ,para
+    }
+    ,para
+    ,division.data
+    ,para
+    ,element division.result {
+      para
+    }
+  }
+
+names =
+  element names {
+    element name { text }+
+  }
+  
+division.data =
+  element division.data {
+    element ayes {
+      element num.votes { xsd:integer }
+      ,element title { "AYES" }
+      ,names
+    }
+    ,element noes {
+      element num.votes { xsd:integer }
+      ,element title { "NOES" }
+      ,names
+    }
+  }
+	
+motionnospeech = 
+  element motionnospeech {
+    element name { text }
+    ,element electorate { text }
+    ,element role { text }
+    ,element time.stamp { xsd:time }
+    ,inline
+    ,motion?
+    ,para*
+  }
+
+speech =
+  element speech {
+    talk.start
+    ,(para | quote | motion | interjection | amendments | continue | table | interrupt)*
+  }
+
+interrupt =
+  element interrupt {
+    para
+  }
+
+table = 
+  element table {
+    attribute width { xsd:integer }
+    ,attribute margin-left { xsd:integer }
+    ,attribute layout { "fixed" }
+    ,attribute pgwide { "yes" }
+    ,attribute orient { "landscape" }?
+    ,attribute border-top-style { "solid" }?
+    ,attribute border-top-color { "#000000" }?
+    ,attribute border-top-width { "0.75pt" }?
+    ,attribute border-bottom-style { "solid" }?
+    ,attribute border-bottom-color { "#000000" }?
+    ,attribute border-bottom-width { "0.75pt" }?
+    ,tgroup
+  }
+
+tgroup =
+  element tgroup {
+    element colspec { empty }+
+    ,element thead {
+      row
+    }
+    ,element tbody {
+      row+
+    }
+  }
+  
+row =
+  element row {
+    attribute style { "page-break-inside: avoid" }
+    ,element entry {
+      attribute border-top-style { "solid" }?
+      ,attribute border-top-color { "#000000" }?
+      ,attribute border-top-width { "0.5pt" | "0.75pt" }?
+      ,attribute border-bottom-style { "solid" }?
+      ,attribute border-bottom-color { "#000000" }?
+      ,attribute border-bottom-width { "0.5pt" | "0.75pt" }?
+      ,attribute margin-left { xsd:integer }
+      ,para+
+    }+
+  }
+
+continue =
+  element continue {
+    talk.start
+  }
+
+amendments =
+  element amendments {
+    element amendment {
+      para+
+    }
+  }
+
+quote =
+  element quote {
+    attribute pgwide { "yes" }?
+    ,(para | lista | table)+
+  }
+
+talk.start =
+  element talk.start {
+    talker
+    ,para
+  }
+
+motion =
+  element motion {
+    attribute pgwide { "yes" }?
+    ,para+
+    ,lista?
+  }
+
+lista =
+  element list {
+    attribute type { "loweralpha" | "decimal" | "unadorned" }
+    ,element item {
+      attribute label { text }
+      ,para+
+      ,(lista | table)?
+    }+
+  } | element list {
+    attribute type { "bullet" }
+    ,element item {
+      para
+      ,lista?
+    }+
+  }
+
+session.header =
+  element session.header {
+    element date { text }
+    ,element parliament.no { xsd:integer }
+    ,element session.no { xsd:integer }
+    ,element period.no { xsd:integer }
+    ,element chamber { "REPS" }
+    ,element page.no { xsd:integer }
+    ,element proof { "0" }
+  }
+
+talker =
+  element talker {
+    (element page.no { xsd:integer }
+    & element time.stamp { xsd:time }?)
+    ,element name {
+      attribute role { "metadata" },
+      text
+    }
+    ,element name.id { text }
+    ,element electorate { text }
+    ,element party { text }
+    ,element role { text }?
+    ,element in.gov { "0" | "1" }
+    ,element first.speech { "0" }?
+    ,element name {
+      attribute role { "display" },
+      text
+    }
+  } |
+  element talker {
+    element name.id { text }
+    ,element name {
+      attribute role { "metadata" },
+      text
+    }
+    ,element name {
+      attribute role { "display" },
+      text
+    }?
+  }
+
+para =
+  element para {
+    attribute class { "block" | "ParlAmend" | "hdg5s" | "subsection" | "italic" | "smalltableleft" }?
+    ,attribute pgwide { "yes" }?
+    ,para-text
+  }
+  
+para-text =
+  text+ & inline*
+
+inline = 
+  element inline {
+    attribute ref { text }?
+    ,attribute font-weight { "bold" }?
+    ,attribute font-size { "7pt" | "8pt" | "9pt" | "9.5pt" | "12pt" }?
+    ,attribute font-style { "italic" }?
+    ,(text+ & inline*) 
+  }
