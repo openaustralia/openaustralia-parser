@@ -91,7 +91,7 @@ class TestHansardDay < Test::Unit::TestCase
   end
   
   def test_titles
-    assert_equal([["1", nil], ["2", "3"], ["4", "5"], ["4", "6"], ["7; 13", "8"], ["7; 13", "9"], ["10", "11; 12"]],
+    assert_equal([["1", ""], ["2", "3"], ["4", "5"], ["4", "6"], ["7; 13", "8"], ["7; 13", "9"], ["10", "11; 12"]],
       @titles.pages.map {|page| [page.hansard_title, page.hansard_subtitle]})
   end
 end
