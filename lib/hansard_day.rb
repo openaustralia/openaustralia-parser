@@ -56,28 +56,40 @@ class HansardDay
     # Step through the top-level debates
     p = []
     @page.at('hansard').children.each do |e|
-      next unless e.respond_to?(:name)      
-      if e.name == 'session.header'
-        # Ignore
-      elsif e.name == 'chamber.xscript' || e.name == 'maincomm.xscript'
-        e.children.each do |e|
-          next unless e.respond_to?(:name)
-          if e.name == 'business.start'
-            p << nil
-            p << nil
-          elsif e.name == 'debate'
-            p = p + pages_from_debate(e)
-          elsif e.name == 'adjournment'
-            p << nil
-          else
-            throw "Unexpected tag #{e.name}"
+      next unless e.respond_to?(:name)
+      case e.name
+        when 'session.header'
+          # Ignore
+        when 'chamber.xscript', 'maincomm.xscript'
+          e.children.each do |e|
+            next unless e.respond_to?(:name)
+            case e.name
+              when 'business.start'
+                e.children.each do |e|
+                  next unless e.respond_to?(:name)
+                  case e.name
+                    when 'day.start'
+                      p << nil
+                    when 'separator' # Do nothing
+                    when 'para'
+                      p << nil
+                    else
+                      throw "Unexpected tag #{e.name}"
+                  end
+                end
+              when 'debate'
+                p = p + pages_from_debate(e)
+              when 'adjournment'
+                p << nil
+              else
+                throw "Unexpected tag #{e.name}"
+            end
           end
-        end
-      elsif e.name == 'answers.to.questions'
-        # This is going to definitely be wrong
-        p << nil
-      else
-        throw "Unexpected tag #{e.name}"
+        when 'answers.to.questions'
+          # This is going to definitely be wrong
+          p << nil
+        else
+          throw "Unexpected tag #{e.name}"
       end
     end    
     p
