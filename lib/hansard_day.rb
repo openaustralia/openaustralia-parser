@@ -39,6 +39,17 @@ class HansardDay
     proof == "1"
   end
 
+  # Strip any HTML/XML tags from the given text and remove new-line characters
+  def strip_tags(text)
+    text.gsub(/<\/?[^>]*>/, "").gsub("\r", '').gsub("\n", '')
+  end
+
+  # Search for the title tag and return its value, stripping out any HTML tags
+  def title_tag_value(debate)
+    # Doing this rather than calling inner_text to preserve html entities which for some reason get all screwed up by inner_text
+    strip_tags(debate.at('title').inner_html)
+  end
+  
   def title(debate)
     e = case debate.name
     when 'debate'
@@ -50,8 +61,8 @@ class HansardDay
     else
       throw "Unexpected tag #{debate.name}"
     end    
-    title = e.at('title').inner_html
-    cognates = e.search('cognateinfo > title').map{|a| a.inner_html}
+    title = title_tag_value(e)
+    cognates = e.search('cognateinfo').search('title').map{|a| strip_tags(a.inner_html)}
     ([title] + cognates).join('; ')
   end
   
@@ -60,9 +71,9 @@ class HansardDay
     when 'debate'
       ""
     when 'subdebate.1'
-      debate.at('title').inner_html
+      title_tag_value(debate)
     when 'subdebate.2'
-      debate.parent.at('title').inner_html + "; " + debate.at('title').inner_html
+      title_tag_value(debate.parent) + '; ' + title_tag_value(debate)
     else
       throw "Unexpected tag #{debate.name}"
     end    
