@@ -90,23 +90,30 @@ class HansardDay
   def pages_from_debate(debate)
     full_title = title(debate)
     full_title << "; " + subtitle(debate) unless subtitle(debate) == ""
-      
+
+    question = false
     procedural = false
     debate.each_child_node do |e|
       case e.name
       when 'debateinfo', 'subdebateinfo'
+        question = false
         procedural = false
-      when 'speech', 'division', 'question'
+      when 'speech', 'division'
         puts "#{e.name} > #{full_title}"
+        question = false
         procedural = false
-      when 'answer'
+      when 'question', 'answer'
         # We'll skip answer because they always come in pairs of 'question' and 'answer'
+        puts "#{e.name} > #{full_title}" unless question
+        question = true
         procedural = false
       when 'motionnospeech', 'para', 'motion', 'interjection', 'quote'
         puts "Procedural text: #{e.name} > #{full_title}" unless procedural
+        question = false
         procedural = true
       when 'subdebate.1', 'subdebate.2'
         pages_from_debate(e)
+        question = false
         procedural = false
       else
         throw "Unexpected tag #{e.name}"
