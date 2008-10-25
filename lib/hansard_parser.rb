@@ -94,19 +94,19 @@ class HansardParser
       #throw "Unsupported: #{page.full_hansard_title}" unless page.supported? || page.to_skip? || page.not_yet_supported?
       #if page.supported?
       if page
-        debates.add_heading(page.hansard_title, page.hansard_subtitle, page.permanent_url) if page.has_content?
-        speaker = nil
-        page.speeches.each do |speech|
-          if speech
-            # Only change speaker if a speaker name or url was found
-            this_speaker = (speech.speakername || speech.aph_id) ? lookup_speaker(speech, date, house) : speaker
-            # With interjections the next speech should never be by the person doing the interjection
-            speaker = this_speaker unless speech.interjection
-
-            debates.add_speech(this_speaker, speech.time, speech.permanent_url, speech.clean_content)
-          end
-          debates.increment_minor_count
-        end
+        debates.add_heading(page.hansard_title, page.hansard_subtitle, page.permanent_url)
+        #speaker = nil
+        #page.speeches.each do |speech|
+        #  if speech
+        #    # Only change speaker if a speaker name or url was found
+        #    this_speaker = (speech.speakername || speech.aph_id) ? lookup_speaker(speech, date, house) : speaker
+        #    # With interjections the next speech should never be by the person doing the interjection
+        #    speaker = this_speaker unless speech.interjection
+        #
+        #    debates.add_speech(this_speaker, speech.time, speech.permanent_url, speech.clean_content)
+        #  end
+        #  debates.increment_minor_count
+        #end
       end
       # This ensures that every sub day page has a different major count which limits the impact
       # of when we start supporting things like written questions, procedurial text, etc..

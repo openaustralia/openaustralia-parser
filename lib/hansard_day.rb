@@ -39,67 +39,122 @@ class HansardDay
     proof == "1"
   end
 
-  def pages_from_debate(e)
-    p = []
-    title = e.at('title').inner_html
-    cognates = e.search('cognateinfo > title').map{|a| a.inner_html}
-    title = ([title] + cognates).join('; ')
-    # If there are no sub-debates then make this a page on its own
-    if e.search('/(subdebate.1)').empty?
-      p << HansardPage.new(e, title, nil, self)
-    else
-      e.search('/(subdebate.1)').each do |s1|
-        subtitle1 = s1.at('title').inner_html
-        if s1.search('/(subdebate.2)').empty?
-          p << HansardPage.new(s1, title, subtitle1, self)
-        else
-          s1.search('/(subdebate.2)').each do |s2|
-            subtitle2 = s2.at('title').inner_html
-            p << HansardPage.new(s2, title, subtitle1 + "; " + subtitle2, self)
-          end
-        end
+  def add_debate(e, title, subtitle)
+    e.children.each do |e|
+      next unless e.respond_to?(:name)
+      if e.name == 'debateinfo'
+      elsif e.name == 'para'
+      elsif ['speech', 'motion', 'motionnospeech', 'division', 'interjection'].include?(e.name)
+        p << HansardPage.new(e, title, subtitle, self)      
+      else
+        throw "Unexpected tag: #{e.name}"
       end
     end
+  end
+  
+  def add_subdebate(e, title, subtitle)
+    p = []
+    e.children.each do |e|
+      next unless e.respond_to?(:name)
+      if e.name == 'subdebateinfo'
+      elsif e.name == 'para'
+      elsif ['speech', 'motion', 'motionnospeech', 'division', 'question', 'answer', 'interjection', 'quote'].include?(e.name)
+        p << HansardPage.new(e, title, subtitle, self)      
+      else
+        throw "Unexpected tag: #{e.name}"
+      end
+    end
+    # Hack to fake what would happen if there are just <para> elements in a debate/subdebate and nothing else
+    p << nil if p.empty?
     p
+  end
+  
+  def title_from_debate(e)
+    title = e.at('title').inner_html
+    cognates = e.search('cognateinfo > title').map{|a| a.inner_html}
+    ([title] + cognates).join('; ')
+  end
+  
+  def title_from_subdebate1(e)
+    e.at('title').inner_html
+  end
+  
+  def title_from_subdebate2(e)
+    subtitle1 = title_from_subdebate1(e.parent)
+    subtitle2 = e.at('title').inner_html
+    subtitle1 + "; " + subtitle2
+  end
+  
+  def title(debate)
+    case debate.name
+    when 'debate'
+      title_from_debate(debate)
+    when 'subdebate.1'
+      title_from_debate(debate.parent) + "; " + title_from_subdebate1(debate)
+    when 'subdebate.2'
+      title_from_debate(debate.parent.parent) + "; " + title_from_subdebate2(debate)
+    else
+      throw "Unexpected tag #{debate.name}"
+    end    
+  end
+  
+  def pages_from_debate(debate)
+    title = title(debate)
+      
+    procedural = false
+    debate.each_child_node do |e|
+      case e.name
+      when 'debateinfo', 'subdebateinfo'
+        procedural = false
+      when 'speech', 'division', 'question'
+        puts "#{e.name} > #{title}"
+        procedural = false
+      when 'answer'
+        # We'll skip answer because they always come in pairs of 'question' and 'answer'
+        procedural = false
+      when 'motionnospeech', 'para', 'motion', 'interjection', 'quote'
+        puts "Procedural text: #{e.name} > #{title}" unless procedural
+        procedural = true
+      when 'subdebate.1', 'subdebate.2'
+        pages_from_debate(e)
+        procedural = false
+      else
+        throw "Unexpected tag #{e.name}"
+      end
+    end
   end
   
   def pages
     # Step through the top-level debates
-    p = []
+    # We're just going to display the titles of the pages so we can match it up to the links in the old parlinfo web system
+    puts "Official Hansard"
     @page.at('hansard').each_child_node do |e|
       case e.name
-        when 'session.header'
-          # Ignore
-        when 'chamber.xscript', 'maincomm.xscript'
-          e.each_child_node do |e|
-            case e.name
-              when 'business.start'
-                e.each_child_node do |e|
-                  case e.name
-                    when 'day.start'
-                      p << nil
-                    when 'separator' # Do nothing
-                    when 'para'
-                      p << nil
-                    else
-                      throw "Unexpected tag #{e.name}"
-                  end
-                end
-              when 'debate'
-                p = p + pages_from_debate(e)
-              when 'adjournment'
-                p << nil
-              else
-                throw "Unexpected tag #{e.name}"
-            end
+      when 'session.header'
+      when 'chamber.xscript', 'maincomm.xscript'
+        e.each_child_node do |e|
+          case e.name
+            when 'business.start', 'adjournment'
+              puts e.name
+            when 'debate'
+              pages_from_debate(e)
+            else
+              throw "Unexpected tag #{e.name}"
           end
-        when 'answers.to.questions'
-          # This is going to definitely be wrong
-          p << nil
-        else
-          throw "Unexpected tag #{e.name}"
+        end
+      when 'answers.to.questions'
+        e.each_child_node do |e|
+          case e.name
+          when 'debate'
+            pages_from_debate(e)
+          else
+            throw "Unexpected tag #{e.name}"
+          end
+        end
+      else
+        throw "Unexpected tag #{e.name}"
       end
-    end    
-    p
+    end
+    []
   end  
 end
