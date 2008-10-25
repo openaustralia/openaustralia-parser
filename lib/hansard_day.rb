@@ -39,37 +39,46 @@ class HansardDay
     proof == "1"
   end
 
-  def title_from_debate(e)
+  def title(debate)
+    e = case debate.name
+    when 'debate'
+      debate
+    when 'subdebate.1'
+      debate.parent
+    when 'subdebate.2'
+      debate.parent.parent
+    else
+      throw "Unexpected tag #{debate.name}"
+    end    
     title = e.at('title').inner_html
     cognates = e.search('cognateinfo > title').map{|a| a.inner_html}
     ([title] + cognates).join('; ')
   end
   
-  def title_from_subdebate1(e)
-    e.at('title').inner_html
-  end
-  
-  def title_from_subdebate2(e)
-    subtitle1 = title_from_subdebate1(e.parent)
-    subtitle2 = e.at('title').inner_html
-    subtitle1 + "; " + subtitle2
-  end
-  
-  def title(debate)
+  def subtitle(debate)
     case debate.name
     when 'debate'
-      title_from_debate(debate)
+      ""
     when 'subdebate.1'
-      title_from_debate(debate.parent) + "; " + title_from_subdebate1(debate)
+      debate.at('title').inner_html
     when 'subdebate.2'
-      title_from_debate(debate.parent.parent) + "; " + title_from_subdebate2(debate)
+      debate.parent.at('title').inner_html + "; " + debate.at('title').inner_html
     else
       throw "Unexpected tag #{debate.name}"
     end    
   end
   
+  def full_title(debate)
+    if subtitle(debate) == ""
+      title(debate)
+    else
+      title(debate) + "; " + subtitle(debate)
+    end
+  end
+  
   def pages_from_debate(debate)
-    title = title(debate)
+    full_title = title(debate)
+    full_title << "; " + subtitle(debate) unless subtitle(debate) == ""
       
     procedural = false
     debate.each_child_node do |e|
@@ -77,13 +86,13 @@ class HansardDay
       when 'debateinfo', 'subdebateinfo'
         procedural = false
       when 'speech', 'division', 'question'
-        puts "#{e.name} > #{title}"
+        puts "#{e.name} > #{full_title}"
         procedural = false
       when 'answer'
         # We'll skip answer because they always come in pairs of 'question' and 'answer'
         procedural = false
       when 'motionnospeech', 'para', 'motion', 'interjection', 'quote'
-        puts "Procedural text: #{e.name} > #{title}" unless procedural
+        puts "Procedural text: #{e.name} > #{full_title}" unless procedural
         procedural = true
       when 'subdebate.1', 'subdebate.2'
         pages_from_debate(e)
