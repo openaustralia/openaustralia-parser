@@ -39,36 +39,6 @@ class HansardDay
     proof == "1"
   end
 
-  def add_debate(e, title, subtitle)
-    e.children.each do |e|
-      next unless e.respond_to?(:name)
-      if e.name == 'debateinfo'
-      elsif e.name == 'para'
-      elsif ['speech', 'motion', 'motionnospeech', 'division', 'interjection'].include?(e.name)
-        p << HansardPage.new(e, title, subtitle, self)      
-      else
-        throw "Unexpected tag: #{e.name}"
-      end
-    end
-  end
-  
-  def add_subdebate(e, title, subtitle)
-    p = []
-    e.children.each do |e|
-      next unless e.respond_to?(:name)
-      if e.name == 'subdebateinfo'
-      elsif e.name == 'para'
-      elsif ['speech', 'motion', 'motionnospeech', 'division', 'question', 'answer', 'interjection', 'quote'].include?(e.name)
-        p << HansardPage.new(e, title, subtitle, self)      
-      else
-        throw "Unexpected tag: #{e.name}"
-      end
-    end
-    # Hack to fake what would happen if there are just <para> elements in a debate/subdebate and nothing else
-    p << nil if p.empty?
-    p
-  end
-  
   def title_from_debate(e)
     title = e.at('title').inner_html
     cognates = e.search('cognateinfo > title').map{|a| a.inner_html}
