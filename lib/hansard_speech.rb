@@ -117,23 +117,6 @@ class HansardSpeech
     t
   end
   
-  def HansardSpeech.clean_content_title_content(e)
-    t = ""
-    e.children.each do |c|
-      if !c.respond_to?(:name)
-        t << strip_leading_dash(c.to_s)
-      elsif c.name == 'inline'
-        t << clean_content_inline(c)
-      elsif c.name == 'title'
-        # HACK
-        t << clean_content_title_content(Hpricot.XML(c.inner_html))
-      else
-        throw "Unexpected tag #{c.name}"
-      end
-    end
-    t
-  end
-  
   # Pass a <para>Some text</para> block. Returns cleaned "<p>Some text</p>"
   def HansardSpeech.clean_content_para(e)
     atts = e.attributes.keys
