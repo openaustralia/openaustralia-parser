@@ -147,17 +147,28 @@ class HansardSpeech
     if atts.empty?
       # Do nothing
     elsif atts == ['class']
-      if e.attributes['class'] == 'italic'
+      case e.attributes['class']
+      when 'italic'
         type = 'italic'
+      when 'bold'
+        type = 'bold'
+      when 'block'
+      else
+        throw "Unexpected value for class attribute of para #{e.attributes['class']}" 
       end
     else
       throw "Unexpected <para> attributes #{atts.join(', ')}"
     end
 
-    if type == ""
+    case type
+    when ""
       '<p>' + clean_content_para_content(e) + '</p>'
-    else
+    when 'italic'
       '<p class="' + type + '">' + clean_content_para_content(e) + '</p>'
+    when 'bold'
+      '<b><p>' + clean_content_para_content(e) + '</p></b>'
+    else
+      throw "Unexpected type value #{type}"
     end
   end
   
