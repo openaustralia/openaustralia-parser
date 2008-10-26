@@ -17,14 +17,14 @@ class Debates
     if newtitle != @title
       heading = MajorHeading.new(newtitle, @major_count, @minor_count, url, @date, @house)
       # Debugging output
-      puts "*** #{@major_count}.#{@minor_count} #{newtitle}"
+      #puts "*** #{@major_count}.#{@minor_count} #{newtitle}"
       @items << heading
       increment_minor_count
     end
     if newtitle != @title || newsubtitle != @subtitle
       heading = MinorHeading.new(newsubtitle, @major_count, @minor_count, url, @date, @house)
       # Debugging output
-      puts "*** #{@major_count}.#{@minor_count} #{newsubtitle}"
+      #puts "*** #{@major_count}.#{@minor_count} #{newsubtitle}"
       @items << heading
       increment_minor_count
     end

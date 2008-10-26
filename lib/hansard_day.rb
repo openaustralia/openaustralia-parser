@@ -101,19 +101,19 @@ class HansardDay
         question = false
         procedural = false
       when 'speech'
-        puts "USE: #{e.name} > #{full_title}"
+        #puts "USE: #{e.name} > #{full_title}"
         p << HansardPage.new(e, title, subtitle, self, @logger)
         question = false
         procedural = false
       when 'division'
-        puts "SKIP: #{e.name} > #{full_title}"
+        #puts "SKIP: #{e.name} > #{full_title}"
         p << nil
         question = false
         procedural = false
       when 'question', 'answer'
         # We'll skip answer because they always come in pairs of 'question' and 'answer'
         unless question
-          puts "#{e.name} > #{full_title}"
+          #puts "USE: #{e.name} > #{full_title}"
           # TODO: All 'question' and 'answer' blocks in this section should be passed to HansardPage
           p << HansardPage.new(e, title, subtitle, self, @logger)
         end
@@ -121,7 +121,7 @@ class HansardDay
         procedural = false
       when 'motionnospeech', 'para', 'motion', 'interjection', 'quote'
         unless procedural
-          puts "SKIP: Procedural text: #{e.name} > #{full_title}"
+          #puts "SKIP: Procedural text: #{e.name} > #{full_title}"
           p << nil
         end
         question = false
@@ -142,7 +142,7 @@ class HansardDay
     # Step through the top-level debates
     # When something that was a page in old parlinfo web system is not supported we just return nil for it. This ensures that it is
     # still accounted for in the counting of the ids but we don't try to use it to generate any content
-    puts "SKIP: Official Hansard"
+    #puts "SKIP: Official Hansard"
     p << nil
     @page.at('hansard').each_child_node do |e|
       case e.name
@@ -152,7 +152,7 @@ class HansardDay
           case e.name
             when 'business.start', 'adjournment'
               p << nil
-              puts "SKIP: #{e.name}"
+              #puts "SKIP: #{e.name}"
             when 'debate'
               p = p + pages_from_debate(e)
             else
