@@ -29,12 +29,14 @@ class TestHansardDay < Test::Unit::TestCase
       <chamber.xscript>
         <debate>
        		<debateinfo><title>1</title></debateinfo>
+       		<speech></speech>
         </debate>
 
         <debate>
           <debateinfo><title>2</title></debateinfo>
           <subdebate.1>
             <subdebateinfo><title>3</title></subdebateinfo>
+         		<speech></speech>
           </subdebate.1>
         </debate>
 
@@ -42,9 +44,11 @@ class TestHansardDay < Test::Unit::TestCase
           <debateinfo><title>4</title></debateinfo>
           <subdebate.1>
             <subdebateinfo><title>5</title></subdebateinfo>
+         		<speech></speech>
           </subdebate.1>
           <subdebate.1>
             <subdebateinfo><title>6</title></subdebateinfo>
+         		<speech></speech>
           </subdebate.1>
         </debate>
 
@@ -57,9 +61,11 @@ class TestHansardDay < Test::Unit::TestCase
           </debateinfo>
           <subdebate.1>
             <subdebateinfo><title>8</title></subdebateinfo>
+         		<speech></speech>
           </subdebate.1>
           <subdebate.1>
             <subdebateinfo><title>9</title></subdebateinfo>
+         		<speech></speech>
           </subdebate.1>
         </debate>
         
@@ -69,6 +75,7 @@ class TestHansardDay < Test::Unit::TestCase
     				<subdebateinfo><title>11</title></subdebateinfo>
     				<subdebate.2>
     					<subdebateinfo><title>12</title></subdebateinfo>
+           		<speech></speech>
     				</subdebate.2>
     			</subdebate.1>
     		</debate>
@@ -91,7 +98,7 @@ class TestHansardDay < Test::Unit::TestCase
   end
   
   def test_titles
-    assert_equal([["1", ""], ["2", "3"], ["4", "5"], ["4", "6"], ["7; 13", "8"], ["7; 13", "9"], ["10", "11; 12"]],
-      @titles.pages.map {|page| [page.hansard_title, page.hansard_subtitle]})
+    assert_equal([nil, ["1", ""], ["2", "3"], ["4", "5"], ["4", "6"], ["7; 13", "8"], ["7; 13", "9"], ["10", "11; 12"]],
+      @titles.pages.map {|page| [page.hansard_title, page.hansard_subtitle] if page})
   end
 end

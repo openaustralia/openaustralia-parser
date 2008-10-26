@@ -101,7 +101,7 @@ class TestHansardSpeech < Test::Unit::TestCase
   # Only remove the first non-breaking-space from paragraph for compatibility with previous parser
   def test_clean_content_para_with_non_breaking_spaces
     nbsp = [160].pack('U')
-    content = "<speech><para class=\"subsection\">#{nbsp}#{nbsp}#{nbsp} Foo</para></speech>"
+    content = "<speech><para>#{nbsp}#{nbsp}#{nbsp} Foo</para></speech>"
     expected = "<p>#{nbsp}#{nbsp} Foo</p>"
     assert_equal(expected.chars.normalize, HansardSpeech.clean_content_para(Hpricot.XML(content).at('para')).chars.normalize)
   end

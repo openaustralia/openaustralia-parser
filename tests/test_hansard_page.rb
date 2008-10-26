@@ -10,22 +10,15 @@ require 'hpricot'
 
 class TestHansardPage < Test::Unit::TestCase
   def setup
-    @speaker = HansardPage.new(Hpricot.XML('
-    <debate>
-			<speech>
+    @speaker = HansardPage.new([Hpricot.XML(
+			'<speech>
 			  <talk.start></talk.start>
 			  <interjection></interjection>
 			  <para></para>
-			</speech>
-			<motionnospeech></motionnospeech>
-			<interjection></interjection>
-			<speech></speech>
-			<motionnospeech></motionnospeech>
-		</debate>').at('debate'), nil, nil, nil)
+			</speech>').at('speech')], nil, nil, nil)
 		
 		# This has an interjection within a speech
-		@interjection = HansardPage.new(Hpricot.XML('
-<debate>
+		@interjection = HansardPage.new([Hpricot.XML('
   <speech>
     <talk.start>
       <talker>
@@ -48,8 +41,7 @@ class TestHansardPage < Test::Unit::TestCase
     </interjection>
     <para>And continue on</para>
   </speech>
-</debate>
-    ').at('debate'), nil, nil, nil)
+    ').at('speech')], nil, nil, nil)
   end
   
   def test_speaker
