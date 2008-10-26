@@ -42,15 +42,13 @@ class HansardPage
       hansard_title
     end
   end
-  
+
   def hansard_title
-    # nasty HACK
-    HansardSpeech.clean_content_title_content(Hpricot.XML(@title.to_s))
+    @title
   end
   
   def hansard_subtitle
-    # horrible HACK
-    HansardSpeech.clean_content_title_content(Hpricot.XML(@subtitle.to_s))
+    @subtitle
   end
   
   def has_content?

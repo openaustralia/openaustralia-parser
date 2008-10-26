@@ -88,8 +88,10 @@ class HansardDay
   end
   
   def pages_from_debate(debate)
-    full_title = title(debate)
-    full_title << "; " + subtitle(debate) unless subtitle(debate) == ""
+    p = []
+    title = title(debate)
+    subtitle = subtitle(debate)
+    full_title = full_title(debate)
 
     question = false
     procedural = false
@@ -98,33 +100,50 @@ class HansardDay
       when 'debateinfo', 'subdebateinfo'
         question = false
         procedural = false
-      when 'speech', 'division'
-        puts "#{e.name} > #{full_title}"
+      when 'speech'
+        puts "USE: #{e.name} > #{full_title}"
+        p << HansardPage.new(e, title, subtitle, self, @logger)
+        question = false
+        procedural = false
+      when 'division'
+        puts "SKIP: #{e.name} > #{full_title}"
+        p << nil
         question = false
         procedural = false
       when 'question', 'answer'
         # We'll skip answer because they always come in pairs of 'question' and 'answer'
-        puts "#{e.name} > #{full_title}" unless question
+        unless question
+          puts "#{e.name} > #{full_title}"
+          # TODO: All 'question' and 'answer' blocks in this section should be passed to HansardPage
+          p << HansardPage.new(e, title, subtitle, self, @logger)
+        end
         question = true
         procedural = false
       when 'motionnospeech', 'para', 'motion', 'interjection', 'quote'
-        puts "Procedural text: #{e.name} > #{full_title}" unless procedural
+        unless procedural
+          puts "SKIP: Procedural text: #{e.name} > #{full_title}"
+          p << nil
+        end
         question = false
         procedural = true
       when 'subdebate.1', 'subdebate.2'
-        pages_from_debate(e)
+        p = p + pages_from_debate(e)
         question = false
         procedural = false
       else
         throw "Unexpected tag #{e.name}"
       end
     end
+    p
   end
   
   def pages
+    p = []
     # Step through the top-level debates
-    # We're just going to display the titles of the pages so we can match it up to the links in the old parlinfo web system
-    puts "Official Hansard"
+    # When something that was a page in old parlinfo web system is not supported we just return nil for it. This ensures that it is
+    # still accounted for in the counting of the ids but we don't try to use it to generate any content
+    puts "SKIP: Official Hansard"
+    p << nil
     @page.at('hansard').each_child_node do |e|
       case e.name
       when 'session.header'
@@ -132,9 +151,10 @@ class HansardDay
         e.each_child_node do |e|
           case e.name
             when 'business.start', 'adjournment'
-              puts e.name
+              p << nil
+              puts "SKIP: #{e.name}"
             when 'debate'
-              pages_from_debate(e)
+              p = p + pages_from_debate(e)
             else
               throw "Unexpected tag #{e.name}"
           end
@@ -152,6 +172,6 @@ class HansardDay
         throw "Unexpected tag #{e.name}"
       end
     end
-    []
+    p
   end  
 end
