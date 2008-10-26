@@ -102,7 +102,7 @@ class HansardDay
         procedural = false
       when 'speech'
         #puts "USE: #{e.name} > #{full_title}"
-        p << HansardPage.new(e, title, subtitle, self, @logger)
+        p << HansardPage.new([e], title, subtitle, self, @logger)
         question = false
         procedural = false
       when 'division'
@@ -114,8 +114,13 @@ class HansardDay
         # We'll skip answer because they always come in pairs of 'question' and 'answer'
         unless question
           #puts "USE: #{e.name} > #{full_title}"
-          # TODO: All 'question' and 'answer' blocks in this section should be passed to HansardPage
-          p << HansardPage.new(e, title, subtitle, self, @logger)
+          questions = []
+          f = e
+          while f && (f.name == 'question' || f.name == 'answer') do
+            questions << f
+            f = f.next_sibling
+          end
+          p << HansardPage.new(questions, title, subtitle, self, @logger)
         end
         question = true
         procedural = false

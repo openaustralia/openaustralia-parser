@@ -18,22 +18,6 @@ class HansardPage
     @day.permanent_url
   end
 
-  # Extract a hash of all the metadata tags and values
-  def extract_metadata_tags
-    # Start point of search for all metadata
-    a = @page.search("table#dlMetadata")
-    i = 0
-    metadata = {}
-    while true
-      label_tag = a.search("span#dlMetadata__ctl#{i}_Label2").first
-      value_tag = a.search("span#dlMetadata__ctl#{i}_Label3").first
-      break if label_tag.nil? && value_tag.nil?
-      metadata[label_tag.inner_text] = value_tag.inner_text.strip
-      i = i + 1
-    end
-    metadata
-  end
-  
   # A single string that contains the title and subtitle in one
   def full_hansard_title
     if hansard_subtitle != ""
@@ -59,22 +43,35 @@ class HansardPage
   # if an element is nil it should be skipped but the minor_count should still be incremented
   def speeches
     speech_blocks = []
-    @page.children.each do |e|
-      next unless e.respond_to?(:name)
-      if ['speech', 'question', 'answer'].include?(e.name)
+    # Assume here that @page is in fact an array
+    @page.each do |e|
+      case e.name
+      when 'speech', 'question', 'answer'
         # Add each child as a seperate speech_block
-        e.children.each do |c|
-          next unless c.respond_to?(:name)
+        e.each_child_node do |c|
           speech_blocks << c
         end
-      elsif e.name == 'motionnospeech'
-        #speech_blocks << e
-      elsif ['interjection', 'debateinfo', 'subdebateinfo', 'division', 'para', 'motion', 'quote'].include?(e.name)
-        # Skip
       else
-        throw "Don't know what to do with the tag #{e.name} yet"
+        throw "Unexpected tag #{e.name}"
       end
     end
+    
+    #@page.children.each do |e|
+    #  next unless e.respond_to?(:name)
+    #  if ['speech', 'question', 'answer'].include?(e.name)
+    #    # Add each child as a seperate speech_block
+    #    e.children.each do |c|
+    #      next unless c.respond_to?(:name)
+    #      speech_blocks << c
+    #    end
+    #  elsif e.name == 'motionnospeech'
+    #    #speech_blocks << e
+    #  elsif ['interjection', 'debateinfo', 'subdebateinfo', 'division', 'para', 'motion', 'quote'].include?(e.name)
+    #    # Skip
+    #  else
+    #    throw "Don't know what to do with the tag #{e.name} yet"
+    #  end
+    #end
  
     return speech_blocks.map {|e| HansardSpeech.new(e, self, logger) if e}
     
@@ -110,27 +107,6 @@ class HansardPage
       end
     end
     speech_blocks.map {|e| HansardSpeech.new(e, self, logger) if e}
-  end  
-
-  # Is this a sub-page that we are currently supporting?
-  def supported?
-  #  @link.to_s =~ /^Speech:/ || @link.to_s =~ /^QUESTIONS? WITHOUT NOTICE/i || @link.to_s =~ /^QUESTIONS TO THE SPEAKER:/
-    true
-  end
-  
-  def to_skip?
-    #@link.to_s == "Official Hansard" || @link.to_s =~ /^Start of Business/ || @link.to_s == "Adjournment"
-    false
-  end
-  
-  def not_yet_supported?
-    #@link.to_s =~ /^Procedural text:/ || @link.to_s =~ /^QUESTIONS IN WRITING:/ || @link.to_s =~ /^Division:/ ||
-    #  @link.to_s =~ /^REQUESTS? FOR DETAILED INFORMATION:/ ||
-    #  @link.to_s =~ /^Petition:/ || @link.to_s =~ /^PRIVILEGE:/ || @link.to_s == "Interruption" ||
-    #  @link.to_s =~ /^QUESTIONS? ON NOTICE:/i || @link.to_s =~ /^QUESTIONS TO THE SPEAKER/ ||
-    #  # Hack to deal with incorrectly titled page on 31 Oct 2005
-    #  @link.to_s =~ /^IRAQ/
-    false
   end  
 
   # Returns the time (as a string) that the current debate took place
