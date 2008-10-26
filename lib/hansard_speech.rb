@@ -284,13 +284,12 @@ class HansardSpeech
   
   def HansardSpeech.clean_content_tgroup(e)
     t = ""
-    e.children.each do |c|
-      next unless c.respond_to?(:name)
-      if c.name == "colspec"
-        # Skip
-      elsif c.name == "thead"
+    e.each_child_node do |c|
+      case c.name
+      when "colspec"
+      when "thead"
         t << clean_content_thead(c)
-      elsif c.name == "tbody"
+      when "tbody"
         t << clean_content_tbody(c)
       else
         throw "Unexpected tag #{c.name}"
@@ -301,9 +300,9 @@ class HansardSpeech
   
   def HansardSpeech.clean_content_table(e)
     t = ""
-    e.children.each do |c|
-      next unless c.respond_to?(:name)
-      if c.name == 'tgroup'
+    e.each_child_node do |c|
+      case c.name
+      when 'tgroup'
         t << clean_content_tgroup(c)
       else
         throw "Unexpected tag #{c.name}"
@@ -315,13 +314,13 @@ class HansardSpeech
   
   def HansardSpeech.clean_content_quote(e)
     t = ""
-    e.children.each do |e|
-      next unless e.respond_to?(:name)
-      if e.name == 'para'
+    e.each_child_node do |e|
+      case e.name
+      when 'para'
         t << '<p class="italic">' + clean_content_para_content(e) + '</p>'
-      elsif e.name == 'list'
+      when 'list'
         t << clean_content_list(e)
-      elsif e.name == 'table'
+      when 'table'
         t << clean_content_table(e)
       else
         throw "Unexpected tag #{e.name}"
@@ -332,9 +331,9 @@ class HansardSpeech
   
   def HansardSpeech.clean_content_interjection(e)
     c = ""
-    e.children.each do |e|
-      next unless e.respond_to?(:name)
-      if e.name == 'talk.start'
+    e.each_child_node do |e|
+      case e.name
+      when 'talk.start'
         c << clean_content_talk_start(e)
       else
         throw "Unexpected tag #{e.name}"
@@ -345,12 +344,11 @@ class HansardSpeech
   
   def HansardSpeech.clean_content_talk_start(e)
     c = ""
-    e.children.each do |e|
-      next unless e.respond_to?(:name)
-      if e.name == 'para'
+    e.each_child_node do |e|
+      case e.name
+      when 'para'
         c << clean_content_para(e)
-      elsif e.name == 'talker'
-        # Skip
+      when 'talker'
       else
         throw "Unexpected tag #{e.name}"
       end
@@ -360,9 +358,9 @@ class HansardSpeech
   
   def HansardSpeech.clean_content_amendment(e)
     t = ""
-    e.children.each do |c|
-      next unless c.respond_to?(:name)
-      if c.name == 'para'
+    e.each_child_node do |c|
+      case c.name
+      when 'para'
         t << clean_content_para(c)
       else
         throw "Unexpected tag #{c.name}"
@@ -373,9 +371,9 @@ class HansardSpeech
   
   def HansardSpeech.clean_content_amendments(e)
     t = ""
-    e.children.each do |c|
-      next unless c.respond_to?(:name)
-      if c.name == 'amendment'
+    e.each_child_node do |c|
+      case c.name
+      when 'amendment'
         t << clean_content_amendment(c)
       else
         throw "Unexpected tag #{c.name}"
@@ -386,9 +384,9 @@ class HansardSpeech
   
   def HansardSpeech.clean_content_continue(e)
     t = ""
-    e.children.each do |c|
-      next unless c.respond_to?(:name)
-      if c.name == 'talk.start'
+    e.each_child_node do |c|
+      case c.name
+      when 'talk.start'
         t << clean_content_talk_start(c)
       else
         throw "Unexpected tag #{c.name}"
@@ -399,11 +397,11 @@ class HansardSpeech
   
   def HansardSpeech.clean_content_motion(e)
     c = ""
-    e.children.each do |e|
-      next unless e.respond_to?(:name)
-      if e.name == 'para'
+    e.each_child_node do |e|
+      case e.name
+      when 'para'
         c << HansardSpeech.clean_content_para(e)
-      elsif e.name == 'list'
+      when 'list'
         c << HansardSpeech.clean_content_list(e)
       else
         throw "Unexpected tag #{e.name}"
@@ -414,15 +412,14 @@ class HansardSpeech
   
   def HansardSpeech.clean_content_motionnospeech(e)
     t = ""
-    e.children.each do |c|
-      next unless c.respond_to?(:name)
-      if ['name', 'electorate', 'role', 'time.stamp'].include?(c.name)
-        # Skip and do nothing
-      elsif c.name == 'inline'
+    e.each_child_node do |c|
+      case c.name
+      when 'name', 'electorate', 'role', 'time.stamp'
+      when 'inline'
         t << clean_content_inline(c)
-      elsif c.name == 'motion'
+      when 'motion'
         t << clean_content_motion(c)
-      elsif c.name == 'para'
+      when 'para'
         t << clean_content_para(c)
       else
         throw "Unexpected tag #{c.name}"
@@ -433,9 +430,9 @@ class HansardSpeech
   
   def HansardSpeech.clean_content_interrupt(e)
     t = ""
-    e.children.each do |c|
-      next unless c.respond_to?(:name)
-      if c.name == 'para'
+    e.each_child_node do |c|
+      case c.name
+      when 'para'
         t << clean_content_para(c)
       else
         throw "Unexpected tag #{c.name}"
@@ -448,30 +445,30 @@ class HansardSpeech
     c = ""
     e = @content
 
-    if e.name == 'talk.start'
+    case e.name
+    when 'talk.start'
       c << HansardSpeech.clean_content_talk_start(e)
-    elsif e.name == 'motion'
+    when 'motion'
       c << HansardSpeech.clean_content_motion(e)
-    elsif e.name == 'list'
+    when 'list'
       c << HansardSpeech.clean_content_list(e)
-    elsif e.name == 'para'
+    when 'para'
       c << HansardSpeech.clean_content_para(e)
-    elsif e.name == 'quote'
+    when 'quote'
       c << HansardSpeech.clean_content_quote(e)
-    elsif e.name == 'interjection'
+    when 'interjection'
       c << HansardSpeech.clean_content_interjection(e)
-    elsif e.name == 'amendments'
+    when 'amendments'
       c << HansardSpeech.clean_content_amendments(e)
-    elsif e.name == 'continue'
+    when 'continue'
       c << HansardSpeech.clean_content_continue(e)
-    elsif e.name == 'motionnospeech'
+    when 'motionnospeech'
       c << HansardSpeech.clean_content_motionnospeech(e)
-    elsif e.name == 'interrupt'
+    when 'interrupt'
       c << HansardSpeech.clean_content_interrupt(e)
-    elsif e.name == 'table'
+    when 'table'
       c << HansardSpeech.clean_content_table(e)
-    elsif ['tggroup', 'tgroup', 'amendment', 'talker', 'name', 'electorate', 'role', 'time.stamp', 'inline', 'interjection'].include?(e.name)
-      # Skip
+    when 'tggroup', 'tgroup', 'amendment', 'talker', 'name', 'electorate', 'role', 'time.stamp', 'inline', 'interjection'
     else
       throw "Unexpected tag #{e.name}"
     end
@@ -485,82 +482,6 @@ class HansardSpeech
       return Hpricot(content.to_s.gsub!(/^<p[^>]*>.*?—/i, "<p>"))
     end
     content
-  end
-
-  def fix_motionnospeech_tags(content)
-    content.search('div.motionnospeech').wrap('<p></p>')
-    replace_with_inner_html(content, 'div.motionnospeech')
-    content.search('span.speechname').remove
-    content.search('span.speechelectorate').remove
-    content.search('span.speechrole').remove
-    content.search('span.speechtime').remove
-  end
-  
-  def fix_attributes_of_p_tags(content)
-    content.search('p.parabold').wrap('<b></b>')
-    content.search('p').each do |e|
-      class_value = e.get_attribute('class')
-      if class_value == "block" || class_value == "parablock" || class_value == "parasmalltablejustified" ||
-          class_value == "parasmalltableleft" || class_value == "parabold" || class_value == "paraheading" || class_value == "paracentre"
-        e.remove_attribute('class')
-      elsif class_value == "paraitalic"
-        e.set_attribute('class', 'italic')
-      elsif class_value == "italic" && e.get_attribute('style')
-        e.remove_attribute('style')
-      end
-      e.remove_attribute('style')
-    end
-  end
-  
-  def fix_attributes_of_td_tags(content)
-    content.search('td').each do |e|
-      e.remove_attribute('style')
-    end
-  end
-  
-  def fix_links(content)
-    content.search('a').each do |e|
-      href_value = e.get_attribute('href')
-      if href_value.nil?
-        # Remove a tags
-        e.swap(e.inner_html)
-      else
-        e.set_attribute('href', URI.join(permanent_url, href_value))
-      end
-    end
-    content.search('img').each do |e|
-      e.set_attribute('src', URI.join(permanent_url, e.get_attribute('src')))
-    end
-    content
-  end
-
-  def make_motions_and_quotes_italic(content)
-    content.search('div.motion p').set(:class => 'italic')
-    replace_with_inner_html(content, 'div.motion')
-    content.search('div.quote p').set(:class => 'italic')
-    replace_with_inner_html(content, 'div.quote')
-    content
-  end
-  
-  def make_amendments_italic(content)
-    content.search('div.amendments div.amendment0 p').set(:class => 'italic')
-    content.search('div.amendments div.amendment1 p').set(:class => 'italic')
-    replace_with_inner_html(content, 'div.amendment0')
-    replace_with_inner_html(content, 'div.amendment1')
-    replace_with_inner_html(content, 'div.amendments')
-    content
-  end
-  
-  def remove_subspeech_tags(content)
-    replace_with_inner_html(content, 'div.subspeech0')
-    replace_with_inner_html(content, 'div.subspeech1')
-    content
-  end
-
-  def replace_with_inner_html(content, search)
-    content.search(search).each do |e|
-      e.swap(e.inner_html)
-    end
   end
 
   def strip_tags(doc)
