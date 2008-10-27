@@ -114,15 +114,13 @@ class HansardDay
         end
         question = true
         procedural = false
-      when 'motionnospeech', 'para', 'motion', 'interjection', 'quote', 'list'
+      when 'motionnospeech', 'para', 'motion', 'interjection', 'quote', 'list', 'interrupt'
         unless procedural
           puts "SKIP: Procedural text: #{e.name} > #{full_title}"
           p << nil
         end
         question = false
         procedural = true
-      when 'list', 'interrupt'
-        puts "#{e.name} > #{full_title}"
       when 'subdebate.1', 'subdebate.2'
         p = p + pages_from_debate(e)
         question = false
@@ -139,7 +137,7 @@ class HansardDay
     # Step through the top-level debates
     # When something that was a page in old parlinfo web system is not supported we just return nil for it. This ensures that it is
     # still accounted for in the counting of the ids but we don't try to use it to generate any content
-    #puts "SKIP: Official Hansard"
+    puts "SKIP: Official Hansard"
     p << nil
     @page.at('hansard').each_child_node do |e|
       case e.name
