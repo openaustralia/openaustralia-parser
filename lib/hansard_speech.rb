@@ -225,13 +225,9 @@ class HansardSpeech
 
   def HansardSpeech.clean_content_entry(e)
     t = ""
-    e.children.each do |c|
-      next unless c.respond_to?(:name)
-      if c.name == 'para'
-        t << clean_content_para(c)
-      else
-        throw "Unexpected tag #{c.name}"
-      end
+    e.each_child_node do |c|
+      throw "Unexpected tag #{c.name}" unless c.name == 'para'
+      t << clean_content_para(c)
     end
     t
   end
@@ -258,26 +254,18 @@ class HansardSpeech
   
   def HansardSpeech.clean_content_thead(e)
     t = ""
-    e.children.each do |c|
-      next unless c.respond_to?(:name)
-      if c.name == 'row'
-        t << clean_content_row(c)
-      else
-        throw "Unexpected tag #{c.name}"
-      end
+    e.each_child_node do |c|
+      throw "Unexpected tag #{c.name}" unless c.name == 'row'
+      t << clean_content_row(c)
     end
     t
   end
   
   def HansardSpeech.clean_content_tbody(e)
     t = ""
-    e.children.each do |c|
-      next unless c.respond_to?(:name)
-      if c.name == 'row'
-        t << clean_content_row(c)
-      else
-        throw "Unexpected tag #{c.name}"
-      end
+    e.each_child_node do |c|
+      throw "Unexpected tag #{c.name}" unless c.name == 'row'
+      t << clean_content_row(c)
     end
     t
   end
@@ -301,12 +289,8 @@ class HansardSpeech
   def HansardSpeech.clean_content_table(e)
     t = ""
     e.each_child_node do |c|
-      case c.name
-      when 'tgroup'
-        t << clean_content_tgroup(c)
-      else
-        throw "Unexpected tag #{c.name}"
-      end
+      throw "Unexpected tag #{c.name}" unless c.name == 'tgroup'
+      t << clean_content_tgroup(c)
     end
     # Not sure if I really should put border="0" here. Hmmm...
     '<table border="0">' + t + '</table>'
@@ -332,12 +316,8 @@ class HansardSpeech
   def HansardSpeech.clean_content_interjection(e)
     c = ""
     e.each_child_node do |e|
-      case e.name
-      when 'talk.start'
-        c << clean_content_talk_start(e)
-      else
-        throw "Unexpected tag #{e.name}"
-      end
+      throw "Unexpected tag #{e.name}" unless e.name == 'talk.start'
+      c << clean_content_talk_start(e)
     end
     c
   end
@@ -359,12 +339,8 @@ class HansardSpeech
   def HansardSpeech.clean_content_amendment(e)
     t = ""
     e.each_child_node do |c|
-      case c.name
-      when 'para'
-        t << clean_content_para(c)
-      else
-        throw "Unexpected tag #{c.name}"
-      end
+      throw "Unexpected tag #{c.name}" unless c.name == 'para'
+      t << clean_content_para(c)
     end
     t
   end
@@ -372,25 +348,8 @@ class HansardSpeech
   def HansardSpeech.clean_content_amendments(e)
     t = ""
     e.each_child_node do |c|
-      case c.name
-      when 'amendment'
-        t << clean_content_amendment(c)
-      else
-        throw "Unexpected tag #{c.name}"
-      end
-    end
-    t
-  end
-  
-  def HansardSpeech.clean_content_continue(e)
-    t = ""
-    e.each_child_node do |c|
-      case c.name
-      when 'talk.start'
-        t << clean_content_talk_start(c)
-      else
-        throw "Unexpected tag #{c.name}"
-      end
+      throw "Unexpected tag #{c.name}" unless c.name == 'amendment'
+      t << clean_content_amendment(c)
     end
     t
   end
@@ -431,14 +390,19 @@ class HansardSpeech
   def HansardSpeech.clean_content_interrupt(e)
     t = ""
     e.each_child_node do |c|
-      case c.name
-      when 'para'
-        t << clean_content_para(c)
-      else
-        throw "Unexpected tag #{c.name}"
-      end
+      throw "Unexpected tag #{c.name}" unless c.name == 'para'
+      t << clean_content_para(c)
     end
     '<b>' + t + '</b>'
+  end
+  
+  def HansardSpeech.clean_content_continue(e)
+    t = ""
+    e.each_child_node do |c|
+      throw "Unexpected tag #{c.name}" unless c.name == 'talk.start'
+      t << clean_content_talk_start(c)
+    end
+    t
   end
   
   def clean_content
@@ -461,7 +425,10 @@ class HansardSpeech
     when 'amendments'
       c << HansardSpeech.clean_content_amendments(e)
     when 'continue'
-      c << HansardSpeech.clean_content_continue(e)
+      e.each_child_node do |e|
+        throw "Unexpected tag #{e.name}" unless e.name == 'talk.start'
+        c << HansardSpeech.clean_content_talk_start(e)
+      end
     when 'motionnospeech'
       c << HansardSpeech.clean_content_motionnospeech(e)
     when 'interrupt'

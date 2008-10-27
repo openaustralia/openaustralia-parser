@@ -56,56 +56,6 @@ class HansardPage
       end
     end
     
-    #@page.children.each do |e|
-    #  next unless e.respond_to?(:name)
-    #  if ['speech', 'question', 'answer'].include?(e.name)
-    #    # Add each child as a seperate speech_block
-    #    e.children.each do |c|
-    #      next unless c.respond_to?(:name)
-    #      speech_blocks << c
-    #    end
-    #  elsif e.name == 'motionnospeech'
-    #    #speech_blocks << e
-    #  elsif ['interjection', 'debateinfo', 'subdebateinfo', 'division', 'para', 'motion', 'quote'].include?(e.name)
-    #    # Skip
-    #  else
-    #    throw "Don't know what to do with the tag #{e.name} yet"
-    #  end
-    #end
- 
-    return speech_blocks.map {|e| HansardSpeech.new(e, self, logger) if e}
-    
-    #
-    
-    content_start.children.each do |e|
-      break unless e.respond_to?(:attributes)
-      
-      class_value = e.attributes["class"]
-      if e.name == "div"
-        if class_value == "hansardtitlegroup" || class_value == "hansardsubtitlegroup"
-        elsif class_value == "speech0" || class_value == "speech1"
-          e.children[1..-1].each do |e|
-            speech_blocks << e
-          end
-        elsif class_value == "motionnospeech" || class_value == "subspeech0" || class_value == "subspeech1" ||
-            class_value == "motion" || class_value = "quote"
-          speech_blocks << e
-        else
-          throw "Unexpected class value #{class_value} for tag #{e.name}"
-        end
-      elsif e.name == "p"
-        speech_blocks << e
-      elsif e.name == "table"
-        if class_value == "division"
-          # By adding nil the minor_count will be incremented
-          speech_blocks << nil
-        else
-          throw "Unexpected class value #{class_value} for tag #{e.name}"
-        end
-      else
-        throw "Unexpected tag #{e.name}"
-      end
-    end
     speech_blocks.map {|e| HansardSpeech.new(e, self, logger) if e}
   end  
 
