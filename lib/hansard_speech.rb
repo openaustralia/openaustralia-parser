@@ -79,11 +79,13 @@ class HansardSpeech
   
   def HansardSpeech.clean_content_inline(e)
     text = strip_leading_dash(e.inner_html)
+
+    # TODO: Fix the link here
     if e.attributes.keys == ['ref']
       '<a href="??">' + text + '</a>'
     elsif e.attributes.keys == ['font-size']
       text
-    elsif e.attributes.keys == ['font-style']
+    elsif e.attributes.keys.include?('font-style')
       if e.attributes['font-style'] == 'italic'
         '<i>' + text + '</i>'
       else
@@ -141,7 +143,7 @@ class HansardSpeech
         type = 'italic'
       when 'bold'
         type = 'bold'
-      when 'block'
+      when 'block', 'ParlAmend'
       else
         throw "Unexpected value for class attribute of para #{e.attributes['class']}" 
       end
@@ -174,7 +176,7 @@ class HansardSpeech
               e.children.each do |e|
                 next unless e.respond_to?(:name)
                 if e.name == 'para'
-                  d << e.inner_html
+                  d << clean_content_para_content(e)
                 elsif e.name == 'list'
                   d << clean_content_list(e)
                 elsif e.name == 'table'

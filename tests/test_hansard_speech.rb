@@ -86,6 +86,12 @@ class TestHansardSpeech < Test::Unit::TestCase
     assert_equal(expected, speech.clean_content.to_s)
   end
   
+  def test_clean_content_para2
+    content = '<speech><para>A <inline font-size="12pt">B </inline><inline font-style="italic" font-size="12pt">C</inline><inline font-size="12pt"> D</inline>E</para></speech>'
+    expected = '<p>A B <i>C</i> DE</p>'
+    assert_equal(expected, HansardSpeech.clean_content_para(Hpricot.XML(content).at('para')))
+  end
+  
   def test_clean_content_inline_in_brackets
     # This happens when a name hasn't been marked up correctly
     content = '<inline font-weight="bold">(A name)</inline>'
