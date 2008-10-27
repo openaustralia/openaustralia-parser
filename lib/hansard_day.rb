@@ -37,7 +37,7 @@ class HansardDay
   # Search for the title tag and return its value, stripping out any HTML tags
   def title_tag_value(debate)
     # Doing this rather than calling inner_text to preserve html entities which for some reason get all screwed up by inner_text
-    strip_tags(debate.at('title').inner_html)
+    strip_tags(debate.search('> * > title').map{|e| e.inner_html}.join('; '))
   end
   
   def title(debate)
