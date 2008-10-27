@@ -143,7 +143,7 @@ class HansardSpeech
         type = 'italic'
       when 'bold'
         type = 'bold'
-      when 'block', 'ParlAmend'
+      when 'block', 'ParlAmend', 'subsection'
       else
         throw "Unexpected value for class attribute of para #{e.attributes['class']}" 
       end
@@ -166,7 +166,7 @@ class HansardSpeech
   def HansardSpeech.clean_content_list(e)
     l = ""
     if e.attributes.keys == ['type']
-      if ['loweralpha', 'unadorned', 'decimal'].include?(e.attributes['type'])
+      if ['loweralpha', 'unadorned', 'decimal', 'lowerroman'].include?(e.attributes['type'])
         e.children.each do |e|
           next unless e.respond_to?(:name)
           if e.name == 'item'
@@ -437,7 +437,7 @@ class HansardSpeech
       c << HansardSpeech.clean_content_interrupt(e)
     when 'table'
       c << HansardSpeech.clean_content_table(e)
-    when 'tggroup', 'tgroup', 'amendment', 'talker', 'name', 'electorate', 'role', 'time.stamp', 'inline', 'interjection'
+    when 'tggroup', 'tgroup', 'amendment', 'talker', 'name', 'electorate', 'role', 'time.stamp', 'inline', 'separator'
     else
       throw "Unexpected tag #{e.name}"
     end

@@ -42,7 +42,7 @@ class HansardDay
   
   def title(debate)
     e = case debate.name
-    when 'debate'
+    when 'debate', 'petition.group'
       debate
     when 'subdebate.1'
       debate.parent
@@ -58,7 +58,7 @@ class HansardDay
   
   def subtitle(debate)
     case debate.name
-    when 'debate'
+    when 'debate', 'petition.group'
       ""
     when 'subdebate.1'
       title_tag_value(debate)
@@ -87,7 +87,7 @@ class HansardDay
     procedural = false
     debate.each_child_node do |e|
       case e.name
-      when 'debateinfo', 'subdebateinfo'
+      when 'debateinfo', 'subdebateinfo', 'petition.groupinfo'
         question = false
         procedural = false
       when 'speech'
@@ -95,7 +95,7 @@ class HansardDay
         p << HansardPage.new([e], title, subtitle, self, @logger)
         question = false
         procedural = false
-      when 'division'
+      when 'division', 'petition'
         puts "SKIP: #{e.name} > #{full_title}"
         p << nil
         question = false
@@ -114,7 +114,7 @@ class HansardDay
         end
         question = true
         procedural = false
-      when 'motionnospeech', 'para', 'motion', 'interjection', 'quote', 'list', 'interrupt'
+      when 'motionnospeech', 'para', 'motion', 'interjection', 'quote', 'list', 'interrupt', 'amendments'
         unless procedural
           puts "SKIP: Procedural text: #{e.name} > #{full_title}"
           p << nil
@@ -148,7 +148,7 @@ class HansardDay
             when 'business.start', 'adjournment'
               p << nil
               puts "SKIP: #{e.name}"
-            when 'debate'
+            when 'debate', 'petition.group'
               p = p + pages_from_debate(e)
             else
               throw "Unexpected tag #{e.name}"
