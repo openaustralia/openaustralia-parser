@@ -40,7 +40,6 @@ parser = HansardParser.new(people)
 def process_xml(input, output)
   doc = File.open(input) { |f| Hpricot.XML(f) }
   doc.search('*[@url]').set(:url, '*deleted*')
-  doc.search('*[@time]').set(:time, '*deleted*')
   #doc.search('*[@id]').set(:id, '*deleted*')
   doc.search('a[@href]').set(:href, '*deleted*')
   doc.search('td[@valign]').each {|e| e.remove_attribute('valign')}

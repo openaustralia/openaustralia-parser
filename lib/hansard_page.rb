@@ -111,6 +111,8 @@ class HansardPage
 
   # Returns the time (as a string) that the current debate took place
   def time
-    "??"
+    # HACK: Hmmm.. check this out more 
+    tag = @page.first.at('(time.stamp)')
+    tag.inner_html if tag
   end  
 end
