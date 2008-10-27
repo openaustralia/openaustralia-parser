@@ -35,7 +35,14 @@ class HansardSpeech
 
   def extract_speakername
     # If there are multiple <name> tags prefer the one with the attribute role='display'
-    talkername_tag = @content.at('name[@role=display]') || @content.at('name')
+    talkername_tag1 = @content.at('name[@role=metadata]')
+    talkername_tag2 = @content.at('name[@role=display]')
+    # Only use the 'metadata' if it has brackets in it
+    if talkername_tag1 && talkername_tag1.inner_html =~ /\(.*\)/
+      talkername_tag = talkername_tag1
+    else
+      talkername_tag = talkername_tag2 || @content.at('name')
+    end
     name = talkername_tag ? talkername_tag.inner_html : nil
     aph_id_tag = @content.at('//(name.id)')
     aph_id = aph_id_tag ? aph_id_tag.inner_html : nil
