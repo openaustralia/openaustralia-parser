@@ -91,19 +91,19 @@ class HansardDay
         question = false
         procedural = false
       when 'speech'
-        #puts "USE: #{e.name} > #{full_title}"
+        puts "USE: #{e.name} > #{full_title}"
         p << HansardPage.new([e], title, subtitle, self, @logger)
         question = false
         procedural = false
       when 'division'
-        #puts "SKIP: #{e.name} > #{full_title}"
+        puts "SKIP: #{e.name} > #{full_title}"
         p << nil
         question = false
         procedural = false
       when 'question', 'answer'
         # We'll skip answer because they always come in pairs of 'question' and 'answer'
         unless question
-          #puts "USE: #{e.name} > #{full_title}"
+          puts "USE: #{e.name} > #{full_title}"
           questions = []
           f = e
           while f && (f.name == 'question' || f.name == 'answer') do
@@ -114,13 +114,15 @@ class HansardDay
         end
         question = true
         procedural = false
-      when 'motionnospeech', 'para', 'motion', 'interjection', 'quote'
+      when 'motionnospeech', 'para', 'motion', 'interjection', 'quote', 'list'
         unless procedural
-          #puts "SKIP: Procedural text: #{e.name} > #{full_title}"
+          puts "SKIP: Procedural text: #{e.name} > #{full_title}"
           p << nil
         end
         question = false
         procedural = true
+      when 'list', 'interrupt'
+        puts "#{e.name} > #{full_title}"
       when 'subdebate.1', 'subdebate.2'
         p = p + pages_from_debate(e)
         question = false
@@ -147,7 +149,7 @@ class HansardDay
           case e.name
             when 'business.start', 'adjournment'
               p << nil
-              #puts "SKIP: #{e.name}"
+              puts "SKIP: #{e.name}"
             when 'debate'
               p = p + pages_from_debate(e)
             else
