@@ -140,15 +140,15 @@ class TestHansardParser < Test::Unit::TestCase
   
   def test_generic_speakers
     speech = HansardSpeech.new(Hpricot(''), @page)
-    assert(speech.generic_speaker?("Honourable member"))
-    assert(speech.generic_speaker?("Honourable members"))
-    assert(speech.generic_speaker?("Government member"))
-    assert(speech.generic_speaker?("Government members"))
-    assert(speech.generic_speaker?("Opposition member"))
-    assert(speech.generic_speaker?("Opposition members"))
-    assert(speech.generic_speaker?("a government member"))
+    assert(HansardSpeech.generic_speaker?("Honourable member"))
+    assert(HansardSpeech.generic_speaker?("Honourable members"))
+    assert(HansardSpeech.generic_speaker?("Government member"))
+    assert(HansardSpeech.generic_speaker?("Government members"))
+    assert(HansardSpeech.generic_speaker?("Opposition member"))
+    assert(HansardSpeech.generic_speaker?("Opposition members"))
+    assert(HansardSpeech.generic_speaker?("a government member"))
     
-    assert(!speech.generic_speaker?("John Smith"))
+    assert(!HansardSpeech.generic_speaker?("John Smith"))
   end
   
   #def test_remove_generic_speaker_names

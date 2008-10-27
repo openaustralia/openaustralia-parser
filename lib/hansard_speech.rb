@@ -49,7 +49,7 @@ class HansardSpeech
         interjection = true
       else
         m = strip_tags(@content).match(/^([a-z].*?)—/i)
-        if m and generic_speaker?(m[1])
+        if m and HansardSpeech.generic_speaker?(m[1])
           name = m[1]
           interjection = false
         end
@@ -92,7 +92,8 @@ class HansardSpeech
     elsif e.attributes.keys == ['font-weight']
       if e.attributes['font-weight'] == 'bold'
         # Workaround for badly marked up content. If a bold item is surrounded in brackets assume it is a name and remove it
-        if e.inner_html[0..0] == '(' && e.inner_html[-1..-1] == ')'
+        # Alternatively if the bold item is a generic name, remove it as well
+        if (e.inner_html[0..0] == '(' && e.inner_html[-1..-1] == ')') || generic_speaker?(e.inner_html)
           ''
         else
           '<b>' + text + '</b>'
@@ -499,7 +500,7 @@ class HansardSpeech
     end
   end  
 
-  def generic_speaker?(speakername)
+  def HansardSpeech.generic_speaker?(speakername)
     speakername =~ /^(an? )?(honourable|opposition|government) (member|senator)s?$/i
   end
 end

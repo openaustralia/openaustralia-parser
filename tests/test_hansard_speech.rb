@@ -93,9 +93,20 @@ class TestHansardSpeech < Test::Unit::TestCase
   end
   
   def test_clean_content_para_with_badly_marked_up_speaker
+    # For a name in brackets
     content = '<speech><para><inline font-weight="bold">(A name)</inline>—Some text</para></speech>'
     expected = '<p>Some text</p>'
     assert_equal(expected, HansardSpeech.clean_content_para(Hpricot.XML(content).at('para')))
+    
+    # For a 'generic name' that isn't in brackets
+    content = '<speech><para><inline font-weight="bold">Honourable members</inline>Hear, hear!</para></speech>'
+    expected = '<p>Hear, hear!</p>'
+    assert_equal(expected, HansardSpeech.clean_content_para(Hpricot.XML(content).at('para')))
+    
+    # For a bit of text that is bold but isn't a generic name it shouldn't delete it
+    content = '<speech><para><inline font-weight="bold">Some text in bold</inline>Blah blah</para></speech>'
+    expected = '<p><b>Some text in bold</b>Blah blah</p>'
+    assert_equal(expected, HansardSpeech.clean_content_para(Hpricot.XML(content).at('para')))    
   end
   
   # Only remove the first non-breaking-space from paragraph for compatibility with previous parser

@@ -185,7 +185,7 @@ class HansardParser
     end
     
     if member.nil?
-      logger.warn "Unknown speaker #{speech.speakername} in #{speech.permanent_url}" unless speech.generic_speaker?(speech.speakername)
+      logger.warn "Unknown speaker #{speech.speakername} in #{speech.permanent_url}" unless HansardSpeech.generic_speaker?(speech.speakername)
       member = UnknownSpeaker.new(speech.speakername)
     end
     member
