@@ -116,4 +116,14 @@ class TestHansardSpeech < Test::Unit::TestCase
     expected = '<table border="0"><tr><td><p>1</p></td><td><p>2</p></td></tr><tr><td><p>3</p></td><td><p>4</p></td></tr><tr><td><p>5</p></td><td><p>6</p></td></tr></table>'
     assert_equal(expected, HansardSpeech.clean_content_table(Hpricot.XML(content).at('table')))
   end
+  
+  def test_clean_non_breaking_dashes
+    # Unicode Character 'Non-breaking hyphen' (U+2011)
+    nbhyphen = [0x2011].pack('U')
+
+    content = "<speech><para>Auditor#{nbhyphen}General</para></speech>"
+    expected = "<p>Auditor-General</p>"
+
+    assert_equal(expected, HansardSpeech.clean_content_para(Hpricot.XML(content).at('para')))
+  end
 end

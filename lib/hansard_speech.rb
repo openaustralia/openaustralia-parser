@@ -60,16 +60,20 @@ class HansardSpeech
   end  
 
   def HansardSpeech.strip_leading_dash(text)
+    # Unicode Character 'Non-breaking hyphen' (U+2011)
+    nbhyphen = [0x2011].pack('U')
+    
+    t = text.chars.gsub(nbhyphen, '-')
     # TODO: Not handling dashes and nbsp the same here. Should really be stripping whitespace completely before doing
     # anything for consistency sake.
-    if text.chars.strip[0..0] == '—'
-      text.sub('—', '')
+    if t.strip[0..0] == '—'
+      t.sub('—', '')
     # Also remove first non-breaking space (Really should remove them all but we're doing it this way for compatibility
     # with the previous parser
-    elsif text.chars[0] == 160
-      text.chars[1..-1]
+    elsif t[0] == 160
+      t[1..-1]
     else
-      text
+      t
     end
   end
   
