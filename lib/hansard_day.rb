@@ -7,15 +7,21 @@ class HansardDay
   end
   
   def house
-    case @page.at('chamber').inner_html
-      when "SENATE" then House.senate
-      when "REPS" then House.representatives
-      else throw "Unexpected value for contents of <chamber> tag"
+    # Cache value
+    unless @house
+      @house = case @page.at('chamber').inner_html
+        when "SENATE" then House.senate
+        when "REPS" then House.representatives
+        else throw "Unexpected value for contents of <chamber> tag"
+      end
     end
+    @house
   end
   
   def date
-    Date.parse(@page.at('date').inner_html)
+    # Cache value
+    @date = Date.parse(@page.at('date').inner_html) unless @date
+    @date
   end
   
   def permanent_url
@@ -69,19 +75,15 @@ class HansardDay
     end    
   end
   
-  def full_title(debate)
-    if subtitle(debate) == ""
-      title(debate)
-    else
-      title(debate) + "; " + subtitle(debate)
-    end
-  end
-  
   def pages_from_debate(debate)
     p = []
     title = title(debate)
     subtitle = subtitle(debate)
-    full_title = full_title(debate)
+    if subtitle == ""
+      full_title = title
+    else
+      full_title = title + "; " + subtitle
+    end
 
     question = false
     procedural = false

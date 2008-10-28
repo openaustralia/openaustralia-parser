@@ -151,7 +151,7 @@ class HansardSpeech
         type = 'italic'
       when 'bold'
         type = 'bold'
-      when 'block', 'ParlAmend', 'subsection'
+      when 'block', 'ParlAmend', 'subsection', 'ItemHead', 'Item', 'indenta'
       else
         throw "Unexpected value for class attribute of para #{e.attributes['class']}" 
       end
