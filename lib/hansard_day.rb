@@ -52,7 +52,7 @@ class HansardDay
       throw "Unexpected tag #{debate.name}"
     end    
     title = title_tag_value(e)
-    cognates = e.search('cognateinfo').search('title').map{|a| strip_tags(a.inner_html)}
+    cognates = e.search('cognateinfo').search('> title').map{|a| strip_tags(a.inner_html)}
     ([title] + cognates).join('; ')
   end
   

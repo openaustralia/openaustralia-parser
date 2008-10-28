@@ -101,4 +101,32 @@ class TestHansardDay < Test::Unit::TestCase
     assert_equal([nil, ["1", ""], ["2", "3; 14"], ["4", "5"], ["4", "6"], ["7; 13", "8"], ["7; 13", "9"], ["10", "11; 12"]],
       @titles.pages.map {|page| [page.hansard_title, page.hansard_subtitle] if page})
   end
+  
+  def test_titles_badly_marked_up
+    # Handle situation when title tag has another title tag underneath it
+    
+    titles = HansardDay.new(Hpricot.XML('
+    <hansard>
+      <chamber.xscript>        
+        <debate>
+          <debateinfo>
+            <title>1</title>
+            <cognate><cognateinfo><title>2</title></cognateinfo></cognate>
+            <cognate><cognateinfo><title>3</title></cognateinfo></cognate>
+            <cognate><cognateinfo><title><title>4</title></title></cognateinfo></cognate>
+            <cognate><cognateinfo><title><title>5</title></title></cognateinfo></cognate>
+          </debateinfo>
+          <subdebate.1>
+            <subdebateinfo>
+              <title>6</title>
+            </subdebateinfo>
+            <speech></speech>
+          </subdebate.1>
+        </debate>
+      </chamber.xscript>        
+    </hansard>'))
+    
+    assert_equal("1; 2; 3; 4; 5", titles.pages[1].hansard_title)
+    assert_equal("6", titles.pages[1].hansard_subtitle)
+  end
 end
