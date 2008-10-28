@@ -209,7 +209,7 @@ class HansardSpeech
               e.children.each do |e|
                 next unless e.respond_to?(:name)
                 if e.name == 'para'
-                  l << '<li>' + e.inner_html + '</li>'
+                  l << '<li>' + clean_content_para_content(e) + '</li>'
                 elsif e.name == 'list'
                   l << clean_content_list(e)
                 else
