@@ -87,9 +87,10 @@ class HansardSpeech
   def HansardSpeech.clean_content_inline(e)
     text = strip_leading_dash(e.inner_html)
 
-    # TODO: Fix the link here
     if e.attributes.keys == ['ref']
-      '<a href="??">' + text + '</a>'
+      # We're going to assume these links always point to Bills.
+      link = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{e.attributes['ref']}"
+      '<a href="' + link + '">' + text + '</a>'
     elsif e.attributes.keys == ['font-size']
       text
     elsif e.attributes.keys.include?('font-style')

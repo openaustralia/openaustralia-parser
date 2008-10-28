@@ -59,16 +59,18 @@ class TestHansardSpeech < Test::Unit::TestCase
     expected = 'Some text'
     assert_equal(expected, HansardSpeech.clean_content_inline(Hpricot.XML(content).at('inline')))
     
-    content = '<inline ref="R2715">Some text</inline>'
-    expected = '<a href="??">Some text</a>'
-    assert_equal(expected, HansardSpeech.clean_content_inline(Hpricot.XML(content).at('inline')))
-    
     content = '<inline font-style="italic">Some text</inline>'
     expected = '<i>Some text</i>'
     assert_equal(expected, HansardSpeech.clean_content_inline(Hpricot.XML(content).at('inline')))
     
     content = '<inline font-weight="bold">Some text</inline>'
     expected = '<b>Some text</b>'
+    assert_equal(expected, HansardSpeech.clean_content_inline(Hpricot.XML(content).at('inline')))    
+  end
+  
+  def test_link_to_bills
+    content = '<inline ref="R2715">Some text</inline>'
+    expected = '<a href="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/R2715">Some text</a>'
     assert_equal(expected, HansardSpeech.clean_content_inline(Hpricot.XML(content).at('inline')))    
   end
   
