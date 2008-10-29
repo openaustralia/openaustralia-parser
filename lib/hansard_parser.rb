@@ -65,11 +65,16 @@ class HansardParser
     # This is the page returned by Parlinfo Search for that day
     url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:chamber/hansard#{house.representatives? ? "r" : "s"}/#{date}/0000"
     page = agent.get(url)
-    page = agent.click(page.links.text("View/Save XML"))
-    day = HansardDay.new(Hpricot.XML(page.body), logger)
+    tag = page.at('div#content center')
+    if tag && tag.inner_html =~ /^Unable to find document/
+      @logger.info "No data available..."
+    else
+      page = agent.click(page.links.text("View/Save XML"))
+      day = HansardDay.new(Hpricot.XML(page.body), logger)
     
-    day.pages.each do |page|
-      yield page
+      day.pages.each do |page|
+        yield page
+      end
     end
   end
   
