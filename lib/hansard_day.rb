@@ -116,7 +116,7 @@ class HansardDay
         end
         question = true
         procedural = false
-      when 'motionnospeech', 'para', 'motion', 'interjection', 'quote', 'list', 'interrupt', 'amendments'
+      when 'motionnospeech', 'para', 'motion', 'interjection', 'quote', 'list', 'interrupt', 'amendments', 'table'
         unless procedural
           puts "SKIP: Procedural text: #{e.name} > #{full_title}"
           p << nil

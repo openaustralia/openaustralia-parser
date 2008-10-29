@@ -93,37 +93,45 @@ class HansardSpeech
 
     # A special case here. Ugly HACK
     if e.attributes.keys.empty?
-      '<p>' + text + '</p>'
-    elsif attributes_keys.empty?
-      text
-    elsif attributes_keys == ['ref']
+      text = '<p>' + text + '</p>'
+    end
+    
+    if attributes_keys.delete('ref')
       # We're going to assume these links always point to Bills.
       link = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{e.attributes['ref']}"
-      '<a href="' + link + '">' + text + '</a>'
-    # TODO: This is wrong but will do for the time being
-    elsif attributes_keys == ['font-variant']
-      text
-    elsif attributes_keys == ['font-style']
+      text = '<a href="' + link + '">' + text + '</a>'
+    end
+
+    if attributes_keys.delete('font-style')
       if e.attributes['font-style'] == 'italic'
-        '<i>' + text + '</i>'
+        text = '<i>' + text + '</i>'
       else
         throw "Unexpected font-style value #{e.attributes['font-style']}"
       end
-    elsif attributes_keys == ['font-weight']
+    end
+        
+    if attributes_keys.delete('font-weight')
       if e.attributes['font-weight'] == 'bold'
         # Workaround for badly marked up content. If a bold item is surrounded in brackets assume it is a name and remove it
         # Alternatively if the bold item is a generic name, remove it as well
         if (e.inner_html[0..0] == '(' && e.inner_html[-1..-1] == ')') || generic_speaker?(e.inner_html)
-          ''
+          text = ''
         else
-          '<b>' + text + '</b>'
+          text = '<b>' + text + '</b>'
         end
       else
         throw "Unexpected font-weight value #{e.attributes['font-weight']}"
       end
-    else
-      throw "Unexpected attributes #{e.attributes.keys.join(', ')}"
     end
+
+    # TODO: This is wrong but will do for the time being
+    attributes_keys.delete('font-variant')
+
+    unless attributes_keys.empty?
+      throw "Unexpected attributes #{attributes_keys.join(', ')}"
+    end
+    
+    text
   end
   
   # Pass a <para>Some text</para> block. Returns cleaned "Some text"
@@ -163,7 +171,7 @@ class HansardSpeech
         type = 'italic'
       when 'bold'
         type = 'bold'
-      when 'block', 'ParlAmend', 'subsection', 'ItemHead', 'Item', 'indenta', 'hdg5s', 'smalltableleft'
+      when 'block', 'ParlAmend', 'subsection', 'ItemHead', 'Item', 'indenta', 'hdg5s', 'smalltableleft', 'Definition', 'indentii', 'centre'
       else
         throw "Unexpected value for class attribute of para #{e.attributes['class']}" 
       end
@@ -186,7 +194,7 @@ class HansardSpeech
   def HansardSpeech.clean_content_list(e)
     l = ""
     if e.attributes.keys == ['type']
-      if ['loweralpha', 'unadorned', 'decimal', 'lowerroman'].include?(e.attributes['type'])
+      if ['loweralpha', 'unadorned', 'decimal', 'decimal-dotted', 'lowerroman'].include?(e.attributes['type'])
         e.children.each do |e|
           next unless e.respond_to?(:name)
           if e.name == 'item'
@@ -241,7 +249,7 @@ class HansardSpeech
         throw "Unexpected type value #{e.attributes['type']}"
       end      
     else
-      throw "Unexpected attributes #{e.attributes.keys.join(', ')}"
+      throw "Unexpected attributes #{e.attributes.keys.join(', ')} with values #{e.attributes.values.join(', ')}"
     end
   end
 
