@@ -134,11 +134,10 @@ class HansardSpeech
     text
   end
   
-  # TODO: Figure out where images should be pointed. Can't do this alone (need APH help) as the images
-  # appear to be missing in the HTML version of Parlinfo Search. So, no clue as to the solution.
-  # In the meantime just add some explanatory text
   def HansardSpeech.clean_content_graphic(e)
-    '<b>Missing Image</b>'
+    throw "Unexpected attributes for graphic tag: #{e.attributes.keys.join(', ')}" unless e.attributes.keys == ['href']
+    # TODO: Probably the path needs to be different depending on whether Reps or Senate
+    '<img src="http://parlinfoweb.aph.gov.au/parlinfo/Repository/Chamber/HANSARDR/' + e.attributes['href'] + '"/>'
   end
   
   # Pass a <para>Some text</para> block. Returns cleaned "Some text"
