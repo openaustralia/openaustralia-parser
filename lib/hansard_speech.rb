@@ -179,7 +179,7 @@ class HansardSpeech
         type = 'italic'
       when 'bold'
         type = 'bold'
-      when 'block', 'ParlAmend', 'subsection', 'ItemHead', 'Item', 'indenta', 'hdg5s', 'smalltableleft', 'Definition', 'indentii', 'centre'
+      when 'block', 'ParlAmend', 'subsection', 'ItemHead', 'Item', 'indenta', 'hdg5s', 'smalltableleft', 'Definition', 'indentii', 'centre', 'smalltablejustified'
       else
         throw "Unexpected value for class attribute of para #{e.attributes['class']}" 
       end
@@ -201,8 +201,12 @@ class HansardSpeech
   
   def HansardSpeech.clean_content_list(e)
     l = ""
-    if e.attributes.keys == ['type']
-      if ['loweralpha', 'unadorned', 'decimal', 'decimal-dotted', 'lowerroman', 'upperalpha'].include?(e.attributes['type'])
+    attributes_keys = e.attributes.keys
+    # Always ignore the following attribute
+    attributes_keys.delete('pgwide')
+        
+    if attributes_keys.delete('type')
+      if ['loweralpha', 'loweralpha-dotted', 'unadorned', 'decimal', 'decimal-dotted', 'lowerroman', 'upperalpha'].include?(e.attributes['type'])
         e.children.each do |e|
           next unless e.respond_to?(:name)
           if e.name == 'item'
@@ -229,7 +233,7 @@ class HansardSpeech
             throw "Unexpected tag #{e.name}"
           end
         end
-        '<dl>' + l + '</dl>'
+        l = '<dl>' + l + '</dl>'
       elsif ['bullet'].include?(e.attributes['type'])
         e.children.each do |e|
           next unless e.respond_to?(:name)
@@ -252,20 +256,29 @@ class HansardSpeech
             throw "Unexpected tag #{e.name}"
           end
         end
-        '<ul>' + l + '</ul>'        
+        l = '<ul>' + l + '</ul>'        
       else
         throw "Unexpected type value #{e.attributes['type']}"
-      end      
-    else
+      end
+    end
+    
+    unless attributes_keys.empty?
       throw "Unexpected attributes #{e.attributes.keys.join(', ')} with values #{e.attributes.values.join(', ')}"
     end
+    l
   end
 
   def HansardSpeech.clean_content_entry(e, override_type = nil)
     t = ""
     e.each_child_node do |c|
-      throw "Unexpected tag #{c.name}" unless c.name == 'para'
-      t << clean_content_para(c, override_type)
+      case c.name
+      when 'para'
+        t << clean_content_para(c, override_type)
+      when 'quote'
+        t << clean_content_quote(c)
+      else
+        throw "Unexpected tag #{c.name}"
+      end
     end
     t
   end

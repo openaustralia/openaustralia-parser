@@ -31,7 +31,7 @@ class HansardDay
   
   def in_proof?
     proof = @page.at('proof').inner_html
-    logger.error "Unexpected value '#{proof}' inside tag <proof>" unless proof == "1" || proof == "0"
+    @logger.error "Unexpected value '#{proof}' inside tag <proof>" unless proof == "1" || proof == "0"
     proof == "1"
   end
 
@@ -116,7 +116,7 @@ class HansardDay
         end
         question = true
         procedural = false
-      when 'motionnospeech', 'para', 'motion', 'interjection', 'quote', 'list', 'interrupt', 'amendments', 'table'
+      when 'motionnospeech', 'para', 'motion', 'interjection', 'quote', 'list', 'interrupt', 'amendments', 'table', 'separator'
         unless procedural
           puts "SKIP: Procedural text: #{e.name} > #{full_title}"
           p << nil
