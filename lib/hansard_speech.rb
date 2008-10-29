@@ -142,15 +142,19 @@ class HansardSpeech
   end
   
   # Pass a <para>Some text</para> block. Returns cleaned "<p>Some text</p>"
-  def HansardSpeech.clean_content_para(e)
+  def HansardSpeech.clean_content_para(e, override_type = nil)
     atts = e.attributes.keys
     # We're not going to pay any attention to the following attribute
     atts.delete('pgwide')
     
     type = ""
-    if ['motion', 'quote', 'amendment'].include?(e.parent.name)
+    if override_type
+      type = override_type
+    # TODO: Consistently use either the mechanism above or below not this half-assed confusing nonsense here
+    elsif ['motion', 'quote', 'amendment'].include?(e.parent.name)
       type = "italic"
     end
+    
     if atts.empty?
       # Do nothing
     elsif atts == ['class']
@@ -241,25 +245,27 @@ class HansardSpeech
     end
   end
 
-  def HansardSpeech.clean_content_entry(e)
+  def HansardSpeech.clean_content_entry(e, override_type = nil)
     t = ""
     e.each_child_node do |c|
       throw "Unexpected tag #{c.name}" unless c.name == 'para'
-      t << clean_content_para(c)
+      t << clean_content_para(c, override_type)
     end
     t
   end
   
-  def HansardSpeech.clean_content_row(e)
+  def HansardSpeech.clean_content_row(e, override_type = nil)
     t = ""
-    e.children.each do |c|
-      next unless c.respond_to?(:name)
-      if c.name == 'entry'
-        if c.parent.parent.name == 'thead'
-          #t << '<th>' + clean_content_entry(c) + '</th>'
-          t << '<td valign="top">' + clean_content_entry(c) + '</td>'
-        elsif c.parent.parent.name == 'tbody'
-          t << '<td valign="top">' + clean_content_entry(c) + '</td>'
+    e.each_child_node do |c|
+      case c.name
+      when 'entry'
+        case c.parent.parent.name
+        when 'thead', 'tbody'
+          attributes = 'valign="top"'
+          if c.attributes['colspan']
+            attributes << ' colspan="' + c.attributes['colspan'] + '"'
+          end
+          t << '<td ' + attributes + '>' + clean_content_entry(c, override_type) + '</td>'
         else
           throw "Unexpected tag #{c.parent.parent.name}"
         end
@@ -270,33 +276,33 @@ class HansardSpeech
     '<tr>' + t + '</tr>'
   end
   
-  def HansardSpeech.clean_content_thead(e)
+  def HansardSpeech.clean_content_thead(e, override_type = nil)
     t = ""
     e.each_child_node do |c|
       throw "Unexpected tag #{c.name}" unless c.name == 'row'
-      t << clean_content_row(c)
+      t << clean_content_row(c, override_type)
     end
     t
   end
   
-  def HansardSpeech.clean_content_tbody(e)
+  def HansardSpeech.clean_content_tbody(e, override_type = nil)
     t = ""
     e.each_child_node do |c|
       throw "Unexpected tag #{c.name}" unless c.name == 'row'
-      t << clean_content_row(c)
+      t << clean_content_row(c, override_type)
     end
     t
   end
   
-  def HansardSpeech.clean_content_tgroup(e)
+  def HansardSpeech.clean_content_tgroup(e, override_type = nil)
     t = ""
     e.each_child_node do |c|
       case c.name
       when "colspec"
       when "thead"
-        t << clean_content_thead(c)
+        t << clean_content_thead(c, override_type)
       when "tbody"
-        t << clean_content_tbody(c)
+        t << clean_content_tbody(c, override_type)
       else
         throw "Unexpected tag #{c.name}"
       end
@@ -304,11 +310,11 @@ class HansardSpeech
     t    
   end
   
-  def HansardSpeech.clean_content_table(e)
+  def HansardSpeech.clean_content_table(e, override_type = nil)
     t = ""
     e.each_child_node do |c|
       throw "Unexpected tag #{c.name}" unless c.name == 'tgroup'
-      t << clean_content_tgroup(c)
+      t << clean_content_tgroup(c, override_type)
     end
     # Not sure if I really should put border="0" here. Hmmm...
     '<table border="0">' + t + '</table>'
@@ -319,11 +325,11 @@ class HansardSpeech
     e.each_child_node do |e|
       case e.name
       when 'para'
-        t << '<p class="italic">' + clean_content_para_content(e) + '</p>'
+        t << clean_content_para(e, 'italic')
       when 'list'
         t << clean_content_list(e)
       when 'table'
-        t << clean_content_table(e)
+        t << clean_content_table(e, 'italic')
       else
         throw "Unexpected tag #{e.name}"
       end
