@@ -50,6 +50,15 @@ class HansardPage
         # Add each child as a seperate speech_block
         e.each_child_node do |c|
           speech_blocks << c
+
+          # HACK: If tag is a quote we really should add all the children rather than the tag itself. However
+          # this will lose the 'quote' information. So, we are working around this by just adding the correct
+          # number of nil speeches so that the minor id's will match up.
+          if c.name == 'quote'
+            c.each_child_node {|d| speech_blocks << nil}
+            # Remove one of the ones I just added.
+            speech_blocks.pop
+          end
         end
       else
         throw "Unexpected tag #{e.name}"
