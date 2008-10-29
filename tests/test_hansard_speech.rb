@@ -132,7 +132,7 @@ class TestHansardSpeech < Test::Unit::TestCase
     content = "<table><tgroup><colspec/><colspec/>#{content_heading}<tbody>#{content_row1}#{content_row2}</tbody></tgroup></table>"
     
     # HACK: 'border=0' is in output table tag (For compatibility with output of previous parser)
-    expected = '<table border="0"><tr><td><p>1</p></td><td><p>2</p></td></tr><tr><td><p>3</p></td><td><p>4</p></td></tr><tr><td><p>5</p></td><td><p>6</p></td></tr></table>'
+    expected = '<table border="0"><tr><td valign="top"><p>1</p></td><td valign="top"><p>2</p></td></tr><tr><td valign="top"><p>3</p></td><td valign="top"><p>4</p></td></tr><tr><td valign="top"><p>5</p></td><td valign="top"><p>6</p></td></tr></table>'
     assert_equal(expected, HansardSpeech.clean_content_table(Hpricot.XML(content).at('table')))
   end
   
