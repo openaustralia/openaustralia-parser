@@ -145,4 +145,12 @@ class TestHansardSpeech < Test::Unit::TestCase
 
     assert_equal(expected, HansardSpeech.clean_content_para(Hpricot.XML(content).at('para')))
   end
+  
+  # TODO: Find out where the images should be pointed to
+  # Note that on Parlinfo Search the images appear to be missing in the HTML version of the Hansard
+  def test_clean_content_graphic
+    content = '<graphic href="5340M_image002.jpg"/>'
+    expected = '<b>Missing Image</b>'
+    assert_equal(expected, HansardSpeech.clean_content_graphic(Hpricot.XML(content).at('graphic')))
+  end
 end

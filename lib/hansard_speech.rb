@@ -134,6 +134,13 @@ class HansardSpeech
     text
   end
   
+  # TODO: Figure out where images should be pointed. Can't do this alone (need APH help) as the images
+  # appear to be missing in the HTML version of Parlinfo Search. So, no clue as to the solution.
+  # In the meantime just add some explanatory text
+  def HansardSpeech.clean_content_graphic(e)
+    '<b>Missing Image</b>'
+  end
+  
   # Pass a <para>Some text</para> block. Returns cleaned "Some text"
   def HansardSpeech.clean_content_para_content(e)
     t = ""
@@ -142,6 +149,8 @@ class HansardSpeech
         t << strip_leading_dash(c.to_s)
       elsif c.name == 'inline'
         t << clean_content_inline(c)
+      elsif c.name == 'graphic'
+        t << clean_content_graphic(c)
       else
         throw "Unexpected tag #{c.name}"
       end
@@ -194,7 +203,7 @@ class HansardSpeech
   def HansardSpeech.clean_content_list(e)
     l = ""
     if e.attributes.keys == ['type']
-      if ['loweralpha', 'unadorned', 'decimal', 'decimal-dotted', 'lowerroman'].include?(e.attributes['type'])
+      if ['loweralpha', 'unadorned', 'decimal', 'decimal-dotted', 'lowerroman', 'upperalpha'].include?(e.attributes['type'])
         e.children.each do |e|
           next unless e.respond_to?(:name)
           if e.name == 'item'
