@@ -22,7 +22,7 @@ skip = 0
 # Dates to test first before anything else
 # Update this list with any dates that have shown up problems in the past
 
-test_first = [Date.new(2007,5,8), Date.new(2007,2,14), Date.new(2007,8,8), Date.new(2007,8,14)]
+test_first = [Date.new(2007,8,8), Date.new(2007,8,14), Date.new(2007,5,8), Date.new(2007,2,14)]
 
 skip_dates = []
 
@@ -40,9 +40,8 @@ parser = HansardParser.new(people)
 def process_xml(input, output)
   doc = File.open(input) { |f| Hpricot.XML(f) }
   doc.search('*[@url]').set(:url, '*deleted*')
-  #doc.search('*[@id]').set(:id, '*deleted*')
   doc.search('a[@href]').set(:href, '*deleted*')
-  doc.search('td[@valign]').each {|e| e.remove_attribute('valign')}
+  #doc.search('td[@valign]').each {|e| e.remove_attribute('valign')}
   File.open(output, 'w') { |f| f << doc }
 end
 

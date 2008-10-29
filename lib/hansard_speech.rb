@@ -87,19 +87,29 @@ class HansardSpeech
   def HansardSpeech.clean_content_inline(e)
     text = strip_leading_dash(e.inner_html)
 
-    if e.attributes.keys == ['ref']
+    attributes_keys = e.attributes.keys
+    # Always ignore font-size
+    attributes_keys.delete('font-size')
+
+    # A special case here. Ugly HACK
+    if e.attributes.keys.empty?
+      '<p>' + text + '</p>'
+    elsif attributes_keys.empty?
+      text
+    elsif attributes_keys == ['ref']
       # We're going to assume these links always point to Bills.
       link = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{e.attributes['ref']}"
       '<a href="' + link + '">' + text + '</a>'
-    elsif e.attributes.keys == ['font-size']
+    # TODO: This is wrong but will do for the time being
+    elsif attributes_keys == ['font-variant']
       text
-    elsif e.attributes.keys.include?('font-style')
+    elsif attributes_keys == ['font-style']
       if e.attributes['font-style'] == 'italic'
         '<i>' + text + '</i>'
       else
         throw "Unexpected font-style value #{e.attributes['font-style']}"
       end
-    elsif e.attributes.keys == ['font-weight']
+    elsif attributes_keys == ['font-weight']
       if e.attributes['font-weight'] == 'bold'
         # Workaround for badly marked up content. If a bold item is surrounded in brackets assume it is a name and remove it
         # Alternatively if the bold item is a generic name, remove it as well
@@ -111,8 +121,6 @@ class HansardSpeech
       else
         throw "Unexpected font-weight value #{e.attributes['font-weight']}"
       end
-    elsif e.attributes.keys.empty?
-      '<p>' + text + '</p>'
     else
       throw "Unexpected attributes #{e.attributes.keys.join(', ')}"
     end
@@ -151,7 +159,7 @@ class HansardSpeech
         type = 'italic'
       when 'bold'
         type = 'bold'
-      when 'block', 'ParlAmend', 'subsection', 'ItemHead', 'Item', 'indenta'
+      when 'block', 'ParlAmend', 'subsection', 'ItemHead', 'Item', 'indenta', 'hdg5s', 'smalltableleft'
       else
         throw "Unexpected value for class attribute of para #{e.attributes['class']}" 
       end
@@ -249,9 +257,9 @@ class HansardSpeech
       if c.name == 'entry'
         if c.parent.parent.name == 'thead'
           #t << '<th>' + clean_content_entry(c) + '</th>'
-          t << '<td>' + clean_content_entry(c) + '</td>'
+          t << '<td valign="top">' + clean_content_entry(c) + '</td>'
         elsif c.parent.parent.name == 'tbody'
-          t << '<td>' + clean_content_entry(c) + '</td>'
+          t << '<td valign="top">' + clean_content_entry(c) + '</td>'
         else
           throw "Unexpected tag #{c.parent.parent.name}"
         end
