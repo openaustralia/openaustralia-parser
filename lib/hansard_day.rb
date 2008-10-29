@@ -116,7 +116,7 @@ class HansardDay
         end
         question = true
         procedural = false
-      when 'motionnospeech', 'para', 'motion', 'interjection', 'quote', 'list', 'interrupt', 'amendments', 'table', 'separator'
+      when 'motionnospeech', 'para', 'motion', 'interjection', 'quote', 'list', 'interrupt', 'amendments', 'table', 'separator', 'continue'
         unless procedural
           puts "SKIP: Procedural text: #{e.name} > #{full_title}"
           p << nil
@@ -147,7 +147,7 @@ class HansardDay
       when 'chamber.xscript', 'maincomm.xscript'
         e.each_child_node do |e|
           case e.name
-            when 'business.start', 'adjournment'
+            when 'business.start', 'adjournment', 'interrupt'
               p << nil
               puts "SKIP: #{e.name}"
             when 'debate', 'petition.group'
