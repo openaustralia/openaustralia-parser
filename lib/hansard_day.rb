@@ -47,19 +47,16 @@ class HansardDay
   end
   
   def title(debate)
-    e = case debate.name
+    case debate.name
     when 'debate', 'petition.group'
-      debate
-    when 'subdebate.1'
-      debate.parent
-    when 'subdebate.2'
-      debate.parent.parent
+      title = title_tag_value(debate)
+      cognates = debate.search('cognateinfo').search('> title').map{|a| strip_tags(a.inner_html)}
+      ([title] + cognates).join('; ')
+    when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
+      title(debate.parent)
     else
       throw "Unexpected tag #{debate.name}"
-    end    
-    title = title_tag_value(e)
-    cognates = e.search('cognateinfo').search('> title').map{|a| strip_tags(a.inner_html)}
-    ([title] + cognates).join('; ')
+    end
   end
   
   def subtitle(debate)
@@ -68,8 +65,8 @@ class HansardDay
       ""
     when 'subdebate.1'
       title_tag_value(debate)
-    when 'subdebate.2'
-      title_tag_value(debate.parent) + '; ' + title_tag_value(debate)
+    when 'subdebate.2', 'subdebate.3', 'subdebate.4'
+      subtitle(debate.parent) + '; ' + title_tag_value(debate)
     else
       throw "Unexpected tag #{debate.name}"
     end    
@@ -123,7 +120,7 @@ class HansardDay
         end
         question = false
         procedural = true
-      when 'subdebate.1', 'subdebate.2'
+      when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
         p = p + pages_from_debate(e)
         question = false
         procedural = false

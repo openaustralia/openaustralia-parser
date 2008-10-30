@@ -150,6 +150,9 @@ class HansardSpeech
         t << clean_content_inline(c)
       elsif c.name == 'graphic'
         t << clean_content_graphic(c)
+      # This is silly. Why should there be a <para> inside a <para>?
+      elsif c.name == 'para'
+        t << clean_content_para(c)
       else
         throw "Unexpected tag #{c.name}"
       end
@@ -179,7 +182,7 @@ class HansardSpeech
         type = 'italic'
       when 'bold'
         type = 'bold'
-      when 'block', 'ParlAmend', 'subsection', 'ItemHead', 'Item', 'indenta', 'hdg5s', 'smalltableleft', 'Definition', 'indentii', 'centre', 'smalltablejustified'
+      when 'block', 'ParlAmend', 'subsection', 'ItemHead', 'Item', 'indenta', 'hdg5s', 'smalltableleft', 'Definition', 'indentii', 'centre', 'smalltablejustified', 'heading'
       else
         throw "Unexpected value for class attribute of para #{e.attributes['class']}" 
       end
@@ -204,22 +207,33 @@ class HansardSpeech
     attributes_keys = e.attributes.keys
     # Always ignore the following attribute
     attributes_keys.delete('pgwide')
-        
+    
+    # TODO: Check whether there are any other attributes other than 'label' being used
+    
+    # We figure out whether to generate a <dl> or <ul> based on whether the child tags all have a 'label' attribute or not
+    label = e.at('> item').has_attribute?('label') if e.at('> item')
+    # Check that all the children are consistent
+    e.search('> item').each do |c|
+      if c.has_attribute?('label') != label
+        throw "Children of <list> are using the 'label' attribute inconsistently"
+      end
+    end
+    
     if attributes_keys.delete('type')
-      if ['loweralpha', 'loweralpha-dotted', 'unadorned', 'decimal', 'decimal-dotted', 'lowerroman', 'upperalpha'].include?(e.attributes['type'])
-        e.children.each do |e|
-          next unless e.respond_to?(:name)
-          if e.name == 'item'
-            if e.attributes.keys == ['label']
+      if ['bullet', 'loweralpha', 'loweralpha-dotted', 'unadorned', 'decimal', 'decimal-dotted', 'lowerroman', 'lowerroman-dotted', 'upperalpha'].include?(e.attributes['type'])
+        e.each_child_node do |e|
+          case e.name
+          when 'item'
+            if label
               l << '<dt>' + e.attributes['label'] + '</dt>'
               d = ""
-              e.children.each do |e|
-                next unless e.respond_to?(:name)
-                if e.name == 'para'
+              e.each_child_node do |e|
+                case e.name
+                when 'para'
                   d << clean_content_para_content(e)
-                elsif e.name == 'list'
+                when 'list'
                   d << clean_content_list(e)
-                elsif e.name == 'table'
+                when 'table'
                   d << clean_content_table(e)
                 else
                   throw "Unexpected tag #{e.name}"
@@ -227,36 +241,26 @@ class HansardSpeech
               end
               l << '<dd>' + d + '</dd>'
             else
-              throw "Unexpected attributes #{e.attributes.keys.join(', ')}"
-            end
-          else
-            throw "Unexpected tag #{e.name}"
-          end
-        end
-        l = '<dl>' + l + '</dl>'
-      elsif ['bullet'].include?(e.attributes['type'])
-        e.children.each do |e|
-          next unless e.respond_to?(:name)
-          if e.name == 'item'
-            if e.attributes.keys.empty?
-              e.children.each do |e|
-                next unless e.respond_to?(:name)
-                if e.name == 'para'
+              e.each_child_node do |e|
+                case e.name
+                when 'para'
                   l << '<li>' + clean_content_para_content(e) + '</li>'
-                elsif e.name == 'list'
+                when 'list'
                   l << clean_content_list(e)
                 else
                   throw "Unexpected tag #{e.name}"
                 end
               end
-            else
-              throw "Unexpected attributes #{e.attributes.keys.join(', ')}"
             end
           else
             throw "Unexpected tag #{e.name}"
           end
         end
-        l = '<ul>' + l + '</ul>'        
+        if label
+          l = '<dl>' + l + '</dl>'
+        else
+          l = '<ul>' + l + '</ul>'
+        end
       else
         throw "Unexpected type value #{e.attributes['type']}"
       end
