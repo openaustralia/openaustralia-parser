@@ -144,7 +144,7 @@ class HansardDay
       when 'chamber.xscript', 'maincomm.xscript'
         e.each_child_node do |e|
           case e.name
-            when 'business.start', 'adjournment', 'interrupt'
+            when 'business.start', 'adjournment', 'interrupt', 'interjection'
               p << nil
               puts "SKIP: #{e.name}"
             when 'debate', 'petition.group'

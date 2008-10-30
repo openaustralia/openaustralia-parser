@@ -416,9 +416,11 @@ class HansardSpeech
     e.each_child_node do |e|
       case e.name
       when 'para'
-        c << HansardSpeech.clean_content_para(e)
+        c << clean_content_para(e)
       when 'list'
-        c << HansardSpeech.clean_content_list(e)
+        c << clean_content_list(e)
+      when 'table'
+        c << clean_content_table(e)
       else
         throw "Unexpected tag #{e.name}"
       end
