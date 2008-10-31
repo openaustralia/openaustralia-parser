@@ -71,16 +71,6 @@ class PeopleImageDownloader
     #end
   end
   
-  def each_person_bio_link
-    links = @agent.get(@conf.current_house_members_url).links + @agent.get(@conf.current_senate_members_url).links +
-      @agent.get(@conf.former_members_house_and_senate_url).links
-    links.each do |link|
-      if link.to_s =~ /^Biography for (.*)$/
-        yield link, $~[1]
-      end
-    end
-  end
-  
   def each_person_bio_page(people)
     # Each person can be looked up with a query like this:
     # http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Dataset:allmps%20John%20Smith
