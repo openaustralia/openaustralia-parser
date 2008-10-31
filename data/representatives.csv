@@ -582,4 +582,7 @@ member count,person count,title,last name,first name,middle name,house,Division,
 562,,,Zammit,Paul,John,representatives,Lowe,NSW,2.3.1996,,3.10.1998,defeated,IND
 563,,,Zappia,Antonio,,representatives,Makin,SA,24.11.2007,,,still_in_office,ALP
 96,,,Chapman,Hedley,Grant Pearson,representatives,Kingston,SA,13.12.1975,,5.3.1983,defeated,LIB
-# Next available Rep number is 585
+# Results of by-elections For Lyne & Mayo
+585,,,Oakeshott,Robert,,representatives,Lyne,NSW,6.9.2008,by_election,,still_in_office,IND
+586,,,Briggs,Jamie,,representatives,Mayo,SA,6.9.2008,by_election,,still_in_office,LIB
+# Next available Rep number is 587
