@@ -21,9 +21,9 @@ class PeopleImageDownloader
   end
 
   def download(people, small_image_dir, large_image_dir)
-    each_person_bio_page do |page|
+    each_person_bio_page(people) do |page|
       name, birthday, image = extract_name(page), extract_birthday(page), extract_image(page)
-
+      
       if name
         # Small HACK - removing title of name
         name = Name.new(:first => name.first, :middle => name.middle, :last => name.last, :post_title => name.post_title)
@@ -47,25 +47,20 @@ class PeopleImageDownloader
   # later on to lookup speakers based on the link to their biography page. This is turn is double-checked with their
   # name.
   def attach_aph_person_ids(people)
-    each_person_bio_link do |link, name_text|
-      name = Name.last_title_first(name_text)
+    each_person_bio_page(people) do |page|
+      name = extract_name(page)
       matches = people.find_people_by_name(name)
       # If there's more than one match for this person based on the name alone, click on the link, lookup their birthday
       # and use that in a match as well
       if matches.size > 1
-        birthday = extract_birthday(@agent.click(link))
-        person = people.find_person_by_name_and_birthday(name, birthday)
+        person = people.find_person_by_name_and_birthday(name, extract_birthday(page))
       else
         person = matches.first
       end
       if person.nil?
         puts "WARNING: Can not find '#{name.full_name}'"
       else
-        if link.href =~ /^view_document.aspx\?ID=(\d+)&TABLE=BIOGS/
-          person.aph_id = $~[1].to_i
-        else
-          puts "ERROR: Link href: '#{link.href}' on biography page has unexpected format"
-        end
+        person.aph_id = extract_aph_id(page)
       end
     end
     
@@ -86,21 +81,64 @@ class PeopleImageDownloader
     end
   end
   
-  def each_person_bio_page
-    each_person_bio_link do |link, name_text|
-      @agent.transact {yield @agent.click(link)}
+  def each_person_bio_page(people)
+    # Each person can be looked up with a query like this:
+    # http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Dataset:allmps%20John%20Smith
+    people.each do |person|
+      url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Dataset:allmps%20" + person.name.full_name.gsub(' ', '%20')
+      page = @agent.get(url)
+      # Check if the returned page is a valid one. If not just ignore it
+      tag = page.at('div#content center')
+      if tag && tag.inner_html =~ /^Unable to find document/
+        #puts "WARNING: No biography page found for #{person.name.full_name}"
+      else
+        yield page
+      end
     end
   end
 
   def extract_name(page)
-    begin
-      name = Name.last_title_first(page.search("#txtTitle").inner_text.to_s[14..-1])
-    rescue
-      #Mr X strikes again! http://parlinfoweb.aph.gov.au/piweb/view_document.aspx?ID=15517&TABLE=BIOGS
-      puts "WARNING: Skipping photo download; '#{page.search("#txtTitle").inner_text.to_s[14..-1]}' is an invalid name."
-      return
+    title = strip_tags(extract_metadata_tags(page)["Title"])
+    if title =~ /^Biography for (.*)$/
+      Name.last_title_first($~[1])
+    else
+      throw "Unexpected form for title of biography page: #{title}"
     end
-    name
+  end
+  
+  def extract_aph_id(page)
+    system_id = extract_metadata_tags(page)["System Id"]
+    if system_id =~ /^handbook\/allmps\/([A-Z0-9]*)$/
+      $~[1]
+    else
+      throw "Unexpected form for system id of biography page: #{system_id}"
+    end
+  end
+
+  # Returns an array of values for the metadata
+  def raw_metadata(page)
+    labels = page.search('label.mdLabel')
+    values = page.search('div.mdValue')
+    throw "Number of values do not match number of labels" if labels.size != values.size
+    metadata = {}
+    (0..labels.size-1).each do |index|
+      label = labels[index].inner_html
+      value = values[index].search('p.mdItem').map{|e| e.inner_html.gsub(/&nbsp;/, '')}
+      metadata[label] = value unless value.empty?
+    end
+    metadata
+  end
+  
+  # Extract a hash of all the metadata tags and values
+  def extract_metadata_tags(page)
+    r = raw_metadata(page)
+    r.each_pair {|key, value| r[key] = value.join(', ')}
+    r
+  end
+
+  def strip_tags(doc)
+    str=doc.to_s
+    str.gsub(/<\/?[^>]*>/, "")
   end
   
   def extract_birthday(page)
@@ -124,16 +162,14 @@ class PeopleImageDownloader
   end
   
   def extract_image(page)
-    img_tag = page.search('div#contentstart').search("img").first
+    img_tag = page.search('div.box').search("img").first
     if img_tag
       relative_image_url = img_tag.attributes['src']
-      if relative_image_url != "images/top_btn.gif"
-        begin
-          res = @agent.get(relative_image_url)
-          return Magick::Image.from_blob(res.body)[0]
-        rescue RuntimeError, Magick::ImageMagickError, WWW::Mechanize::ResponseCodeError
-          return nil
-        end
+      begin
+        res = @agent.get(relative_image_url)
+        return Magick::Image.from_blob(res.body)[0]
+      rescue RuntimeError, Magick::ImageMagickError, WWW::Mechanize::ResponseCodeError
+        return nil
       end
     end
   end
