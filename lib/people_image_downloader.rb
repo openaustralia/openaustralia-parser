@@ -24,6 +24,10 @@ class PeopleImageDownloader
     each_person_bio_page(people) do |page|
       name, birthday, image = extract_name(page), extract_birthday(page), extract_image(page)
       
+      if image.nil?
+        puts "WARNING: Can't find photo for #{name.full_name}"
+      end
+      
       if name
         # Small HACK - removing title of name
         name = Name.new(:first => name.first, :middle => name.middle, :last => name.last, :post_title => name.post_title)
@@ -71,17 +75,40 @@ class PeopleImageDownloader
     #end
   end
   
+  # Returns nil if page can't be found
+  def biography_page_for_person_with_name(text)
+    url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Dataset:allmps%20" + text.gsub(' ', '%20')
+    page = @agent.get(url)
+    # Check if the returned page is a valid one. If not just ignore it
+    tag = page.at('div#content center')
+    if tag.nil? || !tag.inner_html =~ /^Unable to find document/
+      page
+    end
+  end
+  
   def each_person_bio_page(people)
+    # Sort all the people by last name
+    sorted_people = people.sort {|a, b| a.name.last <=> b.name.last}
     # Each person can be looked up with a query like this:
     # http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Dataset:allmps%20John%20Smith
-    people.each do |person|
-      url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Dataset:allmps%20" + person.name.full_name.gsub(' ', '%20')
-      page = @agent.get(url)
-      # Check if the returned page is a valid one. If not just ignore it
-      tag = page.at('div#content center')
-      if tag && tag.inner_html =~ /^Unable to find document/
-        #puts "WARNING: No biography page found for #{person.name.full_name}"
+    sorted_people.each do |person|
+      # Find all the unique variants of the name without any of the titles
+      name_variants = person.all_names.map do |n|
+        Name.new(:first => n.first, :middle => n.middle, :last => n.last).full_name
+      end.uniq
+      name_variants_no_middle_name = person.all_names.map do |n|
+        Name.new(:first => n.first, :last => n.last).full_name
+      end.uniq
+      # Check each variant of a person's name and return the biography page for the first one that exists
+      matching_name = name_variants.find {|n| biography_page_for_person_with_name(n)}
+      if matching_name.nil?
+        matching_name = name_variants_no_middle_name.find {|n| biography_page_for_person_with_name(n)}
+      end
+      page = biography_page_for_person_with_name(matching_name) if matching_name
+      if page.nil?
+        #puts "WARNING: No biography page found for #{name_variants.join(' or ')}"
       else
+        #puts "Found biography page for #{person.name.full_name}"
         yield page
       end
     end
@@ -155,12 +182,13 @@ class PeopleImageDownloader
     img_tag = page.search('div.box').search("img").first
     if img_tag
       relative_image_url = img_tag.attributes['src']
-      begin
+      #begin
+        #puts "About to lookup image #{relative_image_url}..."
         res = @agent.get(relative_image_url)
-        return Magick::Image.from_blob(res.body)[0]
-      rescue RuntimeError, Magick::ImageMagickError, WWW::Mechanize::ResponseCodeError
-        return nil
-      end
+        Magick::Image.from_blob(res.body)[0]
+      #rescue RuntimeError, Magick::ImageMagickError, WWW::Mechanize::ResponseCodeError
+      #  return nil
+      #end
     end
   end
 end
