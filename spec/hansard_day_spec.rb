@@ -6,78 +6,91 @@ require 'spec'
 
 require 'hansard_day'
 
+# Make it simpler to generate XML with tags with '.' in them. Translate occurences of '_' to '.'
+module Builder
+  class MyXmlMarkup < XmlMarkup
+    def method_missing(sym, *args, &block)
+      super(sym.to_s.tr('_', '.').to_sym, *args, &block)
+    end
+  end
+end
+
 describe HansardDay do
   before(:each) do
-    @header = HansardDay.new(Hpricot.XML('
-    <hansard xsi:noNamespaceSchemaLocation="../../hansard.xsd" version="2.1">
-      <session.header>
-        <date>2008-09-25</date>
-        <parliament.no>42</parliament.no>
-        <session.no>1</session.no>
-        <period.no>3</period.no>
-        <chamber>SENATE</chamber>
-        <page.no>0</page.no>
-        <proof>1</proof>
-      </session.header>
-    </hansard>'))
+    x = Builder::MyXmlMarkup.new
 
-    @titles = HansardDay.new(Hpricot.XML('
-    <hansard>
-      <chamber.xscript>
-        <debate>
-       		<debateinfo><title>1</title></debateinfo>
-       		<speech></speech>
-        </debate>
+    header_xml = x.hansard {
+      x.session_header {
+        x.date "2008-09-25"
+        x.parliament_no 42
+        x.session_no 1
+        x.period_no 3
+        x.chamber "SENATE"
+        x.page_no 0
+        x.proof 1
+      }
+    }
+    
+    x = Builder::MyXmlMarkup.new
 
-        <debate>
-          <debateinfo><title>2</title></debateinfo>
-          <subdebate.1>
-            <subdebateinfo><title>3</title><title>14</title></subdebateinfo>
-         		<speech></speech>
-          </subdebate.1>
-        </debate>
+    titles_xml = x.hansard {
+      x.chamber_xscript {
+        x.debate {
+       		x.debateinfo { x.title 1 }
+       		x.speech
+        }
+        x.debate {
+          x.debateinfo { x.title 2}
+          x.subdebate_1 {
+            x.subdebateinfo { x.title 3; x.title 14 }
+         		x.speech
+          }
+        }
 
-        <debate>
-          <debateinfo><title>4</title></debateinfo>
-          <subdebate.1>
-            <subdebateinfo><title>5</title></subdebateinfo>
-         		<speech></speech>
-          </subdebate.1>
-          <subdebate.1>
-            <subdebateinfo><title>6</title></subdebateinfo>
-         		<speech></speech>
-          </subdebate.1>
-        </debate>
+        x.debate {
+          x.debateinfo { x.title 4 }
+          x.subdebate_1 {
+            x.subdebateinfo { x.title 5 }
+         		x.speech
+          }
+          x.subdebate_1 {
+            x.subdebateinfo { x.title 6 }
+         		x.speech
+          }
+        }
 
-        <debate>
-          <debateinfo>
-            <title>7</title>
-            <cognate>
-              <cognateinfo><title>13</title></cognateinfo>
-            </cognate>
-          </debateinfo>
-          <subdebate.1>
-            <subdebateinfo><title>8</title></subdebateinfo>
-         		<speech></speech>
-          </subdebate.1>
-          <subdebate.1>
-            <subdebateinfo><title>9</title></subdebateinfo>
-         		<speech></speech>
-          </subdebate.1>
-        </debate>
+        x.debate {
+          x.debateinfo {
+            x.title 7
+            x.cognate {
+              x.cognateinfo { x.title 13 }
+            }
+          }
+          x.subdebate_1 {
+            x.subdebateinfo { x.title 8 }
+         		x.speech
+          }
+          x.subdebate_1 {
+            x.subdebateinfo { x.title 9 }
+         		x.speech
+          }
+        }
         
-        <debate>
-    			<debateinfo><title>10</title></debateinfo>
-    			<subdebate.1>
-    				<subdebateinfo><title>11</title></subdebateinfo>
-    				<subdebate.2>
-    					<subdebateinfo><title>12</title></subdebateinfo>
-           		<speech></speech>
-    				</subdebate.2>
-    			</subdebate.1>
-    		</debate>
-      </chamber.xscript>
-    </hansard>'))
+        x.debate {
+    			x.debateinfo { x.title 10 }
+    			x.subdebate_1 {
+    				x.subdebateinfo { x.title 11 }
+    				x.subdebate_2 {
+    					x.subdebateinfo { x.title 12 }
+           		x.speech
+    				}
+    			}
+    		}
+      }
+    }
+
+    @header = HansardDay.new(Hpricot.XML(header_xml))
+    @titles = HansardDay.new(Hpricot.XML(titles_xml))    
   end
 
   it "should know what house it's in" do
@@ -106,26 +119,28 @@ describe HansardDay do
   
   # TODO: This should be a test for HansardPage rather than HansardDay
   it "should still be able to figure out the title even when there is a title tag within a title tag" do
-    titles = HansardDay.new(Hpricot.XML('
-    <hansard>
-      <chamber.xscript>        
-        <debate>
-          <debateinfo>
-            <title>1</title>
-            <cognate><cognateinfo><title>2</title></cognateinfo></cognate>
-            <cognate><cognateinfo><title>3</title></cognateinfo></cognate>
-            <cognate><cognateinfo><title><title>4</title></title></cognateinfo></cognate>
-            <cognate><cognateinfo><title><title>5</title></title></cognateinfo></cognate>
-          </debateinfo>
-          <subdebate.1>
-            <subdebateinfo>
-              <title>6</title>
-            </subdebateinfo>
-            <speech></speech>
-          </subdebate.1>
-        </debate>
-      </chamber.xscript>        
-    </hansard>'))
+    x = Builder::MyXmlMarkup.new
+    titles_xml = x.hansard {
+      x.chamber_xscript {
+        x.debate {
+          x.debateinfo {
+            x.title 1
+            x.cognate { x.cognateinfo { x.title 2 } }
+            x.cognate { x.cognateinfo { x.title 3 } }
+            x.cognate { x.cognateinfo { x.title { x.title 4 } } }
+            x.cognate { x.cognateinfo { x.title { x.title 5 } } }
+          }
+          x.subdebate_1 {
+            x.subdebateinfo {
+              x.title 6
+            }
+            x.speech
+          }
+        }
+      }
+    }
+        
+    titles = HansardDay.new(Hpricot.XML(titles_xml))
     
     titles.pages[1].hansard_title.should == "1; 2; 3; 4; 5"
     titles.pages[1].hansard_subtitle.should == "6"
