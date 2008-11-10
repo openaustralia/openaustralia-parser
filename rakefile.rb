@@ -1,21 +1,20 @@
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'
+require 'spec/rake/spectask'
 
-task :default => [:test]
+task :default => [:spec]
 
-Rake::TestTask.new do |t|
-    t.test_files = FileList['test/test*.rb']
-    t.verbose = true
+Spec::Rake::SpecTask.new do |t|
+    t.warning = true
+    t.ruby_opts = ['-rtest/unit']
+    t.spec_files = FileList['spec/*_spec.rb', 'test/test_*.rb']
 end
 
-namespace :test do
-
-  desc 'Measures test coverage'
-  task :coverage do
-    rm_f "coverage"
-    system("rcov --text-summary -Ilib -x/Library/ test/test_*.rb")
-    system("open coverage/index.html") if PLATFORM['darwin']
-  end
-
+Spec::Rake::SpecTask.new(:spec_coverage) do |t|
+    t.warning = true
+    t.rcov = true
+    t.rcov_opts = ["-x/Library/, -xspec"]
+    t.ruby_opts = ['-rtest/unit']
+    t.spec_files = FileList['spec/*_spec.rb', 'test/test_*.rb']
 end

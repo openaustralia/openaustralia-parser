@@ -83,10 +83,6 @@ class TestHansardDay < Test::Unit::TestCase
     </hansard>'))
   end
   
-  def test_house
-    assert_equal(House.senate, @header.house)
-  end
-  
   def test_date
     assert_equal(Date.new(2008, 9, 25), @header.date)
   end

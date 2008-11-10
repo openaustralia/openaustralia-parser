@@ -1,9 +1,11 @@
 require 'hansard_page'
 require 'hpricot_additions'
+require 'house'
 
 class HansardDay
   def initialize(page, logger = nil)
     @page, @logger = page, logger
+    @house = nil
   end
   
   def house
