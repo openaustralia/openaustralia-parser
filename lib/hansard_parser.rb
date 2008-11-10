@@ -86,7 +86,7 @@ class HansardParser
     content = false
     day = hansard_day_on_date(date, house)
     if day
-      logger.warn "Hansard for this date is in proof stage" if day.in_proof?
+      logger.warn "In proof stage" if day.in_proof?
       day.pages.each do |page|
         content = true
         #throw "Unsupported: #{page.full_hansard_title}" unless page.supported? || page.to_skip? || page.not_yet_supported?
@@ -118,13 +118,13 @@ class HansardParser
   def lookup_speaker_by_title(speech, date, house)
     # Some sanity checking.
     if speech.speakername =~ /speaker/i && house.senate?
-      logger.error "The Speaker is not expected in the Senate on #{speech.permanent_url}"
+      logger.error "The Speaker is not expected in the Senate"
       return nil
     elsif speech.speakername =~ /president/i && house.representatives?
-      logger.error "The President is not expected in the House of Representatives on #{speech.permanent_url}"
+      logger.error "The President is not expected in the House of Representatives"
       return nil
     elsif speech.speakername =~ /chairman/i && house.representatives?
-      logger.error "The Chairman is not expected in the House of Representatives on #{speech.permanent_url}"
+      logger.error "The Chairman is not expected in the House of Representatives"
       return nil
     end
     
@@ -167,7 +167,7 @@ class HansardParser
       # Now find the member for that person who is current on the given date
       @people.find_member_by_name_current_on_date(person.name, date, house)
     else
-      logger.error "Can't figure out which person the aph id #{speech.aph_id} belongs to on #{speech.permanent_url}"
+      logger.error "Can't figure out which person the aph id #{speech.aph_id} belongs to"
       nil
     end
   end
@@ -179,12 +179,12 @@ class HansardParser
       member = lookup_speaker_by_aph_id(speech, date, house) if speech.aph_id
       if member
         # If link is valid use that to look up the member
-        logger.error "Determined speaker #{member.person.name.full_name} by link only on #{speech.permanent_url}. Valid name missing."
+        logger.error "Determined speaker #{member.person.name.full_name} by link only. Valid name missing."
       end
     end
     
     if member.nil?
-      logger.warn "Unknown speaker #{speech.speakername} in #{speech.permanent_url}" unless HansardSpeech.generic_speaker?(speech.speakername)
+      logger.warn "Unknown speaker #{speech.speakername}" unless HansardSpeech.generic_speaker?(speech.speakername)
       member = UnknownSpeaker.new(speech.speakername)
     end
     member

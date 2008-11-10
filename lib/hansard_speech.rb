@@ -521,7 +521,7 @@ class HansardSpeech
     elsif speaker_url.nil? || speaker_url == "view_document.aspx?TABLE=biogs&ID="
       nil
     else
-      logger.error "Speaker link has unexpected format: #{speaker_url} on #{@page.permanent_url}" if logger
+      logger.error "Speaker link has unexpected format: #{speaker_url}" if logger
       nil
     end
   end  
