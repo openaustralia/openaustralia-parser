@@ -130,7 +130,10 @@ class HansardParser
     end
     
     # Handle speakers where they are referred to by position rather than name
-    if speech.speakername =~ /^the speaker/i
+    # Handle names in brackets first
+    if speech.speakername =~ /^the (deputy speaker|acting deputy president|temporary chairman) \((.*)\)/i
+      @people.find_member_by_name_current_on_date(Name.title_first_last($~[2]), date, house)
+    elsif speech.speakername =~ /^the speaker/i
       @people.house_speaker(date)
     elsif speech.speakername =~ /^the deputy speaker/i
       @people.deputy_house_speaker(date)
@@ -140,13 +143,11 @@ class HansardParser
       # The "Chairman" in the main Senate Hansard is when the Senate is sitting as a committee of the whole Senate.
       # In this case, the "Chairman" is the deputy president. See http://www.aph.gov.au/senate/pubs/briefs/brief06.htm#3
       @people.deputy_senate_president(date)
-    # Handle names in brackets
-    elsif speech.speakername =~ /^the (deputy speaker|acting deputy president|temporary chairman) \((.*)\)/i
-      @people.find_member_by_name_current_on_date(Name.title_first_last($~[2]), date, house)
     end
   end
   
   def lookup_speaker_by_name(speech, date, house)
+    #puts "Looking up speaker by name: #{speech.speakername}"
     throw "speakername can not be nil in lookup_speaker" if speech.speakername.nil?
     
     member = lookup_speaker_by_title(speech, date, house)    
