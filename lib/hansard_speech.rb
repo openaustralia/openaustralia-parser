@@ -202,14 +202,28 @@ class HansardSpeech
     end
   end
   
+  def HansardSpeech.clean_content_item(e)
+    d = ""
+    e.each_child_node do |f|
+      case f.name
+      when 'para'
+        d << clean_content_para_content(f)
+      when 'list'
+        d << clean_content_list(f)
+      when 'table'
+        d << clean_content_table(f)
+      else
+        throw "Unexpected tag #{f.name}"
+      end
+    end
+    if e.has_attribute?('label')
+      '<dt>' + e.attributes['label'] + '</dt><dd>' + d + '</dd>'
+    else
+      '<li>' + d + '</li>'
+    end
+  end
+  
   def HansardSpeech.clean_content_list(e)
-    l = ""
-    attributes_keys = e.attributes.keys
-    # Always ignore the following attribute
-    attributes_keys.delete('pgwide')
-    
-    # TODO: Check whether there are any other attributes other than 'label' being used
-    
     # We figure out whether to generate a <dl> or <ul> based on whether the child tags all have a 'label' attribute or not
     label = e.at('> item').has_attribute?('label') if e.at('> item')
     # Check that all the children are consistent
@@ -219,287 +233,135 @@ class HansardSpeech
       end
     end
     
-    if attributes_keys.delete('type')
-      if ['bullet', 'loweralpha', 'loweralpha-dotted', 'unadorned', 'decimal', 'decimal-dotted', 'lowerroman', 'lowerroman-dotted', 'upperalpha'].include?(e.attributes['type'])
-        e.each_child_node do |e|
-          case e.name
-          when 'item'
-            if label
-              l << '<dt>' + e.attributes['label'] + '</dt>'
-              d = ""
-              e.each_child_node do |e|
-                case e.name
-                when 'para'
-                  d << clean_content_para_content(e)
-                when 'list'
-                  d << clean_content_list(e)
-                when 'table'
-                  d << clean_content_table(e)
-                else
-                  throw "Unexpected tag #{e.name}"
-                end
-              end
-              l << '<dd>' + d + '</dd>'
-            else
-              e.each_child_node do |e|
-                case e.name
-                when 'para'
-                  l << '<li>' + clean_content_para_content(e) + '</li>'
-                when 'list'
-                  l << clean_content_list(e)
-                else
-                  throw "Unexpected tag #{e.name}"
-                end
-              end
-            end
-          else
-            throw "Unexpected tag #{e.name}"
-          end
-        end
-        if label
-          l = '<dl>' + l + '</dl>'
-        else
-          l = '<ul>' + l + '</ul>'
-        end
-      else
-        throw "Unexpected type value #{e.attributes['type']}"
-      end
+    if label
+      '<dl>' + clean_content_recurse(e) + '</dl>'
+    else
+      '<ul>' + clean_content_recurse(e) + '</ul>'
     end
-    
-    unless attributes_keys.empty?
-      throw "Unexpected attributes #{e.attributes.keys.join(', ')} with values #{e.attributes.values.join(', ')}"
-    end
-    l
   end
 
   def HansardSpeech.clean_content_entry(e, override_type = nil)
-    t = ""
-    e.each_child_node do |c|
-      case c.name
-      when 'para'
-        t << clean_content_para(c, override_type)
-      when 'quote'
-        t << clean_content_quote(c)
-      else
-        throw "Unexpected tag #{c.name}"
-      end
+    attributes = 'valign="top"'
+    if e.attributes['colspan']
+      attributes << ' colspan="' + e.attributes['colspan'] + '"'
     end
-    t
+    '<td ' + attributes + '>' + clean_content_recurse(e, override_type) + '</td>'
   end
   
   def HansardSpeech.clean_content_row(e, override_type = nil)
-    t = ""
-    e.each_child_node do |c|
-      case c.name
-      when 'entry'
-        case c.parent.parent.name
-        when 'thead', 'tbody'
-          attributes = 'valign="top"'
-          if c.attributes['colspan']
-            attributes << ' colspan="' + c.attributes['colspan'] + '"'
-          end
-          t << '<td ' + attributes + '>' + clean_content_entry(c, override_type) + '</td>'
-        else
-          throw "Unexpected tag #{c.parent.parent.name}"
-        end
-      else
-        throw "Unexpected tag #{c.name}"
-      end
-    end
-    '<tr>' + t + '</tr>'
+    '<tr>' + clean_content_recurse(e, override_type) + '</tr>'
   end
   
   def HansardSpeech.clean_content_thead(e, override_type = nil)
-    t = ""
-    e.each_child_node do |c|
-      throw "Unexpected tag #{c.name}" unless c.name == 'row'
-      t << clean_content_row(c, override_type)
-    end
-    t
+    clean_content_recurse(e, override_type)
   end
   
   def HansardSpeech.clean_content_tbody(e, override_type = nil)
-    t = ""
-    e.each_child_node do |c|
-      throw "Unexpected tag #{c.name}" unless c.name == 'row'
-      t << clean_content_row(c, override_type)
-    end
-    t
+    clean_content_recurse(e, override_type)
   end
   
   def HansardSpeech.clean_content_tgroup(e, override_type = nil)
+    clean_content_recurse(e, override_type)
+  end
+  
+  def HansardSpeech.clean_content_table(e, override_type = nil)
+    # Not sure if I really should put border="0" here. Hmmm...
+    '<table border="0">' + clean_content_recurse(e, override_type) + '</table>'
+  end
+  
+  def HansardSpeech.clean_content_any(e, override_type = nil)
+    case e.name
+    when 'para'
+      clean_content_para(e, override_type)
+    when 'list'
+      clean_content_list(e)
+    when 'table'
+      clean_content_table(e, override_type)
+    when 'talk.start'
+      clean_content_talk_start(e)
+    when 'amendments'
+      clean_content_amendments(e)
+    when 'amendment'
+      clean_content_amendment(e)
+    when 'inline'
+      clean_content_inline(e)
+    when 'motion'
+      clean_content_motion(e)
+    when 'motionnospeech'
+      clean_content_motionnospeech(e)
+    when 'quote'
+      clean_content_quote(e)
+    when 'interjection'
+      clean_content_interjection(e)
+    when 'continue'
+      clean_content_continue(e)
+    when 'interrupt'
+      clean_content_interrupt(e)
+    when 'tgroup'
+      clean_content_tgroup(e, override_type)
+    when "thead"
+      clean_content_thead(e, override_type)
+    when "tbody"
+      clean_content_tbody(e, override_type)
+    when 'row'
+      clean_content_row(e, override_type)
+    when 'entry'
+      clean_content_entry(e, override_type)
+    when 'item'
+      clean_content_item(e)
+    when 'talker', 'name', 'electorate', 'role', 'time.stamp', 'tggroup', 'amendment', 'inline', 'separator', 'colspec'
+      ""
+    else
+      throw "Unexpected tag #{e.name}"
+    end
+  end
+  
+  def HansardSpeech.clean_content_recurse(e, override_type = nil)
     t = ""
-    e.each_child_node do |c|
-      case c.name
-      when "colspec"
-      when "thead"
-        t << clean_content_thead(c, override_type)
-      when "tbody"
-        t << clean_content_tbody(c, override_type)
-      else
-        throw "Unexpected tag #{c.name}"
-      end
+    e.each_child_node do |e|
+      t << clean_content_any(e, override_type)
     end
     t    
   end
   
-  def HansardSpeech.clean_content_table(e, override_type = nil)
-    t = ""
-    e.each_child_node do |c|
-      throw "Unexpected tag #{c.name}" unless c.name == 'tgroup'
-      t << clean_content_tgroup(c, override_type)
-    end
-    # Not sure if I really should put border="0" here. Hmmm...
-    '<table border="0">' + t + '</table>'
+  def HansardSpeech.clean_content_motionnospeech(e)
+    clean_content_recurse(e)
   end
   
   def HansardSpeech.clean_content_quote(e)
-    t = ""
-    e.each_child_node do |e|
-      case e.name
-      when 'para'
-        t << clean_content_para(e, 'italic')
-      when 'list'
-        t << clean_content_list(e)
-      when 'table'
-        t << clean_content_table(e, 'italic')
-      else
-        throw "Unexpected tag #{e.name}"
-      end
-    end
-    t
+    clean_content_recurse(e, 'italic')
   end
   
   def HansardSpeech.clean_content_interjection(e)
-    c = ""
-    e.each_child_node do |e|
-      throw "Unexpected tag #{e.name}" unless e.name == 'talk.start'
-      c << clean_content_talk_start(e)
-    end
-    c
+    clean_content_recurse(e)
   end
   
   def HansardSpeech.clean_content_talk_start(e)
-    c = ""
-    e.each_child_node do |e|
-      case e.name
-      when 'para'
-        c << clean_content_para(e)
-      when 'talker'
-      else
-        throw "Unexpected tag #{e.name}"
-      end
-    end
-    c
+    clean_content_recurse(e)
   end
   
   def HansardSpeech.clean_content_amendment(e)
-    t = ""
-    e.each_child_node do |c|
-      throw "Unexpected tag #{c.name}" unless c.name == 'para'
-      t << clean_content_para(c)
-    end
-    t
+    clean_content_recurse(e)
   end
   
   def HansardSpeech.clean_content_amendments(e)
-    t = ""
-    e.each_child_node do |c|
-      throw "Unexpected tag #{c.name}" unless c.name == 'amendment'
-      t << clean_content_amendment(c)
-    end
-    t
+    clean_content_recurse(e)
   end
   
   def HansardSpeech.clean_content_motion(e)
-    c = ""
-    e.each_child_node do |e|
-      case e.name
-      when 'para'
-        c << clean_content_para(e)
-      when 'list'
-        c << clean_content_list(e)
-      when 'table'
-        c << clean_content_table(e)
-      else
-        throw "Unexpected tag #{e.name}"
-      end
-    end
-    c
-  end
-  
-  def HansardSpeech.clean_content_motionnospeech(e)
-    t = ""
-    e.each_child_node do |c|
-      case c.name
-      when 'name', 'electorate', 'role', 'time.stamp'
-      when 'inline'
-        t << clean_content_inline(c)
-      when 'motion'
-        t << clean_content_motion(c)
-      when 'para'
-        t << clean_content_para(c)
-      else
-        throw "Unexpected tag #{c.name}"
-      end
-    end
-    t
+    clean_content_recurse(e)
   end
   
   def HansardSpeech.clean_content_interrupt(e)
-    t = ""
-    e.each_child_node do |c|
-      throw "Unexpected tag #{c.name}" unless c.name == 'para'
-      t << clean_content_para(c)
-    end
-    '<b>' + t + '</b>'
+    '<b>' + clean_content_recurse(e) + '</b>'
   end
   
   def HansardSpeech.clean_content_continue(e)
-    t = ""
-    e.each_child_node do |c|
-      throw "Unexpected tag #{c.name}" unless c.name == 'talk.start'
-      t << clean_content_talk_start(c)
-    end
-    t
+    clean_content_recurse(e)
   end
   
   def clean_content
-    c = ""
-    e = @content
-
-    case e.name
-    when 'talk.start'
-      c << HansardSpeech.clean_content_talk_start(e)
-    when 'motion'
-      c << HansardSpeech.clean_content_motion(e)
-    when 'list'
-      c << HansardSpeech.clean_content_list(e)
-    when 'para'
-      c << HansardSpeech.clean_content_para(e)
-    when 'quote'
-      c << HansardSpeech.clean_content_quote(e)
-    when 'interjection'
-      c << HansardSpeech.clean_content_interjection(e)
-    when 'amendments'
-      c << HansardSpeech.clean_content_amendments(e)
-    when 'continue'
-      e.each_child_node do |e|
-        throw "Unexpected tag #{e.name}" unless e.name == 'talk.start'
-        c << HansardSpeech.clean_content_talk_start(e)
-      end
-    when 'motionnospeech'
-      c << HansardSpeech.clean_content_motionnospeech(e)
-    when 'interrupt'
-      c << HansardSpeech.clean_content_interrupt(e)
-    when 'table'
-      c << HansardSpeech.clean_content_table(e)
-    when 'tggroup', 'tgroup', 'amendment', 'talker', 'name', 'electorate', 'role', 'time.stamp', 'inline', 'separator'
-    else
-      throw "Unexpected tag #{e.name}"
-    end
-
-    Hpricot.XML(c)
+    Hpricot.XML(HansardSpeech.clean_content_any(@content))
   end
 
   def remove_generic_speaker_names(content)
