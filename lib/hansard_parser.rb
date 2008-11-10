@@ -50,15 +50,8 @@ class HansardParser
     date.to_s
   end
   
-  # Returns true if any pages on the given date are at "proof" stage which means they might not be finalised
-  def has_subpages_in_proof?(date, house)
-    each_page_on_date(date, house) do |page|
-      return true if page.in_proof?
-    end
-    false
-  end
-
-  def each_page_on_date(date, house)
+  # Returns HansardDate object for a particular day
+  def hansard_day_on_date(date, house)
     agent = MechanizeProxy.new
     agent.cache_subdirectory = cache_subdirectory(date, house)
 
@@ -68,20 +61,18 @@ class HansardParser
     tag = page.at('div#content center')
     if tag && tag.inner_html =~ /^Unable to find document/
       @logger.info "No data available..."
+      nil
     else
       page = agent.click(page.links.text("View/Save XML"))
-      day = HansardDay.new(Hpricot.XML(page.body), logger)
-    
-      day.pages.each do |page|
-        yield page
-      end
+      HansardDay.new(Hpricot.XML(page.body), logger)
     end
   end
   
   # Parse but only if there is a page that is at "proof" stage
   def parse_date_house_only_in_proof(date, xml_filename, house)
-    if has_subpages_in_proof?(date, house)
-      logger.info "Deleting all cached html for #{date} because at least one sub page is in proof stage."
+    day = hansard_day_on_date(date, house)
+    if day && day.in_proof?
+      logger.info "Deleting all cached html for #{date} because that date is in proof stage."
       FileUtils.rm_rf("#{@conf.html_cache_path}/#{cache_subdirectory(date, house)}")
       logger.info "Redownloading pages on #{date}..."
       parse_date_house(date, xml_filename, house)
@@ -93,28 +84,31 @@ class HansardParser
     debates = Debates.new(date, house, @logger)
     
     content = false
-    each_page_on_date(date, house) do |page|
-      content = true
-      #throw "Unsupported: #{page.full_hansard_title}" unless page.supported? || page.to_skip? || page.not_yet_supported?
-      if page
-        logger.warn "Page #{page.permanent_url} is in proof stage" if page.in_proof?
-        debates.add_heading(page.hansard_title, page.hansard_subtitle, page.permanent_url)
-        speaker = nil
-        page.speeches.each do |speech|
-          if speech
-            # Only change speaker if a speaker name or url was found
-            this_speaker = (speech.speakername || speech.aph_id) ? lookup_speaker(speech, date, house) : speaker
-            # With interjections the next speech should never be by the person doing the interjection
-            speaker = this_speaker unless speech.interjection
+    day = hansard_day_on_date(date, house)
+    if day
+      logger.warn "Hansard for this date is in proof stage" if day.in_proof?
+      day.pages.each do |page|
+        content = true
+        #throw "Unsupported: #{page.full_hansard_title}" unless page.supported? || page.to_skip? || page.not_yet_supported?
+        if page
+          debates.add_heading(page.hansard_title, page.hansard_subtitle, page.permanent_url)
+          speaker = nil
+          page.speeches.each do |speech|
+            if speech
+              # Only change speaker if a speaker name or url was found
+              this_speaker = (speech.speakername || speech.aph_id) ? lookup_speaker(speech, date, house) : speaker
+              # With interjections the next speech should never be by the person doing the interjection
+              speaker = this_speaker unless speech.interjection
         
-            debates.add_speech(this_speaker, speech.time, speech.permanent_url, speech.clean_content)
+              debates.add_speech(this_speaker, speech.time, speech.permanent_url, speech.clean_content)
+            end
+            debates.increment_minor_count
           end
-          debates.increment_minor_count
         end
+        # This ensures that every sub day page has a different major count which limits the impact
+        # of when we start supporting things like written questions, procedurial text, etc..
+        debates.increment_major_count      
       end
-      # This ensures that every sub day page has a different major count which limits the impact
-      # of when we start supporting things like written questions, procedurial text, etc..
-      debates.increment_major_count      
     end
   
     # Only output the debate file if there's going to be something in it

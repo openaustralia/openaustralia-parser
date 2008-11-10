@@ -10,10 +10,6 @@ class HansardPage
     @conf = Configuration.new
   end
   
-  def in_proof?
-    @day.in_proof?
-  end
-  
   def permanent_url
     @day.permanent_url
   end
