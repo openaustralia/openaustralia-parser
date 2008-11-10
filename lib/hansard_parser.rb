@@ -60,7 +60,6 @@ class HansardParser
     page = agent.get(url)
     tag = page.at('div#content center')
     if tag && tag.inner_html =~ /^Unable to find document/
-      @logger.info "No data available..."
       nil
     else
       page = agent.click(page.links.text("View/Save XML"))
@@ -80,12 +79,12 @@ class HansardParser
   end
   
   def parse_date_house(date, xml_filename, house)
-    @logger.info "Parsing #{house} speeches for #{date.strftime('%a %d %b %Y')}..."    
     debates = Debates.new(date, house, @logger)
     
     content = false
     day = hansard_day_on_date(date, house)
     if day
+      @logger.info "Parsing #{house} speeches for #{date.strftime('%a %d %b %Y')}..."    
       logger.warn "In proof stage" if day.in_proof?
       day.pages.each do |page|
         content = true
@@ -109,6 +108,8 @@ class HansardParser
         # of when we start supporting things like written questions, procedurial text, etc..
         debates.increment_major_count      
       end
+    else
+      @logger.info "Skipping #{house} speeches for #{date.strftime('%a %d %b %Y')} (no data available)"
     end
   
     # Only output the debate file if there's going to be something in it
