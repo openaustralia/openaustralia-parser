@@ -145,4 +145,8 @@ describe HansardDay do
     titles.pages[1].hansard_title.should == "1; 2; 3; 4; 5"
     titles.pages[1].hansard_subtitle.should == "6"
   end
+  
+  it "should know when the page is considered in proof stage" do
+    @header.should be_in_proof
+  end
 end
