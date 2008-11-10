@@ -135,7 +135,6 @@ class HansardSpeech
   end
   
   def HansardSpeech.clean_content_graphic(e)
-    throw "Unexpected attributes for graphic tag: #{e.attributes.keys.join(', ')}" unless e.attributes.keys == ['href']
     # TODO: Probably the path needs to be different depending on whether Reps or Senate
     '<img src="http://parlinfoweb.aph.gov.au/parlinfo/Repository/Chamber/HANSARDR/' + e.attributes['href'] + '"/>'
   end
@@ -144,17 +143,10 @@ class HansardSpeech
   def HansardSpeech.clean_content_para_content(e)
     t = ""
     e.children.each do |c|
-      if !c.respond_to?(:name)
-        t << strip_leading_dash(c.to_s)
-      elsif c.name == 'inline'
-        t << clean_content_inline(c)
-      elsif c.name == 'graphic'
-        t << clean_content_graphic(c)
-      # This is silly. Why should there be a <para> inside a <para>?
-      elsif c.name == 'para'
-        t << clean_content_para(c)
+      if c.respond_to?(:name)
+        t << clean_content_any(c)
       else
-        throw "Unexpected tag #{c.name}"
+        t << strip_leading_dash(c.to_s)
       end
     end
     t
@@ -162,32 +154,17 @@ class HansardSpeech
   
   # Pass a <para>Some text</para> block. Returns cleaned "<p>Some text</p>"
   def HansardSpeech.clean_content_para(e, override_type = nil)
-    atts = e.attributes.keys
-    # We're not going to pay any attention to the following attribute
-    atts.delete('pgwide')
-    
-    type = ""
     if override_type
       type = override_type
-    # TODO: Consistently use either the mechanism above or below not this half-assed confusing nonsense here
-    elsif ['motion', 'quote', 'amendment'].include?(e.parent.name)
-      type = "italic"
+    else
+      type = ""
     end
     
-    if atts.empty?
-      # Do nothing
-    elsif atts == ['class']
-      case e.attributes['class']
-      when 'italic'
-        type = 'italic'
-      when 'bold'
-        type = 'bold'
-      when 'block', 'ParlAmend', 'subsection', 'ItemHead', 'Item', 'indenta', 'hdg5s', 'smalltableleft', 'Definition', 'indentii', 'centre', 'smalltablejustified', 'heading'
-      else
-        throw "Unexpected value for class attribute of para #{e.attributes['class']}" 
-      end
-    else
-      throw "Unexpected <para> attributes #{atts.join(', ')}"
+    case e.attributes['class']
+    when 'italic'
+      type = 'italic'
+    when 'bold'
+      type = 'bold'
     end
 
     case type
@@ -248,22 +225,6 @@ class HansardSpeech
     '<td ' + attributes + '>' + clean_content_recurse(e, override_type) + '</td>'
   end
   
-  def HansardSpeech.clean_content_row(e, override_type = nil)
-    '<tr>' + clean_content_recurse(e, override_type) + '</tr>'
-  end
-  
-  def HansardSpeech.clean_content_thead(e, override_type = nil)
-    clean_content_recurse(e, override_type)
-  end
-  
-  def HansardSpeech.clean_content_tbody(e, override_type = nil)
-    clean_content_recurse(e, override_type)
-  end
-  
-  def HansardSpeech.clean_content_tgroup(e, override_type = nil)
-    clean_content_recurse(e, override_type)
-  end
-  
   def HansardSpeech.clean_content_table(e, override_type = nil)
     # Not sure if I really should put border="0" here. Hmmm...
     '<table border="0">' + clean_content_recurse(e, override_type) + '</table>'
@@ -271,44 +232,32 @@ class HansardSpeech
   
   def HansardSpeech.clean_content_any(e, override_type = nil)
     case e.name
+    when 'amendment', 'motion', 'quote'
+      clean_content_recurse(e, 'italic')
+    when 'talk.start', 'amendments', 'motionnospeech', 'interjection', 'continue'
+      clean_content_recurse(e)
+    when 'tgroup', 'thead', 'tbody'
+      clean_content_recurse(e, override_type)
     when 'para'
       clean_content_para(e, override_type)
     when 'list'
       clean_content_list(e)
     when 'table'
       clean_content_table(e, override_type)
-    when 'talk.start'
-      clean_content_talk_start(e)
-    when 'amendments'
-      clean_content_amendments(e)
-    when 'amendment'
-      clean_content_amendment(e)
     when 'inline'
       clean_content_inline(e)
-    when 'motion'
-      clean_content_motion(e)
-    when 'motionnospeech'
-      clean_content_motionnospeech(e)
-    when 'quote'
-      clean_content_quote(e)
-    when 'interjection'
-      clean_content_interjection(e)
-    when 'continue'
-      clean_content_continue(e)
     when 'interrupt'
-      clean_content_interrupt(e)
-    when 'tgroup'
-      clean_content_tgroup(e, override_type)
-    when "thead"
-      clean_content_thead(e, override_type)
-    when "tbody"
-      clean_content_tbody(e, override_type)
+      '<b>' + clean_content_recurse(e) + '</b>'
     when 'row'
-      clean_content_row(e, override_type)
+      '<tr>' + clean_content_recurse(e, override_type) + '</tr>'
     when 'entry'
       clean_content_entry(e, override_type)
     when 'item'
       clean_content_item(e)
+    when 'inline'
+      clean_content_inline(e)
+    when 'graphic'
+      clean_content_graphic(e)
     when 'talker', 'name', 'electorate', 'role', 'time.stamp', 'tggroup', 'amendment', 'inline', 'separator', 'colspec'
       ""
     else
@@ -322,42 +271,6 @@ class HansardSpeech
       t << clean_content_any(e, override_type)
     end
     t    
-  end
-  
-  def HansardSpeech.clean_content_motionnospeech(e)
-    clean_content_recurse(e)
-  end
-  
-  def HansardSpeech.clean_content_quote(e)
-    clean_content_recurse(e, 'italic')
-  end
-  
-  def HansardSpeech.clean_content_interjection(e)
-    clean_content_recurse(e)
-  end
-  
-  def HansardSpeech.clean_content_talk_start(e)
-    clean_content_recurse(e)
-  end
-  
-  def HansardSpeech.clean_content_amendment(e)
-    clean_content_recurse(e)
-  end
-  
-  def HansardSpeech.clean_content_amendments(e)
-    clean_content_recurse(e)
-  end
-  
-  def HansardSpeech.clean_content_motion(e)
-    clean_content_recurse(e)
-  end
-  
-  def HansardSpeech.clean_content_interrupt(e)
-    '<b>' + clean_content_recurse(e) + '</b>'
-  end
-  
-  def HansardSpeech.clean_content_continue(e)
-    clean_content_recurse(e)
   end
   
   def clean_content
