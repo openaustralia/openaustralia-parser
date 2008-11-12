@@ -1,18 +1,53 @@
+namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
+
 start = element hansard {
-  attribute version { "2.1" }
+	attribute xsi:noNamespaceSchemaLocation { "../../hansard.xsd" }
+  ,attribute version { "2.1" }
   ,session.header
   ,element chamber.xscript {
     business.start
-    ,(debate | adjournment)+
+    ,(debate | adjournment | petition.group)+
   }
   ,element maincomm.xscript {
     business.start
     ,(debate | adjournment)+
-  }
+  }?
   ,element answers.to.questions {
     debate
 	}
 }
+
+petition.group =
+	element petition.group {
+		element petition.groupinfo {
+			element title { "PETITIONS" }
+			,element page.no { xsd:integer }
+			,element type { "Petitions" }
+		}
+		,interjection
+		,petition+
+	}
+
+petition =
+	element petition {
+		element petitioninfo {
+			element title { text }
+			,element name.ids {
+				element name.id { text }
+			}
+			,element names {
+				element name { text }
+			}
+			,element no.signed { xsd:integer }
+			,element page.no { xsd:integer }
+		}
+		,quote
+		,element presenter {
+			element no.signed { xsd:integer }
+			,talk.start
+		}
+		,para?
+	}
 
 business.start =
   element business.start {
@@ -53,13 +88,18 @@ debateinfo =
       }
     }*
   }
-  
+ 
 subdebateinfo =
   element subdebateinfo {
-    element title { text }
+    element title { text }+
     ,element page.no { xsd:integer }*
-    ,element id.no { xsd:integer }?
-  }
+    ,element id.no { text }?
+  } |
+# This is clearly wrong so putting in an explicit exception
+	element subdebateinfo {
+		element page.no { "109" }
+		,element page.no { "Solomon Islands" }
+	}
 
 title = 
   element title {
@@ -69,13 +109,13 @@ title =
 subdebate.1 =
   element subdebate.1 {
     subdebateinfo
-    ,(subdebate.2 | motionnospeech | division | interjection | speech | para | motion | quote | question | answer)+
+    ,(subdebate.2 | motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista)+
   }
 
 subdebate.2 =
   element subdebate.2 {
     subdebateinfo
-    ,motionnospeech
+    ,(motionnospeech | interjection | speech | para | quote)+
   }
 
 question =
@@ -126,6 +166,11 @@ division.data =
       ,element title { "NOES" }
       ,names
     }
+		,element pairs {
+    	element num.votes { xsd:integer }
+			,element title { "PAIRS" }
+			,names
+		}?
   }
 	
 motionnospeech = 
@@ -142,8 +187,11 @@ motionnospeech =
 speech =
   element speech {
     talk.start
-    ,(para | quote | motion | interjection | amendments | continue | table | interrupt)*
+    ,(para | quote | separator | motion | interjection | amendments | continue | table | interrupt)*
   }
+
+separator =
+	element separator { empty }
 
 interrupt =
   element interrupt {
@@ -152,10 +200,10 @@ interrupt =
 
 table = 
   element table {
-    attribute width { xsd:integer }
-    ,attribute margin-left { xsd:integer }
-    ,attribute layout { "fixed" }
+  	attribute layout { "fixed" }
     ,attribute pgwide { "yes" }
+    ,attribute width { xsd:integer }?
+    ,attribute margin-left { xsd:integer }?
     ,attribute orient { "landscape" }?
     ,attribute border-top-style { "solid" }?
     ,attribute border-top-color { "#000000" }?
@@ -171,7 +219,7 @@ tgroup =
     element colspec { empty }+
     ,element thead {
       row
-    }
+    }?
     ,element tbody {
       row+
     }
@@ -179,15 +227,22 @@ tgroup =
   
 row =
   element row {
-    attribute style { "page-break-inside: avoid" }
+    attribute style { "page-break-inside: avoid" }?
     ,element entry {
-      attribute border-top-style { "solid" }?
+			attribute colspan { xsd:integer }?
+      ,attribute border-top-style { "solid" }?
       ,attribute border-top-color { "#000000" }?
       ,attribute border-top-width { "0.5pt" | "0.75pt" }?
       ,attribute border-bottom-style { "solid" }?
       ,attribute border-bottom-color { "#000000" }?
       ,attribute border-bottom-width { "0.5pt" | "0.75pt" }?
       ,attribute margin-left { xsd:integer }
+			,attribute border-left-style { "solid" }?
+			,attribute border-left-color { "#000000" }?
+			,attribute border-left-width { "0.5pt" }?
+			,attribute border-right-style { "solid" }?
+			,attribute border-right-color { "#000000" }?
+			,attribute border-right-width { "0.5pt" }?
       ,para+
     }+
   }
@@ -201,7 +256,7 @@ amendments =
   element amendments {
     element amendment {
       para+
-    }
+    }+
   }
 
 quote =
@@ -225,11 +280,10 @@ motion =
 
 lista =
   element list {
-    attribute type { "loweralpha" | "decimal" | "unadorned" }
+    attribute type { "loweralpha" | "decimal" | "unadorned" | "lowerroman" | "upperalpha" }
     ,element item {
       attribute label { text }
-      ,para+
-      ,(lista | table)?
+      ,(para | lista | table)+
     }+
   } | element list {
     attribute type { "bullet" }
@@ -245,24 +299,24 @@ session.header =
     ,element parliament.no { xsd:integer }
     ,element session.no { xsd:integer }
     ,element period.no { xsd:integer }
-    ,element chamber { "REPS" }
+    ,element chamber { "REPS" | "SENATE" }
     ,element page.no { xsd:integer }
     ,element proof { "0" }
   }
 
 talker =
   element talker {
-    (element page.no { xsd:integer }
+    (element page.no { xsd:integer }?
     & element time.stamp { xsd:time }?)
     ,element name {
       attribute role { "metadata" },
       text
-    }
+    }?
     ,element name.id { text }
-    ,element electorate { text }
-    ,element party { text }
+    ,element electorate { text }?
+    ,element party { text }?
     ,element role { text }?
-    ,element in.gov { "0" | "1" }
+    ,element in.gov { "0" | "1" }?
     ,element first.speech { "0" }?
     ,element name {
       attribute role { "display" },
@@ -283,7 +337,7 @@ talker =
 
 para =
   element para {
-    attribute class { "block" | "ParlAmend" | "hdg5s" | "subsection" | "italic" | "smalltableleft" }?
+    attribute class { "block" | "ParlAmend" | "hdg5s" | "subsection" | "italic" | "smalltableleft" | "indenta" | "centre" }?
     ,attribute pgwide { "yes" }?
     ,para-text
   }
@@ -295,7 +349,8 @@ inline =
   element inline {
     attribute ref { text }?
     ,attribute font-weight { "bold" }?
-    ,attribute font-size { "7pt" | "8pt" | "9pt" | "9.5pt" | "12pt" }?
+    ,attribute font-size { "7pt" | "8pt" | "9pt" | "9.5pt" | "10pt" | "10.5pt" | "12pt" }?
     ,attribute font-style { "italic" }?
+		,attribute font-variant { "subscript" }?
     ,(text+ & inline*) 
   }
