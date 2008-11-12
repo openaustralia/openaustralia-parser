@@ -50,8 +50,9 @@ class HansardParser
     date.to_s
   end
   
-  # Returns HansardDate object for a particular day
-  def hansard_day_on_date(date, house)
+  # Returns the XML file loaded from aph.gov.au as plain text which contains all the Hansard data
+  # Returns nil if it doesn't exist
+  def hansard_xml_source_data_on_date(date, house)
     agent = MechanizeProxy.new
     agent.cache_subdirectory = cache_subdirectory(date, house)
 
@@ -62,9 +63,14 @@ class HansardParser
     if tag && tag.inner_html =~ /^Unable to find document/
       nil
     else
-      page = agent.click(page.links.text("View/Save XML"))
-      HansardDay.new(Hpricot.XML(page.body), logger)
+      agent.click(page.links.text("View/Save XML")).body
     end
+  end
+    
+  # Returns HansardDate object for a particular day
+  def hansard_day_on_date(date, house)
+    text = hansard_xml_source_data_on_date(date, house)
+    HansardDay.new(Hpricot.XML(text)) if text
   end
   
   # Parse but only if there is a page that is at "proof" stage
