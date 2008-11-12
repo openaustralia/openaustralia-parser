@@ -26,6 +26,8 @@ petition.group =
 		}
 		,interjection
 		,petition+
+# Seems strange for this to be here
+		,subdebate.1?
 	}
 
 petition =
@@ -33,10 +35,10 @@ petition =
 		element petitioninfo {
 			element title { text }
 			,element name.ids {
-				element name.id { text }
+				element name.id { text }+
 			}
 			,element names {
-				element name { text }
+				element name { text }+
 			}
 			,element no.signed { xsd:integer }
 			,element page.no { xsd:integer }
@@ -45,7 +47,7 @@ petition =
 		,element presenter {
 			element no.signed { xsd:integer }
 			,talk.start
-		}
+		}+
 		,para?
 	}
 
@@ -68,13 +70,13 @@ adjournment =
 debate =
   element debate {
     debateinfo
-    ,(subdebate.1 | motionnospeech | division | interjection | speech | para | motion)+
+    ,(subdebate.1 | motionnospeech | division | interjection | speech | para | motion | quote)+
   }
 
 debateinfo =
   element debateinfo {
-    title
-    ,element page.no { xsd:integer }
+    title+
+    ,element page.no { xsd:integer }+
     ,element time.stamp { xsd:time }?
     ,element type { text }
     ,element id.no { text }?
@@ -84,16 +86,17 @@ debateinfo =
         title
         ,element page.no { xsd:integer }
         ,element type { text }
-        ,element id.no { text }
+        ,element id.no { text }?
       }
     }*
   }
  
 subdebateinfo =
   element subdebateinfo {
-    element title { text }*
+    title*
     ,element page.no { text }*
     ,element id.no { text }?
+		,element type { text }?
   }
 
 title = 
@@ -104,13 +107,14 @@ title =
 subdebate.1 =
   element subdebate.1 {
     subdebateinfo
-    ,(subdebate.2 | motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista)+
+# Would expect that there should be at least one of the following
+    ,(subdebate.2 | motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista | interrupt | amendments)*
   }
 
 subdebate.2 =
   element subdebate.2 {
     subdebateinfo
-    ,(motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista)+
+    ,(motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista | interrupt | amendments)+
   }
 
 question =
@@ -122,7 +126,7 @@ question =
 answer =
   element answer {
     talk.start
-    ,(quote | para | continue | interjection | motion)*
+    ,(quote | para | continue | interjection | motion | table)*
   }
 
 interjection =
@@ -175,7 +179,7 @@ motionnospeech =
     ,element role { text }
     ,element time.stamp { xsd:time }
     ,inline
-		,(motion | para | lista)*
+		,(motion | para | lista | quote | continue | interjection)*
   }
 
 speech =
@@ -226,10 +230,10 @@ row =
 			attribute colspan { xsd:integer }?
       ,attribute border-top-style { "solid" }?
       ,attribute border-top-color { "#000000" }?
-      ,attribute border-top-width { "0.5pt" | "0.75pt" }?
+      ,attribute border-top-width { "0.25pt" | "0.5pt" | "0.75pt" }?
       ,attribute border-bottom-style { "solid" }?
       ,attribute border-bottom-color { "#000000" }?
-      ,attribute border-bottom-width { "0.5pt" | "0.75pt" }?
+      ,attribute border-bottom-width { "0.25pt" | "0.5pt" | "0.75pt" }?
       ,attribute margin-left { xsd:integer }
 			,attribute border-left-style { "solid" }?
 			,attribute border-left-color { "#000000" }?
@@ -274,7 +278,7 @@ motion =
 
 lista =
   element list {
-    attribute type { "loweralpha" | "decimal" | "unadorned" | "lowerroman" | "upperalpha" }
+    attribute type { "loweralpha" | "decimal" | "unadorned" | "lowerroman" | "upperalpha" | "upperroman-dotted" | "decimal-dotted" }
     ,element item {
       attribute label { text }
       ,(para | lista | table)+
@@ -306,7 +310,7 @@ talker =
       attribute role { "metadata" | "display" },
       text
     }*
-    & element name.id { text }
+    & element name.id { text }?
     & element electorate { text }?
     & element party { text }?
     & element role { text }?
@@ -339,7 +343,7 @@ inline =
   element inline {
     attribute ref { text }?
     ,attribute font-weight { "bold" }?
-    ,attribute font-size { "2pt" | "3pt" | "7pt" | "8pt" | "9pt" | "9.5pt" | "10pt" | "10.5pt" | "11pt" | "12pt" }?
+    ,attribute font-size { "2pt" | "3pt" | "6pt" | "7pt" | "8pt" | "8.5pt" | "9pt" | "9.5pt" | "10pt" | "10.5pt" | "11pt" | "12pt" | "13pt" | "14pt" | "15pt" | "16pt" }?
     ,attribute font-style { "italic" }?
 		,attribute font-variant { "subscript" | "superscript"}?
     ,(text+ & inline*) 
