@@ -91,15 +91,10 @@ debateinfo =
  
 subdebateinfo =
   element subdebateinfo {
-    element title { text }+
-    ,element page.no { xsd:integer }*
+    element title { text }*
+    ,element page.no { text }*
     ,element id.no { text }?
-  } |
-# This is clearly wrong so putting in an explicit exception
-	element subdebateinfo {
-		element page.no { "109" }
-		,element page.no { "Solomon Islands" }
-	}
+  }
 
 title = 
   element title {
@@ -115,7 +110,7 @@ subdebate.1 =
 subdebate.2 =
   element subdebate.2 {
     subdebateinfo
-    ,(motionnospeech | interjection | speech | para | quote)+
+    ,(motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista)+
   }
 
 question =
@@ -180,14 +175,13 @@ motionnospeech =
     ,element role { text }
     ,element time.stamp { xsd:time }
     ,inline
-    ,motion?
-    ,para*
+		,(motion | para | lista)*
   }
 
 speech =
   element speech {
     talk.start
-    ,(para | quote | separator | motion | interjection | amendments | continue | table | interrupt)*
+    ,(para | quote | separator | motion | interjection | amendments | continue | table | interrupt | lista)*
   }
 
 separator =
@@ -202,7 +196,7 @@ table =
   element table {
   	attribute layout { "fixed" }
     ,attribute pgwide { "yes" }
-    ,attribute width { xsd:integer }?
+    ,attribute width { text }?
     ,attribute margin-left { xsd:integer }?
     ,attribute orient { "landscape" }?
     ,attribute border-top-style { "solid" }?
@@ -218,7 +212,7 @@ tgroup =
   element tgroup {
     element colspec { empty }+
     ,element thead {
-      row
+      row+
     }?
     ,element tbody {
       row+
@@ -274,7 +268,7 @@ talk.start =
 motion =
   element motion {
     attribute pgwide { "yes" }?
-    ,para+
+    ,para*
     ,lista?
   }
 
@@ -306,22 +300,18 @@ session.header =
 
 talker =
   element talker {
-    (element page.no { xsd:integer }?
-    & element time.stamp { xsd:time }?)
-    ,element name {
-      attribute role { "metadata" },
+    element page.no { xsd:integer }?
+    & element time.stamp { xsd:time }?
+    & element name {
+      attribute role { "metadata" | "display" },
       text
-    }?
-    ,element name.id { text }
-    ,element electorate { text }?
-    ,element party { text }?
-    ,element role { text }?
-    ,element in.gov { "0" | "1" }?
-    ,element first.speech { "0" }?
-    ,element name {
-      attribute role { "display" },
-      text
-    }
+    }*
+    & element name.id { text }
+    & element electorate { text }?
+    & element party { text }?
+    & element role { text }?
+    & element in.gov { "0" | "1" }?
+    & element first.speech { "0" }?
   } |
   element talker {
     element name.id { text }
@@ -337,7 +327,7 @@ talker =
 
 para =
   element para {
-    attribute class { "block" | "ParlAmend" | "hdg5s" | "subsection" | "italic" | "smalltableleft" | "indenta" | "centre" }?
+    attribute class { "block" | "ParlAmend" | "hdg5s" | "subsection" | "italic" | "smalltableleft" | "indenta" | "indentii" | "centre" | "ItemHead" | "Item" | "Definition" }?
     ,attribute pgwide { "yes" }?
     ,para-text
   }
@@ -349,8 +339,8 @@ inline =
   element inline {
     attribute ref { text }?
     ,attribute font-weight { "bold" }?
-    ,attribute font-size { "7pt" | "8pt" | "9pt" | "9.5pt" | "10pt" | "10.5pt" | "12pt" }?
+    ,attribute font-size { "2pt" | "3pt" | "7pt" | "8pt" | "9pt" | "9.5pt" | "10pt" | "10.5pt" | "11pt" | "12pt" }?
     ,attribute font-style { "italic" }?
-		,attribute font-variant { "subscript" }?
+		,attribute font-variant { "subscript" | "superscript"}?
     ,(text+ & inline*) 
   }
