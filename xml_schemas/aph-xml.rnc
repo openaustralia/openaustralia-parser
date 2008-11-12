@@ -61,7 +61,7 @@ business.start =
 adjournment =
   element adjournment {
     element adjournmentinfo {
-      element page.no { xsd:integer }?
+      element page.no { xsd:integer }*
       ,element time.stamp { xsd:time }?
     }
     ,para
@@ -182,7 +182,7 @@ motionnospeech =
     ,element role { text }
     ,element time.stamp { xsd:time }
     ,inline
-		,(motion | para | lista | quote | continue | interjection | amendments)*
+		,(motion | para | lista | quote | continue | interjection | amendments | interrupt)*
   }
 
 speech =
@@ -229,26 +229,30 @@ tgroup =
 row =
   element row {
     attribute style { "page-break-inside: avoid" }?
-    ,element entry {
-			attribute colspan { xsd:integer }?
-			,attribute rowspan { xsd:integer }?
-      ,attribute border-top-style { "solid" }?
-      ,attribute border-top-color { "#000000" | "#008000" }?
-      ,attribute border-top-width { "0.25pt" | "0.5pt" | "0.75pt" | "1.5pt" }?
-      ,attribute border-bottom-style { "solid" }?
-      ,attribute border-bottom-color { "#000000" }?
-      ,attribute border-bottom-width { "0.25pt" | "0.5pt" | "0.75pt" }?
-      ,attribute margin-left { xsd:integer | "" }
-			,attribute border-left-style { "solid" }?
-			,attribute border-left-color { "#000000" }?
-			,attribute border-left-width { "0.5pt" }?
-			,attribute border-right-style { "solid" }?
-			,attribute border-right-color { "#000000" }?
-			,attribute border-right-width { "0.5pt" }?
-      ,(para+ | empty)
-    }+
+    ,entry+
   }
 
+entry =
+	element entry {
+		attribute colspan { xsd:integer }?
+		,attribute rowspan { xsd:integer }?
+		,attribute hidden { "yes" }?
+    ,attribute border-top-style { "solid" }?
+    ,attribute border-top-color { "#000000" | "#008000" }?
+    ,attribute border-top-width { point-size }?
+    ,attribute border-bottom-style { "solid" }?
+    ,attribute border-bottom-color { "#000000" }?
+    ,attribute border-bottom-width { point-size }?
+    ,attribute margin-left { xsd:integer | "" }
+		,attribute border-left-style { "solid" }?
+		,attribute border-left-color { "#000000" }?
+		,attribute border-left-width { point-size }?
+		,attribute border-right-style { "solid" }?
+		,attribute border-right-color { "#000000" }?
+		,attribute border-right-width { point-size }?
+    ,((para | quote)+ | empty)
+  }
+  
 continue =
   element continue {
     talk.start
@@ -276,17 +280,17 @@ talk.start =
 motion =
   element motion {
     attribute pgwide { "yes" }?
-    ,para*
-    ,lista?
+    ,(para | lista)+
   }
 
 lista =
   element list {
     attribute type { "bullet" | "loweralpha" | "decimal" | "unadorned" | "lowerroman" | "upperalpha" | "upperroman-dotted" | "decimal-dotted" | "loweralpha-dotted" }
-    ,element item {
+    # Really shouldn't expect a list ever to be empty
+		,element item {
       attribute label { text }?
       ,(para | lista | table)+
-    }+
+    }*
   }
 
 session.header =
@@ -298,12 +302,13 @@ session.header =
     ,element chamber { "REPS" | "SENATE" }
     ,element page.no { xsd:integer }
     # The empty "" looks suspicious to me
-    ,element proof { "0" | "" }
+    ,element proof { "0" | "1" | "" }
   }
 
 talker =
   element talker {
-    element page.no { xsd:integer }?
+	  # Should only expect one page.no and for it to be an integer
+    element page.no { text }*
     & element time.stamp { xsd:time }?
     & element name {
       attribute role { "metadata" | "display" },
@@ -349,8 +354,12 @@ inline =
     attribute ref { text }?
     ,attribute font-weight { "bold" }?
     # Font size can be something 2pt, 8.5pt, etc...
-    ,attribute font-size { text }?
+    ,attribute font-size { point-size }?
     ,attribute font-style { "italic" }?
 		,attribute font-variant { "subscript" | "superscript"}?
     ,(text+ & inline*) 
   }
+
+# Only allowing point sizes in increments of 0.25pt
+point-size =
+	xsd:string { pattern = "[0-9]+(\.(25|5|75))?pt" }
