@@ -13,10 +13,17 @@ parser = HansardParser.new(nil)
 
 FileUtils.mkdir_p "source"
 
+def write_tidied_xml(text, filename)
+  File.open(filename, 'w') {|f| f << text }
+  system("tidy -q -i -w 200 -xml -utf8 -o #{filename} #{filename}")
+end
+
 (from..to).each do |date|
   puts "Downloading and saving XML data for #{date}..."
   text = parser.hansard_xml_source_data_on_date(date, House.representatives)
-  File.open("source/#{date}-reps.xml", 'w') {|f| f << text } if text
+  write_tidied_xml(text, "source/#{date}-reps.xml") if text
   text = parser.hansard_xml_source_data_on_date(date, House.senate)
-  File.open("source/#{date}-senate.xml", 'w') {|f| f << text } if text
+  write_tidied_xml(text, "source/#{date}-senate.xml") if text
 end
+
+
