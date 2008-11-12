@@ -10,7 +10,7 @@ start = element hansard {
   }
   ,element maincomm.xscript {
     business.start
-    ,(debate | adjournment)+
+    ,(debate | adjournment | interrupt)+
   }?
   ,element answers.to.questions {
     debate
@@ -26,7 +26,7 @@ petition.group =
 		}
 		,interjection
 		,petition+
-# Seems strange for this to be here
+		# Seems strange for this to be here
 		,subdebate.1?
 	}
 
@@ -55,29 +55,23 @@ business.start =
   element business.start {
     element day.start { text }
     ,element separator { empty }?
-    ,para
+    ,para+
   }  
 
 adjournment =
   element adjournment {
     element adjournmentinfo {
       element page.no { xsd:integer }*
-      ,element time.stamp { xsd:time }?
+      ,time.stamp?
     }
     ,para
-  }
-
-debate =
-  element debate {
-    debateinfo
-    ,(subdebate.1 | motionnospeech | division | interjection | speech | para | motion | quote)+
   }
 
 debateinfo =
   element debateinfo {
     title+
     ,element page.no { xsd:integer }*
-    ,element time.stamp { xsd:time }?
+    ,time.stamp?
     ,element type { text }
     ,element id.no { text }?
     ,element cognate {
@@ -105,17 +99,23 @@ title =
     para-text | title
   }
 
+debate =
+  element debate {
+    debateinfo
+    ,(subdebate.1 | motionnospeech | division | interjection | speech | para | motion | quote | continue)+
+  }
+
 subdebate.1 =
   element subdebate.1 {
     subdebateinfo
 # Would expect that there should be at least one of the following
-    ,(subdebate.2 | motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista | interrupt | amendments | table)*
+    ,(subdebate.2 | motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista | interrupt | amendments | table | continue)*
   }
 
 subdebate.2 =
   element subdebate.2 {
     subdebateinfo
-    ,(motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista | interrupt | amendments | table)+
+    ,(motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista | interrupt | amendments | table | continue)+
   }
 
 question =
@@ -138,12 +138,13 @@ interjection =
 division =
   element division {
     element division.header {
-      element time.stamp { xsd:time }
+      time.stamp
       ,para
     }
     ,para
     ,division.data
-    ,para
+    # The table shouldn't really be here. It happens when a division has been marked up with a table rather than division.data (why?)
+    ,(para | table)+
     ,element division.result {
       para
     }
@@ -156,12 +157,13 @@ names =
   
 division.data =
   element division.data {
+    # This should always be present. Shouldn't it?
     element ayes {
 			# Should expect this never to be empty
       element num.votes { xsd:integer | empty }
       ,element title { "AYES" }
       ,names
-    }
+    }?
     ,element noes {
 			# Should expect this never to be empty
       element num.votes { xsd:integer | empty }
@@ -180,9 +182,9 @@ motionnospeech =
     element name { text }
     ,element electorate { text }
     ,element role { text }
-    ,element time.stamp { xsd:time }
+    ,time.stamp
     ,inline
-		,(motion | para | lista | quote | continue | interjection | amendments | interrupt)*
+		,(motion | para | lista | quote | separator | continue | interjection | amendments | interrupt)*
   }
 
 speech =
@@ -208,21 +210,23 @@ table =
     ,attribute orient { "landscape" }?
     ,attribute border-top-style { "solid" }?
     ,attribute border-top-color { "#000000" }?
-    ,attribute border-top-width { "0.75pt" }?
+    ,attribute border-top-width { point-size }?
     ,attribute border-bottom-style { "solid" }?
     ,attribute border-bottom-color { "#000000" }?
-    ,attribute border-bottom-width { "0.75pt" }?
+    ,attribute border-bottom-width { point-size }?
     ,tgroup
   }
 
 tgroup =
   element tgroup {
-    element colspec { empty }+
+    # Wonder what these empty colspec elements are supposed to be for?
+    element colspec { empty }*
     ,element thead {
       row+
     }?
+    # Really shouldn't expect tbody to every be empty
     ,element tbody {
-      row+
+      row*
     }
   }
   
@@ -309,7 +313,7 @@ talker =
   element talker {
 	  # Should only expect one page.no and for it to be an integer
     element page.no { text }*
-    & element time.stamp { xsd:time }?
+    & time.stamp?
     & element name {
       attribute role { "metadata" | "display" },
       text
@@ -319,7 +323,7 @@ talker =
     & element party { text }?
     & element role { text }?
     & element in.gov { "0" | "1" }?
-    & element first.speech { "0" }?
+    & element first.speech { "0" | "1" }?
   } |
   element talker {
     element name.id { text }
@@ -335,7 +339,7 @@ talker =
 
 para =
   element para {
-    attribute class { "block" | "ParlAmend" | "hdg5s" | "subsection" | "italic" | "smalltableleft" | "indenta" | "indentii" | "centre" | "ItemHead" | "Item" | "Definition" | "bold" }?
+    attribute class { "block" | "ParlAmend" | "hdg5s" | "subsection" | "italic" | "smalltableleft" | "indenta" | "indentii" | "centre" | "ItemHead" | "Item" | "Definition" | "bold" | "smalltablejustified" }?
     ,attribute pgwide { "yes" }?
     ,para-text
   }
@@ -353,7 +357,6 @@ inline =
   element inline {
     attribute ref { text }?
     ,attribute font-weight { "bold" }?
-    # Font size can be something 2pt, 8.5pt, etc...
     ,attribute font-size { point-size }?
     ,attribute font-style { "italic" }?
 		,attribute font-variant { "subscript" | "superscript"}?
@@ -363,3 +366,8 @@ inline =
 # Only allowing point sizes in increments of 0.25pt
 point-size =
 	xsd:string { pattern = "[0-9]+(\.(25|5|75))?pt" }
+	
+time.stamp =
+	# Added exception for clearly bogus timestamp below
+	element time.stamp { xsd:time | "09:423:00" }
+
