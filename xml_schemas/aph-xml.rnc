@@ -109,7 +109,7 @@ subdebate.1 =
   element subdebate.1 {
     subdebateinfo
 # Would expect that there should be at least one of the following
-    ,(subdebate.2 | motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista | interrupt | amendments | table | continue)*
+    ,(subdebate.2 | motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista | interrupt | amendments | table | continue | separator)*
   }
 
 subdebate.2 =
@@ -121,7 +121,7 @@ subdebate.2 =
 question =
   element question {
     talk.start
-    ,(quote | para | continue | interjection)*
+    ,(quote | para | continue | interjection | motion)*
   }
 
 answer =
@@ -264,7 +264,8 @@ continue =
 
 amendments =
   element amendments {
-    element amendment {
+		attribute pgwide { "yes" }?
+    ,element amendment {
       para+
     }+
   }
@@ -290,6 +291,7 @@ motion =
 lista =
   element list {
     attribute type { "bullet" | "loweralpha" | "decimal" | "unadorned" | "lowerroman" | "upperalpha" | "upperroman-dotted" | "decimal-dotted" | "loweralpha-dotted" }
+		,attribute pgwide { "yes" }?
     # Really shouldn't expect a list ever to be empty
 		,element item {
       attribute label { text }?
