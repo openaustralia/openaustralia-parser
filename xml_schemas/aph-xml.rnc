@@ -14,7 +14,7 @@ start = element hansard {
   }?
   ,element answers.to.questions {
     debate
-	}
+	}?
 }
 
 petition.group =
@@ -43,7 +43,7 @@ petition =
 			,element no.signed { xsd:integer }
 			,element page.no { xsd:integer }
 		}
-		,quote
+		,(quote | para)+
 		,element presenter {
 			element no.signed { xsd:integer }
 			,talk.start
@@ -61,8 +61,8 @@ business.start =
 adjournment =
   element adjournment {
     element adjournmentinfo {
-      element page.no { xsd:integer }
-      ,element time.stamp { xsd:time }
+      element page.no { xsd:integer }?
+      ,element time.stamp { xsd:time }?
     }
     ,para
   }
@@ -76,16 +76,17 @@ debate =
 debateinfo =
   element debateinfo {
     title+
-    ,element page.no { xsd:integer }+
+    ,element page.no { xsd:integer }*
     ,element time.stamp { xsd:time }?
     ,element type { text }
     ,element id.no { text }?
     ,element cognate {
       para?
+      # Wouldn't expect the cognateinfo ever to be allowed to be empty
       ,element cognateinfo {
-        title
-        ,element page.no { xsd:integer }
-        ,element type { text }
+        title*
+        ,element page.no { xsd:integer }?
+        ,element type { text }?
         ,element id.no { text }?
       }
     }*
@@ -108,13 +109,13 @@ subdebate.1 =
   element subdebate.1 {
     subdebateinfo
 # Would expect that there should be at least one of the following
-    ,(subdebate.2 | motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista | interrupt | amendments)*
+    ,(subdebate.2 | motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista | interrupt | amendments | table)*
   }
 
 subdebate.2 =
   element subdebate.2 {
     subdebateinfo
-    ,(motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista | interrupt | amendments)+
+    ,(motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista | interrupt | amendments | table)+
   }
 
 question =
@@ -156,12 +157,14 @@ names =
 division.data =
   element division.data {
     element ayes {
-      element num.votes { xsd:integer }
+			# Should expect this never to be empty
+      element num.votes { xsd:integer | empty }
       ,element title { "AYES" }
       ,names
     }
     ,element noes {
-      element num.votes { xsd:integer }
+			# Should expect this never to be empty
+      element num.votes { xsd:integer | empty }
       ,element title { "NOES" }
       ,names
     }
@@ -179,7 +182,7 @@ motionnospeech =
     ,element role { text }
     ,element time.stamp { xsd:time }
     ,inline
-		,(motion | para | lista | quote | continue | interjection)*
+		,(motion | para | lista | quote | continue | interjection | amendments)*
   }
 
 speech =
@@ -228,20 +231,21 @@ row =
     attribute style { "page-break-inside: avoid" }?
     ,element entry {
 			attribute colspan { xsd:integer }?
+			,attribute rowspan { xsd:integer }?
       ,attribute border-top-style { "solid" }?
-      ,attribute border-top-color { "#000000" }?
-      ,attribute border-top-width { "0.25pt" | "0.5pt" | "0.75pt" }?
+      ,attribute border-top-color { "#000000" | "#008000" }?
+      ,attribute border-top-width { "0.25pt" | "0.5pt" | "0.75pt" | "1.5pt" }?
       ,attribute border-bottom-style { "solid" }?
       ,attribute border-bottom-color { "#000000" }?
       ,attribute border-bottom-width { "0.25pt" | "0.5pt" | "0.75pt" }?
-      ,attribute margin-left { xsd:integer }
+      ,attribute margin-left { xsd:integer | "" }
 			,attribute border-left-style { "solid" }?
 			,attribute border-left-color { "#000000" }?
 			,attribute border-left-width { "0.5pt" }?
 			,attribute border-right-style { "solid" }?
 			,attribute border-right-color { "#000000" }?
 			,attribute border-right-width { "0.5pt" }?
-      ,para+
+      ,(para+ | empty)
     }+
   }
 
@@ -278,16 +282,10 @@ motion =
 
 lista =
   element list {
-    attribute type { "loweralpha" | "decimal" | "unadorned" | "lowerroman" | "upperalpha" | "upperroman-dotted" | "decimal-dotted" }
+    attribute type { "bullet" | "loweralpha" | "decimal" | "unadorned" | "lowerroman" | "upperalpha" | "upperroman-dotted" | "decimal-dotted" | "loweralpha-dotted" }
     ,element item {
-      attribute label { text }
+      attribute label { text }?
       ,(para | lista | table)+
-    }+
-  } | element list {
-    attribute type { "bullet" }
-    ,element item {
-      para
-      ,lista?
     }+
   }
 
@@ -299,7 +297,8 @@ session.header =
     ,element period.no { xsd:integer }
     ,element chamber { "REPS" | "SENATE" }
     ,element page.no { xsd:integer }
-    ,element proof { "0" }
+    # The empty "" looks suspicious to me
+    ,element proof { "0" | "" }
   }
 
 talker =
@@ -331,19 +330,26 @@ talker =
 
 para =
   element para {
-    attribute class { "block" | "ParlAmend" | "hdg5s" | "subsection" | "italic" | "smalltableleft" | "indenta" | "indentii" | "centre" | "ItemHead" | "Item" | "Definition" }?
+    attribute class { "block" | "ParlAmend" | "hdg5s" | "subsection" | "italic" | "smalltableleft" | "indenta" | "indentii" | "centre" | "ItemHead" | "Item" | "Definition" | "bold" }?
     ,attribute pgwide { "yes" }?
     ,para-text
   }
   
 para-text =
-  text+ & inline*
+  text+ & inline* & graphic*
+
+graphic =
+	element graphic {
+		attribute href { text }
+		,empty
+	}
 
 inline = 
   element inline {
     attribute ref { text }?
     ,attribute font-weight { "bold" }?
-    ,attribute font-size { "2pt" | "3pt" | "6pt" | "7pt" | "8pt" | "8.5pt" | "9pt" | "9.5pt" | "10pt" | "10.5pt" | "11pt" | "12pt" | "13pt" | "14pt" | "15pt" | "16pt" }?
+    # Font size can be something 2pt, 8.5pt, etc...
+    ,attribute font-size { text }?
     ,attribute font-style { "italic" }?
 		,attribute font-variant { "subscript" | "superscript"}?
     ,(text+ & inline*) 
