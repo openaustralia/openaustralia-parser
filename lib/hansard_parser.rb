@@ -70,7 +70,7 @@ class HansardParser
   # Returns HansardDate object for a particular day
   def hansard_day_on_date(date, house)
     text = hansard_xml_source_data_on_date(date, house)
-    HansardDay.new(Hpricot.XML(text)) if text
+    HansardDay.new(Hpricot.XML(text), @logger) if text
   end
   
   # Parse but only if there is a page that is at "proof" stage
@@ -91,7 +91,7 @@ class HansardParser
     day = hansard_day_on_date(date, house)
     if day
       @logger.info "Parsing #{house} speeches for #{date.strftime('%a %d %b %Y')}..."    
-      logger.warn "In proof stage" if day.in_proof?
+      @logger.warn "In proof stage" if day.in_proof?
       day.pages.each do |page|
         content = true
         #throw "Unsupported: #{page.full_hansard_title}" unless page.supported? || page.to_skip? || page.not_yet_supported?
