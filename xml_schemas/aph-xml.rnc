@@ -20,9 +20,10 @@ start = element hansard {
 petition.group =
 	element petition.group {
 		element petition.groupinfo {
+			# Why are title and type here, if they're always set to the same value in a petition.groupinfo?
 			element title { "PETITIONS" }
 			,element page.no { xsd:integer }
-			,element type { "Petitions" }
+			,element type { "Petitions" | "PETITIONS" }
 		}
 		,interjection
 		,petition+
@@ -37,15 +38,17 @@ petition =
 			,element name.ids {
 				element name.id { text }+
 			}
+			# There should be only one names block and multiple name blocks underneath
 			,element names {
 				element name { text }+
-			}
-			,element no.signed { xsd:integer }
-			,element page.no { xsd:integer }
+			}+
+			,element no.signed { xsd:integer }?
+			# There should only be a single page.no and it should only have numbers in it, right?
+			,element page.no { text }*
 		}
 		,(quote | para)+
 		,element presenter {
-			element no.signed { xsd:integer }
+			element no.signed { xsd:integer }?
 			,talk.start
 		}+
 		,para?
@@ -67,12 +70,19 @@ adjournment =
     ,para
   }
 
+# The debatinfo block should never be empty
 debateinfo =
   element debateinfo {
-    title+
+    title*
+    # Why are name.id and name in a debateinfo block? Surely they belong with a speech
+		,element name.id { text }?
+		,element name {
+			attribute role { "metadata" }
+			,text
+		}?
     ,element page.no { xsd:integer }*
     ,time.stamp?
-    ,element type { text }
+    ,element type { text }?
     ,element id.no { text }?
     ,element cognate {
       para?
@@ -102,21 +112,34 @@ title =
 debate =
   element debate {
     debateinfo
-    ,(subdebate.1 | motionnospeech | division | interjection | speech | para | motion | quote | continue)+
+		# There should really always be one of the following
+    ,(subdebate.1 | motionnospeech | division | interjection | speech | para | motion | quote | continue | question | answer | table)*
   }
 
 subdebate.1 =
   element subdebate.1 {
     subdebateinfo
-# Would expect that there should be at least one of the following
+		# Would expect that there should be at least one of the following
     ,(subdebate.2 | motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista | interrupt | amendments | table | continue | separator)*
   }
 
 subdebate.2 =
   element subdebate.2 {
     subdebateinfo
-    ,(motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista | interrupt | amendments | table | continue)+
+    ,(subdebate.3 | motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista | interrupt | amendments | table | continue)+
   }
+
+subdebate.3 =
+	element subdebate.3 {
+		subdebateinfo
+		,subdebate.4+
+	}
+
+subdebate.4 =
+	element subdebate.4 {
+		subdebateinfo
+		,(para | interjection | motion | lista | division)+
+	}
 
 question =
   element question {
@@ -127,7 +150,7 @@ question =
 answer =
   element answer {
     talk.start
-    ,(quote | para | continue | interjection | motion | table)*
+    ,(quote | para | continue | interjection | motion | table | interrupt | separator)*
   }
 
 interjection =
@@ -141,10 +164,10 @@ division =
       time.stamp
       ,para
     }
-    ,para
+    ,para+
     ,division.data
     # The table shouldn't really be here. It happens when a division has been marked up with a table rather than division.data (why?)
-    ,(para | table)+
+    ,(para | table)*
     ,element division.result {
       para
     }
@@ -184,7 +207,7 @@ motionnospeech =
     ,element role { text }
     ,time.stamp
     ,inline
-		,(motion | para | lista | quote | separator | continue | interjection | amendments | interrupt)*
+		,(motion | para | lista | quote | separator | continue | interjection | amendments | interrupt | table)*
   }
 
 speech =
@@ -254,7 +277,7 @@ entry =
 		,attribute border-right-style { "solid" }?
 		,attribute border-right-color { "#000000" }?
 		,attribute border-right-width { point-size }?
-    ,((para | quote)+ | empty)
+    ,(para | quote)*
   }
   
 continue =
@@ -273,7 +296,8 @@ amendments =
 quote =
   element quote {
     attribute pgwide { "yes" }?
-    ,(para | lista | table)+
+		# Surely a quote should never be empty?
+    ,(para | lista | table)*
   }
 
 talk.start =
@@ -290,7 +314,14 @@ motion =
 
 lista =
   element list {
-    attribute type { "bullet" | "loweralpha" | "decimal" | "unadorned" | "lowerroman" | "upperalpha" | "upperroman-dotted" | "decimal-dotted" | "loweralpha-dotted" }
+    attribute type {
+			"loweralpha" | "lowerroman"
+			| "loweralpha-dotted" | "lowerroman-dotted"
+			| "upperalpha"
+			| "upperalpha-dotted" | "upperroman-dotted" 
+			| "bullet" | "decimal" | "unadorned"
+			| "decimal-dotted" 
+		}
 		,attribute pgwide { "yes" }?
     # Really shouldn't expect a list ever to be empty
 		,element item {
@@ -341,9 +372,13 @@ talker =
 
 para =
   element para {
-    attribute class { "block" | "ParlAmend" | "hdg5s" | "subsection" | "italic" | "smalltableleft" | "indenta" | "indentii" | "centre" | "ItemHead" | "Item" | "Definition" | "bold" | "smalltablejustified" }?
+    attribute class {
+			# It's not at all clear what these all mean
+			"block" | "ParlAmend" | "hdg5s" | "subsection" | "italic" | "smalltableleft" | "indenta" | "indentii" | "centre" | "ItemHead" | "Item" | "Definition" | "bold" | "smalltablejustified" | "heading"
+		}?
     ,attribute pgwide { "yes" }?
-    ,para-text
+		# It seems very silly to allow a para inside a para
+    ,(para-text | para+)
   }
   
 para-text =
@@ -370,6 +405,11 @@ point-size =
 	xsd:string { pattern = "[0-9]+(\.(25|5|75))?pt" }
 	
 time.stamp =
-	# Added exception for clearly bogus timestamp below
-	element time.stamp { xsd:time | "09:423:00" }
+	element time.stamp {
+		xsd:time
+		# Added exception for clearly bogus timestamp below
+		| "09:423:00"
+		# Somehow Nan's are creeping through into the output. Clearly wrong 
+		| xsd:string { pattern = "(00|NaN):(00|NaN):(00|NaN)" }
+	}
 

@@ -5,7 +5,7 @@ $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require 'hansard_parser'
 
-from = Date.new(2007, 1, 1)
+from = Date.new(2006, 1, 1)
 to = Date.new(2008, 1, 1) - 1
 
 # Don't need to set 'people'
