@@ -153,5 +153,17 @@ describe HansardSpeech, "should clean content" do
     content = '<inline ref="R2715">Some text</inline>'
     expected = '<a href="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/R2715">Some text</a>'
     HansardSpeech.clean_content_inline(Hpricot.XML(content).at('inline')).should == expected
-  end  
+  end
+  
+  it "paragraph with superscript" do
+    content = '<para>E = mc<inline font-variant="superscript">2</inline></para>'
+    expected = '<p>E = mc<sup>2</sup></p>'
+    HansardSpeech.clean_content_para(Hpricot.XML(content).at('para')).should == expected
+  end
+  
+  it "paragraph with subscript" do
+    content = '<para>CO<inline font-variant="subscript">2</inline></para>'
+    expected = '<p>CO<sub>2</sub></p>'
+    HansardSpeech.clean_content_para(Hpricot.XML(content).at('para')).should == expected
+  end
 end

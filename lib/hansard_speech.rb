@@ -124,9 +124,16 @@ class HansardSpeech
       end
     end
 
-    # TODO: This is wrong but will do for the time being
-    attributes_keys.delete('font-variant')
-
+    if attributes_keys.delete('font-variant')
+      if e.attributes['font-variant'] == 'superscript'
+        text = '<sup>' + text + '</sup>'
+      elsif e.attributes['font-variant'] == 'subscript'
+        text = '<sub>' + text + '</sub>'
+      else
+        throw "Unexpected font-variant value #{e.attributes['font-variant']}"
+      end
+    end
+    
     unless attributes_keys.empty?
       throw "Unexpected attributes #{attributes_keys.join(', ')}"
     end
