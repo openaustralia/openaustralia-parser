@@ -63,7 +63,13 @@ class HansardParser
     if tag && tag.inner_html =~ /^Unable to find document/
       nil
     else
-      agent.click(page.links.text("View/Save XML")).body
+      link = page.links.text("View/Save XML")
+      if link.empty?
+        @logger.error "Link to XML download is missing"
+        nil
+      else
+        agent.click(link).body
+      end
     end
   end
     
