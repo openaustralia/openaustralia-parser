@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-# Saves all source XML data for 2007 into the directory "source". This is used to test the grammar aph-xml.rnc against
+# Saves source XML data into the directory "source". This is used to test the grammar aph-xml.rnc against
 
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
@@ -8,22 +8,33 @@ require 'hansard_parser'
 from = Date.new(2005, 1, 1)
 to = Date.new(2008, 1, 1) - 1
 
-# Don't need to set 'people'
-parser = HansardParser.new(nil)
-
-FileUtils.mkdir_p "source"
+FileUtils.mkdir_p "source/2.0"
+FileUtils.mkdir_p "source/2.1"
 
 def write_tidied_xml(text, filename)
   File.open(filename, 'w') {|f| f << text }
   system("tidy -q -i -w 200 -xml -utf8 -o #{filename} #{filename}")
 end
 
+def write_hansard_xml_source_data_on_date(date, house)
+  # Don't need to set 'people'
+  parser = HansardParser.new(nil)
+
+  text = parser.hansard_xml_source_data_on_date(date, house)
+  if text
+    # Figure out which version of the schema this file is using and save it into a directory based on that
+    version = Hpricot.XML(text).at('hansard').attributes['version']
+    if version != "2.0" && version != "2.1"
+      throw "Unrecognised schema version #{version}"
+    end
+    write_tidied_xml(text, "source/#{version}/#{date}-#{house.representatives? ? "reps" : "senate"}.xml")
+  end
+end
+
 (from..to).each do |date|
   puts "Downloading and saving XML data for #{date}..."
-  text = parser.hansard_xml_source_data_on_date(date, House.representatives)
-  write_tidied_xml(text, "source/#{date}-reps.xml") if text
-  text = parser.hansard_xml_source_data_on_date(date, House.senate)
-  write_tidied_xml(text, "source/#{date}-senate.xml") if text
+  write_hansard_xml_source_data_on_date(date, House.representatives)
+  write_hansard_xml_source_data_on_date(date, House.senate)
 end
 
 
