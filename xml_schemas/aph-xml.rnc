@@ -109,24 +109,27 @@ title =
     para-text | title
   }
 
+common-speech-elements =
+	motionnospeech | division | interjection | speech | para | motion | quote | question | answer | table | lista | continue
+	
 debate =
   element debate {
     debateinfo
 		# There should really always be one of the following
-    ,(subdebate.1 | motionnospeech | division | interjection | speech | para | motion | quote | continue | question | answer | table)*
+    ,(subdebate.1 | common-speech-elements)*
   }
 
 subdebate.1 =
   element subdebate.1 {
     subdebateinfo
 		# Would expect that there should be at least one of the following
-    ,(subdebate.2 | motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista | interrupt | amendments | table | continue | separator)*
+    ,(subdebate.2 | common-speech-elements | interrupt | amendments | separator)*
   }
 
 subdebate.2 =
   element subdebate.2 {
     subdebateinfo
-    ,(subdebate.3 | motionnospeech | division | interjection | speech | para | motion | quote | question | answer | lista | interrupt | amendments | table | continue)+
+    ,(subdebate.3 | common-speech-elements | interrupt | amendments)+
   }
 
 subdebate.3 =
@@ -232,7 +235,7 @@ table =
     ,attribute margin-left { xsd:integer }?
     ,attribute orient { "landscape" }?
     ,attribute border-top-style { "solid" }?
-    ,attribute border-top-color { "#000000" }?
+    ,attribute border-top-color { "#000000" | "#008000" }?
     ,attribute border-top-width { point-size }?
     ,attribute border-bottom-style { "solid" }?
     ,attribute border-bottom-color { "#000000" }?
@@ -321,7 +324,7 @@ lista =
 			| "upperalpha-dotted" | "upperroman-dotted" 
 			| "bullet" | "decimal" | "unadorned"
 			| "decimal-dotted" 
-		}
+		}?
 		,attribute pgwide { "yes" }?
     # Really shouldn't expect a list ever to be empty
 		,element item {
