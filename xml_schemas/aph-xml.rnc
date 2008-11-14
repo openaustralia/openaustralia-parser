@@ -12,9 +12,10 @@ start = element hansard {
     business.start
     ,(debate | adjournment | interrupt)+
   }?
+	# Why should there be more than one answers.to.questions block?
   ,element answers.to.questions {
     debate
-	}?
+	}*
 }
 
 petition.group =
@@ -25,8 +26,10 @@ petition.group =
 			,element page.no { xsd:integer }
 			,element type { "Petitions" | "PETITIONS" }
 		}
-		,interjection
-		,petition+
+		# Looks like (in at least one case) a second interjection block here is a straight duplicate of the first
+		,interjection*
+		# Surely, there should be at least one petition block?
+		,petition*
 		# Seems strange for this to be here
 		,subdebate.1?
 	}
@@ -52,6 +55,7 @@ petition =
 			,talk.start
 		}+
 		,para?
+		,speech?
 	}
 
 business.start =
@@ -80,18 +84,21 @@ debateinfo =
 			attribute role { "metadata" }
 			,text
 		}?
-    ,element page.no { xsd:integer }*
+		# Content of a page.no should really only be an integer
+    ,element page.no { text }*
     ,time.stamp?
     ,element type { text }?
     ,element id.no { text }?
+		,element type { text }?
     ,element cognate {
       para?
       # Wouldn't expect the cognateinfo ever to be allowed to be empty
       ,element cognateinfo {
         title*
-        ,element page.no { xsd:integer }?
+				# Why should there be repeats of these 3 elements?
+        ,(element page.no { xsd:integer }?
         ,element type { text }?
-        ,element id.no { text }?
+        ,element id.no { text }?)+
       }
     }*
   }
@@ -135,13 +142,13 @@ subdebate.2 =
 subdebate.3 =
 	element subdebate.3 {
 		subdebateinfo
-		,subdebate.4+
+		,(subdebate.4 | interjection | motionnospeech)+
 	}
 
 subdebate.4 =
 	element subdebate.4 {
 		subdebateinfo
-		,(para | interjection | motion | lista | division)+
+		,(para | interjection | motion | lista | division | speech)+
 	}
 
 question =
@@ -238,8 +245,11 @@ table =
     ,attribute border-top-color { "#000000" | "#008000" }?
     ,attribute border-top-width { point-size }?
     ,attribute border-bottom-style { "solid" }?
-    ,attribute border-bottom-color { "#000000" }?
+    ,attribute border-bottom-color { "#000000" | "#008000" }?
     ,attribute border-bottom-width { point-size }?
+		,attribute border-right-style { "solid" }?
+		,attribute border-right-color { "#000000" }?
+		,attribute border-right-width { point-size }?
     ,tgroup
   }
 
@@ -312,7 +322,7 @@ talk.start =
 motion =
   element motion {
     attribute pgwide { "yes" }?
-    ,(para | lista)+
+    ,(para | lista | table)+
   }
 
 lista =
@@ -380,8 +390,8 @@ para =
 			"block" | "ParlAmend" | "hdg5s" | "subsection" | "italic" | "smalltableleft" | "indenta" | "indentii" | "centre" | "ItemHead" | "Item" | "Definition" | "bold" | "smalltablejustified" | "heading"
 		}?
     ,attribute pgwide { "yes" }?
-		# It seems very silly to allow a para inside a para
-    ,(para-text | para+)
+		# It seems very silly to allow a para or a table inside a para
+    ,(para-text | para+ | table)
   }
   
 para-text =
@@ -390,6 +400,8 @@ para-text =
 graphic =
 	element graphic {
 		attribute href { text }
+		,attribute height { xsd:integer }?
+		,attribute width { xsd:integer }?
 		,empty
 	}
 
@@ -411,8 +423,8 @@ time.stamp =
 	element time.stamp {
 		xsd:time
 		# Added exception for clearly bogus timestamp below
-		| "09:423:00"
+		| "09:423:00" | "13:445:00"
 		# Somehow Nan's are creeping through into the output. Clearly wrong 
-		| xsd:string { pattern = "(00|NaN):(00|NaN):(00|NaN)" }
+		| xsd:string { pattern = "([0-9]{2}|NaN):([0-9]{2}|NaN):([0-9]{2}|NaN)" }
 	}
 
