@@ -1,0 +1,44 @@
+# What pages to split the scans of the Register of Members' and Senators' Interests
+# on for each Senator/Member.
+# Filename: Register - Vol 1 A-F - September 2008.pdf
+
+Start page      Surname                 Other Names
+1               Abetz                   Eric
+7               Adams                   Judith Anne
+13              Arbib                   Mark Victor
+19              Barnett                 Guy
+24              ** Blank page **
+25              Bernardi                Cory
+31              Bilyk                   Catryna Louise
+37              Birmingham              Simon John
+43              Bishop                  Mark
+49              Boswell                 Ronald Leslie
+55              Boyce                   Sue
+61              Brandis                 Goerge Henry
+67              Brown                   Carol Louise
+74              ** Blank page **
+75              Brown                   Robert James
+81              Bushby                  David Christopher
+87              Cameron                 Douglas Niven
+93              Carr                    Kim John
+99              Cash                    Michaelia Clare
+107             Cobeck                  Richard Mansell
+113             Collins                 Jacinta Mary Ann
+119             Conroy                  Stephen Michael
+125             Coonan                  Helen Ann Lloyd
+131             Cormann                 Mathias Hubert Paul
+137             Crossin                 Patricia (Trish)
+143             Eggleston               Alan
+149             Ellison                 Christopher Martin
+155             Evans                   Christopher Vaughan
+161             Farrell                 Donald Edward
+167             Faulkner                John Philip
+173             Feeney                  David Ian
+179             Ferguson                Alan Baird
+185             Fielding                Steven Murray
+191             Fierravanti-Wells       Concetta
+196             ** Blank page **
+197             Fifield                 Mitchell Peter
+203             Fisher                  Mary Josephine
+209             Forshaw                 Michael George
+215             Furner                  Mark Lionel
