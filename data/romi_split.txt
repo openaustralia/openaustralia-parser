@@ -42,3 +42,51 @@ Start page      Surname                 Other Names
 203             Fisher                  Mary Josephine
 209             Forshaw                 Michael George
 215             Furner                  Mark Lionel
+
+# Filename: Register - Vol 2 G-Z - September 2008.pdf
+
+Start page      Surname                 Other Names
+1               Hanson-Young            Sarah
+7               Heffernan               William Daniel
+13              Hogg                    John Joseph
+19              Humphries               Gary
+24              ** Blank page **
+25              Hurley                  Annette Kay
+31              Hutchins                Stephen Patrick
+37              Johnston                David Albert Lloyd
+44              ** Blank page **
+45              Joyce                   Barnaby Thomas Gerard
+51              Kroger                  Helen Evelyn
+57              Ludlam                  Scott
+63              Ludwig                  Joseph
+71              Lundy                   Kate Alexandra
+77              Macdonald               Ian Douglas
+83              Marshall                Gavin Mark
+89              Mason                   Brett
+95              McEwen                  Anne
+101             McGauran                Julian John
+107             McLucas                 Jan Elizabeth
+113             Milne                   Christine Anne
+119             Minchin                 Nicholas Hugh
+126             ** Blank page **
+127             Moore                   Claire Mary
+133             Nash                    Fiona Joy
+139             O'Brien                 Kerry Williams Kelso
+145             Parry                   Stephen Shane
+151             Payne                   Marise Ann
+157             Polley                  Helen Beatrice
+163             Pratt                   Louise Clare
+169             Ronald (sp?)            Richard John Clyd
+175             Ryan                    Scott Michael
+181             Scullion                Nigel
+187             Sherry                  Nick
+193             Siewert                 Rachel Mary
+200             ** Blank page **
+201             Stephens                Ursula Mary
+207             Sterle                  Glenn
+213             Troeth                  Judith Mary
+219             Trood                   Russell Brunell
+225             Williams                John Reginald
+231             Wong                    Penelope Ying-Yen
+237             Wortley                 Dana Johanna
+243             Xenophon                Nicholas
