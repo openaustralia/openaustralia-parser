@@ -56,7 +56,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 54,,Blunt,Charles,William,,,
 55,,Bolkus,Nick,,,,
 56,,Bonner,Neville,Thomas,,,
-57,,Boswell,Ron,Leslie Doyle,,,,Boswell,Ronald,Leslie Doyle
+57,,Boswell,Ron,Leslie Doyle,,,,Boswell,Ronald,Leslie Doyle,,Boswell,Ronald,Leslie
 58,,Bourchier,John,William,,,
 59,,Bourne,Vicki,Worrall,,,
 60,,Bowen,Chris,Eyles,,,,Bowen,Christopher,Eyles
@@ -150,7 +150,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 141,,Conquest,Bryan,Joseph,,,
 142,,Conroy,Stephen,Michael,,,
 143,,Cook,Peter,Francis Salmon,,,
-144,,Coonan,Helen,Lloyd,,,
+144,,Coonan,Helen,Lloyd,,,,Coonan,Helen,Ann Lloyd
 145,,Cooney,Bernard,Cornelius,,,
 146,,Corbett,James,,,,
 147,,Corcoran,Ann,Kathleen,,,
@@ -229,13 +229,13 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 218,,Ferguson,Martin,John,,,
 219,,Ferguson,Michael,Darrel,,,
 220,,Ferris,Jeannie,Margaret,,,
-221,,Fielding,Steve,,,,
+221,,Fielding,Steve,,,,,Fielding,Steven,Murray
 222,,Fierravanti-Wells,Concetta,Anna,,,
 223,,Fife,Wallace,Clyde,,,
 224,,Fifield,Mitch,Peter,,,,Fifield,Mitchell,Peter
 225,,Filing,Paul,Anthony,,,
 226,,Fischer,Tim,Andrew,,,,Fischer,Timothy,Andrew
-227,,Fisher,Mary,Jo,,,
+227,,Fisher,Mary,Jo,,,,Fisher,Mary,Josephine
 228,,Fisher,Peter,Stanley,,,
 229,,Fitzgibbon,Eric,John,,,
 230,,Fitzgibbon,Joel,Andrew,,,
