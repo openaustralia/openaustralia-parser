@@ -18,13 +18,14 @@ pdftk = "/usr/local/bin/pdftk"
 
 people = PeopleCSVReader.read_members
 
-pdf_filename = "data/register_of_interests/senate/2008_sep_vol_1.pdf"
-split_filename = "data/register_of_interests/senate/2008_sep_vol_1.split"
 result_dir = "data/register_of_interests"
 
 PageRange = Struct.new(:filename, :start, :end)
 
-def read_in_ranges(p, pdf_filename, split_filename, date, house, people)
+def read_in_ranges(p, filename_prefix, date, house, people)
+  pdf_filename = "data/register_of_interests/#{filename_prefix}.pdf"
+  split_filename = "data/register_of_interests/#{filename_prefix}.split"
+  
   # Read in one split file
   data = CSV.readlines(split_filename)
   # Throw away first line (comment)
@@ -52,11 +53,23 @@ end
 # Hash from person to array of page ranges
 p = {}
 
-read_in_ranges(p, pdf_filename, split_filename, Date.new(2008, 9, 1), House.senate, people)
+read_in_ranges(p, "senate/2008_sep_vol_1", Date.new(2008, 9, 1), House.senate, people)
+read_in_ranges(p, "senate/2008_sep_vol_2", Date.new(2008, 9, 1), House.senate, people)
+read_in_ranges(p, "senate/2008_dec", Date.new(2008, 12, 1), House.senate, people)
 
 # Now step through all the people and create the pdfs
 p.each do |person, ranges|
-  command = "#{pdftk} #{ranges.first.filename} cat #{ranges.first.start}-#{ranges.first.end} output #{result_dir}/roi_#{person.id_count}.pdf"
+  filenames = []
+  pages = []
+  ranges.each_index do |i|
+    letter = 'A'
+    letter[0] = letter[0] + i
+    filenames << "#{letter}=#{ranges[i].filename}"
+    pages << "#{letter}#{ranges[i].start}-#{ranges[i].end}"
+  end
+  filenames = filenames.join(' ')
+  pages = pages.join(' ')
+  command = "#{pdftk} #{filenames} cat #{pages} output #{result_dir}/roi_#{person.id_count}.pdf"
   puts "Splitting and combining pdfs for #{person.name.full_name}..."
   system(command)  
 end

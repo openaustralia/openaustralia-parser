@@ -443,7 +443,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 432,,McDougall,Graeme,Robert,,,
 433,,McEwen,Anne,,,,
 434,,McFarlane,Jann,Sonya,,,
-435,,McGauran,Julian,John James,,,
+435,,McGauran,Julian,John James,,,,McGauran,Julian,John
 436,,McGauran,Peter,John,,,
 437,,McHugh,Jeannette,,,,
 438,,McIntosh,Gordon,Douglas,,,
@@ -686,7 +686,7 @@ person count,title,last name,first name,middle name,post title,birthday,alt titl
 675,,Wilton,Gregory,Stuart,,,
 676,,Windsor,Tony,Harold Curties,,,,Windsor,Antony,Harold Curties
 677,,Withers,Reginald,Greive,,,
-678,,Wong,Penny,Ying Yen,,,,Wong,Penelope,Ying Yen
+678,,Wong,Penny,Ying Yen,,,,Wong,Penelope,Ying Yen,,Wong,Penelope,Ying-Yen
 679,,Wood,Jason,Peter,,,
 680,,Wood,William,Robert,,,
 681,,Woodley,John,,,,
