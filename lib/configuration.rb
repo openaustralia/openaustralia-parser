@@ -2,7 +2,8 @@ require 'yaml'
 
 class Configuration
   # TODO: Could have conflicts between these and names in the configuration file
-  attr_reader :database_host, :database_user, :database_password, :database_name, :file_image_path, :members_xml_path, :xml_path
+  attr_reader :database_host, :database_user, :database_password, :database_name, :file_image_path, :members_xml_path, :xml_path,
+    :regmem_pdf_path, :base_dir
   
   @@conf = nil
   
@@ -23,6 +24,8 @@ class Configuration
     @file_image_path = MySociety::Config.get('FILEIMAGEPATH')
     @members_xml_path = MySociety::Config.get('PWMEMBERS')
     @xml_path = MySociety::Config.get('RAWDATA')
+    @regmem_pdf_path = MySociety::Config.get('REGMEMPDFPATH')
+    @base_dir = MySociety::Config.get('BASEDIR')
   end
   
   # Ruby magic

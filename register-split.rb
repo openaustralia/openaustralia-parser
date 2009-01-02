@@ -12,14 +12,14 @@ $:.unshift "#{File.dirname(__FILE__)}/lib"
 require 'csv'
 require 'name'
 require 'people'
+require 'configuration'
 
 # Full path to pdftk executable
 pdftk = "/usr/local/bin/pdftk"
 
 people = PeopleCSVReader.read_members
 
-result_dir = "data/register_of_interests"
-
+conf = Configuration.new
 PageRange = Struct.new(:filename, :start, :end)
 
 def read_in_ranges(p, filename_prefix, date, house, people)
@@ -69,7 +69,7 @@ p.each do |person, ranges|
   end
   filenames = filenames.join(' ')
   pages = pages.join(' ')
-  command = "#{pdftk} #{filenames} cat #{pages} output #{result_dir}/roi_#{person.id_count}.pdf"
+  command = "#{pdftk} #{filenames} cat #{pages} output #{conf.base_dir}#{conf.regmem_pdf_path}/#{person.id_count}.pdf"
   puts "Splitting and combining pdfs for #{person.name.full_name}..."
   system(command)  
 end
