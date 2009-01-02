@@ -9,3 +9,4 @@ coverage/*
 parser.log
 xml_schemas/aph-pages-*.xml
 tests-regression/ref/*.xml
+data/register_of_interests/senate/*.pdf
