@@ -69,7 +69,7 @@ p.each do |person, ranges|
   end
   filenames = filenames.join(' ')
   pages = pages.join(' ')
-  command = "#{pdftk} #{filenames} cat #{pages} output #{conf.base_dir}#{conf.regmem_pdf_path}/#{person.id_count}.pdf"
+  command = "#{pdftk} #{filenames} cat #{pages} output #{conf.base_dir}#{conf.regmem_pdf_path}/register_interests_#{person.id_count}.pdf"
   puts "Splitting and combining pdfs for #{person.name.full_name}..."
   system(command)  
 end
