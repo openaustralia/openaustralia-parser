@@ -64,8 +64,8 @@ class HansardParser
     if tag && tag.inner_html =~ /^Unable to find document/
       nil
     else
-      link = page.links.text("View/Save XML")
-      if link.empty?
+      link = page.link_with(:text => "View/Save XML")
+      if link.nil?
         @logger.error "Link to XML download is missing"
         nil
       else

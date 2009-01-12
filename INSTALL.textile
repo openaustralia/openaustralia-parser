@@ -14,7 +14,7 @@ h2. Requirements
 *  Apache + PHP + MySQL (we've tested with Apache 2.X.X, PHP5, MySQL 5.0.x)
 *  Ruby (we've used the included version in Leopard)
 *  the following rubygems
-**  mechanize
+**  mechanize (version 0.8.5)
 **  builder
 **  rmagick
    (this has dependencies like GraphicsMagick/ImageMagick, which in turn needs
@@ -70,7 +70,7 @@ $ sudo apt-get install apache2 php5 php5-cli mysql-server libmysqlclient15-dev g
 Install the required rubygems:
 
 <pre>
-$ sudo gem install mechanize -v 0.6.10
+$ sudo gem install mechanize -v 0.8.5
 $ sudo gem install builder
 $ sudo gem install rmagick
 $ sudo gem install rcov
@@ -80,7 +80,7 @@ $ sudo gem install activesupport
 $ sudo gem install log4r
 </pre>
 
-Note: Currently OpenAustralia requires an older version of mechanize (0.6.10), but this might change in the future.
+Note: Currently OpenAustralia requires an older version of mechanize (0.8.5), but this might change in the future.
 
 As the parsing of XML files to insert into the database is done with Perl (and there's quite a few scripts in Perl), you will need a few Perl CPAN modules:
 
