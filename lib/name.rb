@@ -1,10 +1,6 @@
 require 'enumerator'
 require 'rubygems'
-<<<<<<< HEAD:lib/name.rb
-gem 'activesupport', '= 2.1'
-=======
 gem 'activesupport', ">= 2.2"
->>>>>>> update-gems:lib/name.rb
 require 'activesupport'
 
 $KCODE = 'u'
