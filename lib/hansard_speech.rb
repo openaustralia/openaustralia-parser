@@ -1,4 +1,5 @@
 require 'rubygems'
+gem 'activesupport', ">= 2.2"
 require 'activesupport'
 require 'hpricot_additions'
 
@@ -70,7 +71,7 @@ class HansardSpeech
     # Unicode Character 'Non-breaking hyphen' (U+2011)
     nbhyphen = [0x2011].pack('U')
     
-    t = text.chars.gsub(nbhyphen, '-')
+    t = text.mb_chars.gsub(nbhyphen, '-')
     # TODO: Not handling dashes and nbsp the same here. Should really be stripping whitespace completely before doing
     # anything for consistency sake.
     if t.strip[0..0] == '—'

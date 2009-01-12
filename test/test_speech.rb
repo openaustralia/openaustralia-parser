@@ -9,6 +9,7 @@ require 'period'
 require 'speech'
 require 'date'
 require 'builder_alpha_attributes'
+gem 'activesupport', ">= 2.2"
 require 'activesupport'
 
 $KCODE = 'u'
@@ -34,7 +35,7 @@ class TestSpeech < Test::Unit::TestCase
     nbsp = [160].pack('U')
     doc = Hpricot("<p>Q&A#{nbsp}—</p>")
     # Make sure that you normalise the unicode before comparing.
-    assert_equal("<p>Q&A#{nbsp}—</p>".chars.normalize, doc.to_s.chars.normalize)
+    assert_equal("<p>Q&A#{nbsp}—</p>".mb_chars.normalize, doc.to_s.mb_chars.normalize)
     
     coder = HTMLEntities.new
     assert_equal("Q&amp;A#{nbsp}—", coder.encode("Q&A#{nbsp}—", :basic))
