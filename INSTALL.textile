@@ -16,11 +16,14 @@ h2. Requirements
 *  the following rubygems
 **  mechanize
 **  builder
-**  RMagick
+**  rmagick
    (this has dependencies like GraphicsMagick/ImageMagick, which in turn needs
    ghostscript)
 **  rcov
 ** htmlentities
+**  rspec
+**  activesupport
+**  log4r
 *  "git":http://git.or.cz/
 
 h2. How to install all the dependencies
@@ -67,10 +70,13 @@ $ sudo apt-get install apache2 php5 php5-cli mysql-server libmysqlclient15-dev g
 Install the required rubygems:
 
 <pre>
-$ sudo gem install builder
-$ sudo gem install rcov
 $ sudo gem install mechanize -v 0.6.10
-$ sudo gem install RMagick
+$ sudo gem install builder
+$ sudo gem install rmagick
+$ sudo gem install rcov
+$ sudo gem install htmlentities
+$ sudo gem install rspec
+$ sudo gem install activesupport
 $ sudo gem install log4r
 </pre>
 
