@@ -80,8 +80,12 @@ class PeopleImageDownloader
     url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Dataset:allmps%20" + text.gsub(' ', '%20')
     page = @agent.get(url)
     # Check if the returned page is a valid one. If not just ignore it
-    tag = page.at('div#content center')
-    if tag.nil? || !tag.inner_html =~ /^Unable to find document/
+    tag1 = page.at('div#content center')
+    tag2 = page.at('div#content div.error')
+    if tag2 && tag2.inner_text =~ /There was an unexpected error while processing your request./
+      puts "WARNING: There seems to be a problem with the website we're downloading from. It's saying 'unexpected error' for the page #{url}"
+      nil
+    elsif tag1.nil? || !tag1.inner_html =~ /^Unable to find document/
       page
     end
   end
