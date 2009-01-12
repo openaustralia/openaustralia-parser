@@ -6,6 +6,7 @@ require 'builder_alpha_attributes'
 require 'house'
 require 'people_image_downloader'
 # Using Active Support (part of Ruby on Rails) for Unicode support
+gem 'activesupport', '= 2.1'
 require 'activesupport'
 require 'rubygems'
 require 'log4r'

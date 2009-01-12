@@ -1,5 +1,6 @@
 require 'enumerator'
 require 'rubygems'
+gem 'activesupport', '= 2.1'
 require 'activesupport'
 
 $KCODE = 'u'

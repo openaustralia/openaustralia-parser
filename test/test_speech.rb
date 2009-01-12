@@ -9,6 +9,7 @@ require 'period'
 require 'speech'
 require 'date'
 require 'builder_alpha_attributes'
+gem 'activesupport', '= 2.1'
 require 'activesupport'
 
 $KCODE = 'u'
