@@ -70,6 +70,7 @@ class HansardSpeech
   def HansardSpeech.strip_leading_dash(text)
     # Unicode Character 'Non-breaking hyphen' (U+2011)
     nbhyphen = [0x2011].pack('U')
+    nbsp = [160].pack('U')
     
     t = text.mb_chars.gsub(nbhyphen, '-')
     # TODO: Not handling dashes and nbsp the same here. Should really be stripping whitespace completely before doing
@@ -78,7 +79,7 @@ class HansardSpeech
       t.sub('—', '')
     # Also remove first non-breaking space (Really should remove them all but we're doing it this way for compatibility
     # with the previous parser
-    elsif t[0] == 160
+    elsif t[0] == nbsp
       t[1..-1]
     else
       t
