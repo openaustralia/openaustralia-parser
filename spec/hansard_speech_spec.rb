@@ -138,7 +138,7 @@ describe HansardSpeech, "should clean content" do
     nbsp = [160].pack('U')
     content = "<speech><para>#{nbsp}#{nbsp}#{nbsp} Foo</para></speech>"
     expected = "<p>#{nbsp}#{nbsp} Foo</p>"
-    HansardSpeech.clean_content_para(Hpricot.XML(content).at('para')).chars.normalize.should == expected.chars.normalize
+    HansardSpeech.clean_content_para(Hpricot.XML(content).at('para')).mb_chars.normalize.should == expected.mb_chars.normalize
   end
   
   it "in a graphic block" do

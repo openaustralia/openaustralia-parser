@@ -3,7 +3,8 @@
 # Stores cached html files in directory "html_cache_path" in configuration.yml
 
 require 'rubygems'
-gem 'mechanize', "= 0.6.10"
+# Not moving over to Mechanize 0.9 quite yet (as that uses nokogiri rather than hpricot by default)
+gem 'mechanize', "= 0.8.5"
 require 'mechanize'
 require 'configuration'
 
@@ -137,7 +138,7 @@ class MechanizeProxy
   
   def click(link)
     uri = @cache.to_absolute_uri(link.href, link.page)
-    @cache.load_and_cache_page(uri) { @agent.click(link) }
+    @cache.load_and_cache_page(uri) { @agent.get(uri) }
   end
   
   def transact
@@ -171,8 +172,11 @@ class PageProxy
     @doc
   end
   
-  def links
-    WWW::Mechanize::List.new(@doc.search('a').map{|e| LinkProxy.new(e, self)})
+  def link_with(args)
+    text = args.delete(:text)
+    throw "Currently not supporting anything other than :text args in link_with" unless args.empty?
+    tag = @doc.search('a').find{|e| e.inner_text == text}
+    LinkProxy.new(tag, self) if tag
   end
   
   def_delegator :@doc, :search, :search

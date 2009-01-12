@@ -6,7 +6,7 @@ require 'builder_alpha_attributes'
 require 'house'
 require 'people_image_downloader'
 # Using Active Support (part of Ruby on Rails) for Unicode support
-gem 'activesupport', '= 2.1'
+gem 'activesupport', ">= 2.2"
 require 'activesupport'
 require 'rubygems'
 require 'log4r'
@@ -64,8 +64,8 @@ class HansardParser
     if tag && tag.inner_html =~ /^Unable to find document/
       nil
     else
-      link = page.links.text("View/Save XML")
-      if link.empty?
+      link = page.link_with(:text => "View/Save XML")
+      if link.nil?
         @logger.error "Link to XML download is missing"
         nil
       else

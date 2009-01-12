@@ -1,6 +1,10 @@
 require 'enumerator'
 require 'rubygems'
+<<<<<<< HEAD:lib/name.rb
 gem 'activesupport', '= 2.1'
+=======
+gem 'activesupport', ">= 2.2"
+>>>>>>> update-gems:lib/name.rb
 require 'activesupport'
 
 $KCODE = 'u'
@@ -11,7 +15,7 @@ class Name
   
   def initialize(params)
     # First normalize the unicode.
-    params.map {|key, value| [key, (value.chars.normalize if value)]}
+    params.map {|key, value| [key, (value.mb_chars.normalize if value)]}
     
     @title = params[:title] || ""
     @first = (Name.capitalize_name(params[:first]) if params[:first]) || ""
@@ -38,7 +42,7 @@ class Name
   
   def Name.last_title_first(text)
     # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
-    text = text.chars.normalize
+    text = text.mb_chars.normalize
     # Do the following before the split so we can handle things like "(foo bar)"
     text = remove_text_in_brackets(text)
     names = text.delete(',').split(' ')
@@ -88,7 +92,7 @@ class Name
   
   def Name.title_first_last(text)
     # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
-    text = text.chars.normalize
+    text = text.mb_chars.normalize
     names = text.delete(',').split(' ')
     title = Name.extract_title_at_start(names)
     if names.size == 1
