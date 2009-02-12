@@ -70,6 +70,7 @@ end
 conf = Configuration.new
 
 FileUtils.mkdir_p "#{conf.xml_path}/scrapedxml/debates"
+FileUtils.mkdir_p "#{conf.xml_path}/scrapedxml/lordspages"
 FileUtils.mkdir_p "#{conf.xml_path}/scrapedxml/regmem"
 
 # Copy across file that is needed for the script xml2db to run but is not yet populated with data
