@@ -80,10 +80,10 @@ class PeopleImageDownloader
     url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Dataset:allmps%20" + text.gsub(' ', '%20')
     page = @agent.get(url)
     # Check if the returned page is a valid one. If not just ignore it
-    tag1 = page.at('div#content center')
+    tag1 = page.at('div#content')
     tag2 = page.at('div#content div.error')
     unless (tag2 && tag2.inner_text =~ /There was an unexpected error while processing your request./) ||
-      (tag1 && tag1.inner_html =~ /^Unable to find document/)
+      (tag1 && tag1.inner_html =~ /No results found/)
       page
     end
   end
