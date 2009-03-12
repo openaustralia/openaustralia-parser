@@ -171,6 +171,10 @@ class PageProxy
   def parser
     @doc
   end
+
+  def links
+    @doc.search('a').map{|e| LinkProxy.new(e, self)}
+  end
   
   def link_with(args)
     text = args.delete(:text)
