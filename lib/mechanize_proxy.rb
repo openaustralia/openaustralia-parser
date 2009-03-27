@@ -114,6 +114,8 @@ end
 class MechanizeProxy
   def initialize
     @agent = WWW::Mechanize.new
+    # For the time being force the use of Hpricot rather than nokogiri
+    WWW::Mechanize.html_parser = Hpricot 
     @cache = MechanizeProxyCache.new
   end
   
