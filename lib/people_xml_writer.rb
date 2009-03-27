@@ -1,4 +1,3 @@
-require 'rubygems'
 require 'builder_alpha_attributes'
 require 'configuration'
 

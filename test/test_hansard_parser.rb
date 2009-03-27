@@ -4,7 +4,6 @@ $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require 'test/unit'
 require 'hansard_parser'
-require 'rubygems'
 require 'hpricot'
 require 'people'
 

@@ -2,9 +2,7 @@
 #
 # Stores cached html files in directory "html_cache_path" in configuration.yml
 
-require 'rubygems'
-# Not moving over to Mechanize 0.9 quite yet (as that uses nokogiri rather than hpricot by default)
-gem 'mechanize', "= 0.8.5"
+require 'environment'
 require 'mechanize'
 require 'configuration'
 

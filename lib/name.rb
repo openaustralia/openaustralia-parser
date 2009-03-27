@@ -1,6 +1,5 @@
+require 'environment'
 require 'enumerator'
-require 'rubygems'
-gem 'activesupport', ">= 2.2"
 require 'activesupport'
 
 $KCODE = 'u'

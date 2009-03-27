@@ -1,5 +1,4 @@
-require 'rubygems'
-gem 'activesupport', ">= 2.2"
+require 'environment'
 require 'activesupport'
 require 'hpricot_additions'
 
