@@ -18,3 +18,9 @@ Is current as of May 2008 and goes back to 20th March 1996.
 
 postcodes.csv:
 From the Australian Bureau of Statistics <http://www.abs.gov.au/>
+
+people.csv:
+The "aph_id" field is the id for the person assigned by the aph.gov.au website. This is used looking up members in the Hansard.
+To find the aph_id for "Tony Abbott", for example, go to Parlinfo Search (http://parlinfo.aph.gov.au/) and do a search on the
+term "tony abbott Dataset:members,allmps". It should return two results. Look at the IDs of the documents. They should be
+of the form "handbook/members/<ID>" or "handbook/allmps/<ID>".  The last part is the "aph_id".
