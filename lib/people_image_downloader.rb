@@ -47,34 +47,6 @@ class PeopleImageDownloader
     end
   end
 
-  # For each person lookup their biography page on aph and use that to determine their aph_person_id. This is used
-  # later on to lookup speakers based on the link to their biography page. This is turn is double-checked with their
-  # name.
-  def attach_aph_person_ids(people)
-    each_person_bio_page(people) do |page|
-      name = extract_name(page)
-      matches = people.find_people_by_name(name)
-      # If there's more than one match for this person based on the name alone, click on the link, lookup their birthday
-      # and use that in a match as well
-      if matches.size > 1
-        person = people.find_person_by_name_and_birthday(name, extract_birthday(page))
-      else
-        person = matches.first
-      end
-      if person.nil?
-        puts "WARNING: Can not find '#{name.full_name}'"
-      else
-        person.aph_id = extract_aph_id(page)
-      end
-    end
-    
-    # Step through all the people and highlight the people that don't have aph person id's
-    #people_without_ids = people.find_all{|person| person.aph_id.nil?}
-    #unless people_without_ids.empty?
-    #  puts "WARNING: The following people don't have aph person id's: #{people_without_ids.map{|person| person.name.full_name}.join(', ')}"
-    #end
-  end
-  
   # Returns nil if page can't be found
   def biography_page_for_person_with_name(text)
     url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Dataset:allmps%20" + text.gsub(' ', '%20')
@@ -125,15 +97,6 @@ class PeopleImageDownloader
     end
   end
   
-  def extract_aph_id(page)
-    system_id = extract_metadata_tags(page)["System Id"]
-    if system_id =~ /^handbook\/allmps\/([A-Z0-9]*)$/
-      $~[1]
-    else
-      throw "Unexpected form for system id of biography page: #{system_id}"
-    end
-  end
-
   # Returns an array of values for the metadata
   def raw_metadata(page)
     labels = page.search('label.mdLabel')

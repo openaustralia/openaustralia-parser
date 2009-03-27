@@ -32,8 +32,6 @@ end
 class HansardParser
   attr_reader :logger
   
-  # people passed in initializer have to have their aph_id's set. This can be done by
-  # calling PeopleImageDownloader.new.attach_aph_person_ids(people)
   def initialize(people)
     @people = people
     @conf = Configuration.new
