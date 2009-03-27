@@ -52,7 +52,7 @@ class HansardDay
     case debate.name
     when 'debate', 'petition.group'
       title = title_tag_value(debate)
-      cognates = debate.search('cognateinfo').search('> title').map{|a| strip_tags(a.inner_html)}
+      cognates = debate.search('> debateinfo > cognate > cognateinfo > title').map{|a| strip_tags(a.inner_html)}
       ([title] + cognates).join('; ')
     when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
       title(debate.parent)
