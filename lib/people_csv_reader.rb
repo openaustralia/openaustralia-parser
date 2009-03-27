@@ -23,12 +23,12 @@ class PeopleCSVReader
 
     people = People.new
     data.each do |line|
-      person_count, title, lastname, firstname, middlename, post_title, birthday = line[0..6]
+      person_count, aph_id, title, lastname, firstname, middlename, post_title, birthday = line[0..7]
       name = Name.new(:last => lastname, :first => firstname, :middle => middlename, :title => title, :post_title => post_title)
 
       # You can specify multiple alternate names by filling out the next columns
       alternate_names = []
-      line[7..-1].each_slice(4) do |slice|
+      line[8..-1].each_slice(4) do |slice|
         alt_title, alt_lastname, alt_firstname, alt_middlename = slice
         if alt_title || alt_lastname || alt_firstname || alt_middlename
           alternate_names << Name.new(:title => alt_title, :first => alt_firstname, :middle => alt_middlename, :last => alt_lastname)
