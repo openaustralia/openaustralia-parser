@@ -19,12 +19,16 @@ describe HansardSpeech, "should recognise who's talking" do
 			</talk.start>
 		</speech>'), nil)
 		
-		speech.extract_speakername.should == ["Mr RUDD", "83T", false]
+		speech.speakername.should == "Mr RUDD"
+		speech.aph_id.should == "83T"
+		speech.interjection.should be_false
   end
 
 	it "in a motionnospeech block" do
 	  speech = HansardSpeech.new(Hpricot.XML('<motionnospeech><name>Mr BILLSON</name></motionnospeech>'), nil)
-	  speech.extract_speakername.should == ["Mr BILLSON", nil, false]
+		speech.speakername.should == "Mr BILLSON"
+		speech.aph_id.should be_nil
+		speech.interjection.should be_false
 	end
 
 	it "in an interjection block" do
@@ -38,7 +42,9 @@ describe HansardSpeech, "should recognise who's talking" do
 				</talker>
 			</talk.start>
 		</interjection>'), nil)
-		speech.extract_speakername.should == ["The SPEAKER", "10000", true]
+		speech.speakername.should == "The SPEAKER"
+		speech.aph_id.should == "10000"
+		speech.interjection.should be_true
   end
 end
 

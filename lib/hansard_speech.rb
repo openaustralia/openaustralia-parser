@@ -29,10 +29,13 @@ class HansardSpeech
     extract_speakername[1]
   end
   
+  # TODO: Rename this method to interjection?
   def interjection
     extract_speakername[2]
   end
 
+  private
+  
   def extract_speakername
     # If there are multiple <name> tags prefer the one with the attribute role='display'
     talkername_tag1 = @content.at('name[@role=metadata]')
@@ -66,6 +69,8 @@ class HansardSpeech
     [name, aph_id, interjection]
   end  
 
+  public
+  
   def HansardSpeech.strip_leading_dash(text)
     # Unicode Character 'Non-breaking hyphen' (U+2011)
     nbhyphen = [0x2011].pack('U')

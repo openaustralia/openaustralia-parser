@@ -102,41 +102,7 @@ class TestHansardParser < Test::Unit::TestCase
 #'<div class="motionnospeech"><span class="speechname">Mr ABBOTT</span><span class="speechelectorate">(Warringah</span><span class="speechrole">Leader of the House)</span><span class="speechtime"></span>Some Text</div>')
   #  assert_equal('<p>Some Text</p>', HansardSpeech.new(doc, @page).clean_content.to_s)
   #end
-  
-  #def test_extract_speakername
-  #  good_form1 = '<p><span class="talkername"><a HREF="view_document.aspx?TABLE=biogs&ID=1023">Mr Hunt</a></span></p>'
-  #  good_form2 = '<p><span class="talkername"><a>The Deputy Speaker</a></span><b>(Mr Hunt)</p>'
-  #  good_form3 = '<div class="subspeech1"><div class="speechType">Interjection</div><p> <i>Mr Smith interjecting</i>—</p></div>'
-  #  good_form4 = '<div class="subspeech1"><div class="speechType">Interjection</div><p> <i>Ms Johnson</i>—</p></div>'
-  #  good_form5 = '<div class="subspeech1"><div class="speechType">Continue</div><p><span class="talkername"><a href="blah">Mr BAIRD</a></span>—Some words</p></div>'
-  #  good_form6 = '<p><b>Honourable members</b>—Hear, hear!</p>'
-  #  good_form7 = '<p><b>Honourable members</b>—My <b>Honourable members</b>—I beseech thee to not use greedy regexes!</p>'
-  #  good_form8 = '<p class="paraitalic">Honourable members interjecting—</p>'
-  #  good_form9 = '<p class="block"><b>Opposition members</b>—Hear, hear!</p>'
-	#	
-	#	bad_form1 = '<p class="block">Some words.</p>'
-	#	bad_form2 = '<p>Mr Hunt</p>'
-	#	
-  #  assert_equal(["Mr Hunt", 1023, false], HansardSpeech.new(Hpricot(good_form1), @page).extract_speakername)
-  #  assert_equal(["The Deputy Speaker (Mr Hunt)", nil, false], HansardSpeech.new(Hpricot(good_form2), @page).extract_speakername)
-  #  assert_equal(["Mr Smith", nil, true], HansardSpeech.new(Hpricot(good_form3), @page).extract_speakername)
-  #  assert_equal(["Ms Johnson", nil, true], HansardSpeech.new(Hpricot(good_form4), @page).extract_speakername)
-  #  assert_equal(["Mr BAIRD", nil, false], HansardSpeech.new(Hpricot(good_form5), @page).extract_speakername)
-  #  assert_equal(["Honourable members", nil, false], HansardSpeech.new(Hpricot(good_form6), @page).extract_speakername)
-  #  assert_equal(["Honourable members", nil, false], HansardSpeech.new(Hpricot(good_form7), @page).extract_speakername)
-  #  assert_equal(["Honourable members", nil, true], HansardSpeech.new(Hpricot(good_form8), @page).extract_speakername)
-  #  assert_equal(["Opposition members", nil, false], HansardSpeech.new(Hpricot(good_form9), @page).extract_speakername)
-  #  
-  #  assert_equal([nil, nil, false], HansardSpeech.new(Hpricot(bad_form1), @page).extract_speakername)
-  #  assert_equal([nil, nil, false], HansardSpeech.new(Hpricot(bad_form2), @page).extract_speakername)
-  #end
-  
-  #def test_extract_speakername_from_motionnospeech
-  #  good_form1 = '<div class="motionnospeech"><span class="speechname">Mr ABBOTT</span></div>'
-  #  
-  #  assert_equal(["Mr ABBOTT", nil, false], HansardSpeech.new(Hpricot(good_form1), @page).extract_speakername)
-  #end
-  
+
   def test_generic_speakers
     speech = HansardSpeech.new(Hpricot(''), @page)
     assert(HansardSpeech.generic_speaker?("Honourable member"))
