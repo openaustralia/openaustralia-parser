@@ -43,8 +43,8 @@ def compare_xml(ref_path, test_path, date, count)
     if $? != 0
       test = "regression_failed_text.xml"
       ref = "regression_failed_ref.xml"
-      system("tidy -xml -utf8 -o #{test} #{test}")
-      system("tidy -xml -utf8 -o #{ref} #{ref}")
+      system("tidy -xml -utf8 -o #{test} #{test_path}")
+      system("tidy -xml -utf8 -o #{ref} #{ref_path}")
       system("opendiff #{test} #{ref}")
       puts "ERROR: #{test_path} and #{ref_path} don't match"
       puts "Regression tests FAILED on date #{date} at count #{count}!"
