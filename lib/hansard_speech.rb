@@ -26,7 +26,8 @@ class HansardSpeech
   end
   
   def aph_id
-    extract_speakername[1]
+    aph_id_tag = @content.at('//(name.id)')
+    aph_id_tag ? aph_id_tag.inner_html : nil
   end
   
   # TODO: Rename this method to interjection?
@@ -36,7 +37,7 @@ class HansardSpeech
 
   private
   
-  def extract_speakername
+  def speakername_from_tag
     # If there are multiple <name> tags prefer the one with the attribute role='display'
     talkername_tag1 = @content.at('name[@role=metadata]')
     talkername_tag2 = @content.at('name[@role=display]')
@@ -46,21 +47,33 @@ class HansardSpeech
     else
       talkername_tag = talkername_tag2 || @content.at('name')
     end
-    name = talkername_tag ? talkername_tag.inner_html : nil
-    aph_id_tag = @content.at('//(name.id)')
-    aph_id = aph_id_tag ? aph_id_tag.inner_html : nil
+    talkername_tag ? talkername_tag.inner_html : nil
+  end
+  
+  def speakername_from_interjecting_text
+    if strip_tags(@content) =~ /([a-z].*) interjecting/i
+      $~[1]
+    end
+  end
+  
+  def speakername_from_text
+    if strip_tags(@content) =~ /^([a-z].*?)—/i and HansardSpeech.generic_speaker?($~[1])
+      $~[1]
+    end
+  end
+  
+  def extract_speakername
+    name = speakername_from_tag
     interjection = !@content.at('interjection').nil?
     
     if name.nil? && aph_id.nil?
       # As a last resort try searching for interjection text
-      m = strip_tags(@content).match(/([a-z].*) interjecting/i)
-      if m
-        name = m[1]
+      name = speakername_from_interjecting_text
+      if name
         interjection = true
       else
-        m = strip_tags(@content).match(/^([a-z].*?)—/i)
-        if m and HansardSpeech.generic_speaker?(m[1])
-          name = m[1]
+        name = speakername_from_text
+        if name
           interjection = false
         end
       end
