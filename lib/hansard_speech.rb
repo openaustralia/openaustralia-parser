@@ -41,20 +41,7 @@ class HansardSpeech
   
   # TODO: Rename this method to interjection?
   def interjection
-    interjection = !@content.at('interjection').nil?
-
-    if speakername_from_tag.nil? && aph_id.nil?
-      # As a last resort try searching for interjection text
-      if speakername_from_interjecting_text
-        interjection = true
-      else
-        if speakername_from_text
-          interjection = false
-        end
-      end
-    end
-
-    interjection
+    !@content.at('interjection').nil? || (speakername_from_tag.nil? && aph_id.nil? && !speakername_from_interjecting_text.nil?)
   end
 
   private

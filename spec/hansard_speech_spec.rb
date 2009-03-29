@@ -46,6 +46,21 @@ describe HansardSpeech, "should recognise who's talking" do
 		speech.aph_id.should == "10000"
 		speech.interjection.should be_true
   end
+  
+  it "is not an interjection if the talker is specified but there is interjecting in the text" do
+    speech = HansardSpeech.new(Hpricot.XML('
+    <continue>
+			<talk.start>
+				<talker>
+					<name.id>EZ5</name.id>
+					<name role="metadata">Abbott, Tony, MP</name>
+					<name role="display">Mr ABBOTT</name>
+				</talker>
+				<para>I listened to all the accusations of bad faith without interjecting.</para>
+			</talk.start>
+		</continue>'), nil)
+		speech.interjection.should be_false		
+  end
 end
 
 describe HansardSpeech, "should clean content" do
