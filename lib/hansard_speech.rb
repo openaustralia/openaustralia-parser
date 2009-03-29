@@ -22,7 +22,16 @@ class HansardSpeech
   end
   
   def speakername
-    extract_speakername[0]
+    name = speakername_from_tag
+    if name.nil? && aph_id.nil?
+      # As a last resort try searching for interjection text
+      name = speakername_from_interjecting_text
+      if name.nil?
+        name = speakername_from_text
+      end
+    end
+
+    name
   end
   
   def aph_id
@@ -32,7 +41,20 @@ class HansardSpeech
   
   # TODO: Rename this method to interjection?
   def interjection
-    extract_speakername[2]
+    interjection = !@content.at('interjection').nil?
+
+    if speakername_from_tag.nil? && aph_id.nil?
+      # As a last resort try searching for interjection text
+      if speakername_from_interjecting_text
+        interjection = true
+      else
+        if speakername_from_text
+          interjection = false
+        end
+      end
+    end
+
+    interjection
   end
 
   private
@@ -62,26 +84,6 @@ class HansardSpeech
     end
   end
   
-  def extract_speakername
-    name = speakername_from_tag
-    interjection = !@content.at('interjection').nil?
-    
-    if name.nil? && aph_id.nil?
-      # As a last resort try searching for interjection text
-      name = speakername_from_interjecting_text
-      if name
-        interjection = true
-      else
-        name = speakername_from_text
-        if name
-          interjection = false
-        end
-      end
-    end
-    
-    [name, aph_id, interjection]
-  end  
-
   public
   
   def HansardSpeech.strip_leading_dash(text)
