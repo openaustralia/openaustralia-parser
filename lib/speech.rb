@@ -1,14 +1,15 @@
 require 'hpricot'
 require 'htmlentities'
+require 'section'
 
-class Speech
-  attr_accessor :speaker, :time, :url, :id, :content
+class Speech < Section
+  attr_accessor :speaker, :content
   
   def initialize(speaker, time, url, major_count, minor_count, date, house, logger = nil)
     throw "speaker can't be nil in Speech" if speaker.nil?
-    @speaker, @time, @url, @major_count, @minor_count, @date, @house, @logger  =
-      speaker, time, url, major_count, minor_count, date, house, logger
+    @speaker = speaker
     @content = Hpricot::Elements.new
+    super(time, url, major_count, minor_count, date, house, logger)
   end
   
   def output(x)
@@ -18,11 +19,6 @@ class Speech
     end
     x.speech(:speakername => @speaker.name.full_name, :time => time, :url => url_quote(@url), :id => id,
       :speakerid => @speaker.id) { x << @content.to_s }
-  end
-  
-  # Quoting of url's is required to be nice and standards compliant
-  def url_quote(url)
-    url.gsub('&', '&amp;')
   end
   
   def append_to_content(content)
@@ -38,14 +34,6 @@ class Speech
       @content = @content + content
     else
       @content << content
-    end
-  end
-  
-  def id
-    if @house.representatives?
-      "uk.org.publicwhip/debate/#{@date}.#{@major_count}.#{@minor_count}"
-    else
-      "uk.org.publicwhip/lords/#{@date}.#{@major_count}.#{@minor_count}"
     end
   end
 end
