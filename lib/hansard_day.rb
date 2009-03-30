@@ -1,6 +1,7 @@
 require 'hansard_page'
 require 'hpricot_additions'
 require 'house'
+require 'hansard_division'
 
 class HansardDay
   def initialize(page, logger = nil)
@@ -96,7 +97,12 @@ class HansardDay
         p << HansardPage.new([e], title, subtitle, self, @logger)
         question = false
         procedural = false
-      when 'division', 'petition'
+      when 'division'
+        #puts "SKIP: #{e.name} > #{full_title}"
+        p << HansardDivision.new(e, self)
+        question = false
+        procedural = false
+      when 'petition'
         #puts "SKIP: #{e.name} > #{full_title}"
         p << nil
         question = false

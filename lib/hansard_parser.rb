@@ -100,18 +100,47 @@ class HansardParser
         content = true
         #throw "Unsupported: #{page.full_title}" unless page.supported? || page.to_skip? || page.not_yet_supported?
         if page
-          debates.add_heading(page.title, page.subtitle, page.permanent_url)
-          speaker = nil
-          page.speeches.each do |speech|
-            if speech
-              # Only change speaker if a speaker name or url was found
-              this_speaker = (speech.speakername || speech.aph_id) ? lookup_speaker(speech, date, house) : speaker
-              # With interjections the next speech should never be by the person doing the interjection
-              speaker = this_speaker unless speech.interjection
+          if page.is_a?(HansardPage)
+            debates.add_heading(page.title, page.subtitle, page.permanent_url)
+            speaker = nil
+            page.speeches.each do |speech|
+              if speech
+                # Only change speaker if a speaker name or url was found
+                this_speaker = (speech.speakername || speech.aph_id) ? lookup_speaker(speech, date, house) : speaker
+                # With interjections the next speech should never be by the person doing the interjection
+                speaker = this_speaker unless speech.interjection
         
-              debates.add_speech(this_speaker, speech.time, speech.permanent_url, speech.clean_content)
+                debates.add_speech(this_speaker, speech.time, speech.permanent_url, speech.clean_content)
+              end
+              debates.increment_minor_count
             end
-            debates.increment_minor_count
+          elsif page.is_a?(HansardDivision)
+            # Lookup names
+            yes = page.yes.map do |text|
+              name = Name.last_title_first(text)
+              member = @people.find_member_by_name_current_on_date(name, date, house)
+              throw "Couldn't figure out who #{text} is in division" if member.nil?
+              member
+            end
+            no = page.no.map do |text|
+              name = Name.last_title_first(text)
+              member = @people.find_member_by_name_current_on_date(name, date, house)
+              throw "Couldn't figure out who #{text} is in division" if member.nil?
+              member
+            end
+            yes_tellers = page.yes_tellers.map do |text|
+              name = Name.last_title_first(text)
+              member = @people.find_member_by_name_current_on_date(name, date, house)
+              throw "Couldn't figure out who #{text} is in division" if member.nil?
+              member
+            end
+            no_tellers = page.no_tellers.map do |text|
+              name = Name.last_title_first(text)
+              member = @people.find_member_by_name_current_on_date(name, date, house)
+              throw "Couldn't figure out who #{text} is in division" if member.nil?
+              member
+            end
+            debates.add_division(yes, no, yes_tellers, no_tellers, page.time, page.permanent_url)
           end
         end
         # This ensures that every sub day page has a different major count which limits the impact

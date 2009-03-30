@@ -1,4 +1,6 @@
 require 'heading'
+require 'speech'
+require 'division'
 
 # Holds the data for debates on one day
 # Also knows how to output the XML data for that
@@ -47,6 +49,10 @@ class Debates
       @items << Speech.new(speaker, time, url, @major_count, @minor_count, @date, @house, @logger)
     end
     @items.last.append_to_content(content)
+  end
+  
+  def add_division(yes, no, yes_tellers, no_tellers, time, url)
+    @items << Division.new(yes, no, yes_tellers, no_tellers, time, url, @major_count, @minor_count, @date, @house, @logger)
   end
   
   def last_speaker
