@@ -7,6 +7,7 @@ require "division"
 require 'house'
 require 'person'
 require 'name'
+require 'builder_alpha_attributes'
 
 # The Division class knows how to output XML
 describe Division do
@@ -33,7 +34,7 @@ describe Division do
   it "can output xml in the expected form" do
     # Default builder will return value as string
     x = Builder::XmlMarkup.new
-    @division.output(x).should == '<division url="http://foo/link" nospeaker="true" divdate="2008-02-01" time="10:11:00" id="uk.org.publicwhip/debate/2008-02-01.10.2"><divisioncount ayes="2" noes="1" tellerayes="1" tellernoes="1"/><mplist vote="aye"><mpname vote="aye" id="uk.org.publicwhip/member/1">John Smith</mpname><mpname vote="aye" id="uk.org.publicwhip/member/2">Joe Smith</mpname></mplist><mplist vote="no"><mpname vote="no" id="uk.org.publicwhip/member/3">Henry Smith</mpname></mplist></division>'
+    @division.output(x).should == '<division divdate="2008-02-01" id="uk.org.publicwhip/debate/2008-02-01.10.2" nospeaker="true" time="10:11:00" url="http://foo/link"><divisioncount ayes="2" noes="1" tellerayes="1" tellernoes="1"/><mplist vote="aye"><mpname id="uk.org.publicwhip/member/1" vote="aye">John Smith</mpname><mpname id="uk.org.publicwhip/member/2" vote="aye">Joe Smith</mpname></mplist><mplist vote="no"><mpname id="uk.org.publicwhip/member/3" vote="no">Henry Smith</mpname></mplist></division>'
   end
 end
   
