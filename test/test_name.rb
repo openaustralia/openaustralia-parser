@@ -273,4 +273,8 @@ class TestName < Test::Unit::TestCase
     assert_equal(Name.new(:initials => "MAJ", :last => "Vaile"), Name.last_title_first("Vaile, M.A.J."))
     assert_equal(Name.new(:initials => "M", :last => "Turnbull"), Name.last_title_first("Turnbull, M."))
   end
+  
+  def test_initials_with_spaces
+    assert_equal(Name.new(:last => "Wakelin", :initials => "BH"), Name.last_title_first("Wakelin, B. H."))
+  end
 end

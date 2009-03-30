@@ -53,7 +53,11 @@ class Name
     if names.size >= 1
       # First name could be in the form of initials. So, check for this
       if initials(names[0])
-        initials = initials(names.shift)
+        # Allow several initials separated by spaces
+        initials = ""
+        while names.size >= 1 && initials(names[0])
+          initials << initials(names.shift)
+        end
       else
         first = names.shift
       end
