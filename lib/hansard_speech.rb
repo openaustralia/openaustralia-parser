@@ -22,16 +22,8 @@ class HansardSpeech
   end
   
   def speakername
-    name = speakername_from_tag
-    if name.nil?
-      # As a last resort try searching for interjection text
-      name = speakername_from_interjecting_text
-      if name.nil?
-        name = speakername_from_text
-      end
-    end
-
-    name
+    # First try to lookup name using the proper tags. If that doesn't work try looking in the text
+    speakername_from_tag || speakername_from_interjecting_text || speakername_from_text
   end
   
   def aph_id
@@ -49,12 +41,11 @@ class HansardSpeech
   def speakername_from_tag
     # If there are multiple <name> tags prefer the one with the attribute role='display'
     talkername_tag1 = @content.at('name[@role=metadata]')
-    talkername_tag2 = @content.at('name[@role=display]')
     # Only use the 'metadata' if it has brackets in it
     if talkername_tag1 && talkername_tag1.inner_html =~ /\(.*\)/
       talkername_tag = talkername_tag1
     else
-      talkername_tag = talkername_tag2 || @content.at('name')
+      talkername_tag = @content.at('name[@role=display]') || @content.at('name')
     end
     talkername_tag ? talkername_tag.inner_html : nil
   end
