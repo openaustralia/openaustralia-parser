@@ -36,11 +36,11 @@ class HansardDivision
     @content.search("> division > (division.data) > noes > names > name").map {|e| e.inner_html}
   end
   
-  def HansardDivision.name(text)
+  def self.name(text)
     text =~ /^(.*) \*$/ ? $~[1] : text
   end
   
-  def HansardDivision.teller?(text)
+  def self.teller?(text)
     text =~ /^(.*) \*$/
   end
 end
