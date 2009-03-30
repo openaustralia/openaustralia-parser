@@ -17,7 +17,7 @@ class Speech < Section
     if @logger && @content.inner_text.strip == ""
       @logger.error "Empty speech by #{@speaker.person.name.full_name} on #{@url}"
     end
-    x.speech(:speakername => @speaker.name.full_name, :time => time, :url => url_quote(@url), :id => id,
+    x.speech(:speakername => @speaker.name.full_name, :time => time, :url => quoted_url, :id => id,
       :speakerid => @speaker.id) { x << @content.to_s }
   end
   

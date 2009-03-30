@@ -8,10 +8,9 @@ class Section
     end
 
   # Quoting of url's is required to be nice and standards compliant
-  def url_quote(url)
-    url.gsub('&', '&amp;')
+  def quoted_url
+    @url.gsub('&', '&amp;')
   end
-
   
   def id
     if @house.representatives?
