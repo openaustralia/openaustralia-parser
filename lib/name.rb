@@ -50,10 +50,17 @@ class Name
       last = names.shift
     end
     title = Name.extract_title_at_start(names)
-    first = names.shift
+    if names.size >= 1
+      # First name could be in the form of initials. So, check for this
+      if initials(names[0])
+        initials = initials(names.shift)
+      else
+        first = names.shift
+      end
+    end
     post_title = extract_post_title_at_end(names)
     middle = names[0..-1].join(' ')
-    Name.new(:title => title, :last => last, :first => first, :middle => middle, :post_title => post_title)
+    Name.new(:title => title, :initials => initials, :last => last, :first => first, :middle => middle, :post_title => post_title)
   end
   
   # Extract a post title from the end if one is available

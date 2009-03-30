@@ -267,4 +267,8 @@ class TestName < Test::Unit::TestCase
     assert_equal(Name.new({}), Name.title_first_last(""))
     assert_equal(Name.new({}), Name.last_title_first(""))
   end
+  
+  def test_initials_at_end
+    assert_equal(Name.new(:initials => "MAJ", :last => "Vaile"), Name.last_title_first("Vaile, M.A.J."))
+  end
 end
