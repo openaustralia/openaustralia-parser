@@ -23,7 +23,7 @@ class HansardSpeech
   
   def speakername
     name = speakername_from_tag
-    if name.nil? && aph_id.nil?
+    if name.nil?
       # As a last resort try searching for interjection text
       name = speakername_from_interjecting_text
       if name.nil?
@@ -41,7 +41,7 @@ class HansardSpeech
   
   # TODO: Rename this method to interjection?
   def interjection
-    !@content.at('interjection').nil? || (speakername_from_tag.nil? && aph_id.nil? && !speakername_from_interjecting_text.nil?)
+    !@content.at('interjection').nil? || (speakername_from_tag.nil? && !speakername_from_interjecting_text.nil?)
   end
 
   private
