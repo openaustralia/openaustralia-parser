@@ -20,8 +20,8 @@ describe Division do
     @joe_member = Period.new(:person => joe_person, :house => House.representatives, :count => 2)
     @henry_member = Period.new(:person => henry_person, :house => House.representatives, :count => 3)
 
-    # John and Joe vote yes and Henry votes no
-    @division = Division.new([@john_member, @joe_member], [@henry_member],
+    # John and Joe vote yes and Henry votes no. John and Henry are tellers
+    @division = Division.new([@john_member, @joe_member], [@henry_member], [@john_member], [@henry_member],
       "10:11:00", "http://foo/link", 10, 2, Date.new(2008, 2, 1), House.representatives)
   end
   
@@ -34,7 +34,7 @@ describe Division do
   it "can output xml in the expected form" do
     # Default builder will return value as string
     x = Builder::XmlMarkup.new
-    @division.output(x).should == '<division divdate="2008-02-01" id="uk.org.publicwhip/debate/2008-02-01.10.2" nospeaker="true" time="10:11:00" url="http://foo/link"><divisioncount ayes="2" noes="1" tellerayes="1" tellernoes="1"/><mplist vote="aye"><mpname id="uk.org.publicwhip/member/1" vote="aye">John Smith</mpname><mpname id="uk.org.publicwhip/member/2" vote="aye">Joe Smith</mpname></mplist><mplist vote="no"><mpname id="uk.org.publicwhip/member/3" vote="no">Henry Smith</mpname></mplist></division>'
+    @division.output(x).should == '<division divdate="2008-02-01" id="uk.org.publicwhip/debate/2008-02-01.10.2" nospeaker="true" time="10:11:00" url="http://foo/link"><divisioncount ayes="2" noes="1" tellerayes="1" tellernoes="1"/><mplist vote="aye"><mpname id="uk.org.publicwhip/member/1" teller="yes" vote="aye">John Smith</mpname><mpname id="uk.org.publicwhip/member/2" vote="aye">Joe Smith</mpname></mplist><mplist vote="no"><mpname id="uk.org.publicwhip/member/3" teller="yes" vote="no">Henry Smith</mpname></mplist></division>'
   end
 end
   
