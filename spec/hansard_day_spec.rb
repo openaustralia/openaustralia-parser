@@ -108,12 +108,12 @@ describe HansardDay do
   
   # TODO: This should be a test for HansardPage rather than HansardDay
   it "should be able to figure out all the titles" do
-     @titles.pages.map {|page| page.hansard_title if page}.should == [nil, "1", "2", "4", "4", "7; 13", "7; 13", "10"]
+     @titles.pages.map {|page| page.title if page}.should == [nil, "1", "2", "4", "4", "7; 13", "7; 13", "10"]
   end  
 
   # TODO: This should be a test for HansardPage rather than HansardDay
   it "should be able to figure out all the subtitles" do
-     @titles.pages.map {|page| page.hansard_subtitle if page}.should == [nil, "", "3; 14", "5", "6", "8", "9", "11; 12"]
+     @titles.pages.map {|page| page.subtitle if page}.should == [nil, "", "3; 14", "5", "6", "8", "9", "11; 12"]
   end
   
   # TODO: This should be a test for HansardPage rather than HansardDay
@@ -141,8 +141,8 @@ describe HansardDay do
         
     titles = HansardDay.new(Hpricot.XML(titles_xml))
     
-    titles.pages[1].hansard_title.should == "1; 2; 3; 4; 5"
-    titles.pages[1].hansard_subtitle.should == "6"
+    titles.pages[1].title.should == "1; 2; 3; 4; 5"
+    titles.pages[1].subtitle.should == "6"
   end
   
   it "should know when the page is considered in proof stage" do

@@ -2,7 +2,7 @@ require 'hansard_speech'
 require 'configuration'
 
 class HansardPage
-  attr_reader :page, :logger
+  attr_reader :page, :logger, :title, :subtitle
   
   # 'link' is the link that got us to this page 'page'
   def initialize(page, title, subtitle, day, logger = nil)
@@ -15,22 +15,14 @@ class HansardPage
   end
 
   # A single string that contains the title and subtitle in one
-  def full_hansard_title
-    if hansard_subtitle != ""
-      hansard_title + "; " + hansard_subtitle
+  def full_title
+    if @subtitle != ""
+      @title + "; " + @subtitle
     else
-      hansard_title
+      @title
     end
   end
 
-  def hansard_title
-    @title
-  end
-  
-  def hansard_subtitle
-    @subtitle
-  end
-  
   def has_content?
     !speeches.empty?
   end

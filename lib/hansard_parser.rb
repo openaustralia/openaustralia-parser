@@ -98,9 +98,9 @@ class HansardParser
       @logger.warn "In proof stage" if day.in_proof?
       day.pages.each do |page|
         content = true
-        #throw "Unsupported: #{page.full_hansard_title}" unless page.supported? || page.to_skip? || page.not_yet_supported?
+        #throw "Unsupported: #{page.full_title}" unless page.supported? || page.to_skip? || page.not_yet_supported?
         if page
-          debates.add_heading(page.hansard_title, page.hansard_subtitle, page.permanent_url)
+          debates.add_heading(page.title, page.subtitle, page.permanent_url)
           speaker = nil
           page.speeches.each do |speech|
             if speech
