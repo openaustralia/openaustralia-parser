@@ -9,8 +9,8 @@ require 'house'
 # The Division class knows how to output XML
 describe Division do
   it "has the id in the correct form" do
-    # Date, Major count, Minor count, and house
-    division = Division.new(Date.new(2008, 2, 1), 10, 2, House.representatives)
+    # Time, URL, Major count, Minor count, Date, and house
+    division = Division.new("10:11:00", "http://foo/link", 10, 2, Date.new(2008, 2, 1), House.representatives)
     division.id.should == "uk.org.publicwhip/debate/2008-02-01.10.2"
   end
 end

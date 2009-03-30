@@ -1,7 +1,7 @@
 require 'section'
 
 class Division < Section
-  def initialize(date, major_count, minor_count, house)
-    @date, @major_count, @minor_count, @house = date, major_count, minor_count, house
+  def initialize(time, url, major_count, minor_count, date, house, logger = nil)
+    super(time, url, major_count, minor_count, date, house, logger)
   end
 end
