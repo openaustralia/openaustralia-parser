@@ -73,10 +73,10 @@ class Name
   def Name.initials(name)
     # If only one or two letters assume that these are initials
     # HACK: Added specific handling for initials DJC, DGH
-    if name.size <= 2 || name == "DJC" || name == "DGH"
-      name
-    elsif initials_with_fullstops(name)
+    if initials_with_fullstops(name)
       initials_with_fullstops(name)
+    elsif name.size <= 2 || name == "DJC" || name == "DGH"
+      name
     end
   end
   

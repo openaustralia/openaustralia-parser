@@ -258,6 +258,7 @@ class TestName < Test::Unit::TestCase
   def test_initials_with_fullstops
     assert("DGH", Name.initials_with_fullstops("D.G.H."))
     assert("AB", Name.initials_with_fullstops("A.B."))
+    assert("M", Name.initials_with_fullstops("M."))
     assert_nil(Name.initials_with_fullstops("AB."))
     assert_nil(Name.initials_with_fullstops("AB"))
     assert_nil(Name.initials_with_fullstops(".."))
@@ -270,5 +271,6 @@ class TestName < Test::Unit::TestCase
   
   def test_initials_at_end
     assert_equal(Name.new(:initials => "MAJ", :last => "Vaile"), Name.last_title_first("Vaile, M.A.J."))
+    assert_equal(Name.new(:initials => "M", :last => "Turnbull"), Name.last_title_first("Turnbull, M."))
   end
 end
