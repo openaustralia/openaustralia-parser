@@ -5,20 +5,20 @@ class HansardDivision
   
   # Return an array of the names of people that voted yes
   def yes
-    raw_yes.map {|name| HansardDivision.strip_trailing_asterisk(name)}
+    raw_yes.map {|text| HansardDivision.name(text)}
   end
 
   # And similarly for the people that voted no
   def no
-    raw_no.map {|name| HansardDivision.strip_trailing_asterisk(name)}
+    raw_no.map {|text| HansardDivision.name(text)}
   end
   
   def yes_tellers
-    raw_yes.find_all {|name| HansardDivision.teller?(name)}.map {|name| HansardDivision.strip_trailing_asterisk(name)}
+    raw_yes.find_all {|text| HansardDivision.teller?(text)}.map {|text| HansardDivision.name(text)}
   end
   
   def no_tellers
-    raw_no.find_all {|name| HansardDivision.teller?(name)}.map {|name| HansardDivision.strip_trailing_asterisk(name)}
+    raw_no.find_all {|text| HansardDivision.teller?(text)}.map {|text| HansardDivision.name(text)}
   end
   
   def time
@@ -36,11 +36,11 @@ class HansardDivision
     @content.search("> division > (division.data) > noes > names > name").map {|e| e.inner_html}
   end
   
-  def HansardDivision.strip_trailing_asterisk(name)
-    name =~ /^(.*) \*$/ ? $~[1] : name
+  def HansardDivision.name(text)
+    text =~ /^(.*) \*$/ ? $~[1] : text
   end
   
-  def HansardDivision.teller?(name)
-    name =~ /^(.*) \*$/
+  def HansardDivision.teller?(text)
+    text =~ /^(.*) \*$/
   end
 end
