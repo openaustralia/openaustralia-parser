@@ -260,8 +260,6 @@ class HansardSpeech
       clean_content_entry(e, override_type)
     when 'item'
       clean_content_item(e)
-    when 'inline'
-      clean_content_inline(e)
     when 'graphic'
       clean_content_graphic(e)
     when 'talker', 'name', 'electorate', 'role', 'time.stamp', 'tggroup', 'amendment', 'inline', 'separator', 'colspec'
