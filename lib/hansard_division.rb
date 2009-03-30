@@ -41,10 +41,10 @@ class HansardDivision
   end
   
   def self.name(text)
-    text =~ /^(.*) \*$/ ? $~[1] : text
+    text =~ /^(.*)\*$/ ? $~[1].strip : text
   end
   
   def self.teller?(text)
-    text =~ /^(.*) \*$/
+    text =~ /^(.*)\*$/
   end
 end

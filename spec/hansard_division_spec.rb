@@ -8,6 +8,7 @@ require 'hpricot'
 
 describe HansardDivision do
   before :each do
+    # Tellers are indicated with a "*". There might be or might not be a space before the "*".
     @division = HansardDivision.new(Hpricot.XML('
     <division>
 			<division.header>
@@ -22,6 +23,7 @@ describe HansardDivision do
 					<names>
 						<name>Joe Bloggs *</name>
 						<name>Henry Smith</name>
+						<name>Phil Smith*</name>
 					</names>
 				</ayes>
 				<noes>
@@ -41,7 +43,7 @@ describe HansardDivision do
   
   it "should parse the xml for a division correctly" do
 		# Note that the *'s are stripped from the names
-		@division.yes.should == ["Joe Bloggs", "Henry Smith"]
+		@division.yes.should == ["Joe Bloggs", "Henry Smith", "Phil Smith"]
 		@division.no.should == ["John Smith"]
   end
   
@@ -50,7 +52,7 @@ describe HansardDivision do
   end
 
   it "should recognise the tellers" do
-    @division.yes_tellers == ["Joe Bloggs"]
+    @division.yes_tellers == ["Joe Bloggs", "Phil Smith"]
     @division.no_tellers == ["John Smith"]
   end  
 end
