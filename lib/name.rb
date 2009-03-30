@@ -86,14 +86,11 @@ class Name
   
   # Returns true if the name could be a set of initials with full stops in them (e.g. "A.B.")
   def Name.initials_with_fullstops(name)
-    initials = ""
-    return nil unless name.size % 2 == 0
-    while name.size > 0 do
-      return nil unless name[0..0] != '.' && name[1..1] == '.'
-      initials = initials + name[0..0]
-      name = name[2..-1]
+    # Heuristic: If word has any fullstops in it we'll assume that these are initials
+    # This allows a degree of flexibility, such as allowing "A.B.", "A.B..", "A.B.C", etc...
+    if name.include?('.')
+      name.delete('.')
     end
-    initials
   end
   
   def Name.title_first_last(text)

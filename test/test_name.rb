@@ -259,9 +259,9 @@ class TestName < Test::Unit::TestCase
     assert("DGH", Name.initials_with_fullstops("D.G.H."))
     assert("AB", Name.initials_with_fullstops("A.B."))
     assert("M", Name.initials_with_fullstops("M."))
-    assert_nil(Name.initials_with_fullstops("AB."))
+    assert("AB", Name.initials_with_fullstops("AB."))
     assert_nil(Name.initials_with_fullstops("AB"))
-    assert_nil(Name.initials_with_fullstops(".."))
+    assert("", Name.initials_with_fullstops(".."))
   end
   
   def test_empty_name
@@ -276,5 +276,10 @@ class TestName < Test::Unit::TestCase
   
   def test_initials_with_spaces
     assert_equal(Name.new(:last => "Wakelin", :initials => "BH"), Name.last_title_first("Wakelin, B. H."))
+  end
+  
+  # If only people could learn how to type properly
+  def test_initials_with_multiple_fullstops
+    assert_equal(Name.new(:last => "Trood", :initials => "RB"), Name.last_title_first("Trood R.B.."))
   end
 end
