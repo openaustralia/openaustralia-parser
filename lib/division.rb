@@ -8,7 +8,6 @@ class Division < Section
   
   def output(x)
     x.division(:id => id, :nospeaker => "true", :divdate => @date, :time => @time, :url => quoted_url) do
-      # TODO: Tellers not yet implemented
       x.divisioncount(:ayes => @yes.size, :noes => @no.size, :tellerayes => @yes_tellers.size, :tellernoes => @no_tellers.size)
       output_vote_list(x, @yes, @yes_tellers, "aye")
       output_vote_list(x, @no, @no_tellers, "no")
