@@ -7,8 +7,8 @@ require "hansard_division"
 require 'hpricot'
 
 describe HansardDivision do
-  it "should parse the xml for a division correctly" do
-    division = HansardDivision.new(Hpricot.XML('
+  before :each do
+    @division = HansardDivision.new(Hpricot.XML('
     <division>
 			<division.header>
 				<time.stamp>09:06:00</time.stamp>
@@ -20,7 +20,7 @@ describe HansardDivision do
 					<num.votes>2</num.votes>
 					<title>AYES</title>
 					<names>
-						<name>Joe Bloggs</name>
+						<name>Joe Bloggs *</name>
 						<name>Henry Smith</name>
 					</names>
 				</ayes>
@@ -28,7 +28,7 @@ describe HansardDivision do
 					<num.votes>1</num.votes>
 					<title>NOES</title>
 					<names>
-						<name>John Smith</name>
+						<name>John Smith *</name>
 					</names>
 				</noes>
 			</division.data>
@@ -37,8 +37,20 @@ describe HansardDivision do
 				<para>Question agreed to.</para>
 			</division.result>
 		</division>'))
-		division.yes.should == ["Joe Bloggs", "Henry Smith"]
-		division.no.should == ["John Smith"]
-		division.time.should == "09:06:00"
   end
+  
+  it "should parse the xml for a division correctly" do
+		# Note that the *'s are stripped from the names
+		@division.yes.should == ["Joe Bloggs", "Henry Smith"]
+		@division.no.should == ["John Smith"]
+  end
+  
+  it "should know the time the division took place" do
+		@division.time.should == "09:06:00"
+  end
+
+  it "should recognise the tellers" do
+    @division.yes_tellers == ["Joe Bloggs"]
+    @division.no_tellers == ["John Smith"]
+  end  
 end
