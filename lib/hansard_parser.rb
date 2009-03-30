@@ -141,8 +141,8 @@ class HansardParser
     
     # Handle speakers where they are referred to by position rather than name
     # Handle names in brackets first
-    if speech.speakername =~ /^the (deputy speaker|acting deputy president|temporary chairman) \((.*)\)/i
-      @people.find_member_by_name_current_on_date(Name.title_first_last($~[2]), date, house)
+    if speech.speakername =~ /^(.*) \(the (deputy speaker|acting deputy president|temporary chairman)\)/i
+      @people.find_member_by_name_current_on_date(Name.last_title_first($~[1]), date, house)
     elsif speech.speakername =~ /^the speaker/i
       @people.house_speaker(date)
     elsif speech.speakername =~ /^the deputy speaker/i
@@ -174,26 +174,23 @@ class HansardParser
   end
   
   def lookup_speaker_by_aph_id(speech, date, house)
-    person = @people.find_person_by_aph_id(speech.aph_id)
-    if person
-      # Now find the member for that person who is current on the given date
-      @people.find_member_by_name_current_on_date(person.name, date, house)
-    else
-      logger.error "Can't figure out which person the aph id #{speech.aph_id} belongs to"
-      nil
+    # The aph_id "10000" is special. It represents the speaker, deputy speaker, something like that.
+    # It could be anyone of a number of poeple. So, if it is that, just ignore it.
+    if speech.aph_id && speech.aph_id != "10000"
+      person = @people.find_person_by_aph_id(speech.aph_id)
+      if person
+        # Now find the member for that person who is current on the given date
+        @people.find_member_by_name_current_on_date(person.name, date, house)
+      else
+        logger.error "Can't figure out which person the aph id #{speech.aph_id} belongs to"
+        nil
+      end
     end
   end
   
   def lookup_speaker(speech, date, house)
-    member = lookup_speaker_by_name(speech, date, house)
-    if member.nil?
-      # Only try to use the aph id if we can't look up by name
-      member = lookup_speaker_by_aph_id(speech, date, house) if speech.aph_id
-      if member
-        # If link is valid use that to look up the member
-        logger.error "Determined speaker #{member.person.name.full_name} by link only. Valid name missing."
-      end
-    end
+    # First try looking up speaker by id then try name
+    member = lookup_speaker_by_aph_id(speech, date, house) || lookup_speaker_by_name(speech, date, house)
     
     if member.nil?
       logger.warn "Unknown speaker #{speech.speakername}" unless HansardSpeech.generic_speaker?(speech.speakername)
