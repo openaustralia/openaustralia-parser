@@ -179,8 +179,7 @@ class HansardParser
     if speech.aph_id && speech.aph_id != "10000"
       person = @people.find_person_by_aph_id(speech.aph_id)
       if person
-        # Now find the member for that person who is current on the given date
-        @people.find_member_by_name_current_on_date(person.name, date, house)
+        person.position_current_on_date(date, house)
       else
         logger.error "Can't figure out which person the aph id #{speech.aph_id} belongs to"
         nil

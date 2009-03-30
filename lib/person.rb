@@ -37,6 +37,10 @@ class Person
     @periods.detect {|p| p.current_on_date?(date)}
   end
   
+  def position_current_on_date(date, house)
+    @periods.find {|p| p.house == house && p.current_on_date?(date)}
+  end
+  
   def house_periods
     @periods.find_all{|p| p.representative?}
   end
