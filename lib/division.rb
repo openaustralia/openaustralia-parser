@@ -1,13 +1,13 @@
 require 'section'
 
 class Division < Section
-  def initialize(yes, no, yes_tellers, no_tellers, time, url, major_count, minor_count, date, house, logger = nil)
-    @yes, @no, @yes_tellers, @no_tellers = yes, no, yes_tellers, no_tellers
+  def initialize(yes, no, yes_tellers, no_tellers, time, url, major_count, minor_count, division_count, date, house, logger = nil)
+    @yes, @no, @yes_tellers, @no_tellers, @division_count = yes, no, yes_tellers, no_tellers, division_count
     super(time, url, major_count, minor_count, date, house, logger)
   end
   
   def output(x)
-    x.division(:id => id, :nospeaker => "true", :divdate => @date, :time => @time, :url => quoted_url) do
+    x.division(:id => id, :nospeaker => "true", :divdate => @date, :divnumber => @division_count, :time => @time, :url => quoted_url) do
       x.divisioncount(:ayes => @yes.size, :noes => @no.size, :tellerayes => @yes_tellers.size, :tellernoes => @no_tellers.size)
       output_vote_list(x, @yes, @yes_tellers, "aye")
       output_vote_list(x, @no, @no_tellers, "no")

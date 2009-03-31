@@ -12,6 +12,7 @@ class Debates
     @items = []
     @minor_count = 1
     @major_count = 1
+    @division_count = 1
   end
   
   def add_heading(newtitle, newsubtitle, url)
@@ -43,6 +44,10 @@ class Debates
     @minor_count = 1
   end
   
+  def increment_division_count
+    @division_count = @division_count + 1
+  end
+  
   def add_speech(speaker, time, url, content)
     # Only add new speech if the speaker has changed
     unless speaker && last_speaker && speaker == last_speaker
@@ -52,7 +57,8 @@ class Debates
   end
   
   def add_division(yes, no, yes_tellers, no_tellers, time, url)
-    @items << Division.new(yes, no, yes_tellers, no_tellers, time, url, @major_count, @minor_count, @date, @house, @logger)
+    @items << Division.new(yes, no, yes_tellers, no_tellers, time, url, @major_count, @minor_count, @division_count, @date, @house, @logger)
+    increment_division_count
   end
   
   def last_speaker
