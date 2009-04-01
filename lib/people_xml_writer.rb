@@ -12,6 +12,17 @@ class PeopleXMLWriter
     write_ministers(people, ministers_filename)
   end
   
+  def self.write_divisions(people, output)
+    x = Builder::XmlMarkup.new(:target => output, :indent => 2)
+    x.publicwhip do
+      people.divisions.each_with_index do |division, index|
+        x.constituency(:fromdate => "1000-01-01", :id => "uk.org.publicwhip/cons/#{index + 1}", :todate => "9999-12-31") do
+          x.name(:text => division)
+        end        
+      end
+    end
+  end
+  
   def PeopleXMLWriter.write_ministers(people, filename)
     conf = Configuration.new
     
