@@ -121,6 +121,11 @@ class People < Array
   
   # End of methods that return Period objects
   
+  # All the electoral divisions that have ever existed (even if they don't exist anymore)
+  def divisions
+    all_periods_in_house(House.representatives).map {|p| p.division}.uniq
+  end
+  
   # Facade for readers and writers
   def write_xml(people_filename, members_filename, senators_filename, ministers_filename)
     PeopleXMLWriter.write(self, people_filename, members_filename, senators_filename, ministers_filename)
