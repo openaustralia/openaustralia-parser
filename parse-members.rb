@@ -67,7 +67,7 @@ end
 
 puts "Writing XML..."
 people.write_xml("#{conf.members_xml_path}/people.xml", "#{conf.members_xml_path}/all-members.xml", "#{conf.members_xml_path}/peers-ucl.xml",
-  "#{conf.members_xml_path}/ministers.xml")
+  "#{conf.members_xml_path}/ministers.xml", "#{conf.members_xml_path}/constituencies.xml")
 
 # And load up the database
 # Starts with 'perl' to be friendly with Windows

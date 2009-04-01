@@ -3,13 +3,14 @@ require 'configuration'
 
 class PeopleXMLWriter
   
-  def PeopleXMLWriter.write(people, people_filename, members_filename, senators_filename, ministers_filename)
+  def PeopleXMLWriter.write(people, people_filename, members_filename, senators_filename, ministers_filename, divisions_filename)
     conf = Configuration.new
 
     write_people(people, people_filename)
     write_members(people, members_filename)
     write_senators(people, senators_filename)
     write_ministers(people, ministers_filename)
+    File.open(divisions_filename, 'w') {|f| write_divisions(people, f)}
   end
   
   def self.write_divisions(people, output)
