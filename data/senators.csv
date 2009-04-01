@@ -72,7 +72,6 @@ member count,person count,title,last name,first name,middle name,house,Division,
 69,,,Dunn,Patricia,Irene,senate,,NSW,21.7.1988 ,,30.6.1990 ,defeated,IND
 70,,,Durack,Peter,Drew,senate,,WA,1.7.1971 ,,30.6.1993 ,retired,LIB
 71,,,Eggleston,Alan,,senate,,WA,1.7.1996,,,still_in_office,LIB
-72,,,Ellison,Christopher,Martin,senate,,WA,1.7.1993,,,still_in_office,LIB
 73,,,Elstob,Ronald,Charles,senate,,SA,1.7.1978 ,,5.6.1987 ,retired,ALP
 74,,,Evans,Christopher,Vaughan,senate,,WA,1.7.1993,,,still_in_office,ALP
 75,,,Evans,Gareth,John,senate,,Vic.,1.7.1978 ,,6.2.1996 ,resigned,ALP
@@ -281,4 +280,7 @@ member count,person count,title,last name,first name,middle name,house,Division,
 215,,,Stott Despoja,Natasha,Jessica,senate,,SA,29.11.1995,section_15,30.6.2008,retired,AD
 232,,,Watson,John,Odin Wentworth,senate,,Tas.,1.7.1978 ,,30.6.2008,retired,LIB
 233,,,Webber,Ruth,Stephanie,senate,,WA,1.7.2002 ,,30.6.2008,defeated,ALP
-# Next available Senator number is 279
+# Changes on 11.3.2009
+72,,,Ellison,Christopher,Martin,senate,,WA,1.7.1993,,30.1.2009,resigned,LIB
+279,,,Back,Christopher,John,senate,,WA,11.3.2009,section_15,,still_in_office,LIB
+# Next available Senator number is 280
