@@ -33,8 +33,19 @@ describe Division do
   # TODO: Not yet supporting Tellers
   it "can output xml in the expected form" do
     # Default builder will return value as string
-    x = Builder::XmlMarkup.new
-    @division.output(x).should == '<division divdate="2008-02-01" divnumber="15" id="uk.org.publicwhip/debate/2008-02-01.10.2" nospeaker="true" time="10:11:00" url="http://foo/link"><divisioncount ayes="2" noes="1" tellerayes="1" tellernoes="1"/><mplist vote="aye"><mpname id="uk.org.publicwhip/member/1" teller="yes" vote="aye">John Smith</mpname><mpname id="uk.org.publicwhip/member/2" vote="aye">Joe Smith</mpname></mplist><mplist vote="no"><mpname id="uk.org.publicwhip/member/3" teller="yes" vote="no">Henry Smith</mpname></mplist></division>'
+    x = Builder::XmlMarkup.new(:indent => 2)
+    @division.output(x).should == <<EOF
+<division divdate="2008-02-01" divnumber="15" id="uk.org.publicwhip/debate/2008-02-01.10.2" nospeaker="true" time="10:11:00" url="http://foo/link">
+  <divisioncount ayes="2" noes="1" tellerayes="1" tellernoes="1"/>
+  <mplist vote="aye">
+    <mpname id="uk.org.publicwhip/member/1" teller="yes" vote="aye">John Smith</mpname>
+    <mpname id="uk.org.publicwhip/member/2" vote="aye">Joe Smith</mpname>
+  </mplist>
+  <mplist vote="no">
+    <mpname id="uk.org.publicwhip/member/3" teller="yes" vote="no">Henry Smith</mpname>
+  </mplist>
+</division>
+EOF
   end
 end
   
