@@ -3,6 +3,7 @@ require 'mechanize_proxy'
 
 require 'configuration'
 require 'name'
+require 'hpricot'
 
 # TODO: Rename class
 class PeopleImageDownloader
