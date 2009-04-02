@@ -11,6 +11,7 @@ require 'activesupport'
 require 'log4r'
 require 'hansard_page'
 require 'hansard_day'
+require 'patch'
 
 $KCODE = 'u'
 
@@ -66,7 +67,15 @@ class HansardParser
         @logger.error "Link to XML download is missing"
         nil
       else
-        agent.click(link).body
+        text = agent.click(link).body
+        # Now check whether there is a patch for that day and if so apply it
+        patch_file_path = "#{File.dirname(__FILE__)}/../data/patches/#{house}.#{date}.xml.patch"
+        if File.exists?(patch_file_path)
+          puts "Using patch file: #{patch_file_path}"
+          Patch::patch(text, File.read(patch_file_path))
+        else
+          text
+        end
       end
     end
   end
