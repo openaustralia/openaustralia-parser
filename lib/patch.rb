@@ -3,15 +3,18 @@
 require 'tempfile'
 
 module Patch
-  def self.patch(text, patch)
-    # Write the text to a temporary file
-    f = Tempfile.new('patch')
-    f << text
-    f.flush
+  def self.patch(original_text, patch_text)
+    # Write the text to a temporary file. Keeping it open so that it doesn't get deleted
+    original = Tempfile.new('patch')
+    original << original_text
+    original.flush
 
-    IO.popen("patch #{f.path}", "w") do |p|
-      p << patch
-    end
-    f.open.readlines.join
+    patch = Tempfile.new('patch')
+    patch << patch_text
+    patch.flush
+    
+    system("patch #{original.path} < #{patch.path}")
+    raise "Patch failed" unless $? == 0
+    original.open.readlines.join
   end
 end
