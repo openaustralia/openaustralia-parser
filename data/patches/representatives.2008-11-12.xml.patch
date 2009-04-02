@@ -1,0 +1,24 @@
+--- original.xml	2009-04-02 16:54:00.000000000 +1100
++++ patched.xml	2009-04-02 16:54:16.000000000 +1100
+@@ -2984,9 +2984,7 @@
+ <name>Irwin, J.</name>
+ <name>Jackson, S.M.</name>
+ <name>Kelly, M.J.</name>
+-<name>King, C.F. (</name>
+-<name>proxy</name>
+-<name>)</name>
++<name>King, C.F. (proxy)</name>
+ <name>Livermore, K.F.</name>
+ <name>Macklin, J.L.</name>
+ <name>Marles, R.D.</name>
+@@ -3267,9 +3265,7 @@
+ <name>Irwin, J.</name>
+ <name>Jackson, S.M.</name>
+ <name>Kelly, M.J.</name>
+-<name>King, C.F. (</name>
+-<name>proxy</name>
+-<name>)</name>
++<name>King, C.F. (proxy)</name>
+ <name>Livermore, K.F.</name>
+ <name>Macklin, J.L.</name>
+ <name>Marles, R.D.</name>
