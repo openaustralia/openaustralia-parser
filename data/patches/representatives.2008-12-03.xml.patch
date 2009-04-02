@@ -1,0 +1,24 @@
+--- original.xml	2009-04-02 13:16:04.000000000 +1100
++++ patched.xml	2009-04-02 13:17:51.000000000 +1100
+@@ -2062,9 +2062,7 @@
+ <name>Marino, N.B.</name>
+ <name>Markus, L.E.</name>
+ <name>May, M.A.</name>
+-<name>Mirabella, S. (</name>
+-<name>proxy</name>
+-<name>)</name>
++<name>Mirabella, S. (proxy)</name>
+ <name>Morrison, S.J.</name>
+ <name>Nelson, B.J.</name>
+ <name>Pearce, C.J.</name>
+@@ -2229,9 +2227,7 @@
+ <name>Marino, N.B.</name>
+ <name>Markus, L.E.</name>
+ <name>May, M.A.</name>
+-<name>Mirabella, S. (</name>
+-<name>proxy</name>
+-<name>)</name>
++<name>Mirabella, S. (proxy)</name>
+ <name>Morrison, S.J.</name>
+ <name>Nelson, B.J.</name>
+ <name>Pearce, C.J.</name>
