@@ -230,7 +230,8 @@ person count,aph id,title,last name,first name,middle name,post title,birthday,a
 219,DYH,,Ferguson,Michael,Darrel,,,,,,,,,,,,,,
 220,5L6,,Ferris,Jeannie,Margaret,,,,,,,,,,,,,,
 221,E4R,,Fielding,Steve,,,,,Fielding,Steven,Murray,,,,,,,,
-222,E4T,,Fierravanti-Wells,Concetta,Anna,,,,,,,,,,,,,,
+# Connie is a nickname for Concetta but is sometimes misused as another middle name
+222,E4T,,Fierravanti-Wells,Concetta,Anna,,,,Fierravanti-Wells,Concetta,Connie,,,,,,,,
 223,CG4,,Fife,Wallace,Clyde,,,,,,,,,,,,,,
 224,D2I,,Fifield,Mitch,Peter,,,,Fifield,Mitchell,Peter,,,,,,,,
 225,QT4,,Filing,Paul,Anthony,,,,,,,,,,,,,,
@@ -607,7 +608,8 @@ person count,aph id,title,last name,first name,middle name,post title,birthday,a
 596,,,Smyth,Brendan,Michael,,,,,,,,,,,,,,
 597,,,Snedden,Billy,Mackie (later Sir Billy),,,,,,,,,,,,,,
 598,HJ4,,Snow,James,Henry,,,,,,,,,,,,,,
-599,IJ4,,Snowdon,Warren,Edward,,,,,,,,,,,,,,
+# Snowden is a misspelling of Snowdon
+599,IJ4,,Snowdon,Warren,Edward,,,,Snowden,Warren,Edward,,,,,,,,
 600,ZT4,,Somlyay,Alex,Michael,,,,Somlyay,Alexander,Michael,,,,,,,,
 601,TK6,,Southcott,Andrew,John,,,,,,,,,,,,,,
 602,VC5,,Sowada,Karin,Nicole,,,,,,,,,,,,,,
@@ -654,8 +656,10 @@ person count,aph id,title,last name,first name,middle name,post title,birthday,a
 643,885,,Turnbull,Malcolm,Bligh,,,,,,,,,,,,,,
 644,HVV,,Turnour,Jim,Pearce,,,,Turnour,James,Pearce,,,,,,,,
 645,EE4,,Uren,Thomas,,,,,,,,,,,,,,,
-646,SU5,,Vaile,Mark,Anthony James,,,,,,,,,,,,,,
-647,VK6,,Vale,Danna,Sue,,,,,,,,,,,,,,
+# Vale is a mis-spelling
+646,SU5,,Vaile,Mark,Anthony James,,,,Vale,Mark,Anthony James,,,,,,,,
+# Vaile is a mis-spelling
+647,VK6,,Vale,Danna,Sue,,,,Vaile,Danna,Sue,,,,,,,,
 648,IG4,,Vallentine,Josephine,,,,,,,,,,,,,,,
 649,00AMT,,Vamvakinou,Maria,,,,,,,,,,,,,,,
 650,7E4,,Vanstone,Amanda,Eloise,,,,,,,,,,,,,,
