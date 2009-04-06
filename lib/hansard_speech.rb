@@ -271,29 +271,10 @@ class HansardSpeech
     Hpricot.XML(HansardSpeech.clean_content_any(@content))
   end
 
-  def remove_generic_speaker_names(content)
-    if generic_speaker?(speakername) and !interjection
-      #remove everything before the first hyphen
-      return Hpricot(content.to_s.gsub!(/^<p[^>]*>.*?—/i, "<p>"))
-    end
-    content
-  end
-
   def strip_tags(doc)
     str=doc.to_s
     str.gsub(/<\/?[^>]*>/, "")
   end
-
-  def extract_aph_id_from_speaker_url(speaker_url)
-    if speaker_url =~ /^view_document.aspx\?TABLE=biogs&ID=(\d+)$/
-      $~[1].to_i
-    elsif speaker_url.nil? || speaker_url == "view_document.aspx?TABLE=biogs&ID="
-      nil
-    else
-      logger.error "Speaker link has unexpected format: #{speaker_url}" if logger
-      nil
-    end
-  end  
 
   def HansardSpeech.generic_speaker?(speakername)
     speakername =~ /^(an? )?(honourable|opposition|government) (member|senator)s?$/i
