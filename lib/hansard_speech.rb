@@ -90,11 +90,6 @@ class HansardSpeech
     # Always ignore font-size
     attributes_keys.delete('font-size')
 
-    # A special case here. Ugly HACK
-    if e.attributes.keys.empty?
-      text = '<p>' + text + '</p>'
-    end
-    
     if attributes_keys.delete('ref')
       # We're going to assume these links always point to Bills.
       link = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{e.attributes['ref']}"
