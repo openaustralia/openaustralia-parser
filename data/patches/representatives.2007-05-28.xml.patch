@@ -1,0 +1,18 @@
+--- original.xml	2009-04-06 14:39:07.000000000 +1000
++++ patched.xml	2009-04-06 14:41:19.000000000 +1000
+@@ -2176,7 +2176,15 @@
+ <para>—He has been engaging in chatting across the table. Heads come up. No longer are we furiously scribbling notes!</para>
+ </talk.start>
+ </continue>
++<interjection>
++<talk.start>
++<talker>
++<name.id>00AN3</name.id>
++<name role="metadata">O’Connor, Brendan, MP</name>
++</talker>
+ <para class="italic">Brendan O’Connor interjecting—</para>
++</talk.start>
++</interjection>
+ <interjection>
+ <talk.start>
+ <talker>

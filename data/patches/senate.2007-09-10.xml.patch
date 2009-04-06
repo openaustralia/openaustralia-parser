@@ -1,0 +1,18 @@
+--- original.xml	2009-04-06 14:14:13.000000000 +1000
++++ patched.xml	2009-04-06 14:17:21.000000000 +1000
+@@ -1222,7 +1222,15 @@
+ </talker>
+ <para>—I thank Senator Barnett for his perceptive question. Last Thursday the Australian Bureau of Statistics released the August labour force figures. These figures, which the Labor Party do not want to know about, revealed that, despite a new record high participation rate of 65.1 per cent as a result of Welfare to Work—something opposed by Labor—coming on-stream, the unemployment level in Australia remains at just 4.3 per cent. The reason is that during August another 31,800 jobs were created—</para>
+ </talk.start>
++<interjection>
++<talk.start>
++<talker>
++<name.id>3L6</name.id>
++<name role="metadata">Conroy, Sen Stephen</name>
++</talker>
+ <para class="italic">Senator Conroy interjecting—</para>
++</talk.start>
++</interjection>
+ <continue>
+ <talk.start>
+ <talker>

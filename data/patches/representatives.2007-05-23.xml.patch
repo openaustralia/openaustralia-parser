@@ -1,0 +1,19 @@
+--- original.xml	2009-04-06 14:24:05.000000000 +1000
++++ patched.xml	2009-04-06 14:25:01.000000000 +1000
+@@ -2681,8 +2681,16 @@
+ </talk.start>
+ </continue>
+ <para>In the time that he has been in parliament, this person who aspires to be Prime Minister of this country has voted with his colleagues in the Labor Party against every major economic reform that this government has put up. I have a division list here. Within weeks of the member for Griffith being sworn in after the 1998 election—indeed, on 10 December 1998—I find the name ‘Mr Rudd’ amongst the 67 noes who voted against the new taxation system. Here is the division list. There is a mountain of division lists that will be produced in this place that will attest to not the economic conservatism but, rather, the economic-wrecking instincts of the Leader of the Opposition. He voted against taxation reform, he voted against industrial relations reform, he voted with his colleagues to stop the budget being put into surplus—</para>
++<interjection>
++<talk.start>
++<talker>
++<name.id>RH4</name.id>
++<name role="metadata">Kerr, Duncan, MP</name>
++</talker>
+ <para>
+ <inline font-style="italic">Mr Kerr interjecting</inline>—</para>
++</talk.start>
++</interjection>
+ <interjection>
+ <talk.start>
+ <talker>
