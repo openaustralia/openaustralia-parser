@@ -97,40 +97,35 @@ class HansardSpeech
     end
 
     if attributes_keys.delete('font-style')
-      if e.attributes['font-style'] == 'italic'
-        text = '<i>' + text + '</i>'
-      else
-        throw "Unexpected font-style value #{e.attributes['font-style']}"
-      end
+      throw "Unexpected font-style value #{e.attributes['font-style']}" unless e.attributes['font-style'] == 'italic'
+      
+      text = '<i>' + text + '</i>'
     end
         
     if attributes_keys.delete('font-weight')
-      if e.attributes['font-weight'] == 'bold'
-        # Workaround for badly marked up content. If a bold item is surrounded in brackets assume it is a name and remove it
-        # Alternatively if the bold item is a generic name, remove it as well
-        if (e.inner_html[0..0] == '(' && e.inner_html[-1..-1] == ')') || generic_speaker?(e.inner_html)
-          text = ''
-        else
-          text = '<b>' + text + '</b>'
-        end
+      throw "Unexpected font-weight value #{e.attributes['font-weight']}" unless e.attributes['font-weight'] == 'bold'
+
+      # Workaround for badly marked up content. If a bold item is surrounded in brackets assume it is a name and remove it
+      # Alternatively if the bold item is a generic name, remove it as well
+      if e.inner_html =~ /^\(.*\)$/ || generic_speaker?(e.inner_html)
+        text = ''
       else
-        throw "Unexpected font-weight value #{e.attributes['font-weight']}"
+        text = '<b>' + text + '</b>'
       end
     end
 
     if attributes_keys.delete('font-variant')
-      if e.attributes['font-variant'] == 'superscript'
+      case e.attributes['font-variant']
+      when 'superscript'
         text = '<sup>' + text + '</sup>'
-      elsif e.attributes['font-variant'] == 'subscript'
+      when 'subscript'
         text = '<sub>' + text + '</sub>'
       else
         throw "Unexpected font-variant value #{e.attributes['font-variant']}"
       end
     end
     
-    unless attributes_keys.empty?
-      throw "Unexpected attributes #{attributes_keys.join(', ')}"
-    end
+    throw "Unexpected attributes #{attributes_keys.join(', ')}" unless attributes_keys.empty?
     
     text
   end
