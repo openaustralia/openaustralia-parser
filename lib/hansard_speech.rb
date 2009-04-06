@@ -143,7 +143,7 @@ class HansardSpeech
   end
   
   # Pass a <para>Some text</para> block. Returns cleaned "<p>Some text</p>"
-  def HansardSpeech.clean_content_para(e, override_type = nil)
+  def HansardSpeech.clean_content_para(e, override_type = nil, motion = false)
     if override_type
       type = override_type
     else
@@ -159,7 +159,11 @@ class HansardSpeech
 
     case type
     when ""
-      '<p>' + clean_content_para_content(e) + '</p>'
+      if motion
+        '<p pwmotiontext="yes">' + clean_content_para_content(e) + '</p>'
+      else
+        '<p>' + clean_content_para_content(e) + '</p>'
+      end
     when 'italic'
       '<p class="' + type + '">' + clean_content_para_content(e) + '</p>'
     when 'bold'
@@ -220,9 +224,30 @@ class HansardSpeech
     '<table border="0">' + clean_content_recurse(e, override_type) + '</table>'
   end
   
+  def HansardSpeech.clean_content_motion(e)
+    # Hmmm. what if there are two para's below? will we get the wrong formatting?
+    t = '<p pwmotiontext="yes">'
+    e.each_child_node do |e|
+      case e.name
+      when 'para'
+        t << clean_content_para_content(e)
+      when 'list'
+        t << clean_content_list(e)
+      when 'table'
+        t << clean_content_table(e)
+      else
+        throw "Unexpected tag #{e.name}"
+      end
+    end
+    t << '</p>'
+    t    
+  end
+  
   def HansardSpeech.clean_content_any(e, override_type = nil)
     case e.name
-    when 'amendment', 'motion', 'quote'
+    when 'motion'
+      clean_content_motion(e)
+    when 'amendment', 'quote'
       clean_content_recurse(e, 'italic')
     when 'talk.start', 'amendments', 'motionnospeech', 'interjection', 'continue'
       clean_content_recurse(e)

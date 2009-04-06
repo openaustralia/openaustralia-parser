@@ -107,7 +107,7 @@ describe HansardSpeech, "should clean content" do
     
   it "in a motion block" do
     content = '<motion><para><inline font-size="9pt">Some intro</inline></para><list type="loweralpha"><item label="(a)"><para>Point a</para></item><item label="(b)"><para>Point b</para></item></list></motion>'		
-		expected_result = '<p class="italic">Some intro</p><dl><dt>(a)</dt><dd>Point a</dd><dt>(b)</dt><dd>Point b</dd></dl>'
+		expected_result = '<p pwmotiontext="yes">Some intro<dl><dt>(a)</dt><dd>Point a</dd><dt>(b)</dt><dd>Point b</dd></dl></p>'
 		HansardSpeech.new(Hpricot.XML(content).at('motion'), nil).clean_content.to_s.should == expected_result
   end
   
@@ -204,5 +204,11 @@ describe HansardSpeech, "should clean content" do
     content = '<para>CO<inline font-variant="subscript">2</inline></para>'
     expected = '<p>CO<sub>2</sub></p>'
     HansardSpeech.clean_content_para(Hpricot.XML(content).at('para')).should == expected
+  end
+  
+  it "marks motions so they can be understood by the public whip application" do
+    content = '<motion><para>That yellow is very happy colour</para></motion>'
+    expected = '<p pwmotiontext="yes">That yellow is very happy colour</p>'
+    HansardSpeech.new(Hpricot.XML(content).at('motion'), nil).clean_content.to_s.should == expected
   end
 end
