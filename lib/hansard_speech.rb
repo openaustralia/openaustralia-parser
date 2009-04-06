@@ -23,7 +23,7 @@ class HansardSpeech
   
   def speakername
     # First try to lookup name using the proper tags. If that doesn't work try looking in the text
-    speakername_from_tag || speakername_from_interjecting_text || speakername_from_text
+    speakername_from_tag || speakername_from_text
   end
   
   def aph_id
@@ -33,7 +33,7 @@ class HansardSpeech
   
   # TODO: Rename this method to interjection?
   def interjection
-    !@content.at('interjection').nil? || (speakername_from_tag.nil? && !speakername_from_interjecting_text.nil?)
+    !@content.at('interjection').nil?
   end
 
   private
@@ -50,14 +50,8 @@ class HansardSpeech
     talkername_tag ? talkername_tag.inner_html : nil
   end
   
-  def speakername_from_interjecting_text
-    if strip_tags(@content) =~ /([a-z].*) interjecting—/i and HansardSpeech.generic_speaker?($~[1])
-      $~[1]
-    end
-  end
-  
   def speakername_from_text
-    if strip_tags(@content) =~ /^([a-z].*?)—/i and HansardSpeech.generic_speaker?($~[1])
+    if strip_tags(@content) =~ /^([a-z].*?)( interjecting)?—/i and HansardSpeech.generic_speaker?($~[1])
       $~[1]
     end
   end
