@@ -75,6 +75,11 @@ describe HansardSpeech, "should recognise who's talking" do
 		speech.speakername.should == "Jenkins, Harry (The DEPUTY SPEAKER)"
 		speech.interjection.should be_true
   end
+  
+  it "should recognise generic speakers interjecting" do
+    speech = HansardSpeech.new(Hpricot.XML('<para class="italic">Honourable members interjecting—</para>'), nil)
+    speech.speakername.should == "Honourable members"
+  end
 end
 
 describe HansardSpeech, "should clean content" do
