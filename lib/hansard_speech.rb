@@ -143,7 +143,7 @@ class HansardSpeech
   end
   
   # Pass a <para>Some text</para> block. Returns cleaned "<p>Some text</p>"
-  def HansardSpeech.clean_content_para(e, override_type = nil, motion = false)
+  def HansardSpeech.clean_content_para(e, override_type = nil)
     if override_type
       type = override_type
     else
@@ -159,11 +159,7 @@ class HansardSpeech
 
     case type
     when ""
-      if motion
-        '<p pwmotiontext="yes">' + clean_content_para_content(e) + '</p>'
-      else
-        '<p>' + clean_content_para_content(e) + '</p>'
-      end
+      '<p>' + clean_content_para_content(e) + '</p>'
     when 'italic'
       '<p class="' + type + '">' + clean_content_para_content(e) + '</p>'
     when 'bold'
