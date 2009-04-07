@@ -11,9 +11,13 @@ class HansardSpeech
     @content, @page, @logger = content, page, logger
   end
   
-  # The url of a speech is just the url of the page that it comes from
+  def day
+    @page.day
+  end
+  
+  # The url of a speech is just the url of the day that it comes from
   def permanent_url
-    @page.permanent_url
+    day.permanent_url
   end
   
   # The time of a speech is just the time of the page that the speech is on

@@ -109,7 +109,7 @@ class HansardParser
         content = true
         if page
           if page.is_a?(HansardPage)
-            debates.add_heading(page.title, page.subtitle, page.permanent_url)
+            debates.add_heading(page.title, page.subtitle, day.permanent_url)
             speaker = nil
             page.speeches.each do |speech|
               if speech

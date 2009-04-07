@@ -2,18 +2,13 @@ require 'hansard_speech'
 require 'configuration'
 
 class HansardPage
-  attr_reader :page, :logger, :title, :subtitle
+  attr_reader :page, :logger, :title, :subtitle, :day
   
-  # 'link' is the link that got us to this page 'page'
   def initialize(page, title, subtitle, day, logger = nil)
     @page, @title, @subtitle, @day, @logger = page, title, subtitle, day, logger
     @conf = Configuration.new
   end
   
-  def permanent_url
-    @day.permanent_url
-  end
-
   # Returns an array of speech objects that contain a person making a speech
   # if an element is nil it should be skipped but the minor_count should still be incremented
   def speeches
