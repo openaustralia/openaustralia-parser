@@ -2,7 +2,7 @@ require 'hansard_speech'
 require 'configuration'
 
 class HansardPage
-  attr_reader :page, :logger, :day
+  attr_reader :page, :day
   
   def initialize(page, title, subtitle, time, day, logger = nil)
     @page, @title, @subtitle, @time, @day, @logger = page, title, subtitle, time, day, logger
@@ -26,6 +26,6 @@ class HansardPage
       end
     end
     
-    speech_blocks.map {|e| HansardSpeech.new(e, @title, @subtitle, @time, self, logger) if e}
+    speech_blocks.map {|e| HansardSpeech.new(e, @title, @subtitle, @time, self, @logger) if e}
   end  
 end
