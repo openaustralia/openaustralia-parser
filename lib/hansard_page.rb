@@ -23,10 +23,6 @@ class HansardPage
     end
   end
 
-  def has_content?
-    !speeches.empty?
-  end
-  
   # Returns an array of speech objects that contain a person making a speech
   # if an element is nil it should be skipped but the minor_count should still be incremented
   def speeches
