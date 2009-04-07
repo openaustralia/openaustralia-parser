@@ -79,11 +79,6 @@ class HansardDay
     p = []
     title = title(debate)
     subtitle = subtitle(debate)
-    if subtitle == ""
-      full_title = title
-    else
-      full_title = title + "; " + subtitle
-    end
 
     question = false
     procedural = false
@@ -93,24 +88,20 @@ class HansardDay
         question = false
         procedural = false
       when 'speech'
-        #puts "USE: #{e.name} > #{full_title}"
         p << HansardPage.new([e], title, subtitle, self, @logger)
         question = false
         procedural = false
       when 'division'
-        #puts "SKIP: #{e.name} > #{full_title}"
         p << HansardDivision.new(e, self)
         question = false
         procedural = false
       when 'petition'
-        #puts "SKIP: #{e.name} > #{full_title}"
         p << nil
         question = false
         procedural = false
       when 'question', 'answer'
         # We'll skip answer because they always come in pairs of 'question' and 'answer'
         unless question
-          #puts "USE: #{e.name} > #{full_title}"
           questions = []
           f = e
           while f && (f.name == 'question' || f.name == 'answer') do
