@@ -17,7 +17,7 @@ describe HansardSpeech, "should recognise who's talking" do
 					<name role="display">Mr RUDD</name>
 				</talker>
 			</talk.start>
-		</speech>'), "", "", nil)
+		</speech>'), "", "", "", nil)
 		
 		speech.speakername.should == "Mr RUDD"
 		speech.aph_id.should == "83T"
@@ -25,7 +25,7 @@ describe HansardSpeech, "should recognise who's talking" do
   end
 
 	it "in a motionnospeech block" do
-	  speech = HansardSpeech.new(Hpricot.XML('<motionnospeech><name>Mr BILLSON</name></motionnospeech>'), "", "", nil)
+	  speech = HansardSpeech.new(Hpricot.XML('<motionnospeech><name>Mr BILLSON</name></motionnospeech>'), "", "", "", nil)
 		speech.speakername.should == "Mr BILLSON"
 		speech.aph_id.should be_nil
 		speech.interjection.should be_false
@@ -41,7 +41,7 @@ describe HansardSpeech, "should recognise who's talking" do
 					<name role="display">The SPEAKER</name>
 				</talker>
 			</talk.start>
-		</interjection>'), "", "", nil)
+		</interjection>'), "", "", "", nil)
 		speech.speakername.should == "The SPEAKER"
 		speech.aph_id.should == "10000"
 		speech.interjection.should be_true
@@ -58,7 +58,7 @@ describe HansardSpeech, "should recognise who's talking" do
 				</talker>
 				<para>I listened to all the accusations of bad faith without interjecting.</para>
 			</talk.start>
-		</continue>'), "", "", nil)
+		</continue>'), "", "", "", nil)
 		speech.interjection.should be_false		
   end
   
@@ -71,13 +71,13 @@ describe HansardSpeech, "should recognise who's talking" do
 					<name role="display">The DEPUTY SPEAKER</name>
 				</talker>
 			</talk.start>
-		</interjection>'), "", "", nil)
+		</interjection>'), "", "", "", nil)
 		speech.speakername.should == "Jenkins, Harry (The DEPUTY SPEAKER)"
 		speech.interjection.should be_true
   end
   
   it "should recognise generic speakers interjecting" do
-    speech = HansardSpeech.new(Hpricot.XML('<para class="italic">Honourable members interjecting—</para>'), "", "", nil)
+    speech = HansardSpeech.new(Hpricot.XML('<para class="italic">Honourable members interjecting—</para>'), "", "", "", nil)
     speech.speakername.should == "Honourable members"
   end
 end
@@ -85,7 +85,7 @@ end
 describe HansardSpeech, "should clean content" do
   
   it "in a simple paragraph" do
-    speech = HansardSpeech.new(Hpricot.XML('<speech><talk.start><para>—I move:</para></talk.start></speech>').at('//(talk.start)'), "", "", nil)
+    speech = HansardSpeech.new(Hpricot.XML('<speech><talk.start><para>—I move:</para></talk.start></speech>').at('//(talk.start)'), "", "", "", nil)
 		expected_result = '<p>I move:</p>'
 		speech.clean_content.to_s.should == expected_result
   end
@@ -95,7 +95,7 @@ describe HansardSpeech, "should clean content" do
     expected = '<p>Some text</p>'
     HansardSpeech.clean_content_para(Hpricot.XML(content).at('para')).should == expected
 
-    speech = HansardSpeech.new(Hpricot.XML(content).at('para'), "", "", nil)
+    speech = HansardSpeech.new(Hpricot.XML(content).at('para'), "", "", "", nil)
     speech.clean_content.to_s.should == expected
   end  
 
@@ -108,7 +108,7 @@ describe HansardSpeech, "should clean content" do
   it "in a motion block" do
     content = '<motion><para><inline font-size="9pt">Some intro</inline></para><list type="loweralpha"><item label="(a)"><para>Point a</para></item><item label="(b)"><para>Point b</para></item></list></motion>'		
 		expected_result = '<p pwmotiontext="moved">Some intro<dl><dt>(a)</dt><dd>Point a</dd><dt>(b)</dt><dd>Point b</dd></dl></p>'
-		HansardSpeech.new(Hpricot.XML(content).at('motion'), "", "", nil).clean_content.to_s.should == expected_result
+		HansardSpeech.new(Hpricot.XML(content).at('motion'), "", "", "", nil).clean_content.to_s.should == expected_result
   end
   
   # Split the following into separate tests
@@ -209,6 +209,6 @@ describe HansardSpeech, "should clean content" do
   it "marks motions so they can be understood by the public whip application" do
     content = '<motion><para>That yellow is very happy colour</para></motion>'
     expected = '<p pwmotiontext="moved">That yellow is very happy colour</p>'
-    HansardSpeech.new(Hpricot.XML(content).at('motion'), "", "", nil).clean_content.to_s.should == expected
+    HansardSpeech.new(Hpricot.XML(content).at('motion'), "", "", "", nil).clean_content.to_s.should == expected
   end
 end

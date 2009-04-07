@@ -4,8 +4,8 @@ require 'configuration'
 class HansardPage
   attr_reader :page, :logger, :day
   
-  def initialize(page, title, subtitle, day, logger = nil)
-    @page, @title, @subtitle, @day, @logger = page, title, subtitle, day, logger
+  def initialize(page, title, subtitle, time, day, logger = nil)
+    @page, @title, @subtitle, @time, @day, @logger = page, title, subtitle, time, day, logger
     @conf = Configuration.new
   end
   
@@ -26,13 +26,6 @@ class HansardPage
       end
     end
     
-    speech_blocks.map {|e| HansardSpeech.new(e, @title, @subtitle, self, logger) if e}
-  end  
-
-  # Returns the time (as a string) that the current debate took place
-  def time
-    # HACK: Hmmm.. check this out more 
-    tag = @page.first.at('(time.stamp)')
-    tag.inner_html if tag
+    speech_blocks.map {|e| HansardSpeech.new(e, @title, @subtitle, @time, self, logger) if e}
   end  
 end

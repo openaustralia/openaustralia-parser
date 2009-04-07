@@ -75,11 +75,17 @@ class HansardDay
     end    
   end
   
+  def time(debate)
+    # HACK: Hmmm.. check this out more 
+    tag = debate.at('(time.stamp)')
+    tag.inner_html if tag
+  end      
+  
   def pages_from_debate(debate)
     p = []
     title = title(debate)
     subtitle = subtitle(debate)
-
+    
     question = false
     procedural = false
     debate.each_child_node do |e|
@@ -88,7 +94,7 @@ class HansardDay
         question = false
         procedural = false
       when 'speech'
-        p << HansardPage.new([e], title, subtitle, self, @logger)
+        p << HansardPage.new([e], title, subtitle, time(e), self, @logger)
         question = false
         procedural = false
       when 'division'
@@ -108,7 +114,7 @@ class HansardDay
             questions << f
             f = f.next_sibling
           end
-          p << HansardPage.new(questions, title, subtitle, self, @logger)
+          p << HansardPage.new(questions, title, subtitle, time(e), self, @logger)
         end
         question = true
         procedural = false

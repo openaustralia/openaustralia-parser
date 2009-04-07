@@ -12,7 +12,7 @@ describe HansardPage do
 			  <talk.start></talk.start>
 			  <interjection></interjection>
 			  <para></para>
-			</speech>').at('speech')], nil, nil, nil)
+			</speech>').at('speech')], nil, nil, nil, nil)
     
     speaker.speeches.size.should == 3
   end
