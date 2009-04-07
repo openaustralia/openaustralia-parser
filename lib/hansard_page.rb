@@ -14,15 +14,6 @@ class HansardPage
     @day.permanent_url
   end
 
-  # A single string that contains the title and subtitle in one
-  def full_title
-    if @subtitle != ""
-      @title + "; " + @subtitle
-    else
-      @title
-    end
-  end
-
   # Returns an array of speech objects that contain a person making a speech
   # if an element is nil it should be skipped but the minor_count should still be incremented
   def speeches
