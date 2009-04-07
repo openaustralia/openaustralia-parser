@@ -109,10 +109,10 @@ class HansardParser
         content = true
         if page
           if page.is_a?(HansardPage)
-            debates.add_heading(page.title, page.subtitle, day.permanent_url)
             speaker = nil
             page.speeches.each do |speech|
               if speech
+                debates.add_heading(speech.title, speech.subtitle, day.permanent_url)
                 # Only change speaker if a speaker name or url was found
                 this_speaker = (speech.speakername || speech.aph_id) ? lookup_speaker(speech, date, house) : speaker
                 # With interjections the next speech should never be by the person doing the interjection

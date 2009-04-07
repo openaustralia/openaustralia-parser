@@ -5,10 +5,10 @@ require 'hpricot_additions'
 $KCODE = 'u'
 
 class HansardSpeech
-  attr_reader :logger
+  attr_reader :logger, :title, :subtitle
   
-  def initialize(content, page, logger = nil)
-    @content, @page, @logger = content, page, logger
+  def initialize(content, title, subtitle, page, logger = nil)
+    @content, @title, @subtitle, @page, @logger = content, title, subtitle, page, logger
   end
   
   def day

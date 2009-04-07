@@ -2,7 +2,7 @@ require 'hansard_speech'
 require 'configuration'
 
 class HansardPage
-  attr_reader :page, :logger, :title, :subtitle, :day
+  attr_reader :page, :logger, :day
   
   def initialize(page, title, subtitle, day, logger = nil)
     @page, @title, @subtitle, @day, @logger = page, title, subtitle, day, logger
@@ -26,7 +26,7 @@ class HansardPage
       end
     end
     
-    speech_blocks.map {|e| HansardSpeech.new(e, self, logger) if e}
+    speech_blocks.map {|e| HansardSpeech.new(e, @title, @subtitle, self, logger) if e}
   end  
 
   # Returns the time (as a string) that the current debate took place

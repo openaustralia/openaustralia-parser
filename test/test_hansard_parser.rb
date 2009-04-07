@@ -14,7 +14,7 @@ class TestHansardParser < Test::Unit::TestCase
   end
   
   def test_generic_speakers
-    speech = HansardSpeech.new(Hpricot(''), @page)
+    speech = HansardSpeech.new(Hpricot(''), "", "", @page)
     assert(HansardSpeech.generic_speaker?("Honourable member"))
     assert(HansardSpeech.generic_speaker?("Honourable members"))
     assert(HansardSpeech.generic_speaker?("Government member"))

@@ -32,7 +32,7 @@ describe HansardDay do
     
     x = Builder::MyXmlMarkup.new
 
-    titles_xml = x.hansard {
+    @titles_xml = Hpricot.XML(x.hansard {
       x.chamber_xscript {
         x.debate {
        		x.debateinfo { x.title 1 }
@@ -86,10 +86,11 @@ describe HansardDay do
     			}
     		}
       }
-    }
+    })
 
     @header = HansardDay.new(Hpricot.XML(header_xml))
-    @titles = HansardDay.new(Hpricot.XML(titles_xml))    
+
+    @titles = HansardDay.new(@titles_xml)    
   end
 
   it "should know what house it's in" do
@@ -107,15 +108,29 @@ describe HansardDay do
   end
   
   # TODO: This should be a test for HansardPage rather than HansardDay
-  it "should be able to figure out all the titles" do
-     @titles.pages.map {|page| page.title if page}.should == [nil, "1", "2", "4", "4", "7; 13", "7; 13", "10"]
+  it "should be able to figure out all the titles and subtitles" do
+    @titles.title(@titles_xml.at('debate')).should == "1"
+    @titles.subtitle(@titles_xml.at('debate')).should == ""
+    
+    @titles.title(@titles_xml.at('(subdebate.1)')).should == "2"
+    @titles.subtitle(@titles_xml.at('(subdebate.1)')).should == "3; 14"
+    
+    @titles.title(@titles_xml.search('(subdebate.1)')[1]).should == "4"
+    @titles.subtitle(@titles_xml.search('(subdebate.1)')[1]).should == "5"
+    
+    @titles.title(@titles_xml.search('(subdebate.1)')[2]).should == "4"
+    @titles.subtitle(@titles_xml.search('(subdebate.1)')[2]).should == "6"
+    
+    @titles.title(@titles_xml.search('(subdebate.1)')[3]).should == "7; 13"
+    @titles.subtitle(@titles_xml.search('(subdebate.1)')[3]).should == "8"
+    
+    @titles.title(@titles_xml.search('(subdebate.1)')[4]).should == "7; 13"
+    @titles.subtitle(@titles_xml.search('(subdebate.1)')[4]).should == "9"
+
+    @titles.title(@titles_xml.at('(subdebate.2)')).should == "10"
+    @titles.subtitle(@titles_xml.at('(subdebate.2)')).should == "11; 12"
   end  
 
-  # TODO: This should be a test for HansardPage rather than HansardDay
-  it "should be able to figure out all the subtitles" do
-     @titles.pages.map {|page| page.subtitle if page}.should == [nil, "", "3; 14", "5", "6", "8", "9", "11; 12"]
-  end
-  
   # TODO: This should be a test for HansardPage rather than HansardDay
   it "should still be able to figure out the title even when there is a title tag within a title tag" do
     x = Builder::MyXmlMarkup.new
@@ -138,11 +153,11 @@ describe HansardDay do
         }
       }
     }
-        
-    titles = HansardDay.new(Hpricot.XML(titles_xml))
     
-    titles.pages[1].title.should == "1; 2; 3; 4; 5"
-    titles.pages[1].subtitle.should == "6"
+    xml = Hpricot.XML(titles_xml)
+    
+    HansardDay.new(xml).title(xml.at('(subdebate.1)')).should == "1; 2; 3; 4; 5"
+    HansardDay.new(xml).subtitle(xml.at('(subdebate.1)')).should == "6"
   end
   
   it "should know when the page is considered in proof stage" do
