@@ -142,7 +142,6 @@ class HansardDay
     # Step through the top-level debates
     # When something that was a page in old parlinfo web system is not supported we just return nil for it. This ensures that it is
     # still accounted for in the counting of the ids but we don't try to use it to generate any content
-    #puts "SKIP: Official Hansard"
     p << nil
     @page.at('hansard').each_child_node do |e|
       case e.name
@@ -152,7 +151,6 @@ class HansardDay
           case e.name
             when 'business.start', 'adjournment', 'interrupt', 'interjection'
               p << nil
-              #puts "SKIP: #{e.name}"
             when 'debate', 'petition.group'
               p = p + pages_from_debate(e)
             else
@@ -163,7 +161,6 @@ class HansardDay
         e.each_child_node do |e|
           case e.name
           when 'debate'
-            pages_from_debate(e)
           else
             throw "Unexpected tag #{e.name}"
           end
