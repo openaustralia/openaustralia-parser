@@ -1,8 +1,6 @@
 require 'hansard_speech'
 
 class HansardPage
-  attr_reader :day
-  
   def initialize(page, title, subtitle, time, day, logger = nil)
     @page, @title, @subtitle, @time, @day, @logger = page, title, subtitle, time, day, logger
   end
@@ -17,7 +15,7 @@ class HansardPage
       when 'speech', 'question', 'answer'
         # Add each child as a seperate speech_block
         e.each_child_node do |c|
-          speech_blocks << HansardSpeech.new(c, @title, @subtitle, @time, self, @logger)
+          speech_blocks << HansardSpeech.new(c, @title, @subtitle, @time, @day, @logger)
         end
       else
         throw "Unexpected tag #{e.name}"

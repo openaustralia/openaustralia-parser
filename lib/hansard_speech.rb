@@ -5,14 +5,10 @@ require 'hpricot_additions'
 $KCODE = 'u'
 
 class HansardSpeech
-  attr_reader :logger, :title, :subtitle, :time
+  attr_reader :logger, :title, :subtitle, :time, :day
   
-  def initialize(content, title, subtitle, time, page, logger = nil)
-    @content, @title, @subtitle, @time, @page, @logger = content, title, subtitle, time, page, logger
-  end
-  
-  def day
-    @page.day
+  def initialize(content, title, subtitle, time, day, logger = nil)
+    @content, @title, @subtitle, @time, @day, @logger = content, title, subtitle, time, day, logger
   end
   
   # The url of a speech is just the url of the day that it comes from
