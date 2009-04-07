@@ -1,12 +1,10 @@
 require 'hansard_speech'
-require 'configuration'
 
 class HansardPage
-  attr_reader :page, :day
+  attr_reader :day
   
   def initialize(page, title, subtitle, time, day, logger = nil)
     @page, @title, @subtitle, @time, @day, @logger = page, title, subtitle, time, day, logger
-    @conf = Configuration.new
   end
   
   # Returns an array of speech objects that contain a person making a speech
@@ -19,13 +17,12 @@ class HansardPage
       when 'speech', 'question', 'answer'
         # Add each child as a seperate speech_block
         e.each_child_node do |c|
-          speech_blocks << c
+          speech_blocks << HansardSpeech.new(c, @title, @subtitle, @time, self, @logger)
         end
       else
         throw "Unexpected tag #{e.name}"
       end
     end
-    
-    speech_blocks.map {|e| HansardSpeech.new(e, @title, @subtitle, @time, self, @logger) if e}
+    speech_blocks
   end  
 end
