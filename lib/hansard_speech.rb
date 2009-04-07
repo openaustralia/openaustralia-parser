@@ -222,7 +222,7 @@ class HansardSpeech
   
   def HansardSpeech.clean_content_motion(e)
     # Hmmm. what if there are two para's below? will we get the wrong formatting?
-    t = '<p pwmotiontext="yes">'
+    t = '<p pwmotiontext="moved">'
     e.each_child_node do |e|
       case e.name
       when 'para'
