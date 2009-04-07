@@ -1,7 +1,7 @@
-require 'hansard_page'
 require 'hpricot_additions'
 require 'house'
 require 'hansard_division'
+require 'hansard_speech'
 
 class HansardDay
   def initialize(page, logger = nil)
@@ -94,7 +94,7 @@ class HansardDay
         question = false
         procedural = false
       when 'speech'
-        p << HansardPage.new([e], title, subtitle, time(e), self, @logger).speeches
+        p << e.map_child_node {|c| HansardSpeech.new(c, title, subtitle, time(e), self, @logger)}
         question = false
         procedural = false
       when 'division'
@@ -111,10 +111,10 @@ class HansardDay
           questions = []
           f = e
           while f && (f.name == 'question' || f.name == 'answer') do
-            questions << f
+            questions = questions + f.map_child_node {|c| HansardSpeech.new(c, title, subtitle, time(e), self, @logger)} 
             f = f.next_sibling
           end
-          p << HansardPage.new(questions, title, subtitle, time(e), self, @logger).speeches
+          p << questions
         end
         question = true
         procedural = false
@@ -124,10 +124,10 @@ class HansardDay
           procedurals = []
           f = e
           while f && procedural_tags.include?(f.name) do
-            procedurals << f
+            procedurals = procedurals + f.map_child_node {|c| HansardSpeech.new(c, title, subtitle, time(e), self, @logger)}
             f = f.next_sibling
           end
-          #p << HansardPage.new(procedurals, title, subtitle, self, @logger).speeches
+          #p << procedurals
           p << nil
         end
         question = false

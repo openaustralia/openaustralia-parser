@@ -9,7 +9,6 @@ require 'people_image_downloader'
 # Using Active Support (part of Ruby on Rails) for Unicode support
 require 'activesupport'
 require 'log4r'
-require 'hansard_page'
 require 'hansard_day'
 require 'patch'
 
