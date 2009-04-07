@@ -122,8 +122,15 @@ class HansardDay
         question = true
         procedural = false
       when 'motionnospeech', 'para', 'motion', 'interjection', 'quote', 'list', 'interrupt', 'amendments', 'table', 'separator', 'continue'
+        procedural_tags = %w{motionnospeech para motion interjection quote list interrupt amendments table separator continue}
         unless procedural
-          #puts "SKIP: Procedural text: #{e.name} > #{full_title}"
+          procedurals = []
+          f = e
+          while f && procedural_tags.include?(f.name) do
+            procedurals << f
+            f = f.next_sibling
+          end
+          #p << HansardPage.new(procedurals, title, subtitle, self, @logger)
           p << nil
         end
         question = false
