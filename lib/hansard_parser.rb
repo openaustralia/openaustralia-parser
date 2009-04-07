@@ -108,9 +108,9 @@ class HansardParser
       day.pages.each do |page|
         content = true
         if page
-          if page.is_a?(HansardPage)
+          if page.is_a?(Array)
             speaker = nil
-            page.speeches.each do |speech|
+            page.each do |speech|
               if speech
                 debates.add_heading(speech.title, speech.subtitle, day.permanent_url)
                 # Only change speaker if a speaker name or url was found

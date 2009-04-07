@@ -94,7 +94,7 @@ class HansardDay
         question = false
         procedural = false
       when 'speech'
-        p << HansardPage.new([e], title, subtitle, time(e), self, @logger)
+        p << HansardPage.new([e], title, subtitle, time(e), self, @logger).speeches
         question = false
         procedural = false
       when 'division'
@@ -114,7 +114,7 @@ class HansardDay
             questions << f
             f = f.next_sibling
           end
-          p << HansardPage.new(questions, title, subtitle, time(e), self, @logger)
+          p << HansardPage.new(questions, title, subtitle, time(e), self, @logger).speeches
         end
         question = true
         procedural = false
@@ -127,7 +127,7 @@ class HansardDay
             procedurals << f
             f = f.next_sibling
           end
-          #p << HansardPage.new(procedurals, title, subtitle, self, @logger)
+          #p << HansardPage.new(procedurals, title, subtitle, self, @logger).speeches
           p << nil
         end
         question = false
