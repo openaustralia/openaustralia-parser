@@ -230,7 +230,9 @@ class HansardParser
     if speech.aph_id && speech.aph_id != "10000" && speech.aph_id != "1000"
       person = @people.find_person_by_aph_id(speech.aph_id)
       if person
-        person.position_current_on_date(date, house)
+        period = person.position_current_on_date(date, house)
+        logger.error "#{date} #{house}: Found person (#{person.name.full_name}) but not both in the right period and house. Strange..." if period.nil?
+        period
       else
         logger.error "#{date} #{house}: Can't figure out which person the aph id #{speech.aph_id} belongs to"
         nil
