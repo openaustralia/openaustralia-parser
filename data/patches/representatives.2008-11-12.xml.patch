@@ -1,6 +1,15 @@
---- original.xml	2009-04-02 16:54:00.000000000 +1100
-+++ patched.xml	2009-04-02 16:54:16.000000000 +1100
-@@ -2984,9 +2984,7 @@
+--- original.xml	2009-04-11 12:11:34.000000000 +1000
++++ patched.xml	2009-04-11 12:11:38.000000000 +1000
+@@ -7,7 +7,7 @@
+ <period.no>3</period.no>
+ <chamber>REPS</chamber>
+ <page.no>0</page.no>
+-<proof>1</proof>
++<proof>0</proof>
+ </session.header>
+ <chamber.xscript>
+ <business.start>
+@@ -2982,9 +2982,7 @@
  <name>Irwin, J.</name>
  <name>Jackson, S.M.</name>
  <name>Kelly, M.J.</name>
@@ -11,7 +20,7 @@
  <name>Livermore, K.F.</name>
  <name>Macklin, J.L.</name>
  <name>Marles, R.D.</name>
-@@ -3267,9 +3265,7 @@
+@@ -3265,9 +3263,7 @@
  <name>Irwin, J.</name>
  <name>Jackson, S.M.</name>
  <name>Kelly, M.J.</name>
