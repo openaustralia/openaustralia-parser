@@ -726,6 +726,9 @@ person count,aph id,title,last name,first name,middle name,post title,birthday,a
 713,I07,,Ludlam,Scott,,,,,,,,,,,,,,,
 714,I0T,,Pratt,Louise,,,,,,,,,,,,,,,
 715,I0Q,,Ryan,Scott,,,,,,,,,,,,,,,
+# John Williams from his biography pages looks like he has the aph_id of I0V. However, in the Hansard XML
+# for 2008 he is consistently referred to by the aph_id 00AF1. In the XML for 2009 he's referred to as I0V. So,
+# the id's are not constant over time. Thanks guys.
 716,I0V,,Williams,John,,,,,,,,,,,,,,,
 717,8IV,,Xenophon,Nick,,,,,Xenophon,Nicholas,,,,,,,,,
 # New Representatives elected in by-election on 6.8.2008
