@@ -1,0 +1,20 @@
+--- original.xml	2009-04-11 14:06:03.000000000 +1000
++++ patched.xml	2009-04-11 14:06:56.000000000 +1000
+@@ -407,7 +407,7 @@
+ <talker>
+ <name.id>10000</name.id>
+ <name role="metadata">ACTING DEPUTY PRESIDENT, The</name>
+-<name role="display">The ACTING DEPUTY PRESI–-DENT</name>
++<name role="display">The ACTING DEPUTY PRESIDENT</name>
+ </talker>
+ <para>—Yes, okay. I am just making sure that you are not seeking to have a second bite at debating the issue.</para>
+ </talk.start>
+@@ -3958,7 +3958,7 @@
+ <continue>
+ <talk.start>
+ <talker>
+-<name.id>sE68</name.id>
++<name.id>E68</name.id>
+ <name role="metadata">Sterle, Sen Glenn</name>
+ <name role="display">Senator STERLE</name>
+ </talker>
