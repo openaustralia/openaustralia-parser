@@ -15,7 +15,7 @@ class Speech < Section
   def output(x)
     time = @time.nil? ? "unknown" : @time
     if @logger && @content.inner_text.strip == ""
-      @logger.error "Empty speech by #{@speaker.person.name.full_name} on #{@url}"
+      @logger.error "#{@date} #{@house}: Empty speech by #{@speaker.person.name.full_name} on #{@url}"
     end
     x.speech(:speakername => @speaker.name.full_name, :time => time, :url => quoted_url, :id => id,
       :speakerid => @speaker.id) { x << @content.to_s }

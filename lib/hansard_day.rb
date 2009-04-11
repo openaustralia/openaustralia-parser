@@ -34,7 +34,7 @@ class HansardDay
   
   def in_proof?
     proof = @page.at('proof').inner_html
-    @logger.error "Unexpected value '#{proof}' inside tag <proof>" unless proof == "1" || proof == "0"
+    @logger.error "#{date} #{house}: Unexpected value '#{proof}' inside tag <proof>" unless proof == "1" || proof == "0"
     proof == "1"
   end
 

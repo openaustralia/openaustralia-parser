@@ -39,7 +39,10 @@ class HansardParser
     # Set up logging
     @logger = Log4r::Logger.new 'HansardParser'
     # Log to both standard out and the file set in configuration.yml
-    @logger.add(Log4r::Outputter.stdout)
+    o1 = Log4r::Outputter.stdout
+    # Only log error messages or above to standard output
+    o1.level = Log4r::ERROR
+    @logger.add(o1)
     @logger.add(Log4r::FileOutputter.new('foo', :filename => @conf.log_path, :trunc => false,
       :formatter => Log4r::PatternFormatter.new(:pattern => "[%l] %d :: %M")))
   end
@@ -65,7 +68,7 @@ class HansardParser
     else
       link = page.link_with(:text => "View/Save XML")
       if link.nil?
-        @logger.error "Link to XML download is missing"
+        @logger.error "#{date} #{house}: Link to XML download is missing"
         nil
       else
         agent.click(link).body
@@ -175,13 +178,13 @@ class HansardParser
   def lookup_speaker_by_title(speech, date, house)
     # Some sanity checking.
     if speech.speakername =~ /speaker/i && house.senate?
-      logger.error "The Speaker is not expected in the Senate"
+      logger.error "#{date} #{house}: The Speaker is not expected in the Senate"
       return nil
     elsif speech.speakername =~ /president/i && house.representatives?
-      logger.error "The President is not expected in the House of Representatives"
+      logger.error "#{date} #{house}: The President is not expected in the House of Representatives"
       return nil
     elsif speech.speakername =~ /chairman/i && house.representatives?
-      logger.error "The Chairman is not expected in the House of Representatives"
+      logger.error "#{date} #{house}: The Chairman is not expected in the House of Representatives"
       return nil
     end
     
@@ -227,7 +230,7 @@ class HansardParser
       if person
         person.position_current_on_date(date, house)
       else
-        logger.error "Can't figure out which person the aph id #{speech.aph_id} belongs to"
+        logger.error "#{date} #{house}: Can't figure out which person the aph id #{speech.aph_id} belongs to"
         nil
       end
     end
@@ -238,7 +241,7 @@ class HansardParser
     member = lookup_speaker_by_aph_id(speech, date, house) || lookup_speaker_by_name(speech, date, house)
     
     if member.nil?
-      logger.warn "Unknown speaker #{speech.speakername}" unless HansardSpeech.generic_speaker?(speech.speakername)
+      logger.error "#{date} #{house}: Unknown speaker #{speech.speakername}" unless HansardSpeech.generic_speaker?(speech.speakername)
       member = UnknownSpeaker.new(speech.speakername)
     end
     member
