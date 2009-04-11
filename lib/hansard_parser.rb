@@ -248,7 +248,7 @@ class HansardParser
       unless HansardSpeech.generic_speaker?(speech.speakername)
         # It is so common that the problem with "The Temporary Chairman" occurs (where there real name is not included)
         # that we're going to downgrade this to a warning so that it doesn't drown out other problems
-        if ["The ACTING DEPUTY PRESIDENT", "The TEMPORARY CHAIRMAN", "The ACTING SPEAKER", "The Clerk", "The ACTING PRESIDENT", "DEPUTY SPEAKER, The"].include?(speech.speakername)
+        if ["The ACTING DEPUTY PRESIDENT", "The TEMPORARY CHAIRMAN", "The ACTING SPEAKER", "The Clerk", "The ACTING PRESIDENT", "DEPUTY SPEAKER, The", "DEPUTY CHAIR"].include?(speech.speakername)
           logger.warn "#{date} #{house}: Unknown speaker #{speech.speakername}"
         else
           logger.error "#{date} #{house}: Unknown speaker #{speech.speakername}"
