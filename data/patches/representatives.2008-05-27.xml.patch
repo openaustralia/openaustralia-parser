@@ -1,0 +1,11 @@
+--- original.xml	2009-04-11 15:02:49.000000000 +1000
++++ patched.xml	2009-04-11 15:03:20.000000000 +1000
+@@ -752,7 +752,7 @@
+ <interjection>
+ <talk.start>
+ <talker>
+-<name.id>W5</name.id>
++<name.id>RW5</name.id>
+ <name role="metadata">Nelson, Dr Brendan, MP</name>
+ <name role="display">Dr Nelson</name>
+ </talker>

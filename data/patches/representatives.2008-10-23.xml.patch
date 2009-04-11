@@ -1,5 +1,5 @@
---- original.xml	2009-04-11 12:20:23.000000000 +1000
-+++ patched.xml	2009-04-11 12:20:26.000000000 +1000
+--- original.xml	2009-04-11 14:56:22.000000000 +1000
++++ patched.xml	2009-04-11 14:56:53.000000000 +1000
 @@ -7,7 +7,7 @@
  <period.no>3</period.no>
  <chamber>REPS</chamber>
@@ -9,3 +9,12 @@
  </session.header>
  <chamber.xscript>
  <business.start>
+@@ -4938,7 +4938,7 @@
+ <interjection>
+ <talk.start>
+ <talker>
+-<name.id>0AKI</name.id>
++<name.id>00AKI</name.id>
+ <name role="metadata">Dutton, Peter, MP</name>
+ <name role="display">Mr Dutton</name>
+ </talker>

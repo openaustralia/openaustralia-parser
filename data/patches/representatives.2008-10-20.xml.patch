@@ -1,5 +1,5 @@
---- original.xml	2009-04-11 12:21:20.000000000 +1000
-+++ patched.xml	2009-04-11 12:21:24.000000000 +1000
+--- original.xml	2009-04-11 14:45:48.000000000 +1000
++++ patched.xml	2009-04-11 14:45:59.000000000 +1000
 @@ -7,7 +7,7 @@
  <period.no>3</period.no>
  <chamber>REPS</chamber>
@@ -31,3 +31,21 @@
  <name>Morrison, S.J.</name>
  <name>Moylan, J.E.</name>
  <name>Neville, P.C.</name>
+@@ -5241,7 +5237,7 @@
+ <talk.start>
+ <talker>
+ <name.id>1000</name.id>
+-<name role="metadata">Moyland, Judi (The DEPUTY SPEAKER)</name>
++<name role="metadata">Moylan, Judi (The DEPUTY SPEAKER)</name>
+ <name role="display">The DEPUTY SPEAKER</name>
+ </talker>
+ <para> <inline font-weight="bold">(Hon. JE Moylan)</inline>—Order! The time allotted for this debate has expired. The debate is adjourned and the resumption of the debate will be made an order of the day for the next sitting.</para>
+@@ -5436,7 +5432,7 @@
+ <talk.start>
+ <talker>
+ <name.id>1000</name.id>
+-<name role="metadata">Moyland, Judi (The DEPUTY SPEAKER)</name>
++<name role="metadata">Moylan, Judi (The DEPUTY SPEAKER)</name>
+ <name role="display">The DEPUTY SPEAKER</name>
+ </talker>
+ <para> <inline font-weight="bold">(Hon. JE Moylan)</inline>—Order! The time allotted for this debate has expired. The debate is adjourned and the resumption of the debate will be made an order of the day for the next sitting.</para>

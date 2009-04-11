@@ -1,0 +1,11 @@
+--- original.xml	2009-04-11 14:55:09.000000000 +1000
++++ patched.xml	2009-04-11 14:55:43.000000000 +1000
+@@ -5157,7 +5157,7 @@
+ <continue>
+ <talk.start>
+ <talker>
+-<name.id>Am oneDYNDYN</name.id>
++<name.id>DYN</name.id>
+ <name role="metadata">Jensen, Dennis, MP</name>
+ <name role="display">Dr JENSEN</name>
+ </talker>
