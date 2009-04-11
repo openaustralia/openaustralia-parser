@@ -68,7 +68,7 @@ class HansardParser
     else
       link = page.link_with(:text => "View/Save XML")
       if link.nil?
-        @logger.error "#{date} #{house}: Link to XML download is missing"
+        @logger.warn "#{date} #{house}: Link to XML download is missing"
         nil
       else
         agent.click(link).body
@@ -225,7 +225,9 @@ class HansardParser
   def lookup_speaker_by_aph_id(speech, date, house)
     # The aph_id "10000" is special. It represents the speaker, deputy speaker, something like that.
     # It could be anyone of a number of poeple. So, if it is that, just ignore it.
-    if speech.aph_id && speech.aph_id != "10000"
+    # Annoyingly, "1000" keeps getting used as well to mean the same thing. This is clearly a mistake, so
+    # we'll ignore it in the same way
+    if speech.aph_id && speech.aph_id != "10000" && speech.aph_id != "1000"
       person = @people.find_person_by_aph_id(speech.aph_id)
       if person
         person.position_current_on_date(date, house)
@@ -241,7 +243,15 @@ class HansardParser
     member = lookup_speaker_by_aph_id(speech, date, house) || lookup_speaker_by_name(speech, date, house)
     
     if member.nil?
-      logger.error "#{date} #{house}: Unknown speaker #{speech.speakername}" unless HansardSpeech.generic_speaker?(speech.speakername)
+      unless HansardSpeech.generic_speaker?(speech.speakername)
+        # It is so common that the problem with "The Temporary Chairman" occurs (where there real name is not included)
+        # that we're going to downgrade this to a warning so that it doesn't drown out other problems
+        if ["The ACTING DEPUTY PRESIDENT", "The TEMPORARY CHAIRMAN", "The ACTING SPEAKER"].include?(speech.speakername)
+          logger.warn "#{date} #{house}: Unknown speaker #{speech.speakername}"
+        else
+          logger.error "#{date} #{house}: Unknown speaker #{speech.speakername}"
+        end
+      end
       member = UnknownSpeaker.new(speech.speakername)
     end
     member
