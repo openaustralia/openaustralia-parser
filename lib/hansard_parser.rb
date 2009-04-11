@@ -50,8 +50,9 @@ class HansardParser
   end
   
   # Returns the XML file loaded from aph.gov.au as plain text which contains all the Hansard data
-  # Returns nil if it doesn't exist
-  def hansard_xml_source_data_on_date(date, house)
+  # Returns nil it it doesn't exist
+  # This is the original data without any patches applied at this end
+  def unpatched_hansard_xml_source_data_on_date(date, house)
     agent = MechanizeProxy.new
     agent.cache_subdirectory = cache_subdirectory(date, house)
 
@@ -67,15 +68,22 @@ class HansardParser
         @logger.error "Link to XML download is missing"
         nil
       else
-        text = agent.click(link).body
-        # Now check whether there is a patch for that day and if so apply it
-        patch_file_path = "#{File.dirname(__FILE__)}/../data/patches/#{house}.#{date}.xml.patch"
-        if File.exists?(patch_file_path)
-          puts "Using patch file: #{patch_file_path}"
-          Patch::patch(text, File.read(patch_file_path))
-        else
-          text
-        end
+        agent.click(link).body
+      end
+    end
+  end
+  
+  # Returns the XML file loaded from aph.gov.au as plain text which contains all the Hansard data
+  # Returns nil if it doesn't exist
+  def hansard_xml_source_data_on_date(date, house)
+    text = unpatched_hansard_xml_source_data_on_date(date, house)
+    if text
+      # Now check whether there is a patch for that day and if so apply it
+      patch_file_path = "#{File.dirname(__FILE__)}/../data/patches/#{house}.#{date}.xml.patch"
+      if File.exists?(patch_file_path)
+        Patch::patch(text, File.read(patch_file_path))
+      else
+        text
       end
     end
   end
