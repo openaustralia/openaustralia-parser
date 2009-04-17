@@ -3,6 +3,16 @@ require 'hpricot_additions'
 require 'house'
 require 'hansard_division'
 
+# Use this for sections of the Hansard that we're not currently supporting. Allows us to track
+# title and subtitle.
+class HansardUnsupported
+  attr_reader :title, :subtitle
+  
+  def initialize(title, subtitle)
+    @title, @subtitle = title, subtitle
+  end
+end
+
 class HansardDay
   def initialize(page, logger = nil)
     @page, @logger = page, logger
@@ -104,7 +114,7 @@ class HansardDay
         procedural = false
       when 'petition'
         #puts "SKIP: #{e.name} > #{full_title}"
-        p << nil
+        p << HansardUnsupported.new(title, subtitle)
         question = false
         procedural = false
       when 'question', 'answer'
@@ -124,7 +134,7 @@ class HansardDay
       when 'motionnospeech', 'para', 'motion', 'interjection', 'quote', 'list', 'interrupt', 'amendments', 'table', 'separator', 'continue'
         unless procedural
           #puts "SKIP: Procedural text: #{e.name} > #{full_title}"
-          p << nil
+          p << HansardUnsupported.new(title, subtitle)
         end
         question = false
         procedural = true
