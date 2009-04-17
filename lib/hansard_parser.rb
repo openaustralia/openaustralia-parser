@@ -135,6 +135,7 @@ class HansardParser
             debates.increment_minor_count
           end
         elsif page.is_a?(HansardDivision)
+          debates.add_heading(page.title, page.subtitle, page.permanent_url)
           # Lookup names
           yes = page.yes.map do |text|
             name = Name.last_title_first(text)

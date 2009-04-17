@@ -109,7 +109,7 @@ class HansardDay
         procedural = false
       when 'division'
         #puts "SKIP: #{e.name} > #{full_title}"
-        p << HansardDivision.new(e, self)
+        p << HansardDivision.new(e, title, subtitle, self)
         question = false
         procedural = false
       when 'petition'

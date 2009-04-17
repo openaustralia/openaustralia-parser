@@ -38,7 +38,7 @@ describe HansardDivision do
 			<division.result>
 				<para>Question agreed to.</para>
 			</division.result>
-		</division>'), nil)
+		</division>'), "", "", nil)
   end
   
   it "should parse the xml for a division correctly" do
