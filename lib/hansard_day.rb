@@ -8,8 +8,12 @@ require 'hansard_division'
 class HansardUnsupported
   attr_reader :title, :subtitle
   
-  def initialize(title, subtitle)
-    @title, @subtitle = title, subtitle
+  def initialize(title, subtitle, day)
+    @title, @subtitle, @day = title, subtitle, day
+  end
+  
+  def permanent_url
+    @day.permanent_url
   end
 end
 
@@ -114,7 +118,7 @@ class HansardDay
         procedural = false
       when 'petition'
         #puts "SKIP: #{e.name} > #{full_title}"
-        p << HansardUnsupported.new(title, subtitle)
+        p << HansardUnsupported.new(title, subtitle, self)
         question = false
         procedural = false
       when 'question', 'answer'
@@ -134,7 +138,7 @@ class HansardDay
       when 'motionnospeech', 'para', 'motion', 'interjection', 'quote', 'list', 'interrupt', 'amendments', 'table', 'separator', 'continue'
         unless procedural
           #puts "SKIP: Procedural text: #{e.name} > #{full_title}"
-          p << HansardUnsupported.new(title, subtitle)
+          p << HansardUnsupported.new(title, subtitle, self)
         end
         question = false
         procedural = true

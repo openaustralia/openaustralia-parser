@@ -118,10 +118,13 @@ class HansardParser
       @logger.warn "In proof stage" if day.in_proof?
       day.pages.each do |page|
         content = true
+        # Adding header as soon as possible (even for unsupported sections), so that as new bits of the Han
+        # become supported we don't change the id's of the headings.
+        debates.add_heading(page.title, page.subtitle, page.permanent_url) unless page.nil?
+
         if page.is_a?(HansardUnsupported)
           # Do nothing
         elsif page.is_a?(HansardPage)
-          debates.add_heading(page.title, page.subtitle, page.permanent_url)
           speaker = nil
           page.speeches.each do |speech|
             if speech
@@ -135,7 +138,6 @@ class HansardParser
             debates.increment_minor_count
           end
         elsif page.is_a?(HansardDivision)
-          debates.add_heading(page.title, page.subtitle, page.permanent_url)
           # Lookup names
           yes = page.yes.map do |text|
             name = Name.last_title_first(text)
