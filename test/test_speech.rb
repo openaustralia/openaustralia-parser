@@ -10,6 +10,7 @@ require 'speech'
 require 'date'
 require 'builder_alpha_attributes'
 require 'activesupport'
+require 'count'
 
 $KCODE = 'u'
 
@@ -18,7 +19,7 @@ class TestSpeech < Test::Unit::TestCase
     person = Person.new(:name => Name.new(:first => "John", :last => "Smith"), :count => 1)
     member = Period.new(:person => person, :house => House.representatives, :count => 1)
     # TODO: Fix duplication of house both in speaker and initialiser for Speech
-    @speech = Speech.new(member, "05:00:00", "http://foo.co.uk/", 3, 1, Date.new(2006, 1, 1), House.representatives)
+    @speech = Speech.new(member, "05:00:00", "http://foo.co.uk/", Count.new(3, 1), Date.new(2006, 1, 1), House.representatives)
   end
   
   def test_simple

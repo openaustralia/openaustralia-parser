@@ -1,9 +1,9 @@
 require 'section'
 
 class Division < Section
-  def initialize(yes, no, yes_tellers, no_tellers, time, url, major_count, minor_count, division_count, date, house, logger = nil)
+  def initialize(yes, no, yes_tellers, no_tellers, time, url, count, division_count, date, house, logger = nil)
     @yes, @no, @yes_tellers, @no_tellers, @division_count = yes, no, yes_tellers, no_tellers, division_count
-    super(time, url, major_count, minor_count, date, house, logger)
+    super(time, url, count, date, house, logger)
   end
   
   def output(x)

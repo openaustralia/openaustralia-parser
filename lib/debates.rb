@@ -1,6 +1,7 @@
 require 'heading'
 require 'speech'
 require 'division'
+require 'count'
 
 # Holds the data for debates on one day
 # Also knows how to output the XML data for that
@@ -10,38 +11,36 @@ class Debates
     @title = ""
     @subtitle = ""
     @items = []
-    @minor_count = 1
-    @major_count = 1
+    @count = Count.new
     @division_count = 1
   end
   
   def add_heading(newtitle, newsubtitle, url)
     # Only add headings if they have changed
     if newtitle != @title
-      heading = MajorHeading.new(newtitle, @major_count, @minor_count, url, @date, @house)
+      heading = MajorHeading.new(newtitle, @count.clone, url, @date, @house)
       # Debugging output
       #puts "*** #{@major_count}.#{@minor_count} #{newtitle}"
       @items << heading
-      increment_minor_count
+      @count.increment_minor
     end
     if newtitle != @title || newsubtitle != @subtitle
-      heading = MinorHeading.new(newsubtitle, @major_count, @minor_count, url, @date, @house)
+      heading = MinorHeading.new(newsubtitle, @count.clone, url, @date, @house)
       # Debugging output
       #puts "*** #{@major_count}.#{@minor_count} #{newsubtitle}"
       @items << heading
-      increment_minor_count
+      @count.increment_minor
     end
     @title = newtitle
     @subtitle = newsubtitle    
   end
   
   def increment_minor_count
-    @minor_count = @minor_count + 1
+    @count.increment_minor
   end
   
   def increment_major_count
-    @major_count = @major_count + 1
-    @minor_count = 1
+    @count.increment_major
   end
   
   def increment_division_count
@@ -51,13 +50,13 @@ class Debates
   def add_speech(speaker, time, url, content)
     # Only add new speech if the speaker has changed
     unless speaker && last_speaker && speaker == last_speaker
-      @items << Speech.new(speaker, time, url, @major_count, @minor_count, @date, @house, @logger)
+      @items << Speech.new(speaker, time, url, @count.clone, @date, @house, @logger)
     end
     @items.last.append_to_content(content)
   end
   
   def add_division(yes, no, yes_tellers, no_tellers, time, url)
-    @items << Division.new(yes, no, yes_tellers, no_tellers, time, url, @major_count, @minor_count, @division_count, @date, @house, @logger)
+    @items << Division.new(yes, no, yes_tellers, no_tellers, time, url, @count.clone, @division_count, @date, @house, @logger)
     increment_division_count
   end
   
