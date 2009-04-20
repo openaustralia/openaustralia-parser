@@ -15,7 +15,7 @@ res = db.query("select comments.*, comments.body as comment_body, epobject.body 
 outfile = File.open('exported-comments.csv', 'wb')
 CSV::Writer.generate(outfile) do |csv|
   res.each_hash do |row|
-    csv << [row["comment_id"], row["user_id"], row["visible"], row["modflagged"], row["posted"], row["hdate"], row["comment_body"], row["hansard_body"]]
+    csv << [row["comment_id"], row["user_id"], row["visible"], row["modflagged"], row["posted"], row["hdate"], row["comment_body"], row["hansard_body"][0..300]]
   end
 end
 outfile.close
