@@ -82,7 +82,7 @@ people = PeopleCSVReader.read_members
 
 parser = HansardParser.new(people)
 
-progress = ProgressBar.new("parse-speeches", (to_date - from_date + 1) * 2)
+progress = ProgressBar.new("parse-speeches", ((to_date - from_date + 1) * 2).to_i)
 
 # Kind of helpful to start at the end date and go backwards when using the "--proof" option. So, always going to do this now.
 date = to_date
