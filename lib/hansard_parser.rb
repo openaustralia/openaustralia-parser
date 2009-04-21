@@ -124,7 +124,7 @@ class HansardParser
           debates.add_heading(page.title, page.subtitle, page.permanent_url)
           # Do nothing
         elsif page.is_a?(Array)
-          debates.add_heading(page.first.title, page.first.subtitle, day.permanent_url)
+          debates.add_heading(page.first.title, page.first.subtitle, day.permanent_url) unless page.empty?
           speaker = nil
           page.each do |speech|
             if speech
