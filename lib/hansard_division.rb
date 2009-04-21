@@ -1,6 +1,8 @@
 class HansardDivision
-  def initialize(content, day)
-    @content, @day = content, day
+  attr_reader :title, :subtitle
+  
+  def initialize(content, title, subtitle, day)
+    @content, @title, @subtitle, @day = content, title, subtitle, day
   end
   
   def permanent_url

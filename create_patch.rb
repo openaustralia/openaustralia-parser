@@ -39,12 +39,7 @@ parser = HansardParser.new(people)
 # First check that there isn't already a patch file
 patch_file_path = "#{File.dirname(__FILE__)}/data/patches/#{house}.#{date}.xml.patch"
 
-if File.exists?(patch_file_path)
-  puts "Patch file #{patch_file_path} already exists..."
-  exit
-end
-
-File.open("original.xml", "w") {|f| f << parser.hansard_xml_source_data_on_date(date, house)}
-FileUtils.cp("original.xml", "patched.xml")
+File.open("original.xml", "w") {|f| f << parser.unpatched_hansard_xml_source_data_on_date(date, house)}
+File.open("patched.xml", "w") {|f| f << parser.hansard_xml_source_data_on_date(date, house)}
 system("mate --wait patched.xml")
 system("diff -u original.xml patched.xml > #{patch_file_path}")

@@ -38,7 +38,10 @@ class HansardParser
     # Set up logging
     @logger = Log4r::Logger.new 'HansardParser'
     # Log to both standard out and the file set in configuration.yml
-    @logger.add(Log4r::Outputter.stdout)
+    o1 = Log4r::Outputter.stdout
+    # Only log error messages or above to standard output
+    o1.level = Log4r::ERROR
+    @logger.add(o1)
     @logger.add(Log4r::FileOutputter.new('foo', :filename => @conf.log_path, :trunc => false,
       :formatter => Log4r::PatternFormatter.new(:pattern => "[%l] %d :: %M")))
   end
@@ -49,8 +52,9 @@ class HansardParser
   end
   
   # Returns the XML file loaded from aph.gov.au as plain text which contains all the Hansard data
-  # Returns nil if it doesn't exist
-  def hansard_xml_source_data_on_date(date, house)
+  # Returns nil it it doesn't exist
+  # This is the original data without any patches applied at this end
+  def unpatched_hansard_xml_source_data_on_date(date, house)
     agent = MechanizeProxy.new
     agent.cache_subdirectory = cache_subdirectory(date, house)
 
@@ -63,18 +67,25 @@ class HansardParser
     else
       link = page.link_with(:text => "View/Save XML")
       if link.nil?
-        @logger.error "Link to XML download is missing"
+        @logger.warn "#{date} #{house}: Link to XML download is missing"
         nil
       else
-        text = agent.click(link).body
-        # Now check whether there is a patch for that day and if so apply it
-        patch_file_path = "#{File.dirname(__FILE__)}/../data/patches/#{house}.#{date}.xml.patch"
-        if File.exists?(patch_file_path)
-          puts "Using patch file: #{patch_file_path}"
-          Patch::patch(text, File.read(patch_file_path))
-        else
-          text
-        end
+        agent.click(link).body
+      end
+    end
+  end
+  
+  # Returns the XML file loaded from aph.gov.au as plain text which contains all the Hansard data
+  # Returns nil if it doesn't exist
+  def hansard_xml_source_data_on_date(date, house)
+    text = unpatched_hansard_xml_source_data_on_date(date, house)
+    if text
+      # Now check whether there is a patch for that day and if so apply it
+      patch_file_path = "#{File.dirname(__FILE__)}/../data/patches/#{house}.#{date}.xml.patch"
+      if File.exists?(patch_file_path)
+        Patch::patch(text, File.read(patch_file_path))
+      else
+        text
       end
     end
   end
@@ -106,49 +117,54 @@ class HansardParser
       @logger.warn "In proof stage" if day.in_proof?
       day.pages.each do |page|
         content = true
-        if page
-          if page.is_a?(Array)
-            speaker = nil
-            page.each do |speech|
-              if speech
-                debates.add_heading(speech.title, speech.subtitle, day.permanent_url)
-                # Only change speaker if a speaker name or url was found
-                this_speaker = (speech.speakername || speech.aph_id) ? lookup_speaker(speech, date, house) : speaker
-                # With interjections the next speech should never be by the person doing the interjection
-                speaker = this_speaker unless speech.interjection
-        
-                debates.add_speech(this_speaker, speech.time, speech.permanent_url, speech.clean_content)
-              end
-              debates.increment_minor_count
+
+        if page.is_a?(HansardUnsupported)
+          # Adding header as soon as possible (even for unsupported sections), so that as new bits of the Han
+          # become supported we don't change the id's of the headings.
+          debates.add_heading(page.title, page.subtitle, page.permanent_url)
+          # Do nothing
+        elsif page.is_a?(Array)
+          debates.add_heading(page.first.title, page.first.subtitle, day.permanent_url)
+          speaker = nil
+          page.each do |speech|
+            if speech
+              # Only change speaker if a speaker name or url was found
+              this_speaker = (speech.speakername || speech.aph_id) ? lookup_speaker(speech, date, house) : speaker
+              # With interjections the next speech should never be by the person doing the interjection
+              speaker = this_speaker unless speech.interjection
+      
+              debates.add_speech(this_speaker, speech.time, speech.permanent_url, speech.clean_content)
             end
-          elsif page.is_a?(HansardDivision)
-            # Lookup names
-            yes = page.yes.map do |text|
-              name = Name.last_title_first(text)
-              member = @people.find_member_by_name_current_on_date(name, date, house)
-              throw "Couldn't figure out who #{text} is in division" if member.nil?
-              member
-            end
-            no = page.no.map do |text|
-              name = Name.last_title_first(text)
-              member = @people.find_member_by_name_current_on_date(name, date, house)
-              throw "Couldn't figure out who #{text} is in division" if member.nil?
-              member
-            end
-            yes_tellers = page.yes_tellers.map do |text|
-              name = Name.last_title_first(text)
-              member = @people.find_member_by_name_current_on_date(name, date, house)
-              throw "Couldn't figure out who #{text} is in division" if member.nil?
-              member
-            end
-            no_tellers = page.no_tellers.map do |text|
-              name = Name.last_title_first(text)
-              member = @people.find_member_by_name_current_on_date(name, date, house)
-              throw "Couldn't figure out who #{text} is in division" if member.nil?
-              member
-            end
-            debates.add_division(yes, no, yes_tellers, no_tellers, page.time, page.permanent_url)
+            debates.increment_minor_count
           end
+        elsif page.is_a?(HansardDivision)
+          debates.add_heading(page.title, page.subtitle, page.permanent_url)
+          # Lookup names
+          yes = page.yes.map do |text|
+            name = Name.last_title_first(text)
+            member = @people.find_member_by_name_current_on_date(name, date, house)
+            throw "Couldn't figure out who #{text} is in division" if member.nil?
+            member
+          end
+          no = page.no.map do |text|
+            name = Name.last_title_first(text)
+            member = @people.find_member_by_name_current_on_date(name, date, house)
+            throw "Couldn't figure out who #{text} is in division" if member.nil?
+            member
+          end
+          yes_tellers = page.yes_tellers.map do |text|
+            name = Name.last_title_first(text)
+            member = @people.find_member_by_name_current_on_date(name, date, house)
+            throw "Couldn't figure out who #{text} is in division" if member.nil?
+            member
+          end
+          no_tellers = page.no_tellers.map do |text|
+            name = Name.last_title_first(text)
+            member = @people.find_member_by_name_current_on_date(name, date, house)
+            throw "Couldn't figure out who #{text} is in division" if member.nil?
+            member
+          end
+          debates.add_division(yes, no, yes_tellers, no_tellers, page.time, page.permanent_url)
         end
         # This ensures that every sub day page has a different major count which limits the impact
         # of when we start supporting things like written questions, procedurial text, etc..
@@ -165,13 +181,13 @@ class HansardParser
   def lookup_speaker_by_title(speech, date, house)
     # Some sanity checking.
     if speech.speakername =~ /speaker/i && house.senate?
-      logger.error "The Speaker is not expected in the Senate"
+      logger.error "#{date} #{house}: The Speaker is not expected in the Senate"
       return nil
     elsif speech.speakername =~ /president/i && house.representatives?
-      logger.error "The President is not expected in the House of Representatives"
+      logger.error "#{date} #{house}: The President is not expected in the House of Representatives"
       return nil
     elsif speech.speakername =~ /chairman/i && house.representatives?
-      logger.error "The Chairman is not expected in the House of Representatives"
+      logger.error "#{date} #{house}: The Chairman is not expected in the House of Representatives"
       return nil
     end
     
@@ -212,12 +228,16 @@ class HansardParser
   def lookup_speaker_by_aph_id(speech, date, house)
     # The aph_id "10000" is special. It represents the speaker, deputy speaker, something like that.
     # It could be anyone of a number of poeple. So, if it is that, just ignore it.
-    if speech.aph_id && speech.aph_id != "10000"
+    # Annoyingly, "1000" keeps getting used as well to mean the same thing. This is clearly a mistake, so
+    # we'll ignore it in the same way
+    if speech.aph_id && speech.aph_id != "10000" && speech.aph_id != "1000"
       person = @people.find_person_by_aph_id(speech.aph_id)
       if person
-        person.position_current_on_date(date, house)
+        period = person.position_current_on_date(date, house)
+        logger.error "#{date} #{house}: Found person (#{person.name.full_name}) but not both in the right period and house. Strange..." if period.nil?
+        period
       else
-        logger.error "Can't figure out which person the aph id #{speech.aph_id} belongs to"
+        logger.error "#{date} #{house}: Can't figure out which person the aph id #{speech.aph_id} belongs to"
         nil
       end
     end
@@ -228,7 +248,15 @@ class HansardParser
     member = lookup_speaker_by_aph_id(speech, date, house) || lookup_speaker_by_name(speech, date, house)
     
     if member.nil?
-      logger.warn "Unknown speaker #{speech.speakername}" unless HansardSpeech.generic_speaker?(speech.speakername)
+      unless HansardSpeech.generic_speaker?(speech.speakername)
+        # It is so common that the problem with "The Temporary Chairman" occurs (where there real name is not included)
+        # that we're going to downgrade this to a warning so that it doesn't drown out other problems
+        if ["The ACTING DEPUTY PRESIDENT", "The TEMPORARY CHAIRMAN", "TEMPORARY CHAIRMAN, The", "The ACTING SPEAKER", "The Clerk", "The ACTING PRESIDENT", "DEPUTY SPEAKER, The", "DEPUTY CHAIR"].include?(speech.speakername)
+          logger.warn "#{date} #{house}: Unknown speaker #{speech.speakername}"
+        else
+          logger.error "#{date} #{house}: Unknown speaker #{speech.speakername}"
+        end
+      end
       member = UnknownSpeaker.new(speech.speakername)
     end
     member

@@ -1,0 +1,13 @@
+--- original.xml	2009-04-11 15:03:59.000000000 +1000
++++ patched.xml	2009-04-11 15:04:21.000000000 +1000
+@@ -2446,8 +2446,8 @@
+ <continue>
+ <talk.start>
+ <talker>
+-<name.id>Zw4</name.id>
+-<name role="metadata">sherry, Sen Nick</name>
++<name.id>ZW4</name.id>
++<name role="metadata">Sherry, Sen Nick</name>
+ <name role="display">Senator SHERRY</name>
+ </talker>
+ <para>—Thank you, Mr President; I certainly have borne in mind relevance because I am addressing the issue of the intersection in evaluation of a particular individual superannuation at any particular point in time—and other assets for that matter—under the means test provisions with the age pension, and the question went directly to that. I am not aware of any— <inline font-style="italic">(Time expired)</inline>

@@ -13,7 +13,7 @@ module Patch
     patch << patch_text
     patch.flush
     
-    system("patch #{original.path} < #{patch.path}")
+    system("patch --quiet #{original.path} < #{patch.path}")
     raise "Patch failed" unless $? == 0
     original.open.readlines.join
   end

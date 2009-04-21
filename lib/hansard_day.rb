@@ -3,6 +3,20 @@ require 'house'
 require 'hansard_division'
 require 'hansard_speech'
 
+# Use this for sections of the Hansard that we're not currently supporting. Allows us to track
+# title and subtitle.
+class HansardUnsupported
+  attr_reader :title, :subtitle
+  
+  def initialize(title, subtitle, day)
+    @title, @subtitle, @day = title, subtitle, day
+  end
+  
+  def permanent_url
+    @day.permanent_url
+  end
+end
+
 class HansardDay
   def initialize(page, logger = nil)
     @page, @logger = page, logger
@@ -34,7 +48,7 @@ class HansardDay
   
   def in_proof?
     proof = @page.at('proof').inner_html
-    @logger.error "Unexpected value '#{proof}' inside tag <proof>" unless proof == "1" || proof == "0"
+    @logger.error "#{date} #{house}: Unexpected value '#{proof}' inside tag <proof>" unless proof == "1" || proof == "0"
     proof == "1"
   end
 
@@ -98,11 +112,13 @@ class HansardDay
         question = false
         procedural = false
       when 'division'
-        p << HansardDivision.new(e, self)
+        #puts "SKIP: #{e.name} > #{full_title}"
+        p << HansardDivision.new(e, title, subtitle, self)
         question = false
         procedural = false
       when 'petition'
-        p << nil
+        #puts "SKIP: #{e.name} > #{full_title}"
+        p << HansardUnsupported.new(title, subtitle, self)
         question = false
         procedural = false
       when 'question', 'answer'
@@ -128,7 +144,7 @@ class HansardDay
             f = f.next_sibling
           end
           #p << procedurals
-          p << nil
+          p << HansardUnsupported.new(title, subtitle, self)
         end
         question = false
         procedural = true

@@ -1,0 +1,11 @@
+--- original.xml	2009-04-11 14:13:49.000000000 +1000
++++ patched.xml	2009-04-11 14:14:53.000000000 +1000
+@@ -7836,7 +7836,7 @@
+ <continue>
+ <talk.start>
+ <talker>
+-<name.id>Is00AOS</name.id>
++<name.id>00AOS</name.id>
+ <name role="metadata">Stephens, Sen Ursula</name>
+ <name role="display">Senator STEPHENS</name>
+ </talker>

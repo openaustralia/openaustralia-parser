@@ -1,0 +1,20 @@
+--- original.xml	2009-04-11 13:59:08.000000000 +1000
++++ patched.xml	2009-04-11 14:00:42.000000000 +1000
+@@ -2944,7 +2944,7 @@
+ <interjection>
+ <talk.start>
+ <talker>
+-<name.id>84NThe air</name.id>
++<name.id>84N</name.id>
+ <name role="metadata">Ludwig, Sen Joe</name>
+ <name role="display">Senator Ludwig</name>
+ </talker>
+@@ -4920,7 +4920,7 @@
+ <interjection>
+ <talk.start>
+ <talker>
+-<name.id>W10000</name.id>
++<name.id>10000</name.id>
+ <name role="metadata">PRESIDENT, The</name>
+ <name role="display">The PRESIDENT</name>
+ </talker>

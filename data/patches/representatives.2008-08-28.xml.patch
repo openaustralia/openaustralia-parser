@@ -1,0 +1,11 @@
+--- original.xml	2009-04-11 14:46:36.000000000 +1000
++++ patched.xml	2009-04-11 14:46:40.000000000 +1000
+@@ -4940,7 +4940,7 @@
+ <talk.start>
+ <talker>
+ <name.id>1000</name.id>
+-<name role="metadata">Moyland, Judi (The DEPUTY SPEAKER)</name>
++<name role="metadata">Moylan, Judi (The DEPUTY SPEAKER)</name>
+ <name role="display">The DEPUTY SPEAKER</name>
+ </talker>
+ <para> <inline font-weight="bold">(Hon. JE Moylan)</inline>—The documents will be forwarded to the Standing Committee on Petitions for its consideration and will be accepted subject to confirmation by the committee that they conform to the standing orders.</para>

@@ -1,0 +1,13 @@
+--- original.xml	2009-04-11 15:01:35.000000000 +1000
++++ patched.xml	2009-04-11 15:02:16.000000000 +1000
+@@ -2262,8 +2262,8 @@
+ <interjection>
+ <talk.start>
+ <talker>
+-<name.id>00amx</name.id>
+-<name role="metadata">johnson, Michael, MP</name>
++<name.id>00AMX</name.id>
++<name role="metadata">Johnson, Michael, MP</name>
+ <name role="display">Mr Johnson</name>
+ </talker>
+ <para>—Mr Speaker, a point of order—relevance.</para>

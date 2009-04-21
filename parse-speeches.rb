@@ -6,6 +6,7 @@ require 'people'
 require 'hansard_parser'
 require 'configuration'
 require 'optparse'
+require 'progressbar'
 
 def parse_date(text)
   today = Date.today
@@ -81,6 +82,8 @@ people = PeopleCSVReader.read_members
 
 parser = HansardParser.new(people)
 
+progress = ProgressBar.new("parse-speeches", ((to_date - from_date + 1) * 2).to_i)
+
 # Kind of helpful to start at the end date and go backwards when using the "--proof" option. So, always going to do this now.
 date = to_date
 while date >= from_date
@@ -91,6 +94,7 @@ while date >= from_date
       parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/debates/debates#{date}.xml", House.representatives)
     end
   end
+  progress.inc
   if conf.write_xml_senators
     if options[:proof]
       parser.parse_date_house_only_in_proof(date, "#{conf.xml_path}/scrapedxml/lordspages/daylord#{date}.xml", House.senate)
@@ -98,8 +102,11 @@ while date >= from_date
       parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/lordspages/daylord#{date}.xml", House.senate)
     end
   end
+  progress.inc
   date = date - 1
 end
+
+progress.finish
 
 # And load up the database
 houses_options = ""
@@ -107,4 +114,4 @@ houses_options = houses_options + " --debates" if conf.write_xml_representatives
 houses_options = houses_options + " --lordsdebates" if conf.write_xml_senators
 
 # Starts with 'perl' to be friendly with Windows
-system("perl #{conf.web_root}/twfy/scripts/xml2db.pl #{houses_options} --from=#{from_date} --to=#{to_date} --force") if options[:load_database]
+system("perl #{conf.web_root}/twfy/scripts/xml2db.pl #{houses_options} --from=#{from_date} --to=#{to_date}") if options[:load_database]

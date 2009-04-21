@@ -1,13 +1,13 @@
 class HeadingBase
-  def initialize(title, major_count, minor_count, url, date, house)
-    @title, @major_count, @minor_count, @url, @date, @house = title, major_count, minor_count, url, date, house
+  def initialize(title, count, url, date, house)
+    @title, @count, @url, @date, @house = title, count, url, date, house
   end
   
   def id
     if @house.representatives?
-      "uk.org.publicwhip/debate/#{@date}.#{@major_count}.#{@minor_count}"
+      "uk.org.publicwhip/debate/#{@date}.#{@count}"
     else
-      "uk.org.publicwhip/lords/#{@date}.#{@major_count}.#{@minor_count}"
+      "uk.org.publicwhip/lords/#{@date}.#{@count}"
     end
   end
 end

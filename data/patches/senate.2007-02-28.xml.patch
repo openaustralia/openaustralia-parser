@@ -1,0 +1,13 @@
+--- original.xml	2009-04-11 23:01:17.000000000 +1000
++++ patched.xml	2009-04-11 23:02:15.000000000 +1000
+@@ -2894,8 +2894,8 @@
+ <talk.start>
+ <talker>
+ <name.id>10000</name.id>
+-<name role="metadata">DEPUTY SPEAKER, The</name>
+-<name role="display">The DEPUTY SPEAKER</name>
++<name role="metadata">DEPUTY PRESIDENT, The</name>
++<name role="display">The DEPUTY PRESIDENT</name>
+ </talker>
+ <para>—Order! Senator George Campbell and Senator Marshall! As I asked Senator Bernardi to be quiet during your contribution, Senator Marshall, he is entitled to be heard in peace. Senator Ferguson and Senator Campbell, exchanging views across the chamber when Senator Bernardi is trying to make a contribution is disorderly, you know that, and Senator Bernardi is entitled to be heard in silence.</para>
+ </talk.start>

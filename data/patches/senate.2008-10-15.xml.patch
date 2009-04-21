@@ -1,0 +1,22 @@
+--- original.xml	2009-04-11 14:57:18.000000000 +1000
++++ patched.xml	2009-04-11 14:57:50.000000000 +1000
+@@ -7,7 +7,7 @@
+ <period.no>3</period.no>
+ <chamber>SENATE</chamber>
+ <page.no>0</page.no>
+-<proof>1</proof>
++<proof>0</proof>
+ </session.header>
+ <chamber.xscript>
+ <business.start>
+@@ -1909,8 +1909,8 @@
+ <talk.start>
+ <talker>
+ <name.id>10000</name.id>
+-<name role="metadata">SPEAKER, The</name>
+-<name role="display">The SPEAKER</name>
++<name role="metadata">PRESIDENT, The</name>
++<name role="display">The PRESIDENT</name>
+ </talker>
+ <para>—Order! I remind senators that this is not a time for debate across the chamber; it is time for questions and answers. I call the Minister representing the Treasurer, Senator Conroy.</para>
+ </talk.start>
