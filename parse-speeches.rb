@@ -31,7 +31,7 @@ def parse_date(text)
 end
 
 # Defaults
-options = {:load_database => true, :proof => false}
+options = {:load_database => true, :proof => false, :force => false}
 
 OptionParser.new do |opts|
   opts.banner = <<EOF
@@ -52,6 +52,9 @@ EOF
   end
   opts.on("--proof", "Only parse dates that are at proof stage. Will redownload and populate html cache for those dates.") do |l|
     options[:proof] = l
+  end
+  opts.on("--force", "On loading data into database delete records that are not in the XML") do |l|
+    options[:force] = l
   end
 end.parse!
 
@@ -109,9 +112,12 @@ end
 progress.finish
 
 # And load up the database
-houses_options = ""
-houses_options = houses_options + " --debates" if conf.write_xml_representatives
-houses_options = houses_options + " --lordsdebates" if conf.write_xml_senators
-
-# Starts with 'perl' to be friendly with Windows
-system("perl #{conf.web_root}/twfy/scripts/xml2db.pl #{houses_options} --from=#{from_date} --to=#{to_date}") if options[:load_database]
+if options[:load_database]
+  command_options = " --from=#{from_date} --to=#{to_date}"
+  command_options << " --debates" if conf.write_xml_representatives
+  command_options << " --lordsdebates" if conf.write_xml_senators
+  command_options << " --force" if options[:force]
+  
+  # Starts with 'perl' to be friendly with Windows
+  system("perl #{conf.web_root}/twfy/scripts/xml2db.pl #{command_options}")
+end
