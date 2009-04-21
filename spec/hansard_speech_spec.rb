@@ -113,15 +113,15 @@ describe HansardSpeech, "should clean content" do
   
   # Split the following into separate tests
   it "in an inline block" do
-    content = '<inline font-size="9.5pt">Some text</inline>'
+    content = '<para><inline font-size="9.5pt">Some text</inline></para>'
     expected = 'Some text'
     HansardSpeech.clean_content_inline(Hpricot.XML(content).at('inline')).should == expected
     
-    content = '<inline font-style="italic">Some text</inline>'
+    content = '<para><inline font-style="italic">Some text</inline></para>'
     expected = '<i>Some text</i>'
     HansardSpeech.clean_content_inline(Hpricot.XML(content).at('inline')).should == expected
     
-    content = '<inline font-weight="bold">Some text</inline>'
+    content = '<para><inline font-weight="bold">Some text</inline></para>'
     expected = '<b>Some text</b>'
     HansardSpeech.clean_content_inline(Hpricot.XML(content).at('inline')).should == expected
   end
@@ -189,7 +189,7 @@ describe HansardSpeech, "should clean content" do
   end
 
   it "inline with link to bill" do
-    content = '<inline ref="R2715">Some text</inline>'
+    content = '<para><inline ref="R2715">Some text</inline></para>'
     expected = '<a href="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/R2715">Some text</a>'
     HansardSpeech.clean_content_inline(Hpricot.XML(content).at('inline')).should == expected
   end
@@ -210,5 +210,11 @@ describe HansardSpeech, "should clean content" do
     content = '<motion><para>That yellow is very happy colour</para></motion>'
     expected = '<p pwmotiontext="moved">That yellow is very happy colour</p>'
     HansardSpeech.new(Hpricot.XML(content).at('motion'), "", "", "", nil).clean_content.to_s.should == expected
+  end
+  
+  it "wraps inlines in motionnospeech in <p> tags" do
+    content = '<motionnospeech><inline>—I move:</inline><motion><para>That the member be no longer heard.</para></motion><para>Question put.</para></motionnospeech>'
+    expected = '<p>I move:</p><p pwmotiontext="moved">That the member be no longer heard.</p><p>Question put.</p>'
+    HansardSpeech.new(Hpricot.XML(content).at('motionnospeech'), "", "", "", nil).clean_content.to_s.should == expected
   end
 end

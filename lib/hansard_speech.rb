@@ -116,6 +116,11 @@ class HansardSpeech
     
     throw "Unexpected attributes #{attributes_keys.join(', ')}" unless attributes_keys.empty?
     
+    # Handle inlines for motionnospeech in a special way
+    if e.parent.name == "motionnospeech"
+      text = '<p>' + text + '</p>'
+    end
+    
     text
   end
   
@@ -262,7 +267,7 @@ class HansardSpeech
       clean_content_item(e)
     when 'graphic'
       clean_content_graphic(e)
-    when 'talker', 'name', 'electorate', 'role', 'time.stamp', 'tggroup', 'amendment', 'inline', 'separator', 'colspec'
+    when 'talker', 'name', 'electorate', 'role', 'time.stamp', 'tggroup', 'separator', 'colspec'
       ""
     else
       throw "Unexpected tag #{e.name}"
