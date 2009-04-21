@@ -1,3 +1,4 @@
+require 'environment'
 require 'hpricot'
 require 'htmlentities'
 require 'section'

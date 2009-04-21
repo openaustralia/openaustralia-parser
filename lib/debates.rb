@@ -6,7 +6,7 @@ require 'count'
 # Holds the data for debates on one day
 # Also knows how to output the XML data for that
 class Debates
-  def initialize(date, house, logger)
+  def initialize(date, house, logger = nil)
     @date, @house, @logger = date, house, logger
     @title = ""
     @subtitle = ""
@@ -58,7 +58,7 @@ class Debates
     add_heading_for_real
     
     # Only add new speech if the speaker has changed
-    unless speaker && last_speaker && speaker == last_speaker
+    if !@items.last.kind_of?(Speech) || speaker != last_speaker
       @items << Speech.new(speaker, time, url, @count.clone, @date, @house, @logger)
     end
     @items.last.append_to_content(content)
@@ -72,16 +72,20 @@ class Debates
   end
   
   def last_speaker
-    @items.last.speaker unless @items.empty? || !@items.last.respond_to?(:speaker)
+    @items.last.speaker if @items.last.respond_to?(:speaker)
+  end
+  
+  def output_builder(x)
+    x.instruct!
+    x.publicwhip do
+      @items.each {|i| i.output(x)}
+    end
   end
   
   def output(xml_filename)
     xml = File.open(xml_filename, 'w')
     x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
-    x.instruct!
-    x.publicwhip do
-      @items.each {|i| i.output(x)}
-    end
+    output_builder(x)
     
     xml.close
   end  
