@@ -38,14 +38,6 @@ OptionParser.new do |opts|
 Usage: parse-speeches.rb [options] <from-date> [<to-date>]
     formatting of date:
       year.month.day or today or yesterday
-    
-    Interesting dates:
-      Last day of 2007 parliament: 2007.9.20
-      First day of 2008 parliament: 2008.2.12
-    Problem dates:
-      2007.6.18: President speaks: 2007.6.18
-      2007.9.11: No match for name Rt Hon. STEPHEN HARPER found
-
 EOF
   opts.on("--no-load", "Just generate XML and don't load up database") do |l|
     options[:load_database] = l
