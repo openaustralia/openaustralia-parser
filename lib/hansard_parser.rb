@@ -195,6 +195,8 @@ class HansardParser
     # Handle names in brackets first
     if speech.speakername =~ /^(.*) \(the (deputy speaker|acting deputy president|temporary chairman)\)/i
       @people.find_member_by_name_current_on_date(Name.last_title_first($~[1]), date, house)
+    elsif speech.speakername =~ /^the (deputy speaker|acting deputy president|temporary chairman) \((.*)\)/i
+      @people.find_member_by_name_current_on_date(Name.title_first_last($~[2]), date, house)
     elsif speech.speakername =~ /^the speaker/i
       @people.house_speaker(date)
     elsif speech.speakername =~ /^the deputy speaker/i
