@@ -1,5 +1,5 @@
---- original.xml	2009-04-11 15:12:59.000000000 +1000
-+++ patched.xml	2009-04-11 15:12:59.000000000 +1000
+--- original.xml	2009-04-22 14:30:39.000000000 +1000
++++ patched.xml	2009-04-22 14:51:04.000000000 +1000
 @@ -7,7 +7,7 @@
  <period.no>3</period.no>
  <chamber>SENATE</chamber>
@@ -9,3 +9,16 @@
  </session.header>
  <chamber.xscript>
  <business.start>
+@@ -3454,9 +3454,9 @@
+ <interjection>
+ <talk.start>
+ <talker>
+-<name.id>00AMX</name.id>
+-<name role="metadata">Johnson, Michael, MP</name>
+-<name role="display">Mr Johnson</name>
++<name.id>00AON</name.id>
++<name role="metadata">Johnston, Sen David</name>
++<name role="display">Senator Johnston</name>
+ </talker>
+ <para>—I rise on a point of order, Mr President. Loath as I am to take this point of order, I direct you to standing order 187, which says: ‘A senator shall not read a speech.’</para>
+ </talk.start>
