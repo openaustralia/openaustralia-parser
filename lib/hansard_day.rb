@@ -140,11 +140,10 @@ class HansardDay
           procedurals = []
           f = e
           while f && procedural_tags.include?(f.name) do
-            procedurals = procedurals + f.map_child_node {|c| HansardSpeech.new(c, title, subtitle, time(e), self, @logger)}
+            procedurals << HansardSpeech.new(f, title, subtitle, time(f), self, @logger)
             f = f.next_sibling
           end
-          #p << procedurals
-          p << HansardUnsupported.new(title, subtitle, self)
+          p << procedurals
         end
         question = false
         procedural = true
