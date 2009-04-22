@@ -1,0 +1,11 @@
+--- original.xml	2009-04-22 16:04:47.000000000 +1000
++++ patched.xml	2009-04-22 16:05:01.000000000 +1000
+@@ -3913,7 +3913,7 @@
+ <interjection>
+ <talk.start>
+ <talker>
+-<name.id>with10000</name.id>
++<name.id>10000</name.id>
+ <name role="metadata">SPEAKER, The</name>
+ <name role="display">The SPEAKER</name>
+ </talker>
