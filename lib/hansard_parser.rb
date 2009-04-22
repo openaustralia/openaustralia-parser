@@ -143,25 +143,25 @@ class HansardParser
           yes = page.yes.map do |text|
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            throw "Couldn't figure out who #{text} is in division" if member.nil?
+            throw "#{date} #{house}: Couldn't figure out who #{text} is in division" if member.nil?
             member
           end
           no = page.no.map do |text|
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            throw "Couldn't figure out who #{text} is in division" if member.nil?
+            throw "#{date} #{house}: Couldn't figure out who #{text} is in division" if member.nil?
             member
           end
           yes_tellers = page.yes_tellers.map do |text|
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            throw "Couldn't figure out who #{text} is in division" if member.nil?
+            throw "#{date} #{house}: Couldn't figure out who #{text} is in division" if member.nil?
             member
           end
           no_tellers = page.no_tellers.map do |text|
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            throw "Couldn't figure out who #{text} is in division" if member.nil?
+            throw "#{date} #{house}: Couldn't figure out who #{text} is in division" if member.nil?
             member
           end
           debates.add_division(yes, no, yes_tellers, no_tellers, page.time, page.permanent_url)
