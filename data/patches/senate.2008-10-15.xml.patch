@@ -1,14 +1,5 @@
---- original.xml	2009-04-11 14:57:18.000000000 +1000
-+++ patched.xml	2009-04-11 14:57:50.000000000 +1000
-@@ -7,7 +7,7 @@
- <period.no>3</period.no>
- <chamber>SENATE</chamber>
- <page.no>0</page.no>
--<proof>1</proof>
-+<proof>0</proof>
- </session.header>
- <chamber.xscript>
- <business.start>
+--- original.xml	2009-05-05 13:53:11.000000000 +1000
++++ patched.xml	2009-05-05 13:53:17.000000000 +1000
 @@ -1909,8 +1909,8 @@
  <talk.start>
  <talker>
