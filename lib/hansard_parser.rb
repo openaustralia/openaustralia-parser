@@ -84,7 +84,12 @@ class HansardParser
       # Now check whether there is a patch for that day and if so apply it
       patch_file_path = "#{File.dirname(__FILE__)}/../data/patches/#{house}.#{date}.xml.patch"
       if File.exists?(patch_file_path)
-        Patch::patch(text, File.read(patch_file_path))
+        begin
+          Patch::patch(text, File.read(patch_file_path))
+        rescue
+          # Reraising error so that we can include a little more info
+          raise "#{date} #{house}: Patch failed"
+        end
       else
         text
       end
