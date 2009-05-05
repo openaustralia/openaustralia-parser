@@ -2,6 +2,7 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
+require 'environment'
 require 'configuration'
 require 'mysql'
 require 'csv'
