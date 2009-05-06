@@ -98,7 +98,7 @@ class Period < PeriodBase
   end
   
   def ==(p)
-    id == p.id && from_date == p.from_date && to_date == p.to_date &&
+    p.kind_of?(Period) && id == p.id && from_date == p.from_date && to_date == p.to_date &&
       from_why == p.from_why && to_why == p.to_why && division == p.division && state == p.state && party == p.party && house == p.house
   end
 end

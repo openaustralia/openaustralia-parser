@@ -5,20 +5,15 @@ require 'hpricot_additions'
 $KCODE = 'u'
 
 class HansardSpeech
-  attr_reader :logger
+  attr_reader :logger, :title, :subtitle, :time, :day
   
-  def initialize(content, page, logger = nil)
-    @content, @page, @logger = content, page, logger
+  def initialize(content, title, subtitle, time, day, logger = nil)
+    @content, @title, @subtitle, @time, @day, @logger = content, title, subtitle, time, day, logger
   end
   
-  # The url of a speech is just the url of the page that it comes from
+  # The url of a speech is just the url of the day that it comes from
   def permanent_url
-    @page.permanent_url
-  end
-  
-  # The time of a speech is just the time of the page that the speech is on
-  def time
-    @page.time
+    day.permanent_url
   end
   
   def speakername
@@ -121,6 +116,11 @@ class HansardSpeech
     
     throw "Unexpected attributes #{attributes_keys.join(', ')}" unless attributes_keys.empty?
     
+    # Handle inlines for motionnospeech in a special way
+    if e.parent.name == "motionnospeech"
+      text = '<p>' + text + '</p>'
+    end
+    
     text
   end
   
@@ -220,9 +220,30 @@ class HansardSpeech
     '<table border="0">' + clean_content_recurse(e, override_type) + '</table>'
   end
   
+  def HansardSpeech.clean_content_motion(e)
+    # Hmmm. what if there are two para's below? will we get the wrong formatting?
+    t = '<p pwmotiontext="moved">'
+    e.each_child_node do |e|
+      case e.name
+      when 'para'
+        t << clean_content_para_content(e)
+      when 'list'
+        t << clean_content_list(e)
+      when 'table'
+        t << clean_content_table(e)
+      else
+        throw "Unexpected tag #{e.name}"
+      end
+    end
+    t << '</p>'
+    t    
+  end
+  
   def HansardSpeech.clean_content_any(e, override_type = nil)
     case e.name
-    when 'amendment', 'motion', 'quote'
+    when 'motion'
+      clean_content_motion(e)
+    when 'amendment', 'quote'
       clean_content_recurse(e, 'italic')
     when 'talk.start', 'amendments', 'motionnospeech', 'interjection', 'continue'
       clean_content_recurse(e)
@@ -246,7 +267,7 @@ class HansardSpeech
       clean_content_item(e)
     when 'graphic'
       clean_content_graphic(e)
-    when 'talker', 'name', 'electorate', 'role', 'time.stamp', 'tggroup', 'amendment', 'inline', 'separator', 'colspec'
+    when 'talker', 'name', 'electorate', 'role', 'time.stamp', 'tggroup', 'separator', 'colspec'
       ""
     else
       throw "Unexpected tag #{e.name}"

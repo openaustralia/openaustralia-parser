@@ -1,0 +1,11 @@
+--- original.xml	2009-04-22 14:09:40.000000000 +1000
++++ patched.xml	2009-04-22 14:09:58.000000000 +1000
+@@ -1612,7 +1612,7 @@
+ <talk.start>
+ <talker>
+ <name.id>1000</name.id>
+-<name role="metadata">Moyland, Judi (The DEPUTY SPEAKER)</name>
++<name role="metadata">Moylan, Judi (The DEPUTY SPEAKER)</name>
+ <name role="display">The DEPUTY SPEAKER</name>
+ </talker>
+ <para> <inline font-weight="bold">(Hon. JE Moylan)</inline>—Mr Speaker has received advice from the Chief Government Whip that he has nominated Mr Murphy to be a member of the Joint Standing Committee on Treaties in place of Mrs Irwin.</para>

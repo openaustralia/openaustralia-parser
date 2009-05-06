@@ -1,3 +1,4 @@
+require 'environment'
 require 'hpricot'
 require 'htmlentities'
 require 'section'
@@ -6,7 +7,6 @@ class Speech < Section
   attr_accessor :speaker, :content
   
   def initialize(speaker, time, url, count, date, house, logger = nil)
-    throw "speaker can't be nil in Speech" if speaker.nil?
     @speaker = speaker
     @content = Hpricot::Elements.new
     super(time, url, count, date, house, logger)
@@ -15,10 +15,14 @@ class Speech < Section
   def output(x)
     time = @time.nil? ? "unknown" : @time
     if @logger && @content.inner_text.strip == ""
-      @logger.error "#{@date} #{@house}: Empty speech by #{@speaker.person.name.full_name} on #{@url}"
+      if @speaker.nil?
+        @logger.error "#{@date} #{@house}: Empty speech in procedural text"
+      else
+        @logger.error "#{@date} #{@house}: Empty speech by #{@speaker.person.name.full_name}"
+      end
     end
-    x.speech(:speakername => @speaker.name.full_name, :time => time, :url => quoted_url, :id => id,
-      :speakerid => @speaker.id) { x << @content.to_s }
+    speaker_attributes = @speaker ? {:speakername => @speaker.name.full_name, :speakerid => @speaker.id} : {:nospeaker => "true"}
+    x.speech(speaker_attributes.merge(:time => time, :url => quoted_url, :id => id)) { x << @content.to_s }
   end
   
   def append_to_content(content)

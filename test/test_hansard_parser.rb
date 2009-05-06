@@ -8,13 +8,8 @@ require 'hpricot'
 require 'people'
 
 class TestHansardParser < Test::Unit::TestCase
-  def setup
-    doc = Hpricot('<a href="http://website/bar/blah.html">[Permalink]</a>')
-    @page = HansardPage.new(doc, nil, nil, nil)
-  end
-  
   def test_generic_speakers
-    speech = HansardSpeech.new(Hpricot(''), @page)
+    speech = HansardSpeech.new(Hpricot(''), "", "", "", nil)
     assert(HansardSpeech.generic_speaker?("Honourable member"))
     assert(HansardSpeech.generic_speaker?("Honourable members"))
     assert(HansardSpeech.generic_speaker?("Government member"))

@@ -656,10 +656,8 @@ person count,aph id,title,last name,first name,middle name,post title,birthday,a
 643,885,,Turnbull,Malcolm,Bligh,,,,,,,,,,,,,,
 644,HVV,,Turnour,Jim,Pearce,,,,Turnour,James,Pearce,,,,,,,,
 645,EE4,,Uren,Thomas,,,,,,,,,,,,,,,
-# Vale is a mis-spelling
-646,SU5,,Vaile,Mark,Anthony James,,,,Vale,Mark,Anthony James,,,,,,,,
-# Vaile is a mis-spelling
-647,VK6,,Vale,Danna,Sue,,,,Vaile,Danna,Sue,,,,,,,,
+646,SU5,,Vaile,Mark,Anthony James,,,,,,,,,,,,,,
+647,VK6,,Vale,Danna,Sue,,,,,,,,,,,,,,
 648,IG4,,Vallentine,Josephine,,,,,,,,,,,,,,,
 649,00AMT,,Vamvakinou,Maria,,,,,,,,,,,,,,,
 650,7E4,,Vanstone,Amanda,Eloise,,,,,,,,,,,,,,

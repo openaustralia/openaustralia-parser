@@ -9,7 +9,6 @@ require 'people_image_downloader'
 # Using Active Support (part of Ruby on Rails) for Unicode support
 require 'activesupport'
 require 'log4r'
-require 'hansard_page'
 require 'hansard_day'
 require 'patch'
 
@@ -123,15 +122,16 @@ class HansardParser
       @logger.warn "In proof stage" if day.in_proof?
       day.pages.each do |page|
         content = true
-        # Adding header as soon as possible (even for unsupported sections), so that as new bits of the Han
-        # become supported we don't change the id's of the headings.
-        debates.add_heading(page.title, page.subtitle, page.permanent_url) unless page.nil?
 
         if page.is_a?(HansardUnsupported)
+          # Adding header as soon as possible (even for unsupported sections), so that as new bits of the Han
+          # become supported we don't change the id's of the headings.
+          debates.add_heading(page.title, page.subtitle, page.permanent_url)
           # Do nothing
-        elsif page.is_a?(HansardPage)
+        elsif page.is_a?(Array)
+          debates.add_heading(page.first.title, page.first.subtitle, day.permanent_url) unless page.empty?
           speaker = nil
-          page.speeches.each do |speech|
+          page.each do |speech|
             if speech
               # Only change speaker if a speaker name or url was found
               this_speaker = (speech.speakername || speech.aph_id) ? lookup_speaker(speech, date, house) : speaker
@@ -143,29 +143,30 @@ class HansardParser
             debates.increment_minor_count
           end
         elsif page.is_a?(HansardDivision)
+          debates.add_heading(page.title, page.subtitle, page.permanent_url)
           # Lookup names
           yes = page.yes.map do |text|
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            throw "Couldn't figure out who #{text} is in division" if member.nil?
+            throw "#{date} #{house}: Couldn't figure out who #{text} is in division" if member.nil?
             member
           end
           no = page.no.map do |text|
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            throw "Couldn't figure out who #{text} is in division" if member.nil?
+            throw "#{date} #{house}: Couldn't figure out who #{text} is in division" if member.nil?
             member
           end
           yes_tellers = page.yes_tellers.map do |text|
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            throw "Couldn't figure out who #{text} is in division" if member.nil?
+            throw "#{date} #{house}: Couldn't figure out who #{text} is in division" if member.nil?
             member
           end
           no_tellers = page.no_tellers.map do |text|
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            throw "Couldn't figure out who #{text} is in division" if member.nil?
+            throw "#{date} #{house}: Couldn't figure out who #{text} is in division" if member.nil?
             member
           end
           debates.add_division(yes, no, yes_tellers, no_tellers, page.time, page.permanent_url)
@@ -199,6 +200,8 @@ class HansardParser
     # Handle names in brackets first
     if speech.speakername =~ /^(.*) \(the (deputy speaker|acting deputy president|temporary chairman)\)/i
       @people.find_member_by_name_current_on_date(Name.last_title_first($~[1]), date, house)
+    elsif speech.speakername =~ /^the (deputy speaker|acting deputy president|temporary chairman) \((.*)\)/i
+      @people.find_member_by_name_current_on_date(Name.title_first_last($~[2]), date, house)
     elsif speech.speakername =~ /^the speaker/i
       @people.house_speaker(date)
     elsif speech.speakername =~ /^the deputy speaker/i
