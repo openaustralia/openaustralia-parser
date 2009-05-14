@@ -1,0 +1,20 @@
+--- original.xml	2009-05-15 09:37:59.000000000 +1000
++++ patched.xml	2009-05-15 09:40:09.000000000 +1000
+@@ -5864,7 +5864,7 @@
+ <continue>
+ <talk.start>
+ <talker>
+-<name.id>cormHDA</name.id>
++<name.id>HDA</name.id>
+ <name role="metadata">Cormann, Sen Mathias</name>
+ <name role="display">Senator CORMANN</name>
+ </talker>
+@@ -7115,7 +7115,7 @@
+ <interjection>
+ <talk.start>
+ <talker>
+-<name.id>s84L</name.id>
++<name.id>84L</name.id>
+ <name role="metadata">McLucas, Sen Jan</name>
+ <name role="display">Senator McLucas</name>
+ </talker>
