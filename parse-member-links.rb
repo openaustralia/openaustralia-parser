@@ -2,7 +2,8 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'mechanize_proxy'
+require 'environment'
+require 'mechanize'
 require 'name'
 require 'people'
 require 'configuration'
@@ -10,8 +11,9 @@ require 'json'
 
 conf = Configuration.new
 
-agent = MechanizeProxy.new
-agent.cache_subdirectory = "parse-member-links"
+# Not using caching proxy since we will be running this script once a day and we
+# always want to get the new data
+agent = WWW::Mechanize.new
 
 puts "Reading member data..."
 people = PeopleCSVReader.read_members
