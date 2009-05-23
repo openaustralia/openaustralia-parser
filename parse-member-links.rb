@@ -6,6 +6,7 @@ require 'mechanize_proxy'
 require 'name'
 require 'people'
 require 'configuration'
+require 'json'
 
 conf = Configuration.new
 
@@ -14,6 +15,28 @@ agent.cache_subdirectory = "parse-member-links"
 
 puts "Reading member data..."
 people = PeopleCSVReader.read_members
+
+puts "Twitter information (from tweetmp.org.au)..."
+
+xml = File.open("#{conf.members_xml_path}/twitter.xml", 'w')
+x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
+x.instruct!
+x.publicwhip do
+  JSON.parse(agent.get("http://tweetmp.org.au/api/mps.json").body).each do |person|
+    aph_id = person["GovernmentId"].upcase
+    twitter = person["TwitterScreenName"]
+    # Lookup the person based on their government id
+    p = people.find_person_by_aph_id(aph_id)
+    # Temporary workaround until we figure out what's going on with the aph_id's that start with '00'
+    if p.nil?
+      p = people.find_person_by_aph_id("00" + aph_id)
+      puts "WARNING: Couldn't find person with aph id: #{aph_id}" if p.nil?
+    end
+    if twitter
+      x.personinfo(:id => p.id, :mp_twitter_screen_name => twitter)
+    end
+  end
+end
 
 puts "Personal home page & Contact Details (Gov website)..."
 
