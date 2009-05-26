@@ -23,7 +23,7 @@ puts "Twitter information (from tweetmp.org.au)..."
 xml = File.open("#{conf.members_xml_path}/twitter.xml", 'w')
 x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
 x.instruct!
-x.publicwhip do
+x.peopleinfo do
   JSON.parse(agent.get("http://tweetmp.org.au/api/mps.json").body).each do |person|
     aph_id = person["GovernmentId"].upcase
     twitter = person["TwitterScreenName"]
@@ -62,7 +62,7 @@ end
 xml = File.open("#{conf.members_xml_path}/websites.xml", 'w')
 x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
 x.instruct!
-x.publicwhip do
+x.peopleinfo do
   if conf.write_xml_representatives
     agent.get(conf.alternative_current_house_members_url).links.each do |link|
       if link.to_s =~ /Member for/
@@ -142,7 +142,7 @@ end
 xml = File.open("#{conf.members_xml_path}/links-abc-qanda.xml", 'w')
 x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
 x.instruct!
-x.publicwhip do
+x.peopleinfo do
   data.each do |id, link|
     x.personinfo(:id => id, :mp_biography_qanda => link)
   end

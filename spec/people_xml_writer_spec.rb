@@ -14,14 +14,14 @@ describe PeopleXMLWriter do
     # So confusing: This is divisions as in electoral divisions rather than voting divisions
     PeopleXMLWriter.write_divisions(people, result)
     result.should == <<EOF
-<publicwhip>
-  <constituency fromdate="1000-01-01" id="uk.org.publicwhip/cons/1" todate="9999-12-31">
+<divisions>
+  <division fromdate="1000-01-01" id="uk.org.publicwhip/cons/1" todate="9999-12-31">
     <name text="Blah"/>
-  </constituency>
-  <constituency fromdate="1000-01-01" id="uk.org.publicwhip/cons/2" todate="9999-12-31">
+  </division>
+  <division fromdate="1000-01-01" id="uk.org.publicwhip/cons/2" todate="9999-12-31">
     <name text="Foo"/>
-  </constituency>
-</publicwhip>
+  </division>
+</divisions>
 EOF
   end
 end

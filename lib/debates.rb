@@ -77,7 +77,7 @@ class Debates
   
   def output_builder(x)
     x.instruct!
-    x.publicwhip do
+    x.debates do
       @items.each {|i| i.output(x)}
     end
   end

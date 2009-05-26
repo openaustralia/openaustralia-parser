@@ -15,9 +15,9 @@ class PeopleXMLWriter
   
   def self.write_divisions(people, output)
     x = Builder::XmlMarkup.new(:target => output, :indent => 2)
-    x.publicwhip do
+    x.divisions do
       people.divisions.each_with_index do |division, index|
-        x.constituency(:fromdate => "1000-01-01", :id => "uk.org.publicwhip/cons/#{index + 1}", :todate => "9999-12-31") do
+        x.division(:fromdate => "1000-01-01", :id => "uk.org.publicwhip/cons/#{index + 1}", :todate => "9999-12-31") do
           x.name(:text => division)
         end        
       end
@@ -30,7 +30,7 @@ class PeopleXMLWriter
     xml = File.open(filename, 'w')
     x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
     x.instruct!
-    x.publicwhip do
+    x.ministers do
       people.each do |person|
         person.minister_positions.each do |p|
           was_representative = !person.house_periods.empty?
@@ -66,13 +66,13 @@ class PeopleXMLWriter
     xml = File.open(filename, 'w')
     x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
     x.instruct!
-    x.publicwhip do
+    x.members do
       if conf.write_xml_representatives
         people.each do |person|
           person.house_periods.each do |period|
             x.member(:id => period.id,
-              :house => "commons", :title => period.person.name.title, :firstname => period.person.name.first,
-              :lastname => period.person.name.last, :constituency => period.division, :party => period.party,
+              :house => "representatives", :title => period.person.name.title, :firstname => period.person.name.first,
+              :lastname => period.person.name.last, :division => period.division, :party => period.party,
               :fromdate => period.from_date, :todate => period.to_date, :fromwhy => period.from_why, :towhy => period.to_why)
           end
         end
@@ -87,13 +87,13 @@ class PeopleXMLWriter
     xml = File.open(filename, 'w')
     x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
     x.instruct!
-    x.publicwhip do
+    x.members do
       if conf.write_xml_senators
         people.each do |person|
           person.senate_periods.each do |period|
-            x.lord(:id => period.id,
-              :house => "lords", :title => period.person.name.title, :forenames => period.person.name.first,
-              :lordname => period.person.name.last, :lordofname => period.state, :affiliation => period.party,    
+            x.member(:id => period.id,
+              :house => "senate", :title => period.person.name.title, :firstname => period.person.name.first,
+              :lastname => period.person.name.last, :division => period.state, :party => period.party,    
               :fromdate => period.from_date, :todate => period.to_date, :fromwhy => period.from_why, :towhy => period.to_why)
           end
         end
@@ -108,7 +108,7 @@ class PeopleXMLWriter
     xml = File.open(filename, 'w')
     x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
     x.instruct!
-    x.publicwhip do
+    x.people do
       people.each do |person|
         x.person(:id => person.id, :latestname => person.name.informal_name) do
           if conf.write_xml_representatives

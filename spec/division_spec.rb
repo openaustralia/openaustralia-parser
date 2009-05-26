@@ -41,13 +41,13 @@ describe Division do
     @division1.output(x).should == <<EOF
 <division divdate="2008-02-01" divnumber="15" id="uk.org.publicwhip/debate/2008-02-01.10.2" nospeaker="true" time="10:11:00" url="http://foo/link">
   <divisioncount ayes="2" noes="1" tellerayes="1" tellernoes="1"/>
-  <mplist vote="aye">
-    <mpname id="uk.org.publicwhip/member/1" teller="yes" vote="aye">John Smith</mpname>
-    <mpname id="uk.org.publicwhip/member/2" vote="aye">Joe Smith</mpname>
-  </mplist>
-  <mplist vote="no">
-    <mpname id="uk.org.publicwhip/member/3" teller="yes" vote="no">Henry Smith</mpname>
-  </mplist>
+  <memberlist vote="aye">
+    <member id="uk.org.publicwhip/member/1" teller="yes" vote="aye">John Smith</member>
+    <member id="uk.org.publicwhip/member/2" vote="aye">Joe Smith</member>
+  </memberlist>
+  <memberlist vote="no">
+    <member id="uk.org.publicwhip/member/3" teller="yes" vote="no">Henry Smith</member>
+  </memberlist>
 </division>
 EOF
   end
@@ -56,12 +56,12 @@ EOF
     x = Builder::XmlMarkup.new(:indent => 2)
     @division2.output(x).should == <<EOF
 <division divdate="2008-02-01" divnumber="3" id="uk.org.publicwhip/lords/2008-02-01.1.2" nospeaker="true" time="9:10:00" url="http://foo/link">
-  <divisioncount content="1" not-content="0"/>
-  <lordlist vote="content">
-    <lord id="uk.org.publicwhip/lord/100001" vote="content">John Smith</lord>
-  </lordlist>
-  <lordlist vote="not-content">
-  </lordlist>
+  <divisioncount ayes="1" noes="0" tellerayes="0" tellernoes="0"/>
+  <memberlist vote="aye">
+    <member id="uk.org.publicwhip/lord/100001" vote="aye">John Smith</member>
+  </memberlist>
+  <memberlist vote="no">
+  </memberlist>
 </division>
 EOF
   end

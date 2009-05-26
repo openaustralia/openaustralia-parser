@@ -19,10 +19,10 @@ describe Debates do
 
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
-<publicwhip>
+<debates>
   <speech id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" time="9:00" url="url">
 <p>This is a speech</p>  </speech>
-</publicwhip>
+</debates>
 EOF
   end
   
@@ -32,10 +32,10 @@ EOF
 
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
-<publicwhip>
+<debates>
   <speech id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" time="9:00" url="url">
 <p>This is a speech</p><p>And a bit more</p>  </speech>
-</publicwhip>
+</debates>
 EOF
   end
   
@@ -46,12 +46,12 @@ EOF
 
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
-<publicwhip>
+<debates>
   <speech id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" time="9:00" url="url">
 <p>This is a speech</p>  </speech>
   <speech id="uk.org.publicwhip/debate/2000-01-01.1.2" speakerid="102" speakername="henry" time="9:00" url="url">
 <p>And a bit more</p>  </speech>
-</publicwhip>
+</debates>
 EOF
   end
   
@@ -62,10 +62,10 @@ EOF
 
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
-<publicwhip>
+<debates>
   <speech id="uk.org.publicwhip/debate/2000-01-01.1.1" nospeaker="true" time="9:00" url="url">
 <p>This is a speech</p><p>And a bit more</p>  </speech>
-</publicwhip>
+</debates>
 EOF
   end
   
@@ -77,7 +77,7 @@ EOF
 
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
-<publicwhip>
+<debates>
   <speech id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" time="9:00" url="url">
 <p>This is a speech</p>  </speech>
   <major-heading id="uk.org.publicwhip/debate/2000-01-01.1.2" url="url">
@@ -86,7 +86,7 @@ title  </major-heading>
 subtitle  </minor-heading>
   <speech id="uk.org.publicwhip/debate/2000-01-01.1.4" speakerid="101" speakername="james" time="9:00" url="url">
 <p>And a bit more</p>  </speech>
-</publicwhip>
+</debates>
 EOF
   end
   
@@ -96,14 +96,14 @@ EOF
 
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
-<publicwhip>
+<debates>
   <major-heading id="uk.org.publicwhip/debate/2000-01-01.1.1" url="url">
 title  </major-heading>
   <minor-heading id="uk.org.publicwhip/debate/2000-01-01.1.2" url="url">
 subtitle  </minor-heading>
   <speech id="uk.org.publicwhip/debate/2000-01-01.1.3" nospeaker="true" time="9:00" url="url">
 <p>This is a speech</p>  </speech>
-</publicwhip>
+</debates>
 EOF
   end
   
@@ -114,12 +114,12 @@ EOF
 
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
-<publicwhip>
+<debates>
   <speech id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" time="9:00" url="url">
 <p>This is a speech</p>  </speech>
   <speech id="uk.org.publicwhip/debate/2000-01-01.1.2" nospeaker="true" time="9:00" url="url">
 <p>And a bit more</p>  </speech>
-</publicwhip>
+</debates>
 EOF
   end
 end
