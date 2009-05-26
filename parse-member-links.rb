@@ -36,6 +36,9 @@ x.publicwhip do
     end
     if twitter
       x.personinfo(:id => p.id, :mp_twitter_screen_name => twitter)
+    else
+      # Give the URL for inviting this person to Twitter using tweetmp.org.au
+      x.personinfo(:id => p.id, :mp_twitter_invite_tweetmp => "http://tweetmp.org.au/mps/invite/#{person["Id"]}")
     end
   end
 end
