@@ -65,12 +65,8 @@ end
 
 conf = Configuration.new
 
-FileUtils.mkdir_p "#{conf.xml_path}/scrapedxml/debates"
-FileUtils.mkdir_p "#{conf.xml_path}/scrapedxml/lordspages"
-FileUtils.mkdir_p "#{conf.xml_path}/scrapedxml/regmem"
-
-# Copy across file that is needed for the script xml2db to run but is not yet populated with data
-system("cp #{File.dirname(__FILE__)}/data/empty-template.xml #{conf.xml_path}/scrapedxml/regmem/regmem2000-01-01.xml")
+FileUtils.mkdir_p "#{conf.xml_path}/scrapedxml/representatives_debates"
+FileUtils.mkdir_p "#{conf.xml_path}/scrapedxml/senate_debates"
 
 # First load people back in so that we can look up member id's
 people = PeopleCSVReader.read_members
@@ -84,17 +80,17 @@ date = to_date
 while date >= from_date
   if conf.write_xml_representatives
     if options[:proof]
-      parser.parse_date_house_only_in_proof(date, "#{conf.xml_path}/scrapedxml/debates/debates#{date}.xml", House.representatives)
+      parser.parse_date_house_only_in_proof(date, "#{conf.xml_path}/scrapedxml/representatives_debates/#{date}.xml", House.representatives)
     else
-      parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/debates/debates#{date}.xml", House.representatives)
+      parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/representatives_debates/#{date}.xml", House.representatives)
     end
   end
   progress.inc
   if conf.write_xml_senators
     if options[:proof]
-      parser.parse_date_house_only_in_proof(date, "#{conf.xml_path}/scrapedxml/lordspages/daylord#{date}.xml", House.senate)
+      parser.parse_date_house_only_in_proof(date, "#{conf.xml_path}/scrapedxml/senate_debates/#{date}.xml", House.senate)
     else
-      parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/lordspages/daylord#{date}.xml", House.senate)
+      parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/senate_debates/#{date}.xml", House.senate)
     end
   end
   progress.inc
