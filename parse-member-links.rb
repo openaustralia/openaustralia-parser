@@ -42,6 +42,7 @@ x.peopleinfo do
     end
   end
 end
+xml.close
 
 puts "Personal home page & Contact Details (Gov website)..."
 
