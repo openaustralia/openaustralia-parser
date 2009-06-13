@@ -4,4 +4,5 @@
 require 'rubygems'
 gem 'activesupport', ">= 2.2"
 gem 'mechanize', "= 0.9.2"
+gem 'htmlentities'
 
