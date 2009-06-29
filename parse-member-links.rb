@@ -4,8 +4,10 @@ $:.unshift "#{File.dirname(__FILE__)}/lib"
 
 require 'environment'
 require 'mechanize'
+require 'open-uri'
 require 'name'
 require 'people'
+require 'hpricot'
 require 'configuration'
 require 'json'
 
@@ -78,6 +80,37 @@ x.peopleinfo do
         name = Name.last_title_first(link.to_s.split('-')[0..-2].join('-'))
         extract_links(name, people, agent, link, x)
       end
+    end
+  end
+end
+xml.close
+
+puts "Election results (from the abc.net.au) ..."
+
+abc_root = "http://www.abc.net.au"
+xml = File.open("#{conf.members_xml_path}/links-abc-election.xml", 'w')
+x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
+x.instruct!
+
+x.consinfos do
+  # Representatives
+  url = "#{conf.election_web_root}/results/electorateindex.htm"
+  doc = Hpricot(open(url))
+  (doc/"td.electorate").each do |td|
+    href = td.at("a")['href']
+    href = "#{abc_root}#{href}"
+    name = td.at("a").inner_text
+    name = name.gsub(/\*/,'').strip
+    x.consinfo(:canonical => name, :abc_election_results => href)
+  end
+  # Senate
+  url = "#{conf.election_web_root}/results/senate/"
+  doc = Hpricot(open(url))
+  (doc/:a).each do |a|
+    if /results\/senate\/(\w+)\.htm/.match(a['href'])
+      href = abc_root + a['href']
+      name = a.inner_text
+      x.consinfo(:canonical => name, :abc_election_results => href)
     end
   end
 end

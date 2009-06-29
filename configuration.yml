@@ -33,6 +33,9 @@ alternative_current_senate_members_url: "http://www.aph.gov.au/Senate/senators/h
 qanda_electorate_url: "http://www.abc.net.au/tv/qanda/find-your-local-mp-by-electorate.htm"
 qanda_all_senators_url: "http://www.abc.net.au/tv/qanda/find-a-senate-member-by-a-z.htm"
 
+# ABC 2007 election results
+election_web_root: "http://www.abc.net.au/elections/federal/2007"
+
 # Selectively allows us to turn off and on the writing of the XML
 write_xml_representatives: true
 write_xml_senators: true
