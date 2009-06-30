@@ -56,6 +56,7 @@ p = {}
 read_in_ranges(p, "senate/2008_sep_vol_1", Date.new(2008, 9, 1), House.senate, people)
 read_in_ranges(p, "senate/2008_sep_vol_2", Date.new(2008, 9, 1), House.senate, people)
 read_in_ranges(p, "senate/2008_dec", Date.new(2008, 12, 1), House.senate, people)
+read_in_ranges(p, "senate/2009_jun", Date.new(2009, 6, 22), House.senate, people)
 read_in_ranges(p, "representatives/2008_mar_vol_1", Date.new(2008, 3, 1), House.representatives, people)
 read_in_ranges(p, "representatives/2008_mar_vol_2", Date.new(2008, 3, 1), House.representatives, people)
 read_in_ranges(p, "representatives/2008_mar_vol_3", Date.new(2008, 3, 1), House.representatives, people)
