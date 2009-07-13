@@ -101,7 +101,7 @@ x.consinfos do
     href = "#{abc_root}#{href}"
     name = td.at("a").inner_text
     name = name.gsub(/\*/,'').strip
-    x.consinfo(:canonical => name, :abc_election_results => href)
+    x.consinfo(:canonical => name, :abc_election_results_2007 => href)
   end
   # Senate
   url = "#{conf.election_web_root}/results/senate/"
@@ -110,7 +110,7 @@ x.consinfos do
     if /results\/senate\/(\w+)\.htm/.match(a['href'])
       href = abc_root + a['href']
       name = a.inner_text
-      x.consinfo(:canonical => name, :abc_election_results => href)
+      x.consinfo(:canonical => name, :abc_election_results_2007 => href)
     end
   end
 end
