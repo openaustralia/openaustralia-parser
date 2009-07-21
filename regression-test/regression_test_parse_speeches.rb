@@ -68,10 +68,10 @@ def compare_xml(ref_path, test_path, date, count)
 end
 
 def test_date(date, conf, parser, count)
-  reps_xml_filename = "debates#{date}.xml"
-  senate_xml_filename = "daylord#{date}.xml"
-  new_reps_xml_path = "#{conf.xml_path}/scrapedxml/debates/#{reps_xml_filename}"
-  new_senate_xml_path = "#{conf.xml_path}/scrapedxml/lordspages/#{senate_xml_filename}"
+  reps_xml_filename = "representatives_debates/#{date}.xml"
+  senate_xml_filename = "senate_debates/#{date}.xml"
+  new_reps_xml_path = "#{conf.xml_path}/scrapedxml/#{reps_xml_filename}"
+  new_senate_xml_path = "#{conf.xml_path}/scrapedxml/#{senate_xml_filename}"
   ref_reps_xml_path = "#{File.dirname(__FILE__)}/../../ref/#{reps_xml_filename}"
   ref_senate_xml_path = "#{File.dirname(__FILE__)}/../../ref/#{senate_xml_filename}"
   parser.parse_date_house(date, new_reps_xml_path, House.representatives)
