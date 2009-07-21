@@ -34,7 +34,6 @@ describe Division do
     @division1.id.should == "uk.org.publicwhip/debate/2008-02-01.10.2"
   end
   
-  # TODO: Not yet supporting Tellers
   it "can output xml in the expected form" do
     # Default builder will return value as string
     x = Builder::XmlMarkup.new(:indent => 2)
