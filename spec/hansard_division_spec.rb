@@ -56,3 +56,36 @@ describe HansardDivision do
     @division.no_tellers == ["John Smith"]
   end  
 end
+
+describe HansardDivision, "with pairings" do
+  before(:each) do
+    @division = HansardDivision.new(Hpricot.XML(
+      '<division>
+          <division.header>
+              <time.stamp>10:36:00</time.stamp>
+              <para>The Senate divided.&#xA0;&#xA0;&#xA0;&#xA0; </para>
+          </division.header>
+          <para>(The President&#x2014;Senator the Hon. JJ Hogg)</para>
+          <division.data>
+              <pairs>
+                  <num.votes>2</num.votes>
+                  <title>PAIRS</title>
+                  <names>
+                      <name>Lundy, K.A.</name>
+                      <name>McGauran, J.J.J.</name>
+                      <name>Stephens, U.</name>
+                      <name>Barnett, G.</name>
+                  </names>
+              </pairs>
+          </division.data>
+          <para>* denotes teller</para>
+          <division.result>
+              <para>Question negatived.</para>
+          </division.result>
+      </division>'), "", "", nil)
+  end
+
+  it "should parse the pairs votes" do
+    @division.pairs.should == [["Lundy, K.A.", "McGauran, J.J.J."], ["Stephens, U.", "Barnett, G."]]
+  end
+end

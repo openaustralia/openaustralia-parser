@@ -1,3 +1,5 @@
+require 'enumerator'
+
 class HansardDivision
   attr_reader :title, :subtitle
   
@@ -17,6 +19,15 @@ class HansardDivision
   # And similarly for the people that voted no
   def no
     raw_no.map {|text| HansardDivision.name(text)}
+  end
+  
+  def pairs
+    names = @content.search("(division.data) > pairs > names > name").map {|e| e.inner_html}
+    raise "Not an even number of people in the pairs voting" if names.size % 2 != 0
+    # Format the flat list of names into pairs (assuming that the people in pairs appear consecutively)
+    pairs = []
+    names.each_slice(2) { |p| pairs << p }
+    pairs
   end
   
   def yes_tellers
