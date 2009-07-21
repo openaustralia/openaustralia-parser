@@ -18,7 +18,7 @@ describe HansardDivision do
 			<para>(The Speaker&#x2014;Mr Harry Jenkins)</para>
 			<division.data>
 				<ayes>
-					<num.votes>2</num.votes>
+					<num.votes>3</num.votes>
 					<title>AYES</title>
 					<names>
 						<name>Joe Bloggs *</name>
