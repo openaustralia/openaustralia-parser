@@ -1,0 +1,20 @@
+--- original.xml	2009-07-22 15:11:44.000000000 +1000
++++ patched.xml	2009-07-22 15:12:11.000000000 +1000
+@@ -1152,7 +1152,7 @@
+ </names>
+ </noes>
+ <pairs>
+-<num.votes>4</num.votes>
++<num.votes>3</num.votes>
+ <title>PAIRS</title>
+ <names>
+ <name>Brown, C.L.</name>
+@@ -1161,8 +1161,6 @@
+ <name>Humphries, G.</name>
+ <name>Sherry, N.J.</name>
+ <name>Boswell, R.L.D.</name>
+-<name>Stott Despoja, N.</name>
+-<name>Vanstone, A.E.</name>
+ </names>
+ </pairs>
+ </division.data>

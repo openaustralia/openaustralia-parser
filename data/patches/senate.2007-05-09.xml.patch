@@ -1,0 +1,28 @@
+--- original.xml	2009-07-22 14:52:32.000000000 +1000
++++ patched.xml	2009-07-22 14:53:12.000000000 +1000
+@@ -3559,11 +3559,9 @@
+ </names>
+ </noes>
+ <pairs>
+-<num.votes>3</num.votes>
++<num.votes>2</num.votes>
+ <title>PAIRS</title>
+ <names>
+-<name>Brown, C.L.</name>
+-<name>Vanstone, A.E.</name>
+ <name>Kirk, L.</name>
+ <name>Barnett, G.</name>
+ <name>O’Brien, K.W.K.</name>
+@@ -3711,11 +3709,9 @@
+ </names>
+ </noes>
+ <pairs>
+-<num.votes>3</num.votes>
++<num.votes>2</num.votes>
+ <title>PAIRS</title>
+ <names>
+-<name>Brown, C.L.</name>
+-<name>Vanstone, A.E.</name>
+ <name>Kirk, L.</name>
+ <name>Barnett, G.</name>
+ <name>O’Brien, K.W.K.</name>
