@@ -21,11 +21,9 @@ class Division < Section
   def output_vote_list(x, members, tellers, vote)
     x.memberlist(:vote => vote) do
       members.each do |m|
-        if tellers.include?(m)
-          x.member({:id => m.id, :vote => vote, :teller => "yes"}, m.name.full_name)
-        else
-          x.member({:id => m.id, :vote => vote}, m.name.full_name)
-        end
+        attributes = {:id => m.id, :vote => vote}
+        attributes[:teller] = "yes" if tellers.include?(m)
+        x.member(attributes, m.name.full_name)
       end
     end
   end
