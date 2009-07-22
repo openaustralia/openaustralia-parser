@@ -8,11 +8,23 @@ class Division < Section
   
   def output(x)
     x.division(:id => id, :nospeaker => "true", :divdate => @date, :divnumber => @division_count, :time => @time, :url => quoted_url) do
-      
-      x.divisioncount(:ayes => @yes.size, :noes => @no.size,
-        :tellerayes => @yes_tellers.size, :tellernoes => @no_tellers.size)
+      attributes = {:ayes => @yes.size, :noes => @no.size,
+        :tellerayes => @yes_tellers.size, :tellernoes => @no_tellers.size}
+      attributes[:pairs] = @pairs.size if @pairs.size > 0
+      x.divisioncount(attributes)
       output_vote_list(x, @yes, @yes_tellers, "aye")
       output_vote_list(x, @no, @no_tellers, "no")
+      # Output pairs votes
+      if @pairs.size > 0
+        x.pairs do
+          @pairs.each do |pair|
+            x.pair do
+              x.member({:id => pair.first.id}, pair.first.name.full_name)
+              x.member({:id => pair.last.id}, pair.last.name.full_name)
+            end
+          end
+        end
+      end
     end
   end
   

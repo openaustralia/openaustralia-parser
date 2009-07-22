@@ -16,6 +16,7 @@ describe Division do
     john_person = Person.new(:name => Name.new(:first => "John", :last => "Smith"), :count => 1)
     joe_person = Person.new(:name => Name.new(:first => "Joe", :last => "Smith"), :count => 2)
     henry_person = Person.new(:name => Name.new(:first => "Henry", :last => "Smith"), :count => 3)
+    jack_person = Person.new(:name => Name.new(:first => "Jack", :last => "Smith"), :count => 4)
 
     john_member = Period.new(:person => john_person, :house => House.representatives, :count => 1)
     joe_member = Period.new(:person => joe_person, :house => House.representatives, :count => 2)
@@ -26,7 +27,14 @@ describe Division do
       [], "10:11:00", "http://foo/link", Count.new(10, 2), 15, Date.new(2008, 2, 1), House.representatives)
 
     john_member2 = Period.new(:person => john_person, :house => House.senate, :count => 1)
+    joe_member2 = Period.new(:person => joe_person, :house => House.senate, :count => 2)
+    henry_member2 = Period.new(:person => henry_person, :house => House.senate, :count => 3)
+    jack_member2 = Period.new(:person => jack_person, :house => House.senate, :count => 4)
+    
     @division2 = Division.new([john_member2], [], [], [], [], "9:10:00", "http://foo/link", Count.new(1, 2), 3, Date.new(2008, 2, 1), House.senate)
+
+    @division3 = Division.new([], [], [], [], [[john_member2, joe_member2], [henry_member2, jack_member2]],
+      "9:10:00", "http://foo/link", Count.new(1, 2), 3, Date.new(2008, 2, 1), House.senate)
   end
   
   it "has the id in the correct form" do
@@ -61,6 +69,29 @@ EOF
   </memberlist>
   <memberlist vote="no">
   </memberlist>
+</division>
+EOF
+  end
+  
+  it "should output voting pairs" do
+    x = Builder::XmlMarkup.new(:indent => 2)
+    @division3.output(x).should == <<EOF
+<division divdate="2008-02-01" divnumber="3" id="uk.org.publicwhip/lords/2008-02-01.1.2" nospeaker="true" time="9:10:00" url="http://foo/link">
+  <divisioncount ayes="0" noes="0" pairs="2" tellerayes="0" tellernoes="0"/>
+  <memberlist vote="aye">
+  </memberlist>
+  <memberlist vote="no">
+  </memberlist>
+  <pairs>
+    <pair>
+      <member id="uk.org.publicwhip/lord/100001">John Smith</member>
+      <member id="uk.org.publicwhip/lord/100002">Joe Smith</member>
+    </pair>
+    <pair>
+      <member id="uk.org.publicwhip/lord/100003">Henry Smith</member>
+      <member id="uk.org.publicwhip/lord/100004">Jack Smith</member>
+    </pair>
+  </pairs>
 </division>
 EOF
   end
