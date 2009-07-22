@@ -148,28 +148,39 @@ class HansardParser
           yes = page.yes.map do |text|
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            throw "#{date} #{house}: Couldn't figure out who #{text} is in division" if member.nil?
+            throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes)" if member.nil?
             member
           end
           no = page.no.map do |text|
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            throw "#{date} #{house}: Couldn't figure out who #{text} is in division" if member.nil?
+            throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no)" if member.nil?
             member
           end
           yes_tellers = page.yes_tellers.map do |text|
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            throw "#{date} #{house}: Couldn't figure out who #{text} is in division" if member.nil?
+            throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes and teller)" if member.nil?
             member
           end
           no_tellers = page.no_tellers.map do |text|
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            throw "#{date} #{house}: Couldn't figure out who #{text} is in division" if member.nil?
+            throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no and teller)" if member.nil?
             member
           end
-          debates.add_division(yes, no, yes_tellers, no_tellers, page.time, page.permanent_url)
+          pairs = page.pairs.map do |pair|
+            pair.map do |text|
+              name = Name.last_title_first(text)
+              member = @people.find_member_by_name_current_on_date(name, date, house)
+              if member.nil?
+                puts "name = '#{name.full_name}', text = '#{text}', date = '#{date}', house = '#{house}'"
+                throw "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair)"
+              end
+              member              
+            end
+          end
+          debates.add_division(yes, no, yes_tellers, no_tellers, pairs, page.time, page.permanent_url)
         end
         # This ensures that every sub day page has a different major count which limits the impact
         # of when we start supporting things like written questions, procedurial text, etc..

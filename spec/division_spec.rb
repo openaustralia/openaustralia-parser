@@ -23,10 +23,10 @@ describe Division do
 
     # John and Joe vote yes and Henry votes no. John and Henry are tellers
     @division1 = Division.new([john_member, joe_member], [henry_member], [john_member], [henry_member],
-      "10:11:00", "http://foo/link", Count.new(10, 2), 15, Date.new(2008, 2, 1), House.representatives)
+      [], "10:11:00", "http://foo/link", Count.new(10, 2), 15, Date.new(2008, 2, 1), House.representatives)
 
     john_member2 = Period.new(:person => john_person, :house => House.senate, :count => 1)
-    @division2 = Division.new([john_member2], [], [], [], "9:10:00", "http://foo/link", Count.new(1, 2), 3, Date.new(2008, 2, 1), House.senate)
+    @division2 = Division.new([john_member2], [], [], [], [], "9:10:00", "http://foo/link", Count.new(1, 2), 3, Date.new(2008, 2, 1), House.senate)
   end
   
   it "has the id in the correct form" do

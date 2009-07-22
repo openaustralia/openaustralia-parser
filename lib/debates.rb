@@ -64,10 +64,10 @@ class Debates
     @items.last.append_to_content(content)
   end
   
-  def add_division(yes, no, yes_tellers, no_tellers, time, url)
-	add_heading_for_real
+  def add_division(yes, no, yes_tellers, no_tellers, pairs, time, url)
+    add_heading_for_real
 
-    @items << Division.new(yes, no, yes_tellers, no_tellers, time, url, @count.clone, @division_count, @date, @house, @logger)
+    @items << Division.new(yes, no, yes_tellers, no_tellers, pairs, time, url, @count.clone, @division_count, @date, @house, @logger)
     increment_division_count
   end
   
