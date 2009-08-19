@@ -269,6 +269,10 @@ class HansardSpeech
       clean_content_graphic(e)
     when 'talker', 'name', 'electorate', 'role', 'time.stamp', 'tggroup', 'separator', 'colspec'
       ""
+    when 'Error'
+      # Should use @logger.warn here but can't because I don't have access to the logger object. Ho hum.
+      puts "Came across an <Error> tag in the XML. That's probably not good. Skipping it."
+      ""
     else
       throw "Unexpected tag #{e.name}"
     end
