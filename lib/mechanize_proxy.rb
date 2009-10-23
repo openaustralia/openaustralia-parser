@@ -5,6 +5,7 @@
 require 'environment'
 require 'mechanize'
 require 'configuration'
+require 'hpricot'
 
 class MechanizeProxyCache
   # By setting cache_subdirectory can put cached files under a subdirectory in the html_cache_path
