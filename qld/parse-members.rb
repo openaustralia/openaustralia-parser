@@ -36,14 +36,23 @@ agent = MechanizeProxy.new
     party = elements[1].inner_html.gsub("&nbsp;", "").strip
     terms = elements[2].inner_html.gsub("&nbsp;", "")
     date_ranges = terms.split("<br />").map do |term|
-      if term =~ /^\s*(\d{2}.\d{2}.\d{4})\s*-\s*(\d{2}.\d{2}.\d{4})?( \(resigned\))?$/
-        from_date = $~[1]
-        to_date = $~[2]
+      if term =~ /^\s*(\d+\.\d+\.\d+)\s*-\s*(\d+\.\d+\.\d+)?( \(resigned\))?$/
+        begin
+          from_date = Date.parse($~[1])        
+        rescue ArgumentError
+          puts "WARNING: #{name} has invalid date in #{$~[1]}"
+        end
+
+        begin
+          to_date = Date.parse($~[2]) if $~[2]
+        rescue ArgumentError
+          puts "WARNING: #{name} has invalid date in #{$~[2]}"
+        end
       elsif term == ""
         from_date = nil
         to_date = nil
       else
-        puts "WARNING: Ignoring the term '#{term}' because it's not in an expected form"
+        puts "WARNING: For #{name} ignoring the term '#{term}' because it's not in an expected form"
       end
       [from_date, to_date]
     end
