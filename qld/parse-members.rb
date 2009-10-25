@@ -14,6 +14,7 @@ agent = MechanizeProxy.new
 #require 'open-uri'
 require 'uri'
 require 'ostruct'
+require 'name'
 
 members = []
 
@@ -36,7 +37,7 @@ members = []
     removed = e.search('td')
     removed.remove
     elements << e
-    member.name = elements[0].inner_text.strip
+    member.name = Name.last_title_first(elements[0].inner_text.strip)
     member.bio_url = URI.parse(url) + URI.parse(elements[0].at('a').attributes['href']) if elements[0].at('a')
     elements += removed
     elements += row.search("td")[1..-1]
