@@ -147,12 +147,15 @@ members = []
   
 end
 
+count = 723
+
 # Output a list of all the people in csv format
 CSV.open('people.csv', 'w') do |writer|
-  writer << ['last name', 'first name', 'middle names', 'birth_date', 'death_date']
+  writer << ['person count', 'aph id', 'name', 'birth_date', 'death_date']
 
   members.each do |m|
-    writer << [m.name.last, m.name.first, (m.name.middle if m.name.middle != ""), m.birth, m.death]
+    writer << [count, nil, m.name.full_name, m.birth, m.death]
+    count += 1
   end
 end
 
