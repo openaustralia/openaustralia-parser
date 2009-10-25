@@ -40,7 +40,65 @@ members = []
     member.bio_url = URI.parse(url) + URI.parse(elements[0].at('a').attributes['href']) if elements[0].at('a')
     elements += removed
     elements += row.search("td")[1..-1]
-    member.party = elements[1].inner_html.gsub("&nbsp;", "").strip
+    party_source = elements[1].inner_html.gsub("&nbsp;", "").strip
+    parties_source = party_source.split(",")
+    # Double check member parties
+    valid_parties = [
+      "ALP", 
+      "City Country Alliance",
+      "Communist",
+      "Country National",
+      "Country",
+      "Democrat",
+      "DLP",
+      "Farmers' Representative",
+      "Farmers' Union",
+      "Independent",
+      "Liberal National",
+      "Liberal",
+      "LNP",
+      "Ministerialist",
+      "National",
+      "Nationalist",
+      "Northern Country",
+      "NQLP",
+      "NQP",
+      "One Nation",
+      "Opposition",
+      "Pauline Hanson's One Nation",
+      "PPC",
+      "Protestant Labour Party",
+      "Qld People's Party",
+      "QLP",
+      "Queensland Greens",
+      "UAP",
+      "United",
+    ]
+    
+    # Some workarounds for apparently inconsistent naming on the website
+    party_exceptions = {
+      "Country/National" => "Country National",
+      "Independent Labour" => "Independent",
+      "Independent Liberal" => "Independent",
+      "Independent Democrat" => "Independent",
+      "IND" => "Independent",
+      "Independent (CEC)" => "Independent",
+      "CityCountry Alliance" => "City Country Alliance",
+      "Country.National" => "Country National",
+      "County/National" => "Country National",
+      "CountryNational" => "Country National",
+      "One Nation (ON)" => "One Nation",
+      "Qld. People's Party" => "Qld People's Party"
+    }
+
+    member.parties = parties_source.map do |party_source|
+      party = party_source.strip
+      party = party_exceptions[party] if party_exceptions[party]
+      if party != "" && !valid_parties.include?(party)
+        puts "WARNING: Unknown party: #{party} for #{member.name}"
+      end
+      party
+    end
     terms = elements[2].inner_html.gsub("&nbsp;", "")
     member.date_ranges = terms.split("<br />").map do |term|
       if term =~ /^\s*(\d+\.\d+\.\d+)\s*-\s*(\d+\.\d+\.\d+)?( \(resigned\))?$/
@@ -70,6 +128,6 @@ end
 
 members.each do |m|
   m.date_ranges.each do |date_range|
-    puts "name: #{m.name}, party: #{m.party}, from_date: #{date_range.start}, to_date: #{date_range.end}, bio_url: #{m.bio_url}"
+    puts "name: #{m.name}, parties: #{m.parties.join(', ')}, from_date: #{date_range.start}, to_date: #{date_range.end}, bio_url: #{m.bio_url}"
   end
 end
