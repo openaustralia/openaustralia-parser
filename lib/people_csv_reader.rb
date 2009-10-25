@@ -23,17 +23,11 @@ class PeopleCSVReader
 
     people = People.new
     data.each do |line|
-      person_count, aph_id, title, lastname, firstname, middlename, post_title, birthday = line[0..7]
-      name = Name.new(:last => lastname, :first => firstname, :middle => middlename, :title => title, :post_title => post_title)
+      person_count, aph_id, name_text, birthday = line[0..3]
+      name = Name.title_first_last(name_text)
 
       # You can specify multiple alternate names by filling out the next columns
-      alternate_names = []
-      line[8..-1].each_slice(4) do |slice|
-        alt_title, alt_lastname, alt_firstname, alt_middlename = slice
-        if alt_title || alt_lastname || alt_firstname || alt_middlename
-          alternate_names << Name.new(:title => alt_title, :first => alt_firstname, :middle => alt_middlename, :last => alt_lastname)
-        end
-      end
+      alternate_names = line[4..-1].map{|t| Name.title_first_last(t)}
       people << Person.new(
         :name => name, :alternate_names => alternate_names,
         :count => person_count.to_i,
@@ -43,31 +37,24 @@ class PeopleCSVReader
     people    
   end
   
-  def PeopleCSVReader.read_members_csv(people, filename)
+  def PeopleCSVReader.read_members_csv(people, filename, house)
     data = read_raw_csv(filename)
     # Remove the first two elements
     data.shift
     data.shift
 
     data.each do |line|
-      member_count, person_count, title, lastname, firstname, middlename, house, division, state, start_date, start_reason, end_date, end_reason, party = line
+      member_count, person_count, name_text, division, state, start_date, start_reason, end_date, end_reason, party = line
       party = parse_party(party)
       start_date = parse_date(start_date)
       end_date = parse_end_date(end_date)
       start_reason = parse_start_reason(start_reason)
-      if house == "representatives"
-        house = House.representatives
-      elsif house == "senate"
-        house = House.senate
-      else
-        throw "Invalid value for house: #{house}"
-      end
       valid_states = ["NSW", "Tasmania", "WA", "Queensland", "Victoria", "SA", "NT", "ACT"]
       state = "Tasmania" if state == "Tas." || state == "Tas"
       state = "Victoria" if state == "Vic." || state == "Vic"
       state = "Queensland" if state == "Qld" || state == "QLD"
       throw "State #{state} is not a valid. Allowed values are #{valid_states.join(', ')}" unless valid_states.member?(state)
-      name = Name.new(:last => lastname, :first => firstname, :middle => middlename, :title => title)
+      name = Name.title_first_last(name_text)
       throw "Division is undefined for #{name.full_name}" if house.representatives? && division.nil?
 
       matches = people.find_people_by_name(name)
@@ -94,8 +81,8 @@ class PeopleCSVReader
       representatives_filename = "#{File.dirname(__FILE__)}/../data/representatives.csv",
       senators_filename = "#{File.dirname(__FILE__)}/../data/senators.csv")
     people = read_people(people_filename)
-    read_members_csv(people, representatives_filename)
-    read_members_csv(people, senators_filename)    
+    read_members_csv(people, representatives_filename, House.representatives)
+    read_members_csv(people, senators_filename, House.senate)    
   end
   
   # Attaches ministerial information to people
