@@ -15,6 +15,7 @@ agent = MechanizeProxy.new
 require 'uri'
 require 'ostruct'
 require 'name'
+require 'csv'
 
 members = []
 
@@ -122,13 +123,36 @@ members = []
       end
       OpenStruct.new(:start => from_date, :end => to_date)
     end
+    birth_text = elements[3].inner_html.gsub("&nbsp;", "").strip
+    # Where the date of death or birth are just given as the year ignore those dates
+    # At the moment it doesn't even spit out a warning because there are just too many occurences of this
+    unless birth_text == "" || birth_text == "Unknown" || birth_text =~ /^\d{4}$/
+      begin
+        member.birth = Date.parse(birth_text)
+      rescue ArgumentError
+        puts "WARNING: #{member.name} has invalid date of birth of #{birth_text}"
+      end
+    end
+    death_text = elements[4].inner_html.gsub("&nbsp;", "").strip
+    unless death_text == "" || death_text =~ /^\d{4}$/
+      begin
+        member.death = Date.parse(death_text)
+        #puts member.death
+      rescue ArgumentError
+        puts "WARNING: #{member.name} has invalid date of death of #{death_text}"
+      end
+    end
     members << member
   end
   
 end
 
-members.each do |m|
-  m.date_ranges.each do |date_range|
-    puts "name: #{m.name}, parties: #{m.parties.join(', ')}, from_date: #{date_range.start}, to_date: #{date_range.end}, bio_url: #{m.bio_url}"
+# Output a list of all the people in csv format
+CSV.open('people.csv', 'w') do |writer|
+  writer << ['last name', 'first name', 'middle names', 'birth_date', 'death_date']
+
+  members.each do |m|
+    writer << [m.name.last, m.name.first, (m.name.middle if m.name.middle != ""), m.birth, m.death]
   end
 end
+

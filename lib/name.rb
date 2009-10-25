@@ -157,6 +157,7 @@ class Name
   end
   
   alias :to_s :full_name
+  alias :inspect :full_name
   
   def has_title?
     @title != ""
