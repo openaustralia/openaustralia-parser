@@ -1,31 +1,31 @@
-person count,aph id,name,birthday,alt name
+person count,aph id,name,birth,death,alt name
 
-1,EZ5,Tony John Abbott,,Anthony John Abbott
+1,EZ5,Tony John Abbott,,,Anthony John Abbott
 3,N26,Eric Abetz,
 # Hack to deal with one occurence of MrAdams in Hansard
-4,BV5,Dick Godfrey Harry Adams,,Mradams
+4,BV5,Dick Godfrey Harry Adams,,,MrAdams
 5,E4Q,Judith Anne Adams,
 6,ID4,Albert Evan Adermann,
 7,R36,Anthony Norman Albanese,
 8,KD4,Kenneth James Aldred,
-9,1M6,Lyn Fay Allison,,Lynette Fay Allison
+9,1M6,Lyn Fay Allison,,,Lynette Fay Allison
 10,LD4,Richard Kenneth Robert Alston,
 11,4K4,John Duncan Anderson,
 12,KL6,Peter James Andren,
 13,HE4,John Neil Andrew,
 14,HK5,Kevin James Andrews,
 15,,John Douglas Anthony,
-16,XJ6,Larry James Anthony,,Lawrence James Anthony
+16,XJ6,Larry James Anthony,,,Lawrence James Anthony
 17,IE4,Brian Roper Archer,
 18,,John Lindsay Armitage,
 19,IT4,Rodney Alexander Atkinson,
 20,JE4,Terrence Gordon Aulich,
-21,JT4,Fran Esther Bailey,,Frances Esther Bailey
+21,JT4,Fran Esther Bailey,,,Frances Esther Bailey
 22,,Marshall Baillieu,
 23,MP6,Bruce George Baird,
 24,DYK,Mark Horden Baker,
 25,MD4,Peter Jeremy Baldwin,
-26,LL6,Bob Charles Baldwin,,Robert Charles Baldwin
+26,LL6,Bob Charles Baldwin,,,Robert Charles Baldwin
 27,00AUF,Guy Barnett,
 28,ZJ6,Phillip Anthony Barresi,
 29,DT6,Andrew John Julian Bartlett,
@@ -38,16 +38,16 @@ person count,aph id,name,birthday,alt name
 36,QE4,David Peter Beddall,
 37,7U4,Robert John Bell,
 38,G0D,Cory Bernardi,
-39,ET4,Arch Ronald Bevis,,Archibald Ronald Bevis
+39,ET4,Arch Ronald Bevis,,,Archibald Ronald Bevis
 40,HVM,James Mark Bidgood,
 41,1K6,Bruce Fredrick Billson,
 42,RE4,Gordon Neil Bilney,
 43,DZP,Sharon Leah Bird,
 44,H6X,Simon John Birmingham,
 45,,Reginald John Birney,
-46,SE4,Mrs Bronwyn Kathleen Bishop,,the Hon. Bronwyn Kathleen Bishop,Hon. Bronwyn Kathleen Bishop
-47,83P,Ms Julie Isabel Bishop,,the Hon. Julie Isabel Bishop,Hon. Julie Isabel Bishop
-48,2L6,Mark Bishop,,Thomas Mark Bishop
+46,SE4,Mrs Bronwyn Kathleen Bishop,,,the Hon. Bronwyn Kathleen Bishop,Hon. Bronwyn Kathleen Bishop
+47,83P,Ms Julie Isabel Bishop,,,the Hon. Julie Isabel Bishop,Hon. Julie Isabel Bishop
+48,2L6,Mark Bishop,,,Thomas Mark Bishop
 49,,Reginald Bishop,
 50,ND4,Lady Florence Isabel Bjelke-Petersen,
 51,TE4,John Rees Black,
@@ -56,12 +56,12 @@ person count,aph id,name,birthday,alt name
 54,WE4,Charles William Blunt,
 55,XE4,Nick Bolkus,
 56,,Neville Thomas Bonner,
-57,YE4,Ron Leslie Doyle Boswell,,Ronald Leslie Doyle Boswell,Ronald Leslie Boswell
+57,YE4,Ron Leslie Doyle Boswell,,,Ronald Leslie Doyle Boswell,Ronald Leslie Boswell
 58,,John William Bourchier,
 59,TW4,Vicki Worrall Bourne,
-60,DZS,Chris Eyles Bowen,,Christopher Eyles Bowen
+60,DZS,Chris Eyles Bowen,,,Christopher Eyles Bowen
 61,ZE4,Lionel Frost Bowen,
-62,H6V,Sue Kay Boyce,,Suzanne Kay Boyce
+62,H6V,Sue Kay Boyce,,,Suzanne Kay Boyce
 63,HVW,David John Bradbury,
 64,,James Mark Bradfield,
 65,FT4,John Walter Bradford,
@@ -69,7 +69,7 @@ person count,aph id,name,birthday,alt name
 67,008W7,George Henry Brandis,
 68,5T4,Laurence John Brereton,
 69,MT4,Russell Evan Broadbent,
-70,2K6,Mal Thomas Brough,,Malcolm Thomas Brough
+70,2K6,Mal Thomas Brough,,,Malcolm Thomas Brough
 71,F49,Carol Louise Brown,
 72,OD4,John Joseph Brown,
 # TODO: Joseph Tilley Brown should be removed when possible
@@ -77,7 +77,7 @@ person count,aph id,name,birthday,alt name
 # This is Robert Brown the former Rep
 74,,Robert James Brown,1933-12-2
 # This is Bob Brown the Senator
-696,QD4,Bob James Brown,1944-12-27,Robert James Brown
+696,QD4,Bob James Brown,1944-12-27,,Robert James Brown
 718,PD4,Neil Anthony Brown,
 75,RD4,David Gordon Cadell Brownhill,
 76,1F4,John Mansfield Brumby,
@@ -86,7 +86,7 @@ person count,aph id,name,birthday,alt name
 79,,Melville Harold Bungey,
 # Using Mr and Ms here to ensure that Ms Burke only has one match
 80,83S,Ms Anna Elizabeth Burke,
-81,DYW,Mr Tony Stephen Burke,,Mr Anthony Stephen Burke,the Hon. Tony Stephen Burke,the Hon. Anthony Stephen Burke
+81,DYW,Mr Tony Stephen Burke,,,Mr Anthony Stephen Burke,the Hon. Tony Stephen Burke,the Hon. Anthony Stephen Burke
 82,2F4,Bryant Robert Burns,
 83,,William George Burns,
 84,3F4,Maxwell Arthur Burr,
@@ -116,9 +116,9 @@ person count,aph id,name,birthday,alt name
 108,4K6,Ian Raymond Causley,
 109,,James Luke Cavanagh,
 110,SN5,Christabel Marguerite Alain Chamarette,
-111,HW9,Nick David Champion,,Nicholas David Champion
+111,HW9,Nick David Champion,,,Nicholas David Champion
 112,EF4,Frederick Michael Chaney,
-113,FF4,Grant Chapman,,Hedley Grant Pearson Chapman
+113,FF4,Grant Chapman,,,Hedley Grant Pearson Chapman
 114,GF4,David Ernest Charles,
 115,OT4,Robert Edwin Charles,
 116,TD4,Richard Ian Charlesworth,
@@ -128,7 +128,7 @@ person count,aph id,name,birthday,alt name
 119,IF4,Bruce Kenneth Childs,
 120,3V4,Donald Leslie Chipp,
 121,JF4,Robert Leslie Chynoweth,
-122,00AN0,Steven Michele Ciobo,,Steve Michele Ciobo
+122,00AN0,Steven Michele Ciobo,,,Steve Michele Ciobo
 123,HWL,Jason Dean Clare,
 124,BO5,Philip Ronald Cleary,
 125,KF4,Peter Robert Cleeland,
@@ -145,12 +145,12 @@ person count,aph id,name,birthday,alt name
 136,HWM,Julie Maree Collins,
 137,OF4,Robert Lindsay Collins,
 138,PF4,Malcolm Arthur Colston,
-139,YW6,Greg Ivan Combet,,Gregory Ivan Combet
+139,YW6,Greg Ivan Combet,,,Gregory Ivan Combet
 140,QF4,David Miles Connolly,
 141,,Bryan Joseph Conquest,
 142,3L6,Stephen Michael Conroy,
 143,RF4,Peter Francis Salmon Cook,
-144,2M6,Helen Lloyd Coonan,,Helen Ann Lloyd Coonan
+144,2M6,Helen Lloyd Coonan,,,Helen Ann Lloyd Coonan
 145,SF4,Bernard Cornelius Cooney,
 146,,James Corbett,
 147,009CW,Ann Kathleen Corcoran,
@@ -168,7 +168,7 @@ person count,aph id,name,birthday,alt name
 159,XF4,Noel Ashley Crichton-Browne,
 160,7T4,Janice Ann Crosio,
 719,YF4,Manfred Douglas Cross,
-161,7Y6,Trish Margaret Crossin,,Patricia Margaret Crossin
+161,7Y6,Trish Margaret Crossin,,,Patricia Margaret Crossin
 162,ZF4,Rosemary Anne Crowley,
 163,0G4,Barry Thomas Cunningham,
 164,HVN,Yvette Maree D'Ath,
@@ -179,7 +179,7 @@ person count,aph id,name,birthday,alt name
 698,5A5,John Sydney Dawkins,
 169,LV5,Margaret Joan Deahm,
 170,,Arthur Gordon Dean,
-171,8IS,Bob John Debus,,Robert John Debus
+171,8IS,Bob John Debus,,,Robert John Debus
 172,FY5,Kay Janet Denman,
 173,1G4,John Robert Devereux,
 174,J87,Arthur Ray Devlin,
@@ -188,7 +188,7 @@ person count,aph id,name,birthday,alt name
 177,EV5,Peter George Dodd,
 178,5M6,Nicholas Manuel Dondas,
 179,4G4,Alexander John Gosse Downer,
-180,0L6,Trish Draper,,Patricia Draper
+180,0L6,Trish Draper,,,Patricia Draper
 181,HWG,Mark Alfred Dreyfus,
 182,Y87,Peter Hertford Drummond,
 183,5G4,Stephen Cairfield Dubois,
@@ -203,16 +203,16 @@ person count,aph id,name,birthday,alt name
 192,AG4,Ronald Frederick Edwards,
 193,4L6,Alan Eggleston,
 194,,Robert James Ellicott,
-195,DZW,Justine Elliot,,Maria Justine Elliot
+195,DZW,Justine Elliot,,,Maria Justine Elliot
 196,6T4,Robert Paul Elliott,
 197,5K6,Annette Louise Ellis,
-198,DZU,Kate Margaret Ellis,,Katherine Margaret Ellis
-199,9X5,Chris Martin Ellison,,Christopher Martin Ellison
+198,DZU,Kate Margaret Ellis,,,Katherine Margaret Ellis
+199,9X5,Chris Martin Ellison,,,Christopher Martin Ellison
 200,6K6,Kay Selma Elson,
 201,,Ronald Charles Elstob,
 202,83V,Craig Anthony Emerson,
 203,7K6,Warren George Entsch,
-204,AX5,Chris Vaughan Evans,,Christopher Vaughan Evans
+204,AX5,Chris Vaughan Evans,,,Christopher Vaughan Evans
 205,VD4,Gareth John Evans,
 206,,John Gordon Evans,
 207,N36,Martyn John Evans,
@@ -220,7 +220,7 @@ person count,aph id,name,birthday,alt name
 209,7R5,Paul Anthony Edward Everingham,
 210,HQ5,John Joseph Fahey,
 211,,Peter David Falconer,
-212,00AMO,Pat Francis Farmer,,Patrick Francis Farmer
+212,00AMO,Pat Francis Farmer,,,Patrick Francis Farmer
 213,WD4,Wendy Frances Fatin,
 214,5K4,John Philip Faulkner,
 215,DYU,David Julian Fawcett,
@@ -229,14 +229,14 @@ person count,aph id,name,birthday,alt name
 218,LS4,Martin John Ferguson,
 219,DYH,Michael Darrel Ferguson,
 220,5L6,Jeannie Margaret Ferris,
-221,E4R,Steve Fielding,,Steven Murray Fielding
+221,E4R,Steve Fielding,,,Steven Murray Fielding
 # Connie is a nickname for Concetta but is sometimes misused as another middle name
-222,E4T,Concetta Anna Fierravanti-Wells,,Concetta Connie Fierravanti-Wells
+222,E4T,Concetta Anna Fierravanti-Wells,,,Concetta Connie Fierravanti-Wells
 223,CG4,Wallace Clyde Fife,
-224,D2I,Mitch Peter Fifield,,Mitchell Peter Fifield
+224,D2I,Mitch Peter Fifield,,,Mitchell Peter Fifield
 225,QT4,Paul Anthony Filing,
-226,DG4,Tim Andrew Fischer,,Timothy Andrew Fischer
-227,HBE,Mary Jo Fisher,,Mary Josephine Fisher
+226,DG4,Tim Andrew Fischer,,,Timothy Andrew Fischer
+227,HBE,Mary Jo Fisher,,,Mary Josephine Fisher
 228,EG4,Peter Stanley Fisher,
 229,FG4,Eric John Fitzgibbon,
 230,8K6,Joel Andrew Fitzgibbon,
@@ -247,19 +247,19 @@ person count,aph id,name,birthday,alt name
 235,656,Michael George Forshaw,
 236,HG4,Ross Vincent Free,
 237,,Kenneth Lionel Fry,
-238,CU4,Chris Ann Gallus,,Christine Ann Gallus
+238,CU4,Chris Ann Gallus,,,Christine Ann Gallus
 239,9K6,Teresa Gambaro,
 240,,Ransley Victor Garland,
 241,HV4,Peter Robert Garrett,
 242,AK6,Joanna Gash,
 243,PG4,John Gayler,
 244,QG4,George Gear,
-245,DZY,Steve Georganas,,Steven Georganas
+245,DZY,Steve Georganas,,,Steven Georganas
 246,JH5,Jennie George,
 247,7V4,George Georges,
 248,HM5,Petro Georgiou,
 249,83W,Jane Frances Gerick,
-250,83X,Steve William Gibbons,,Stephen William Gibbons
+250,83X,Steve William Gibbons,,,Stephen William Gibbons
 251,6L6,Brenda Gibbs,
 252,BX5,Brian Francis Gibson,
 253,ST4,Garrie David Gibson,
@@ -270,7 +270,7 @@ person count,aph id,name,birthday,alt name
 258,,Reginald Gillard,
 259,XD4,Bruce John Goodluck,
 260,YG4,Russell Neville Joseph Gorman,
-261,ZG4,Ted Laurence Grace,,Edward Laurence Grace
+261,ZG4,Ted Laurence Grace,,,Edward Laurence Grace
 262,ML6,Elizabeth Jane Grace,
 263,,Bruce William Graham,
 264,8W5,Gary Gray,
@@ -299,13 +299,13 @@ person count,aph id,name,birthday,alt name
 287,,John Whitton Haslem,
 288,LN6,Michael John Hatton,
 289,TU5,Christopher Douglas Haviland,
-290,HWO,Alex George Hawke,,Alexander George Hawke
+290,HWO,Alex George Hawke,,,Alexander George Hawke
 291,YD4,Robert James Lee Hawke,
 292,8H4,David Peter Maxwell Hawker,
 293,RK4,William George Hayden,
-294,ECV,Chris Patrick Hayes,,Christopher Patrick Hayes
+294,ECV,Chris Patrick Hayes,,,Christopher Patrick Hayes
 295,FE7,Jean Margaret Hearn,
-296,C16,Bill Daniel Heffernan,,William Daniel Heffernan
+296,C16,Bill Daniel Heffernan,,,William Daniel Heffernan
 297,,Albion Hendrickson,
 298,E0L,Stuart Irwin Henry,
 299,ZU5,Marjorie Madeline Henzell,
@@ -315,27 +315,27 @@ person count,aph id,name,birthday,alt name
 303,,Heather Elaine Hill,
 304,BH4,Robert Murray Hill,
 305,83Y,Kelly Joy Hoare,
-306,DK6,Joe Benedict Hockey,,Joseph Benedict Hockey
+306,DK6,Joe Benedict Hockey,,,Joseph Benedict Hockey
 307,TE7,John Charles Hodges,
 308,BV4,Michael William Hodgman,
 309,7L6,John Joseph Hogg,
 310,CH4,Allan Clyde Holding,
 311,DH4,Colin Hollis,
-312,UU5,Bob Hodges Horne,,Robert Hodges Horne
+312,UU5,Bob Hodges Horne,,,Robert Hodges Horne
 313,ZD4,John Winston Howard,
 314,EH4,Brian Leslie Howe,
 315,83O,Kay Elizabeth Hull,
 316,TT4,Rob Justin Hulls,
 317,FH4,Benjamin Charles Humphreys,
 318,KO6,Gary John Joseph Humphries,
-319,00AMV,Greg Andrew Hunt,,Gregory Andrew Hunt
+319,00AMV,Greg Andrew Hunt,,,Gregory Andrew Hunt
 320,GH4,Ralph James Dunnet Hunt,
 321,AV4,Christopher John Hurford,
 322,E4U,Annette Kay Hurley,
-323,84P,Steve Patrick Hutchins,,Stephen Patrick Hutchins
+323,84P,Steve Patrick Hutchins,,,Stephen Patrick Hutchins
 324,,John Martin Hyde,
 325,,Urquhart Edward Innes,
-326,HYM,Steve James Irons,,Stephen James Irons
+326,HYM,Steve James Irons,,,Stephen James Irons
 327,83Z,Julia Claire Irwin,
 328,00AN2,Sharryn Maree Jackson,
 329,CV4,Ralph Jacobi,
@@ -344,7 +344,7 @@ person count,aph id,name,birthday,alt name
 332,,Alan William Jarman,
 333,EK6,Susan Barbara Jeanes,
 334,,Henry Alfred Jenkins,1925-09-24
-335,HH4,Harry Alfred Jenkins,1952-08-18,Henry Alfred Jenkins
+335,HH4,Harry Alfred Jenkins,1952-08-18,,Henry Alfred Jenkins
 336,IH4,Jean Alice Jenkins,
 337,DYN,Dennis Geoffrey Jensen,
 338,,Donald Scott Jessop,
@@ -361,16 +361,16 @@ person count,aph id,name,birthday,alt name
 349,LH4,Gerry Norman Jones,
 350,E5D,Barnaby Thomas Gerard Joyce,
 351,MH4,David Francis Jull,
-352,HX4,Bob Carl Katter,,Robert Carl Katter
+352,HX4,Bob Carl Katter,,,Robert Carl Katter
 353,1V5,Robert Cummin Katter,
 354,NH4,Paul John Keating,
 355,,James Bernard Keeffe,
 356,E0J,Michael Fayat Keenan,
 357,FK6,De-Anne Margaret Kelly,
-358,GK6,Jackie Marie Kelly,,Jacqueline Marie Kelly
-359,HRI,Mike Joseph Kelly,,Michael Joseph Kelly
+358,GK6,Jackie Marie Kelly,,,Jacqueline Marie Kelly
+359,HRI,Mike Joseph Kelly,,,Michael Joseph Kelly
 360,OH4,Roslyn Joan Kelly,
-361,WW4,Rod Kemp,,Charles Roderick Kemp
+361,WW4,Rod Kemp,,,Charles Roderick Kemp
 362,BT4,David Alistair Kemp,
 363,PH4,Lewis Kent,
 364,XW4,Cheryl Kernot,
@@ -398,27 +398,27 @@ person count,aph id,name,birthday,alt name
 386,NG4,Austin William Russell Lewis,
 387,00AMN,Sussan Penelope Ley,
 388,XU5,Louis Stuart Lieberman,
-389,WP6,Ross Lightfoot,,Philip Ross Lightfoot
+389,WP6,Ross Lightfoot,,,Philip Ross Lightfoot
 390,OG4,Eamon John Lindsay,
 391,HK6,Peter John Lindsay,
 392,83A,Kirsten Fiona Livermore,
 393,,Bruce Lloyd,
-394,IK6,Jim Eric Lloyd,,James Eric Lloyd
+394,IK6,Jim Eric Lloyd,,,James Eric Lloyd
 395,BS4,Stephen Loosley,
 396,,Philip Ernest Lucock,
-397,84N,Joe William Ludwig,,Joseph William Ludwig
+397,84N,Joe William Ludwig,,,Joseph William Ludwig
 398,7G6,Kate Alexandra Lundy,
 399,,Stephen Augustus Lusher,
 400,,Phillip Reginald (later Sir Phillip) Lynch,
 401,YW4,Ian Douglas Macdonald,
-402,CX5,Sandy Macdonald,,John Alexander Lindsay Macdonald
+402,CX5,Sandy Macdonald,,,John Alexander Lindsay Macdonald
 403,WN6,Ian Elgin Macfarlane,
 404,YH4,David John Macgibbon,
 405,AT4,Edward Carrington Mack,
-406,9L6,Sue Mary Mackay,,Susan Mary Mackay
+406,9L6,Sue Mary Mackay,,,Susan Mary Mackay
 407,014,Michael John Randal Mackellar,
 408,,Alexander John Mackenzie,
-409,PG6,Jenny Louise Macklin,,Jennifer Louise Macklin
+409,PG6,Jenny Louise Macklin,,,Jennifer Louise Macklin
 410,,Michael John Macklin,
 411,,Ian Malcolm Macphee,
 412,,Graham Ross Maguire,
@@ -437,19 +437,19 @@ person count,aph id,name,birthday,alt name
 425,,Charles Ronald Maunsell,
 426,83B,Margaret Ann May,
 427,8K7,Helen Mayer,
-428,VH4,Stewart McArthur,,Fergus Stewart McArthur
+428,VH4,Stewart McArthur,,,Fergus Stewart McArthur
 429,,Ronald Edward McAuliffe,
 430,EK7,Douglas McClelland,
 431,JK6,Robert Bruce McClelland,
 432,KK6,Graeme Robert McDougall,
 433,E5E,Anne McEwen,
 434,83C,Jann Sonya McFarlane,
-435,WH4,Julian John James McGauran,,Julian John McGauran
+435,WH4,Julian John James McGauran,,,Julian John McGauran
 436,XH4,Peter John McGauran,
 437,ZH4,Jeannette McHugh,
 438,WK7,Gordon Douglas McIntosh,
-439,BP4,Maxine McKew,,Margaret Maxine McKew
-440,1I4,Jim Philip McKiernan,,James Philip McKiernan
+439,BP4,Maxine McKew,,,Margaret Maxine McKew
+440,1I4,Jim Philip McKiernan,,,James Philip McKiernan
 441,HT4,Ian Murray McLachlan,
 442,,Geoffrey Thomas McLaren,
 443,,Paul Alexander McLean,
@@ -459,18 +459,18 @@ person count,aph id,name,birthday,alt name
 447,84L,Jan Elizabeth McLucas,
 448,,James Leslie McMahon,
 449,,William (later Sir William) McMahon,
-450,5I4,Bob Francis McMullan,,Robert Francis McMullan
+450,5I4,Bob Francis McMullan,,,Robert Francis McMullan
 451,ML7,Daniel Thomas McVeigh,
 452,4T4,Daryl Melham,
 453,,Jean Isobelle Melzer,
 454,,Anthony John Messner,
 455,AI4,John Barry Mildren,
-456,BI4,Chris Gordon Miles,,Christopher Gordon Miles
+456,BI4,Chris Gordon Miles,,,Christopher Gordon Miles
 457,CI4,Percival Clarence Millar,
 458,KA5,Christine Anne Milne,
 459,DI4,Peter Milton,
-460,JX4,Nick Hugh Minchin,,Nicholas Hugh Minchin
-461,00AMU,Sophie Mirabella,,Sophie Panopoulos
+460,JX4,Nick Hugh Minchin,,,Nicholas Hugh Minchin
+461,00AMU,Sophie Mirabella,,,Sophie Panopoulos
 462,YL7,Alan Joseph Missen,
 463,00AOQ,Claire Mary Moore,
 464,EI4,John Colinton Moore,
@@ -480,7 +480,7 @@ person count,aph id,name,birthday,alt name
 468,E3L,Scott John Morrison,
 469,MK6,Frank William Mossfield,
 470,,John Graham Mountford,
-471,4V5,Judi Eleanor Moylan,,Judith Eleanor Moylan
+471,4V5,Judi Eleanor Moylan,,,Judith Eleanor Moylan
 472,,James Anthony Mulvihill,
 473,83D,John Paul Murphy,
 474,FX5,Shayne Michael Murphy,
@@ -517,10 +517,10 @@ person count,aph id,name,birthday,alt name
 505,KI4,Warwick Raymond Parer,
 506,HWR,Melissa Parke,
 507,E5V,Stephen Shane Parry,
-508,LI4,Kay Christine Lesley Patterson,,Kay Christine Patterson
+508,LI4,Kay Christine Lesley Patterson,,,Kay Christine Patterson
 509,M56,Marise Ann Payne,
 510,MI4,Andrew Sharp Peacock,
-511,A8W,Chris John Pearce,,Christopher John Pearce
+511,A8W,Chris John Pearce,,,Christopher John Pearce
 512,HVP,Graham Douglas Perrett,
 513,83M,Tanya Joan Plibersek,
 514,,Reginald Thomas Pollard,
@@ -528,18 +528,18 @@ person count,aph id,name,birthday,alt name
 516,NI4,James Robert Porter,
 517,OI4,Janet Frances Powell,
 518,PI4,Michael Philip Pratt,
-519,QI4,Roger Price,,Leo Roger Spurway Price
+519,QI4,Roger Price,,,Leo Roger Spurway Price
 520,SO7,Cyril Graham Primmer,
-521,RI4,Geoff Daniel Prosser,,Geoffrey Daniel Prosser
+521,RI4,Geoff Daniel Prosser,,,Geoffrey Daniel Prosser
 522,SI4,Gary Francis Punch,
 523,TI4,Christopher John Guelph Puplick,
-524,9V5,Christopher Maurice Pyne,,Chris Maurice Pyne
+524,9V5,Christopher Maurice Pyne,,,Chris Maurice Pyne
 525,AV5,Harry Vernon Quick,
 526,ZS6,John Andrew Quirke,
 527,,Peter Elliot Rae,
 528,HVQ,Brett Blair Raguse,
 529,HWS,Rowan Eric Ramsey,
-530,PK6,Don James Randall,,Donald James Randall
+530,PK6,Don James Randall,,,Donald James Randall
 531,UI4,Robert Francis Ray,
 532,HVR,Kerry Marie Rea,
 533,,John Edward Reeves,
@@ -551,7 +551,7 @@ person count,aph id,name,birthday,alt name
 539,E0B,Kym Charles Richardson,
 540,8G6,Aden Derek Ridgeway,
 541,WT4,John Peter Riggall,
-542,83E,Bernie Fernando Ripoll,,Bernard Fernando Ripoll,Bernard Fernand Ripoll
+542,83E,Bernie Fernando Ripoll,,,Bernard Fernando Ripoll,Bernard Fernand Ripoll
 543,HWA,Amanda Louise Rishworth,
 544,FU4,Andrew John Robb,
 545,HWT,Stuart Rowland Robert,
@@ -569,30 +569,30 @@ person count,aph id,name,birthday,alt name
 557,1J4,Norman Karl Sanders,
 558,BOT,Santo Santoro,
 559,2J4,John Saunderson,
-560,3J4,Rod Weston Sawford,,Rodney Weston Sawford
-561,4J4,Chris Cleland Schacht,,Christopher Cleland Schacht
+560,3J4,Rod Weston Sawford,,,Rodney Weston Sawford
+561,4J4,Chris Cleland Schacht,,,Christopher Cleland Schacht
 562,5J4,Gordon Glen Denton Scholes,
-563,83Q,Alby John Schultz,,Albert John Schultz
-564,6J4,Con Antonio Sciacca,,Concetto Antonio Sciacca
+563,83Q,Alby John Schultz,,,Albert John Schultz
+564,6J4,Con Antonio Sciacca,,,Concetto Antonio Sciacca
 565,YT4,Bruce Craig Scott,
 566,MQ7,Douglas Barr Scott,
 567,7J4,John Lyden Scott,
 568,8J4,Leslie James Scott,
 569,00AOM,Nigel Gregory Scullion,
 570,848,Patrick Damien Secker,
-571,QK6,Bob Charles Grant Sercombe,,Robert Charles Grant Sercombe
+571,QK6,Bob Charles Grant Sercombe,,,Robert Charles Grant Sercombe
 572,9J4,Peter Donald Shack,
 573,AJ4,John Randall Sharp,
 574,,George William Shaw,
 575,BJ4,Glenister Sheil,
-576,ZW4,Nick John Sherry,,Nicholas John Sherry
+576,ZW4,Nick John Sherry,,,Nicholas John Sherry
 577,CJ4,Roger Francis Shipton,
-578,DJ4,Jim Robert Short,,James Robert Short
+578,DJ4,Jim Robert Short,,,James Robert Short
 579,9V8,Leonie Marjorie Short,
-580,00ATG,Bill Richard Shorten,,William Richard Shorten
+580,00ATG,Bill Richard Shorten,,,William Richard Shorten
 581,EJ4,Kerry Walter Sibraa,
 582,EVL,John Royston Siddons,
-583,849,Sid Sidebottom,,Peter Sid Sidebottom
+583,849,Sid Sidebottom,,,Peter Sid Sidebottom
 584,E5Z,Rachel Mary Siewert,
 585,,John Peter Sim,
 586,FJ4,David William Simmons,
@@ -601,7 +601,7 @@ person count,aph id,name,birthday,alt name
 589,5E4,Ian McCahon Sinclair,
 590,0V5,Peter Neil Slipper,
 591,SK6,Anthony Charles Smith,
-592,00APG,Tony David Hawthorn Smith,,Anthony David Hawthorn Smith
+592,00APG,Tony David Hawthorn Smith,,,Anthony David Hawthorn Smith
 593,JV5,Silvia Joy Smith,
 594,5V5,Stephen Francis Smith,
 595,GJ4,Warwick Leslie Smith,
@@ -609,8 +609,8 @@ person count,aph id,name,birthday,alt name
 597,,Billy Mackie (later Sir Billy) Snedden,
 598,HJ4,James Henry Snow,
 # Snowden is a misspelling of Snowdon
-599,IJ4,Warren Edward Snowdon,,Warren Edward Snowden
-600,ZT4,Alex Michael Somlyay,,Alexander Michael Somlyay
+599,IJ4,Warren Edward Snowdon,,,Warren Edward Snowden
+600,ZT4,Alex Michael Somlyay,,,Alexander Michael Somlyay
 601,TK6,Andrew John Southcott,
 602,VC5,Karin Nicole Sowada,
 603,JJ4,John Michael Spender,
@@ -625,10 +625,10 @@ person count,aph id,name,birthday,alt name
 612,EM6,Sharman Nancy Stone,
 613,3I6,Natasha Jessica Stott Despoja,
 614,,Anthony Austin Street,
-615,HVS,Jon Harold Sullivan,,Jonathan Harold Sullivan
-616,3E4,Kathy Jean Martin Sullivan,,Kathryn Jean Martin Sullivan
+615,HVS,Jon Harold Sullivan,,,Jonathan Harold Sullivan
+616,3E4,Kathy Jean Martin Sullivan,,,Kathryn Jean Martin Sullivan
 617,2V5,Wayne Maxwell Swan,
-618,HW8,Mike Stuart Symon,,Michael Stuart Symon
+618,HW8,Mike Stuart Symon,,,Michael Stuart Symon
 619,FQ6,Karen Margaret Synon,
 620,6E4,Grant Ernest John Tambling,
 621,YU5,Lindsay James Tanner,
@@ -643,18 +643,18 @@ person count,aph id,name,birthday,alt name
 630,HVZ,Craig Robert Thomson,
 631,,David Scott Thomson,
 632,UK6,Kelvin John Thomson,
-633,00ANF,Ken Vincent Ticehurst,,Kenneth Vincent Ticehurst
+633,00ANF,Ken Vincent Ticehurst,,,Kenneth Vincent Ticehurst
 634,RJ4,Robert Edward Tickner,
 635,O15,John William Tierney,
-636,00AN4,Dave William Tollner,,David William Tollner
+636,00AN4,Dave William Tollner,,,David William Tollner
 637,,Michael Townley,
 638,HVU,Chris Allan Trevor,
 639,GX5,Judith Mary Troeth,
 640,E6A,Russell Brunell Trood,
 641,GT4,Warren Errol Truss,
-642,SJ4,Wilson Tuckey,,Charles Wilson Tuckey
+642,SJ4,Wilson Tuckey,,,Charles Wilson Tuckey
 643,885,Malcolm Bligh Turnbull,
-644,HVV,Jim Pearce Turnour,,James Pearce Turnour
+644,HVV,Jim Pearce Turnour,,,James Pearce Turnour
 645,EE4,Thomas Uren,
 646,SU5,Mark Anthony James Vaile,
 647,VK6,Danna Sue Vale,
@@ -669,7 +669,7 @@ person count,aph id,name,birthday,alt name
 656,,Laurie George Wallis,
 657,TJ4,Peter Alexander Walsh,
 658,UJ4,Mary Shirley Walters,
-659,84F,Mal James Washer,,Malcolm James Washer
+659,84F,Mal James Washer,,,Malcolm James Washer
 660,,David John Hopetoun Watson,
 661,VJ4,John Odin Wentworth Watson,
 662,00AOT,Ruth Stephanie Webber,
@@ -686,16 +686,16 @@ person count,aph id,name,birthday,alt name
 673,7V5,Daryl Robert Williams,
 674,ZJ4,Ralph Willis,
 675,YK6,Gregory Stuart Wilton,
-676,009LP,Tony Harold Curties Windsor,,Antony Harold Curties Windsor
+676,009LP,Tony Harold Curties Windsor,,,Antony Harold Curties Windsor
 677,DV4,Reginald Greive Withers,
-678,00AOU,Penny Ying Yen Wong,,Penelope Ying Yen Wong,Penelope Ying-Yen Wong
+678,00AOU,Penny Ying Yen Wong,,,Penelope Ying Yen Wong,Penelope Ying-Yen Wong
 679,E0F,Jason Peter Wood,
 680,8V7,William Robert Wood,
 681,HX5,John Woodley,
 682,0U3,Harry Francis Woods,
-683,1K4,Bob Leslie Woods,,Robert Leslie Woods
+683,1K4,Bob Leslie Woods,,,Robert Leslie Woods
 684,8E4,Michael Richard Lewis Wooldridge,
-685,8V5,Trish Mary Worth,,Patricia Mary Worth
+685,8V5,Trish Mary Worth,,,Patricia Mary Worth
 686,E6C,Dana Johanna Wortley,
 687,,Kenneth Shaw Wriedt,
 688,2K4,Keith Webb Wright,
@@ -705,7 +705,7 @@ person count,aph id,name,birthday,alt name
 692,84H,Christian John Zahra,
 693,FE4,Alice Olive Zakharov,
 694,ZK6,Paul John Zammit,
-695,HWB,Tony Zappia,,Antonio Zappia
+695,HWB,Tony Zappia,,,Antonio Zappia
 699,,Leonard Joseph Keogh,
 700,QH4,John Charles Kerin,
 701,,William Lawrence Morrison,
@@ -714,9 +714,9 @@ person count,aph id,name,birthday,alt name
 # New Senators starting on 1 July 2008
 704,HES,Mark Arbib,
 705,HZB,Catryna Bilyk,
-706,AI6,Doug Cameron,,Douglas Niven Cameron
+706,AI6,Doug Cameron,,,Douglas Niven Cameron
 707,I0M,Michaelia Cash,
-708,I0N,Don Farrell,,Donald Edward Farrell
+708,I0N,Don Farrell,,,Donald Edward Farrell
 709,I0O,David Feeney,
 710,I0P,Mark Furner,
 711,I0U,Sarah Hanson-Young,
@@ -728,10 +728,10 @@ person count,aph id,name,birthday,alt name
 # for 2008 he is consistently referred to by the aph_id 00AF1. In the XML for 2009 he's referred to as I0V. So
 # the id's are not constant over time. Thanks guys.
 716,I0V,John Williams,
-717,8IV,Nick Xenophon,,Nicholas Xenophon
+717,8IV,Nick Xenophon,,,Nicholas Xenophon
 # New Representatives elected in by-election on 6.8.2008
 720,IYS,Robert Oakeshott,
 721,IYU,Jamie Briggs,
 # New Senator on 11.3.2009
-722,J7Q,Christopher John Back,,Chris Back
+722,J7Q,Christopher John Back,,,Chris Back
 # Next available number is 723

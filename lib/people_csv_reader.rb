@@ -23,15 +23,15 @@ class PeopleCSVReader
 
     people = People.new
     data.each do |line|
-      person_count, aph_id, name_text, birthday = line[0..3]
+      person_count, aph_id, name_text, birth, death = line[0..4]
       name = Name.title_first_last(name_text)
 
       # You can specify multiple alternate names by filling out the next columns
-      alternate_names = line[4..-1].map{|t| Name.title_first_last(t)}
+      alternate_names = line[5..-1] ? line[5..-1].map{|t| Name.title_first_last(t)} : []
       people << Person.new(
         :name => name, :alternate_names => alternate_names,
         :count => person_count.to_i,
-        :birthday => (birthday ? Date.strptime(birthday) : nil),
+        :birthday => (birth ? Date.strptime(birth) : nil),
         :aph_id => aph_id)
     end
     people    
