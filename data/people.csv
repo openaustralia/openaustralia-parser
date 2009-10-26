@@ -192,7 +192,7 @@ person count,aph id,name,birth,death,alt name
 181,HWG,Mark Alfred Dreyfus,
 182,Y87,Peter Hertford Drummond,
 183,5G4,Stephen Cairfield Dubois,
-184,6G4,Michael John Duffy,
+184,6G4,Michael John Duffy,1938-03-02
 185,7G4,Peter Duncan,
 186,3K4,Patricia Irene Dunn,
 187,,Peter Drew Durack,
@@ -361,7 +361,7 @@ person count,aph id,name,birth,death,alt name
 349,LH4,Gerry Norman Jones,
 350,E5D,Barnaby Thomas Gerard Joyce,
 351,MH4,David Francis Jull,
-352,HX4,Bob Carl Katter,,,Robert Carl Katter
+352,HX4,Bob Carl Katter,1945-05-22,,Robert Carl Katter
 353,1V5,Robert Cummin Katter,
 354,NH4,Paul John Keating,
 355,,James Bernard Keeffe,
@@ -567,7 +567,7 @@ person count,aph id,name,birth,death,alt name
 555,HVY,Janelle Anne Saffin,
 556,,Murray Evan Sainsbury,
 557,1J4,Norman Karl Sanders,
-558,BOT,Santo Santoro,
+558,BOT,Santo Santoro,1956-04-27,
 559,2J4,John Saunderson,
 560,3J4,Rod Weston Sawford,,,Rodney Weston Sawford
 561,4J4,Chris Cleland Schacht,,,Christopher Cleland Schacht
@@ -625,7 +625,7 @@ person count,aph id,name,birth,death,alt name
 612,EM6,Sharman Nancy Stone,
 613,3I6,Natasha Jessica Stott Despoja,
 614,,Anthony Austin Street,
-615,HVS,Jon Harold Sullivan,,,Jonathan Harold Sullivan
+615,HVS,Jon Harold Sullivan,1950-11-10,,Jonathan Harold Sullivan
 616,3E4,Kathy Jean Martin Sullivan,,,Kathryn Jean Martin Sullivan
 617,2V5,Wayne Maxwell Swan,
 618,HW8,Mike Stuart Symon,,,Michael Stuart Symon
@@ -670,7 +670,7 @@ person count,aph id,name,birth,death,alt name
 657,TJ4,Peter Alexander Walsh,
 658,UJ4,Mary Shirley Walters,
 659,84F,Mal James Washer,,,Malcolm James Washer
-660,,David John Hopetoun Watson,
+660,,David John Hopetoun Watson,1945-01-29,
 661,VJ4,John Odin Wentworth Watson,
 662,00AOT,Ruth Stephanie Webber,
 663,WJ4,Alasdair Paine Webster,
@@ -681,7 +681,7 @@ person count,aph id,name,birth,death,alt name
 668,1X4,Suzanne Margaret West,
 669,,John Murray Wheeldon,
 670,RC6,Thomas Clive Wheelwright,
-671,YJ4,Peter Nicholson Duckett White,
+671,YJ4,Peter Nicholson Duckett White,1936-01-19,2005-02-13
 672,84G,Kim Wilkie,
 673,7V5,Daryl Robert Williams,
 674,ZJ4,Ralph Willis,
@@ -698,7 +698,7 @@ person count,aph id,name,birth,death,alt name
 685,8V5,Trish Mary Worth,,,Patricia Mary Worth
 686,E6C,Dana Johanna Wortley,
 687,,Kenneth Shaw Wriedt,
-688,2K4,Keith Webb Wright,
+688,2K4,Keith Webb Wright,1942-01-09,
 689,,William Yates,
 690,,Harold William Young,
 691,EV4,Michael Jerome Young,
@@ -734,4 +734,1170 @@ person count,aph id,name,birth,death,alt name
 721,IYU,Jamie Briggs,
 # New Senator on 11.3.2009
 722,J7Q,Christopher John Back,,,Chris Back
-# Next available number is 723
+# The following long list of people added because they were in the Queensland parliament
+723,,Herbert Adair,1905-08-23,1994-10-21
+724,,Walter Adams,,1892-05-15
+725,,John Adamson,1857-02-18,1922-05-02
+726,,George Agnew,1853-06-14,1934-12-19
+727,,Thomas Gipps Ahearn,1929-08-06,
+728,,Michael John Ahern,1942-01-02,
+729,,John Albert Aiken,1918-03-17,
+730,,Thomas Aikens,1900-04-28,1985-11-30
+731,,Peter Airey,,1950-08-10
+732,,George Akers,1941-10-17,2006-10-28
+733,,Robert Aland,1836-12-24,1904-03-19
+734,,Gilbert Alison,1933-05-20,
+735,,James Allan,1856-12-20,1938-01-26
+736,,William Allan,,1901-10-19
+737,,Barnett Francis Samuel Allen,1882-02-19,1948-10-18
+738,,Frederick James Allpass,1889-09-21,1977-04-05
+739,,Francis Tyssen Amhurst,1842-09-27,1881-01-03
+740,,Mervyn John Reginald Anderson,1909-04-04,1971-11-14
+741,,James Douglas Annand,1875-01-21,1952-08-07
+742,,John Thomas Annear,1842-06-03,1910-05-28
+743,,William Aplin,1840-04-27,1901-02-18
+744,,John George Appel,1859-03-15,1929-03-19
+745,,Archibald Archer,1820-03-13,1902-02-10
+746,,Edward Walker Archer,1871-12-12,1940-07-01
+747,,John Archibald,1845-12-15,1907-05-20
+748,,Leonard Arthur Ardill,1931-03-15,
+749,,Thomas Gummersal Armfield,,1931-04-21
+750,,Roy Alexander Armstrong,1914-01-14,1991-04-26
+751,,William Drayton Armstrong,1862-03-28,1936-06-02
+752,,Ernest Albert Atherton,1879-03-22,1954-06-29
+753,,Travers Atkin,1841-11-29,1872-05-25
+754,,Julie Marie Attwood,1957-05-31,
+755,,Brian Douglas Austin,1943-03-22,
+756,,Earle Wilfred Bailey,1941-10-05,
+757,,William Gill Bailey,,1889-04-23
+758,,Edgar Allan Baldwin,1922-10-25,2008-01-01
+759,,John Lloyd Bale,1837-01-18,1885-11-22
+760,,John Balfour,,1875-03-21
+761,,George Barber,,1932-04-10
+762,,George Phillips Barber,,1938-11-07
+763,,Raymond Douglas Barber,1959-02-28,
+764,,William Barker,,1886-12-22
+765,,Andrew Henry Barlow,1837-08-08,1915-03-29
+766,,George Powell Barnes,1856-09-20,1949-12-09
+767,,John Francis Barnes,1904-10-21,1952-05-12
+768,,Louis Joseph Barnes,1906-01-13,1983-06-02
+769,,Walter Henry Barnes,1858-09-07,1933-02-19
+770,,Veronica Lesley Barry,1960-01-30,
+771,,John Bartholomew,1858-10-31,1928-09-25
+772,,Adolphus Henry Everard Barton,,1916-05-20
+773,,Charles Hastings Barton,,1902-06-16
+774,,Edward Gustavus Campbell Barton,1857-12-11,1942-06-18
+775,,Hon. Thomas Alfred Barton,1949-08-11,
+776,,Rosslyn Mary Bates,1962-05-25,
+777,,Matthew Robertson Battersby,1841-12-18,1899-05-15
+778,,William Francis Baumann,1942-10-12,
+779,,William Edward Baxter,1907-05-29,1978-07-05
+780,,James Garfield Bayley,,
+781,,Percy Molineux Bayley,,1942-08-16
+782,,William Henry Baynes,,1898-09-04
+783,,Denver Edward Beanland,1945-01-26,
+784,,Peter Francis Beard,1935-05-22,
+785,,Edwin James Beardmore,1891-01-18,1985-04-08
+786,,Francis Beattie,1829-08-29,1886-04-16
+787,,Hon. Peter Douglas Beattie,1952-11-18,
+788,,William Bebbington,1856-10-19,1939-07-31
+789,,Randolph George Bedford,1868-07-28,1941-07-07
+790,,Thomas Charles Beirne,1860-09-09,1949-04-21
+791,,Alexander James Douglas Bell,1945-07-13,
+792,,Ernest Thomas Bell,1880-03-31,1930-05-02
+793,,John Alexander Bell,,1901-08-30
+794,,Sir Joshua Peter Bell,1827-01-19,1881-12-20
+795,,Joshua Thomas Bell,,1911-03-10
+796,,Roy Mackenzie Bell,1885-03-20,1953-08-29
+797,,Colin James Bennett,1919-05-10,2002-06-12
+798,,Neil Patrick Bennett,1958-02-28,
+799,,John Robinson Benson,,1885-07-25
+800,,Henry Rogers Beor,1846-02-07,1880-12-25
+801,,Clive John Berghofer,1935-05-04,
+802,,Angelo Pietro Dante Bertoni,1933-11-07,
+803,,William Bertram,1875-01-11,1957-06-11
+804,,Francis Edward Biggie,,1915-12-03
+805,,Lorraine Rita Bird,1942-02-12,
+806,,Valmond James Bird,1928-05-14,2005-08-19
+807,,Bruce Edward Bishop,1925-08-25,
+808,,Sir Johannes Bjelke-Petersen,1911-01-13,2005-04-23
+809,,Adam Black,,1902-12-26
+810,,Alfred Harold Black,1947-04-06,
+811,,Maurice Hume Black,1830-12-16,1899-08-16
+812,,John Blackley,1862-01-08,
+813,,Sir James William Blair,1871-05-16,1944-12-18
+814,,James Robert Henry Blake,1921-10-06,
+815,,Charles William Blakeney,,1876-01-12
+816,,Jarrod Bleijie,,
+817,,Hon. Anna Maria Bligh,1960-07-14,
+818,,George Henry Blocksidge,,1944-01-20
+819,,Henry Joseph Weld Blundell,,
+820,,Jason Boles,,1920-08-24
+821,,Chris Bombolas,1960-05-12,
+822,,Charles Joseph Booker,1865-06-03,1925-06-04
+823,,Desmond James Booth,1920-07-20,1996-12-11
+824,,Hon. Robert Edward Borbidge,1954-08-12,
+825,,Thomas William Bouchard,1865-10-08,1943-11-02
+826,,Anthony James Bourke,1941-07-30,
+827,,William Raymond James Bousen,1911-01-13,2002-05-28
+828,,Richard Rowland Bow,,1941-06-11
+829,,David Bowman,1860-08-04,1916-02-25
+830,,William Draper Box,,1904-01-26
+831,,Robert Livingstone Boyd,,1951-05-30
+832,,Hon. Desley Carole Boyle,1948-03-29,
+833,,Hon. Paul Joseph Braddy,1939-01-20,
+834,,John Bramston,1832-12-14,1921-09-13
+835,,Sir William Alfred Brand,1888-08-22,
+836,,Samuel John Brassington,1901-05-06,1950-10-04
+837,,Stephen Dominic Bredhauer,1958-02-15,
+838,,Frank Tennison Brennan,1884-12-06,1949-08-06
+839,,James Brennan,1857-02-25,1917-06-13
+840,,Frederick Thomas Brentnall,1834-06-17,1925-01-11
+841,,Edward Denis Joseph Breslin,,1914-08-26
+842,,Thomas Bridges,1843-12-22,1939-06-04
+843,,Right Hon. John P.c. Bright,1811-11-16,1889-03-27
+844,,Darryl James Briskey,1955-08-24,
+845,,Fred Phillip Bromely,1917-07-24,1988-05-14
+846,,William Brookes,1825-10-14,1898-07-16
+847,,Samuel Wood Brooks,1840-08-29,1915-02-09
+848,,Michael Timothy Brosnan,1907-12-05,1966-07-20
+849,,Alfred Delves Broughton,1826-11-20,1895-03-10
+850,,Alfred Henry Brown,,1908-09-30
+851,,Charles Victor Watson Brown,1895-05-24,1970-05-01
+852,,Ivan Brown,1922-11-10,1977-05-12
+853,,John Innes Brown,,1949-12-03
+854,,Richard Kidston Brown,,1971-01-22
+855,,William Villiers Brown,,1915-04-29
+856,,Eyles Irwin Caulfield Browne,1819-06-24,1886-06-17
+857,,William Henry Browne,,1904-04-12
+858,,Henry Adam Bruce,1884-05-16,1958-10-11
+859,,Archibald Berdmore Buchanan,,1883-03-30
+860,,John Francis Buckland,,1910-09-21
+861,,Henry Buckley,1813-06-21,1888-04-14
+862,,John Andrew Budd,1950-04-18,
+863,,Frank William Bulcock,1894-06-06,
+864,,Robert Bulcock,1832-05-21,1900-05-10
+865,,George Robertson Burns,,1893-11-05
+866,,Hon. Thomas James Burns,1931-10-27,2007-06-04
+867,,Tony Anthony Burreket,1934-07-06,
+868,,James Burrows,1899-02-12,1978-10-30
+869,,John Burrows,1864-10-16,1925-02-03
+870,,Frank Wells Butler,,1961-07-25
+871,,Robert John Cuthbert Butler,1889-04-20,1950-11-08
+872,,Charles Hardie Buzacott,1835-08-03,1918-08-19
+873,,David Edward Byrne,1951-01-20,
+874,,Peter Byrne,1892-06-13,1974-03-16
+875,,Thomas Joseph Byrnes,1860-11-11,1898-09-27
+876,,James John Cadell,1843-11-05,1919-12-11
+877,,Brian John Cahill,1931-02-16,
+878,,Edward James Caine,,1956-09-26
+879,,Albert James Callan,,1912-05-09
+880,,Michael Andrew Caltabiano,1964-04-08,
+881,,John Cameron,1845-03-12,1914-06-25
+882,,Ronald Ernest Camm,1914-07-22,1988-03-15
+883,,Charles Campbell,1843-08-06,1919-03-18
+884,,Clement Bernard Campbell,1948-08-16,
+885,,Frederick Alexander Campbell,1911-01-17,1995-09-11
+886,,James Campbell,1838-10-28,1925-09-15
+887,,John Dunmore Campbell,1854-04-19,1909-06-19
+888,,Thomas Campbell,,1905-01-17
+889,,William Henry Campbell,1846-07-18,1919-06-17
+890,,Cecil Charles Carey,1907-09-21,1969-12-26
+891,,Francis Edward Carroll,1952-04-08,
+892,,Robert Joseph Carroll,,1940-02-07
+893,,Arthur John Carter,1847-09-27,1917-11-06
+894,,George Carter,,1932-10-05
+895,,William Edward Carter,1899-02-28,1969-08-23
+896,,Hon. Edmund Denis Casey,1933-01-02,2006-05-01
+897,,Richard Gardiner Casey,1846-12-17,1919-04-25
+898,,William Joseph Castling,,1906-06-07
+899,,Henry Albert Cattermull,,1935-08-30
+900,,Sir Gordon William Wesley Chalk,1913-05-16,1991-04-26
+901,,Henry Challinor,1814-06-22,1882-09-09
+902,,Sir John Beals Chandler,1887-02-21,1962-01-19
+903,,Yvonne Ann Chapman,1940-01-20,
+904,,James Vincent Chataway,1852-09-06,1901-04-12
+905,,Geoffrey Talbot Chinchen,1915-07-31,2005-07-17
+906,,Michael Wai-Man Choi,1959-03-04,
+907,,Charles Edward Chubb,1845-05-17,1930-02-27
+908,,Charles Henry George Carr Clark,1832-05-25,1896-09-16
+909,,Elizabeth Anne Clark,1953-11-06,
+910,,George John Edwin Clark,1834-03-19,1907-02-06
+911,,James Clark,1891-02-05,1963-11-22
+912,,Dr Lesley Ann Clark,1948-08-10,
+913,,Paul John Clauson,1945-08-16,
+914,,Ernest Henry Collet Clayton,1889-11-09,1946-12-30
+915,,Felix Clewitt,1836-03-10,1913-02-13
+916,,Arthur Coburn,1897-07-13,1969-08-29
+917,,William Parry Colborne,,1945-07-08
+918,,Joseph Silver Collings,1865-05-11,1955-06-20
+919,,Charles Collins,1867-09-25,1936-03-28
+920,,Harold Henry Collins,1887-08-09,1962-07-12
+921,,Robert Martin Collins,1843-12-17,1913-08-18
+922,,Hon. Patrick Comben,1950-05-03,
+923,,Alfred William Compigne,1818-02-07,1909-07-04
+924,,Charles William Conroy,,1944-07-28
+925,,Peter David Connolly,1920-10-29,
+926,,Raymond Thomas Connor,1954-12-04,
+927,,Trevor McDougall Coomber,1949-06-13,
+928,,Arthur Charles Cooper,,1921-10-01
+929,,Frank Arthur Cooper,1872-07-16,1949-11-23
+930,,Frederick Augustus Cooper,,1908-11-12
+931,,Pope Alexander Cooper,1848-05-12,1923-08-30
+932,,Theo Russell Cooper,1941-02-04,
+933,,Vivian Joseph Northcote Cooper,1909-06-19,
+934,,William Cooper,,1957-11-29
+935,,Stuart William Copeland,1968-01-19,
+936,,Patrick Kerry Copley,1901-12-11,1949-08-18
+937,,William John Copley,1906-09-23,1975-04-21
+938,,William Henry Corfield,,1927-09-01
+939,,Bernard Henry Corser,,1967-12-15
+940,,Edward Bernard Cresset Corser,,1928-07-31
+941,,David Wheatcroft Cory,1928-08-03,
+942,,Edward Costello,1883-02-07,1967-06-27
+943,,Richard John Cottell,1865-08-06,1911-08-30
+944,,Frederick Courtice,,1956-02-18
+945,,Henri Cowap,,1930-10-21
+946,,Sir Alfred Sandlings Cowley,,1926-12-01
+947,,James Cowlishaw,1834-12-19,1929-07-25
+948,,Charles Coxen,1809-04-20,1876-05-17
+949,,John Henry Coyne,1865-01-16,1926-06-12
+950,,Walter Russell Crampton,,1938-10-20
+951,,Michael John Crandon,1953-12-10,
+952,,Arthur Pinkerton Crawford,1923-09-22,1995-06-19
+953,,James Crawford,1870-03-04,1916-12-28
+954,,Cornelius Vincent Creagh,,1909-04-14
+955,,Benjamin Cribb,1807-11-07,1874-03-11
+956,,James Clarke Cribb,1856-10-04,1926-05-23
+957,,Robert Cribb,1805-01-07,1893-04-16
+958,,Thomas Bridson Cribb,1845-12-01,1913-09-04
+959,,Andrew Peter Cripps,1981-02-05,
+960,,Peta-Kaye Croft,1972-08-05,
+961,,James Crombie,1834-06-08,1898-09-17
+962,,John Michael Cross,1859-02-01,1934-04-12
+963,,Thomas Martin Crowley,1901-11-15,1965-10-18
+964,,Hon. Christopher Paul Cummins,1962-12-12,
+965,,Elizabeth Anne Cunningham,1954-01-22,
+966,,Hon. Junita Irene Cunningham,1939-02-12,
+967,,George Silas Curtis,,1922-10-06
+968,,David Bruce Dalgleish,1962-10-13,
+969,,David Hay Dalrymple,1840-12-14,1912-09-01
+970,,George Augustus Frederick Elphinstone Dalrymple,1826-05-06,1876-01-22
+971,,David John Marlais Daniel,,
+972,,Owen Daniel,,
+973,,Henry Daniels,,1934-06-13
+974,,William Theodore D'Arcy,,
+975,,Vicky Elizabeth Darling,1966-11-29,
+976,,William Logan Dart,,
+977,,John Dash,,1952-01-01
+978,,George Henry Davenport,1831-10-30,1881-01-01
+979,,Alfred Allen Davey,,
+980,,Bruce William Davidson,1952-03-15,
+981,,Horace Jason Davies,1903-07-17,
+982,,Kenneth Henry Davies,1948-07-08,
+983,,Brian John Davis,,
+984,,Edward William Davis,,
+985,,Sydney Beaven Davis,,
+986,,Tracy Ellen Davis,,
+987,,Andrew Dawson,1863-07-16,1910-07-20
+988,,William Arthur Deacon,1872-02-04,1943-12-25
+989,,Harold Dean,1913-02-20,1991-02-28
+990,,John Horace Deane,1842-01-24,1913-10-27
+991,,Eric Paul Decker,,
+992,,Eric Deeral,,
+993,,Lacy Keith Ernest De,1940-08-07,
+994,,Peter Roylance Delamothe,,
+995,,William Halliwell Demaine,1859-02-25,1939-08-18
+996,,John Mark Dempsey,,
+997,,Digby Frank Denham,1859-01-25,1944-05-10
+998,,Satge Oscar John De,1836-11-20,1906-09-26
+999,,George Henry Devries,1896-07-04,1957-07-13
+1000,,Alexander Tattenhall Dewar,1912-06-19,1995-01-07
+1001,,Thomas Dibley,,1912-05-31
+1002,,Cameron Robert Dick,,
+1003,,Sir James Robert Dickson,1832-11-30,1901-01-10
+1004,,Steven Lance Dickson,1962-06-24,
+1005,,Leslie Frank Diplock,1899-09-16,1983-11-06
+1006,,Felix Cyril Sigismund Dittmer,1904-06-27,1977-08-29
+1007,,Alfred Dohring,1896-07-01,1982-07-13
+1008,,Robert Henry Dollin,1928-12-06,
+1009,,James Donald,1895-06-01,1976-05-04
+1010,,John Donaldson,1841-10-15,1896-07-25
+1011,,John Burton Donnelly,,1949-12-12
+1012,,Jeremiah Francis Donovan,,
+1013,,Timothy John Donovan,,1939-08-27
+1014,,Alexander Rodney Douglas,1958-11-24,
+1015,,Henry Alexander Cecil Douglas,1879-04-08,1952-08-30
+1016,,John Douglas,1828-03-06,1904-07-23
+1017,,Samuel Sydney Doumany,1937-09-02,
+1018,,Peter Dowling,,
+1019,,James George Drake,1850-04-26,1941-08-01
+1020,,John Joseph Dufficy,1901-11-02,1969-11-06
+1021,,George Alfred Duffy,,1941-04-01
+1022,,Michael Duffy,,1926-02-04
+1023,,John Edmund Duggan,1910-12-30,
+1024,,Thomas Alberto Dunlop,1880-04-06,1956-01-25
+1025,,Andrew Dunn,,1934-04-29
+1026,,John Henry Dunsford,1855-07-03,1905-09-15
+1027,,Robert Dunsmure,,1894-08-04
+1028,,Thomas Dunstan,1873-04-20,1954-06-19
+1029,,William John Dunstan,,1930-09-13
+1030,,David Anthony Dunworth,1946-08-29,
+1031,,Charles Boydell Dutton,1834-08-16,1904-02-05
+1032,,Leonard Eastment,1901-02-28,1956-07-29
+1033,,Andrew George Eaton,1931-11-29,
+1034,,Wendy Marjorie Edmond,1946-04-27,
+1035,,George Edmonstone,1809-05-04,1883-02-23
+1036,,James Braidwood Edwards,1879-02-03,1952-07-09
+1037,,John Edwards,,1872-11-25
+1038,,Sir Llewllyn Roy Edwards,1935-08-02,
+1039,,Hon. James Peter Elder,1950-12-14,
+1040,,Gilbert Eliott,,1871-06-30
+1041,,Jannion Anthony Elliott,1944-03-29,
+1042,,Glen Wayne Elmes,1955-08-14,
+1043,,Augustus Cecil Elphinstone,1874-09-13,1964-03-24
+1044,,Scott Anthony Emerson,,
+1045,,Charles Bernard English,1902-01-30,1974-08-05
+1046,,John Michael English,1962-12-16,
+1047,,Ernest Evans,,1965-02-28
+1048,,William Manson Ewan,1903-08-18,1967-03-14
+1049,,Sir Arthur William Fadden,1895-04-13,1973-04-21
+1050,,Bartley Fahey,1836-10-15,1920-08-09
+1051,,Dianne Elizabeth Farmer,,
+1052,,David Farrell,,1953-08-17
+1053,,George Pritchard Farrell,1895-12-09,
+1054,,Albrecht Feez,,1905-07-25
+1055,,William Patrick Feldman,1958-01-22,
+1056,,Gary Bernard Fenlon,1954-10-30,
+1057,,John Ferguson,1830-03-15,1906-03-30
+1058,,John Ferrett,,1894-06-04
+1059,,Miles Aloysius Ferricks,1875-11-12,1932-08-20
+1060,,John Arthur Fihelly,1882-11-07,1945-03-02
+1061,,William Fyfe Finlayson,,1955-01-13
+1062,,Simon David Finn,1965-12-05,
+1063,,Thomas Finney,1837-02-10,1903-12-16
+1064,,Andrew Fisher,1862-08-29,1928-10-22
+1065,,Henry Bates Fitz,1817-10-10,1880-11-28
+1066,,Andrew Anthony Fitzgerald,1940-02-22,
+1067,,Charles Borromeo Fitzgerald,1865-06-25,1913-02-10
+1068,,Thomas Henry Fitzgerald,,1888-11-10
+1069,,Charles Fitzsimmons,,1876-02-24
+1070,,Dr Bruce Stephen Flegg,1954-03-10,
+1071,,Joseph Fleming,1811-01-14,1891-09-23
+1072,,Sir Alan Roy Fletcher,1907-01-26,1991-10-07
+1073,,John William Fletcher,,1965-03-13
+1074,,John Gerard Flynn,1953-05-21,
+1075,,William Bond Ingpen Flynn,1951-10-09,
+1076,,John Fogarty,,1904-09-09
+1077,,Christopher John Foley,1956-02-25,
+1078,,Matthew Joseph Foley,1951-01-24,
+1079,,Thomas Foley,1853-06-14,1920-09-16
+1080,,Thomas Andrew Foley,1886-04-26,1973-02-05
+1081,,James Foote,1829-11-10,1895-09-04
+1082,,John Clark Foote,1822-07-10,1895-08-18
+1083,,Frederick Augustus Forbes,1818-09-30,1878-07-09
+1084,,George Edward Forbes,1828-08-08,1881-07-02
+1085,,Francis Michael Forde,1890-07-18,1983-01-28
+1086,,Edward Barrow Forrest,,1914-03-30
+1087,,William Forrest,1835-01-11,1903-04-23
+1088,,James Forsythe,,1927-10-14
+1089,,Hon. Demetrios Fouras,1938-03-08,
+1090,,Edwin Wesley Howard Fowles,1871-06-17,1945-12-29
+1091,,William Lambert Fowles,,1880-08-18
+1092,,George Fox,,1914-01-27
+1093,,Sir Justin Fox Greenlaw Foxton,1849-09-24,1916-06-23
+1094,,Arthur Morley Francis,,1902-05-11
+1095,,Josiah Francis,1825-03-07,1891-05-11
+1096,,Andrew Peter Fraser,1976-09-15,
+1097,,Huan Donald John Fraser,1940-02-16,
+1098,,Robert Fraser,,1918-09-09
+1099,,Simon Fraser,,1889-01-18
+1100,,Desmond John Frawley,1924-09-23,1996-05-23
+1101,,Edgar Noah Free,1872-06-20,1938-02-12
+1102,,James Porter Fry,,1948-02-07
+1103,,William Fryar,1828-01-25,1919-12-22
+1104,,Albert John Wellman Fudge,1858-01-30,1949-11-07
+1105,,George Fullerton,,1883-09-24
+1106,,Robert Funnell,,1936-01-03
+1107,,Vincent Clair Gair,1901-02-25,1980-11-11
+1108,,John James Galloway,,1883-06-30
+1109,,Judith Margaret Gamin,1930-07-18,
+1110,,Michael Brennan Gannon,,1898-04-10
+1111,,Henry Croker Garde,1855-02-09,1932-08-09
+1112,,Harold Raymond Gardiner,1899-01-12,1981-02-17
+1113,,Robert James Gardner,1890-04-01,1966-11-12
+1114,,Sir James Francis Garrick,1836-01-10,1907-01-12
+1115,,Leo Francis Gately,1937-06-15,
+1116,,Eric John Gaven,1905-03-16,1974-01-17
+1117,,James Gibbon,,1888-04-02
+1118,,Ivan James Gibbs,1927-11-22,
+1119,,Hon. Robert James Gibbs,1946-11-03,
+1120,,Angus Gibson,1842-04-25,1920-05-28
+1121,,David Francis Gibson,1967-10-13,
+1122,,John Theophilius Gilday,,1937-08-29
+1123,,William Neal Gillies,1868-10-28,1928-02-09
+1124,,Thomas John George Gilmore,1946-05-08,
+1125,,Hon. Thomas John Vernon Gilmore,1908-05-07,
+1126,,Thomas Givens,,1928-06-19
+1127,,Thomas Glassey,,1936-09-28
+1128,,William Hamline Glasson,1925-02-23,
+1129,,David Alexander Gledson,,1949-05-14
+1130,,Louis Goldring,,1934-10-08
+1131,,John Phillip Goleby,1935-03-22,1985-08-10
+1132,,George Richard Gore,1812-03-22,1871-08-16
+1133,,John Nelson Goss,1943-01-01,
+1134,,Wayne Keith Goss,1951-02-26,
+1135,,John Govett,,1920-12-07
+1136,,Grace Grace,1958-08-12,
+1137,,Charles James Graham,1839-10-07,1886-03-18
+1138,,Frederick Dickson Graham,1899-05-13,
+1139,,William Graham,1836-12-11,1892-06-12
+1140,,Kenneth McDonald Grant,,1922-08-13
+1141,,George Wilke Gray,1844-03-03,1924-09-22
+1142,,Philip Roy Gray,1947-04-20,
+1143,,Francis Grayson,1849-09-02,1927-07-27
+1144,,William Henry Green,1878-10-11,
+1145,,John Ward Greenwood,1934-04-29,
+1146,,Sir Augustus Charles Gregory,1819-08-01,1905-06-25
+1147,,Franics Thomas Gregory,1821-10-19,1888-10-23
+1148,,Allan Maxwell Grice,1942-10-21,
+1149,,Sir Samuel Walker Griffith,1845-06-21,1920-08-09
+1150,,George Grimes,1835-12-17,1910-01-28
+1151,,Samuel Grimes,1837-08-13,1902-06-18
+1152,,Ernest Lancelot Grimstone,,1933-10-22
+1153,,Henry Littleton Groom,1859-01-04,1926-01-04
+1154,,William Henry Groom,1833-03-09,1901-08-08
+1155,,Donald Gunn,1856-02-19,1943-07-24
+1156,,William Angus Manson Gunn,1920-06-22,2001-09-20
+1157,,William Morrison Gunn,1895-04-19,1970-04-09
+1158,,Terence Joseph Gygar,1947-10-21,
+1159,,James William Hadley,,1971-08-16
+1160,,Albert Hales,1932-11-09,
+1161,,George Joseph Hall,1857-01-27,1924-11-21
+1162,,Thomas Murray Hall,1859-03-25,1927-04-18
+1163,,Charles Robert Haly,1816-04-11,1892-08-26
+1164,,Hon. David John Hamill,1957-09-18,
+1165,,John Hamilton,1841-08-19,1916-12-07
+1166,,William Hamilton,1851-05-10,1920-07-27
+1167,,John Killeen Handy,,1874-01-24
+1168,,Gerald Page See Pagehanify Hanify,,
+1169,,Edward Michael Hanlon,1887-10-01,1952-01-15
+1170,,John Stanislaus Hanlon,1883-11-16,1949-09-13
+1171,,Patrick Joseph Hanlon,1930-03-19,
+1172,,Patrick Francis Hanran,,1916-08-08
+1173,,Brendan Percival Hansen,1922-08-21,1999-12-19
+1174,,Edward Joseph Hanson,1878-09-05,1950-10-20
+1175,,Martin Hanson,1923-07-02,1976-02-20
+1176,,Herbert Freemont Hardcare,1861-03-07,1938-03-05
+1177,,Henry Scott Harden,,1879-03-10
+1178,,Theodore Harden,,
+1179,,William St. John Harding,,1903-09-26
+1180,,John Henry Hargreaves,,1907-01-19
+1181,,Neville John Harper,1926-09-10,
+1182,,Robert Malcolm Harper,1944-11-17,
+1183,,Edward David Harris,1911-08-30,
+1184,,George Harris,,1891-03-28
+1185,,Robert Leslie Harrison,1903-05-09,1966-04-15
+1186,,Frederick Hamilton Scott Hart,1836-03-26,1915-07-15
+1187,,Graham Lloyd Hart,1906-01-06,1974-04-18
+1188,,Harold Leslie Hartley,,1958-08-23
+1189,,William Hartley,,1950-03-15
+1190,,Lindsay Earle Hartwig,1919-12-29,1996-04-02
+1191,,Leisha Teresa Harvey,1947-04-04,
+1192,,William Charles Roy Harvey,1921-01-06,2006-04-23
+1193,,Arthur George Clarence Hawthorn,,1934-05-06
+1194,,John Hayes,1897-07-19,1986-06-16
+1195,,Kenneth William Hayward,1954-02-13,
+1196,,James Alfred Heading,1884-01-26,1969-04-09
+1197,,Graham John Healy,1956-08-18,
+1198,,John Joseph O'Connor Healy,1894-04-19,1970-07-18
+1199,,Phillip Arthur Heath,1954-09-24,
+1200,,William Clarence Heatley,1920-07-12,1971-10-29
+1201,,John Joseph Hegarty,1947-10-16,
+1202,,William Hemmant,1838-10-10,1916-10-20
+1203,,Ian Thomas Henderson,1940-10-24,
+1204,,William Hendren,,1903-01-03
+1205,,John Desmond Herbert,1925-02-11,1978-10-30
+1206,,Sir Robert George Wyndham Herbert,1831-06-12,1905-05-06
+1207,,Robert Herbertson,,1940-03-01
+1208,,John Christian Heussler,1820-06-15,1907-10-26
+1209,,Neville Thomas Eric Hewitt,1920-10-19,
+1210,,William Douglas Hewitt,1930-10-31,
+1211,,William Guy Higgs,1862-01-18,1951-06-11
+1212,,William Kay Higson,,1931-03-22
+1213,,Sir Thomas Alfred Hiley,1905-11-25,1990-11-06
+1214,,Charles Lumley Hill,,1909-10-28
+1215,,Richard Hill,,1959-09-26
+1216,,Paul Jerome Remigius Hilton,1899-10-01,1965-08-18
+1217,,Albert Hinchcliffe,1860-02-14,1935-01-04
+1218,,Stirling James Hinchcliffe,1970-11-23,
+1219,,Denis Grenville Hinton,1939-12-04,
+1220,,Russell James Hinze,1919-06-19,1991-06-29
+1221,,Eugen Hirschfeld,1866-01-22,1946-06-18
+1222,,Ronald William Hislop,1884-04-20,1948-05-30
+1223,,Howard William Thomas Hobbs,1950-01-22,
+1224,,William Hobbs,,1890-12-08
+1225,,Albert John Hockings,,1890-11-11
+1226,,Joseph Hodel,1850-10-09,1943-09-04
+1227,,Robert Samuel Hodge,,1924-04-08
+1228,,Allen Maxwell Hodges,1917-02-11,
+1229,,William Oswald Hodgkinson,1835-03-31,1900-07-23
+1230,,Sir Arthur Hodgson,1818-06-29,1902-12-24
+1231,,Samuel Hodgson,,1886-11-29
+1232,,Frederick Hurrell Holberton,1821-10-28,1907-09-09
+1233,,Hon. Raymond Keith Hollis,1940-01-30,
+1234,,William Walter Hood,1844-03-25,1920-08-08
+1235,,John Hoolan,,1911-11-15
+1236,,Paul Antony Hoolihan,1947-05-08,
+1237,,Keith William Hooper,1919-08-21,1977-08-23
+1238,,Kevin Joseph Hooper,1928-07-09,1984-03-09
+1239,,Maxwell David Hooper,1926-01-20,2000-11-19
+1240,,Raymond Gordon Hopper,1960-03-03,
+1241,,Louis Hope,1817-10-29,1894-08-15
+1242,,Michael James Horan,1944-07-01,
+1243,,Jacob Horwitz,,1920-03-24
+1244,,James Edward Hiram Houghton,1911-09-13,1985-01-21
+1245,,John William Houston,1919-12-30,
+1246,,Clive Melwyn Hughes,1924-05-15,
+1247,,Harold Mortimer Hungerford,1908-12-18,1972-01-10
+1248,,David Hunter,1858-11-16,1927-09-20
+1249,,Ernest Charles James Hunter,,1944-08-14
+1250,,John McEwan Hunter,,1940-03-18
+1251,,John Hurley,1844-06-02,1911-12-10
+1252,,John Huxam,1861-05-14,1949-08-04
+1253,,Thomas Simpson Hynd,1930-07-06,
+1254,,Richard Matthew Hyne,1839-07-04,1902-07-05
+1255,,Maurice Patrick Hynes,1886-09-29,1939-03-27
+1256,,Alexander James Inch,1915-10-02,1994-09-03
+1257,,Walter Charles Ingram,1891-01-23,1952-07-24
+1258,,John Angus Mackenzie Innes,1939-05-22,
+1259,,Frederick Neville Isaac,,1865-07-12
+1260,,Jean Baptiste Louis Isambert,,1906-02-22
+1261,,Francis Jeffrey Ivory,,1896-01-21
+1262,,George Jackson,1856-12-31,1938-02-12
+1263,,Alfred Arthur James,,1938-02-12
+1264,,Charles Henry Jamieson,1888-07-23,1959-07-26
+1265,,Janice Heather Jarratt,1958-10-22,
+1266,,Charles Moffatt Jenkinson,1865-03-28,1954-07-03
+1267,,Douglas Bernard Jennings,1929-10-30,1987-04-09
+1268,,Eugene Dubois Jensen,1915-02-13,2003-07-01
+1269,,Mangus Jensen,,1915-05-16
+1270,,Cecil George Jesson,1899-07-07,1961-12-25
+1271,,John Shiliito Jessop,1840-08-14,1895-08-04
+1272,,Thomas Alexander Johnson,1835-06-19,1914-10-28
+1273,,Vaughan Gregory Johnson,1947-07-20,
+1274,,James Johnston,,1876-11-03
+1275,,John Johnston,,1872-10-09
+1276,,Amanda Ann Johntone,,
+1277,,Alfred James Jones,1871-10-04,1945-10-07
+1278,,Arthur Jones,1892-06-12,1976-06-30
+1279,,George Hall Jones,,1899-09-02
+1280,,Hamilton Cuffe Jones,,1960-01-16
+1281,,John Jones,,
+1282,,John Gore Jones,,1868-02-27
+1283,,Kate Jennifer Jones,1979-04-10,
+1284,,Norman Francis Jones,1932-08-16,
+1285,,Raymond Jones,1926-02-03,2000-04-22
+1286,,Rees Rutland Jones,1840-02-12,1916-11-30
+1287,,Thomas Llewellyn Jones,1872-03-08,1946-06-18
+1288,,Vincent Edward Jones,1910-06-15,1971-10-30
+1289,,Ellen Violet Jordan,1913-06-29,1982-05-07
+1290,,Henry Jordan,1818-11-22,1890-06-30
+1291,,Michael Hans Kaiser,,
+1292,,James David Kane,,1964-04-08
+1293,,Francis Kates,1830-07-01,1903-09-26
+1295,,William Bernard Kaus,1923-05-24,2006-12-20
+1296,,Hon. Margaret Majella Keech,1954-09-18,
+1297,,Gregory Brian Kehoe,1917-05-01,2005-02-18
+1298,,William Kellett,1839-12-19,1916-03-19
+1299,,William Kelso,,1956-01-02
+1300,,William Francis Kenna,1865-09-21,1932-06-23
+1301,,William Francis Kennedy,,
+1302,,James Alexander Charles Kenny,,1954-07-24
+1303,,William Kent,1856-03-29,1906-02-07
+1304,,Denis Thomas Keogh,,1911-08-24
+1305,,James Patrick Keogh,,1940-08-31
+1306,,George Kerr,1853-02-07,1930-01-18
+1307,,James Stevingstone Kerr,,1960-09-15
+1308,,Thomas Caldwell Kerr,1887-08-15,1956-06-25
+1309,,Patrick James Kerwin,,1950-10-02
+1310,,John Henry Kessell,,1933-11-15
+1311,,George Keyatta,1895-12-20,1962-08-25
+1312,,James Gawthorne Kidgell,1837-04-08,1915-05-20
+1313,,William Kidston,1849-08-27,1919-10-25
+1314,,Betty Margaret Kiernan,1955-08-27,
+1315,,Steven Andrew Kilburn,,
+1316,,Charles Kilpatrick,,1935-05-28
+1317,,George King,1814-12-21,1894-06-22
+1318,,Henry Edward King,1832-06-09,1910-02-05
+1319,,Reginald Macdonnell King,1869-04-09,1955-09-07
+1320,,Robert King,,1905-02-20
+1321,,Robert George King,1938-12-13,
+1322,,William Thomas King,1893-05-24,1966-04-02
+1323,,John James Kingsbury,,1939-08-02
+1324,,Richard Ash Kingsford,1821-10-04,1902-01-02
+1325,,Dr John Alan Kingston,1935-07-07,
+1326,,Victoria Ann Kippin,1942-09-07,
+1327,,Michael Joseph Kirwan,1873-03-26,1941-02-13
+1328,,Sir William Edward Knox,1927-12-14,2001-09-22
+1329,,Jeffrey Alan Knuth,1962-03-09,
+1330,,Shane Andrew Knuth,1966-09-07,
+1331,,Raymond Charles Kruger,1935-02-28,2003-07-24
+1332,,Rosemary Annette Kyburz,1944-04-16,
+1333,,James Turquand Laidley,,1877-03-29
+1334,,James Lalor,1829-07-07,1922-02-16
+1335,,Edward William Lamb,1828-02-06,1910-10-19
+1336,,William Frederick Lambert,,1908-08-20
+1337,,Bruce Edric Laming,1938-06-14,
+1338,,William McMillan Lamond,1920-07-13,1990-07-05
+1339,,Alexander James Lamont,1850-02-08,1934-06-27
+1340,,Colin Charles Lamont,1941-11-18,
+1341,,Edward Martin Land,,1927-05-02
+1342,,William Landsborough,1825-02-21,1886-03-16
+1343,,Donald Frederick Lane,1935-07-18,1995-03-11
+1344,,John-Paul Honore Langbroek,1961-01-31,
+1345,,James Larcombe,,1957-06-21
+1346,,Linda Denise Lavarch,1958-11-27,
+1347,,Peter Joseph Lawlor,1948-03-01,
+1348,,George Lawson,,1966-11-25
+1349,,John Leahy,,1909-01-20
+1350,,Patrick James Leahy,,1927-10-13
+1351,,Norman Edward Lee,1920-04-04,2002-04-03
+1352,,Ronan Oliver Lee,1976-01-04,
+1353,,Long Rosa Theresa Lee,1945-10-02,
+1354,,Kenneth James Leese,1928-11-25,
+1355,,William Lennon,1849-12-08,1938-05-05
+1356,,Vincent Bernard Joseph Lesina,,1955-07-14
+1357,,Hon. Vincent Patrick Lester,1939-07-28,
+1358,,William Daniel Lickiss,1924-07-31,1993-02-22
+1359,,Sir Charles Lilley,1830-05-27,1897-08-20
+1360,,George Lindley,,1935-06-19
+1361,,Brian David Valentine Lindsay,1937-01-22,
+1362,,Hon. Kevin Rowson Lingard,1942-08-14,
+1363,,John Linnett,,1902-05-16
+1364,,Isidor Siegfried Lissner,,1902-07-22
+1365,,William Clancy Little,,
+1366,,Brian George Littleproud,1941-06-25,
+1367,,Donald Wallace Livingstone,1948-11-01,
+1368,,Evan John Llewelyn,1875-06-30,
+1369,,Henry Llewelyn,1855-09-12,1933-08-06
+1370,,Eric Gayford Lloyd,1918-01-01,2003-06-03
+1371,,William Field Lloyd,,1965-05-29
+1372,,John Aubrey John Lockwood,1936-07-18,
+1373,,George Andrew Logan,,1953-11-25
+1374,,William Horace Lonergan,1909-02-11,1981-06-27
+1375,,William Houston Long,1843-11-08,1912-08-29
+1376,,Irene Maud Longman,,1964-07-29
+1377,,Frederick Lord,1841-11-08,1914-12-05
+1378,,Robert Stuart Lord,,1878-07-23
+1379,,William Lovejoy,1849-03-08,1913-08-27
+1380,,David Alan Low,1911-02-05,1974-10-22
+1381,,Jacob Low,,1883-09-14
+1382,,Harold Bertram Lowes,1926-10-01,2002-08-22
+1383,,Hon. Paul Thomas Lucas,1962-07-09,
+1384,,Louis Wells Luckins,1885-06-24,1970-07-06
+1385,,Alfred James Luke,1871-03-09,1920-09-11
+1386,,Abrahman Fleetwood Luya,,1899-07-06
+1387,,James Lyons,1842-03-17,1915-07-27
+1388,,Robert Lyons,1849-01-24,1892-04-08
+1389,,Arthur Macalister,,1883-03-23
+1390,,John Donald Macansh,1820-05-31,1896-08-01
+1391,,Sir Edward Henry Macartney,1863-01-24,1956-02-24
+1392,,Edward O'Donnell Macdevitt,,1898-02-04
+1393,,Duncan Macdonald,,1977-08-28
+1394,,Peter Fitzallan Macdonald,1830-09-04,1919-06-19
+1395,,Thomas Macdonaldpaterson,1844-05-09,1906-03-21
+1396,,John Macfarlane,1829-06-02,1894-03-07
+1397,,John Macfarlane,,1880-04-10
+1398,,Peter Balderston Macgregor,1866-04-09,1936-04-10
+1399,,Neil Francis Macgroarty,1888-05-01,1971-08-10
+1400,,Angus Mackay,1834-08-15,1910-02-08
+1401,,George Hugh Mackay,1872-03-20,1961-11-05
+1402,,Hon. Terence Michael Mackenroth,1949-07-16,
+1403,,Robert Ramsay Mackenzie,1811-11-29,1873-09-19
+1404,,Donald Mackintosh,1840-05-16,1932-05-05
+1405,,Peter Macpherson,1841-03-29,1913-09-12
+1406,,Hugh Denis Macrossan,1881-02-20,1940-06-23
+1407,,John Murtagh Macrossan,,1891-03-30
+1408,,Otto Ottosen Madsen,1904-12-08,1963-08-03
+1409,,Edmund Bede Maher,1891-06-08,1982-12-31
+1410,,Carolyn Therese Male,1966-01-07,
+1411,,George Edward Malone,1943-11-14,
+1412,,John Mann,,1939-01-01
+1413,,John Henry Mann,1896-06-30,1973-01-07
+1414,,Evan Marginson,1909-03-20,1977-11-16
+1415,,Charles Ferdinand Marks,1852-09-06,1941-03-28
+1416,,George Henry Marriott,1885-09-05,1964-09-24
+1417,,Ivor Marsden,1903-03-11,1976-11-17
+1418,,George Martin,,1905-05-14
+1419,,Harry Massey,,1962-06-03
+1420,,Robert George Massie,,1883-09-13
+1421,,William John Ryott Maughan,1863-01-08,1933-04-09
+1422,,James Francis Maxwell,,1941-04-16
+1423,,William Maxwell,,1921-04-23
+1424,,John May,,1917-12-29
+1425,,Mark Francis McArdle,1956-12-21,
+1426,,Colin McCathie,1910-05-09,1986-09-01
+1427,,Hon. Diane Elizabeth McCauley,1946-06-04,
+1428,,John McConnell,1806-10-03,1899-01-27
+1429,,William Fraser McCord,1837-10-05,1898-04-14
+1430,,William McCormack,,1947-11-21
+1431,,Charles McDonald,1861-09-08,1925-11-13
+1432,,Lewis McDonald,1881-11-22,1936-09-18
+1433,,Frank McDonnell,1863-01-24,1928-11-26
+1434,,John Frederick McDougall,,1896-11-11
+1435,,Kenneth Victor McElligott,1940-02-14,
+1436,,Thomas McGahan,,1932-11-11
+1437,,Charles Stewart McGhie,1839-05-17,1917-01-21
+1438,,Hon. Anthony McGrady,1944-03-28,
+1439,,Sir Thomas McIlwraith,1835-05-17,1900-07-17
+1440,,Donald McIntyre,1851-04-20,1927-11-06
+1441,,Malcolm McIntyre,1889-03-09,1969-08-12
+1442,,Chnie Henry Arthur Mc,1840-05-16,1932-05-05
+1443,,Chnie Peter Richard Mc,1941-02-09,
+1444,,Peter Alfred McLachlan,1867-09-23,1929-10-27
+1445,,Bernard McLean,1884-05-01,1955-12-11
+1446,,John Donald McLean,,1866-12-16
+1447,,Peter McLean,,1924-12-10
+1448,,Ronald Thomas McLean,1938-12-28,1999-02-13
+1449,,Aidan Patrick McLindon,1980-02-26,
+1450,,John McMaster,1830-06-26,1924-02-29
+1451,,Hugh Cameron McMinn,,1941-12-02
+1452,,Andrew Ian McNamara,1959-08-19,
+1453,,Herbert George McPhail,,1951-09-20
+1454,,Alexander Carpendale McPhie,1929-02-10,
+1455,,Thomas McWhannell,,1888-03-17
+1456,,Charles Stuart Mein,1841-06-14,1890-06-30
+1457,,Charles Sydney Dick Melbourne,1838-06-03,1891-09-23
+1458,,Mathew Mellor,,1899-02-17
+1459,,John Melloy,1908-11-10,2006-01-06
+1460,,Rosemary Norma Menkens,1946-09-10,
+1461,,Max Richard Menzel,1941-04-30,
+1462,,Robert Desmond Messenger,1962-10-26,
+1463,,Archibald Meston,,1924-03-11
+1464,,Hon. Reginald John Mickel,,
+1465,,Alfred Midgley,1849-02-24,1930-02-27
+1466,,Charles William Midson,1837-08-30,1903-04-08
+1467,,Edward David Miles,1845-01-27,1922-03-03
+1468,,William Miles,1817-05-05,1887-08-22
+1469,,Henry John Bede Milford,,1888-02-29
+1470,,Colin John Miller,1924-04-28,
+1471,,Jo-Ann Roslyn Miller,1958-08-22,
+1472,,Joe Millican,1855-04-25,1934-08-10
+1473,,Hon. Glen Richard Milliner,1948-04-14,
+1474,,Robert Alan Mitchell,1948-08-05,
+1475,,William Mitchell,,1923-05-21
+1476,,Thomas De Lacy Moffat,,1864-10-02
+1477,,Cathryn Molloy,1955-05-11,
+1478,,Arthur Edward Moore,1876-02-09,1963-01-07
+1479,,Francis Peter Moore,1938-03-09,
+1480,,Robert Edgar Moore,1923-06-27,
+1481,,William John Harlin Moore,,1933-10-16
+1482,,William Matthew Moore,,1976-02-03
+1483,,Thomas Moores,1903-07-01,1983-07-15
+1484,,Harry Russell Moorehouse,1892-06-01,1971-12-13
+1485,,Evan Robert Moorhead,1978-04-19,
+1486,,Boyd Dunlop Morehead,1843-08-24,1905-10-30
+1487,,Berkeley Basil Moreton,1834-07-18,1924-08-07
+1488,,Sir Arthur Morgan,1856-09-19,1916-12-20
+1489,,Godfrey Morgan,1875-07-29,1957-08-29
+1490,,James Morgan,1816-09-29,1878-11-29
+1491,,George Alfred Morris,1892-07-15,1967-05-18
+1492,,Sir Kenneth James Morris,1903-10-22,1978-06-01
+1493,,Arthur Morry,1854-01-04,1938-05-25
+1494,,Hugh Mosman,1843-02-11,1909-11-15
+1495,,Daniel Mulcahy,,1932-01-06
+1496,,Timothy Sean Mulherin,1957-08-24,
+1497,,John Mullan,1871-09-08,1941-10-01
+1498,,John Joseph Mullen,1829-06-06,1897-11-17
+1499,,Adolf Gustav Muller,1889-05-01,1970-08-01
+1500,,Selwyn John Muller,1917-10-18,2008-02-25
+1501,,Robert Joseph Mulvey,,1937-04-24
+1502,,Sir Alan Whiteside Munro,1898-05-12,1968-07-08
+1503,,Geoffrey Hugh Muntz,1938-07-11,
+1504,,Denis Joseph Murphy,1946-08-06,1984-06-21
+1505,,Franics Reid Murphy,1844-03-27,1892-01-24
+1506,,John Murphy,,1883-03-01
+1507,,Peter Murphy,1853-06-29,1925-02-24
+1508,,William Edward Murphy,,1881-05-19
+1509,,William Sydney Murphy,,1930-10-23
+1510,,John Murray,1841-07-16,1917-11-17
+1511,,John Murray,1915-12-31,
+1512,,Thomas Lodge Murrayprior,1819-11-13,1892-12-31
+1513,,Thomas De Montmorency Murrayprior,1848-01-27,1902-12-11
+1514,,Grant Steven Musgrove,1968-03-28,
+1515,,Graham Mylne,,1876-04-05
+1516,,Donald McConnell Neal,1939-05-31,
+1517,,Beryce Ann Nelson,1947-01-10,
+1518,,Sir Hugh Muir Nelson,1835-12-31,1906-01-01
+1519,,Shaun Christopher Nelson,1973-03-22,
+1520,,William Lambie Nelson,,1887-06-13
+1521,,Lindel Helena Nelson-Carr,1952-07-15,
+1522,,Thomas Nevitt,,1932-09-13
+1523,,Thomas Guy Newbery,1914-03-23,1984-10-30
+1524,,John Newell,1849-11-30,1932-07-29
+1525,,Harold Francis Newton,1921-07-12,1990-12-28
+1526,,Lyell Edward Newton,1934-07-29,
+1527,,Timothy James Nicholls,1965-04-06,
+1528,,Sir Charles Nicholson,1808-11-23,1903-11-08
+1529,,Sir David Eric Nicholson,1904-05-26,1997-12-13
+1530,,Sir George Francis Reuben Nicklin,1895-08-06,1978-01-30
+1531,,Charles Frederick Nielson,1871-02-06,1924-08-15
+1532,,Thomas Nimmo,1879-07-27,1943-02-06
+1533,,Philip Henry Nind,1831-04-07,1896-03-09
+1534,,Henry Winston Noble,1909-07-05,1964-03-28
+1535,,Rachel Genevieve Nolan,1974-03-13,
+1536,,John Norman,,1912-07-11
+1537,,Francis North,,1864-12-09
+1538,,William Roger North,,1936-01-27
+1539,,Albert Norton,1836-01-01,1914-03-11
+1540,,Frederick Lancelot Nott,,1927-12-05
+1541,,William George Nunn,1932-02-27,
+1542,,Gordon Richard Nuttall,1953-06-13,
+1543,,Jason O'Brien,1969-11-23,
+1544,,John O'Brien,1866-07-06,1932-10-08
+1545,,Sir Maurice Charles O'Connell,1812-01-13,1879-03-23
+1546,,William Bligh Henry O'Connell,1852-01-26,1903-03-04
+1547,,Kevin Izod O'Doherty,1823-09-07,1905-07-15
+1548,,Eugene Christopher O'Donnell,1913-11-28,1982-08-16
+1549,,Anthony Ogden,1866-02-06,1943-05-15
+1550,,John O'Keefe,1880-01-11,1942-01-27
+1551,,Michael O'Keefe,,1941-08-29
+1552,,Mary-Anne O'Neill,,
+1553,,Harry O'Shea,,
+1554,,Timothy Joseph O'Shea,1860-03-08,1930-10-07
+1555,,James O'Sullivan,,1921-03-22
+1556,,Patrick O'Sullivan,1818-03-14,1904-02-29
+1557,,Thomas O'Sullivan,1856-12-15,1953-02-22
+1558,,Jack Kelvin Paff,1938-05-11,
+1559,,Gerald Pagehanify,1860-07-23,1922-02-11
+1560,,Walter Trueman Paget,1854-02-07,1930-12-23
+1561,,Annastacia Palaszczuk,1969-07-25,
+1562,,Hon. Heinrich Palaszczuk,1947-01-12,
+1563,,Sir Arthur Hunter Palmer,1819-12-28,1898-03-20
+1564,,Edward Palmer,1842-03-08,1899-05-03
+1565,,Henry Palmer,,1916-07-19
+1566,,Henry Wyndham Palmer,,1887-05-10
+1567,,John Panton,,1866-10-02
+1568,,James Augustus Parker,,
+1569,,Arthur Horatio Parnell,1852-10-14,1933-04-04
+1570,,Thomas Macdonald See Macdonaldpaterson Paterson,,
+1571,,Frederick Woolnough Paterson,1897-06-13,1977-10-07
+1572,,William Pattison,1830-05-10,1896-06-08
+1573,,William Sheffield Paul,,1902-11-30
+1574,,William James Paull,,1926-10-21
+1575,,John Payne,1860-11-09,1928-01-14
+1576,,James Pearce,1948-07-28,
+1577,,Percy Pease,,1940-10-17
+1578,,Edward Wilmot Pechey,1841-11-09,1872-09-19
+1579,,Irvine Perel,,1928-10-23
+1580,,Patrick Perkins,1838-10-10,1901-05-17
+1581,,Hon. Trevor John Perrett,1941-08-02,
+1582,,William Perry,1835-08-09,1891-06-11
+1583,,Burgh Fitzpatrick Persse,1840-09-25,1921-02-17
+1584,,James Christian Peterson,,1953-04-30
+1585,,Andrew Lang Petrie,1854-06-25,1928-04-01
+1586,,John Pettigrew,,1878-11-10
+1587,,William Pettigrew,1825-08-26,1906-10-28
+1588,,Anita Frances Phillips,1945-03-14,
+1589,,George Phillips,,1921-06-02
+1590,,Sir Robert Philp,1851-12-28,1922-06-17
+1591,,Arthur Bruce Pie,1902-05-19,1962-07-31
+1592,,Reginald Byron Jarvis Pilbeam,1907-10-30,1999-07-31
+1593,,Curtis Warren Pitt,1977-02-01,
+1594,,Hon. Frederick Warren Pitt,1948-03-14,
+1595,,Jack Charles Pizzey,1911-02-02,1968-07-31
+1596,,Edmund Harris Thornburgh Plant,1844-12-10,1926-04-28
+1597,,Thomas Plunkett,,1913-09-02
+1598,,Thomas Flood Plunkett,1878-12-19,1957-12-24
+1599,,George Pollock,1890-06-27,1939-03-24
+1600,,Robert Lindsay Poole,1948-06-12,
+1601,,Charles Robert Porter,1910-05-17,2004-04-14
+1602,,Andrew Cary Powell,1973-05-15,
+1603,,Lionel William Powell,1939-03-10,
+1604,,Francis Isidore Power,1852-02-28,1912-06-24
+1605,,Laurel Jean Power,1953-12-07,
+1606,,William Power,1893-01-03,1974-05-29
+1607,,William Grene Power,1835-09-24,1903-08-14
+1608,,Sir Charles Powers,1853-03-08,1939-04-25
+1609,,Dorothy Ruth Pratt,1955-03-11,
+1610,,Ian George Prentice,1948-11-09,
+1611,,Peter Ross Prenzler,1952-04-03,
+1612,,William George Prest,1926-04-02,
+1613,,Thomas Price,,1906-04-04
+1614,,William Norris James Price,1935-05-11,
+1615,,Ratcliffe Pring,1825-10-17,1885-03-25
+1616,,Alexander Brown Pritchard,,
+1617,,Theophilus Parsons Pugh,1831-11-06,1896-03-14
+1618,,Patrick Douglas Purcell,1947-03-17,
+1619,,Ernest Bracher Purnell,,1954-07-25
+1620,,Peter Malcolm Pyke,1950-11-15,
+1621,,Robert Joseph Quinn,1947-09-09,
+1622,,Theodore Paul Radke,1958-11-03,
+1623,,Sir Wallace Alexander Ramsay Rae,1913-03-31,2006-03-18
+1624,,Alexander Raff,1820-07-20,1914-01-26
+1625,,George Raff,1815-04-15,1889-08-28
+1626,,Robert Ramsay,1818-03-19,1910-07-05
+1627,,Samuel Raymond Ramsden,1913-10-10,1986-07-01
+1628,,James Henry Randell,1928-08-13,
+1629,,Colin Dunlop Wilson Rankin,1869-01-20,1940-11-02
+1630,,Charles Robert Rappolt,1939-08-23,1999-08-02
+1631,,Thomas William Rasey,1898-06-10,1989-03-27
+1632,,William Henley Rawlings,1848-02-28,1906-08-05
+1633,,William Rae,,
+1634,,Vernon Charles Redwood,,1954-02-16
+1635,,George McCullogh Reed,,1898-11-13
+1636,,Philip Gerard Reeves,1966-09-19,
+1637,,Matthew Reid,1856-10-30,1947-08-28
+1638,,Dianne Ann Reilly,1969-01-29,
+1639,,Carl William Herman Reinhold,,1928-09-06
+1640,,Hon. Michael Francis Reynolds,1946-09-16,
+1641,,Henry Richards,,1868-04-03
+1642,,Sir Harold Richter,1906-01-17,1979-06-18
+1643,,Ian Phillip Rickuss,1954-07-27,
+1644,,David Riordan,,1936-10-15
+1645,,Ernest Joseph Riordan,1901-09-21,1954-12-09
+1646,,William James Riordan,1882-04-20,1955-09-15
+1647,,Daniel Foley Roberts,1824-02-19,1889-07-26
+1648,,Elisa Mary Roberts,1970-09-03,
+1649,,Frank Edward Roberts,1913-02-28,1992-06-07
+1650,,James Henry Cecil Roberts,1877-06-01,1961-09-14
+1651,,Lloyd Henry Scurfield Roberts,1907-06-08,1961-03-11
+1652,,Neil Stuart Roberts,1955-01-03,
+1653,,Thomas Robert Roberts,1869-06-26,1934-06-01
+1654,,Hon. Stephen Robertson,1962-02-14,
+1655,,Herbert Freemont Robinson,1893-05-20,1969-06-03
+1656,,Dr Mark Andrew Robinson,1963-04-29,
+1657,,Molly Jess Robson,1942-03-28,
+1658,,Steven Gordon Rodgers,1951-06-23,
+1659,,Terence Walter Rogers,1958-11-26,
+1660,,Thomas Rome,,1916-05-14
+1661,,Merri Rose,1955-01-24,
+1662,,Edward Charles Row,1923-03-26,2007-07-04
+1663,,Sir John Alfred Row,1905-01-01,
+1664,,Marcus Hosking Rowell,1938-04-05,
+1665,,Edmund Molyneux Royds,1827-08-26,1898-08-15
+1666,,Charles Wilfred Russell,1907-04-24,1977-10-21
+1667,,Hugh McDiarmid Russell,1873-02-11,1948-05-06
+1668,,Wilfred Adams Russell,,1932-01-08
+1669,,Sir Arthur Rutledge,1843-08-29,1917-02-08
+1670,,Cornelius James Ryan,,1939-11-27
+1671,,Daniel Ryan,,1952-12-11
+1672,,Henry Joseph Ryan,,1932-01-17
+1673,,Mark Thomas Ryan,1982-12-29,
+1674,,Thomas Joseph Ryan,,
+1675,,"Target=""_blank"" Href=""documents/memberbio/ryant.htm"" Ryan Thomas Joseph <a",1876-07-01,1921-08-01
+1676,,George Ryland,,1920-10-19
+1677,,William Salkeld,,1901-06-28
+1678,,Alfred Sandeman,,
+1679,,Gordon Sandeman,,1897-03-14
+1681,,Robert John Sayers,,1919-05-12
+1682,,Guelfi Paul Scassola,1940-04-19,2002-08-27
+1683,,Lyle Thomas Schuntner,1936-12-02,
+1684,,Hon. Robert Evan Schwarten,1954-10-06,
+1685,,Christine Margaret Scott,1946-03-17,
+1686,,Desley Carleton Scott,1943-06-27,
+1687,,John Scott,1821-06-20,1898-07-02
+1688,,Robert William Scott,1931-09-28,
+1689,,Thomas Alison Scott,,1946-10-21
+1690,,Walter Scott,,1890-10-07
+1691,,Norman Reginald Scott-Young,1917-01-08,1996-08-29
+1692,,Jeffrey William Seeney,1957-02-02,
+1693,,Eric Frank Shaw,1936-01-12,
+1694,,Frederick Shaw,,1902-03-19
+1695,,Joan Mary Sheldon,1943-04-29,
+1696,,Richard Bingham Sheridan,1822-08-01,1897-06-08
+1697,,Alan Frederick Sherlock,1938-06-07,
+1698,,Craig Arden Sherrin,1952-02-16,
+1699,,Roger Hale Sheaffe,,1895-12-01
+1700,,Douglas John Sherrington,1914-12-07,1999-03-25
+1701,,Kerry Gerard Shine,1948-10-05,
+1702,,George Charles Sim,,1922-05-17
+1703,,Fiona Stuart Simpson,1965-04-18,
+1704,,George Morris Simpson,,1875-11-10
+1705,,Gordon Leslie Simpson,1929-06-03,
+1706,,Henry George Simpson,,1898-08-30
+1707,,Stephen Simpson,1793-07-29,1869-03-11
+1708,,Hubert Ebenezer Sizer,1893-08-07,
+1709,,Alexander James Skinner,1910-11-02,1968-10-03
+1710,,Alexander Skirving,,1935-06-28
+1711,,Douglas John Slack,1941-04-05,
+1712,,Aubrey Robert Slessar,1899-11-05,1973-12-02
+1713,,Sir Andrew Bruce Small,1895-12-11,1980-05-01
+1714,,Edward Lithgow Smart,1862-12-09,1948-11-28
+1715,,Alfred James Smith,1901-03-23,1983-07-09
+1716,,Christine Anne Smith,1946-10-11,
+1717,,Edwin Wallis See Wallissmith Smith,,
+1718,,Hon. Geoffrey Norman Smith,1934-01-09,
+1719,,James Thorneloe Smith,1825-08-20,1902-03-14
+1720,,John Gordon Smith,,1921-06-19
+1721,,Percy Raymond Smith,1920-01-12,2002-02-10
+1722,,Richard Joseph Smith,,1883-11-15
+1723,,Robert Harrison Smith,,1911-11-11
+1724,,William Forgan Smith,1887-03-15,1953-09-25
+1725,,Joseph Capel Smyth,,1914-08-14
+1726,,Kenneth William Smyth,1948-10-04,
+1727,,William Smyth,1846-05-13,1899-07-17
+1728,,Henry Plantagnet Somerset,1852-05-19,1936-04-11
+1729,,Edward John Sorensen,,
+1730,,Walter Beresford James Gordon Sparkes,1889-04-22,1974-06-15
+1731,,Hon. Judith Caroline Spence,1957-05-19,
+1732,,Thomas Alfred Spencer,1860-12-01,1937-06-10
+1733,,Lawrence James Springborg,1968-02-17,
+1734,,Leonard William Stephan,1935-07-25,
+1735,,Thomas Blacket Stephens,,1877-08-26
+1736,,William Stephens,,1925-04-30
+1737,,Alfred John Stephenson,1845-11-15,1914-12-04
+1738,,Ernest James Stevens,1845-07-10,1922-03-03
+1739,,Henry Moreton Stevens,,1935-11-15
+1740,,Raymond Alexander Stevens,1953-02-01,
+1741,,John Stevenson,,1912-08-15
+1742,,James Charles Stewart,1851-09-17,1931-12-20
+1743,,Robert Muter Stewart,,
+1744,,James Stodart,1849-09-15,1922-06-20
+1745,,Barbara Gwendoline Stone,1962-01-28,
+1746,,Mark David Stoneman,1939-07-29,
+1747,,James Stopford,1878-07-22,1936-11-30
+1748,,George William Bennett Story,1849-03-24,1931-06-03
+1749,,Trevor Leonard Strong,1961-01-26,
+1750,,Karen Lee Struthers,1963-02-19,
+1751,,Francis Horace Stubley,1853-08-26,1921-01-23
+1752,,Janet Anne Stuckey,1955-01-21,
+1753,,Jacob Stumm,1853-08-26,1921-01-23
+1754,,Carryn Elizabeth Sullivan,1955-09-06,
+1756,,Terence Boland Sullivan,1949-02-06,
+1757,,Victor Bruce Sullivan,1918-12-07,1993-01-29
+1758,,William Henry Summerville,,1919-05-21
+1759,,Richard Sumner,,1927-06-11
+1760,,James Swan,,1891-05-26
+1761,,Frederick Ffoulkes Swanwick,,1913-09-20
+1762,,Edward Bowdich Swayne,1857-12-04,1946-06-15
+1763,,John Sczerbanik,1958-03-20,
+1764,,Francis John Tanti,1949-08-13,
+1765,,Charles Taylor,1861-03-24,1944-04-27
+1766,,George Cuthbert Taylor,1886-02-14,1957-01-02
+1767,,Harold Bourne Taylor,1892-02-25,1972-12-06
+1768,,James Taylor,,1895-10-19
+1769,,John Russell Taylor,,1961-03-26
+1770,,William Frederick Taylor,1840-04-23,1927-06-29
+1771,,George Tedman,,1976-07-15
+1772,,Martin James Tenni,1934-04-04,
+1773,,Mervyn Herbert Thackeray,1925-10-20,
+1774,,Edward Granville Theodore,1884-12-29,1950-02-28
+1775,,Stephen Theodore,,1950-10-17
+1776,,Lewis Thomas,1832-11-20,
+1777,,Andrew Thompson,,1961-01-15
+1778,,George Henry Thompson,,1940-06-09
+1779,,John Malbon Thompson,1830-12-24,1908-05-30
+1780,,George Thorn,1806-04-11,1876-04-28
+1781,,George Thorn,1838-10-12,1905-01-15
+1782,,John Thorn,,1896-04-30
+1783,,Henry Thorn,,1880-04-19
+1784,,William Thorn,1852-09-03,1935-02-01
+1785,,Edmond Lambert Thornton,,1901-03-13
+1786,,William Thornton,1817-06-15,1884-06-27
+1787,,Andrew Joseph Thynne,1847-10-30,1927-02-27
+1788,,James Tolmie,1862-07-23,1939-04-05
+1789,,Kenneth Burgoyne Tomkins,1914-09-14,1990-07-20
+1790,,Nicholas Edward Nelson Tooth,1844-09-07,1913-08-17
+1791,,Sir Seymour Douglas Tooth,1904-01-28,1982-07-03
+1792,,Sir Horace Tozer,,1916-08-20
+1793,,Vivian Hoyles Tozer,1870-05-27,1954-09-05
+1794,,Roderick Travers,,1894-07-19
+1795,,Richard Trout,1851-12-18,1932-06-30
+1796,,Percy John Robert Tucker,1919-12-05,1980-08-20
+1797,,Joseph Henry Lewis Turley,1859-04-24,1929-06-05
+1798,,Henry Turner,1844-11-10,1932-08-09
+1799,,John Albert Turner,,1971-08-09
+1800,,John Sargent Turner,1826-12-03,1900-07-29
+1801,,Kenneth Turner,1944-05-06,
+1802,,Hon. Neil John Turner,1934-06-25,
+1803,,John De Poix Tyrel,,1885-07-15
+1804,,James Tyson,1819-04-08,1898-12-04
+1805,,David Francis Underwood,1951-06-12,
+1806,,Theodore Unmack,1835-11-21,1919-09-17
+1807,,Litsenburg Elisabeth Cornelia Maria Van,1957-04-22,
+1808,,Kenneth Vaughan,1934-10-29,
+1809,,Michael Desmond Veivers,1939-08-12,
+1810,,Thomas Robert Veivers,1937-04-06,
+1811,,William John Vowles,1876-04-22,1943-08-28
+1812,,Hiram Wakefield,1837-05-07,1905-06-25
+1813,,Adam Walker,,1902-08-15
+1814,,Harry Frederick Walker,1873-03-15,1950-10-23
+1815,,James Ernest Walker,,1939-11-09
+1816,,Craig Andrew Wallace,1969-06-12,
+1817,,Donald Smith Wallace,,1900-05-27
+1818,,George Walter Gordon Wallace,1900-01-16,1964-10-12
+1819,,Edwin Wallissmith,1908-01-03,1988-03-14
+1820,,Edward Joseph Walsh,1894-06-30,1976-02-26
+1821,,John Walsh,,
+1822,,William Henry Walsh,1823-12-18,1888-04-05
+1823,,Charles Gray Wanstall,1912-02-17,1999-10-17
+1824,,Neville George Warburton,1932-02-23,
+1825,,Anne Marie Warner,1945-12-05,
+1826,,John Herbert Warner,1923-11-26,1991-09-20
+1827,,Richard James Warren,1869-03-12,1940-08-05
+1828,,Thomas Symes Warry,,1864-08-19
+1829,,Lynette Robyn Warwick,1946-10-21,
+1830,,Francis John Waters,1907-08-10,1990-08-06
+1832,,Duncan John Reay Watson,1867-11-04,1948-10-30
+1833,,John Watson,,1912-07-03
+1834,,Robert Hodgson Watson,1896-10-12,1959-03-26
+1835,,Charles Victor Watson See Browne Watsonbrown,,
+1836,,Murray Patrick Watt,1973-01-20,
+1837,,John Watts,1821-02-27,1902-11-18
+1838,,John Webber,,1904-03-12
+1839,,Phillip John Weightman,1958-02-10,
+1840,,David Weir,1881-12-23,1929-09-22
+1841,,Henry Joseph Weldblundell,1848-07-25,1901-09-08
+1842,,Hon. Rodney Jon Welford,1958-09-30,
+1843,,Peter William Wellington,1957-08-21,
+1844,,William John Wellington,1881-03-10,1939-03-02
+1845,,Hon. Dean Macmillan Wells,1949-01-13,
+1846,,Thomas Welsby,1858-11-29,1941-02-03
+1847,,Wayne Earl Wendt,1960-08-21,
+1848,,Stephen Peter Arthur Wettenhall,,
+1849,,Claude Alfred Wharton,1914-10-15,2003-01-03
+1850,,Caludius Buchanan Whish,1827-01-05,1890-02-28
+1851,,John White,1853-11-09,1922-06-12
+1852,,Peter White,,1901-04-04
+1854,,Terence Anthony White,1936-09-03,
+1855,,William Duckett White,,1893-08-11
+1856,,Albert Edward Victor Whitford,,1924-01-29
+1857,,Arthur Herbert Whittingham,1869-09-20,1927-06-20
+1858,,Patrick James Whyte,1894-10-04,1977-10-16
+1859,,Arnold Wienholt,1826-01-22,1895-01-16
+1860,,Arnold Wienholt,1877-11-25,1940-08-10
+1861,,Edward Wienholt,1833-03-28,1904-01-15
+1862,,James Wilkinson,1854-11-30,1915-01-11
+1863,,Henry Caleb Williams,,1871-08-19
+1864,,Herbert Williams,,1943-12-29
+1865,,Robert Godfrey Wyn Williams,,1929-09-08
+1866,,Thomas Lewis Williams,1886-12-21,1970-08-17
+1867,,Alexander McLachlan Wilson,1920-12-11,2004-02-29
+1868,,Andrew Heron Wilson,1844-08-24,1906-08-29
+1869,,Geoffrey James Wilson,1952-11-05,
+1870,,Naomi Kate Wynn Wilson,1940-01-27,
+1871,,Thomas Wilson,1865-05-05,1933-05-19
+1872,,Walter Horatio Wilson,1839-07-15,1902-02-28
+1873,,William Wilson,,1903-02-23
+1874,,Frederick Thomas Wimble,1864-11-28,1936-01-03
+1875,,Robert Levi Windsor,1896-11-28,1988-04-08
+1876,,Vernon Winstanley,1861-10-10,1938-01-10
+1877,,Bill Wood,1935-11-04,
+1878,,Ernest Gaden Western Wood,1906-11-22,1984-07-05
+1879,,Henry Conwell Wood,,1926-06-18
+1880,,Leslie Arnold Wood,1907-05-06,1958-03-29
+1881,,Peter Wood,1935-11-04,
+1882,,Western Wood,1830-05-22,1878-04-15
+1883,,Margaret Rosemary Woodgate,1935-09-01,
+1884,,Michael Joyce Reginald Woods,,1934-11-12
+1885,,Luke Woolmer,1965-01-25,
+1886,,Carlisle Favell Wordsworth,1909-10-21,1960-05-07
+1887,,Albert Henry Wright,,1963-03-20
+1889,,William Yaldwin,1836-11-12,1919-07-27
+1890,,William Henry Yaldwyn,,1866-08-28
+1891,,Herbert Yeates,1879-01-31,1945-12-24
+1892,,Leslie John Yewdale,1928-04-30,1999-01-01
+1893,,Dennis Charles Young,1947-08-07,
+# Next available number is 1894

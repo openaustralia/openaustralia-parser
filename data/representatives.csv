@@ -158,7 +158,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 149,,Mark Alfred Dreyfus,Isaacs,Vic,24.11.2007,,,still_in_office,ALP
 150,,Peter Hertford Drummond,Forrest,WA,2.12.1972,,5.6.1987,retired,LIB
 151,,Stephen Cairfield Dubois,St George,NSW,1.12.1984,,8.2.1993,retired,ALP
-152,,Michael John Duffy,Holt,Vic.,18.10.1980,,29.1.1996,retired,ALP
+152,184,Michael John Duffy,Holt,Vic.,18.10.1980,,29.1.1996,retired,ALP
 153,,Peter Duncan,Makin,SA,1.12.1984,,2.3.1996,defeated,ALP
 154,,Peter Craig Dutton,Dickson,Qld,10.11.2001,,,still_in_office,LIB
 155,,Mary Louise Easson,Lowe,NSW,13.3.1993,,2.3.1996,defeated,ALP
@@ -306,7 +306,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 293,,Leslie Royston Johnson,Hughes,NSW,25.10.1969,,19.12.1983,resigned,ALP
 294,,Michael Andrew Johnson,Ryan,Qld,10.11.2001,, ,still_in_office,LIB
 295,,Peter Francis Johnson,Brisbane,Qld,13.12.1975,,18.10.1980,defeated,LIB
-296,,James Roger Johnston,Hotham,Vic.,10.12.1977,,18.10.1980,defeated,LIB
+296,345,James Roger Johnston,Hotham,Vic.,10.12.1977,,18.10.1980,defeated,LIB
 297,,Ricky Johnston,Canning,WA,2.3.1996,,3.10.1998,defeated,LIB
 298,,Barry Owen Jones,Lalor,Vic.,10.12.1977,,31.8.1998,retired,ALP
 299,,Charles Keith Jones,Newcastle,NSW,22.11.1958,,4.2.1983,retired,ALP
@@ -407,7 +407,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 389,,Frank William Mossfield,Greenway,NSW,2.3.1996,,31.8.2004,retired,ALP
 390,,John Graham Mountford,Banks,NSW,18.10.1980,,19.2.1990,retired,ALP
 391,,Judith Eleanor Moylan,Pearce,WA,13.3.1993,, ,still_in_office,LIB
-392,,John Paul Murphy,Lowe,NSW,3.10.1998,, ,still_in_office,ALP
+392,473,John Paul Murphy,Lowe,NSW,3.10.1998,, ,still_in_office,ALP
 393,,Stephen Bruce Mutch,Cook,NSW,2.3.1996,,31.8.1998,retired,LIB
 394,,Gary Roy Nairn,Eden-Monaro,NSW,2.3.1996,,24.11.2007,defeated,LIB
 395,,Belinda Jane Neal,Robertson,NSW,24.11.2007,,,still_in_office,ALP
@@ -479,7 +479,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 461,,Concetto Antonio Sciacca,Bowman,Qld,3.10.1998,,9.10.2004,defeated,ALP
 462,,Concetto Antonio Sciacca,Bowman,Qld,11.7.1987,,2.3.1996,defeated,ALP
 463,,Bruce Craig Scott,Maranoa,Qld,24.3.1990,, ,still_in_office,NP
-464,,John Lyden Scott,Hindmarsh,SA,18.10.1980,,8.2.1993,retired,ALP
+464,567,John Lyden Scott,Hindmarsh,SA,18.10.1980,,8.2.1993,retired,ALP
 465,,Leslie James Scott,Oxley,Qld,8.10.1988,by_election,2.3.1996,defeated,ALP
 466,,Patrick Damien Secker,Barker,SA,3.10.1998,, ,still_in_office,LIB
 467,,Robert Charles Grant Sercombe,Maribyrnong,Vic.,2.3.1996,,17.10.2007,retired,ALP
@@ -562,7 +562,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 542,,Deane McMillan Wells,Petrie,Qld,5.3.1983,,1.12.1984,defeated,ALP
 543,,Andrea Gail West,Bowman,Qld,2.3.1996,,3.10.1998,defeated,LIB
 544,,Stewart John West,Cunningham,NSW,15.10.1977,by_election,8.2.1993,retired,ALP
-545,,Peter Nicholson Duckett White,McPherson,Qld,21.2.1981,by_election,19.2.1990,retired,LIB
+545,671,Peter Nicholson Duckett White,McPherson,Qld,21.2.1981,by_election,19.2.1990,retired,LIB
 546,,Kim Wilkie,Swan,WA,3.10.1998,,24.11.2007,defeated,ALP
 547,,Daryl Robert Williams,Tangney,WA,13.3.1993,,31.8.2004,retired,LIB
 548,,Ralph Willis,Gellibrand,Vic.,2.12.1972,,31.8.1998,retired,ALP
