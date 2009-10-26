@@ -863,7 +863,7 @@ person count,aph id,name,birth,death,alt name
 848,,Michael Timothy Brosnan,1907-12-05,1966-07-20
 849,,Alfred Delves Broughton,1826-11-20,1895-03-10
 850,,Alfred Henry Brown,,1908-09-30
-851,,Charles Victor Watson Brown,1895-05-24,1970-05-01
+851,,Charles Victor Watson Brown,1895-05-24,1970-05-01,Charles Victor Watson Watsonbrown
 852,,Ivan Brown,1922-11-10,1977-05-12
 853,,John Innes Brown,,1949-12-03
 854,,Richard Kidston Brown,,1971-01-22
@@ -1180,7 +1180,6 @@ person count,aph id,name,birth,death,alt name
 1165,,John Hamilton,1841-08-19,1916-12-07
 1166,,William Hamilton,1851-05-10,1920-07-27
 1167,,John Killeen Handy,,1874-01-24
-1168,,Gerald Page See Pagehanify Hanify,,
 1169,,Edward Michael Hanlon,1887-10-01,1952-01-15
 1170,,John Stanislaus Hanlon,1883-11-16,1949-09-13
 1171,,Patrick Joseph Hanlon,1930-03-19,
@@ -1406,7 +1405,7 @@ person count,aph id,name,birth,death,alt name
 1392,,Edward O'Donnell Macdevitt,,1898-02-04
 1393,,Duncan Macdonald,,1977-08-28
 1394,,Peter Fitzallan Macdonald,1830-09-04,1919-06-19
-1395,,Thomas Macdonaldpaterson,1844-05-09,1906-03-21
+1395,,Thomas Macdonaldpaterson,1844-05-09,1906-03-21,Thomas Macdonald Paterson
 1396,,John Macfarlane,1829-06-02,1894-03-07
 1397,,John Macfarlane,,1880-04-10
 1398,,Peter Balderston Macgregor,1866-04-09,1936-04-10
@@ -1570,7 +1569,7 @@ person count,aph id,name,birth,death,alt name
 1556,,Patrick O'Sullivan,1818-03-14,1904-02-29
 1557,,Thomas O'Sullivan,1856-12-15,1953-02-22
 1558,,Jack Kelvin Paff,1938-05-11,
-1559,,Gerald Pagehanify,1860-07-23,1922-02-11
+1559,,Gerald Pagehanify,1860-07-23,1922-02-11,Gerald Page Hanify
 1560,,Walter Trueman Paget,1854-02-07,1930-12-23
 1561,,Annastacia Palaszczuk,1969-07-25,
 1562,,Hon. Heinrich Palaszczuk,1947-01-12,
@@ -1581,7 +1580,6 @@ person count,aph id,name,birth,death,alt name
 1567,,John Panton,,1866-10-02
 1568,,James Augustus Parker,,
 1569,,Arthur Horatio Parnell,1852-10-14,1933-04-04
-1570,,Thomas Macdonald See Macdonaldpaterson Paterson,,
 1571,,Frederick Woolnough Paterson,1897-06-13,1977-10-07
 1572,,William Pattison,1830-05-10,1896-06-08
 1573,,William Sheffield Paul,,1902-11-30
@@ -1686,7 +1684,7 @@ person count,aph id,name,birth,death,alt name
 1672,,Henry Joseph Ryan,,1932-01-17
 1673,,Mark Thomas Ryan,1982-12-29,
 1674,,Thomas Joseph Ryan,,
-1675,,"Target=""_blank"" Href=""documents/memberbio/ryant.htm"" Ryan Thomas Joseph <a",1876-07-01,1921-08-01
+1675,,Thomas Joseph Ryan,1876-07-01,1921-08-01
 1676,,George Ryland,,1920-10-19
 1677,,William Salkeld,,1901-06-28
 1678,,Alfred Sandeman,,
@@ -1727,7 +1725,6 @@ person count,aph id,name,birth,death,alt name
 1714,,Edward Lithgow Smart,1862-12-09,1948-11-28
 1715,,Alfred James Smith,1901-03-23,1983-07-09
 1716,,Christine Anne Smith,1946-10-11,
-1717,,Edwin Wallis See Wallissmith Smith,,
 1718,,Hon. Geoffrey Norman Smith,1934-01-09,
 1719,,James Thorneloe Smith,1825-08-20,1902-03-14
 1720,,John Gordon Smith,,1921-06-19
@@ -1828,7 +1825,7 @@ person count,aph id,name,birth,death,alt name
 1816,,Craig Andrew Wallace,1969-06-12,
 1817,,Donald Smith Wallace,,1900-05-27
 1818,,George Walter Gordon Wallace,1900-01-16,1964-10-12
-1819,,Edwin Wallissmith,1908-01-03,1988-03-14
+1819,,Edwin Wallissmith,1908-01-03,1988-03-14,Edwin Wallis Smith
 1820,,Edward Joseph Walsh,1894-06-30,1976-02-26
 1821,,John Walsh,,
 1822,,William Henry Walsh,1823-12-18,1888-04-05
@@ -1843,7 +1840,6 @@ person count,aph id,name,birth,death,alt name
 1832,,Duncan John Reay Watson,1867-11-04,1948-10-30
 1833,,John Watson,,1912-07-03
 1834,,Robert Hodgson Watson,1896-10-12,1959-03-26
-1835,,Charles Victor Watson See Browne Watsonbrown,,
 1836,,Murray Patrick Watt,1973-01-20,
 1837,,John Watts,1821-02-27,1902-11-18
 1838,,John Webber,,1904-03-12
