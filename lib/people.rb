@@ -56,12 +56,22 @@ class People < Array
 
   def find_people_by_name_and_birthday(name, birthday)
     # Only use the birthday to match if it has been set
-    find_people_by_name(name).find_all {|m| m.birthday.nil? || m.birthday == birthday}
+    find_people_by_name(name).find_all {|m| m.birthday.nil? || birthday.nil? || m.birthday == birthday}
   end
 
-  def find_people_by_name_and_birth_and_death(name, birth, death)
+  def find_people_by_name_and_birth_and_death(name, birthday, death)
     # Only use the death to match if it has been set
-    find_people_by_name_and_birthday(name, birth).find_all {|m| m.death.nil? || m.death == death}
+    find_people_by_name(name).find_all do |m|
+      # If we only have the birthday in one and the date of death in the other, only match them if it doesn't require
+      # the person to have died before they were born. ;-)
+      if m.birthday && birthday.nil? && death && m.death.nil?
+        death > m.birthday
+      elsif birthday && m.birthday.nil? && m.death && death.nil?
+        m.death > birthday
+      else
+        (m.birthday.nil? || birthday.nil? || m.birthday == birthday) && (m.death.nil? || death.nil? || m.death == death)
+      end
+    end
   end
 
   # Returns all the people that match a particular name and have current senate/house of representatives positions on the date
