@@ -31,7 +31,8 @@ class PeopleCSVReader
       people << Person.new(
         :name => name, :alternate_names => alternate_names,
         :count => person_count.to_i,
-        :birthday => (birth ? Date.strptime(birth) : nil),
+        :birth => (birth ? Date.strptime(birth) : nil),
+        :death => (death ? Date.strptime(death) : nil),
         :aph_id => aph_id)
     end
     people    

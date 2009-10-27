@@ -2,7 +2,7 @@ require 'period'
 require 'house'
 
 class Person
-  attr_reader :periods, :person_count, :name, :alternate_names, :minister_positions, :birthday, :aph_id
+  attr_reader :periods, :person_count, :name, :alternate_names, :minister_positions, :birthday, :death, :aph_id
   
   def id
     "uk.org.publicwhip/person/#{id_count}"
@@ -16,7 +16,8 @@ class Person
     @name = params.delete(:name)
     @alternate_names = params.delete(:alternate_names) || []
     @person_count = params.delete(:count)
-    @birthday = params.delete(:birthday)
+    @birthday = params.delete(:birth)
+    @death = params.delete(:death)
     @aph_id = params.delete(:aph_id)
     throw "Invalid keys: #{params.keys}" unless params.empty?
     throw ":name and :count are required parameters" unless @name && @person_count
