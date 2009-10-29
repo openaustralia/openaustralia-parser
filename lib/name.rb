@@ -51,8 +51,14 @@ class Name
     end
     title = Name.extract_title_at_start(names)
     if names.size >= 1
+      # Special hack to deal with "St. George" as a first name.
+      # Doing this before the test for initials to ensure that "st." doesn't get mistaken for initials
+      if names[0].downcase == "st." && names[1].downcase == "george"
+        first = names[0..1].join(' ')
+        names.shift
+        names.shift
       # First name could be in the form of initials. So, check for this
-      if initials(names[0])
+      elsif initials(names[0])
         # Allow several initials separated by spaces
         initials = ""
         while names.size >= 1 && initials(names[0])
@@ -106,7 +112,13 @@ class Name
       names.shift
       names.shift
     elsif names.size >= 2
-      if initials(names[0])
+      # Special hack to deal with "St. George" as a first name.
+      # Doing this before the test for initials to ensure that "st." doesn't get mistaken for initials
+      if names[0].downcase == "st." && names[1].downcase == "george"
+        first = names[0..1].join(' ')
+        names.shift
+        names.shift
+      elsif initials(names[0])
         initials = initials(names.shift)
       else
         first = names.shift
@@ -157,7 +169,7 @@ class Name
   end
   
   alias :to_s :full_name
-  alias :inspect :full_name
+  #alias :inspect :full_name
   
   def has_title?
     @title != ""

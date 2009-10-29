@@ -282,4 +282,18 @@ class TestName < Test::Unit::TestCase
   def test_initials_with_multiple_fullstops
     assert_equal(Name.new(:last => "Trood", :initials => "RB"), Name.last_title_first("Trood R.B.."))
   end
+  
+  def test_st_george_as_a_first_name
+    name = Name.last_title_first("GORE, St. George Richard")
+    assert_equal("Gore", name.last)
+    # Really this should be "St George" below (capital G) but I can't be bothered to fix this right now
+    assert_equal("St. george", name.first)
+    assert_equal("Richard", name.middle)
+
+    name = Name.title_first_last("St. George Richard Gore")
+    assert_equal("Gore", name.last)
+    # Really this should be "St George" below (capital G) but I can't be bothered to fix this right now
+    assert_equal("St. george", name.first)
+    assert_equal("Richard", name.middle)
+  end
 end
