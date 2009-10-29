@@ -308,4 +308,12 @@ class TestName < Test::Unit::TestCase
     assert_equal("De burgh", name.first)
     assert_equal("Fitzpatrick", name.middle)
   end
+  
+  def test_doctor_title_with_a_fullstop
+    name = Name.last_title_first("PRENZLER, Dr. Peter Ross")
+    assert_equal("Prenzler", name.last)
+    assert_equal("Dr.", name.title)
+    assert_equal("Peter", name.first)
+    assert_equal("Ross", name.middle)
+  end
 end
