@@ -53,7 +53,7 @@ class Name
     if names.size >= 1
       # Special hack to deal with "St. George" as a first name.
       # Doing this before the test for initials to ensure that "st." doesn't get mistaken for initials
-      if names[0].downcase == "st." && names[1].downcase == "george"
+      if (names[0].downcase == "st." && names[1].downcase == "george") || (names[0].downcase == "de" && names[1].downcase == "burgh")
         first = names[0..1].join(' ')
         names.shift
         names.shift
@@ -114,7 +114,7 @@ class Name
     elsif names.size >= 2
       # Special hack to deal with "St. George" as a first name.
       # Doing this before the test for initials to ensure that "st." doesn't get mistaken for initials
-      if names[0].downcase == "st." && names[1].downcase == "george"
+      if (names[0].downcase == "st." && names[1].downcase == "george") || (names[0].downcase == "de" && names[1].downcase == "burgh")
         first = names[0..1].join(' ')
         names.shift
         names.shift

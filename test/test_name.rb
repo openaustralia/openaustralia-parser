@@ -296,4 +296,16 @@ class TestName < Test::Unit::TestCase
     assert_equal("St. george", name.first)
     assert_equal("Richard", name.middle)
   end
+  
+  def test_de_burgh_as_a_first_name
+    name = Name.last_title_first("PERSSE, de Burgh Fitzpatrick")
+    assert_equal("Persse", name.last)
+    assert_equal("De burgh", name.first)
+    assert_equal("Fitzpatrick", name.middle)
+    
+    name = Name.title_first_last("De Burgh Fitzpatrick Persse")
+    assert_equal("Persse", name.last)
+    assert_equal("De burgh", name.first)
+    assert_equal("Fitzpatrick", name.middle)
+  end
 end
