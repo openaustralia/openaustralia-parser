@@ -39,6 +39,10 @@ members = []
     removed.remove
     elements << e
     name_text = elements[0].inner_text.strip
+    # Hack to deal with bad formatting of name
+    if name_text =~ /Mc KE CHNIE/
+      name_text = name_text.gsub("Mc KE CHNIE", "McKECHNIE")
+    end
     # When the name has "blah see foo" that means it's just a reference to an alternate version of the name. So, ignore.
     if name_text =~ /.* see .*/i
       next
@@ -152,39 +156,39 @@ members = []
   
 end
 
-require 'people_csv_reader'
-
-people = PeopleCSVReader.read_members
-
-count = 723
-# Output a list of all the people in csv format
-CSV.open('people.csv', 'w') do |writer|
-  writer << ['person count', 'aph id', 'name', 'birth_date', 'death_date']
-
-  members.each do |m|
-    # Try to look up the person by name, birth and death date and see if there is a match with anyone else who already is there
-    person = people.find_person_by_name_and_birth_and_death(m.name, m.birth, m.death)
-    if person
-      puts "WARNING: CHECK THIS: #{m.name} with birth #{m.birth} and death #{m.death} matches pre-existing person #{person.name.full_name} with birth #{person.birthday} and death #{person.death}"
-    else
-      writer << [count, nil, m.name.full_name, m.birth, m.death]
-      count += 1
-    end
-  end
-end
-
 #require 'people_csv_reader'
 
 #people = PeopleCSVReader.read_members
 
-# Step through every member and look up the person
-
-#members.each do |m|
-#  # First lookup person by name alone
-#  person = people.find_person_by_name_and_birth_and_death(m.name, m.birth, m.death)
-#  if person
-#    p person.name.full_name
-#  else
-#    puts "WARNING: Could not find person with name #{m.name.full_name}, birth #{m.birth} and death #{m.death}. So, skipping."
+#count = 723
+# Output a list of all the people in csv format
+#CSV.open('people.csv', 'w') do |writer|
+#  writer << ['person count', 'aph id', 'name', 'birth_date', 'death_date']
+#
+#  members.each do |m|
+#    # Try to look up the person by name, birth and death date and see if there is a match with anyone else who already is there
+#    person = people.find_person_by_name_and_birth_and_death(m.name, m.birth, m.death)
+#    if person
+#      puts "WARNING: CHECK THIS: #{m.name} with birth #{m.birth} and death #{m.death} matches pre-existing person #{person.name.full_name} with birth #{person.birthday} and death #{person.death}"
+#    else
+#      writer << [count, nil, m.name.full_name, m.birth, m.death]
+#      count += 1
+#    end
 #  end
 #end
+
+require 'people_csv_reader'
+
+people = PeopleCSVReader.read_members
+
+# Step through every member and look up the person
+
+members.each do |m|
+  # First lookup person by name alone
+  person = people.find_person_by_name_and_birth_and_death(m.name, m.birth, m.death)
+  if person
+    #p person.name.full_name
+  else
+    puts "WARNING: Could not find person with name #{m.name.full_name}, birth #{m.birth} and death #{m.death}. So, skipping."
+  end
+end
