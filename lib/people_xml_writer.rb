@@ -7,8 +7,8 @@ class PeopleXMLWriter
     conf = Configuration.new
 
     write_people(people, people_filename)
-    write_members(people, members_filename)
-    write_senators(people, senators_filename)
+    write_members(people, members_filename, House.representatives)
+    write_members(people, senators_filename, House.senate)
     write_ministers(people, ministers_filename)
     File.open(divisions_filename, 'w') {|f| write_divisions(people, f)}
   end
@@ -45,7 +45,7 @@ class PeopleXMLWriter
     xml.close
   end
   
-  def PeopleXMLWriter.write_members(people, filename)
+  def PeopleXMLWriter.write_members(people, filename, house)
     conf = Configuration.new
     
     xml = File.open(filename, 'w')
@@ -54,31 +54,20 @@ class PeopleXMLWriter
     x.members do
       people.each do |person|
         person.periods.each do |period|
-          if period.representative?
-            x.member(:id => period.id,
-              :house => "representatives", :title => period.person.name.title, :firstname => period.person.name.first,
-              :lastname => period.person.name.last, :division => period.division, :party => period.party,
-              :fromdate => period.from_date, :todate => period.to_date, :fromwhy => period.from_why, :towhy => period.to_why)
+          # TODO: The following is a HACK. Would be nice to remove it
+          division = case house
+          when House.representatives
+            period.division
+          when House.senate
+            period.state
+          else
+            raise "Unexpected house"
           end
-        end
-      end
-    end
-    xml.close
-  end
-
-  def PeopleXMLWriter.write_senators(people, filename)
-    conf = Configuration.new
-    
-    xml = File.open(filename, 'w')
-    x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
-    x.instruct!
-    x.members do
-      people.each do |person|
-        person.periods.each do |period|
-          if period.senator?
+          
+          if period.house == house
             x.member(:id => period.id,
-              :house => "senate", :title => period.person.name.title, :firstname => period.person.name.first,
-              :lastname => period.person.name.last, :division => period.state, :party => period.party,    
+              :house => house, :title => period.person.name.title, :firstname => period.person.name.first,
+              :lastname => period.person.name.last, :division => division, :party => period.party,
               :fromdate => period.from_date, :todate => period.to_date, :fromwhy => period.from_why, :towhy => period.to_why)
           end
         end
