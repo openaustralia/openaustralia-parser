@@ -183,12 +183,25 @@ people = PeopleCSVReader.read_members
 
 # Step through every member and look up the person
 
-members.each do |m|
-  # First lookup person by name alone
-  person = people.find_person_by_name_and_birth_and_death(m.name, m.birth, m.death)
-  if person
-    #p person.name.full_name
-  else
-    puts "WARNING: Could not find person with name #{m.name.full_name}, birth #{m.birth} and death #{m.death}. So, skipping."
+count = 1
+
+CSV.open('qld_members.csv', 'w') do |writer|
+  writer << ['member count', 'person count', 'name', 'Division', 'State/Territory', 'Date of election', 'Type of election',
+    'Date ceased to be a Member', 'reason', 'Most recent party']
+  
+  members.each do |m|
+    # First lookup person by name alone
+    person = people.find_person_by_name_and_birth_and_death(m.name, m.birth, m.death)
+    if person
+      m.date_ranges.each do |date_range|
+        # We're only going to output members that have been a member on January 1 1980 or later
+        if date_range.end.nil? || date_range.end >= Date.new(1980,1,1)
+          writer << [count, person.person_count, person.name.full_name, '', '', date_range.start, '', date_range.end, '', '']
+          count += 1
+        end
+      end
+    else
+      puts "WARNING: Could not find person with name #{m.name.full_name}, birth #{m.birth} and death #{m.death}. So, skipping."
+    end
   end
 end
