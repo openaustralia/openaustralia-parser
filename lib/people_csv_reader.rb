@@ -56,7 +56,7 @@ class PeopleCSVReader
       state = "Queensland" if state == "Qld" || state == "QLD"
       throw "State #{state} is not a valid. Allowed values are #{valid_states.join(', ')}" unless valid_states.member?(state)
       name = Name.title_first_last(name_text)
-      throw "Division is undefined for #{name.full_name}" if house.representatives? && division.nil?
+      throw "Division is undefined for #{name.full_name}" if house == House.representatives && division.nil?
 
       matches = people.find_people_by_name(name)
       if matches.size == 0

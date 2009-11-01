@@ -60,11 +60,11 @@ class Period < PeriodBase
   end
   
   def representative?
-    @house.representatives?
+    @house == House.representatives
   end
   
   def senator?
-    @house.senate?
+    @house == House.senate
   end
   
   def initialize(params)

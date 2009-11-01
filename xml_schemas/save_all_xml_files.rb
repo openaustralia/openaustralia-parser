@@ -27,7 +27,7 @@ def write_hansard_xml_source_data_on_date(date, house)
     if version != "2.0" && version != "2.1"
       throw "Unrecognised schema version #{version}"
     end
-    write_tidied_xml(text, "source/#{version}/#{date}-#{house.representatives? ? "reps" : "senate"}.xml")
+    write_tidied_xml(text, "source/#{version}/#{date}-#{house}.xml")
   end
 end
 

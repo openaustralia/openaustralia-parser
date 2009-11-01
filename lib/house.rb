@@ -18,14 +18,6 @@ class House
     @name = name    
   end
   
-  def representatives?
-    name == REPRESENTATIVES
-  end
-  
-  def senate?
-    name == SENATE
-  end
-  
   def to_s
     name
   end

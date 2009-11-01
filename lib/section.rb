@@ -12,10 +12,12 @@ class Section
   end
   
   def id
-    if @house.representatives?
-      "uk.org.publicwhip/debate/#{@date}.#{@count}"
+    debate_name = case @house
+    when House.representatives
+      "debate"
     else
-      "uk.org.publicwhip/lords/#{@date}.#{@count}"
+      "lords"
     end
+    "uk.org.publicwhip/#{debate_name}/#{@date}.#{@count}"
   end
 end

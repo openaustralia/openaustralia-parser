@@ -59,7 +59,8 @@ class HansardParser
     agent.cache_subdirectory = cache_subdirectory(date, house)
 
     # This is the page returned by Parlinfo Search for that day
-    url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:chamber/hansard#{house.representatives? ? "r" : "s"}/#{date}/0000"
+    house_letter = (house == House.representatives) ? "r" : "s"
+    url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:chamber/hansard#{house_letter}/#{date}/0000"
     page = agent.get(url)
     tag = page.at('div#content center')
     if tag && tag.inner_html =~ /^Unable to find document/
@@ -196,13 +197,13 @@ class HansardParser
   
   def lookup_speaker_by_title(speech, date, house)
     # Some sanity checking.
-    if speech.speakername =~ /speaker/i && house.senate?
+    if speech.speakername =~ /speaker/i && house == House.senate
       logger.error "#{date} #{house}: The Speaker is not expected in the Senate"
       return nil
-    elsif speech.speakername =~ /president/i && house.representatives?
+    elsif speech.speakername =~ /president/i && house == House.representatives
       logger.error "#{date} #{house}: The President is not expected in the House of Representatives"
       return nil
-    elsif speech.speakername =~ /chairman/i && house.representatives?
+    elsif speech.speakername =~ /chairman/i && house == House.representatives
       logger.error "#{date} #{house}: The Chairman is not expected in the House of Representatives"
       return nil
     end

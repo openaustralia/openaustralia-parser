@@ -4,10 +4,11 @@ class HeadingBase
   end
   
   def id
-    if @house.representatives?
+    case @house
+    when House.representatives
       "uk.org.publicwhip/debate/#{@date}.#{@count}"
     else
-      "uk.org.publicwhip/lords/#{@date}.#{@count}"
+      "uk.org.publicwhip/lords/#{@date}.#{@count}"      
     end
   end
 end

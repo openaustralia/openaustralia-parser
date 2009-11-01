@@ -42,7 +42,7 @@ class HansardDay
   end
   
   def permanent_url
-    house_letter = house.representatives? ? "r" : "s"
+    house_letter = (house == House.representatives) ? "r" : "s"
     "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:chamber/hansard#{house_letter}/#{date}/0000"
   end
   
