@@ -78,20 +78,16 @@ progress = ProgressBar.new("parse-speeches", ((to_date - from_date + 1) * 2).to_
 # Kind of helpful to start at the end date and go backwards when using the "--proof" option. So, always going to do this now.
 date = to_date
 while date >= from_date
-  if conf.write_xml_representatives
-    if options[:proof]
-      parser.parse_date_house_only_in_proof(date, "#{conf.xml_path}/scrapedxml/representatives_debates/#{date}.xml", House.representatives)
-    else
-      parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/representatives_debates/#{date}.xml", House.representatives)
-    end
+  if options[:proof]
+    parser.parse_date_house_only_in_proof(date, "#{conf.xml_path}/scrapedxml/representatives_debates/#{date}.xml", House.representatives)
+  else
+    parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/representatives_debates/#{date}.xml", House.representatives)
   end
   progress.inc
-  if conf.write_xml_senators
-    if options[:proof]
-      parser.parse_date_house_only_in_proof(date, "#{conf.xml_path}/scrapedxml/senate_debates/#{date}.xml", House.senate)
-    else
-      parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/senate_debates/#{date}.xml", House.senate)
-    end
+  if options[:proof]
+    parser.parse_date_house_only_in_proof(date, "#{conf.xml_path}/scrapedxml/senate_debates/#{date}.xml", House.senate)
+  else
+    parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/senate_debates/#{date}.xml", House.senate)
   end
   progress.inc
   date = date - 1
@@ -102,8 +98,8 @@ progress.finish
 # And load up the database
 if options[:load_database]
   command_options = " --from=#{from_date} --to=#{to_date}"
-  command_options << " --debates" if conf.write_xml_representatives
-  command_options << " --lordsdebates" if conf.write_xml_senators
+  command_options << " --debates"
+  command_options << " --lordsdebates"
   command_options << " --force" if options[:force]
   
   # Starts with 'perl' to be friendly with Windows

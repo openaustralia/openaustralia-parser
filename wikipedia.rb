@@ -30,16 +30,12 @@ agent = MechanizeProxy.new
 agent.user_agent_alias = 'Mac Safari'
 agent.cache_subdirectory = "wikipedia"
 
-if conf.write_xml_representatives
-  puts "Wikipedia links for Representatives..."
-  links = extract_all_representative_wikipedia_links(people, agent)
-  write_links(links, "#{conf.members_xml_path}/wikipedia-commons.xml")
-  # For Representatives just for curiousity sake find out which has a link back to OpenAustralia
-  links.each {|link| check_wikipedia_page(link[1], agent) }
-end
-if conf.write_xml_senators
-  puts "Wikipedia links for Senators..."
-  write_links(extract_all_senator_wikipedia_links(people, agent), "#{conf.members_xml_path}/wikipedia-lords.xml")
-end
+puts "Wikipedia links for Representatives..."
+links = extract_all_representative_wikipedia_links(people, agent)
+write_links(links, "#{conf.members_xml_path}/wikipedia-commons.xml")
+# For Representatives just for curiousity sake find out which has a link back to OpenAustralia
+links.each {|link| check_wikipedia_page(link[1], agent) }
+puts "Wikipedia links for Senators..."
+write_links(extract_all_senator_wikipedia_links(people, agent), "#{conf.members_xml_path}/wikipedia-lords.xml")
 
 system(conf.web_root + "/twfy/scripts/mpinfoin.pl links")
