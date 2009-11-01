@@ -71,7 +71,11 @@ class PeopleCSVReader
       else
         person = matches.first
       end
-      person.add_period(:house => house, :division => division, :state => state, :party => party,
+      # A little bit of hack
+      if house == House.senate
+        division = state
+      end
+      person.add_period(:house => house, :division => division, :party => party,
           :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason, :count => member_count.to_i)
     end
     

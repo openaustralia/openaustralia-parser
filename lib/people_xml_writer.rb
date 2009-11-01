@@ -54,20 +54,10 @@ class PeopleXMLWriter
     x.members do
       people.each do |person|
         person.periods.each do |period|
-          # TODO: The following is a HACK. Would be nice to remove it
-          division = case house
-          when House.representatives
-            period.division
-          when House.senate
-            period.state
-          else
-            raise "Unexpected house"
-          end
-          
           if period.house == house
             x.member(:id => period.id,
               :house => house, :title => period.person.name.title, :firstname => period.person.name.first,
-              :lastname => period.person.name.last, :division => division, :party => period.party,
+              :lastname => period.person.name.last, :division => period.division, :party => period.party,
               :fromdate => period.from_date, :todate => period.to_date, :fromwhy => period.from_why, :towhy => period.to_why)
           end
         end
