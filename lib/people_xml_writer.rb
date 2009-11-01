@@ -53,11 +53,13 @@ class PeopleXMLWriter
     x.instruct!
     x.members do
       people.each do |person|
-        person.house_periods.each do |period|
-          x.member(:id => period.id,
-            :house => "representatives", :title => period.person.name.title, :firstname => period.person.name.first,
-            :lastname => period.person.name.last, :division => period.division, :party => period.party,
-            :fromdate => period.from_date, :todate => period.to_date, :fromwhy => period.from_why, :towhy => period.to_why)
+        person.periods.each do |period|
+          if period.representative?
+            x.member(:id => period.id,
+              :house => "representatives", :title => period.person.name.title, :firstname => period.person.name.first,
+              :lastname => period.person.name.last, :division => period.division, :party => period.party,
+              :fromdate => period.from_date, :todate => period.to_date, :fromwhy => period.from_why, :towhy => period.to_why)
+          end
         end
       end
     end
@@ -72,11 +74,13 @@ class PeopleXMLWriter
     x.instruct!
     x.members do
       people.each do |person|
-        person.senate_periods.each do |period|
-          x.member(:id => period.id,
-            :house => "senate", :title => period.person.name.title, :firstname => period.person.name.first,
-            :lastname => period.person.name.last, :division => period.state, :party => period.party,    
-            :fromdate => period.from_date, :todate => period.to_date, :fromwhy => period.from_why, :towhy => period.to_why)
+        person.periods.each do |period|
+          if period.senator?
+            x.member(:id => period.id,
+              :house => "senate", :title => period.person.name.title, :firstname => period.person.name.first,
+              :lastname => period.person.name.last, :division => period.state, :party => period.party,    
+              :fromdate => period.from_date, :todate => period.to_date, :fromwhy => period.from_why, :towhy => period.to_why)
+          end
         end
       end
     end

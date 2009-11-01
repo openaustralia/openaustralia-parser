@@ -44,14 +44,6 @@ class Person
     @periods.find {|p| p.house == house && p.current_on_date?(date)}
   end
   
-  def house_periods
-    @periods.find_all{|p| p.representative?}
-  end
-  
-  def senate_periods
-    @periods.find_all{|p| p.senator?}
-  end
-  
   def add_period(params)
     @periods << Period.new(params.merge(:person => self))
   end
