@@ -92,14 +92,7 @@ class PeopleXMLWriter
     x.people do
       people.each do |person|
         x.person(:id => person.id, :latestname => person.name.informal_name) do
-          person.house_periods.each do |period|
-            if period.current?
-              x.office(:id => period.id, :current => "yes")
-            else
-              x.office(:id => period.id)
-            end
-          end
-          person.senate_periods.each do |period|
+          person.periods.each do |period|
             if period.current?
               x.office(:id => period.id, :current => "yes")
             else
