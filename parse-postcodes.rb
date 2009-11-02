@@ -38,7 +38,7 @@ def other_pages?(page)
   !table_tag.search('> tr > td > a').map {|e| e.inner_text}.empty?
 end
 
-file = File.open("data/postcodes.csv", "w")
+file = File.open("data/federal/postcodes.csv", "w")
 
 file.puts("Postcode,Electoral division name")
 file.puts(",")

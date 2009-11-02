@@ -14,7 +14,7 @@ def quote_string(s)
   s.gsub(/\\/, '\&\&').gsub(/'/, "''") # ' (for ruby-mode)
 end
 
-data = CSV.readlines("data/postcodes.csv")
+data = CSV.readlines("data/federal/postcodes.csv")
 # Remove the first two elements
 data.shift
 data.shift
