@@ -29,12 +29,12 @@ describe People do
   it "knows who the speaker is" do
     member = @people.house_speaker(Date.new(2000, 6, 1))
     member.person.name.full_name.should == "John Smith"
-    member.should be_house_speaker
+    member.should be_speaker
   end
 
   it "knows who the deputy speakers is" do
     member = @people.deputy_house_speaker(Date.new(2000, 6, 1))
     member.person.name.full_name.should == "Henry Smith"
-    member.should be_deputy_house_speaker
+    member.should be_deputy_speaker
   end
 end

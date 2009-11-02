@@ -72,20 +72,27 @@ class Period < PeriodBase
     super
   end
   
-  def house_speaker?
-    @house == House.representatives && @party == "SPK"
+  # These are independent of the house
+  def speaker?
+    case @house
+    when House.representatives
+      @party == "SPK"
+    when House.senate
+      @party == "PRES"
+    else
+      raise "Unknown house"
+    end
   end
   
-  def deputy_house_speaker?
-    @house == House.representatives && @party == "CWM"
-  end
-  
-  def senate_president?
-     @house == House.senate && @party == "PRES"
-  end
-  
-  def deputy_senate_president?
-     @house == House.senate && @party == "DPRES"
+  def deputy_speaker?
+    case @house
+    when House.representatives
+      @party == "CWM"
+    when House.senate
+      @party == "DPRES"
+    else
+      raise "Unknown house"      
+    end
   end
   
   def ==(p)
