@@ -23,8 +23,8 @@ conf = Configuration.new
 PageRange = Struct.new(:filename, :start, :end)
 
 def read_in_ranges(p, filename_prefix, date, house, people)
-  pdf_filename = "data/register_of_interests/#{filename_prefix}.pdf"
-  split_filename = "data/register_of_interests/#{filename_prefix}.split"
+  pdf_filename = "data/federal/register_of_interests/#{filename_prefix}.pdf"
+  split_filename = "data/federal/register_of_interests/#{filename_prefix}.split"
   
   # Read in one split file
   data = CSV.readlines(split_filename)

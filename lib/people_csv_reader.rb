@@ -83,8 +83,8 @@ class PeopleCSVReader
   end
   
   def PeopleCSVReader.read_members(people_filename = "#{File.dirname(__FILE__)}/../data/people.csv",
-      representatives_filename = "#{File.dirname(__FILE__)}/../data/representatives.csv",
-      senators_filename = "#{File.dirname(__FILE__)}/../data/senators.csv")
+      representatives_filename = "#{File.dirname(__FILE__)}/../data/federal/representatives.csv",
+      senators_filename = "#{File.dirname(__FILE__)}/../data/federal/senators.csv")
     people = read_people(people_filename)
     read_members_csv(people, representatives_filename, House.representatives)
     read_members_csv(people, senators_filename, House.senate)    
@@ -111,8 +111,8 @@ class PeopleCSVReader
     end
   end
   
-  def PeopleCSVReader.read_all_ministers(people, ministers_filename = "#{File.dirname(__FILE__)}/../data/ministers.csv",
-    shadow_ministers_filename = "#{File.dirname(__FILE__)}/../data/shadow-ministers.csv")
+  def PeopleCSVReader.read_all_ministers(people, ministers_filename = "#{File.dirname(__FILE__)}/../data/federal/ministers.csv",
+    shadow_ministers_filename = "#{File.dirname(__FILE__)}/../data/federal/shadow-ministers.csv")
     read_ministers(people, ministers_filename)
     read_ministers(people, shadow_ministers_filename)
   end
