@@ -94,30 +94,18 @@ class People < Array
   
   # Methods that return Period objects
   
-  def house_speaker(date)
-    member = find_members_current_on(date, House.representatives).find {|m| m.speaker?}
-    throw "Could not find house speaker for date #{date}" if member.nil?
+  def speaker(house, date)
+    member = find_members_current_on(date, house).find {|m| m.speaker?}
+    throw "Could not find speaker for #{house} on date #{date}" if member.nil?
+    member    
+  end
+  
+  def deputy_speaker(house, date)
+    member = find_members_current_on(date, house).find {|m| m.deputy_speaker?}
+    throw "Could not find deputy president for #{house} on date #{date}" if member.nil?
     member
   end
   
-  def senate_president(date)
-    member = find_members_current_on(date, House.senate).find {|m| m.speaker?}
-    throw "Could not find senate president for date #{date}" if member.nil?
-    member
-  end
-  
-  def deputy_senate_president(date)
-    member = find_members_current_on(date, House.senate).find {|m| m.deputy_speaker?}
-    throw "Could not find deputy senate president for date #{date}" if member.nil?
-    member
-  end
-  
-  def deputy_house_speaker(date)
-    member = find_members_current_on(date, House.representatives).find {|m| m.deputy_speaker?}
-    throw "Could not find deputy house speaker for date #{date}" if member.nil?
-    member
-  end
-
   def find_member_by_name_current_on_date(name, date, house)
     matches = find_members_by_name_current_on_date(name, date, house)
     throw "More than one match for name #{name.full_name} found in #{house.name}" if matches.size > 1

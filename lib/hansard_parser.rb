@@ -215,15 +215,15 @@ class HansardParser
     elsif speech.speakername =~ /^the (deputy speaker|acting deputy president|temporary chairman) \((.*)\)/i
       @people.find_member_by_name_current_on_date(Name.title_first_last($~[2]), date, house)
     elsif speech.speakername =~ /^the speaker/i
-      @people.house_speaker(date)
+      @people.speaker(House.representatives, date)
     elsif speech.speakername =~ /^the deputy speaker/i
-      @people.deputy_house_speaker(date)
+      @people.deputy_speaker(House.representatives, date)
     elsif speech.speakername =~ /^the president/i
-      @people.senate_president(date)
+      @people.speaker(House.senate, date)
     elsif speech.speakername =~ /^(the )?chairman/i || speech.speakername =~ /^the deputy president/i
       # The "Chairman" in the main Senate Hansard is when the Senate is sitting as a committee of the whole Senate.
       # In this case, the "Chairman" is the deputy president. See http://www.aph.gov.au/senate/pubs/briefs/brief06.htm#3
-      @people.deputy_senate_president(date)
+      @people.deputy_speaker(House.senate, date)
     end
   end
   
