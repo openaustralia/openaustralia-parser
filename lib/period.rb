@@ -52,19 +52,12 @@ class Period < PeriodBase
   attr_reader :count
 
   def id
-    if senator?
+    case @house
+    when House.senate
       "uk.org.publicwhip/lord/#{100000 + @count}"
     else
       "uk.org.publicwhip/member/#{@count}"
     end
-  end
-  
-  def representative?
-    @house == House.representatives
-  end
-  
-  def senator?
-    @house == House.senate
   end
   
   def initialize(params)
@@ -75,25 +68,24 @@ class Period < PeriodBase
     @division =   params.delete(:division)
     @party =      params.delete(:party)
     @house =      params.delete(:house)
-    throw ":house parameter not valid" unless representative? || senator?
     @count =      params.delete(:count)
     super
   end
   
   def house_speaker?
-    representative? && @party == "SPK"
+    @house == House.representatives && @party == "SPK"
   end
   
   def deputy_house_speaker?
-    representative? && @party == "CWM"
+    @house == House.representatives && @party == "CWM"
   end
   
   def senate_president?
-    senator? && @party == "PRES"
+     @house == House.senate && @party == "PRES"
   end
   
   def deputy_senate_president?
-    senator? && @party == "DPRES"
+     @house == House.senate && @party == "DPRES"
   end
   
   def ==(p)
