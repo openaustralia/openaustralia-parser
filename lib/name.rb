@@ -41,14 +41,7 @@ class Name
     # Do the following before the split so we can handle things like "(foo bar)"
     text = remove_text_in_brackets(text)
     names = text.delete(',').split(' ')
-    # Hack to deal with a specific person who has two last names that aren't hyphenated
-    if names.size >= 2 && names[0].downcase == "stott" && names[1].downcase == "despoja"
-      last = names[0..1].join(' ')
-      names.shift
-      names.shift
-    else
-      last = names.shift
-    end
+    last = Name.extract_last_name_at_start(names)
     title = Name.extract_title_at_start(names)
     if names.size >= 1
       # Special hack to deal with "St. George" as a first name.
@@ -99,6 +92,19 @@ class Name
     end
   end
   
+  def Name.extract_last_name_at_start(names)
+    # Hack to deal with a specific person who has two last names that aren't hyphenated
+    if names.size >= 2 && names[0].downcase == "stott" && names[1].downcase == "despoja"
+      last = names[0..1].join(' ')
+      names.shift
+      names.shift
+      last
+    else
+      names.shift
+    end
+  end
+  
+  # Parse name of the form: <title> (<first>|<initials>) <middle> <last> <post_title>
   def Name.title_first_last(text)
     # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
     text = text.mb_chars.normalize
