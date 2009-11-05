@@ -109,37 +109,33 @@ class Name
     # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
     text = text.mb_chars.normalize
     names = text.delete(',').split(' ')
+    # Start by extracting the title from the front and the post_title from the end
     title = Name.extract_title_at_start(names)
-    if names.size == 1
-      last = names[0]
+    post_title = extract_post_title_at_end(names)
+    # Extract the last name from the end
     # HACK: Dealing with Stott Despoja as a special case
-    elsif names.size == 2 && names[0].downcase == "stott" && names[1].downcase == "despoja"
-      last = names[0..1].join(' ')
+    if names.size >= 2 && names[-2].downcase == "stott" && names[-1].downcase == "despoja"
+      last = names[-2..-1].join(' ')
+      names.pop
+      names.pop
+    elsif names.size >= 1
+      last = names.pop
+    end
+    # Extract the first name (or initials) from the start
+    if names.size >= 2 && ((names[0].downcase == "st." && names[1].downcase == "george") || (names[0].downcase == "de" && names[1].downcase == "burgh"))
+      first = names[0..1].join(' ')
       names.shift
       names.shift
-    elsif names.size >= 2
-      # Special hack to deal with "St. George" as a first name.
-      # Doing this before the test for initials to ensure that "st." doesn't get mistaken for initials
-      if (names[0].downcase == "st." && names[1].downcase == "george") || (names[0].downcase == "de" && names[1].downcase == "burgh")
-        first = names[0..1].join(' ')
-        names.shift
-        names.shift
-      elsif initials(names[0])
+    elsif names.size >= 1
+      if initials(names[0])
         initials = initials(names.shift)
       else
         first = names.shift
       end
-      post_title = extract_post_title_at_end(names)
-      # HACK: Another Stott Despoja hack
-      if names.size >= 2 && names[-2].downcase == "stott" && names[-1].downcase == "despoja"
-        last = names[-2..-1].join(' ')
-        names.pop
-      else
-        last = names[-1]
-      end
-      names.pop
-      middle = names[0..-1].join(' ')
     end
+    # Whatever is left over are middle names
+    middle = names.join(' ')
+
     Name.new(:title => title, :last => last, :first => first, :middle => middle, :initials => initials, :post_title => post_title)
   end
   
