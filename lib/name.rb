@@ -67,30 +67,20 @@ class Name
     text.squeeze(' ')
   end
   
-  # Extract a post title from the end if one is available
-  def Name.post_title(names)
-    valid_post_titles = ["AM", "SC", "AO", "MBE", "QC", "OBE", "KSJ", "JP", "MP", "AC", "RFD", "OAM", "MC"]
-    names.pop if valid_post_titles.include?(names.last)
+  def Name.extract_title_at_start(names)
+    titles = Array.new
+    while title = Name.title(names)
+      titles << title
+    end
+    titles.join(' ')
   end
   
-  # Returns initials if the name could be a set of initials
-  def Name.initials(name)
-    # If only one or two letters assume that these are initials
-    # HACK: Added specific handling for initials DJC, DGH
-    if initials_with_fullstops(name)
-      initials_with_fullstops(name)
-    elsif name.size <= 2 || name == "DJC" || name == "DGH"
-      name
+  def Name.extract_post_title_at_end(names)
+    post_titles = []
+    while post_title = Name.post_title(names)
+      post_titles.unshift(post_title)
     end
-  end
-  
-  # Returns true if the name could be a set of initials with full stops in them (e.g. "A.B.")
-  def Name.initials_with_fullstops(name)
-    # Heuristic: If word has any fullstops in it we'll assume that these are initials
-    # This allows a degree of flexibility, such as allowing "A.B.", "A.B..", "A.B.C", etc...
-    if name.include?('.')
-      name.delete('.')
-    end
+    post_titles.join(' ')
   end
   
   def Name.extract_last_name_at_start(names)
@@ -137,6 +127,32 @@ class Name
       end
     end
     [first, initials]
+  end
+  
+  # Extract a post title from the end if one is available
+  def Name.post_title(names)
+    valid_post_titles = ["AM", "SC", "AO", "MBE", "QC", "OBE", "KSJ", "JP", "MP", "AC", "RFD", "OAM", "MC"]
+    names.pop if valid_post_titles.include?(names.last)
+  end
+  
+  # Returns initials if the name could be a set of initials
+  def Name.initials(name)
+    # If only one or two letters assume that these are initials
+    # HACK: Added specific handling for initials DJC, DGH
+    if initials_with_fullstops(name)
+      initials_with_fullstops(name)
+    elsif name.size <= 2 || name == "DJC" || name == "DGH"
+      name
+    end
+  end
+  
+  # Returns true if the name could be a set of initials with full stops in them (e.g. "A.B.")
+  def Name.initials_with_fullstops(name)
+    # Heuristic: If word has any fullstops in it we'll assume that these are initials
+    # This allows a degree of flexibility, such as allowing "A.B.", "A.B..", "A.B.C", etc...
+    if name.include?('.')
+      name.delete('.')
+    end
   end
   
   def first_initial
@@ -247,22 +263,6 @@ class Name
   end
   
   private
-  
-  def Name.extract_title_at_start(names)
-    titles = Array.new
-    while title = Name.title(names)
-      titles << title
-    end
-    titles.join(' ')
-  end
-  
-  def Name.extract_post_title_at_end(names)
-    post_titles = []
-    while post_title = Name.post_title(names)
-      post_titles.unshift(post_title)
-    end
-    post_titles.join(' ')
-  end
   
   def Name.matches_hon?(name)
     name.downcase == "hon." || name.downcase == "hon"
