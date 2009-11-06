@@ -22,19 +22,6 @@ class Name
     throw "Invalid keys #{invalid_keys} used" unless invalid_keys.empty?
   end
   
-  def Name.remove_text_in_brackets(text)
-    open = text.index('(')
-    if open
-      close = text.index(')', open)
-      if close
-        text = text[0..open-1] + text[close+1..-1]
-      end
-    end
-
-    # Remove extra spaces
-    text.squeeze(' ')
-  end
-  
   # Parse name of the form: <last> <title> (<first>|<initials>) <middle> <post_title>
   def Name.last_title_first(text)
     # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
@@ -47,8 +34,37 @@ class Name
     post_title = extract_post_title_at_end(names)
     first, initials = extract_first_name_or_initials_at_start(names)
     # Whatever that is left over are middle names
-    middle = names[0..-1].join(' ')
+    middle = names.join(' ')
     Name.new(:title => title, :initials => initials, :last => last, :first => first, :middle => middle, :post_title => post_title)
+  end
+  
+  # Parse name of the form: <title> (<first>|<initials>) <middle> <last> <post_title>
+  def Name.title_first_last(text)
+    # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
+    text = text.mb_chars.normalize
+    names = text.delete(',').split(' ')
+    # Start by extracting the title from the front and the post_title from the end
+    title = Name.extract_title_at_start(names)
+    post_title = extract_post_title_at_end(names)
+    last = Name.extract_last_name_at_end(names)
+    first, initials = Name.extract_first_name_or_initials_at_start(names)
+    # Whatever is left over are middle names
+    middle = names.join(' ')
+
+    Name.new(:title => title, :last => last, :first => first, :middle => middle, :initials => initials, :post_title => post_title)
+  end
+  
+  def Name.remove_text_in_brackets(text)
+    open = text.index('(')
+    if open
+      close = text.index(')', open)
+      if close
+        text = text[0..open-1] + text[close+1..-1]
+      end
+    end
+
+    # Remove extra spaces
+    text.squeeze(' ')
   end
   
   # Extract a post title from the end if one is available
@@ -121,22 +137,6 @@ class Name
       end
     end
     [first, initials]
-  end
-  
-  # Parse name of the form: <title> (<first>|<initials>) <middle> <last> <post_title>
-  def Name.title_first_last(text)
-    # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
-    text = text.mb_chars.normalize
-    names = text.delete(',').split(' ')
-    # Start by extracting the title from the front and the post_title from the end
-    title = Name.extract_title_at_start(names)
-    post_title = extract_post_title_at_end(names)
-    last = Name.extract_last_name_at_end(names)
-    first, initials = Name.extract_first_name_or_initials_at_start(names)
-    # Whatever is left over are middle names
-    middle = names.join(' ')
-
-    Name.new(:title => title, :last => last, :first => first, :middle => middle, :initials => initials, :post_title => post_title)
   end
   
   def first_initial
