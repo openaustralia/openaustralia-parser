@@ -35,6 +35,7 @@ class Name
     text.squeeze(' ')
   end
   
+  # Parse name of the form: <last> <title> (<first>|<initials>) <middle> <post_title>
   def Name.last_title_first(text)
     # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
     text = text.mb_chars.normalize
@@ -43,25 +44,9 @@ class Name
     names = text.delete(',').split(' ')
     last = Name.extract_last_name_at_start(names)
     title = Name.extract_title_at_start(names)
-    if names.size >= 1
-      # Special hack to deal with "St. George" as a first name.
-      # Doing this before the test for initials to ensure that "st." doesn't get mistaken for initials
-      if (names[0].downcase == "st." && names[1].downcase == "george") || (names[0].downcase == "de" && names[1].downcase == "burgh")
-        first = names[0..1].join(' ')
-        names.shift
-        names.shift
-      # First name could be in the form of initials. So, check for this
-      elsif initials(names[0])
-        # Allow several initials separated by spaces
-        initials = ""
-        while names.size >= 1 && initials(names[0])
-          initials << initials(names.shift)
-        end
-      else
-        first = names.shift
-      end
-    end
     post_title = extract_post_title_at_end(names)
+    first, initials = extract_first_name_or_initials_at_start(names)
+    # Whatever that is left over are middle names
     middle = names[0..-1].join(' ')
     Name.new(:title => title, :initials => initials, :last => last, :first => first, :middle => middle, :post_title => post_title)
   end
@@ -118,13 +103,19 @@ class Name
   
   # Returns [first, initials]
   def Name.extract_first_name_or_initials_at_start(names)
+    # Special hack to deal with "St. George" as a first name.
+    # Doing this before the test for initials to ensure that "st." doesn't get mistaken for initials
     if names.size >= 2 && ((names[0].downcase == "st." && names[1].downcase == "george") || (names[0].downcase == "de" && names[1].downcase == "burgh"))
       first = names[0..1].join(' ')
       names.shift
       names.shift
     elsif names.size >= 1
       if initials(names[0])
-        initials = initials(names.shift)
+        # Allow several initials separated by spaces
+        initials = ""
+        while names.size >= 1 && initials(names[0])
+          initials << initials(names.shift)
+        end
       else
         first = names.shift
       end
