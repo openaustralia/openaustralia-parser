@@ -104,24 +104,20 @@ class Name
     end
   end
   
-  # Parse name of the form: <title> (<first>|<initials>) <middle> <last> <post_title>
-  def Name.title_first_last(text)
-    # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
-    text = text.mb_chars.normalize
-    names = text.delete(',').split(' ')
-    # Start by extracting the title from the front and the post_title from the end
-    title = Name.extract_title_at_start(names)
-    post_title = extract_post_title_at_end(names)
-    # Extract the last name from the end
-    # HACK: Dealing with Stott Despoja as a special case
+  def Name.extract_last_name_at_end(names)
+    # Hack to deal with a specific person who has two last names that aren't hyphenated
     if names.size >= 2 && names[-2].downcase == "stott" && names[-1].downcase == "despoja"
       last = names[-2..-1].join(' ')
       names.pop
       names.pop
+      last
     elsif names.size >= 1
-      last = names.pop
+      names.pop
     end
-    # Extract the first name (or initials) from the start
+  end
+  
+  # Returns [first, initials]
+  def Name.extract_first_name_or_initials_at_start(names)
     if names.size >= 2 && ((names[0].downcase == "st." && names[1].downcase == "george") || (names[0].downcase == "de" && names[1].downcase == "burgh"))
       first = names[0..1].join(' ')
       names.shift
@@ -133,6 +129,19 @@ class Name
         first = names.shift
       end
     end
+    [first, initials]
+  end
+  
+  # Parse name of the form: <title> (<first>|<initials>) <middle> <last> <post_title>
+  def Name.title_first_last(text)
+    # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
+    text = text.mb_chars.normalize
+    names = text.delete(',').split(' ')
+    # Start by extracting the title from the front and the post_title from the end
+    title = Name.extract_title_at_start(names)
+    post_title = extract_post_title_at_end(names)
+    last = Name.extract_last_name_at_end(names)
+    first, initials = Name.extract_first_name_or_initials_at_start(names)
     # Whatever is left over are middle names
     middle = names.join(' ')
 
