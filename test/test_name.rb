@@ -203,8 +203,8 @@ class TestName < Test::Unit::TestCase
   end
   
   def test_Senator_the_Hon_Nick_Minchin
-    assert_equal(Name.title_first_last("Senator the Hon Nick Minchin"),
-      Name.new(:title => "Senator the Hon.", :first => "Nick", :last => "Minchin"))
+    assert_equal(Name.new(:title => "Senator the Hon.", :first => "Nick", :last => "Minchin"),
+      Name.title_first_last("Senator the Hon Nick Minchin"))
   end
   
   def test_title_first_last_djc_kerr
