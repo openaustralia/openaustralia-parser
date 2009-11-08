@@ -91,10 +91,12 @@ class Name
   
   def Name.extract_last_name_at_start(names)
     # First try matching the last name to one of the special ones that consist of multiple words
-    multiword = multi_word_last_names.find {|m| names[0...(m.size)].map{|t| t.downcase} == m}
+    multiword = multi_word_last_names.find do |m|
+      names.size >= m.size && names[0...(m.size)].map{|t| t.downcase} == m
+    end
     if multiword
       names.slice!(0...(multiword.size)).join(' ')
-    else
+    elsif names.size >= 1
       names.shift
     end
   end
