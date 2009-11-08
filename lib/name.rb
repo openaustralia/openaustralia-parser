@@ -86,7 +86,7 @@ class Name
   # Unusual last names that consist of multiple words that are not hyphenated but seperated by space
   # This is used during the parsing process
   def Name.multi_word_last_names
-    ["stott despoja"].map{|t| t.split(" ")}
+    ["stott despoja", "de lacy"].map{|t| t.split(" ")}
   end
   
   def Name.multi_word_first_names
