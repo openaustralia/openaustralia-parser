@@ -83,13 +83,17 @@ class Name
     post_titles.join(' ')
   end
   
+  # Unusual last names that consist of multiple words that are not hyphenated but seperated by space
+  # This is used during the parsing process
+  def Name.multi_word_last_names
+    ["stott despoja"].map{|t| t.split(" ")}
+  end
+  
   def Name.extract_last_name_at_start(names)
-    # Hack to deal with a specific person who has two last names that aren't hyphenated
-    if names.size >= 2 && names[0].downcase == "stott" && names[1].downcase == "despoja"
-      last = names[0..1].join(' ')
-      names.shift
-      names.shift
-      last
+    # First try matching the last name to one of the special ones that consist of multiple words
+    multiword = multi_word_last_names.find {|m| names[0...(m.size)].map{|t| t.downcase} == m}
+    if multiword
+      names.slice!(0...(multiword.size)).join(' ')
     else
       names.shift
     end
