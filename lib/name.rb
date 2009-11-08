@@ -100,12 +100,12 @@ class Name
   end
   
   def Name.extract_last_name_at_end(names)
-    # Hack to deal with a specific person who has two last names that aren't hyphenated
-    if names.size >= 2 && names[-2].downcase == "stott" && names[-1].downcase == "despoja"
-      last = names[-2..-1].join(' ')
-      names.pop
-      names.pop
-      last
+    # First try matching the last name to one of the special ones that consist of multiple words
+    multiword = multi_word_last_names.find do |m|
+      names.size >= m.size && names[-(m.size)..-1].map{|t| t.downcase} == m
+    end
+    if multiword
+      names.slice!(-(multiword.size)..-1).join(' ')
     elsif names.size >= 1
       names.pop
     end
