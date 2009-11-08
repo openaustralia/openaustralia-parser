@@ -89,6 +89,10 @@ class Name
     ["stott despoja"].map{|t| t.split(" ")}
   end
   
+  def Name.multi_word_first_names
+    ["st. george", "de burgh"].map{|t| t.split(" ")}
+  end
+  
   def Name.extract_last_name_at_start(names)
     # First try matching the last name to one of the special ones that consist of multiple words
     multiword = multi_word_last_names.find do |m|
@@ -115,12 +119,13 @@ class Name
   
   # Returns [first, initials]
   def Name.extract_first_name_or_initials_at_start(names)
-    # Special hack to deal with "St. George" as a first name.
+    # First try matching the first name to one of the special ones that consist of multiple words
     # Doing this before the test for initials to ensure that "st." doesn't get mistaken for initials
-    if names.size >= 2 && ((names[0].downcase == "st." && names[1].downcase == "george") || (names[0].downcase == "de" && names[1].downcase == "burgh"))
-      first = names[0..1].join(' ')
-      names.shift
-      names.shift
+    multiword = multi_word_first_names.find do |m|
+      names.size >= m.size && names[0...(m.size)].map{|t| t.downcase} == m
+    end
+    if multiword
+      first = names.slice!(0...(multiword.size)).join(' ')
     elsif names.size >= 1
       if initials(names[0])
         # Allow several initials separated by spaces
