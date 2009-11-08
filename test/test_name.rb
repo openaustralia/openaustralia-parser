@@ -324,4 +324,12 @@ class TestName < Test::Unit::TestCase
     assert_equal("Keith", name.first)
     assert_equal("Ernest", name.middle)
   end
+  
+  def test_last_name_of_van_litsenburg
+    name = Name.last_title_first("VAN LITSENBURG, Elisabeth Cornelia Maria")
+    assert_equal("Van Litsenburg", name.last)
+    assert_equal("Elisabeth", name.first)
+    assert_equal("Cornelia Maria", name.middle)
+  end
+  
 end
