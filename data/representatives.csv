@@ -125,7 +125,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 118,,Bryan Joseph Conquest,Hinkler,Qld,1.12.1984,,11.7.1987,defeated,NPA
 119,,James Corbett,Maranoa,Qld,26.11.1966,,19.9.1980,retired,NCP
 120,,Ann Kathleen Corcoran,Isaacs,Vic.,12.8.2000,by_election,17.10.2007,retired,ALP
-121,,Peter Howard Costello,Higgins,Vic.,24.3.1990,, ,still_in_office,LIB
+121,,Peter Howard Costello,Higgins,Vic.,24.3.1990,,19.10.2009,resigned,LIB
 122,,John Francis Cotter,Kalgoorlie,WA,13.12.1975,,18.10.1980,defeated,LIB
 123,,Mark Maclean Coulton,Parkes,NSW,24.11.2007,,,still_in_office,Nats
 124,,Brian William Courtice,Hinkler,Qld,11.7.1987,,13.3.1993,defeated,ALP
@@ -586,5 +586,6 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 585,,Robert Oakeshott,Lyne,NSW,6.9.2008,by_election,,still_in_office,IND
 586,,Jamie Briggs,Mayo,SA,6.9.2008,by_election,,still_in_office,LIB
 587,,Paul William Fletcher,Bradfield,NSW,5.12.2009,by_election,,still_in_office,LIB
-# Next available Rep number is 588
+588,,Kelly O'Dwyer,Higgins,VIC,5.12.2009,by_election,,still_in_office,LIB
+# Next available Rep number is 589
 
