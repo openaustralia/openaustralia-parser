@@ -414,7 +414,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 396,,Garry Barr Nehl,Cowper,NSW,1.12.1984,,30.4.1996,changed_party,NPA
 397,,Garry Barr Nehl,Cowper,NSW,30.4.1996,changed_party,8.10.2001,retired,CWM
 398,,Maurice James Neil,St George,NSW,13.12.1975,,18.10.1980,defeated,LIB
-399,,Brendan John Nelson,Bradfield,NSW,2.3.1996,, ,still_in_office,LIB
+399,,Brendan John Nelson,Bradfield,NSW,2.3.1996,,19.10.2009,resigned,LIB
 400,,Shayne Kenneth Neumann,Blair,Qld,24.11.2007,,,still_in_office,ALP
 401,,Paul Christopher Neville,Hinkler,Qld,13.3.1993,, ,still_in_office,NP
 402,,Neville Joseph Newell,Richmond,NSW,24.3.1990,,2.3.1996,defeated,ALP
@@ -585,4 +585,6 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 # Results of by-elections For Lyne & Mayo
 585,,Robert Oakeshott,Lyne,NSW,6.9.2008,by_election,,still_in_office,IND
 586,,Jamie Briggs,Mayo,SA,6.9.2008,by_election,,still_in_office,LIB
-# Next available Rep number is 587
+587,,Paul William Fletcher,Bradfield,NSW,5.12.2009,by_election,,still_in_office,LIB
+# Next available Rep number is 588
+
