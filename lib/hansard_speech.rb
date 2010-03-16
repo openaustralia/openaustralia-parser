@@ -1,5 +1,5 @@
 require 'environment'
-require 'activesupport'
+require 'active_support'
 require 'hpricot_additions'
 
 $KCODE = 'u'
