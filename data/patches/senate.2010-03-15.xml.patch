@@ -1,0 +1,12 @@
+--- original.xml	2010-03-16 11:07:37.000000000 +1100
++++ patched.xml	2010-03-16 11:09:11.000000000 +1100
+@@ -3321,8 +3321,7 @@
+ <name>Pratt, L.C.</name>
+ <name>Stephens, U.</name>
+ <name>Sterle, G.</name>
+-<name>Wong, P</name>
+-<name>.</name>
++<name>Wong, P.</name>
+ </names>
+ </noes>
+ <pairs>
