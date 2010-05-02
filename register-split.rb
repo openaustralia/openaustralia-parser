@@ -74,6 +74,12 @@ read_in_ranges(p, "representatives/2008_03_vol_7", people)
 read_in_ranges(p, "representatives/2008_03_vol_8", people)
 read_in_ranges(p, "representatives/2008_06", people)
 
+read_in_ranges(p, "representatives/2008_12", people)
+read_in_ranges(p, "representatives/2009_03", people)
+read_in_ranges(p, "representatives/2009_06", people)
+read_in_ranges(p, "representatives/2009_11", people)
+read_in_ranges(p, "representatives/2010_03", people)
+
 # Now step through all the people and create the pdfs
 p.each do |person, ranges|
   filenames = []
