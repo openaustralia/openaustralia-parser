@@ -53,20 +53,20 @@ end
 # Hash from person to array of page ranges
 p = {}
 
-read_in_ranges(p, "senate/2008_sep_vol_1", Date.new(2008, 9, 1), House.senate, people)
-read_in_ranges(p, "senate/2008_sep_vol_2", Date.new(2008, 9, 1), House.senate, people)
-read_in_ranges(p, "senate/2008_dec", Date.new(2008, 12, 1), House.senate, people)
-read_in_ranges(p, "senate/2009_jun", Date.new(2009, 6, 22), House.senate, people)
-read_in_ranges(p, "senate/2009_nov", Date.new(2009, 11, 23), House.senate, people)
-read_in_ranges(p, "representatives/2008_mar_vol_1", Date.new(2008, 3, 1), House.representatives, people)
-read_in_ranges(p, "representatives/2008_mar_vol_2", Date.new(2008, 3, 1), House.representatives, people)
-read_in_ranges(p, "representatives/2008_mar_vol_3", Date.new(2008, 3, 1), House.representatives, people)
-read_in_ranges(p, "representatives/2008_mar_vol_4", Date.new(2008, 3, 1), House.representatives, people)
-read_in_ranges(p, "representatives/2008_mar_vol_5", Date.new(2008, 3, 1), House.representatives, people)
-read_in_ranges(p, "representatives/2008_mar_vol_6", Date.new(2008, 3, 1), House.representatives, people)
-read_in_ranges(p, "representatives/2008_mar_vol_7", Date.new(2008, 3, 1), House.representatives, people)
-read_in_ranges(p, "representatives/2008_mar_vol_8", Date.new(2008, 3, 1), House.representatives, people)
-read_in_ranges(p, "representatives/2008_jun", Date.new(2008, 3, 1), House.representatives, people)
+read_in_ranges(p, "senate/2008_09_vol_1", Date.new(2008, 9, 1), House.senate, people)
+read_in_ranges(p, "senate/2008_09_vol_2", Date.new(2008, 9, 1), House.senate, people)
+read_in_ranges(p, "senate/2008_12", Date.new(2008, 12, 1), House.senate, people)
+read_in_ranges(p, "senate/2009_06", Date.new(2009, 6, 22), House.senate, people)
+read_in_ranges(p, "senate/2009_11", Date.new(2009, 11, 23), House.senate, people)
+read_in_ranges(p, "representatives/2008_03_vol_1", Date.new(2008, 3, 1), House.representatives, people)
+read_in_ranges(p, "representatives/2008_03_vol_2", Date.new(2008, 3, 1), House.representatives, people)
+read_in_ranges(p, "representatives/2008_03_vol_3", Date.new(2008, 3, 1), House.representatives, people)
+read_in_ranges(p, "representatives/2008_03_vol_4", Date.new(2008, 3, 1), House.representatives, people)
+read_in_ranges(p, "representatives/2008_03_vol_5", Date.new(2008, 3, 1), House.representatives, people)
+read_in_ranges(p, "representatives/2008_03_vol_6", Date.new(2008, 3, 1), House.representatives, people)
+read_in_ranges(p, "representatives/2008_03_vol_7", Date.new(2008, 3, 1), House.representatives, people)
+read_in_ranges(p, "representatives/2008_03_vol_8", Date.new(2008, 3, 1), House.representatives, people)
+read_in_ranges(p, "representatives/2008_06", Date.new(2008, 3, 1), House.representatives, people)
 
 # Now step through all the people and create the pdfs
 p.each do |person, ranges|
