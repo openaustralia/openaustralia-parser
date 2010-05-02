@@ -22,7 +22,7 @@ people = PeopleCSVReader.read_members
 conf = Configuration.new
 PageRange = Struct.new(:filename, :start, :end)
 
-def read_in_ranges(p, filename_prefix, date, house, people)
+def read_in_ranges(p, filename_prefix, people)
   pdf_filename = "data/register_of_interests/#{filename_prefix}.pdf"
   split_filename = "data/register_of_interests/#{filename_prefix}.split"
   
@@ -32,7 +32,7 @@ def read_in_ranges(p, filename_prefix, date, house, people)
   data.shift
 
   data.each_index do |i|
-    start_page, last_name, first_name = data[i]
+    start_page, last_name, first_name, date_text = data[i]
     start_page = start_page.to_i
     if i + 1 < data.size
       end_page = data[i+1][0].to_i - 1
@@ -42,10 +42,16 @@ def read_in_ranges(p, filename_prefix, date, house, people)
     # Ignore page ranges marked as blank
     if last_name.downcase != "** blank page **"
       name = Name.last_title_first(last_name + " " + first_name)
-      member = people.find_member_by_name_current_on_date(name, date, house)
-      throw "Couldn't find #{name.full_name}" if member.nil?
-      p[member.person] ||= []
-      p[member.person] << PageRange.new(pdf_filename, start_page, end_page)
+      #member = people.find_member_by_name_current_on_date(name, date, house)
+      if date_text
+        date = Date.parse(date_text)
+        person = people.find_person_by_name_current_on_date(name, date)
+      else
+        person = people.find_person_by_name(name)
+      end
+      throw "Couldn't find #{name.full_name}" if person.nil?
+      p[person] ||= []
+      p[person] << PageRange.new(pdf_filename, start_page, end_page)
     end
   end
 end
@@ -53,20 +59,20 @@ end
 # Hash from person to array of page ranges
 p = {}
 
-read_in_ranges(p, "senate/2008_09_vol_1", Date.new(2008, 9, 1), House.senate, people)
-read_in_ranges(p, "senate/2008_09_vol_2", Date.new(2008, 9, 1), House.senate, people)
-read_in_ranges(p, "senate/2008_12", Date.new(2008, 12, 1), House.senate, people)
-read_in_ranges(p, "senate/2009_06", Date.new(2009, 6, 22), House.senate, people)
-read_in_ranges(p, "senate/2009_11", Date.new(2009, 11, 23), House.senate, people)
-read_in_ranges(p, "representatives/2008_03_vol_1", Date.new(2008, 3, 1), House.representatives, people)
-read_in_ranges(p, "representatives/2008_03_vol_2", Date.new(2008, 3, 1), House.representatives, people)
-read_in_ranges(p, "representatives/2008_03_vol_3", Date.new(2008, 3, 1), House.representatives, people)
-read_in_ranges(p, "representatives/2008_03_vol_4", Date.new(2008, 3, 1), House.representatives, people)
-read_in_ranges(p, "representatives/2008_03_vol_5", Date.new(2008, 3, 1), House.representatives, people)
-read_in_ranges(p, "representatives/2008_03_vol_6", Date.new(2008, 3, 1), House.representatives, people)
-read_in_ranges(p, "representatives/2008_03_vol_7", Date.new(2008, 3, 1), House.representatives, people)
-read_in_ranges(p, "representatives/2008_03_vol_8", Date.new(2008, 3, 1), House.representatives, people)
-read_in_ranges(p, "representatives/2008_06", Date.new(2008, 3, 1), House.representatives, people)
+read_in_ranges(p, "senate/2008_09_vol_1", people)
+read_in_ranges(p, "senate/2008_09_vol_2", people)
+read_in_ranges(p, "senate/2008_12", people)
+read_in_ranges(p, "senate/2009_06", people)
+read_in_ranges(p, "senate/2009_11", people)
+read_in_ranges(p, "representatives/2008_03_vol_1", people)
+read_in_ranges(p, "representatives/2008_03_vol_2", people)
+read_in_ranges(p, "representatives/2008_03_vol_3", people)
+read_in_ranges(p, "representatives/2008_03_vol_4", people)
+read_in_ranges(p, "representatives/2008_03_vol_5", people)
+read_in_ranges(p, "representatives/2008_03_vol_6", people)
+read_in_ranges(p, "representatives/2008_03_vol_7", people)
+read_in_ranges(p, "representatives/2008_03_vol_8", people)
+read_in_ranges(p, "representatives/2008_06", people)
 
 # Now step through all the people and create the pdfs
 p.each do |person, ranges|
