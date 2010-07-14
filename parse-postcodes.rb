@@ -19,18 +19,12 @@ data.shift
 valid_postcodes = data.map {|row| row.first}.uniq.sort
 
 def extract_divisions_from_page(page)
-  postcodes = []
+  divisions = []
   page.search('table').first.search('> tr').each do |row_tag|
     td_tag = row_tag.search('> td')[3]
-    if td_tag
-      postcode = td_tag.search('a').inner_text
-      if postcode.nil?
-        puts "Nil postcode in division #{division}"
-      end
-      postcodes << postcode
-    end
+    divisions << td_tag.search('a').inner_text if td_tag
   end
-  postcodes
+  divisions
 end
 
 def other_pages?(page)
