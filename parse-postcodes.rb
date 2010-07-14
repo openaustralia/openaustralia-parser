@@ -12,7 +12,7 @@ agent = MechanizeProxy.new
 agent.cache_subdirectory = "parse-postcodes"
 
 puts "Reading Australia post office data..."
-data = CSV.readlines("data/pc-full_20080529.csv")
+data = CSV.readlines("data/pc-full_20100629.csv")
 # Ignore header
 data.shift
 
