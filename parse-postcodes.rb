@@ -33,18 +33,30 @@ file.puts(",")
 
 valid_postcodes.each do |postcode|
   page = agent.get("http://apps.aec.gov.au/esearch/LocalitySearchResults.aspx?filter=#{postcode}&filterby=Postcode")
-  
+  puts "Postcode #{postcode}..."
+  page_number = 1
+  puts "  Page #{page_number}..."
   divisions = extract_divisions_from_page(page)
 
   if other_pages?(page)
-    puts "WARNING: Multiple pages of data for postcode #{postcode}"
-    file.puts("*** Double check data for postcode #{postcode} by hand ***")
+    begin
+      page_number += 1
+      puts "  Page #{page_number}..."
+      form = page.form_with(:name => "aspnetForm")
+      form["__EVENTTARGET"] = 'ctl00$ContentPlaceHolderBody$gridViewLocalities'
+      form["__EVENTARGUMENT"] = "Page$#{page_number}"
+      page = form.submit
+      new_divisions = extract_divisions_from_page(page)
+      divisions += new_divisions
+    end until new_divisions.empty?
   end
+  divisions = divisions.uniq.sort
   
   if divisions.empty?
-    puts "No divisions for postcode #{postcode}"
+    puts "  * No divisions *"
   else
-    divisions.uniq.sort.each do |division|
+    puts "  " + divisions.join(", ")
+    divisions.each do |division|
       file.puts "#{postcode},#{division}"
     end
   end
