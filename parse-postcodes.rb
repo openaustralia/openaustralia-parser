@@ -19,7 +19,22 @@ data.shift
 valid_postcodes = data.map {|row| row.first}.uniq.sort
 
 def extract_divisions_from_page(page)
-  page.search('div/table/tr/td[4]').map {|t| t.inner_text}
+  divisions = page.search('div/table/tr/td[4]').map {|t| t.inner_text}
+  redistributed_divisions = page.search('div/table/tr/td[5]').map {|t| t.inner_text}
+  raise "expected same number of divisions as redistributed divisions" unless divisions.size == redistributed_divisions.size
+  combined = []
+  divisions.each_index do |i|
+    v1 = divisions[i]
+    v2 = redistributed_divisions[i]
+    if v1 == ""
+      combined << v2
+    elsif v2 == ""
+      combined << v1
+    else
+      raise "don't expect both columns to have values"
+    end
+  end
+  combined
 end
 
 def other_pages?(page)
@@ -49,7 +64,7 @@ def extract_divisions_for_postcode(agent, postcode)
   divisions.uniq.sort
 end
 
-file = File.open("data/postcodes.csv", "w")
+file = File.open("data/postcodes_2010.csv", "w")
 
 file.puts("Postcode,Electoral division name")
 file.puts(",")
