@@ -2,14 +2,14 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'mechanize_proxy'
+require 'rubygems'
+require 'mechanize'
 require 'configuration'
 require 'people'
 
 conf = Configuration.new
 
-agent = MechanizeProxy.new
-agent.cache_subdirectory = "parse-postcodes"
+agent = WWW::Mechanize.new
 
 puts "Reading Australia post office data..."
 data = CSV.readlines("data/pc-full_20100629.csv")
@@ -19,17 +19,11 @@ data.shift
 valid_postcodes = data.map {|row| row.first}.uniq.sort
 
 def extract_divisions_from_page(page)
-  divisions = []
-  page.search('table').first.search('> tr').each do |row_tag|
-    td_tag = row_tag.search('> td')[3]
-    divisions << td_tag.search('a').inner_text if td_tag
-  end
-  divisions
+  page.search('div/table/tr/td[4]').map {|t| t.inner_text}
 end
 
 def other_pages?(page)
-  table_tag = page.search('table')[1]
-  !table_tag.search('> tr > td > a').map {|e| e.inner_text}.empty?
+  page.at('table table')
 end
 
 file = File.open("data/postcodes.csv", "w")
@@ -41,7 +35,7 @@ valid_postcodes.each do |postcode|
   page = agent.get("http://apps.aec.gov.au/esearch/LocalitySearchResults.aspx?filter=#{postcode}&filterby=Postcode")
   
   divisions = extract_divisions_from_page(page)
-  
+
   if other_pages?(page)
     puts "WARNING: Multiple pages of data for postcode #{postcode}"
     file.puts("*** Double check data for postcode #{postcode} by hand ***")
