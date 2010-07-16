@@ -26,12 +26,7 @@ def other_pages?(page)
   page.at('table table')
 end
 
-file = File.open("data/postcodes.csv", "w")
-
-file.puts("Postcode,Electoral division name")
-file.puts(",")
-
-valid_postcodes.each do |postcode|
+def extract_divisions_for_postcode(agent, postcode)
   page = agent.get("http://apps.aec.gov.au/esearch/LocalitySearchResults.aspx?filter=#{postcode}&filterby=Postcode")
   puts "Postcode #{postcode}..."
   page_number = 1
@@ -50,7 +45,17 @@ valid_postcodes.each do |postcode|
       divisions += new_divisions
     end until new_divisions.empty?
   end
-  divisions = divisions.uniq.sort
+  # Remove duplicates and sort
+  divisions.uniq.sort
+end
+
+file = File.open("data/postcodes.csv", "w")
+
+file.puts("Postcode,Electoral division name")
+file.puts(",")
+
+valid_postcodes.each do |postcode|
+  divisions = extract_divisions_for_postcode(agent, postcode)
   
   if divisions.empty?
     puts "  * No divisions *"
