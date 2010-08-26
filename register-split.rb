@@ -80,6 +80,7 @@ read_in_ranges(p, "representatives/2009_03", people)
 read_in_ranges(p, "representatives/2009_06", people)
 read_in_ranges(p, "representatives/2009_11", people)
 read_in_ranges(p, "representatives/2010_03", people)
+read_in_ranges(p, "representatives/2010_06", people)
 read_in_ranges(p, "representatives/2010_07_wayne_swan", people)
 
 # Copy across the individual update files
