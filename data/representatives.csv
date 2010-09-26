@@ -257,7 +257,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 245,,David Peter Maxwell Hawker,Wannon,Vic.,16.11.2004,changed_party,17.10.2007,changed_party,SPK
 246,,David Peter Maxwell Hawker,Wannon,Vic.,17.10.2007,changed_party,21.8.2010,retired,LIB
 247,,William George Hayden,Oxley,Qld,9.12.1961,,17.8.1988,resigned,ALP
-248,,Christopher Patrick Hayes,Werriwa,NSW,19.3.2005,by_election, ,still_in_office,ALP
+248,,Christopher Patrick Hayes,Werriwa,NSW,19.3.2005,by_election,21.8.2010,elected_elsewhere,ALP
 249,,Stuart Irwin Henry,Hasluck,WA,9.10.2004,,24.11.2007,defeated,LIB
 250,,Marjorie Madeline Henzell,Capricornia,Qld,13.3.1993,,2.3.1996,defeated,ALP
 251,,John Robert Hewson,Wentworth,NSW,11.7.1987,,28.2.1995,resigned,LIB
@@ -587,20 +587,21 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 586,,Jamie Briggs,Mayo,SA,6.9.2008,by_election,,still_in_office,LIB
 587,,Paul William Fletcher,Bradfield,NSW,5.12.2009,by_election,,still_in_office,LIB
 588,,Kelly O'Dwyer,Higgins,Vic.,5.12.2009,by_election,,still_in_office,LIB
+# 2010 Federal Election
 589,,John Alexander,Bennelong,NSW,21.8.2010,,,still_in_office,LIB
-534,,Ross Xavier Vasta,Bonner,Qld,21.8.2010,,,still_in_office,LNQ
-197,,Teresa Gambaro,Brisbane,Qld,21.8.2010,,,still_in_office,LNQ
-590,,George Robert Christensen,Dawson,Qld,21.8.2010,,,still_in_office,LNQ
+618,,Ross Xavier Vasta,Bonner,Qld,21.8.2010,,,still_in_office,LIB
+619,,Teresa Gambaro,Brisbane,Qld,21.8.2010,,,still_in_office,LIB
+590,,George Robert Christensen,Dawson,Qld,21.8.2010,,,still_in_office,LIB
 591,,Andrew Wilkie,Denison,Tas,21.8.2010,,,still_in_office,IND
-592,,Ken O'Dowd,Flynn,Qld,21.8.2010,,,still_in_office,LNQ
-593,,Bert Van Manen,Forde,Qld,21.8.2010,,,still_in_office,LNQ
-594,,Ken Wyatt,Hasluck,Qld,21.8.2010,,,still_in_office,LNQ
+592,,Ken O'Dowd,Flynn,Qld,21.8.2010,,,still_in_office,LIB
+593,,Bert Van Manen,Forde,Qld,21.8.2010,,,still_in_office,LIB
+594,,Ken Wyatt,Hasluck,Qld,21.8.2010,,,still_in_office,LIB
 595,,Laura Smyth,La Trobe,Vic,21.8.2010,,,still_in_office,ALP
-596,,Warren Entsch,Leichhardt,Qld,21.8.2010,,,still_in_office,LNQ
-597,,Roy Wyatt,Longman,Qld,21.8.2010,,,still_in_office,LNQ
+596,,Warren Entsch,Leichhardt,Qld,21.8.2010,,,still_in_office,LIB
+597,,Wyatt Roy,Longman,Qld,21.8.2010,,,still_in_office,LIB
 598,,Louise Markus,Macquarie,NSW,21.8.2010,,,still_in_office,LIB
 599,,Rob Mitchell,McEwen,Vic,21.8.2010,,,still_in_office,ALP
-600,,Adam Brandt,Melbourne,Vic,21.8.2010,,,still_in_office,GRN
+600,,Adam Bandt,Melbourne,Vic,21.8.2010,,,still_in_office,GRN
 601,,Tony Crook,O'Connor,WA,21.8.2010,,,still_in_office,Nats
 602,,Natasha Griggs,Solomon,NT,21.8.2010,,,still_in_office,CLP
 603,,Geoff Lyons,Bass,Tas,21.8.2010,,,still_in_office,ALP
@@ -611,10 +612,11 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 608,,Dan Tehan,Wannon,Vic,21.8.2010,,,still_in_office,LIB
 609,,Michael McCormack,Riverina,NSW,21.8.2010,,,still_in_office,Nats
 610,,Chris Hayes,Fowler,NSW,21.8.2010,,,still_in_office,ALP
-611,,Ewen Jones,Herbert,Qld,21.8.2010,,,still_in_office,LNQ
-612,,Karen Andrews,McPherson,Qld,21.8.2010,,,still_in_office,LNQ
+611,,Ewen Jones,Herbert,Qld,21.8.2010,,,still_in_office,LIB
+612,,Karen Andrews,McPherson,Qld,21.8.2010,,,still_in_office,LIB
 613,,Andrew Leigh,Fraser,ACT,21.8.2010,,,still_in_office,ALP
 614,,Deborah O'Neill,Robertson,NSW,21.8.2010,,,still_in_office,ALP
 615,,Alan Tudge,Aston,Vic,21.8.2010,,,still_in_office,LIB
 616,,Ed Husic,Chifley,NSW,21.8.2010,,,still_in_office,ALP
 617,,Craig Kelly,Hughes,NSW,21.8.2010,,,still_in_office,LIB
+# Next free member id: 620
