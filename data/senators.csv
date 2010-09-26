@@ -1,5 +1,5 @@
 member count,person count,name,Division,State/Territory,Date of election,Type of election,Date ceased to be a Member,reason,Most recent party
-
+,,,,,,,,,
 1,,Eric Abetz,,Tas.,22.2.1994,section_15,,still_in_office,LIB
 2,,Judith Anne Adams,,WA,1.7.2005,,,still_in_office,LIB
 4,,Richard Kenneth Robert Alston,,Vic.,7.5.1986,section_15,10.2.2004,resigned,LIB
@@ -26,7 +26,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 25,,George Henry Brandis,,Qld,16.5.2000,section_15,,still_in_office,LIB
 26,,Carol Louise Brown,,Tas.,25.8.2005,section_15,,still_in_office,ALP
 27,696,Robert James Brown,,Tas.,1.7.1996,,,still_in_office,GRN
-# TODO: We're also missing Neil Anthony Brown QC
+# TODO: We're also missing Neil Anthony Brown QC,,,,,,,,,
 28,,David Gordon Cadell Brownhill,,NSW,1.12.1984,,14.4.2000,resigned,NPA
 29,,Geoffrey Frederick Buckland,,SA,14.9.2000,section_15,30.6.2005,retired,ALP
 30,,Bryant Robert Burns,,Qld,11.7.1987,,30.6.1996,retired,ALP
@@ -79,15 +79,15 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 77,,John Philip Faulkner,,NSW,4.4.1989,section_15,,still_in_office,ALP
 78,,Alan Baird Ferguson,,SA,26.5.1992,section_15,14.8.2007,changed_party,LIB
 263,,Alan Baird Ferguson,,SA,15.8.2007,changed_party,25.8.2008,changed_party,PRES
-278,,Alan Baird Ferguson,,SA,26.8.2008,changed_party,,still_in_office,DPRES
+278,,Alan Baird Ferguson,,SA,26.8.2008,changed_party,21.8.2010,retired,DPRES
 79,,Jeannie Margaret Ferris,,SA,1.7.1996 ,,12.7.1996 ,resigned; ,LIB
 80,,Jeannie Margaret Ferris,,SA,24.7.1996 ,section_15,2.4.2007 ,died,LIB
-81,,Steve Fielding,,Vic.,1.7.2005 ,,,still_in_office,FFP
+81,,Steve Fielding,,Vic.,1.7.2005 ,,21.8.2010,defeated,FFP
 82,,Concetta Anna Fierravanti-Wells,,NSW,5.5.2005 ,section_15,,still_in_office,LIB
 83,,Mitchell Peter Fifield,,Vic.,31.3.2004 ,section_15,,still_in_office,LIB
 84,,Mary Jo Fisher,,SA,6.6.2007,section_15,,still_in_office,LIB
 85,,Dominic John Foreman,,SA,1.7.1981 ,,15.9.1997 ,resigned,ALP
-86,,Michael George Forshaw,,NSW,10.5.1994,section_15,,still_in_office,ALP
+86,,Michael George Forshaw,,NSW,10.5.1994,section_15,21.8.2010,retired,ALP
 87,,George Georges,,Qld,1.7.1968 ,,5.6.1987 ,defeated,IND
 88,,Brenda Gibbs,,Qld,1.7.1996 ,,30.6.2002 ,defeated,ALP
 89,,Brian Francis Gibson,,Tas.,1.7.1993 ,,22.2.2002 ,resigned,LIB
@@ -157,7 +157,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 154,,Jean Isobelle Melzer,,Vic.,18.5.1974 ,,30.6.1981 ,defeated,ALP
 155,,Anthony John Messner,,SA,13.12.1975 ,,17.4.1990 ,resigned,LIB
 156,,Christine Anne Milne,,Tas.,1.7.2005,,,still_in_office,GRN
-157,,Nicholas Hugh Minchin,,SA,1.7.1993,,,still_in_office,LIB
+157,,Nicholas Hugh Minchin,,SA,1.7.1993,,21.8.2010,retired,LIB
 158,,Alan Joseph Missen,,Vic.,18.5.1974 ,,30.3.1986 ,died,LIB
 159,,Claire Mary Moore,,Qld,1.7.2002,,,still_in_office,ALP
 160,,John Joseph Morris,,NSW,1.7.1985 ,,30.6.1990 ,retired,ALP
@@ -167,7 +167,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 165,,Belinda Jane Neal,,NSW,8.3.1994,section_15,3.9.1998 ,resigned,ALP
 166,,Laurence William Neal,,Vic.,11.3.1980 ,section_15,30.6.1981 ,defeated,NCP
 168,,Jocelyn Margaret Newman,,Tas.,13.3.1986 ,section_15,1.2.2002 ,resigned,LIB
-169,,Kerry Williams Kelso O'Brien,,Tas.,5.9.1996,section_15,,still_in_office,ALP
+169,,Kerry Williams Kelso O'Brien,,Tas.,5.9.1996,section_15,21.8.2010,retired,ALP
 170,,Justin Hilary O'Byrne,,Tas.,1.7.1947 ,,30.6.1981 ,retired,ALP
 171,,William George O'Chee,,Qld,8.5.1990 ,section_15,30.6.1999 ,defeated,NPA
 172,,John Wayne Olsen,,SA,7.5.1990 ,section_15,4.5.1992 ,resigned,LIB
@@ -226,7 +226,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 222,,Andrew Murray Thomas,,WA,13.12.1975 ,,4.2.1983 ,defeated,LIB
 223,,John William Tierney,,NSW,11.2.1991 ,section_15,14.4.2005 ,resigned,LIB
 224,,Michael Townley,,Tas.,1.7.1971 ,,5.6.1987 ,retired,IND
-225,,Judith Mary Troeth,,Vic.,1.7.1993 ,,,still_in_office,LIB
+225,,Judith Mary Troeth,,Vic.,1.7.1993 ,,21.8.2010,retired,LIB
 226,,Russell Brunell Trood,,Qld,1.7.2005 ,,,still_in_office,LIB
 227,,Josephine Vallentine,,WA,1.7.1985 ,,31.1.1992 ,resigned,GWA
 228,,Amanda Eloise Vanstone,,SA,1.12.1984 ,,26.4.2007 ,resigned,LIB
@@ -249,7 +249,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 247,,Harold William Young,,SA,1.7.1968,,18.08.1981,changed_party,LIB
 267,,Harold William Young,,SA,18.08.1981,changed_party,4.2.1983,defeated,PRES
 248,,Alice Olive Zakharov,,Vic.,5.3.1983 ,,6.3.1995 ,died,ALP
-# Senators that started on 1 July 2008
+# Senators that started on 1 July 2008,,,,,,,,,
 249,,Mark Arbib,,NSW,1.7.2008,,,still_in_office,ALP
 250,,Catryna Bilyk,,Tasmania,1.7.2008,,,still_in_office,ALP
 251,,Doug Cameron,,NSW,1.7.2008,,,still_in_office,ALP
@@ -264,7 +264,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 260,,Scott Ryan,,Victoria,1.7.2008,,,still_in_office,LIB
 261,,John Williams,,NSW,1.7.2008,,,still_in_office,NP
 262,,Nick Xenophon,,SA,1.7.2008,,,still_in_office,IND
-# Senators that finished on 1 July 2008
+# Senators that finished on 1 July 2008,,,,,,,,,
 3,,Lynette Fay Allison,,Vic.,1.7.1996,,30.6.2008,defeated,AD
 8,,Andrew John Julian Bartlett,,Qld,30.10.1997,section_15,30.6.2008,defeated,AD
 34,,George Campbell,,NSW,17.9.1997,section_15,30.6.2008,retired,ALP
@@ -280,7 +280,18 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 215,,Natasha Jessica Stott Despoja,,SA,29.11.1995,section_15,30.6.2008,retired,AD
 232,,John Odin Wentworth Watson,,Tas.,1.7.1978 ,,30.6.2008,retired,LIB
 233,,Ruth Stephanie Webber,,WA,1.7.2002 ,,30.6.2008,defeated,ALP
-# Changes on 11.3.2009
+# Changes on 11.3.2009,,,,,,,,,
 72,,Christopher Martin Ellison,,WA,1.7.1993,,30.1.2009,resigned,LIB
 279,,Christopher John Back,,WA,11.3.2009,section_15,,still_in_office,LIB
-# Next available Senator number is 280
+280,,Matthew Thistlethwait,,NSW,21.8.2010,,,still_in_office,ALP
+281,,Lee Rhiannon,,NSW,21.8.2010,,,still_in_office,GRN
+282,,Larissa Waters,,QLD,21.8.2010,,,still_in_office,GRN
+283,,Alex Gallacher,,SA,21.8.2010,,,still_in_office,ALP
+284,,Sean Edwards,,SA,21.8.2010,,,still_in_office,LIB
+285,,Penny Wright,,SA,21.8.2010,,,still_in_office,GRN
+286,,David Fawcett,,SA,21.8.2010,,,still_in_office,LIB
+287,,Anne Urquhart,,Tas.,21.8.2010,,,still_in_office,ALP
+288,,Lisa Singh,,Tas.,21.8.2010,,,still_in_office,ALP
+289,,Richard Di Natale,,Vic.,21.8.2010,,,still_in_office,GRN
+290,,Bridget McKenzie,,Vic.,21.8.2010,,,still_in_office,NP
+291,,John Madigan,,Vic.,21.8.2010,,,still_in_office,DLP
