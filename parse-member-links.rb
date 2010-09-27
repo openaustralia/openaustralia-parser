@@ -124,9 +124,9 @@ x.consinfos do
     x.consinfo(:canonical => name, :abc_election_results_2010 => href)
   end
   # Senate
-  %w(nsw vic qld wa sa tas act nt).each do |name|
+  [["nsw", "NSW"], ["vic", "Victoria"], ["qld", "Queensland"], ["wa", "WA"], ["sa", "SA"], ["tas", "Tasmania"], ["act", "ACT"], ["nt", "NT"]].each do |name, canonical|
     href = "http://www.abc.net.au/elections/federal/2010/guide/s#{name}-results.htm"
-    x.consinfo(:canonical => name.upcase, :abc_election_results_2010 => href)
+    x.consinfo(:canonical => canonical, :abc_election_results_2010 => href)
   end
 end
 xml.close
