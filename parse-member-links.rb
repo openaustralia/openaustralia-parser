@@ -81,7 +81,7 @@ x.peopleinfo do
 end
 xml.close
 
-puts "Election results (from the abc.net.au) ..."
+puts "Election results 2007 (from the abc.net.au) ..."
 
 abc_root = "http://www.abc.net.au"
 xml = File.open("#{conf.members_xml_path}/links-abc-election.xml", 'w')
@@ -108,6 +108,27 @@ x.consinfos do
       name = a.inner_text
       x.consinfo(:canonical => name, :abc_election_results_2007 => href)
     end
+  end
+end
+
+puts "Election results 2010 (from the abc.net.au) ..."
+
+x.consinfos do
+  # Representatives
+  abc_2010_root = "http://www.abc.net.au/elections/federal/2010/guide"
+  url = "#{abc_2010_root}/electorateresults.htm"
+  doc = Hpricot(open(url))
+  (doc/"td.electorate").each do |td|
+    href = td.at("a")['href']
+    href = "#{abc_2010_root}/#{href}"
+    name = td.at("a").inner_text
+    name = name.gsub(/\*/,'').strip
+    x.consinfo(:canonical => name, :abc_election_results_2010 => href)
+  end
+  # Senate
+  %w(nsw vic qld wa sa tas act nt).each do |name|
+    href = "http://www.abc.net.au/elections/federal/2010/guide/s#{name}-results.htm"
+    x.consinfo(:canonical => name.upcase, :abc_election_results_2010 => href)
   end
 end
 xml.close
