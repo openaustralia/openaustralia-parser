@@ -134,8 +134,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 127,,Mary Catherine Crawford,Forde,Qld,11.7.1987,,2.3.1996,defeated,ALP
 128,,Simon Findlay Crean,Hotham,Vic.,24.3.1990,,,still_in_office,ALP
 571,,Manfred Douglas Cross,Brisbane,Qld,9.12.1961,,13.12.1975,defeated,ALP
-572,,Manfred Douglas Cross,Brisbane,Qld,18.10.1980,,24.3.1990,retired,ALP
-129,,Janice Ann Crosio,Brisbane,Qld,18.10.1980,,19.2.1990,retired,ALP
+572,,Manfred Douglas Cross,Brisbane,Qld,18.10.1980,,19.2.1990,retired,ALP
 130,,Janice Ann Crosio,Prospect,NSW,24.3.1990,,31.8.2004,retired,ALP
 131,,Barry Thomas Cunningham,McMillan,Vic.,18.10.1980,,24.3.1990,defeated,ALP
 132,,Barry Thomas Cunningham,McMillan,Vic.,13.3.1993,,2.3.1996,defeated,ALP
@@ -147,7 +146,6 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 138,,Margaret Joan Deahm,Macquarie,NSW,13.3.1993,,2.3.1996,defeated,ALP
 139,,Arthur Gordon Dean,Herbert,Qld,10.12.1977,,5.3.1983,defeated,LIB
 140,,Robert John Debus,Macquarie,NSW,24.11.2007,,21.8.2010,retired,ALP
-141,,Valley Diamond,Menzies,Vic.,1.12.1984,,25.2.1991,resigned,LIB
 142,,James Donald Mathieson Dobie,Cook,NSW,13.12.1975,,29.1.1996,retired,LIB
 143,,James Donald Mathieson Dobie,Cook,NSW,25.10.1969,,2.12.1972,defeated,LIB
 144,,James Donald Mathieson Dobie,Hughes,NSW,26.11.1966,,25.10.1969,elected_elsewhere,LIB
@@ -185,7 +183,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 175,,Wendy Frances Fatin,Brand,WA,1.12.1984,,29.1.1996,retired,ALP
 176,,Wendy Frances Fatin,Canning,WA,5.3.1983,,1.12.1984,elected_elsewhere,ALP
 177,,David Julian Fawcett,Wakefield,SA,9.10.2004,,24.11.2007,defeated,LIB
-178,,Laurie Donald Thomas Ferguson,Reid,NSW,24.3.1990,,,still_in_office,ALP
+178,,Laurie Donald Thomas Ferguson,Reid,NSW,24.3.1990,,21.8.2010,elected_elsewhere,ALP
 179,,Martin John Ferguson,Batman,Vic.,2.3.1996,,,still_in_office,ALP
 180,,Michael Darrel Ferguson,Bass,Tas.,9.10.2004,,24.11.2007,defeated,LIB
 181,,Wallace Clyde Fife,Farrer,NSW,13.12.1975,,1.12.1984,elected_elsewhere,LIB
@@ -362,7 +360,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 349,,Michael John Maher,Lowe,NSW,13.3.1982,by_election,11.7.1987,defeated,ALP
 350,,Paul Marek,Capricornia,Qld,2.3.1996,,3.10.1998,defeated,NPA
 351,,Nola Bethwyn Marino,Forrest,WA,24.11.2007,,,still_in_office,LIB
-352,,Louise Elizabeth Markus,Greenway,NSW,9.10.2004,, ,still_in_office,LIB
+352,,Louise Elizabeth Markus,Greenway,NSW,9.10.2004,,21.8.2010,elected_elsewhere,LIB
 353,,Richard Donald Marles,Corio,Vic,24.11.2007,,,still_in_office,ALP
 355,,Stephen Paul Martin,Macarthur,NSW,1.12.1984,,13.3.1993,elected_elsewhere,ALP
 354,,Stephen Paul Martin,Cunningham,NSW,13.3.1993,,4.5.1993,changed_party,ALP
@@ -407,7 +405,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 389,,Frank William Mossfield,Greenway,NSW,2.3.1996,,31.8.2004,retired,ALP
 390,,John Graham Mountford,Banks,NSW,18.10.1980,,19.2.1990,retired,ALP
 391,,Judith Eleanor Moylan,Pearce,WA,13.3.1993,, ,still_in_office,LIB
-392,,John Paul Murphy,Lowe,NSW,3.10.1998,, ,still_in_office,ALP
+392,,John Paul Murphy,Lowe,NSW,3.10.1998,,21.8.2010,elected_elsewhere,ALP
 393,,Stephen Bruce Mutch,Cook,NSW,2.3.1996,,31.8.1998,retired,LIB
 394,,Gary Roy Nairn,Eden-Monaro,NSW,2.3.1996,,24.11.2007,defeated,LIB
 395,,Belinda Jane Neal,Robertson,NSW,24.11.2007,,21.8.2010,retired,ALP
@@ -546,7 +544,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 526,,Warren Errol Truss,Wide Bay,Qld,24.3.1990,, ,still_in_office,NP
 527,,Charles Wilson Tuckey,O'Connor,WA,18.10.1980,,21.8.2010,defeated,LIB
 528,,Malcolm Bligh Turnbull,Wentworth,NSW,9.10.2004,, ,still_in_office,LIB
-529,,James Pearce Turnour,Leichhardt,Qld,24.11.2007,,,still_in_office,ALP
+529,,James Pearce Turnour,Leichhardt,Qld,24.11.2007,,21.8.2010,defeated,ALP
 530,,Thomas Uren,Reid,NSW,22.11.1958,,19.2.1990,retired,ALP
 531,,Mark Anthony James Vaile,Lyne,NSW,13.3.1993,,30.7.2008,resigned,NP
 532,,Danna Sue Vale,Hughes,NSW,2.3.1996,,21.8.2010,retired,LIB
@@ -619,4 +617,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 615,,Alan Tudge,Aston,Vic,21.8.2010,,,still_in_office,LIB
 616,,Ed Husic,Chifley,NSW,21.8.2010,,,still_in_office,ALP
 617,,Craig Kelly,Hughes,NSW,21.8.2010,,,still_in_office,LIB
-# Next free member id: 620
+618,,Michelle Rowland,Greenway,NSW,21.8.2010,,,still_in_office,ALP
+619,,Laurie Donald Thomas Ferguson,Werriwa,NSW,21.8.2010,,,still_in_office,ALP
+620,,John Paul Murphy,Reid,NSW,21.8.2010,,,still_in_office,ALP
+# Next free member id: 622
