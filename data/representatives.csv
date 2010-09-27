@@ -47,7 +47,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 45,,Neal Blewett,Bonython,SA,10.12.1977,,11.2.1994,resigned,ALP
 46,,Charles William Blunt,Richmond,NSW,18.2.1984,by_election,24.3.1990,defeated,NPA
 47,,John William Bourchier,Bendigo,Vic.,2.12.1972,,5.3.1983,defeated,LIB
-48,,Christopher Eyles Bowen,Prospect,NSW,9.10.2004,, ,still_in_office,ALP
+48,,Christopher Eyles Bowen,Prospect,NSW,9.10.2004,,21.8.2010,elected_elsewhere,ALP
 49,,Lionel Frost Bowen,Kingsford Smith,NSW,25.10.1969,,19.2.1990,retired,ALP
 50,,David John Bradbury,Lindsay,NSW,24.11.2007,,,still_in_office,ALP
 51,,James Mark Bradfield,Barton,NSW,13.12.1975,,5.3.1983,defeated,LIB
@@ -233,7 +233,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 225,,Alan Peter Griffin,Corinella,Vic.,13.3.1993,,2.3.1996,elected_elsewhere,ALP
 226,,Alan Gordon Griffiths,Maribyrnong,Vic.,5.3.1983,,29.1.1996,retired,ALP
 227,,Raymond John Groom,Braddon,Tas.,13.12.1975,,26.10.1984,retired,LIB
-228,,Barry Wayne Haase,Kalgoorlie,WA,3.10.1998,, ,still_in_office,LIB
+228,,Barry Wayne Haase,Kalgoorlie,WA,3.10.1998,,21.8.2010,elected_elsewhere,LIB
 229,,Damian Francis Hale,Solomon,NT,24.11.2007,,21.8.2010,defeated,ALP
 230,,Jill Griffiths Hall,Shortland,NSW,3.10.1998,, ,still_in_office,ALP
 231,,Raymond Steele Hall,Boothby,SA,21.2.1981,by_election,29.1.1996,retired,LIB
@@ -620,4 +620,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 618,,Michelle Rowland,Greenway,NSW,21.8.2010,,,still_in_office,ALP
 619,,Laurie Donald Thomas Ferguson,Werriwa,NSW,21.8.2010,,,still_in_office,ALP
 620,,John Paul Murphy,Reid,NSW,21.8.2010,,,still_in_office,ALP
-# Next free member id: 622
+622,,Barry Wayne Haase,Durack,WA,21.8.2010,,,still_in_office,LIB
+623,,Christopher Eyles Bowen,McMahon,NSW,21.8.2010,,,still_in_office,ALP
+624,,Scott Buchholz,Wright,Qld,21.8.2010,,,still_in_office,LIB
+# Next free member id: 624
