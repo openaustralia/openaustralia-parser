@@ -81,7 +81,6 @@ x.peopleinfo do
 end
 xml.close
 
-puts "Election results 2007 (from the abc.net.au) ..."
 
 abc_root = "http://www.abc.net.au"
 xml = File.open("#{conf.members_xml_path}/links-abc-election.xml", 'w')
@@ -89,6 +88,8 @@ x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
 x.instruct!
 
 x.consinfos do
+  puts "Election results 2007 (from the abc.net.au) ..."
+
   # Representatives
   url = "#{conf.election_web_root}/results/electorateindex.htm"
   doc = Hpricot(open(url))
@@ -109,11 +110,8 @@ x.consinfos do
       x.consinfo(:canonical => name, :abc_election_results_2007 => href)
     end
   end
-end
 
-puts "Election results 2010 (from the abc.net.au) ..."
-
-x.consinfos do
+  puts "Election results 2010 (from the abc.net.au) ..."
   # Representatives
   abc_2010_root = "http://www.abc.net.au/elections/federal/2010/guide"
   url = "#{abc_2010_root}/electorateresults.htm"
