@@ -79,7 +79,7 @@ class Name
     # HACK: Added specific handling for initials DJC, DGH
     if initials_with_fullstops(name)
       initials_with_fullstops(name)
-    elsif name.size <= 2 || name == "DJC" || name == "DGH"
+    elsif (name != "Ed" && name.size <= 2) || name == "DJC" || name == "DGH"
       name
     end
   end

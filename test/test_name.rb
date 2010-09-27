@@ -84,6 +84,12 @@ class TestName < Test::Unit::TestCase
     assert_equal("D'Ath", Name.new(:last => "d’ath").last)
   end
   
+  def test_first_name_ed
+    name = Name.title_first_last("Ed Husic")
+    assert_equal("Husic", name.last)
+    assert_equal("Ed", name.first)
+  end
+  
   def test_non_breaking_space
     # First check names without any unicode
     #assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.title_first_last("Mr John Smith"))
