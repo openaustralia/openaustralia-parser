@@ -302,7 +302,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 291,,Leonard Keith Johnson,Burke,Vic.,25.10.1969,,19.9.1980,retired,ALP
 292,,Leslie Royston Johnson,Hughes,NSW,10.12.1955,,26.11.1966,defeated,ALP
 293,,Leslie Royston Johnson,Hughes,NSW,25.10.1969,,19.12.1983,resigned,ALP
-294,,Michael Andrew Johnson,Ryan,Qld,10.11.2001,, ,still_in_office,LIB
+294,,Michael Andrew Johnson,Ryan,Qld,10.11.2001,,21.8.2010,changed_party,LIB
 295,,Peter Francis Johnson,Brisbane,Qld,13.12.1975,,18.10.1980,defeated,LIB
 296,,James Roger Johnston,Hotham,Vic.,10.12.1977,,18.10.1980,defeated,LIB
 297,,Ricky Johnston,Canning,WA,2.3.1996,,3.10.1998,defeated,LIB
@@ -623,4 +623,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 622,,Barry Wayne Haase,Durack,WA,21.8.2010,,,still_in_office,LIB
 623,,Christopher Eyles Bowen,McMahon,NSW,21.8.2010,,,still_in_office,ALP
 624,,Scott Buchholz,Wright,Qld,21.8.2010,,,still_in_office,LIB
-# Next free member id: 624
+625,,Jane Prentice,Ryan,QLD,21.8.2010,,,still_in_office,LIB
+# Next free member id: 626
