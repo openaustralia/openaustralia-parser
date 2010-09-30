@@ -1,0 +1,11 @@
+--- original.xml	2010-09-30 17:28:42.744428333 +1000
++++ patched.xml	2010-09-30 17:29:11.753889730 +1000
+@@ -2015,7 +2015,7 @@
+ <name>Thomson, C.</name>
+ <name>Thomson, K.J.</name>
+ <name>Vamvakinou, M.</name>
+-<name>Wilkie, R.</name>
++<name>Wilkie, A.</name>
+ <name>Zappia, A.</name>
+ </names>
+ </noes>
