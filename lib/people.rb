@@ -99,8 +99,22 @@ class People < Array
 
   def find_member_by_name_current_on_date(name, date, house)
     matches = find_members_by_name_current_on_date(name, date, house)
-    throw "More than one match for name #{name.full_name} found in #{house.name}" if matches.size > 1
-    matches[0] if matches.size == 1
+    # If multiple matches, try to refine with person's initials
+    if matches.size > 1
+      refined_matches = Array.new
+      matches.each do |m|
+        if m.name.first.wrapped_string[0..0] + m.name.middle[0..0] == name.initials
+          refined_matches << m
+        end
+      end
+      if refined_matches.size == 1
+        refined_matches[0]
+      else
+        throw "More than one match for name #{name.full_name} found in #{house.name}"
+      end
+    else
+      matches[0] if matches.size == 1
+    end
   end
   
   def find_members_by_name(name)
