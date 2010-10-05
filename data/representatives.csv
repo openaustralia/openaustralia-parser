@@ -587,8 +587,8 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 588,,Kelly O'Dwyer,Higgins,Vic.,5.12.2009,by_election,,still_in_office,LIB
 # 2010 Federal Election
 589,,John Alexander,Bennelong,NSW,21.8.2010,,,still_in_office,LIB
-618,,Ross Xavier Vasta,Bonner,Qld,21.8.2010,,,still_in_office,LIB
-619,,Teresa Gambaro,Brisbane,Qld,21.8.2010,,,still_in_office,LIB
+626,,Ross Xavier Vasta,Bonner,Qld,21.8.2010,,,still_in_office,LIB
+627,,Teresa Gambaro,Brisbane,Qld,21.8.2010,,,still_in_office,LIB
 590,,George Robert Christensen,Dawson,Qld,21.8.2010,,,still_in_office,LIB
 591,,Andrew Wilkie,Denison,Tas,21.8.2010,,,still_in_office,IND
 592,,Ken O'Dowd,Flynn,Qld,21.8.2010,,,still_in_office,LIB
@@ -624,4 +624,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 623,,Christopher Eyles Bowen,McMahon,NSW,21.8.2010,,,still_in_office,ALP
 624,,Scott Buchholz,Wright,Qld,21.8.2010,,,still_in_office,LIB
 625,,Jane Prentice,Ryan,QLD,21.8.2010,,,still_in_office,LIB
-# Next free member id: 626
+# Next free member id: 628
