@@ -1,0 +1,11 @@
+--- original.xml	2010-11-16 09:01:08.335671001 +1100
++++ patched.xml	2010-11-16 09:01:40.285671001 +1100
+@@ -8908,7 +8908,7 @@
+ <party>LP</party>
+ <in.gov>0</in.gov>
+ <first.speech>0</first.speech>
+-<name role="display">Mrs ANDREWS</name>
++<name role="display">Andrews, Karen, MP</name>
+ </talker>
+ <para>—I rise to speak in support of the <inline ref="R4481">National Broadband Network Financial Transparency Bill 2010</inline>. With any major project, it is important to understand the need to maintain a sound theoretical approach. Costs, benefits, safety and quality must be paramount, especially in the case of introducing a new technology. It is reasonable for Australians to expect that this occurs not only with the NBN but with all major projects. Listening to the speakers on this bill from the government side, it is not clear that the government understands what this bill is about. The government speakers have focused on the need for high-speed internet and its broad accessibility and adoption. The opposition do not disagree, but we on this side of the chamber know that a successful implementation of any major project depends on thorough analysis.</para>
+ </talk.start>
