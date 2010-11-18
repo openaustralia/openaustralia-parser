@@ -1,0 +1,11 @@
+--- original.xml	2010-11-18 16:54:32.218641003 +1100
++++ patched.xml	2010-11-18 16:55:12.018731003 +1100
+@@ -4593,7 +4593,7 @@
+ <talker>
+ <name.id>230886</name.id>
+ <name role="metadata">Andrews, Karen, MP</name>
+-<name role="display">Mrs Andrews</name>
++<name role="display">Andrews, Karen, MP</name>
+ </talker>
+ <para>—Nothing!</para>
+ </talk.start>
