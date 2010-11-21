@@ -1,0 +1,38 @@
+--- original.xml	2010-11-22 08:38:44.934954000 +1100
++++ patched.xml	2010-11-22 08:40:01.294954001 +1100
+@@ -2153,7 +2153,7 @@
+ <party>LP</party>
+ <in.gov>0</in.gov>
+ <first.speech>0</first.speech>
+-<name role="display">Mrs ANDREWS</name>
++<name role="display">Andrews, Karen, MP</name>
+ </talker>
+ <para>—I rise to speak on the <inline ref="R4446">Higher Education Legislation Amendment (Student Services and Amenities) Bill 2010</inline>. This bill will introduce a new tax, levied regardless of income or economic position, and will add an additional cost to a tertiary qualification. It will be levied regardless of whether a student will ever access the services they are meant to be paying for. It will impact external students, full-time students and part-time students as if they have equal access to services. This bill increases the financial impost on students. It does so without improving the standards of education or educational outcomes and infringes on the rights of students. This bill is yet another example of this government not understanding what students actually want and care about or what will make participation in our educational institutions easier. We have seen this all before, when changes were made to Youth Allowance requirements making it more difficult, especially for students outside our major cities, to get an education.</para>
+ </talk.start>
+@@ -2670,7 +2670,7 @@
+ <party>LP</party>
+ <in.gov>0</in.gov>
+ <first.speech>0</first.speech>
+-<name role="display">Mr ANDREWS</name>
++<name role="display">Andrews, Karen, MP</name>
+ </talker>
+ <para>—I rise to speak on the<inline ref="R4470">Families, Housing, Community Services and Indigenous Affairs and Other Legislation Amendment (Budget and Other Measures) Bill 2010</inline>. This bill encompasses proposed amendments to special disability trusts, the disability support pension, family tax benefit and anomalies in social security legislation relating to pensions. The decision by Minister Macklin to withdraw the schedules relating to Aboriginal land trusts and the Indigenous Land Corporation following a request by the coalition is welcomed, and I thank the minister for her agreement to withdraw those schedules so as to ensure no delay in other parts of the bill. The ability of a Senate inquiry to provide closer scrutiny on key issues is, in the coalition’s view, of paramount importance.</para>
+ </talk.start>
+@@ -5145,7 +5145,7 @@
+ <party>LP</party>
+ <in.gov>0</in.gov>
+ <first.speech>0</first.speech>
+-<name role="display">Mrs ANDREWS</name>
++<name role="display">Andrews, Karen, MP</name>
+ </talker>
+ <para>—As I have previously advised the House, Australia Post has announced that it will close the Palm Beach post office on 26 November. This will devastate the Palm Beach community, the businesses, the local economy and those who rely on the post office’s services.</para>
+ </talk.start>
+@@ -5356,7 +5356,7 @@
+ <party>LP</party>
+ <in.gov>0</in.gov>
+ <first.speech>0</first.speech>
+-<name role="display">Mrs ANDREWS</name>
++<name role="display">Andrews, Karen, MP</name>
+ </talker>
+ <para>—I rise to speak about the surfboard manufacturing industry. There are approximately 200 surfboard manufacturers located between Burleigh Heads and Coolangatta on the southern Gold Coast. Some are small manufacturers producing one or two hand shaped boards per week, and there are also larger manufacturers producing much greater numbers.</para>
+ </talk.start>
