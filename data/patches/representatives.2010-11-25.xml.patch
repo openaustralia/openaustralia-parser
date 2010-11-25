@@ -1,0 +1,11 @@
+--- original.xml	2010-11-26 07:23:41.022419004 +1100
++++ patched.xml	2010-11-26 07:23:57.612419003 +1100
+@@ -6525,7 +6525,7 @@
+ <party>LP</party>
+ <in.gov>0</in.gov>
+ <first.speech>0</first.speech>
+-<name role="display">Mrs ANDREWS</name>
++<name role="display">Andrews, Karen, MP</name>
+ </talker>
+ <para>—I rise to support the matter of public importance today. The government should be ashamed that it has failed to take any action to alleviate the cost-of-living pressures in the lead-up to Christmas. This is a time when family budgets are pushed to the brink, when a lack of funds means fewer Christmas presents or maybe no Christmas presents at all, fewer guests at the Christmas table or maybe no guests at all. It could mean that school holiday activities have to be significantly reduced or perhaps not take place at all simply because there are no funds or there are very limited funds.</para>
+ </talk.start>
