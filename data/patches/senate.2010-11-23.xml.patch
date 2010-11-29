@@ -1,0 +1,11 @@
+--- original.xml	2010-11-29 11:23:58.597753010 +1100
++++ patched.xml	2010-11-29 11:40:31.147753011 +1100
+@@ -3409,7 +3409,7 @@
+ </para>
+ </quote>
+ <motionnospeech>
+-<name>SenatorBOB BROWN</name>
++<name>Senator BOB BROWN</name>
+ <electorate>(Tasmania</electorate>
+ <role>—Leader of the Australian Greens)</role>
+ <time.stamp>15:34:00</time.stamp>
