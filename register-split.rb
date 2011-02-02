@@ -65,6 +65,7 @@ read_in_ranges(p, "senate/2008_12", people)
 read_in_ranges(p, "senate/2009_06", people)
 read_in_ranges(p, "senate/2009_11", people)
 read_in_ranges(p, "senate/2010_06", people)
+read_in_ranges(p, "senate/2010_12", people)
 read_in_ranges(p, "representatives/2008_03_vol_1", people)
 read_in_ranges(p, "representatives/2008_03_vol_2", people)
 read_in_ranges(p, "representatives/2008_03_vol_3", people)
@@ -85,6 +86,7 @@ read_in_ranges(p, "representatives/2010_07_wayne_swan", people)
 
 # Copy across the individual update files
 FileUtils.cp("data/register_of_interests/senate/2010_06.pdf", "#{conf.base_dir}#{conf.regmem_pdf_path}/update_senate_2010_06.pdf")
+FileUtils.cp("data/register_of_interests/senate/2010_12.pdf", "#{conf.base_dir}#{conf.regmem_pdf_path}/update_senate_2010_12.pdf")
 
 # Now step through all the people and create the pdfs
 p.each do |person, ranges|
