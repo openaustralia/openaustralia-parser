@@ -1,0 +1,11 @@
+--- original.xml	2011-02-14 07:57:11.299600873 +1100
++++ patched.xml	2011-02-14 07:58:23.719646460 +1100
+@@ -5633,7 +5633,7 @@
+ <party>LP</party>
+ <in.gov>0</in.gov>
+ <first.speech>0</first.speech>
+-<name role="display">Mrs ANDREWS</name>
++<name role="display">Andrews, Karen, MP</name>
+ </talker>
+ <para>—Tourism is the Gold Coast’s lifeblood. The flow-through effect from tourism touches almost every other industry on the Gold Coast and, therefore, most of its workers and families. After coal, tourism is the largest export earner for Queensland and contributes billions of dollars to the state’s economy. Throughout Queensland, 122,000 people are employed in tourism businesses, with an additional 100,000 people working in businesses supported by the money flowing from tourism. These include businesses such as restaurants, newsagents and a whole range of small to medium enterprises. Eighty-five per cent of tourism businesses in Queensland are small businesses, businesses to which cashflow is so important and where an unforseen disaster can devastate. Without doubt, tourism is vitally important to Queensland and especially the Gold Coast, and the industry now needs our support more than ever.</para>
+ </talk.start>
