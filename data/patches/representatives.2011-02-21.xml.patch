@@ -1,0 +1,42 @@
+--- original.xml	2011-02-23 10:36:14.198599807 +1100
++++ patched.xml	2011-02-23 10:56:54.527760225 +1100
+@@ -4927,7 +4927,7 @@
+ <electorate>McPherson</electorate>
+ <party>LP</party>
+ <in.gov>0</in.gov>
+-<name role="display">Mrs ANDREWS</name>
++<name role="display">Andrews, Karen, MP</name>
+ </talker>
+ <para>—My question is to the Assistant Treasurer. What will the Commonwealth’s share of the funding of any new hospital building be during the period of the government’s latest health reform proposal?</para>
+ </talk.start>
+@@ -5687,8 +5687,8 @@
+ <talk.start>
+ <talker>
+ <name.id>10000</name.id>
+-<name role="metadata">’Ath, Yvette (The DEPUTY SPEAKER)</name>
+-<name role="display">The DEPUTY SPEAKER</name>
++<name role="metadata">D’Ath, Yvette (The DEPUTY SPEAKER)</name>
++<name role="display">D’Ath, Yvette, MP</name>
+ </talker>
+ <para>
+ <inline font-weight="bold">(Mrs D’Ath)</inline>—The original question was that the motion be agreed to. To this the honourable member for Melbourne has moved as an amendment that all words after ‘That’ be omitted with a view to substituting other words. The question now is that the words proposed to be omitted stand part of the question—in other words, at this point those who support Mr Bandt’s motion should vote no.</para>
+@@ -6185,8 +6185,8 @@
+ <talk.start>
+ <talker>
+ <name.id>10000</name.id>
+-<name role="metadata">’Ath, Yvette (The DEPUTY SPEAKER)</name>
+-<name role="display">The DEPUTY SPEAKER</name>
++<name role="metadata">D’Ath, Yvette (The DEPUTY SPEAKER)</name>
++<name role="display">D’Ath, Yvette, MP</name>
+ </talker>
+ <para>
+ <inline font-weight="bold">(Mrs D’Ath)</inline>—Does the member for Dobell wish to move a motion in connection with the report to enable it to be debated on a future occasion?</para>
+@@ -7189,7 +7189,7 @@
+ <party>LP</party>
+ <in.gov>0</in.gov>
+ <first.speech>0</first.speech>
+-<name role="display">Mrs ANDREWS</name>
++<name role="display">Andrews, Karen, MP</name>
+ </talker>
+ <para>—I rise to support the main points of the motion put forward by the member for Shortland. My electorate of McPherson has a significant number of older Australians and, in my opinion, they make a considerable contribution to our community. Today there are two specific issues outlined in the motion that I would like to address, the first being the contribution of seniors as volunteers. Volunteers are very important to local communities, and the southern Gold Coast is certainly no exception. In many instances it would be easy to miss their contribution as most are not out trumpeting their own successes; they are in the background working hard generally for no reward other than the satisfaction of helping a fellow human being. The bulk of our volunteers are senior Australians—retirees who, having left their paid work life behind, have begun another work life. There is no pay. The hours may be long and the work not glamorous, but the rewards are there in the sense of satisfaction in helping others and making a contribution to the wellbeing of the community.</para>
+ </talk.start>
