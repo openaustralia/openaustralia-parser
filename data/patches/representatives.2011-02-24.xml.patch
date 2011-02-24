@@ -1,0 +1,11 @@
+--- original.xml	2011-02-25 10:22:47.168729272 +1100
++++ patched.xml	2011-02-25 10:23:24.538127158 +1100
+@@ -2147,7 +2147,7 @@
+ <party>LP</party>
+ <in.gov>0</in.gov>
+ <first.speech>0</first.speech>
+-<name role="display">Mrs ANDREWS</name>
++<name role="display">Andrews, Karen, MP</name>
+ </talker>
+ <para>—The southern Gold Coast accounts for much of the manufacture of surf craft in Australia. I have spoken about this industry previously in this place, and I now have to inform the House that this industry is struggling. I have spoken at length with representatives of the industry, including Michelle Blauw, a local board manufacturer who has been instrumental in the establishment of a steering committee to set up the Australian Surf-Craft Manufacturing Industry Association.</para>
+ </talk.start>
