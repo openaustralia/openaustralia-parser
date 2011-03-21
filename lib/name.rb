@@ -1,6 +1,6 @@
 require 'environment'
 require 'enumerator'
-require 'active_support'
+require 'active_support/all'
 
 $KCODE = 'u'
 
