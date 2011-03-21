@@ -8,7 +8,7 @@ gem 'mechanize', "= 0.9.2"
 gem 'hpricot', "= 0.6.164"
 gem 'htmlentities'
 
-gem 'builder'
+gem 'builder', '2.1.2'
 gem 'log4r'
 
 gem 'rspec'
