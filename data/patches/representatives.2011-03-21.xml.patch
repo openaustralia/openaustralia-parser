@@ -1,0 +1,29 @@
+--- original.xml	2011-03-24 17:05:54.283053884 +1100
++++ patched.xml	2011-03-24 17:06:14.663192583 +1100
+@@ -1799,7 +1799,7 @@
+ <party>LP</party>
+ <in.gov>0</in.gov>
+ <first.speech>0</first.speech>
+-<name role="display">Mrs ANDREWS</name>
++<name role="display">Andrews, Karen, MP</name>
+ </talker>
+ <para>—I rise to speak in support of the <inline ref="R4514">Schools Assistance Amendment (Financial Assistance) Bill 2011</inline>. This bill seeks to amend the Schools Assistance Act 2008 to extend the existing funding arrangements, including recurrent funding arrangements until the end of 2013 and grants for capital expenditure until the end of 2014, for non-government schools. I begin by putting on the record what I believe is the importance of education. Education is a process of imparting skills and knowledge. It provides access to information and the opportunity to acquire deeper knowledge. It enables and extends practical experience and interacts with technology to enhance productivity. From preschool kids to adult learners, participants in education have greater opportunities to build their self-awareness and confidence. Education helps to develop resilience and to secure a stable family income. Education is a building block of innovation—it inspires creativity and enlivens passion. Education connects our community and helps us build a better world for the next generations.</para>
+ </talk.start>
+@@ -8489,7 +8489,7 @@
+ <talk.start>
+ <talker>
+ <name.id>10000</name.id>
+-<name role="metadata">’Ath, Yvette (The DEPUTY SPEAKER)</name>
++<name role="metadata">D’Ath, Yvette (The DEPUTY SPEAKER)</name>
+ <name role="display">The DEPUTY SPEAKER</name>
+ </talker>
+ <para>
+@@ -8651,7 +8651,7 @@
+ <talk.start>
+ <talker>
+ <name.id>10000</name.id>
+-<name role="metadata">’Ath, Yvette (The DEPUTY SPEAKER)</name>
++<name role="metadata">D’Ath, Yvette (The DEPUTY SPEAKER)</name>
+ <name role="display">The DEPUTY SPEAKER</name>
+ </talker>
+ <para>
