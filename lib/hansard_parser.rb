@@ -59,7 +59,9 @@ class HansardParser
     agent.cache_subdirectory = cache_subdirectory(date, house)
 
     # This is the page returned by Parlinfo Search for that day
-    url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:chamber/hansard#{house.representatives? ? "r" : "s"}/#{date}/0000"
+    url = "http://parlinfo.aph.gov.au/parlInfo/search/summary/summary.w3p;adv=yes;orderBy=_fragment_number,doc_date-rev;page=0;query=Dataset%3Ahansard#{house.representatives? ? "r" : "s"},hansard#{house.representatives? ? "r" : "s"}80%20Date%3A23%2F08%2F2011;resCount=Default"
+    url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;adv=yes;orderBy=_fragment_number,doc_date-rev;page=0;query=Dataset%3Ahansard#{house.representatives? ? "r" : "s"},hansard#{house.representatives? ? "r" : "s"}80%20Date%3A#{date.day}%2F#{date.month}%2F#{date.year};rec=0;resCount=Default"
+    puts url
     page = agent.get(url)
     tag = page.at('div#content center')
     if tag && tag.inner_html =~ /^Unable to find document/
