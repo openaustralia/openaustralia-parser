@@ -15,17 +15,17 @@ class Configuration
     end
     
     # Load the information from the mysociety configuration
-    require "#{web_root}/rblib/config"
-    MySociety::Config.set_file("#{web_root}/twfy/conf/general")
-    @database_host = MySociety::Config.get('DB_HOST')
-    @database_user = MySociety::Config.get('DB_USER')
-    @database_password = MySociety::Config.get('DB_PASSWORD')
-    @database_name = MySociety::Config.get('DB_NAME')
-    @file_image_path = MySociety::Config.get('FILEIMAGEPATH')
-    @members_xml_path = MySociety::Config.get('PWMEMBERS')
-    @xml_path = MySociety::Config.get('RAWDATA')
-    @regmem_pdf_path = MySociety::Config.get('REGMEMPDFPATH')
-    @base_dir = MySociety::Config.get('BASEDIR')
+    #require "#{web_root}/rblib/config"
+    #MySociety::Config.set_file("#{web_root}/twfy/conf/general")
+    #@database_host = MySociety::Config.get('DB_HOST')
+    #@database_user = MySociety::Config.get('DB_USER')
+    #@database_password = MySociety::Config.get('DB_PASSWORD')
+    #@database_name = MySociety::Config.get('DB_NAME')
+    #@file_image_path = MySociety::Config.get('FILEIMAGEPATH')
+    @members_xml_path = "/tmp"
+    @xml_path = "/tmp"
+    @regmem_pdf_path = "/tmp"
+    @base_dir = "/tmp"
   end
   
   # Ruby magic

@@ -103,7 +103,7 @@ class People < Array
     if matches.size > 1
       refined_matches = Array.new
       matches.each do |m|
-        if m.name.first.wrapped_string[0..0] + m.name.middle[0..0] == name.initials
+        if m.name.first.wrapped_string[0..0] + m.name.middle[0..0] == name.initials[0..1]
           refined_matches << m
         end
       end

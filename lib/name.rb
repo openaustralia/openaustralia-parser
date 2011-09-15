@@ -80,6 +80,8 @@ class Name
     # HACK: Added specific handling for initials DJC, DGH
     if initials_with_fullstops(name)
       initials_with_fullstops(name)
+    elsif (name.upcase == name)
+      name
     elsif (name != "Ed" && name.size <= 2) || name == "DJC" || name == "DGH"
       name
     end
@@ -205,7 +207,7 @@ class Name
   def middle_matches?(name)
     if !has_middle? || !name.has_middle?
       if (has_middle_initials? && name.has_middle?) || (has_middle? && name.has_middle_initials?)
-        middle_initials == name.middle_initials
+        middle_initials == name.middle_initials[0..middle_initials.length-1]
       else
         true
       end
