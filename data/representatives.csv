@@ -354,7 +354,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 343,,Edward Carrington Mack,North Sydney,NSW,24.3.1990,,29.1.1996,retired,IND
 344,,Michael John Randal Mackellar,Warringah,NSW,25.10.1969,,18.2.1994,resigned,LIB
 345,,Alexander John Mackenzie,Calare,NSW,13.12.1975,,5.3.1983,defeated,NPA
-346,,Jennifer Louise Macklin,Jagajaga,Vic.,2.3.1996,, ,still_in_office,ALP
+346,,Jennifer Louise Macklin,Jagajaga,Vic.,2.3.1996,,,still_in_office,ALP
 347,,Ian Malcolm Macphee,Balaclava,Vic.,18.5.1974,,1.12.1984,elected_elsewhere,LIB
 348,,Ian Malcolm Macphee,Goldstein,Vic.,1.12.1984,,19.2.1990,retired,LIB
 349,,Michael John Maher,Lowe,NSW,13.3.1982,by_election,11.7.1987,defeated,ALP
@@ -625,5 +625,21 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 624,,Scott Buchholz,Wright,Qld,21.8.2010,,,still_in_office,LIB
 625,,Jane Prentice,Ryan,QLD,21.8.2010,,,still_in_office,LIB
 # Next free member id: 628
-628,,Anna Jane Crook,Ryan,QLD,21.8.2010,,,still_in_office,LIB
-629,,Anna Jane Van Manen,Ryan,QLD,21.8.2010,,,still_in_office,LIB
+629,,Mr Tony Windsor,New England,NSW,11.3.2009,section_15,,still_in_office,IND
+630,,Mr Tony Zappia,Makin,SA,11.3.2009,section_15,,still_in_office,ALP
+631,,The Hon Tony Abbott,Warringah,NSW,11.3.2009,section_15,,still_in_office,LIB
+632,,The Hon Bob Baldwin,Paterson,NSW,11.3.2009,section_15,,still_in_office,LIB
+633,,The Hon Tony Burke,Watson,NSW,11.3.2009,section_15,,still_in_office,ALP
+634,,Mr Nick Champion,Wakefield,SA,11.3.2009,section_15,,still_in_office,ALP
+635,,The Hon Kate Ellis,Adelaide,SA,11.3.2009,section_15,,still_in_office,ALP
+636,,Mr Steve Gibbons,Bendigo,Victoria,11.3.2009,section_15,,still_in_office,ALP
+637,,The Hon Joe Hockey,North Sydney,NSW,11.3.2009,section_15,,still_in_office,LIB
+638,,Mr Steve Irons,Swan,WA,11.3.2009,section_15,,still_in_office,LIB
+639,,The Hon Bob Katter,Kennedy,Queensland,11.3.2009,section_15,,still_in_office,IND
+640,,The Hon Dr Mike Kelly,Eden-Monaro,NSW,11.3.2009,section_15,,still_in_office,ALP
+642,,Mr Bernie Ripoll,Oxley,Queensland,11.3.2009,section_15,,still_in_office,ALP
+643,,Mr Alby Schultz,Hume,NSW,11.3.2009,section_15,,still_in_office,LIB
+644,,The Hon Bill Shorten,Maribyrnong,Victoria,11.3.2009,section_15,,still_in_office,ALP
+645,,Mr Sid Sidebottom,Braddon,Tasmania,11.3.2009,section_15,,still_in_office,ALP
+646,,The Hon Tony Smith,Casey,Victoria,11.3.2009,section_15,,still_in_office,LIB
+647,,Mr Mike Symon,Deakin,Victoria,11.3.2009,section_15,,still_in_office,ALP

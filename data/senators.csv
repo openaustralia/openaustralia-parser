@@ -283,25 +283,22 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 # Changes on 11.3.2009
 72,,Christopher Martin Ellison,,WA,1.7.1993,,30.1.2009,resigned,LIB
 279,,Christopher John Back,,WA,11.3.2009,section_15,,still_in_office,LIB
-# Next available Senator number is 280
-280,,Richard Di Natale,,Vic.,11.3.2009,section_15,,still_in_office,GRN
-281,,Alex Gallacher,,SA,11.3.2009,section_15,,still_in_office,ALP
-282,,Lee Rhiannon,,NSW,11.3.2009,section_15,,still_in_office,GRN
-283,,Lisa Singh,,Tas.,11.3.2009,section_15,,still_in_office,LIB
-284,,Matt Thistlethwaite,,NSW,11.3.2009,section_15,,still_in_office,ALP
-285,,Mark Bishop,,WA,11.3.2009,section_15,,still_in_office,ALP
-286,,Sue Boyce,,Queensland,11.3.2009,section_15,,still_in_office,LIB
-287,,Bob Brown,,Tasmania,11.3.2009,section_15,,still_in_office,GRN
-288,,Trish Crossin,,NT,11.3.2009,section_15,,still_in_office,ALP
-289,,Sean Edwards,,SA,11.3.2009,section_15,,still_in_office,LIB
-290,,David Fawcett,,SA,11.3.2009,section_15,,still_in_office,LIB
-291,,Bill Heffernan,,NSW,11.3.2009,section_15,,still_in_office,LIB
-292,,Joe Ludwig,,Queensland,11.3.2009,section_15,,still_in_office,ALP
-293,,Bridget McKenzie,,Victoria,11.3.2009,section_15,,still_in_office,NP
-# FIXME: Should be the DLP != ALP
-294,,John Madigan,,Victoria,11.3.2009,section_15,,still_in_office,ALP
-295,,Nick Sherry,,Tasmania,11.3.2009,section_15,,still_in_office,ALP
-296,,Anne Urquhart,,Tasmania,11.3.2009,section_15,,still_in_office,ALP
-297,,Larissa Waters,,Queensland,11.3.2009,section_15,,still_in_office,GRN
-298,,Penny Wong,,SA,11.3.2009,section_15,,still_in_office,ALP
-299,,Penny Wright,,SA,11.3.2009,section_15,,still_in_office,GRN
+# Next available Senator number is: 280
+281,,Mark Bishop,,WA,11.3.2009,section_15,,still_in_office,ALP
+282,,Sue Boyce,,Queensland,11.3.2009,section_15,,still_in_office,LIB
+283,,Bob Brown,,Tasmania,11.3.2009,section_15,,still_in_office,GRN
+285,,Richard Di Natale,,Victoria,11.3.2009,section_15,,still_in_office,GRN
+286,,Sean Edwards,,SA,11.3.2009,section_15,,still_in_office,LIB
+287,,David Fawcett,,SA,11.3.2009,section_15,,still_in_office,LIB
+288,,Alex Gallacher,,SA,11.3.2009,section_15,,still_in_office,ALP
+290,,Hon Joe Ludwig,,Queensland,11.3.2009,section_15,,still_in_office,ALP
+291,,Bridget McKenzie,,Victoria,11.3.2009,section_15,,still_in_office,NP
+# FIXME: This should be the DLP not the ALP
+292,,John Madigan,,Victoria,11.3.2009,section_15,,still_in_office,ALP
+293,,Lee Rhiannon,,NSW,11.3.2009,section_15,,still_in_office,GRN
+294,,Hon Nick Sherry,,Tasmania,11.3.2009,section_15,,still_in_office,ALP
+295,,Hon Lisa Singh,,Tasmania,11.3.2009,section_15,,still_in_office,ALP
+296,,Matt Thistlethwaite,,NSW,11.3.2009,section_15,,still_in_office,ALP
+297,,Anne Urquhart,,Tasmania,11.3.2009,section_15,,still_in_office,ALP
+298,,Larissa Waters,,Queensland,11.3.2009,section_15,,still_in_office,GRN
+300,,Penny Wright,,SA,11.3.2009,section_15,,still_in_office,GRN

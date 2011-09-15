@@ -741,13 +741,13 @@ person count,aph id,name,birthday,alt name
 726,230485,George Robert Christensen,
 727,C2T,Andrew Wilkie,
 728,441,Ken O'Dowd,
-729,315,Bert Van Manen,
+729,315,Bert Van Manen,,Albertus Johannes Van Manen
 730,M3A,Ken Wyatt,
 731,770,Laura Smyth,
 732,M2X,Wyatt Roy,
 733,M3E,Rob Mitchell,
 734,M3C,Adam Bandt,
-735,M3K,Tony Crook,
+735,M3K,Tony Crook,,Anthony John Crook
 736,370,Natasha Griggs,
 737,M38,Geoff Lyons,
 738,30540,Gai Brodtmann,
@@ -767,22 +767,36 @@ person count,aph id,name,birthday,alt name
 752,230531,Scott Buchholz,
 753,217266,Jane Prentice,
 # Next available number is 754
-754,217267,Anna Jane Crook,
-755,217268,Anna Jane Van Manen,
-756,53369,Richard Di Natale,
-757,204953,Alex Gallacher,
-758,CPR,Lee Rhiannon,
-759,M0R,Hon Lisa Singh,
-760,182468,Matt Thistlethwaite,
 # ID changed!
-761,225307,Sean Edwards,
+#5,E4Q,Judith Adams,,
+755,53369,Richard Di Natale,,
+756,225307,Sean Edwards,,
 # ID changed!
-762,207825,Bridget McKenzie,
+#222,E4T,Concetta Fierravanti-Wells,,
+757,204953,Alex Gallacher,,
 # ID changed!
-763,217571,John Madigan,
+#350,E5D,Barnaby Joyce,,
 # ID changed!
-764,231199,Anne Urquhart,
+#433,E5E,Anne McEwen,,
+758,207825,Bridget McKenzie,,
+759,217571,John Madigan,,
 # ID changed!
-765,192970,Larissa Waters,
+#458,KA5,Christine Milne,,
 # ID changed!
-766,200287,Penny Wright,
+#478,E5G,Fiona Nash,,
+# ID changed!
+#507,E5V,Stephen Parry,,
+# ID changed!
+#515,E5X,Helen Polley,,
+760,CPR,Lee Rhiannon,,
+# ID changed!
+#550,XT4,Hon Michael Ronaldson,,
+# ID changed!
+#584,E5Z,Rachel Siewert,,
+761,M0R,Hon Lisa Singh,,
+# ID changed!
+#610,E68,Glenn Sterle,,
+762,182468,Matt Thistlethwaite,,
+763,231199,Anne Urquhart,,
+764,192970,Larissa Waters,,
+765,200287,Penny Wright,,

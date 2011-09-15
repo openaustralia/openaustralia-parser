@@ -104,7 +104,7 @@ class People < Array
       refined_matches = Array.new
       matches.each do |m|
 	m.person.all_names.each do |n|
-          if n.first.wrapped_string[0..0] + n.middle[0..0] == name.initials[0..2]
+          if n.real_initials[0..2] == name.real_initials[0..2]
             found = nil
             refined_matches.each do |x|
               if x.person == m.person
@@ -121,7 +121,7 @@ class People < Array
       	# Try again with just the first initial
         matches.each do |m|
   	  m.person.all_names.each do |n|
-            if n.first.wrapped_string[0..0] == name.initials[0..1]
+            if n.real_initials[0..1] == name.real_initials[0..1]
               found = nil
               refined_matches.each do |x|
                 if x.person == m.person
@@ -138,7 +138,7 @@ class People < Array
       if refined_matches.size == 1
         refined_matches[0]
       else
-        throw "More than one match for name #{name.full_name} found in #{house.name}"
+        throw "More than one match for name #{name.full_name} #{name.real_initials} found in #{house.name}"
       end
     else
       matches[0] if matches.size == 1

@@ -152,6 +152,10 @@ class HansardDay
           # (There are also '<a href' records which point to bills rather then
           # people.)
           ahref = p.search('//a')[0] if p.search('//a').length > 0
+          if not ahref.nil? and ahref.attributes['type'].nil?
+            warn "Found a link without type!? #{ahref}"
+            next
+          end
           if not ahref.nil? and ahref.attributes['type'].match(/^Member/)
 
             # Is this start of a speech? We can tell by the fact it has spans
