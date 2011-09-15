@@ -245,7 +245,7 @@ class HansardSpeech
       clean_content_motion(e)
     when 'amendment', 'quote'
       clean_content_recurse(e, 'italic')
-    when 'talk.start', 'amendments', 'motionnospeech', 'interjection', 'continue'
+    when 'amendments', 'motionnospeech', 'interjection', 'continue', 'answer', 'question'
       clean_content_recurse(e)
     when 'tgroup', 'thead', 'tbody'
       clean_content_recurse(e, override_type)
@@ -268,8 +268,6 @@ class HansardSpeech
     when 'graphic'
       clean_content_graphic(e)
     when 'talker', 'name', 'electorate', 'role', 'time.stamp', 'tggroup', 'separator', 'colspec'
-      ""
-    when 'talk.text', 'debate.text', 'subdebate.text' 
       ""
     when 'Error'
       # Should use @logger.warn here but can't because I don't have access to the logger object. Ho hum.

@@ -103,8 +103,36 @@ class People < Array
     if matches.size > 1
       refined_matches = Array.new
       matches.each do |m|
-        if m.name.first.wrapped_string[0..0] + m.name.middle[0..0] == name.initials[0..1]
-          refined_matches << m
+	m.person.all_names.each do |n|
+          if n.first.wrapped_string[0..0] + n.middle[0..0] == name.initials[0..2]
+            found = nil
+            refined_matches.each do |x|
+              if x.person == m.person
+                found = x.person
+              end
+            end
+            if found.nil?
+              refined_matches << m
+            end
+          end
+        end
+      end
+      if refined_matches.size == 0
+      	# Try again with just the first initial
+        matches.each do |m|
+  	  m.person.all_names.each do |n|
+            if n.first.wrapped_string[0..0] == name.initials[0..1]
+              found = nil
+              refined_matches.each do |x|
+                if x.person == m.person
+                  found = x.person
+                end
+              end
+              if found.nil?
+                refined_matches << m
+              end
+            end
+          end
         end
       end
       if refined_matches.size == 1
