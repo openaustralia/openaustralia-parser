@@ -27,7 +27,12 @@ class PeopleCSVReader
       name = Name.title_first_last(name_text)
 
       # You can specify multiple alternate names by filling out the next columns
-      alternate_names = line[4..-1].map{|t| Name.title_first_last(t)}
+      alternate_names = []
+      line[4..-1].each { |t|
+        if not t.nil? and t.length > 0
+          alternate_names << Name.title_first_last(t)
+        end
+      }
       people << Person.new(
         :name => name, :alternate_names => alternate_names,
         :count => person_count.to_i,
