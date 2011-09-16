@@ -18,11 +18,11 @@ class UnknownSpeaker
   def initialize(name)
     @name = name
   end
-  
+
   def id
     "unknown"
   end
-  
+
   def name
     Name.title_first_last(@name)
   end
@@ -30,11 +30,11 @@ end
 
 class HansardParser
   attr_reader :logger
-  
+
   def initialize(people)
     @people = people
     @conf = Configuration.new
-    
+
     # Set up logging
     @logger = Log4r::Logger.new 'HansardParser'
     # Log to both standard out and the file set in configuration.yml
@@ -45,12 +45,12 @@ class HansardParser
     @logger.add(Log4r::FileOutputter.new('foo', :filename => @conf.log_path, :trunc => false,
       :formatter => Log4r::PatternFormatter.new(:pattern => "[%l] %d :: %M")))
   end
-  
+
   # Returns the subdirectory where html_cache files for a particular date are stored
   def cache_subdirectory(date, house)
     date.to_s
   end
-  
+
   # Returns the XML file loaded from aph.gov.au as plain text which contains all the Hansard data
   # Returns nil it it doesn't exist
   # This is the original data without any patches applied at this end
@@ -76,7 +76,7 @@ class HansardParser
       end
     end
   end
-  
+
   # Returns the XML file loaded from aph.gov.au as plain text which contains all the Hansard data
   # Returns nil if it doesn't exist
   def hansard_xml_source_data_on_date(date, house)
@@ -96,13 +96,13 @@ class HansardParser
       end
     end
   end
-    
+
   # Returns HansardDate object for a particular day
   def hansard_day_on_date(date, house)
     text = hansard_xml_source_data_on_date(date, house)
     HansardDay.new(Hpricot.XML(text), @logger) if text
   end
-  
+
   # Parse but only if there is a page that is at "proof" stage
   def parse_date_house_only_in_proof(date, xml_filename, house)
     day = hansard_day_on_date(date, house)
@@ -113,14 +113,14 @@ class HansardParser
       parse_date_house(date, xml_filename, house)
     end
   end
-  
+
   def parse_date_house(date, xml_filename, house)
     debates = Debates.new(date, house, @logger)
-    
+
     content = false
     day = hansard_day_on_date(date, house)
     if day
-      @logger.info "Parsing #{house} speeches for #{date.strftime('%a %d %b %Y')}..."    
+      @logger.info "Parsing #{house} speeches for #{date.strftime('%a %d %b %Y')}..."
       @logger.warn "In proof stage" if day.in_proof?
       day.pages.each do |page|
         content = true
@@ -139,7 +139,7 @@ class HansardParser
               this_speaker = (speech.speakername || speech.aph_id) ? lookup_speaker(speech, date, house) : speaker
               # With interjections the next speech should never be by the person doing the interjection
               speaker = this_speaker unless speech.interjection
-      
+
               debates.add_speech(this_speaker, speech.time, speech.permanent_url, speech.clean_content)
             end
             debates.increment_minor_count
@@ -148,54 +148,64 @@ class HansardParser
           debates.add_heading(page.title, page.subtitle, page.permanent_url)
           # Lookup names
           yes = page.yes.map do |text|
-            name = Name.last_title_first(text)
-            member = @people.find_member_by_name_current_on_date(name, date, house)
-            throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes)" if member.nil?
-            member
-          end
-          no = page.no.map do |text|
-            name = Name.last_title_first(text)
-            member = @people.find_member_by_name_current_on_date(name, date, house)
-            throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no)" if member.nil?
-            member
-          end
-          yes_tellers = page.yes_tellers.map do |text|
-            name = Name.last_title_first(text)
-            member = @people.find_member_by_name_current_on_date(name, date, house)
-            throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes and teller)" if member.nil?
-            member
-          end
-          no_tellers = page.no_tellers.map do |text|
-            name = Name.last_title_first(text)
-            member = @people.find_member_by_name_current_on_date(name, date, house)
-            throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no and teller)" if member.nil?
-            member
-          end
-          pairs = page.pairs.map do |pair|
-            pair.map do |text|
+            unless text.length == 0
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
-              if member.nil?
-                puts "name = '#{name.full_name}', text = '#{text}', date = '#{date}', house = '#{house}'"
-                throw "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair)"
-              end
-              member              
+              throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes)" if member.nil?
+              member
             end
-          end
+          end.compact
+          no = page.no.map do |text|
+            unless text.length == 0
+              name = Name.last_title_first(text)
+              member = @people.find_member_by_name_current_on_date(name, date, house)
+              throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no)" if member.nil?
+              member
+            end
+          end.compact
+          yes_tellers = page.yes_tellers.map do |text|
+            unless text.length == 0
+              name = Name.last_title_first(text)
+              member = @people.find_member_by_name_current_on_date(name, date, house)
+              throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes and teller)" if member.nil?
+              member
+            end
+          end.compact
+          no_tellers = page.no_tellers.map do |text|
+            unless text.length == 0
+              name = Name.last_title_first(text)
+              member = @people.find_member_by_name_current_on_date(name, date, house)
+              throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no and teller)" if member.nil?
+              member
+            end
+          end.compact
+          pairs = page.pairs.map do |pair|
+            pair.map do |text|
+              unless text.length == 0
+                name = Name.last_title_first(text)
+                member = @people.find_member_by_name_current_on_date(name, date, house)
+                if member.nil?
+                  puts "name = '#{name.full_name}', text = '#{text}', date = '#{date}', house = '#{house}'"
+                  throw "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair)"
+                end
+                member
+              end
+            end.compact
+          end.compact
           debates.add_division(yes, no, yes_tellers, no_tellers, pairs, page.time, page.permanent_url)
         end
         # This ensures that every sub day page has a different major count which limits the impact
         # of when we start supporting things like written questions, procedurial text, etc..
-        debates.increment_major_count      
+        debates.increment_major_count
       end
     else
       @logger.info "Skipping #{house} speeches for #{date.strftime('%a %d %b %Y')} (no data available)"
     end
-  
+
     # Only output the debate file if there's going to be something in it
     debates.output(xml_filename) if content
   end
-  
+
   def lookup_speaker_by_title(speech, date, house)
     # Some sanity checking.
     if speech.speakername =~ /speaker/i && house.senate?
@@ -208,7 +218,7 @@ class HansardParser
       logger.error "#{date} #{house}: The Chairman is not expected in the House of Representatives"
       return nil
     end
-    
+
     # Handle speakers where they are referred to by position rather than name
     # Handle names in brackets first
     if speech.speakername =~ /^(.*) \(the (deputy speaker|acting deputy president|temporary chairman)\)/i
@@ -227,12 +237,12 @@ class HansardParser
       @people.deputy_senate_president(date)
     end
   end
-  
+
   def lookup_speaker_by_name(speech, date, house)
     #puts "Looking up speaker by name: #{speech.speakername}"
     throw "speakername can not be nil in lookup_speaker" if speech.speakername.nil?
-    
-    member = lookup_speaker_by_title(speech, date, house)    
+
+    member = lookup_speaker_by_title(speech, date, house)
     # If member hasn't already been set then lookup using speakername
     if member.nil?
       name = Name.title_first_last(speech.speakername)
@@ -244,7 +254,7 @@ class HansardParser
     end
     member
   end
-  
+
   def lookup_speaker_by_aph_id(speech, date, house)
     # The aph_id "10000" is special. It represents the speaker, deputy speaker, something like that.
     # It could be anyone of a number of poeple. So, if it is that, just ignore it.
@@ -262,11 +272,11 @@ class HansardParser
       end
     end
   end
-  
+
   def lookup_speaker(speech, date, house)
     # First try looking up speaker by id then try name
     member = lookup_speaker_by_aph_id(speech, date, house) || lookup_speaker_by_name(speech, date, house)
-    
+
     if member.nil?
       unless HansardSpeech.generic_speaker?(speech.speakername)
         # It is so common that the problem with "The Temporary Chairman" occurs (where there real name is not included)
