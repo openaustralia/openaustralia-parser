@@ -14,5 +14,9 @@ module Hpricot
     def map_child_node
       child_nodes.map {|c| yield c}
     end
+
+    def append(str)
+      html(children + Hpricot.make(str))
+    end
   end
 end
