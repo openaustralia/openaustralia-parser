@@ -129,6 +129,38 @@ class HansardDay
     end
     subdebate.search('//body/a').remove
 
+
+    # Many speaker interjections/continuates are not properly marked with 
+    # <a href> links, we rework them so we don't have the special case below.
+
+    #      <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+    #        <span class="HPS-Normal">
+    #          <span class="HPS-MemberContinuation">The DEPUTY SPEAKER:</span>  Blah blah. </span>
+    #      </p>
+    #  to
+    #      <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+    #        <span class="HPS-Normal">
+    #          <a href="10000" type="MemberInterjecting">
+    #            <span class="HPS-MemberInterjecting">The DEPUTY SPEAKER:</span>
+    #          </a>  bla bla</span>
+    #      </p>
+    subdebate.search('//body/p').each do |p|
+      text = p.inner_text.strip
+      if text.match(/^^The (([^S]*SPEAKER)|([^R]*RESIDENT)):  /):
+        puts "Doing rewrite", text
+        puts "Before: #{p}"
+        p.inner_html = p.inner_html.gsub /<span class="HPS-Normal">.*<span class="HPS-([^"]*)">(The (([^S]*SPEAKER)|([^R]*RESIDENT))):<\/span>  (.*)<\/span>/m,<<EOF
+      <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+        <span class="HPS-Normal">
+          <a href="1000" type="\\1">
+            <span class="HPS-\\1">\\2:</span>
+          </a>  \\6</span>
+      </p>
+EOF
+        puts "After: #{p}"
+      end
+    end
+
     # We use a seperate list as we don't want the new children to appear when
     # doing the loop.
     subdebate_new_children = Hpricot('')
@@ -183,7 +215,7 @@ class HansardDay
               # Extract the text
               text = santize(p.inner_text, false)
               # Remove the leftover (—) ():
-              text = text.gsub(/\([^)]*\) \(\): /, '')
+              text = text.gsub(/^\([^)]*\) \([^)]*\): /, '')
 
               warn "Found new speech by #{name}"
   
@@ -302,8 +334,15 @@ EOF
                 speech_node = nil
                 text_node = nil
 
-              elsif text_node.nil? 
+              elsif text_node.nil? or text_node.inner_text.length == 0
                 warn "Ignoring para node as text_node was null\n#{p}"
+
+              elsif p.search('span[@class=HPS-MemberIInterjecting]').length > 0
+                warn "Found new /italics/ paragraph"
+                text_node.append <<EOF
+<para class="italic">#{text}</para>
+EOF
+
               else
                 warn "Found new paragraph"
                 text_node.append <<EOF
