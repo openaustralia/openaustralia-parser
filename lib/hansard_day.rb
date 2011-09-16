@@ -246,14 +246,16 @@ EOF
               # Class will be either "MemberContinuation" or
               # "MemberInterjecting" - strip off the "Member" part.
               case ahref.attributes['type']
-              when 'MemberContinuation':
+              when 'MemberContinuation'
                 type = "continue"
-              when 'MemberInterjecting':
+              when 'MemberInterjecting'
                 type = "interjection"
-              when 'MemberQuestion':
+              when 'MemberQuestion'
                 type = "question"
-              when 'MemberAnswer':
+              when 'MemberAnswer'
                 type = "answer"
+              when 'MemberSpeech'
+                type = "continue"
               else
                 raise "Assertion failed! Unknown type #{ahref.attributes['type']}"
               end
