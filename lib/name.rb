@@ -43,7 +43,8 @@ class Name
     names = text.delete(',').split(' ')
     # Hack to deal with a specific person who has two last names that aren't hyphenated
     if names.size >= 2 && names[0].downcase == "stott" && names[1].downcase == "despoja" ||
-       names.size >= 2 && names[0].downcase == "van" && names[1].downcase == "manen"
+       names.size >= 2 && names[0].downcase == "van" && names[1].downcase == "manen" ||
+       names.size >= 2 && names[0].downcase == "di" && names[1].downcase == "natale"
       last = names[0..1].join(' ')
       names.shift
       names.shift
@@ -105,7 +106,8 @@ class Name
       last = names[0]
     # HACK: Dealing with Stott Despoja as a special case
     elsif names.size == 2 && names[0].downcase == "stott" && names[1].downcase == "despoja" ||
-          names.size == 2 && names[0].downcase == "van" && names[1].downcase == "manen"
+          names.size == 2 && names[0].downcase == "van" && names[1].downcase == "manen" ||
+          names.size >= 2 && names[0].downcase == "di" && names[1].downcase == "natale"
       last = names[0..1].join(' ')
       names.shift
       names.shift
@@ -118,7 +120,8 @@ class Name
       post_title = extract_post_title_at_end(names)
       # HACK: Another Stott Despoja hack
       if names.size >= 2 && names[-2].downcase == "stott" && names[-1].downcase == "despoja" ||
-         names.size >= 2 && names[-2].downcase == "van" && names[-1].downcase == "manen"
+         names.size >= 2 && names[-2].downcase == "van" && names[-1].downcase == "manen" ||
+         names.size >= 2 && names[0].downcase == "di" && names[1].downcase == "natale"
         last = names[-2..-1].join(' ')
         names.pop
       else
