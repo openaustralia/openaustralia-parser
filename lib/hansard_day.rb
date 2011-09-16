@@ -183,7 +183,7 @@ class HansardDay
               # Extract the text
               text = santize(p.inner_text, false)
               # Remove the leftover (—) ():
-              text = text.gsub(/\(.?\) \(\): /, '')
+              text = text.gsub(/\([^)]*\) \(\): /, '')
 
               warn "Found new speech by #{name}"
   
