@@ -148,7 +148,7 @@ class PeopleCSVReader
       # Do nothing
       party
     else
-      throw "Unrecognised party: #{party}"
+      throw "Unrecognised party: '#{party}'"
     end
   end
   

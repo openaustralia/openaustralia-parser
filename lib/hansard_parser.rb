@@ -59,10 +59,9 @@ class HansardParser
     agent.cache_subdirectory = cache_subdirectory(date, house)
 
     # This is the page returned by Parlinfo Search for that day
-    url = "http://parlinfo.aph.gov.au/parlInfo/search/summary/summary.w3p;adv=yes;orderBy=_fragment_number,doc_date-rev;page=0;query=Dataset%3Ahansard#{house.representatives? ? "r" : "s"},hansard#{house.representatives? ? "r" : "s"}80%20Date%3A23%2F08%2F2011;resCount=Default"
     url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;adv=yes;orderBy=_fragment_number,doc_date-rev;page=0;query=Dataset%3Ahansard#{house.representatives? ? "r" : "s"},hansard#{house.representatives? ? "r" : "s"}80%20Date%3A#{date.day}%2F#{date.month}%2F#{date.year};rec=0;resCount=Default"
-    puts url
     page = agent.get(url)
+    
     tag = page.at('div#content center')
     if tag && tag.inner_html =~ /^Unable to find document/
       nil
@@ -82,6 +81,10 @@ class HansardParser
   def hansard_xml_source_data_on_date(date, house)
     text = unpatched_hansard_xml_source_data_on_date(date, house)
     if text
+      # Horribe hack to fix some stupid wrapping
+      text = text.gsub(/\r/, '')
+      text = text.gsub(/<\/span>[^<]*<span style="&#xD;&#xA;    font-size:9.5pt;&#xD;&#xA;  ">/m, '')
+
       # Now check whether there is a patch for that day and if so apply it
       patch_file_path = "#{File.dirname(__FILE__)}/../data/patches/#{house}.#{date}.xml.patch"
       if File.exists?(patch_file_path)
@@ -150,6 +153,7 @@ class HansardParser
           yes = page.yes.map do |text|
             unless text.length == 0
               name = Name.last_title_first(text)
+              p "#{date} #{house}: #{text} is in division (voting yes)"
               member = @people.find_member_by_name_current_on_date(name, date, house)
               throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes)" if member.nil?
               member
@@ -260,8 +264,9 @@ class HansardParser
     # It could be anyone of a number of poeple. So, if it is that, just ignore it.
     # Annoyingly, "1000" keeps getting used as well to mean the same thing. This is clearly a mistake, so
     # we'll ignore it in the same way
-    if speech.aph_id && speech.aph_id != "10000" && speech.aph_id != "1000"
-      person = @people.find_person_by_aph_id(speech.aph_id)
+    aph_id = speech.aph_id.upcase if not speech.aph_id.nil?
+    if aph_id && aph_id != "10000" && aph_id != "1000"
+      person = @people.find_person_by_aph_id(aph_id)
       if person
         period = person.position_current_on_date(date, house)
         logger.error "#{date} #{house}: Found person (#{person.name.full_name}) but not both in the right period and house. Strange..." if period.nil?
