@@ -63,17 +63,17 @@ class HansardDay
   # Search for the title tag and return its value, stripping out any HTML tags
   def title_tag_value(debate)
     # Doing this rather than calling inner_text to preserve html entities which for some reason get all screwed up by inner_text
-    strip_tags(debate.search('> * > title').map{|e| e.inner_html}.join('; '))
+    strip_tags(debate.search('> * > title').map{|e| e.inner_html.strip()}.join('; ')).strip()
   end
 
   def title(debate)
     case debate.name
     when 'debate', 'petition.group'
-      title = title_tag_value(debate)
+      title = title_tag_value(debate).strip()
       cognates = debate.search('> debateinfo > cognate > cognateinfo > title').map{|a| strip_tags(a.inner_html)}
       ([title] + cognates).join('; ')
     when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
-      title(debate.parent)
+      title(debate.parent).strip()
     else
       throw "Unexpected tag #{debate.name}"
     end
@@ -84,20 +84,21 @@ class HansardDay
     when 'debate', 'petition.group'
       ""
     when 'subdebate.1'
-      title_tag_value(debate)
+      title_tag_value(debate).strip()
     when 'subdebate.2', 'subdebate.3', 'subdebate.4'
+      front = ""
       if debate.parent.name == "subdebate.1"
-        parent_title = subtitle(debate.parent)
+        front = subtitle(debate.parent).strip()
       else
         possible_firstdebates = debate.parent.search("(subdebate.1)")
         if possible_firstdebates.length != 1
-          front = title(debate)
+          front = title(debate).strip()
         else
-          front = subtitle(possible_firstdebates[0])
+          front = subtitle(possible_firstdebates[0]).strip()
         end
-        throw "Unexpected tag '#{front}' #{front.length}" if front.length == 0
-        front + '; ' + title_tag_value(debate)
       end
+      throw "Front title is to short! '#{front}' #{front.length}" if front.length == 0
+      (front + '; ' + title_tag_value(debate)).strip()
     else
       throw "Unexpected tag #{debate.name}"
     end
@@ -184,6 +185,7 @@ EOF
 
       # Things we have to process recursively
       when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
+        f.name = "subdebate.#{level}"
         rewrite_subdebate(f, level+1)
 
       # The actual transcript of the proceedings we are going to process
@@ -508,6 +510,9 @@ EOF
         when 'debateinfo', 'subdebateinfo'
 
         when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
+          # Sometimes we get a weird case where the subdebates are not numbered
+          # correctly - Try and renumber them.
+          e.name = "subdebate.1"
           rewrite_subdebate(e, 1)
 
         when 'division'
