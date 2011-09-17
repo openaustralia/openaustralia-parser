@@ -86,7 +86,18 @@ class HansardDay
     when 'subdebate.1'
       title_tag_value(debate)
     when 'subdebate.2', 'subdebate.3', 'subdebate.4'
-      subtitle(debate.parent) + '; ' + title_tag_value(debate)
+      if debate.parent.name == "subdebate.1"
+        parent_title = subtitle(debate.parent)
+      else
+        possible_firstdebates = debate.parent.search("(subdebate.1)")
+        if possible_firstdebates.length != 1
+          front = title(debate)
+        else
+          front = subtitle(possible_firstdebates[0])
+        end
+        throw "Unexpected tag '#{front}' #{front.length}" if front.length == 0
+        front + '; ' + title_tag_value(debate)
+      end
     else
       throw "Unexpected tag #{debate.name}"
     end
