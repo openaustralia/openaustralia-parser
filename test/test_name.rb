@@ -251,14 +251,14 @@ class TestName < Test::Unit::TestCase
     
     assert(lk_johnson.matches?(leonard_keith_johnson))
   end
- 
+
   def test_initials
     assert_equal("DJ", Name.title_first_last("Dan John Van Manen").real_initials)
     assert_equal("JEP", Name.new(:first => "John", :middle => "Edward Peter").real_initials)
     assert_equal("DJ", Name.new(:first => "Dan", :middle => "John", :last => "Van Manen").real_initials)
     assert_equal("MN", Name.new(:initials => "MN").real_initials)
   end
- 
+
   def test_first_initial
     assert_equal("J", Name.new(:first => "John", :middle => "Edward Peter").first_initial)
     assert_equal("M", Name.new(:initials => "MN").first_initial)

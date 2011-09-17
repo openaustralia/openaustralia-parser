@@ -148,7 +148,7 @@ class Name
       @middle.split(' ').map{|n| n[0..0]}.join
     end
   end
- 
+
   def real_initials
     # If only one or two letters assume that these are initials
     # HACK: Added specific handling for initials DJC, DGH
@@ -168,7 +168,7 @@ class Name
       end
     end
   end
- 
+
   def informal_name
     throw "No last name" unless has_last?
     "#{@first} #{@last}"

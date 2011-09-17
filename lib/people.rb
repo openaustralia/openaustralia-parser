@@ -103,7 +103,7 @@ class People < Array
     if matches.size > 1
       refined_matches = Array.new
       matches.each do |m|
-	m.person.all_names.each do |n|
+        m.person.all_names.each do |n|
           if n.real_initials[0..2] == name.real_initials[0..2]
             found = nil
             refined_matches.each do |x|
@@ -118,9 +118,9 @@ class People < Array
         end
       end
       if refined_matches.size == 0
-      	# Try again with just the first initial
+        # Try again with just the first initial
         matches.each do |m|
-  	  m.person.all_names.each do |n|
+          m.person.all_names.each do |n|
             if n.real_initials[0..1] == name.real_initials[0..1]
               found = nil
               refined_matches.each do |x|
