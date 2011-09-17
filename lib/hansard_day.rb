@@ -399,7 +399,7 @@ EOF
               else
                 warn "Found new quote"
                 text_node.append <<EOF
-<quote>#{text}</quote>
+<quote><para class="block">#{text}</para></quote>
 EOF
               end
 
