@@ -317,6 +317,16 @@ EOF
               indent = level+1
 
             when 'HPS-Normal'
+              # Sometimes HPS-MemberIInterjecting are signified by just an
+              # italic style applied. We are just going to assume if it has
+              # some italics it's all a MemberIInterjecting
+              member_iinterjecting = false
+              p.search('//span').each do |t|
+                if not t.attributes['style'].nil? and t.attributes['style'].match(/italic/)
+                  member_iinterjecting = true
+                end
+              end
+
               if not amendment_node.nil?
                 warn "Found paragraph in an amendment"
 
@@ -352,7 +362,7 @@ EOF
               elsif text_node.nil? or text_node.inner_text.length == 0
                 warn "Ignoring para node as text_node was null\n#{p}"
 
-              elsif p.search('span[@class=HPS-MemberIInterjecting]').length > 0
+              elsif p.search('span[@class=HPS-MemberIInterjecting]').length > 0 or member_iinterjecting
                 warn "Found new /italics/ paragraph"
                 text_node.append <<EOF
 <para class="italic">#{text}</para>
