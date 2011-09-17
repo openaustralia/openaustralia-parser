@@ -105,7 +105,7 @@ class HansardDay
 
   def time(debate)
     # HACK: Hmmm.. check this out more
-    tag = debate.at('//span[@class="HPS-Time"]')
+    tag = debate.at('//(time.stamp)')
     tag.inner_html if tag
   end
 
@@ -225,8 +225,10 @@ EOF
 
               # Extract the text
               text = santize(p.inner_text, false)
-              # Remove the leftover (—) ():
-              text = text.gsub(/^\([^)]*\) \([^)]*\): /, '')
+              # Remove the leftover (—) from electorate stuff
+              text = text.gsub(/^\([^)]*\) /, '')
+              # Left over from removing the HPS-Time
+              text = text.gsub(/^\([^)]*\): /, '')
 
               warn "Found new speech by #{name}"
   
