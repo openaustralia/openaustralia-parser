@@ -110,6 +110,7 @@ class HansardDay
     tag.inner_html if tag
   end
 
+  # Clean up random crap in the code
   def santize(text, name)
     # Remove any DOS linebreaks
     text = text.gsub("\r", '')
@@ -136,17 +137,20 @@ class HansardDay
     return text
   end
 
-  def rewrite_subdebate(subdebate, level)
-    speech_node = nil
-    text_node = nil
-    amendment_node = nil
-    indent = level+1
+  # This function is the core of the new parser.  It takes the raw
+  # (sub)debate.text nodes and turns it into <speech> and more structured tags.
+  # There are a lot of hard coded heuristic that depend on the unstructured
+  # HTML stay a certain way - I've tried to put asserts where things might go
+  # wrong rather then produce crappy output.
+  def process_textnode(input_text_node)
 
+    # Do some pre-work on the body tag to make it easier to work with.
+    #--------------------------------------------------------------------------
     # To make things a little simpler we have to rework top level <a href> tags
-    subdebate.search('//body/a').each do |p|
-      subdebate.at('body').insert_after(Hpricot.make("<p>#{p}</p>"), p)
+    input_text_node.search('//body/a').each do |p|
+      input_text_node.at('body').insert_after(Hpricot.make("<p>#{p}</p>"), p)
     end
-    subdebate.search('//body/a').remove
+    input_text_node.search('//body/a').remove
 
     # Many speaker interjections/continuates are not properly marked with 
     # <a href> links, we rework them so we don't have the special case below.
@@ -162,12 +166,14 @@ class HansardDay
     #            <span class="HPS-MemberInterjecting">The DEPUTY SPEAKER:</span>
     #          </a>  bla bla</span>
     #      </p>
-    subdebate.search('//body/p').each do |p|
+    input_text_node.search('//body/p').each do |p|
       text = p.inner_text.strip
       if text.match(/^^The (([^S]*SPEAKER)|([^R]*RESIDENT)):  /):
         puts "Doing rewrite", text
         puts "Before: #{p}"
-        p.inner_html = p.inner_html.gsub /<span class="HPS-Normal">.*<span class="HPS-([^"]*)">(The (([^S]*SPEAKER)|([^R]*RESIDENT))):<\/span>  (.*)<\/span>/m,<<EOF
+        p.inner_html = p.inner_html.gsub(
+          /<span class="HPS-Normal">.*<span class="HPS-([^"]*)">(The (([^S]*SPEAKER)|([^R]*RESIDENT))):<\/span>  (.*)<\/span>/m,
+          <<EOF
       <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
         <span class="HPS-Normal">
           <a href="1000" type="\\1">
@@ -175,91 +181,77 @@ class HansardDay
           </a>  \\6</span>
       </p>
 EOF
+)
         puts "After: #{p}"
       end
     end
+    #--------------------------------------------------------------------------
 
-    # We use a seperate list as we don't want the new children to appear when
-    # doing the loop.
-    subdebate_new_children = Hpricot('')
+    speech_node = nil
+    text_node = nil
+    amendment_node = nil
 
-    throw "Assertion failed! No text node found." if (subdebate.search('(debate.text)') + subdebate.search('(subdebate.text)')).length == 0
+    new_xml = Hpricot('')
+    input_text_node.search('/body/p').each do |p|
+      # We are going to remove all tags later, so any tag we want to keep
+      # such as the italics, we need to do a conversion here.
 
-    subdebate.child_nodes.each do |f|
-      case f.name
-      # Things to pass through un-molested
-      when 'debateinfo', 'subdebateinfo'
-        warn "  Subdebate.#{level} \"#{f.at('title').inner_text}\" @ #{f.at('(page.no)').inner_text}"
+      # Sometimes HPS-MemberIInterjecting are signified by just an italic
+      # style applied. We are just going to assume if it has some italics
+      # it's all a MemberIInterjecting
+      para_text = p.inner_text.strip()
+      italic_text = ""
+      p.search('//span').each do |t|
+        if not t.attributes['style'].nil? and t.attributes['style'].match(/italic/)
+          italic_text = "#{italic_text}#{t.inner_text}"
+          t.inner_html = "{italic}#{t.inner_html}{/italic}"
+        end
+      end
+      member_iinterjecting = italic_text.strip() == para_text
 
-      # Things we have to process recursively
-      when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
-        f.name = "subdebate.#{level}"
-        rewrite_subdebate(f, level+1)
+      # Is this a new speaker? We can tell by there existing an '<a href'
+      # record with a class that starts with "Member". 
+      # (There are also '<a href' records which point to bills rather then
+      # people.)
+      ahref = p.search('//a')[0] if p.search('//a').length > 0
+      if not ahref.nil? and ahref.attributes['type'].nil?
+        warn "    Found a link without type!? #{ahref}"
+        next
+      end
+      if not ahref.nil? and ahref.attributes['type'].match(/^Member/)
 
-      # The actual transcript of the proceedings we are going to process
-      when 'debate.text', 'subdebate.text'
+        # Is this start of a speech? We can tell by the fact it has spans
+        # with the HPS-Time class.
+        if speech_node.nil? or p.search('[@class=HPS-Time]').length > 0:
+          # Rip out the electorate
+          #<span class="HPS-Electorate">Grayndler</span>
+          electorate = p.search("//span[@class=HPS-Electorate]")
+          electorate.remove
 
-        f.search('/body/p').each do |p|
+          # Rip out the role
+          #<span class="HPS-MinisterialTitles">Leader of the House and Minister for Infrastructure and Transport</span>
+          role = p.search("//span[@class=HPS-MinisterialTitles]")
+          role.remove
 
-          # We are going to remove all tags later, so any tag we want to keep
-          # such as the italics, we need to do a conversion here.
+          # Rip out the start time
+          # <span class="HPS-Time">09:27</span>
+          time = p.search("//span[@class=HPS-Time]")
+          time.remove
 
-          # Sometimes HPS-MemberIInterjecting are signified by just an italic
-          # style applied. We are just going to assume if it has some italics
-          # it's all a MemberIInterjecting
-          para_text = p.inner_text.strip()
-          italic_text = ""
-          p.search('//span').each do |t|
-            if not t.attributes['style'].nil? and t.attributes['style'].match(/italic/)
-              italic_text = "#{italic_text}#{t.inner_text}"
-              t.inner_html = "{italic}#{t.inner_html}{/italic}"
-            end
-          end
-          member_iinterjecting = italic_text.strip() == para_text
+          # Rip out the name
+          name = santize(ahref.inner_text, true)
+          p.search('//a').remove
 
-          # Is this a new speaker? We can tell by there existing an '<a href'
-          # record with a class that starts with "Member". 
-          # (There are also '<a href' records which point to bills rather then
-          # people.)
-          ahref = p.search('//a')[0] if p.search('//a').length > 0
-          if not ahref.nil? and ahref.attributes['type'].nil?
-            warn "    Found a link without type!? #{ahref}"
-            next
-          end
-          if not ahref.nil? and ahref.attributes['type'].match(/^Member/)
+          # Extract the text
+          text = santize(p.inner_text, false)
+          # Remove the leftover (—) from electorate stuff
+          text = text.gsub(/^\([^)]*\) /, '')
+          # Left over from removing the HPS-Time
+          text = text.gsub(/^\([^)]*\): /, '')
 
-            # Is this start of a speech? We can tell by the fact it has spans
-            # with the HPS-Time class.
-            if speech_node.nil? or p.search('[@class=HPS-Time]').length > 0:
-              # Rip out the electorate
-              #<span class="HPS-Electorate">Grayndler</span>
-              electorate = p.search("//span[@class=HPS-Electorate]")
-              electorate.remove
+          warn "    Found new speech by #{name}"
 
-              # Rip out the role
-              #<span class="HPS-MinisterialTitles">Leader of the House and Minister for Infrastructure and Transport</span>
-              role = p.search("//span[@class=HPS-MinisterialTitles]")
-              role.remove
-
-              # Rip out the start time
-              # <span class="HPS-Time">09:27</span>
-              time = p.search("//span[@class=HPS-Time]")
-              time.remove
-
-              # Rip out the name
-              name = santize(ahref.inner_text, true)
-              p.search('//a').remove
-
-              # Extract the text
-              text = santize(p.inner_text, false)
-              # Remove the leftover (—) from electorate stuff
-              text = text.gsub(/^\([^)]*\) /, '')
-              # Left over from removing the HPS-Time
-              text = text.gsub(/^\([^)]*\): /, '')
-
-              warn "    Found new speech by #{name}"
-  
-              new_node = <<EOF
+          new_node = <<EOF
 <speech>
   <talker>
     <time.stamp>#{time.inner_text}</time.stamp>
@@ -270,47 +262,47 @@ EOF
   <para>#{restore_tags(text)}</para>
 </speech>
 EOF
-              subdebate_new_children.append new_node
-              speech_node = subdebate_new_children.search("speech")[-1]
-              text_node = speech_node
-              amendment_node = nil
+          new_xml.append new_node
+          speech_node = new_xml.search("speech")[-1]
+          text_node = speech_node
+          amendment_node = nil
 
-            # Someone is either interjecting or continuing to speak
-            else
-              raise "Assertion failed! speech_node was null while trying to append a speaker" if speech_node.nil?
+        # Someone is either interjecting or continuing to speak
+        else
+          raise "Assertion failed! speech_node was null while trying to append a speaker" if speech_node.nil?
 
-              # Should only be one span in this case, warn otherwise
-              span = p.search("> span")
-              warn "    Found multiple children spans! #{span.length}" if span.length > 1
+          # Should only be one span in this case, warn otherwise
+          span = p.search("> span")
+          warn "    Found multiple children spans! #{span.length}" if span.length > 1
 
-              # Class will be either "MemberContinuation" or
-              # "MemberInterjecting" - strip off the "Member" part.
-              case ahref.attributes['type']
-              when 'MemberContinuation'
-                type = "continue"
-              when 'MemberInterjecting'
-                type = "interjection"
-              when 'MemberQuestion'
-                type = "question"
-              when 'MemberAnswer'
-                type = "answer"
-              when 'MemberSpeech'
-                type = "continue"
-              else
-                raise "Assertion failed! Unknown type #{ahref.attributes['type']}"
-              end
+          # Class will be either "MemberContinuation" or
+          # "MemberInterjecting" - strip off the "Member" part.
+          case ahref.attributes['type']
+          when 'MemberContinuation'
+            type = "continue"
+          when 'MemberInterjecting'
+            type = "interjection"
+          when 'MemberQuestion'
+            type = "question"
+          when 'MemberAnswer'
+            type = "answer"
+          when 'MemberSpeech'
+            type = "continue"
+          else
+            raise "Assertion failed! Unknown type #{ahref.attributes['type']}"
+          end
 
-              # Clean up the name item a little
-              name = santize(ahref.inner_text, true)
-              id = ahref.attributes['href']
-              p.search('//a').remove
+          # Clean up the name item a little
+          name = santize(ahref.inner_text, true)
+          id = ahref.attributes['href']
+          p.search('//a').remove
 
-              # Clean up the text a little
-              text = santize(p.inner_text, false)
+          # Clean up the text a little
+          text = santize(p.inner_text, false)
 
-              warn "    Found new #{type} by #{name}"
+          warn "    Found new #{type} by #{name}"
 
-              new_node = <<EOF
+          new_node = <<EOF
 <#{type}>
   <talker>
     <name role="metadata">#{name}</name>
@@ -319,136 +311,189 @@ EOF
   <para>#{restore_tags(text)}</para>
 </#{type}>
 EOF
-              speech_node.append(new_node)
-              text_node = speech_node.search(type)[-1]
-              indent = level+3
-            end
+          speech_node.append(new_node)
+          text_node = speech_node.search(type)[-1]
+        end
 
-          elsif not ahref.nil? and ahref.attributes['type'].match(/^Bill/)
-            # Bills don't have speeches, just dump the paragraphs into the subdebate.
-            speech_node = subdebate_new_children
-            text_node = subdebate_new_children
+      elsif not ahref.nil? and ahref.attributes['type'].match(/^Bill/)
+        # Bills don't have speeches, just dump the paragraphs into the subdebate.
+        speech_node = new_xml
+        text_node = new_xml
 
-          else
-            # Some type of text paragaph
-            text = santize(p.inner_text.strip(), false).strip()
+      else
+        # Some type of text paragaph
+        text = santize(p.inner_text.strip(), false).strip()
 
-            if text.length == 0
-              next
-            end
+        if text.length == 0
+          next
+        end
 
-            case p.attributes['class']
-            when 'HPS-Debate', 'HPS-SubDebate', 'HPS-SubSubDebate'
-              # FIXME: We should handle bill readings a bit better then this.
+        case p.attributes['class']
+        when 'HPS-Debate', 'HPS-SubDebate', 'HPS-SubSubDebate'
+          # FIXME: We should handle bill readings a bit better then this.
 
-              warn "    Found title #{p.attributes['class']}, resetting"
-              speech_node = nil
-              text_node = subdebate_new_children
-              amendment_node = nil
-              indent = level+1
+          warn "    Found title #{p.attributes['class']}, resetting"
+          speech_node = nil
+          text_node = new_xml
+          amendment_node = nil
 
-            when 'HPS-Normal'
+        when 'HPS-Normal'
 
-              if not amendment_node.nil?
-                warn "      Found paragraph in an amendment"
+          if not amendment_node.nil?
+            warn "      Found paragraph in an amendment"
 
-                amendment_node.append <<EOF
+            amendment_node.append <<EOF
 <para>#{restore_tags(text)}</para>
 EOF
 
-              # We special case bill's returned from the senate with amendments
-              elsif p.inner_text.match(/Bill returned from the Senate with .*amendments?/i)
-                warn "    Found a bill with amendments"
+          # We special case bill's returned from the senate with amendments
+          elsif p.inner_text.match(/Bill returned from the Senate with .*amendments?/i)
+            warn "    Found a bill with amendments"
 
-                if text_node.nil?
-                  if speech_node.nil?
-                    search_node = subdebate_new_children
-                  else
-                    search_node = speech_node
-                  end
-                else
-                  search_node = text_node
-                end
+            if text_node.nil?
+              if speech_node.nil?
+                search_node = new_xml
+              else
+                search_node = speech_node
+              end
+            else
+              search_node = text_node
+            end
 
-                search_node.append <<EOF
+            search_node.append <<EOF
 <amendments>
   <para>#{restore_tags(text)}</para>
 </amendments>
 EOF
-                amendment_node = search_node.search("amendments")[-1]
+            amendment_node = search_node.search("amendments")[-1]
 
-                indent += 1
-                speech_node = nil
-                text_node = nil
+            speech_node = nil
+            text_node = nil
 
-              elsif text_node.nil? or text_node.inner_text.length == 0
-                warn "    Ignoring para node as text_node was null\n#{p}"
+          elsif text_node.nil? or text_node.inner_text.length == 0
+            warn "    Ignoring para node as text_node was null\n#{p}"
 
-              elsif p.search('span[@class=HPS-MemberIInterjecting]').length > 0 or member_iinterjecting
-                warn "    Found new /italics/ paragraph"
-                text_node.append <<EOF
+          elsif p.search('span[@class=HPS-MemberIInterjecting]').length > 0 or member_iinterjecting
+            warn "    Found new /italics/ paragraph"
+            text_node.append <<EOF
 <para class="italic">#{restore_tags(text)}</para>
 EOF
 
-              else
-                warn "    Found new paragraph"
-                text_node.append <<EOF
+          else
+            warn "    Found new paragraph"
+            text_node.append <<EOF
 <para>#{restore_tags(text)}</para>
 EOF
-              end
+          end
 
-            when 'HPS-Bullet', 'HPS-SmallBullet'
+        when 'HPS-Bullet', 'HPS-SmallBullet'
 
-              if text_node.nil? 
-                warn "    Ignoring bullet node as text_node was null\n#{p}"
-              else
-                warn "    Found new bullet point"
-                text_node.append <<EOF
+          if text_node.nil? 
+            warn "    Ignoring bullet node as text_node was null\n#{p}"
+          else
+            warn "    Found new bullet point"
+            text_node.append <<EOF
 <list>#{restore_tags(text)}</list>
 EOF
-              end
+          end
 
-            when 'HPS-Small', 'HPS-NormalWeb'
-              if not amendment_node.nil?
-                warn "      Found amendment"
-                amendment_node.append <<EOF
+        when 'HPS-Small', 'HPS-NormalWeb'
+          if not amendment_node.nil?
+            warn "      Found amendment"
+            amendment_node.append <<EOF
 <amendment>#{restore_tags(text)}</amendment>
 EOF
-              elsif text_node.nil? 
-                warn "    Ignoring quote node as text_node was null\n#{p}"
-              else
-                warn "    Found new quote"
-                text_node.append <<EOF
+          elsif text_node.nil? 
+            warn "    Ignoring quote node as text_node was null\n#{p}"
+          else
+            warn "    Found new quote"
+            text_node.append <<EOF
 <quote><para class="block">#{restore_tags(text)}</para></quote>
 EOF
-              end
+          end
 
-            # Things we are delibaretly ignoring
-            when 'HPS-DivisionSummary'
+        # Things we are delibaretly ignoring
+        when 'HPS-DivisionSummary'
 
-            else
-              warn "    Unknown attribute class #{p.attributes['class']}, ignoring"
+        else
+          warn "    Unknown attribute class #{p.attributes['class']}, ignoring"
+        end
+      end
+    end
+    input_text_node.search('*').remove
+    return new_xml
+  end
+
+  def rewrite_debate(debate, level)
+    # Does this debate have subdebates? If so all the text can be found in their (sub)debate.text files
+    subdebate_found = false
+    debate.child_nodes.each do |f|
+      case f.name
+      when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
+        f.name = "subdebate.#{level+1}"
+        f.child_nodes.each do |e| 
+          case e.name
+          when 'debate.text', 'subdebate.text'
+            if e.inner_text.strip.length > 0
+              subdebate_found = true
             end
           end
         end
-        f.search('*').remove
-
-      when 'division'
-      
-      # Things we are delibaretly removing
-      when 'question', 'answer', 'speech', 'continue', 'interjection', 'subdebate.text', 'talk'
-        f.search('*').remove
-
-      else
-        warn "    Removing tag #{f.name} at subdebate level\n#{f}"
-        f.search('*').remove
       end
     end
 
-    subdebate.append "#{subdebate_new_children}"
+    # We use a seperate list as we don't want the new children to appear when
+    # doing the loop.
+    debate_new_children = Hpricot('')
 
-    puts subdebate
+    debate.child_nodes.each do |f|
+      case f.name
+      # Things to pass through un-molested
+      when 'debateinfo'
+        warn "\nDebate #{f.at('title').inner_text}"
+        debate_new_children.append "#{f}"
+
+      when 'subdebateinfo'
+        warn "  Subdebate.#{level} \"#{f.at('title').inner_text}\" @ #{f.at('(page.no)').inner_text}"
+        debate_new_children.append "#{f}"
+
+      # Things we have to process recursively
+      when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
+        debate_new_children.append "#{ rewrite_debate(f, level+1) }"
+
+      # The actual transcript of the proceedings we are going to process
+      when 'debate.text', 'subdebate.text'
+        if not subdebate_found
+          debate_new_children.append "#{ process_textnode(f) }"
+        end
+
+      # Divisions are actually still the same format, so we just append them.
+      when 'division'
+        debate_new_children.append "#{ f }"
+
+      # Things we are delibaretly removing
+      when 'question', 'answer', 'speech', 'continue', 'interjection', 'talk'
+        # pass
+
+      else
+        warn "    Removing tag #{f.name} at #{debate.name} level\n#{f}"
+      end
+    end
+
+    debate.inner_html = "#{debate_new_children}"
+    return debate
   end
+
+  def preprocess_hansard(hansard)
+    # Clean out some useless stuff
+    hansard.search("//table[@class='HPS-TableGrid']").remove
+
+    # Rewrite the new format back into a sane format
+    hansard.search("//debate").each do |d|
+      rewrite_debate(d, 0)
+    end
+  end
+
 
   def pages_from_debate(debate)
 
@@ -518,50 +563,8 @@ EOF
   def pages
 
     hansard = @page.at('hansard')
-
-    # Clean out some useless stuff
-    hansard.search("//debate.text").remove
-    hansard.search("//table[@class='HPS-TableGrid']").remove
-
-    # Rewrite the new format back into a sane format
-    hansard.search("//debate").each do |d|
-
-      subdebate_found = false
-      d.child_nodes.each do |e|
-        case e.name
-        when 'debateinfo'
-          warn "\nDebate #{e.at('title').inner_text}"
-
-        # We deal with debate.text seperately after we check for subdebates.
-        when 'debate.text'
-
-        when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
-          subdebate_found = true
-          # Sometimes we get a weird case where the subdebates are not numbered
-          # correctly - Try and renumber them.
-          e.name = "subdebate.1"
-          rewrite_subdebate(e, 1)
-
-        when 'division'
-
-        # Things we are delibaretly removing
-        when 'question', 'answer', 'speech', 'continue', 'interjection'
-          e.search('*').remove
-
-        else
-          warn "Removing tag #{e.name} at top level\n#{e}"
-          e.search('*').remove
-        end
-      end
-
-      if not subdebate_found
-        warn "  No subdebate found, using the main debate text."
-        rewrite_subdebate(d, 1)
-      else
-        d.search("(debate.text)").remove
-      end
-    end
-
+    preprocess_hansard(hansard)
+    puts hansard
 
     p = []
     # Step through the top-level debates
