@@ -387,7 +387,7 @@ EOF
               elsif p.search('span[@class=HPS-MemberIInterjecting]').length > 0 or member_iinterjecting
                 warn "    Found new /italics/ paragraph"
                 text_node.append <<EOF
-<para class="italic">#{text}</para>
+<para class="italic">#{restore_tags(text)}</para>
 EOF
 
               else
