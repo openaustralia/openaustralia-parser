@@ -322,12 +322,16 @@ EOF
               # Sometimes HPS-MemberIInterjecting are signified by just an
               # italic style applied. We are just going to assume if it has
               # some italics it's all a MemberIInterjecting
-              member_iinterjecting = false
+              italic_text = ""
               p.search('//span').each do |t|
                 if not t.attributes['style'].nil? and t.attributes['style'].match(/italic/)
-                  member_iinterjecting = true
+                  t.name = 'inline'
+                  t.attributes['font-style'] = 'italic'
+                  t.attributes.delete('style')
+                  italic_text = "#{italic_text}#{t.inner_text}"
                 end
               end
+              member_iinterjecting = italic_text.strip() == text
 
               if not amendment_node.nil?
                 warn "Found paragraph in an amendment"
