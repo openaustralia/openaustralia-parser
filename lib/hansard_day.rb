@@ -177,11 +177,13 @@ EOF
     # doing the loop.
     subdebate_new_children = Hpricot('')
 
+    throw "Assertion failed! No text node found." if (subdebate.search('(debate.text)') + subdebate.search('(subdebate.text)')).length == 0
+
     subdebate.child_nodes.each do |f|
       case f.name
       # Things to pass through un-molested
       when 'debateinfo', 'subdebateinfo'
-        warn "\nSubdebate.#{level} \"#{f.at('title').inner_text}\" @ #{f.at('(page.no)').inner_text}"
+        warn "  Subdebate.#{level} \"#{f.at('title').inner_text}\" @ #{f.at('(page.no)').inner_text}"
 
       # Things we have to process recursively
       when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
@@ -189,7 +191,7 @@ EOF
         rewrite_subdebate(f, level+1)
 
       # The actual transcript of the proceedings we are going to process
-      when 'subdebate.text'
+      when 'debate.text', 'subdebate.text'
 
         f.search('/body/p').each do |p|
           # Is this a new speaker? We can tell by there existing an '<a href'
@@ -198,7 +200,7 @@ EOF
           # people.)
           ahref = p.search('//a')[0] if p.search('//a').length > 0
           if not ahref.nil? and ahref.attributes['type'].nil?
-            warn "Found a link without type!? #{ahref}"
+            warn "    Found a link without type!? #{ahref}"
             next
           end
           if not ahref.nil? and ahref.attributes['type'].match(/^Member/)
@@ -232,7 +234,7 @@ EOF
               # Left over from removing the HPS-Time
               text = text.gsub(/^\([^)]*\): /, '')
 
-              warn "Found new speech by #{name}"
+              warn "    Found new speech by #{name}"
   
               new_node = <<EOF
 <speech>
@@ -256,7 +258,7 @@ EOF
 
               # Should only be one span in this case, warn otherwise
               span = p.search("> span")
-              warn "Found multiple children spans! #{span.length}" if span.length > 1
+              warn "    Found multiple children spans! #{span.length}" if span.length > 1
 
               # Class will be either "MemberContinuation" or
               # "MemberInterjecting" - strip off the "Member" part.
@@ -283,7 +285,7 @@ EOF
               # Clean up the text a little
               text = santize(p.inner_text, false)
 
-              warn "Found new #{type} by #{name}"
+              warn "    Found new #{type} by #{name}"
 
               new_node = <<EOF
 <#{type}>
@@ -306,13 +308,17 @@ EOF
 
           else
             # Some type of text paragaph
-            text = santize(p.inner_text, false)
+            text = santize(p.inner_text.strip(), false).strip()
+
+            if text.length == 0
+              next
+            end
 
             case p.attributes['class']
             when 'HPS-Debate', 'HPS-SubDebate', 'HPS-SubSubDebate'
               # FIXME: We should handle bill readings a bit better then this.
 
-              warn "Found title #{p.attributes['class']}, resetting"
+              warn "    Found title #{p.attributes['class']}, resetting"
               speech_node = nil
               text_node = subdebate_new_children
               amendment_node = nil
@@ -334,7 +340,7 @@ EOF
               member_iinterjecting = italic_text.strip() == text
 
               if not amendment_node.nil?
-                warn "Found paragraph in an amendment"
+                warn "      Found paragraph in an amendment"
 
                 amendment_node.append <<EOF
 <para>#{text}</para>
@@ -342,7 +348,7 @@ EOF
 
               # We special case bill's returned from the senate with amendments
               elsif p.inner_text.match(/Bill returned from the Senate with .*amendments?/i)
-                warn "Found a bill with amendments"
+                warn "    Found a bill with amendments"
 
                 if text_node.nil?
                   if speech_node.nil?
@@ -366,16 +372,16 @@ EOF
                 text_node = nil
 
               elsif text_node.nil? or text_node.inner_text.length == 0
-                warn "Ignoring para node as text_node was null\n#{p}"
+                warn "    Ignoring para node as text_node was null\n#{p}"
 
               elsif p.search('span[@class=HPS-MemberIInterjecting]').length > 0 or member_iinterjecting
-                warn "Found new /italics/ paragraph"
+                warn "    Found new /italics/ paragraph"
                 text_node.append <<EOF
 <para class="italic">#{text}</para>
 EOF
 
               else
-                warn "Found new paragraph"
+                warn "    Found new paragraph"
                 text_node.append <<EOF
 <para>#{text}</para>
 EOF
@@ -384,9 +390,9 @@ EOF
             when 'HPS-Bullet', 'HPS-SmallBullet'
 
               if text_node.nil? 
-                warn "Ignoring bullet node as text_node was null\n#{p}"
+                warn "    Ignoring bullet node as text_node was null\n#{p}"
               else
-                warn "Found new bullet point"
+                warn "    Found new bullet point"
                 text_node.append <<EOF
 <list>#{text}</list>
 EOF
@@ -394,14 +400,14 @@ EOF
 
             when 'HPS-Small', 'HPS-NormalWeb'
               if not amendment_node.nil?
-                warn "Found amendment"
+                warn "      Found amendment"
                 amendment_node.append <<EOF
 <amendment>#{text}</amendment>
 EOF
               elsif text_node.nil? 
-                warn "Ignoring quote node as text_node was null\n#{p}"
+                warn "    Ignoring quote node as text_node was null\n#{p}"
               else
-                warn "Found new quote"
+                warn "    Found new quote"
                 text_node.append <<EOF
 <quote><para class="block">#{text}</para></quote>
 EOF
@@ -411,7 +417,7 @@ EOF
             when 'HPS-DivisionSummary'
 
             else
-              warn "Unknown attribute class #{p.attributes['class']}, ignoring"
+              warn "    Unknown attribute class #{p.attributes['class']}, ignoring"
             end
           end
         end
@@ -424,7 +430,7 @@ EOF
         f.search('*').remove
 
       else
-        warn "Removing tag #{f.name} at subdebate level\n#{f}"
+        warn "    Removing tag #{f.name} at subdebate level\n#{f}"
         f.search('*').remove
       end
     end
@@ -509,11 +515,18 @@ EOF
 
     # Rewrite the new format back into a sane format
     hansard.search("//debate").each do |d|
+
+      subdebate_found = false
       d.child_nodes.each do |e|
         case e.name
-        when 'debateinfo', 'subdebateinfo'
+        when 'debateinfo'
+          warn "\nDebate #{e.at('title').inner_text}"
+
+        # We deal with debate.text seperately after we check for subdebates.
+        when 'debate.text'
 
         when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
+          subdebate_found = true
           # Sometimes we get a weird case where the subdebates are not numbered
           # correctly - Try and renumber them.
           e.name = "subdebate.1"
@@ -522,13 +535,20 @@ EOF
         when 'division'
 
         # Things we are delibaretly removing
-        when 'question', 'answer', 'speech', 'continue', 'interjection', 'debate.text'
+        when 'question', 'answer', 'speech', 'continue', 'interjection'
           e.search('*').remove
 
         else
           warn "Removing tag #{e.name} at top level\n#{e}"
           e.search('*').remove
         end
+      end
+
+      if not subdebate_found
+        warn "  No subdebate found, using the main debate text."
+        rewrite_subdebate(d, 1)
+      else
+        d.search("(debate.text)").remove
       end
     end
 
