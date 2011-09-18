@@ -24,6 +24,7 @@ class HansardDay
   def initialize(page, logger = nil)
     @page, @logger = page, logger
     @house = nil
+    @role_map = {}
   end
 
   def house
@@ -136,6 +137,24 @@ class HansardDay
     return text
   end
 
+
+  def lookup_aph_id(aph_id, name)
+    if name.match(/^The (([^S]*SPEAKER)|([^R]*RESIDENT))/i)
+      if aph_id != '10000'
+        warn "    Found aph id #{aph_id} of #{name}"
+        @role_map[name] = aph_id
+      else
+        if @role_map.include? name
+          aph_id = @role_map[name]
+          warn "    WARNING: Looked up aph id via role_map #{name} which was #{aph_id}"
+        else
+          warn "    WARNING: Trying to lookup aph id via role_map #{name} but it wasn't found"
+        end
+      end
+    end
+    return aph_id
+  end
+
   # This function is the core of the new parser.  It takes the raw
   # (sub)debate.text nodes and turns it into <speech> and more structured tags.
   # There are a lot of hard coded heuristic that depend on the unstructured
@@ -167,7 +186,7 @@ class HansardDay
     #      </p>
     input_text_node.search('//body/p').each do |p|
       text = p.inner_text.strip
-      if text.match(/^^The (([^S]*SPEAKER)|([^R]*RESIDENT)):  /):
+      if text.match(/^The (([^S]*SPEAKER)|([^R]*RESIDENT)):  /):
         puts "Doing rewrite", text
         puts "Before: #{p}"
         p.inner_html = p.inner_html.gsub(
@@ -175,7 +194,7 @@ class HansardDay
           <<EOF
       <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
         <span class="HPS-Normal">
-          <a href="1000" type="\\1">
+          <a href="10000" type="\\1">
             <span class="HPS-\\1">\\2:</span>
           </a>  \\6</span>
       </p>
@@ -189,6 +208,8 @@ EOF
     speech_node = nil
     text_node = nil
     amendment_node = nil
+
+    role_map = {}
 
     new_xml = Hpricot('')
     input_text_node.search('/body/p').each do |p|
@@ -233,18 +254,23 @@ EOF
           electorate = p.search("//span[@class=HPS-Electorate]")
           electorate.remove
 
-          # Rip out the role
+          # Rip out the title
           #<span class="HPS-MinisterialTitles">Leader of the House and Minister for Infrastructure and Transport</span>
-          role = p.search("//span[@class=HPS-MinisterialTitles]")
-          role.remove
+          title = p.search("//span[@class=HPS-MinisterialTitles]")
+          title.remove
 
           # Rip out the start time
           # <span class="HPS-Time">09:27</span>
           time = p.search("//span[@class=HPS-Time]")
           time.remove
 
-          # Rip out the name
+          # Pull out the name
           name = santize(ahref.inner_text, true)
+
+          # Pull out the aph_id
+          aph_id = lookup_aph_id(ahref.attributes['href'], name)
+
+          # Rip the a link out.
           p.search('//a').remove
 
           # Extract the text
@@ -261,7 +287,7 @@ EOF
   <talker>
     <time.stamp>#{time.inner_text}</time.stamp>
     <name role="metadata">#{name}</name>
-    <name.id>#{ahref.attributes['href']}</name.id>
+    <name.id>#{aph_id}</name.id>
     <electorate>#{electorate.inner_text}</electorate>
   </talker>
   <para>#{restore_tags(text)}</para>
@@ -297,13 +323,30 @@ EOF
             raise "Assertion failed! Unknown type #{ahref.attributes['type']}"
           end
 
+          # Sometimes we get a second span with the same HPS-Type which just
+          # contains someone name. Remove it.
+          extra_spans = p.search("span > span[@class=HPS-#{ahref.attributes['type']}]")
+          if extra_spans.length > 0
+            warn "    Removing excess spans #{extra_spans.length}, removing the following text '#{extra_spans.inner_text}'"
+            extra_spans.remove
+
+          end
+
           # Clean up the name item a little
           name = santize(ahref.inner_text, true)
-          id = ahref.attributes['href']
+
+          # Pull out the aph_id
+          aph_id = lookup_aph_id(ahref.attributes['href'], name)
+
+          # Rip out the a tag
           p.search('//a').remove
 
           # Clean up the text a little
           text = santize(p.inner_text, false)
+          if extra_spans.length > 0
+            # Left over from removing the extra spans
+            text = text.gsub(/^\(\s*\): /, '')
+          end
 
           warn "    Found new #{type} by #{name}"
 
@@ -311,7 +354,7 @@ EOF
 <#{type}>
   <talker>
     <name role="metadata">#{name}</name>
-    <name.id>#{id}</name.id>
+    <name.id>#{aph_id}</name.id>
   </talker>
   <para>#{restore_tags(text)}</para>
 </#{type}>
