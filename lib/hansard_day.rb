@@ -372,7 +372,9 @@ EOF
           elsif text_node.nil? or text_node.inner_text.length == 0
             warn "    Ignoring para node as text_node was null\n#{p}"
 
-          elsif p.search('span[@class=HPS-MemberIInterjecting]').length > 0 or member_iinterjecting
+          elsif p.search('span[@class=HPS-MemberIInterjecting]').length > 0 or
+                p.search('span[@class=HPS-MemberInterjecting]').length > 0 or
+                member_iinterjecting
             warn "    Found new /italics/ paragraph"
             text_node.append <<EOF
 <para class="italic">#{restore_tags(text)}</para>
