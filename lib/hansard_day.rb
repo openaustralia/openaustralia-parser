@@ -129,6 +129,13 @@ class HansardDay
     return text
   end
 
+  def restore_tags(text)
+    text = text.gsub(/\{italic\}\s*\{\/italic\}/, "")
+    text = text.gsub(/\{italic\}/, "<inline font-style='italic'>")
+    text = text.gsub(/\{\/italic\}/, "</inline>")
+    return text
+  end
+
   def rewrite_subdebate(subdebate, level)
     speech_node = nil
     text_node = nil
@@ -140,7 +147,6 @@ class HansardDay
       subdebate.at('body').insert_after(Hpricot.make("<p>#{p}</p>"), p)
     end
     subdebate.search('//body/a').remove
-
 
     # Many speaker interjections/continuates are not properly marked with 
     # <a href> links, we rework them so we don't have the special case below.
@@ -194,6 +200,23 @@ EOF
       when 'debate.text', 'subdebate.text'
 
         f.search('/body/p').each do |p|
+
+          # We are going to remove all tags later, so any tag we want to keep
+          # such as the italics, we need to do a conversion here.
+
+          # Sometimes HPS-MemberIInterjecting are signified by just an italic
+          # style applied. We are just going to assume if it has some italics
+          # it's all a MemberIInterjecting
+          para_text = p.inner_text.strip()
+          italic_text = ""
+          p.search('//span').each do |t|
+            if not t.attributes['style'].nil? and t.attributes['style'].match(/italic/)
+              italic_text = "#{italic_text}#{t.inner_text}"
+              t.inner_html = "{italic}#{t.inner_html}{/italic}"
+            end
+          end
+          member_iinterjecting = italic_text.strip() == para_text
+
           # Is this a new speaker? We can tell by there existing an '<a href'
           # record with a class that starts with "Member". 
           # (There are also '<a href' records which point to bills rather then
@@ -244,7 +267,7 @@ EOF
     <name.id>#{ahref.attributes['href']}</name.id>
     <electorate>#{electorate.inner_text}</electorate>
   </talker>
-  <para>#{text}</para>
+  <para>#{restore_tags(text)}</para>
 </speech>
 EOF
               subdebate_new_children.append new_node
@@ -293,7 +316,7 @@ EOF
     <name role="metadata">#{name}</name>
     <name.id>#{id}</name.id>
   </talker>
-  <para>#{text}</para>
+  <para>#{restore_tags(text)}</para>
 </#{type}>
 EOF
               speech_node.append(new_node)
@@ -325,25 +348,12 @@ EOF
               indent = level+1
 
             when 'HPS-Normal'
-              # Sometimes HPS-MemberIInterjecting are signified by just an
-              # italic style applied. We are just going to assume if it has
-              # some italics it's all a MemberIInterjecting
-              italic_text = ""
-              p.search('//span').each do |t|
-                if not t.attributes['style'].nil? and t.attributes['style'].match(/italic/)
-                  t.name = 'inline'
-                  t.attributes['font-style'] = 'italic'
-                  t.attributes.delete('style')
-                  italic_text = "#{italic_text}#{t.inner_text}"
-                end
-              end
-              member_iinterjecting = italic_text.strip() == text
 
               if not amendment_node.nil?
                 warn "      Found paragraph in an amendment"
 
                 amendment_node.append <<EOF
-<para>#{text}</para>
+<para>#{restore_tags(text)}</para>
 EOF
 
               # We special case bill's returned from the senate with amendments
@@ -362,7 +372,7 @@ EOF
 
                 search_node.append <<EOF
 <amendments>
-  <para>#{text}</para>
+  <para>#{restore_tags(text)}</para>
 </amendments>
 EOF
                 amendment_node = search_node.search("amendments")[-1]
@@ -383,7 +393,7 @@ EOF
               else
                 warn "    Found new paragraph"
                 text_node.append <<EOF
-<para>#{text}</para>
+<para>#{restore_tags(text)}</para>
 EOF
               end
 
@@ -394,7 +404,7 @@ EOF
               else
                 warn "    Found new bullet point"
                 text_node.append <<EOF
-<list>#{text}</list>
+<list>#{restore_tags(text)}</list>
 EOF
               end
 
@@ -402,14 +412,14 @@ EOF
               if not amendment_node.nil?
                 warn "      Found amendment"
                 amendment_node.append <<EOF
-<amendment>#{text}</amendment>
+<amendment>#{restore_tags(text)}</amendment>
 EOF
               elsif text_node.nil? 
                 warn "    Ignoring quote node as text_node was null\n#{p}"
               else
                 warn "    Found new quote"
                 text_node.append <<EOF
-<quote><para class="block">#{text}</para></quote>
+<quote><para class="block">#{restore_tags(text)}</para></quote>
 EOF
               end
 
