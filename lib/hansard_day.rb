@@ -375,7 +375,7 @@ EOF
             speech_node = nil
             text_node = nil
 
-          elsif text_node.nil? or text_node.inner_text.length == 0
+          elsif text_node.nil?
             warn "    Ignoring para node as text_node was null\n#{p}"
 
           elsif p.search('span[@class=HPS-MemberIInterjecting]').length > 0 or
