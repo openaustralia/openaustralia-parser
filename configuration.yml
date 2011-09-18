@@ -5,12 +5,12 @@
 # The root directory of the patched Australian version of the TheyWorkForYou
 # website.
 # For example, Under Mac OS X this is likely to be something like:
-web_root: "/Library/WebServer/Documents/openaustralia"
+web_root: "/var/www/oa"
 # Under Linux, this is likely to be something like:
 #web_root: "/var/www/openaustralia-app"
 
-html_cache_path: "/Library/WebServer/Documents/openaustralia/html_cache"
-log_path: "/Library/WebServer/Documents/openaustralia/openaustralia-parser/parser.log"
+html_cache_path: "/var/www/oa/html_cache"
+log_path: "/var/www/oa/openaustralia-parser/parser.log"
 
 # Should hopefully not have to change anything below here
 
