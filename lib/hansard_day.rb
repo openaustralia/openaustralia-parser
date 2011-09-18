@@ -192,6 +192,12 @@ EOF
 
     new_xml = Hpricot('')
     input_text_node.search('/body/p').each do |p|
+      # Skip empty nodes
+      if p.inner_text.strip.length == 0
+        warn "    Ignoring para node as it was empty\n#{p}"
+        next
+      end
+
       # We are going to remove all tags later, so any tag we want to keep
       # such as the italics, we need to do a conversion here.
 
