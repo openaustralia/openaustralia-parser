@@ -10,6 +10,7 @@ require 'people_image_downloader'
 require 'active_support'
 require 'log4r'
 require 'hansard_day'
+require 'hansard_rewriter'
 require 'patch'
 
 $KCODE = 'u'
@@ -44,6 +45,8 @@ class HansardParser
     @logger.add(o1)
     @logger.add(Log4r::FileOutputter.new('foo', :filename => @conf.log_path, :trunc => false,
       :formatter => Log4r::PatternFormatter.new(:pattern => "[%l] %d :: %M")))
+
+    @rewriter = HansardRewriter.new(@logger)
   end
 
   # Returns the subdirectory where html_cache files for a particular date are stored
@@ -102,8 +105,31 @@ class HansardParser
 
   # Returns HansardDate object for a particular day
   def hansard_day_on_date(date, house)
-    text = hansard_xml_source_data_on_date(date, house)
-    HansardDay.new(Hpricot.XML(text), @logger) if text
+    if house == House.representatives
+       house_loc = "representatives_debates"
+    elsif house == House.senate
+       house_loc = "senate_debates"
+    else
+       throw "Assertion failed! unknown house!"
+    end
+
+    # Load the XML data
+    xml = hansard_xml_source_data_on_date(date, house)
+    if xml
+      # Save the original XML data
+      filename = "#{@conf.xml_path}/origxml/#{house_loc}/#{date}.xml"
+      File.open(filename, 'w') {|f| f.write("#{xml}") }
+
+      # Rewrite the XML data back to a sane format
+      new_xml = @rewriter.rewrite_xml Hpricot.XML(xml)
+
+      # Save the rewritten XML data
+      filename = "#{@conf.xml_path}/rewritexml/#{house_loc}/#{date}.xml"
+      File.open(filename, 'w') {|f| f.write("#{new_xml}") }
+
+      # Process the day
+      HansardDay.new(new_xml, @logger)
+    end
   end
 
   # Parse but only if there is a page that is at "proof" stage
@@ -153,7 +179,6 @@ class HansardParser
           yes = page.yes.map do |text|
             unless text.length == 0
               name = Name.last_title_first(text)
-              p "#{date} #{house}: #{text} is in division (voting yes)"
               member = @people.find_member_by_name_current_on_date(name, date, house)
               throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes)" if member.nil?
               member
@@ -189,7 +214,6 @@ class HansardParser
                 name = Name.last_title_first(text)
                 member = @people.find_member_by_name_current_on_date(name, date, house)
                 if member.nil?
-                  puts "name = '#{name.full_name}', text = '#{text}', date = '#{date}', house = '#{house}'"
                   throw "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair)"
                 end
                 member

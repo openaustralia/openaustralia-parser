@@ -65,6 +65,10 @@ end
 
 conf = Configuration.new
 
+FileUtils.mkdir_p "#{conf.xml_path}/origxml/representatives_debates"
+FileUtils.mkdir_p "#{conf.xml_path}/origxml/senate_debates"
+FileUtils.mkdir_p "#{conf.xml_path}/rewritexml/representatives_debates"
+FileUtils.mkdir_p "#{conf.xml_path}/rewritexml/senate_debates"
 FileUtils.mkdir_p "#{conf.xml_path}/scrapedxml/representatives_debates"
 FileUtils.mkdir_p "#{conf.xml_path}/scrapedxml/senate_debates"
 
