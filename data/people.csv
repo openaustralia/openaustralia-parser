@@ -141,7 +141,7 @@ person count,aph id,name,birthday,alt name
 132,5V4,Ruth Nancy Coleman,
 133,4V4,William Peter Coleman,
 134,,Stanley James Collard,
-135,GB6,Jacinta Mary Ann Collins,
+135,GB6,Jacinta Mary Ann Collins,,Jacinta Mary Collins
 136,HWM,Julie Maree Collins,
 137,OF4,Robert Lindsay Collins,
 138,PF4,Malcolm Arthur Colston,
@@ -571,7 +571,7 @@ person count,aph id,name,birthday,alt name
 560,3J4,Rod Weston Sawford,,Rodney Weston Sawford
 561,4J4,Chris Cleland Schacht,,Christopher Cleland Schacht
 562,5J4,Gordon Glen Denton Scholes,
-563,83Q,Alby John Schultz,,Albert John Schultz
+563,83Q,Alby John Schultz,,Albert John Schultz,Albert John Shultz
 564,6J4,Con Antonio Sciacca,,Concetto Antonio Sciacca
 565,YT4,Bruce Craig Scott,
 566,MQ7,Douglas Barr Scott,
@@ -740,21 +740,21 @@ person count,aph id,name,birthday,alt name
 725,M3M,John Alexander,
 726,230485,George Robert Christensen,
 727,C2T,Andrew Wilkie,
-728,441,Ken O'Dowd,
-729,315,Bert Van Manen,,Albertus Johannes Van Manen
+728,139441,Ken O'Dowd,
+729,188315,Bert Van Manen,,Albertus Johannes Van Manen
 730,M3A,Ken Wyatt,
-731,770,Laura Smyth,
+731,172770,Laura Smyth,
 732,M2X,Wyatt Roy,
 733,M3E,Rob Mitchell,
 734,M3C,Adam Bandt,
 735,M3K,Tony Crook,,Anthony John Crook
-736,370,Natasha Griggs,
+736,220370,Natasha Griggs,
 737,M38,Geoff Lyons,
 738,30540,Gai Brodtmann,
 739,M2V,Russell Matheson,
 740,A9B,Stephen Jones,
 741,FKL,Josh Frydenberg,
-742,911,Dan Tehan,
+742,210911,Dan Tehan,
 743,219646,Michael McCormack,
 744,96430,Ewen Jones,
 745,230886,Karen Andrews,
