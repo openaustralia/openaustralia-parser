@@ -289,8 +289,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 287,,David Fawcett,,SA,1.7.2011,,,still_in_office,LIB
 288,,Alex Gallacher,,SA,1.7.2011,,,still_in_office,ALP
 291,,Bridget McKenzie,,Victoria,1.7.2011,,,still_in_office,NP
-# FIXME: This should be the DLP not the ALP
-292,,John Madigan,,Victoria,1.7.2011,,,still_in_office,ALP
+292,,John Madigan,,Victoria,1.7.2011,,,still_in_office,DLP
 293,,Lee Rhiannon,,NSW,1.7.2011,,,still_in_office,GRN
 295,,Hon Lisa Singh,,Tasmania,1.7.2011,,,still_in_office,ALP
 296,,Matt Thistlethwaite,,NSW,1.7.2011,,,still_in_office,ALP
