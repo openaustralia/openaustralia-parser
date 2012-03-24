@@ -56,7 +56,7 @@ class HansardRewriter
   end
 
   # This function is the core of the new parser.  It takes the raw
-  # (sub)debate.text nodes and turns it into <speech> and more structured tags.
+  # speech nodes and modifies them to the required format.
   # There are a lot of hard coded heuristic that depend on the unstructured
   # HTML stay a certain way - I've tried to put asserts where things might go
   # wrong rather then produce crappy output.
@@ -412,9 +412,13 @@ EOF
         debate_new_children.append "#{ rewrite_debate(f, level+1) }"
 
       # The actual transcript of the proceedings we are going to process
-      when 'debate.text', 'subdebate.text'
+      when 'speech'
         if not subdebate_found
-          debate_new_children.append "#{ process_textnode(f) }"
+          # We're interested in the talk.text node but have to find it manually due to a bug
+          # with Hpricot xpath meaning nodes with a dot '.' in the name are not found.
+          if talk = f.child_nodes.detect {|node| node.name == 'talk.text'}
+            debate_new_children.append "#{process_textnode(talk)}"
+          end
         end
 
       # Divisions are actually still the same format, so we just append them.
@@ -422,7 +426,7 @@ EOF
         debate_new_children.append "#{ f }"
 
       # Things we are delibaretly removing
-      when 'question', 'answer', 'speech', 'continue', 'interjection', 'talk'
+      when 'question', 'answer', 'continue', 'interjection', 'talk', 'debate.text', 'subdebate.text'
         # pass
 
       else
