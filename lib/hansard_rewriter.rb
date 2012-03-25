@@ -144,7 +144,7 @@ EOF
         logger.warn "    Found a link without type!? #{ahref}"
         next
       end
-      if not ahref.nil? and ahref.attributes['type'].match(/^Member/)
+      if not ahref.nil? and ahref.attributes['type'].match(/^Member|Office/)
 
         # Is this start of a speech? We can tell by the fact it has spans
         # with the HPS-Time class.
@@ -212,6 +212,10 @@ EOF
           when 'MemberContinuation'
             type = "continue"
           when 'MemberInterjecting'
+            type = "interjection"
+          when 'OfficeContinuation'
+            type = "continue"
+          when 'OfficeInterjecting'
             type = "interjection"
           when 'MemberQuestion'
             type = "question"
@@ -412,7 +416,7 @@ EOF
         debate_new_children.append "#{ rewrite_debate(f, level+1) }"
 
       # The actual transcript of the proceedings we are going to process
-      when 'speech'
+      when 'question', 'answer', 'speech'
         if not subdebate_found
           # We're interested in the talk.text node but have to find it manually due to a bug
           # with Hpricot xpath meaning nodes with a dot '.' in the name are not found.
@@ -426,7 +430,7 @@ EOF
         debate_new_children.append "#{ f }"
 
       # Things we are delibaretly removing
-      when 'question', 'answer', 'continue', 'interjection', 'talk', 'debate.text', 'subdebate.text'
+      when 'continue', 'interjection', 'talk', 'debate.text', 'subdebate.text'
         # pass
 
       else
