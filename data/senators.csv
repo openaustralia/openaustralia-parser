@@ -201,7 +201,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 199,,Nigel Gregory Scullion,,NT,10.11.2001 ,,,still_in_office,CLP
 200,,Glenister Sheil,,Qld,1.12.1984 ,,30.6.1990 ,defeated,NCP
 201,,Glenister Sheil,,Qld,18.5.1974 ,,6.2.1981 ,resigned ,NCP
-202,,Nicholas John Sherry,,Tas.,1.7.1990,,,still_in_office,ALP
+202,,Nicholas John Sherry,,Tas.,1.7.1990,,01.06.2012,resigned,ALP
 203,,James Robert Short,,Vic.,1.12.1984 ,,12.5.1997 ,resigned,LIB
 205,,Kerry Walter Sibraa,,NSW,13.12.1975,,30.6.1978,defeated,ALP
 204,,Kerry Walter Sibraa,,NSW,9.8.1978,section_15,17.02.1987,changed_party,ALP
@@ -299,3 +299,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 301,,Arthur Sinodinos,,NSW,31.10.2011,section_15,,still_in_office,LIB
 302,,Robert John Carr,,NSW,06.03.2012,,,still_in_office,ALP
 303,,Dean Smith,,WA,2.5.2012,,,still_in_office,LIB
+304,,Lin Estelle Thorp,,Tas.,20.6.2012,,,still_in_office,ALP
