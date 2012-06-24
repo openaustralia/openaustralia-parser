@@ -296,7 +296,8 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 285,,Harry Alfred Jenkins,Scullin,Vic.,8.2.1986,by_election,4.5.1993,changed_party,ALP
 286,,Harry Alfred Jenkins,Scullin,Vic.,4.5.1993,changed_party,29.1.1996,changed_party,CWM
 287,,Harry Alfred Jenkins,Scullin,Vic.,29.1.1996,changed_party,11.2.2008,changed_party,ALP
-288,,Harry Alfred Jenkins,Scullin,Vic.,12.2.2008,changed_party, ,still_in_office,SPK
+288,,Harry Alfred Jenkins,Scullin,Vic.,12.2.2008,changed_party,24.11.2011,changed_party,SPK
+288,,Harry Alfred Jenkins,Scullin,Vic.,24.11.2011,changed_party, ,still_in_office,ALP
 289,,Dennis Geoffrey Jensen,Tangney,WA,9.10.2004,, ,still_in_office,LIB
 290,,Gary Thomas Johns,Petrie,Qld,11.7.1987,,2.3.1996,defeated,ALP
 291,,Leonard Keith Johnson,Burke,Vic.,25.10.1969,,19.9.1980,retired,ALP
@@ -498,7 +499,8 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 482,,Ian McCahon Sinclair,New England,NSW,30.11.1963,,4.3.1998,changed_party,NPA
 583,,Ian McCahon Sinclair,New England,NSW,4.3.1998,changed_party,31.8.1998,retired,SPK
 483,,Peter Neil Slipper,Fisher,Qld,1.12.1984,,11.7.1987,defeated,NPA
-484,,Peter Neil Slipper,Fisher,Qld,13.3.1993,, ,still_in_office,LIB
+484,,Peter Neil Slipper,Fisher,Qld,13.3.1993,,24.11.2011,changed_party,LIB
+629,,Peter Neil Slipper,Fisher,Qld,24.11.2011,, ,still_in_office,SPK
 485,,Anthony Charles Smith,Dickson,Qld,2.3.1996,,3.10.1998,defeated,IND
 486,,Anthony David Hawthorn Smith,Casey,Vic.,10.11.2001,, ,still_in_office,LIB
 487,,Silvia Joy Smith,Bass,Tas.,13.3.1993,,2.3.1996,defeated,ALP
@@ -624,4 +626,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 623,,Christopher Eyles Bowen,McMahon,NSW,21.8.2010,,,still_in_office,ALP
 624,,Scott Buchholz,Wright,Qld,21.8.2010,,,still_in_office,LIB
 625,,Jane Prentice,Ryan,QLD,21.8.2010,,,still_in_office,LIB
-# Next free member id: 628
+# Next free member id: 630
