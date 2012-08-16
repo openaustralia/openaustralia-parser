@@ -186,7 +186,7 @@ class HansardDay
     hansard.each_child_node do |e|
       case e.name
       when 'session.header'
-      when 'chamber.xscript', 'maincomm.xscript'
+      when 'chamber.xscript', 'maincomm.xscript', 'fedchamb.xscript'
         e.each_child_node do |e|
           case e.name
             when 'business.start', 'adjournment', 'interrupt', 'interjection'
