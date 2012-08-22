@@ -122,8 +122,6 @@ map = {}
 page.links[260..409].each do |link|
   map[link.text.downcase] = (page.uri + link.uri).to_s
 end
-# Hack to deal with "Flynn" constituency incorrectly spelled as "Flyn"
-map["flynn"] = "http://www.abc.net.au/tv/qanda/mp-profiles/flyn.htm"
 
 bad_divisions = []
 # Check that the links point to valid pages
