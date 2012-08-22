@@ -119,7 +119,7 @@ data = {}
 page = agent.get(conf.qanda_electorate_url)
 map = {}
 
-page.links[35..184].each do |link|
+page.links[260..409].each do |link|
   map[link.text.downcase] = (page.uri + link.uri).to_s
 end
 # Hack to deal with "Flynn" constituency incorrectly spelled as "Flyn"
