@@ -15,7 +15,7 @@ require 'people'
 require 'configuration'
 
 # Full path to pdftk executable
-pdftk = "/usr/bin/pdftk"
+pdftk = "/usr/local/bin/pdftk"
 
 people = PeopleCSVReader.read_members
 
