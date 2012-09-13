@@ -83,6 +83,7 @@ read_in_ranges(p, "representatives/2009_11", people)
 read_in_ranges(p, "representatives/2010_03", people)
 read_in_ranges(p, "representatives/2010_06", people)
 read_in_ranges(p, "representatives/2010_07_wayne_swan", people)
+read_in_ranges(p, "representatives/2012_09_martin_ferguson", people)
 
 # Copy across the individual update files
 FileUtils.cp("data/register_of_interests/senate/2010_06.pdf", "#{conf.base_dir}#{conf.regmem_pdf_path}/update_senate_2010_06.pdf")
