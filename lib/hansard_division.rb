@@ -40,7 +40,13 @@ class HansardDivision
   
   def time
     tag = @content.at('(division.header) > (time.stamp)')
-    tag.inner_html if tag
+    time = tag.inner_html if tag
+    # if no timestamp, fallback to extracting out of preamble
+    if !time && (header = @content.at('(division.header)'))
+      results = header.inner_html.match(/\[(..:..)\]/)
+      time = results[1] if results
+    end
+    time
   end
   
   private
