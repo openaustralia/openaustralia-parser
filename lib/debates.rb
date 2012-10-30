@@ -54,12 +54,15 @@ class Debates
     @division_count = @division_count + 1
   end
   
-  def add_speech(speaker, time, url, content)
+  def add_speech(speaker, time, url, content, interjection=false, continuation=false)
     add_heading_for_real
     
     # Only add new speech if the speaker has changed
     if !@items.last.kind_of?(Speech) || speaker != last_speaker
-      @items << Speech.new(speaker, time, url, @count.clone, @date, @house, @logger)
+      speech = Speech.new(speaker, time, url, @count.clone, @date, @house, @logger)
+      speech.interjection = interjection
+      speech.continuation = continuation
+      @items << speech
     end
     @items.last.append_to_content(content)
   end

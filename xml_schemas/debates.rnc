@@ -36,6 +36,7 @@ start = element publicwhip {
 		attribute speakeroffice { text }?,
 		attribute colon { ":" | "" }?,
 		attribute redirect { "up" | "down" | "nowhere" }?,
+		attribute talktype { "speech" | "interjection" | "continuation" }?,
 		debates-content
 	} |
 	element oral-heading {

@@ -1,7 +1,6 @@
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require "test/unit"
-require 'spec'
 
 require "hansard_division"
 require 'hpricot'
@@ -87,5 +86,46 @@ describe HansardDivision, "with pairings" do
 
   it "should parse the pairs votes" do
     @division.pairs.should == [["Lundy, K.A.", "McGauran, J.J.J."], ["Stephens, U.", "Barnett, G."]]
+  end
+
+  describe "with no timestamp but a time in the preamble" do
+
+    let(:division_without_timestamp) do
+      HansardDivision.new(Hpricot.XML('
+    <division>
+			<division.header>
+         <body>
+           <p class="HPS-DivisionPreamble">The House divided. [09:32]<br />(The Speaker—Ms Anna Burke)</p>
+         </body>
+			</division.header>
+			<para>(The Speaker&#x2014;Mr Harry Jenkins)</para>
+			<division.data>
+				<ayes>
+					<num.votes>3</num.votes>
+					<title>AYES</title>
+					<names>
+						<name>Joe Bloggs *</name>
+						<name>Henry Smith</name>
+						<name>Phil Smith*</name>
+					</names>
+				</ayes>
+				<noes>
+					<num.votes>1</num.votes>
+					<title>NOES</title>
+					<names>
+						<name>John Smith *</name>
+					</names>
+				</noes>
+			</division.data>
+			<para>* denotes teller</para>
+			<division.result>
+				<para>Question agreed to.</para>
+			</division.result>
+		</division>'), "", "", nil)
+    end
+
+    it "should correctly extract the time" do
+      division_without_timestamp.time.should == '09:32'
+    end
   end
 end

@@ -169,7 +169,8 @@ class HansardParser
               # With interjections the next speech should never be by the person doing the interjection
               speaker = this_speaker unless speech.interjection
 
-              debates.add_speech(this_speaker, speech.time, speech.permanent_url, speech.clean_content)
+              debates.add_speech(this_speaker, speech.time, speech.permanent_url, 
+                  speech.clean_content, speech.interjection, speech.continuation)
             end
             debates.increment_minor_count
           end

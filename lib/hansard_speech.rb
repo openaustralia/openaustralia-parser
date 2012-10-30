@@ -1,14 +1,17 @@
 require 'environment'
 require 'active_support'
 require 'hpricot_additions'
+require 'name'
 
 $KCODE = 'u'
 
 class HansardSpeech
-  attr_reader :logger, :title, :subtitle, :time, :day
+  attr_reader :logger, :title, :subtitle, :time, :day, :interjection, :continuation
   
   def initialize(content, title, subtitle, time, day, logger = nil)
     @content, @title, @subtitle, @time, @day, @logger = content, title, subtitle, time, day, logger
+    @interjection = name?('interjection')
+    @continuation = name?('continue')
   end
   
   # The url of a speech is just the url of the day that it comes from
@@ -26,11 +29,6 @@ class HansardSpeech
     aph_id_tag ? aph_id_tag.inner_html : nil
   end
   
-  # TODO: Rename this method to interjection?
-  def interjection
-    !@content.at('interjection').nil?
-  end
-
   private
   
   def speakername_from_tag
@@ -299,5 +297,9 @@ class HansardSpeech
 
   def HansardSpeech.generic_speaker?(speakername)
     speakername =~ /^(an? )?(honourable|opposition|government) (member|senator)s?$/i
+  end
+
+  def name?(name)
+    @content.respond_to?(:name) ? name == @content.name : !!@content.at("/#{name}")
   end
 end
