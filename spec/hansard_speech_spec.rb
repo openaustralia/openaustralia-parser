@@ -1,7 +1,7 @@
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require "test/unit"
-require 'spec'
+require 'active_support'
 
 require "hansard_speech"
 
@@ -22,6 +22,7 @@ describe HansardSpeech, "should recognise who's talking" do
 		speech.speakername.should == "Mr RUDD"
 		speech.aph_id.should == "83T"
 		speech.interjection.should be_false
+		speech.continuation.should be_false
   end
 
 	it "in a motionnospeech block" do
@@ -29,6 +30,7 @@ describe HansardSpeech, "should recognise who's talking" do
 		speech.speakername.should == "Mr BILLSON"
 		speech.aph_id.should be_nil
 		speech.interjection.should be_false
+		speech.continuation.should be_false
 	end
 
 	it "in an interjection block" do
@@ -45,6 +47,7 @@ describe HansardSpeech, "should recognise who's talking" do
 		speech.speakername.should == "The SPEAKER"
 		speech.aph_id.should == "10000"
 		speech.interjection.should be_true
+		speech.continuation.should be_false
   end
   
   it "is not an interjection if the talker is specified but there is interjecting in the text" do
@@ -60,6 +63,7 @@ describe HansardSpeech, "should recognise who's talking" do
 			</talk.start>
 		</continue>'), "", "", "", nil)
 		speech.interjection.should be_false		
+		speech.continuation.should be_true
   end
   
   it "should return the version of the speakername with more information" do
@@ -74,6 +78,7 @@ describe HansardSpeech, "should recognise who's talking" do
 		</interjection>'), "", "", "", nil)
 		speech.speakername.should == "Jenkins, Harry (The DEPUTY SPEAKER)"
 		speech.interjection.should be_true
+		speech.continuation.should be_false
   end
   
   it "should recognise generic speakers interjecting" do

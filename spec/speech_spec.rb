@@ -1,7 +1,6 @@
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require "test/unit"
-require 'spec'
 
 require 'speech'
 require 'person'
@@ -19,7 +18,7 @@ describe Speech do
 
   it "outputs a simple speech" do
     @speech.append_to_content(Hpricot('<p>A speech</p>'))    
-    @speech.output(Builder::XmlMarkup.new).should == '<speech id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" time="05:00:00" url="http://foo.co.uk/"><p>A speech</p></speech>'
+    @speech.output(Builder::XmlMarkup.new).should == '<speech id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" talktype="speech" time="05:00:00" url="http://foo.co.uk/"><p>A speech</p></speech>'
   end
   
   it "encodes html entities" do
@@ -33,6 +32,6 @@ describe Speech do
     coder.encode("Q&A#{nbsp}—", :basic).should == "Q&amp;A#{nbsp}—"
     
     @speech.append_to_content(doc)
-    @speech.output(Builder::XmlMarkup.new).should == '<speech id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" time="05:00:00" url="http://foo.co.uk/"><p>Q&amp;A' + nbsp + '—</p></speech>'
+    @speech.output(Builder::XmlMarkup.new).should == '<speech id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" talktype="speech" time="05:00:00" url="http://foo.co.uk/"><p>Q&amp;A' + nbsp + '—</p></speech>'
   end  
 end

@@ -14,3 +14,7 @@ gem 'rspec'
 gem 'rcov'
 
 gem 'rmagick'
+
+group :test do
+  gem 'rspec'
+end

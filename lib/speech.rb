@@ -4,7 +4,7 @@ require 'htmlentities'
 require 'section'
 
 class Speech < Section
-  attr_accessor :speaker, :content
+  attr_accessor :speaker, :content, :interjection, :continuation
   
   def initialize(speaker, time, url, count, date, house, logger = nil)
     @speaker = speaker
@@ -22,7 +22,7 @@ class Speech < Section
       end
     end
     speaker_attributes = @speaker ? {:speakername => @speaker.name.full_name, :speakerid => @speaker.id} : {:nospeaker => "true"}
-    x.speech(speaker_attributes.merge(:time => time, :url => quoted_url, :id => id)) { x << @content.to_s }
+    x.speech(speaker_attributes.merge(:time => time, :url => quoted_url, :id => id, :talktype => talk_type)) { x << @content.to_s }
   end
   
   def append_to_content(content)
@@ -38,6 +38,16 @@ class Speech < Section
       @content = @content + content
     else
       @content << content
+    end
+  end
+
+  def talk_type
+    if @interjection
+      'interjection'
+    elsif @continuation
+      'continuation'
+    else
+      'speech'
     end
   end
 end
