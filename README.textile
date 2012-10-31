@@ -1,3 +1,3 @@
-h1. The OpenAustralia Hansard Parser !https://secure.travis-ci.org/openaustralia/openaustralia-parser.png(Build Status)!:http://travis-ci.org/openaustralia/openaustralia-parser
+h1. The OpenAustralia Hansard Parser !https://secure.travis-ci.org/openaustralia/openaustralia-parser.png(Build Status)!:http://travis-ci.org/openaustralia/openaustralia-parser !https://gemnasium.com/openaustralia/openaustralia-parser.png(Dependency Status)!:https://gemnasium.com/openaustralia/openaustralia-parser
 
 See for installation instructions http://software.openaustralia.org/install-parser.html
