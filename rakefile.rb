@@ -1,19 +1,19 @@
 require 'rake'
 require 'rake/testtask'
-require 'spec/rake/spectask'
+require 'rspec/core/rake_task'
 
 task :default => [:spec]
 
-Spec::Rake::SpecTask.new do |t|
+RSpec::Core::RakeTask.new do |t|
     t.ruby_opts = ['-rtest/unit']
-    t.spec_files = FileList['spec/*_spec.rb', 'test/test_*.rb']
+    t.pattern = ['spec/*_spec.rb', 'test/test_*.rb']
 end
 
-Spec::Rake::SpecTask.new(:spec_coverage) do |t|
+RSpec::Core::RakeTask.new(:spec_coverage) do |t|
     t.rcov = true
     t.rcov_opts = ["-x/Library/, -xspec"]
     t.ruby_opts = ['-rtest/unit']
-    t.spec_files = FileList['spec/*_spec.rb', 'test/test_*.rb']
+    t.pattern = ['spec/*_spec.rb', 'test/test_*.rb']
 end
 
 
