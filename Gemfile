@@ -11,10 +11,9 @@ gem 'htmlentities'
 gem 'builder', '2.1.2'
 gem 'log4r'
 
-gem 'rcov'
-
 gem 'rmagick'
 
 group :test do
   gem 'rspec', '~>1.3'
+  gem 'rcov'
 end
