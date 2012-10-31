@@ -88,13 +88,6 @@ describe HansardSpeech, "should recognise who's talking" do
 end
 
 describe HansardSpeech, "should clean content" do
-  
-  it "in a simple paragraph" do
-    speech = HansardSpeech.new(Hpricot.XML('<speech><talk.start><para>—I move:</para></talk.start></speech>').at('//(talk.start)'), "", "", "", nil)
-		expected_result = '<p>I move:</p>'
-		speech.clean_content.to_s.should == expected_result
-  end
-  
   it "in a para (block)" do
     content = '<speech><para class="block">Some text</para></speech>'
     expected = '<p>Some text</p>'
