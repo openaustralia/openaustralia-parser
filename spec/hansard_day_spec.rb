@@ -103,7 +103,7 @@ describe HansardDay do
   it "should know the permanent url" do
     # Make permanent url links back to the Parlinfo Search result. For the time being we will always link back to the top level
     # result for that date rather than the individual speeches.
-    @header.permanent_url.should == "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:chamber/hansards/2008-09-25/0000"
+    @header.permanent_url.should == "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;adv=yes;orderBy=_fragment_number,doc_date-rev;page=0;query=Dataset%3Ahansards,hansards80%20Date%3A25%2F9%2F2008;rec=0;resCount=Default"
   end
   
   # TODO: This should be a test for HansardPage rather than HansardDay
