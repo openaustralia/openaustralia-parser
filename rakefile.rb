@@ -1,6 +1,5 @@
 require 'rake'
 require 'rake/testtask'
-require 'rake/rdoctask'
 require 'spec/rake/spectask'
 
 task :default => [:spec]
