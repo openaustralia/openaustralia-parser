@@ -1,5 +1,6 @@
 source "http://rubygems.org"
 
+gem 'rake'
 gem 'activesupport'
 gem 'i18n' # Required by activesupport
 gem 'mechanize', '0.9.2'
@@ -10,11 +11,10 @@ gem 'htmlentities'
 gem 'builder', '2.1.2'
 gem 'log4r'
 
-gem 'rspec'
 gem 'rcov'
 
 gem 'rmagick'
 
 group :test do
-  gem 'rspec'
+  gem 'rspec', '~>1.3'
 end
