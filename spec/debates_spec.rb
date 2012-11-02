@@ -10,6 +10,7 @@ describe Debates do
   before :each do
     @james = mock("Person", :name => mock("Name", :full_name => "james"), :id => 101)
     @henry = mock("Person", :name => mock("Name", :full_name => "henry"), :id => 102)
+    @rebecca = mock("Person", :name => mock("Name", :full_name => "rebecca"), :id => 103)
     @debates = Debates.new(Date.new(2000,1,1), House.representatives)
   end
   
@@ -19,7 +20,7 @@ describe Debates do
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
-  <speech id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
+  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url" wordcount="4">
 <p>This is a speech</p>  </speech>
 </debates>
 EOF
@@ -32,7 +33,7 @@ EOF
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
-  <speech id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
+  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url" wordcount="7">
 <p>This is a speech</p><p>And a bit more</p>  </speech>
 </debates>
 EOF
@@ -46,9 +47,9 @@ EOF
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
-  <speech id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
+  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url" wordcount="4">
 <p>This is a speech</p>  </speech>
-  <speech id="uk.org.publicwhip/debate/2000-01-01.1.2" speakerid="102" speakername="henry" talktype="interjection" time="9:00" url="url">
+  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.2" speakerid="102" speakername="henry" talktype="interjection" time="9:00" url="url" wordcount="4">
 <p>And a bit more</p>  </speech>
 </debates>
 EOF
@@ -62,7 +63,7 @@ EOF
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
-  <speech id="uk.org.publicwhip/debate/2000-01-01.1.1" nospeaker="true" talktype="speech" time="9:00" url="url">
+  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.1" nospeaker="true" talktype="speech" time="9:00" url="url" wordcount="7">
 <p>This is a speech</p><p>And a bit more</p>  </speech>
 </debates>
 EOF
@@ -77,13 +78,13 @@ EOF
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
-  <speech id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
+  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url" wordcount="4">
 <p>This is a speech</p>  </speech>
   <major-heading id="uk.org.publicwhip/debate/2000-01-01.1.2" url="url">
 title  </major-heading>
   <minor-heading id="uk.org.publicwhip/debate/2000-01-01.1.3" url="url">
 subtitle  </minor-heading>
-  <speech id="uk.org.publicwhip/debate/2000-01-01.1.4" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
+  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.4" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url" wordcount="4">
 <p>And a bit more</p>  </speech>
 </debates>
 EOF
@@ -100,7 +101,7 @@ EOF
 title  </major-heading>
   <minor-heading id="uk.org.publicwhip/debate/2000-01-01.1.2" url="url">
 subtitle  </minor-heading>
-  <speech id="uk.org.publicwhip/debate/2000-01-01.1.3" nospeaker="true" talktype="speech" time="9:00" url="url">
+  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.3" nospeaker="true" talktype="speech" time="9:00" url="url" wordcount="4">
 <p>This is a speech</p>  </speech>
 </debates>
 EOF
@@ -114,9 +115,9 @@ EOF
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
-  <speech id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
+  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url" wordcount="4">
 <p>This is a speech</p>  </speech>
-  <speech id="uk.org.publicwhip/debate/2000-01-01.1.2" nospeaker="true" talktype="speech" time="9:00" url="url">
+  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.2" nospeaker="true" talktype="speech" time="9:00" url="url" wordcount="4">
 <p>And a bit more</p>  </speech>
 </debates>
 EOF
@@ -132,14 +133,95 @@ EOF
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
-  <speech id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
+  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url" wordcount="4">
 <p>This is a speech</p>  </speech>
-  <speech id="uk.org.publicwhip/debate/2000-01-01.1.2" speakerid="102" speakername="henry" talktype="interjection" time="9:00" url="url">
+  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.2" speakerid="102" speakername="henry" talktype="interjection" time="9:00" url="url" wordcount="4">
 <p>And a bit more</p>  </speech>
-  <speech id="uk.org.publicwhip/debate/2000-01-01.1.3" speakerid="101" speakername="james" talktype="continuation" time="9:00" url="url">
+  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.3" speakerid="101" speakername="james" talktype="continuation" time="9:00" url="url" wordcount="4">
 <p>And a bit more</p>  </speech>
 </debates>
 EOF
+  end
+
+  describe "#calculate_speech_durations" do
+
+    before do
+      @debates.items.clear
+    end
+
+    describe "a speech followed by another speech by a different person" do
+
+      before do
+        @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
+        @debates.add_speech(@henry, "9:08", "url", Hpricot("<p>And a bit more</p>"))
+        @debates.calculate_speech_durations
+      end
+
+      it "should calculate the duration based on the start of the next speech" do
+        @debates.items.first.duration.should == 8 * 60
+      end
+
+    end
+
+    describe "a speech followed by an interjection" do
+
+      before do
+        @debates.add_speech(@henry, "9:08", "url", Hpricot("<p>And a bit more</p>"))
+        @debates.add_speech(@james, "9:12", "url", Hpricot("<p>I interject!</p>"), true)
+        @debates.add_speech(@rebecca, "9:18", "url", Hpricot("<p>I interject!</p>"))
+        @debates.calculate_speech_durations
+      end
+
+      it "should calculate the duration based on the start of the next speech - skipping interjectsions" do
+        @debates.items.first.duration.should == 10 * 60
+      end
+
+    end
+    
+    describe "the last section with an adjournment time in the data" do
+
+      before do
+        @debates.add_speech(@rebecca, "9:18", "url", Hpricot("<p>Some text adjourned at 9:21</p>"))
+        @debates.add_speech(@rebecca, "9:50", "url", Hpricot("<p>Post adjournment</p>"))
+        @debates.calculate_speech_durations
+      end
+
+      it "should use the adjournment time to work out the duration" do
+        @debates.items.first.duration.should == 3 * 60
+      end
+
+    end
+
+    describe "an interjection" do
+
+      before do
+        @debates.add_speech(@james, "9:00", "url", Hpricot("<p>I interject!</p>"), true)
+        @debates.add_speech(@henry, "9:08", "url", Hpricot("<p>And a bit more</p>"))
+        @debates.calculate_speech_durations
+      end
+
+      it "should not have a duration set" do
+        @debates.items.first.duration.should be_zero
+      end
+
+    end
+
+    describe "a continuation" do
+
+      before do
+        @debates.add_speech(@james, "9:00", "url", Hpricot("<p>I interject!</p>"))
+        @debates.add_speech(@henry, "9:04", "url", Hpricot("<p>I interject!</p>"), true)
+        @debates.add_speech(@james, "9:08", "url", Hpricot("<p>I interject!</p>"), false, true)
+        @debates.add_speech(@henry, "9:12", "url", Hpricot("<p>And a bit more</p>"))
+        @debates.calculate_speech_durations
+      end
+
+      it "should not have a duration set" do
+        @debates.items[2].duration.should be_zero
+      end
+
+    end
+
   end
   
 end

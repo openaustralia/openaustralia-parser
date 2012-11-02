@@ -9,16 +9,18 @@ require 'count'
 require 'builder_alpha_attributes'
 
 describe Speech do
+
+  let!(:person){ Person.new(:name => Name.new(:first => "John", :last => "Smith"), :count => 1) }
+  let!(:member){ Period.new(:person => person, :house => House.representatives, :count => 1) }
+
   before :each do
-    person = Person.new(:name => Name.new(:first => "John", :last => "Smith"), :count => 1)
-    member = Period.new(:person => person, :house => House.representatives, :count => 1)
     # TODO: Fix duplication of house both in speaker and initialiser for Speech
     @speech = Speech.new(member, "05:00:00", "http://foo.co.uk/", Count.new(3, 1), Date.new(2006, 1, 1), House.representatives)
   end
 
   it "outputs a simple speech" do
     @speech.append_to_content(Hpricot('<p>A speech</p>'))    
-    @speech.output(Builder::XmlMarkup.new).should == '<speech id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" talktype="speech" time="05:00:00" url="http://foo.co.uk/"><p>A speech</p></speech>'
+    @speech.output(Builder::XmlMarkup.new).should == '<speech duration="0" id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" talktype="speech" time="05:00:00" url="http://foo.co.uk/" wordcount="2"><p>A speech</p></speech>'
   end
   
   it "encodes html entities" do
@@ -32,6 +34,55 @@ describe Speech do
     coder.encode("Q&A#{nbsp}—", :basic).should == "Q&amp;A#{nbsp}—"
     
     @speech.append_to_content(doc)
-    @speech.output(Builder::XmlMarkup.new).should == '<speech id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" talktype="speech" time="05:00:00" url="http://foo.co.uk/"><p>Q&amp;A' + nbsp + '—</p></speech>'
+    @speech.output(Builder::XmlMarkup.new).should == '<speech duration="0" id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" talktype="speech" time="05:00:00" url="http://foo.co.uk/" wordcount="1"><p>Q&amp;A' + nbsp + '—</p></speech>'
   end  
+
+  describe "#adjournment" do
+
+    describe "with content with no adjournment" do
+
+      subject{ Speech.new(member, "05:00:00", "<p> some content</p>", Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
+
+      its(:adjournment){ should be_nil }
+
+    end
+
+    describe "with content with an adjournment" do
+      
+      let!(:content){ Hpricot("<p> some content\n\nadjourned at 19:31</p>") }
+      subject{ Speech.new(member, "09:00:00", 'url', Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
+      before do
+        subject.append_to_content(content)
+      end
+
+      its(:adjournment){ should be_eql(Time.local(2006, 1, 1, 19, 31))}
+
+    end
+  end
+
+  describe "#duration=" do
+
+    describe "with a duration less than zero"  do
+
+      subject{ Speech.new(member, "09:00:00", 'url', Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
+      before{ subject.duration = -1000 }
+      its(:duration){ should be_zero }
+
+    end
+
+  end
+
+
+  describe "#words" do
+
+    let!(:content){ Hpricot("<p> some content\n\n<span>another word. New sentence.</span> </p>") }
+    subject{ Speech.new(member, "09:00:00", 'url', Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
+    before do
+      subject.append_to_content(content)
+    end
+    
+    it "should return a word count excluding html tags" do
+      subject.words.should == 6
+    end
+  end
 end

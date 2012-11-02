@@ -6,6 +6,8 @@ require 'count'
 # Holds the data for debates on one day
 # Also knows how to output the XML data for that
 class Debates
+  attr_reader :items
+
   def initialize(date, house, logger = nil)
     @date, @house, @logger = date, house, logger
     @title = ""
@@ -82,6 +84,37 @@ class Debates
     x.instruct!
     x.debates do
       @items.each {|i| i.output(x)}
+    end
+  end
+
+  def calculate_speech_durations
+    @items.each_with_index do |section, index|
+
+      next unless section.is_a?(Speech)
+
+      # Interjections are skipped
+      if section.interjection || section.continuation
+        next
+      end
+
+      # if this speech ends with an adjournment, use that as the end time
+      if adjournment = section.adjournment
+        section.duration = adjournment - section.to_time
+        next
+      end
+
+      # Scan ahead looking for the next section (skipping sections without time
+      # or interjections or continuations)
+      next_section = @items[(index + 1)..-1].detect{|next_item|
+        next_item.is_a?(Speech) && next_item.time && !next_item.interjection && !next_item.continuation
+      }
+
+      # Calculate the duration if a next section is found, otherwise, stop
+      if next_section
+        section.duration = next_section.to_time - section.to_time
+      else
+        break
+      end
     end
   end
   

@@ -231,6 +231,9 @@ class HansardParser
       @logger.info "Skipping #{house} speeches for #{date.strftime('%a %d %b %Y')} (no data available)"
     end
 
+    # Calculate speech durations once all sections have been added
+    debates.calculate_speech_durations
+    
     # Only output the debate file if there's going to be something in it
     debates.output(xml_filename) if content
   end

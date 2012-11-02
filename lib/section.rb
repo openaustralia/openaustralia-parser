@@ -18,4 +18,9 @@ class Section
       "uk.org.publicwhip/lords/#{@date}.#{@count}"
     end
   end
+
+  def to_time(alternate_time=nil)
+    time = (alternate_time || @time).split(':').map(&:to_i)
+    Time.local(@date.year, @date.month, @date.day, time[0], time[1])
+  end
 end

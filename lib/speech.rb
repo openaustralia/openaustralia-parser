@@ -4,11 +4,12 @@ require 'htmlentities'
 require 'section'
 
 class Speech < Section
-  attr_accessor :speaker, :content, :interjection, :continuation
+  attr_accessor :speaker, :content, :interjection, :continuation, :duration
   
   def initialize(speaker, time, url, count, date, house, logger = nil)
     @speaker = speaker
     @content = Hpricot::Elements.new
+    @duration = 0
     super(time, url, count, date, house, logger)
   end
   
@@ -22,7 +23,9 @@ class Speech < Section
       end
     end
     speaker_attributes = @speaker ? {:speakername => @speaker.name.full_name, :speakerid => @speaker.id} : {:nospeaker => "true"}
-    x.speech(speaker_attributes.merge(:time => time, :url => quoted_url, :id => id, :talktype => talk_type)) { x << @content.to_s }
+    x.speech(speaker_attributes.merge({
+      :time => time, :url => quoted_url, :id => id, :talktype => talk_type, :duration => @duration.to_i, :wordcount => words
+    })) { x << @content.to_s }
   end
   
   def append_to_content(content)
@@ -50,4 +53,24 @@ class Speech < Section
       'speech'
     end
   end
+
+  def duration=(duration)
+    # Cleanup up durations less than zero or greater than 3 hours
+    if (duration < 0 || duration > 3 * 60 * 60) 
+      duration = 0
+    end
+    @duration = duration
+  end
+
+  # Returns adjournment time if the debate was adjourned during the speech
+  def adjournment
+    match = @content.to_s.match(/adjourned at (\d+:\d\d)/mi)
+    match && to_time(match[1])
+  end
+
+  # Returns a word count of the content text
+  def words
+    @content.inner_text.split.count
+  end
+
 end
