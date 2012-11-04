@@ -20,7 +20,7 @@ describe Debates do
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
-  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url" wordcount="4">
+  <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
 <p>This is a speech</p>  </speech>
 </debates>
 EOF
@@ -33,7 +33,7 @@ EOF
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
-  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url" wordcount="7">
+  <speech approximate_duration="0" approximate_wordcount="8" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
 <p>This is a speech</p><p>And a bit more</p>  </speech>
 </debates>
 EOF
@@ -47,9 +47,9 @@ EOF
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
-  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url" wordcount="4">
+  <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
 <p>This is a speech</p>  </speech>
-  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.2" speakerid="102" speakername="henry" talktype="interjection" time="9:00" url="url" wordcount="4">
+  <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.2" speakerid="102" speakername="henry" talktype="interjection" time="9:00" url="url">
 <p>And a bit more</p>  </speech>
 </debates>
 EOF
@@ -63,7 +63,7 @@ EOF
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
-  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.1" nospeaker="true" talktype="speech" time="9:00" url="url" wordcount="7">
+  <speech approximate_duration="0" approximate_wordcount="8" id="uk.org.publicwhip/debate/2000-01-01.1.1" nospeaker="true" talktype="speech" time="9:00" url="url">
 <p>This is a speech</p><p>And a bit more</p>  </speech>
 </debates>
 EOF
@@ -78,13 +78,13 @@ EOF
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
-  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url" wordcount="4">
+  <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
 <p>This is a speech</p>  </speech>
   <major-heading id="uk.org.publicwhip/debate/2000-01-01.1.2" url="url">
 title  </major-heading>
   <minor-heading id="uk.org.publicwhip/debate/2000-01-01.1.3" url="url">
 subtitle  </minor-heading>
-  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.4" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url" wordcount="4">
+  <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.4" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
 <p>And a bit more</p>  </speech>
 </debates>
 EOF
@@ -101,7 +101,7 @@ EOF
 title  </major-heading>
   <minor-heading id="uk.org.publicwhip/debate/2000-01-01.1.2" url="url">
 subtitle  </minor-heading>
-  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.3" nospeaker="true" talktype="speech" time="9:00" url="url" wordcount="4">
+  <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.3" nospeaker="true" talktype="speech" time="9:00" url="url">
 <p>This is a speech</p>  </speech>
 </debates>
 EOF
@@ -115,9 +115,9 @@ EOF
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
-  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url" wordcount="4">
+  <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
 <p>This is a speech</p>  </speech>
-  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.2" nospeaker="true" talktype="speech" time="9:00" url="url" wordcount="4">
+  <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.2" nospeaker="true" talktype="speech" time="9:00" url="url">
 <p>And a bit more</p>  </speech>
 </debates>
 EOF
@@ -133,11 +133,11 @@ EOF
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
-  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url" wordcount="4">
+  <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
 <p>This is a speech</p>  </speech>
-  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.2" speakerid="102" speakername="henry" talktype="interjection" time="9:00" url="url" wordcount="4">
+  <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.2" speakerid="102" speakername="henry" talktype="interjection" time="9:00" url="url">
 <p>And a bit more</p>  </speech>
-  <speech duration="0" id="uk.org.publicwhip/debate/2000-01-01.1.3" speakerid="101" speakername="james" talktype="continuation" time="9:00" url="url" wordcount="4">
+  <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.3" speakerid="101" speakername="james" talktype="continuation" time="9:00" url="url">
 <p>And a bit more</p>  </speech>
 </debates>
 EOF

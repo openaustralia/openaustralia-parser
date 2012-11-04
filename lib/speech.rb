@@ -24,7 +24,8 @@ class Speech < Section
     end
     speaker_attributes = @speaker ? {:speakername => @speaker.name.full_name, :speakerid => @speaker.id} : {:nospeaker => "true"}
     x.speech(speaker_attributes.merge({
-      :time => time, :url => quoted_url, :id => id, :talktype => talk_type, :duration => @duration.to_i, :wordcount => words
+      :time => time, :url => quoted_url, :id => id, :talktype => talk_type,
+      :approximate_duration => @duration.to_i, :approximate_wordcount => words
     })) { x << @content.to_s }
   end
   
@@ -70,7 +71,10 @@ class Speech < Section
 
   # Returns a word count of the content text
   def words
-    @content.inner_text.split.count
+    # Add newlines between p tags so the last and first words of paragraphs are
+    # split properly
+    html = @content.inner_html.gsub(/<\/p>/, "\n")
+    Hpricot(html).inner_text.split.count
   end
 
 end

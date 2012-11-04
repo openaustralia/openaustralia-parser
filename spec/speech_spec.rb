@@ -20,7 +20,7 @@ describe Speech do
 
   it "outputs a simple speech" do
     @speech.append_to_content(Hpricot('<p>A speech</p>'))    
-    @speech.output(Builder::XmlMarkup.new).should == '<speech duration="0" id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" talktype="speech" time="05:00:00" url="http://foo.co.uk/" wordcount="2"><p>A speech</p></speech>'
+    @speech.output(Builder::XmlMarkup.new).should == '<speech approximate_duration="0" approximate_wordcount="2" id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" talktype="speech" time="05:00:00" url="http://foo.co.uk/"><p>A speech</p></speech>'
   end
   
   it "encodes html entities" do
@@ -34,7 +34,7 @@ describe Speech do
     coder.encode("Q&A#{nbsp}—", :basic).should == "Q&amp;A#{nbsp}—"
     
     @speech.append_to_content(doc)
-    @speech.output(Builder::XmlMarkup.new).should == '<speech duration="0" id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" talktype="speech" time="05:00:00" url="http://foo.co.uk/" wordcount="1"><p>Q&amp;A' + nbsp + '—</p></speech>'
+    @speech.output(Builder::XmlMarkup.new).should == '<speech approximate_duration="0" approximate_wordcount="1" id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" talktype="speech" time="05:00:00" url="http://foo.co.uk/"><p>Q&amp;A' + nbsp + '—</p></speech>'
   end  
 
   describe "#adjournment" do
@@ -83,6 +83,16 @@ describe Speech do
     
     it "should return a word count excluding html tags" do
       subject.words.should == 6
+    end
+
+    describe "with paragraph tags" do
+
+      let!(:content){ Hpricot("<p>para1</p><p>para2</p>") }
+
+      it "should count the last word of a paragraph and the first word of a new paragraph as two words" do
+        subject.words.should == 2
+      end
+
     end
   end
 end
