@@ -1,0 +1,141 @@
+<hansard noNamespaceSchemaLocation="../../hansard.xsd" version="2.2">
+  <session.header>
+    <date>2012-10-29</date>
+    <parliament.no>43</parliament.no>
+    <session.no>1</session.no>
+    <period.no>7</period.no>
+    <chamber>Senate</chamber>
+    <page.no>0</page.no>
+    <proof>1</proof>
+  </session.header>
+  <chamber.xscript>
+    <business.start>
+      <body background="" style="" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:WX="http://schemas.microsoft.com/office/word/2003/auxHint" xmlns:aml="http://schemas.microsoft.com/aml/2001/core" xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+        <p class="HPS-SODJobDate" style="direction:ltr;unicode-bidi:normal;">
+          <span class="HPS-SODJobDate">
+            <span style="font-weight:bold;" />
+            <a href="Chamber" type="">Monday, 29 October 2012</a>
+          </span>
+        </p>
+        <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+          <span class="HPS-Normal">
+            <span style="font-weight:bold;">The PRESIDENT</span>
+            <span style="font-weight:bold;">(Senator the Hon. John Hogg) </span>took the chair at 10:00<span class="HPS-JobStartTimeChar" style="&#xD;&#xA;    font-family:;&#xD;&#xA;  ">,</span> read prayers and made an acknowledgement of country.</span>
+        </p>
+        <p class="HPS-Line" style="direction:ltr;unicode-bidi:normal;">
+          <span class="HPS-Line"> </span>
+        </p>
+      </body>
+    </business.start>
+    <debate>
+      <debateinfo>
+        <title>CONDOLENCES</title>
+        <page.no>1</page.no>
+        <type>CONDOLENCES</type>
+      </debateinfo>
+      <debate.text>
+        <body background="" style="" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:WX="http://schemas.microsoft.com/office/word/2003/auxHint" xmlns:aml="http://schemas.microsoft.com/aml/2001/core" xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+          <p class="HPS-Debate" style="direction:ltr;unicode-bidi:normal;">
+            <span class="HPS-Debate">CONDOLENCES</span>
+          </p>
+        </body>
+      </debate.text>
+      <subdebate.1>
+        <subdebateinfo>
+          <title>Smith, Corporal Scott James</title>
+          <page.no>1</page.no>
+        </subdebateinfo>
+        <subdebate.text>
+          <body background="" style="" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:WX="http://schemas.microsoft.com/office/word/2003/auxHint" xmlns:aml="http://schemas.microsoft.com/aml/2001/core" xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+            <p class="HPS-SubDebate" style="direction:ltr;unicode-bidi:normal;">
+              <span class="HPS-SubDebate">Smith, Corporal Scott James</span>
+            </p>
+          </body>
+        </subdebate.text>
+        <speech>
+          <talk.start>
+            <talker>
+              <page.no>1</page.no>
+              <time.stamp />
+              <name role="metadata">Evans, Sen Christopher</name>
+              <name.id>AX5</name.id>
+              <electorate />
+              <party>ALP</party>
+              <in.gov />
+              <first.speech />
+            </talker>
+          </talk.start>
+          <talk.text>
+            <body background="" style="" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:WX="http://schemas.microsoft.com/office/word/2003/auxHint" xmlns:aml="http://schemas.microsoft.com/aml/2001/core" xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+              <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                <span class="HPS-Normal">
+                  <a href="AX5" type="MemberSpeech">
+                    <span class="HPS-MemberSpeech">Senator CHRIS EVANS</span>
+                  </a> (<span class="HPS-Electorate">Western Australia</span>—<span class="HPS-MinisterialTitles">Minister for Tertiary Education, Skills, Science and Research and Leader of the Government in the Senate</span>) (10<span class="HPS-Time">:01</span>): I seek leave to move a motion relating to the death of Corporal Scott James Smith.</span>
+              </p>
+              <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                <span class="HPS-Normal">Leave granted. </span>
+              </p>
+              <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                <span class="HPS-Normal">
+                  <a href="AX5" type="MemberContinuation">
+                    <span class="HPS-MemberContinuation">Senator CHRIS EVANS:</span>
+                  </a>  I move:</span>
+              </p>
+              <p class="HPS-Small" style="direction:ltr;unicode-bidi:normal;">
+                <span class="HPS-Small">That the Senate records its deep sorrow at the death, on 21 October 2012, of Corporal Scott James Smith, while on combat operations in Afghanistan, places on record its appreciation of his service to our country, and tenders its profound sympathy to his family, friends and colleagues in their bereavement.</span>
+              </p>
+              <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                <span class="HPS-Normal">
+                  <a href="7L6" type="OfficeContinuation">
+                    <span class="HPS-OfficeContinuation">The PRESIDENT:</span>
+                  </a>  I ask senators to stand in silence to signify their assent to the motion.</span>
+              </p>
+              <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                <span class="HPS-Normal">
+                  <span style="font-style:italic;" />
+                  <span style="font-style:italic;">Honourable senators having stood in their places—</span>
+                </span>
+              </p>
+              <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                <span class="HPS-Normal">Question agreed to.  </span>
+              </p>
+            </body>
+          </talk.text>
+          <continue>
+            <talk.start>
+              <talker>
+                <page.no>1</page.no>
+                <time.stamp />
+                <name role="metadata">Evans, Sen Christopher</name>
+                <name.id>AX5</name.id>
+                <electorate />
+                <party>ALP</party>
+                <in.gov />
+                <first.speech />
+              </talker>
+            </talk.start>
+            <talk.text>
+            </talk.text>
+          </continue>
+          <continue>
+            <talk.start>
+              <talker>
+                <page.no>1</page.no>
+                <time.stamp />
+                <name role="metadata">PRESIDENT, The</name>
+                <name.id>10000</name.id>
+                <electorate />
+                <party />
+                <in.gov />
+                <first.speech />
+              </talker>
+            </talk.start>
+            <talk.text>
+            </talk.text>
+          </continue>
+        </speech>
+      </subdebate.1>
+    </debate>
+  </chamber.xscript>
+</hansard>
