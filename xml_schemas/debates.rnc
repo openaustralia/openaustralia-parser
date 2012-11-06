@@ -37,8 +37,8 @@ start = element publicwhip {
 		attribute colon { ":" | "" }?,
 		attribute redirect { "up" | "down" | "nowhere" }?,
 		attribute talktype { "speech" | "interjection" | "continuation" }?,
-		attribute duration { xsd:integer }?,
-		attribute wordcount { xsd:integer }?,
+		attribute approximate_duration { xsd:integer }?,
+		attribute approximate_wordcount { xsd:integer }?,
 		debates-content
 	} |
 	element oral-heading {
