@@ -29,7 +29,7 @@ start = element publicwhip {
 		common-section-attributes,
 		attribute oral-qnum { xsd:integer }?,
 		# Allowing different capitalisation of "true"
-		attribute nospeaker { "true" | "True" }?,	
+		attribute nospeaker { "true" | "True" }?,
 		attribute error { "No match" | "Matched multiple times" }?,
 		attribute speakerid { member-id-type | "unknown" }?,
 		attribute speakername { text }?,
@@ -120,7 +120,7 @@ html-subset-content =
 		attribute href { text },
 		html-subset-content
 	}*
-	& text	
+	& text
 
 common-section-attributes =
 	attribute id { debate-id-type },
