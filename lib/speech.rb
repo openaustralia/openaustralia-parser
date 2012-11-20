@@ -73,7 +73,7 @@ class Speech < Section
   def words
     # Add newlines between p tags so the last and first words of paragraphs are
     # split properly
-    html = @content.inner_html.gsub(/<\/p>/, "\n")
+    html = @content.inner_html.gsub(/<\/p>/, "</p>\n")
     Hpricot(html).inner_text.split.count
   end
 

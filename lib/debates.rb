@@ -90,7 +90,7 @@ class Debates
   def calculate_speech_durations
     @items.each_with_index do |section, index|
 
-      next unless section.is_a?(Speech)
+      next unless section.is_a?(Speech) && section.time
 
       # Interjections are skipped
       if section.interjection || section.continuation

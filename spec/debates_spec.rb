@@ -222,6 +222,20 @@ EOF
 
     end
 
+    describe "a speech without a time (this rarely occurs but somtimes the xml is that broken)" do
+
+      before do
+        @debates.add_speech(@james, nil, "url", Hpricot("<p>This is a speech</p>"))
+        @debates.add_speech(@henry, "9:08", "url", Hpricot("<p>And a bit more</p>"))
+        @debates.calculate_speech_durations
+      end
+
+      it "should not have a duration set" do
+        @debates.items[0].duration.should be_zero
+      end
+
+    end
+
   end
   
 end
