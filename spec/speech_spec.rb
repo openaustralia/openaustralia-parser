@@ -70,6 +70,20 @@ describe Speech do
 
     end
 
+    describe "with a duration that is more than 10 minutes out from an estimate of " +
+             "duration made by taking the word count / 120 (average words per minute people speak at) * 60"  do
+
+      subject{ Speech.new(member, "09:00:00", 'url', Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
+      let!(:minutes_by_wordcount){ 12 }
+      let!(:html){ (120 * minutes_by_wordcount).times.map{ "<i>word</i>" }.join(" ") }
+      before do
+        subject.append_to_content(Hpricot(html))
+        subject.duration = 60
+      end
+      its(:duration){ should == minutes_by_wordcount * 60 }
+
+    end
+
   end
 
 

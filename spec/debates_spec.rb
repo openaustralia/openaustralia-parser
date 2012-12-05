@@ -225,13 +225,32 @@ EOF
     describe "a speech without a time (this rarely occurs but somtimes the xml is that broken)" do
 
       before do
-        @debates.add_speech(@james, nil, "url", Hpricot("<p>This is a speech</p>"))
+        @html = "<p>This is a speech</p>" * (121 * 3) # over 10 minutes of words
+        @debates.add_speech(@james, nil, "url", Hpricot(@html))
         @debates.add_speech(@henry, "9:08", "url", Hpricot("<p>And a bit more</p>"))
         @debates.calculate_speech_durations
       end
 
-      it "should not have a duration set" do
-        @debates.items[0].duration.should be_zero
+      it "should fallback to an estimate based on word count / 120 (the number of words spoken per minute)" do
+        @debates.items[0].duration.should == (121 * 4 * 3 / 120).round * 60
+      end
+
+    end
+
+    describe "a speech followed by a continuation" do
+
+      before do
+        # Add a speech with only 1 minute of words
+        @debates.add_speech(@james, "9:08", "url", Hpricot("test " * 120))
+        # Add an interjection
+        @debates.add_speech(@henry, "9:08", "url", Hpricot("<p>And a bit more</p>"), true)
+        # Add a continuation with 10 minutes of words
+        @debates.add_speech(@james, "9:08", "url", Hpricot("test " * (120 * 10)), false, true)
+        @debates.calculate_speech_durations
+      end
+
+      it "should should use speech.word_count_for_continuations when estimating the duration" do
+        @debates.items[0].duration.should == (11 * 60)
       end
 
     end
