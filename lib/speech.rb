@@ -4,12 +4,14 @@ require 'htmlentities'
 require 'section'
 
 class Speech < Section
-  attr_accessor :speaker, :content, :interjection, :continuation, :duration
+  attr_accessor :speaker, :content, :interjection, :continuation, :duration,
+    :word_count_for_continuations
   
   def initialize(speaker, time, url, count, date, house, logger = nil)
     @speaker = speaker
     @content = Hpricot::Elements.new
     @duration = 0
+    @word_count_for_continuations = 0
     super(time, url, count, date, house, logger)
   end
   
@@ -55,12 +57,20 @@ class Speech < Section
     end
   end
 
-  def duration=(duration)
-    # Cleanup up durations less than zero or greater than 3 hours
-    if (duration < 0 || duration > 3 * 60 * 60) 
-      duration = 0
+  def duration=(duration_estimate)
+    # Cleanup up durations less than zero
+    if (duration_estimate < 0) 
+      duration_estimate = 0
     end
-    @duration = duration
+    if !interjection && !continuation
+      # If the duration seems to be off the word count estimate by more than 10
+      # minutes, fallback to the wordcount estimate
+      duration_from_wordcount = ((words + word_count_for_continuations) / 120).round * 60;
+      if (duration_estimate - duration_from_wordcount).abs > 600
+        duration_estimate = duration_from_wordcount
+      end
+    end
+    @duration = duration_estimate
   end
 
   # Returns adjournment time if the debate was adjourned during the speech
@@ -73,7 +83,7 @@ class Speech < Section
   def words
     # Add newlines between p tags so the last and first words of paragraphs are
     # split properly
-    html = @content.inner_html.gsub(/<\/p>/, "\n")
+    html = @content.inner_html.gsub(/<\/p>/, "</p>\n")
     Hpricot(html).inner_text.split.count
   end
 

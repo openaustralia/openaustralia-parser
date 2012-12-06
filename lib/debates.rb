@@ -92,6 +92,11 @@ class Debates
 
       next unless section.is_a?(Speech)
 
+      if !section.time
+        section.duration = 0
+        next
+      end
+
       # Interjections are skipped
       if section.interjection || section.continuation
         next
@@ -104,8 +109,12 @@ class Debates
       end
 
       # Scan ahead looking for the next section (skipping sections without time
-      # or interjections or continuations)
+      # or interjections or continuations). Also keep track of how many words
+      # were used in continuations
       next_section = @items[(index + 1)..-1].detect{|next_item|
+        if next_item.is_a?(Speech) && next_item.continuation
+          section.word_count_for_continuations += next_item.words  
+        end
         next_item.is_a?(Speech) && next_item.time && !next_item.interjection && !next_item.continuation
       }
 
@@ -113,7 +122,7 @@ class Debates
       if next_section
         section.duration = next_section.to_time - section.to_time
       else
-        break
+        section.duration = 0
       end
     end
   end
