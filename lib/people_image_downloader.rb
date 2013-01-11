@@ -99,8 +99,8 @@ class PeopleImageDownloader
   
   # Returns an array of values for the metadata
   def raw_metadata(page)
-    labels = page.search('label.mdLabel')
-    values = page.search('div.mdValue')
+    labels = page.search('dt.mdLabel')
+    values = page.search('dd.mdValue')
     throw "Number of values do not match number of labels" if labels.size != values.size
     metadata = {}
     (0..labels.size-1).each do |index|
