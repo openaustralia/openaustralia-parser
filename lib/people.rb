@@ -62,6 +62,8 @@ class People < Array
     potential = find_people_by_lastname(name.last)
     if potential.nil?
       []
+    elsif potential.length == 1
+      potential
     else
       potential.find_all{|p| p.name_matches?(name)}
     end
