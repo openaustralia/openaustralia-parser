@@ -70,7 +70,8 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 65,,Gordon Munro Bryant,Wills,Vic.,10.12.1955,,19.9.1980,retired,ALP
 66,,Melville Harold Bungey,Canning,WA,18.5.1974,,5.3.1983,defeated,LIB
 67,,Ms Anna Elizabeth Burke,Chisholm,Vic.,3.10.1998,,11.2.2008,changed_party,ALP
-68,,Ms Anna Elizabeth Burke,Chisholm,Vic.,12.2.2008,changed_party, ,still_in_office,CWM
+68,,Ms Anna Elizabeth Burke,Chisholm,Vic.,12.2.2008,changed_party,09.10.2012,changed_party,CWM
+631,,Ms Anna Elizabeth Burke,Chisholm,Vic.,09.10.2012,changed_party, ,still_in_office,SPK
 69,,Mr Anthony Stephen Burke,Watson,NSW,9.10.2004,, ,still_in_office,ALP
 70,,William George Burns,Isaacs,Vic.,10.12.1977,,18.10.1980,defeated,LIB
 71,,Maxwell Arthur Burr,Lyons,Tas.,1.12.1984,,8.2.1993,retired,LIB
@@ -477,7 +478,8 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 460,,Albert John Schultz,Hume,NSW,3.10.1998,, ,still_in_office,LIB
 461,,Concetto Antonio Sciacca,Bowman,Qld,3.10.1998,,9.10.2004,defeated,ALP
 462,,Concetto Antonio Sciacca,Bowman,Qld,11.7.1987,,2.3.1996,defeated,ALP
-463,,Bruce Craig Scott,Maranoa,Qld,24.3.1990,, ,still_in_office,NP
+463,,Bruce Craig Scott,Maranoa,Qld,24.3.1990,,09.10.2012,changed_party,NP
+632,,Bruce Craig Scott,Maranoa,Qld,09.10.2012,changed_party,,still_in_office,CWM
 464,,John Lyden Scott,Hindmarsh,SA,18.10.1980,,8.2.1993,retired,ALP
 465,,Leslie James Scott,Oxley,Qld,8.10.1988,by_election,2.3.1996,defeated,ALP
 466,,Patrick Damien Secker,Barker,SA,3.10.1998,, ,still_in_office,LIB
@@ -500,7 +502,8 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 583,,Ian McCahon Sinclair,New England,NSW,4.3.1998,changed_party,31.8.1998,retired,SPK
 483,,Peter Neil Slipper,Fisher,Qld,1.12.1984,,11.7.1987,defeated,NPA
 484,,Peter Neil Slipper,Fisher,Qld,13.3.1993,,24.11.2011,changed_party,LIB
-629,,Peter Neil Slipper,Fisher,Qld,24.11.2011,, ,still_in_office,SPK
+629,,Peter Neil Slipper,Fisher,Qld,24.11.2011,changed_party,09.10.2012,changed_party,SPK
+630,,Peter Neil Slipper,Fisher,Qld,09.10.2012,changed_party,,still_in_office,IND
 485,,Anthony Charles Smith,Dickson,Qld,2.3.1996,,3.10.1998,defeated,IND
 486,,Anthony David Hawthorn Smith,Casey,Vic.,10.11.2001,, ,still_in_office,LIB
 487,,Silvia Joy Smith,Bass,Tas.,13.3.1993,,2.3.1996,defeated,ALP
@@ -626,4 +629,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 623,,Christopher Eyles Bowen,McMahon,NSW,21.8.2010,,,still_in_office,ALP
 624,,Scott Buchholz,Wright,Qld,21.8.2010,,,still_in_office,LIB
 625,,Jane Prentice,Ryan,QLD,21.8.2010,,,still_in_office,LIB
-# Next free member id: 630
+# Next free member id: 633
