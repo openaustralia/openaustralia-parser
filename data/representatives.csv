@@ -539,7 +539,8 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 516,,Andrew Charles Theophanous,Calwell,Vic.,1.12.1984,,10.11.2001,defeated,IND
 517,,Cameron Paul Thompson,Blair,Qld,3.10.1998,,24.11.2007,defeated,LIB
 518,,Andrew Peter Thomson,Wentworth,NSW,8.4.1995,by_election,8.10.2001,retired,LIB
-519,,Craig Robert Thomson,Dobell,NSW,24.11.2007,,,still_in_office,ALP
+519,,Craig Robert Thomson,Dobell,NSW,24.11.2007,,29.4.2012,changed_party,ALP
+633,,Craig Robert Thomson,Dobell,NSW,29.4.2012,,,still_in_office,IND
 520,,David Scott Thomson,Leichhardt,Qld,13.12.1975,,5.3.1983,defeated,NPA
 521,,Kelvin John Thomson,Wills,Vic.,2.3.1996,, ,still_in_office,ALP
 522,,Kenneth Vincent Ticehurst,Dobell,NSW,10.11.2001,,24.11.2007,defeated,LIB
@@ -629,4 +630,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 623,,Christopher Eyles Bowen,McMahon,NSW,21.8.2010,,,still_in_office,ALP
 624,,Scott Buchholz,Wright,Qld,21.8.2010,,,still_in_office,LIB
 625,,Jane Prentice,Ryan,QLD,21.8.2010,,,still_in_office,LIB
-# Next free member id: 633
+# Next free member id: 634
