@@ -73,7 +73,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 70,,Peter Drew Durack,,WA,1.7.1971 ,,30.6.1993 ,retired,LIB
 71,,Alan Eggleston,,WA,1.7.1996,,,still_in_office,LIB
 73,,Ronald Charles Elstob,,SA,1.7.1978 ,,5.6.1987 ,retired,ALP
-74,,Christopher Vaughan Evans,,WA,1.7.1993,,,still_in_office,ALP
+74,,Christopher Vaughan Evans,,WA,1.7.1993,,12.4.2013,resigned,ALP
 75,,Gareth John Evans,,Vic.,1.7.1978 ,,6.2.1996 ,resigned,ALP
 76,,John Gordon Evans,,WA,5.3.1983 ,,30.6.1985 ,defeated,AD
 77,,John Philip Faulkner,,NSW,4.4.1989,section_15,,still_in_office,ALP
@@ -302,3 +302,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 304,,Lin Estelle Thorp,,Tas.,20.6.2012,,,still_in_office,ALP
 305,,Peter Stuart Whish-Wilson,,Tas.,20.06.2012,,,still_in_office,GRN
 306,,Anne Ruston,,SA,05.09.2012,section_15,,still_in_office,LIB
+307,,Sue Lines,,WA,15.5.2013,section_15,,still_in_office,LAB
