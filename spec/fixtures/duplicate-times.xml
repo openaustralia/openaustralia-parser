@@ -1,0 +1,131 @@
+
+<hansard noNamespaceSchemaLocation="../../hansard.xsd" version="2.2">
+  <session.header>
+    <date>2013-06-26</date>
+    <parliament.no>43</parliament.no>
+    <session.no>1</session.no>
+    <period.no>9</period.no>
+    <chamber>House of Reps</chamber>
+    <page.no>0</page.no>
+    <proof>0</proof>
+  </session.header>
+  <chamber.xscript>
+    <business.start>
+      <body background="" style="" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:WX="http://schemas.microsoft.com/office/word/2003/auxHint" xmlns:aml="http://schemas.microsoft.com/aml/2001/core" xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+        <p class="HPS-SODJobDate" style="direction:ltr;unicode-bidi:normal;">
+          <span class="HPS-SODJobDate">
+            <span style="font-weight:bold;" />
+            <a href="Chamber" type="">Wednesday, 26 June 2013</a>
+          </span>
+        </p>
+        <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+          <span class="HPS-Normal">
+            <span style="font-weight:bold;">The SPEAKER (</span>
+            <span style="font-weight:bold;">Ms Anna Burke</span>
+            <span style="font-weight:bold;">) </span>took the chair at 09:00, made an acknowledgement of country and read prayers.</span>
+        </p>
+      </body>
+    </business.start>
+    <debate>
+      <debateinfo>
+        <title>QUESTIONS WITHOUT NOTICE</title>
+        <page.no>7130</page.no>
+        <type>QUESTIONS WITHOUT NOTICE</type>
+      </debateinfo>
+      <debate.text>
+        <body background="" style="" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:WX="http://schemas.microsoft.com/office/word/2003/auxHint" xmlns:aml="http://schemas.microsoft.com/aml/2001/core" xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+          <p class="HPS-Debate" style="direction:ltr;unicode-bidi:normal;">
+            <span class="HPS-Debate">QUESTIONS WITHOUT NOTICE</span>
+          </p>
+        </body>
+      </debate.text>
+      <subdebate.1>
+        <subdebateinfo>
+          <title>Carbon Pricing</title>
+          <page.no>7130</page.no>
+        </subdebateinfo>
+        <subdebate.text>
+          <body background="" style="" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:WX="http://schemas.microsoft.com/office/word/2003/auxHint" xmlns:aml="http://schemas.microsoft.com/aml/2001/core" xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+            <p class="HPS-SubDebate" style="direction:ltr;unicode-bidi:normal;">
+              <span class="HPS-SubDebate">Carbon Pricing</span>
+            </p>
+          </body>
+        </subdebate.text>
+        <question>
+          <talk.start>
+            <talker>
+              <page.no>7131</page.no>
+              <time.stamp />
+              <name role="metadata">Abbott, Tony, MP</name>
+              <name.id>EZ5</name.id>
+              <electorate>Warringah</electorate>
+              <party>LP</party>
+              <in.gov />
+              <first.speech />
+            </talker>
+          </talk.start>
+          <talk.text>
+            <body background="" style="" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:WX="http://schemas.microsoft.com/office/word/2003/auxHint" xmlns:aml="http://schemas.microsoft.com/aml/2001/core" xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+              <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                <span class="HPS-Normal">
+                  <a href="EZ5" type="MemberQuestion">
+                    <span class="HPS-MemberQuestion">Mr ABBOTT</span>
+                  </a> (<span class="HPS-Electorate">Warringah</span>—<span class="HPS-MinisterialTitles">Leader of the Opposition</span>) (<span class="HPS-Time">14:08</span>):  <span class="HPS-Time">14:08</span>):  Speaker, I have a supplementary question. I remind the Prime Minister of her pre-election statement, 'There will be no carbon tax under the government I lead.' Given that that assurance could not be relied upon, how can people rely upon the assurance that the Prime Minister has just given?</span>
+              </p>
+            </body>
+          </talk.text>
+        </question>
+        <answer>
+          <talk.start>
+            <talker>
+              <page.no>7131</page.no>
+              <time.stamp />
+              <name role="metadata">Gillard, Julia, MP</name>
+              <name.id>83L</name.id>
+              <electorate>Lalor</electorate>
+              <party>ALP</party>
+              <in.gov />
+              <first.speech />
+            </talker>
+          </talk.start>
+          <talk.text>
+            <body background="" style="" xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:WX="http://schemas.microsoft.com/office/word/2003/auxHint" xmlns:aml="http://schemas.microsoft.com/aml/2001/core" xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture" xmlns:w10="urn:schemas-microsoft-com:office:word" xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">
+              <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                <span class="HPS-Normal">
+                  <a href="83L" type="MemberAnswer">
+                    <span class="HPS-MemberAnswer">Ms GILLARD</span>
+                  </a> (<span class="HPS-Electorate">Lalor</span>—<span class="HPS-MinisterialTitles">Prime Minister</span>) (<span class="HPS-Time">14:09</span>):  Back to our old favourite. Because the Leader of the Opposition is unable to win a debate on the facts, he is always reduced to this and it is somewhat embarrassing for him. What I can say to the Leader of the Opposition is that they are in the history of carbon pricing in this country, Prime Minister Howard in 2007 indicated to the Australian electorate that he favoured an emissions trading scheme, as did the Leader of the Opposition.</span>
+              </p>
+              <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                <span class="HPS-Normal">
+                  <span class="HPS-MemberIInterjecting">Mrs Bronwyn Bishop interjecting</span>—</span>
+              </p>
+              <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                <span class="HPS-Normal">
+                  <a href="83L" type="MemberContinuation">
+                    <span class="HPS-MemberContinuation">Ms GILLARD:</span>
+                  </a>  The member for Mackellar is yelling out, 'And he lost the election.' The climate sceptics are alive and well on the front bench of the opposition, repudiating the political legacy of John Howard. It is quite remarkable. Prime Minister Howard stood for election wanting to have an emissions trading scheme. The Leader of the Opposition stood at his side wanting to have an emissions trading scheme. This government since its election has fought for an emissions trading scheme and now that emissions trading scheme is the law of this country. So the law of this country is stable, is strong and is working. The threat to that is the Leader of the Opposition's ridiculous plans, completely unable to be explained, to subsidise polluters and to waste money from families doing that. The Leader of the Opposition's threat to the Australian economy which all of this chaos and turmoil would cause— <span style="font-style:italic;">(Time expired)</span></span>
+              </p>
+            </body>
+          </talk.text>
+          <continue>
+            <talk.start>
+              <talker>
+                <page.no>7131</page.no>
+                <time.stamp />
+                <name role="metadata">Gillard, Julia, MP</name>
+                <name.id>83L</name.id>
+                <electorate>Lalor</electorate>
+                <party>ALP</party>
+                <in.gov />
+                <first.speech />
+              </talker>
+            </talk.start>
+            <talk.text>
+            </talk.text>
+          </continue>
+        </answer>
+      </subdebate.1>
+    </debate>
+  </chamber.xscript>
+</hansard>

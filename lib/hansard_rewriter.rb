@@ -163,7 +163,7 @@ EOF
           # <span class="HPS-Time">09:27</span>
           time = p.search("//span[@class=HPS-Time]")
           if time.inner_html =~ /\d+:\d\d/
-            ripped_out_time = time.inner_html
+            ripped_out_time = time.first.inner_html
           else
             # We've got a badly formed date, let's try something else
             fallback = p.inner_html.match(/(\d+):*<span class="HPS-Time">:*(\d\d)<\/span>/mi)
