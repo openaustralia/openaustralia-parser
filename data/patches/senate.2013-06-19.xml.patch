@@ -1,0 +1,11 @@
+--- original.xml	2013-09-10 12:06:22.455063476 +0300
++++ patched.xml	2013-09-10 12:04:53.667062731 +0300
+@@ -6600,7 +6600,7 @@
+                 <span class="HPS-Normal">
+                   <a href="207825" type="MemberQuestion">
+                     <span class="HPS-MemberQuestion">Senator McKENZIE</span>
+-                  </a> (<span class="HPS-Electorate">Victoria</span>) (<span class="HPS-Time">14:529</span>):  Mr President, I ask a supplementary question. Can the minister explain why the government on one hand is making money on its so-called concessional loans to struggling farmers but on the other hand is demanding that state governments pay for the administration costs of providing these loans?</span>
++                  </a> (<span class="HPS-Electorate">Victoria</span>) (<span class="HPS-Time">14:52</span>):  Mr President, I ask a supplementary question. Can the minister explain why the government on one hand is making money on its so-called concessional loans to struggling farmers but on the other hand is demanding that state governments pay for the administration costs of providing these loans?</span>
+               </p>
+             </body>
+           </talk.text>
