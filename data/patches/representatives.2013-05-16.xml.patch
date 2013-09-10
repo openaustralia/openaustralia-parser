@@ -1,0 +1,233 @@
+--- original.xml	2013-09-10 12:52:22.891086634 +0300
++++ patched.xml	2013-09-10 12:56:10.839088546 +0300
+@@ -12379,11 +12379,11 @@
+                   <a href="4T4" type="MemberSpeech1">
+                     <span class="HPS-MemberSpeech1">Mr MELHAM</span>
+                   </a>
+-                  <span class="HPS-MemberContinuation1"> (</span>
++                  <span class="HPS-MemberContinuation"> (</span>
+                   <span class="HPS-Electorate1">Banks</span>
+-                  <span class="HPS-MemberContinuation1">) (</span>
++                  <span class="HPS-MemberContinuation">) (</span>
+                   <span class="HPS-Time1">09:46</span>
+-                  <span class="HPS-MemberContinuation1">):</span>  On 6 April I met up with the New South Wales opposition leader, John Robertson, at Revesby Fire Station in the electorate of Banks. That day the fire station was closed. On 26 April I noticed that the fire station was also closed and posted a photo of the sign on my Facebook page. What is interesting is that the photo had the largest number of hits of any posted. This indicates to me that the decisions of the O'Farrell government in relation to staffing are of vital importance to many people. The New South Wales government is closing down fire stations and not replacing firefighters who are sick or on leave. In fact, Revesby joins Riverwood and Mortdale fire stations, also in my electorate, with other fire stations that have been closed arbitrarily. If a house is burning and the fire truck takes 30 minutes to arrive instead of 10 because the nearby station is shut, it may mean the difference between life and death. This is totally unacceptable to my community and to the broader community of New South Wales.</span>
++                  <span class="HPS-MemberContinuation">):</span>  On 6 April I met up with the New South Wales opposition leader, John Robertson, at Revesby Fire Station in the electorate of Banks. That day the fire station was closed. On 26 April I noticed that the fire station was also closed and posted a photo of the sign on my Facebook page. What is interesting is that the photo had the largest number of hits of any posted. This indicates to me that the decisions of the O'Farrell government in relation to staffing are of vital importance to many people. The New South Wales government is closing down fire stations and not replacing firefighters who are sick or on leave. In fact, Revesby joins Riverwood and Mortdale fire stations, also in my electorate, with other fire stations that have been closed arbitrarily. If a house is burning and the fire truck takes 30 minutes to arrive instead of 10 because the nearby station is shut, it may mean the difference between life and death. This is totally unacceptable to my community and to the broader community of New South Wales.</span>
+               </p>
+               <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                 <span class="HPS-Normal">Cuts have also been made to the Rural Fire Service. In late 2012 it was revealed the O'Farrell government planned to slash $12 million from employee expenses at the RFS and cut 120 jobs. These cuts come on top of $64 million cut from the New South Wales Fire Brigade, forcing local fire stations to temporarily close their doors when firefighters call in sick. These cuts to firefighters come on top of 3,600 jobs to go from hospitals and ambulance stations 2,400 jobs cut from schools and TAFE colleges and almost 1,000 job cuts in community services. This is in addition to job cuts at Sydney Water, Roads and Maritime Services, Office of Environment and Heritage, Forests NSW, RailCorp and in many other government departments further job losses are anticipated. </span>
+@@ -12855,11 +12855,11 @@
+               </p>
+               <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                 <span class="HPS-Normal">
+-                  <a href="YT4" type="OfficeInterjecting1">
+-                    <span class="HPS-OfficeInterjecting1">The DEPUTY SPEAKER </span>
++                  <a href="YT4" type="OfficeInterjecting">
++                    <span class="HPS-OfficeInterjecting">The DEPUTY SPEAKER </span>
+                   </a>
+                   <span class="HPS-GeneralBold1">(</span>
+-                  <span class="HPS-OfficeInterjecting1">Hon. BC Scott</span>
++                  <span class="HPS-OfficeInterjecting">Hon. BC Scott</span>
+                   <span class="HPS-GeneralBold1">):</span>  Order! In accordance with standing order 193 the time for constituency statements has concluded.</span>
+               </p>
+             </body>
+@@ -13012,7 +13012,7 @@
+               </p>
+               <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                 <span class="HPS-Normal">
+-                  <span class="HPS-OfficeInterjecting1">The DEPUTY SPEAKER:</span>  Order! The debate is adjourned and the resumption of the debate will be made an order of the day for the next sitting.</span>
++                  <span class="HPS-OfficeInterjecting">The DEPUTY SPEAKER:</span>  Order! The debate is adjourned and the resumption of the debate will be made an order of the day for the next sitting.</span>
+               </p>
+             </body>
+           </talk.text>
+@@ -13106,8 +13106,8 @@
+                 <a href="HVP" type="MemberIInterjecting1" />
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <a href="HWT" type="MemberContinuation1">
+-                      <span class="HPS-MemberContinuation1">Mr ROBERT:</span>
++                    <a href="HWT" type="MemberContinuation">
++                      <span class="HPS-MemberContinuation">Mr ROBERT:</span>
+                     </a>  No, I won't take a question, Member for Moreton, so sit yourself down and find a way to explain to your constituents why, in six years, you have done nothing for the veterans of our country. In 2009, it was 'the highest priority to address the issue of military justice.' It was the highest priority to index military pensions. Nothing was done in six years. Do you know what another highest priority was, Mr Deputy Speaker? Defence of the realm and national security were the highest priority. Prime Minister Rudd issued the first national security statement and promised that every single year he would update that. He never updated it, and the current Prime Minister has done one. We have had two in six years—and national security is the 'highest priority'. In fact, national security is of such a high priority that the current Prime Minister would not attend the National Security Committee of cabinet; she would send her bodyguard. That is how much 'high priority' the Prime Minister puts on national security.</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+@@ -13116,8 +13116,8 @@
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <a href="HWT" type="MemberContinuation1">
+-                      <span class="HPS-MemberContinuation1">Mr ROBERT:</span>
++                    <a href="HWT" type="MemberContinuation">
++                      <span class="HPS-MemberContinuation">Mr ROBERT:</span>
+                     </a>  Goodness! Would that have been Kevin? Who would have thought! If national security is so important, why has this government cumulatively cut $25 billion from defence—statement of fact? Why, if it was such a high priority? I am sick and tired of this government's 'highest priorities' when it comes to defence.</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+@@ -13125,12 +13125,12 @@
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <span class="HPS-OfficeInterjecting1">The DEPUTY SPEAKER:</span>  I remind the member for Fadden: the bill before the Federation Chamber is the Military Justice (Interim Measures) Amendment Bill 2013. I would just like to draw his attention to that and bring him back to the bill before the chamber.</span>
++                    <span class="HPS-OfficeInterjecting">The DEPUTY SPEAKER:</span>  I remind the member for Fadden: the bill before the Federation Chamber is the Military Justice (Interim Measures) Amendment Bill 2013. I would just like to draw his attention to that and bring him back to the bill before the chamber.</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <a href="HWT" type="MemberContinuation1">
+-                      <span class="HPS-MemberContinuation1">Mr ROBERT:</span>
++                    <a href="HWT" type="MemberContinuation">
++                      <span class="HPS-MemberContinuation">Mr ROBERT:</span>
+                     </a>  Thank you, Mr Deputy Speaker. I am simply looking at what the last Minister for Defence said; we are onto our third in six years. He said it was the highest priority. To understand what the minister says when it comes to 'highest priority', a history lesson is also worthwhile.</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+@@ -13147,67 +13147,67 @@
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <a href="HVP" type="MemberInterjecting1">
+-                      <span class="HPS-MemberInterjecting1">Mr Perrett:</span>
++                    <a href="HVP" type="MemberInterjecting">
++                      <span class="HPS-MemberInterjecting">Mr Perrett:</span>
+                     </a>  Mr Deputy Speaker, I rise on a point of order. I would ask that the member for Fadden withdraw the term 'rotten'—</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <a href="HWT" type="MemberContinuation1">
+-                      <span class="HPS-MemberContinuation1">Mr ROBERT:</span>
++                    <a href="HWT" type="MemberContinuation">
++                      <span class="HPS-MemberContinuation">Mr ROBERT:</span>
+                     </a>  You goose! Sit down.</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <a href="HVP" type="MemberInterjecting1">
+-                      <span class="HPS-MemberInterjecting1">Mr Perrett:</span>
++                    <a href="HVP" type="MemberInterjecting">
++                      <span class="HPS-MemberInterjecting">Mr Perrett:</span>
+                     </a>  And calling me a 'goose' as well.</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <span class="HPS-OfficeInterjecting1">The DEPUTY SPEAKER:</span>  The member for Moreton will resume his seat. The member for Fadden will assist the chamber by withdrawing the comment 'rotten'.</span>
++                    <span class="HPS-OfficeInterjecting">The DEPUTY SPEAKER:</span>  The member for Moreton will resume his seat. The member for Fadden will assist the chamber by withdrawing the comment 'rotten'.</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <a href="HWT" type="MemberInterjecting1">
+-                      <span class="HPS-MemberInterjecting1">Mr Robert:</span>
++                    <a href="HWT" type="MemberInterjecting">
++                      <span class="HPS-MemberInterjecting">Mr Robert:</span>
+                     </a>  I withdraw the word rotten.</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <span class="HPS-OfficeInterjecting1">The DEPUTY SPEAKER:</span>  Have you concluded your remarks?</span>
++                    <span class="HPS-OfficeInterjecting">The DEPUTY SPEAKER:</span>  Have you concluded your remarks?</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <a href="HWT" type="MemberInterjecting1">
+-                      <span class="HPS-MemberInterjecting1">Mr Robert:</span>
++                    <a href="HWT" type="MemberInterjecting">
++                      <span class="HPS-MemberInterjecting">Mr Robert:</span>
+                     </a>  I have concluded my remarks.</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <a href="M3E" type="MemberInterjecting1">
+-                      <span class="HPS-MemberInterjecting1">Mr Mitchell:</span>
++                    <a href="M3E" type="MemberInterjecting">
++                      <span class="HPS-MemberInterjecting">Mr Mitchell:</span>
+                     </a>  We asked that he withdraw the name-calling, and the member opposite—</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <span class="HPS-OfficeInterjecting1">The DEPUTY SPEAKER:</span>  He withdrew the word 'rotten'.</span>
++                    <span class="HPS-OfficeInterjecting">The DEPUTY SPEAKER:</span>  He withdrew the word 'rotten'.</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <a href="M3E" type="MemberInterjecting1">
+-                      <span class="HPS-MemberInterjecting1">Mr Mitchell:</span>
++                    <a href="M3E" type="MemberInterjecting">
++                      <span class="HPS-MemberInterjecting">Mr Mitchell:</span>
+                     </a>  The member for Moreton asked him to withdraw the name he was called. The member refused to do so.</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <a href="HWT" type="MemberInterjecting1">
+-                      <span class="HPS-MemberInterjecting1">Mr Robert:</span>
++                    <a href="HWT" type="MemberInterjecting">
++                      <span class="HPS-MemberInterjecting">Mr Robert:</span>
+                     </a>  To assist the House, I withdraw unconditionally.</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <span class="HPS-OfficeInterjecting1">The DEPUTY SPEAKER:</span>  The member for McEwen will resume his seat. The member for Fadden has unconditionally withdrawn his comments. The question is that the bill be read a second time. I call the member for Moreton.</span>
++                    <span class="HPS-OfficeInterjecting">The DEPUTY SPEAKER:</span>  The member for McEwen will resume his seat. The member for Fadden has unconditionally withdrawn his comments. The question is that the bill be read a second time. I call the member for Moreton.</span>
+                 </p>
+               </body>
+             </talk.text>
+@@ -13626,17 +13626,17 @@
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <a href="83A" type="OfficeInterjecting1">
+-                      <span class="HPS-OfficeInterjecting1">The DEPUTY SPEAKER </span>
++                    <a href="83A" type="OfficeInterjecting">
++                      <span class="HPS-OfficeInterjecting">The DEPUTY SPEAKER </span>
+                     </a>
+                     <span class="HPS-GeneralBold1">(</span>
+-                    <span class="HPS-OfficeInterjecting1">Ms K Livermore</span>
++                    <span class="HPS-OfficeInterjecting">Ms K Livermore</span>
+                     <span class="HPS-GeneralBold1">):</span>  I think that this can be dealt with in the reply from the opposition leader tonight and I will draw the deputy opposition leader back to the bill.</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <a href="83P" type="MemberContinuation1">
+-                      <span class="HPS-MemberContinuation1">Ms JULIE BISHOP:</span>
++                    <a href="83P" type="MemberContinuation">
++                      <span class="HPS-MemberContinuation">Ms JULIE BISHOP:</span>
+                     </a>  I am explaining why EFIC is now $200 million shorter than it had been. And this budget exposes the budget crisis that has engulfed Labor and has caused them to make this call on EFIC's reserves. This government stands for higher debt and more deficits and more taxes, and if the Treasurer had a shred of integrity, he would have stood aside as he is unable to manage the nation's finances. He said he was going to take his medicine, and if he wants to take his medicine—</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+@@ -13645,12 +13645,12 @@
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <span class="HPS-OfficeContinuation1">The DEPUTY SPEAKER:</span>  Order! There will be no interjections and the Deputy Leader of the Opposition will not invite interjections. Please return to the bill.</span>
++                    <span class="HPS-OfficeContinuation">The DEPUTY SPEAKER:</span>  Order! There will be no interjections and the Deputy Leader of the Opposition will not invite interjections. Please return to the bill.</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <a href="83P" type="MemberContinuation1">
+-                      <span class="HPS-MemberContinuation1">Ms JULIE BISHOP:</span>
++                    <a href="83P" type="MemberContinuation">
++                      <span class="HPS-MemberContinuation">Ms JULIE BISHOP:</span>
+                     </a>  If the Treasurer says that he wants to take his medicine he should be held accountable for the mess that the government's finances are in. </span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+@@ -13788,15 +13788,15 @@
+                 <a href="99931" type="MemberIInterjecting1" />
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <a href="UK6" type="MemberContinuation1">
+-                      <span class="HPS-MemberContinuation1">Mr KELVIN THOMSON:</span>
++                    <a href="UK6" type="MemberContinuation">
++                      <span class="HPS-MemberContinuation">Mr KELVIN THOMSON:</span>
+                     </a>  In fact it is not a tax. It is a price on carbon and I am simply referring to the expression which you used, which is manifestly incorrect. In fact, the government has moved to link the carbon price with the carbon price being applied by close to 50 European countries. We will have exactly the same price as those 50 European countries, so it is simply absurd to run out the tired old chestnut that we are applying the world's highest carbon price.</span>
+                 </p>
+                 <a href="99931" type="MemberIInterjecting1" />
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <a href="UK6" type="MemberContinuation1">
+-                      <span class="HPS-MemberContinuation1">Mr KELVIN THOMSON:</span>
++                    <a href="UK6" type="MemberContinuation">
++                      <span class="HPS-MemberContinuation">Mr KELVIN THOMSON:</span>
+                     </a>  It is manifestly untrue.  Small- and medium-sized enterprises are indeed the engine room of job creation in this country and they will be the big winners following passage of this bill. In September 2011 the government commissioned the Productivity Commission to review Australia's export credit arrangements. Our response to the Productivity Commission's review, which was announced earlier this year, set out some adjustments to the mandate, the powers and the governance and financial arrangements of the Export Finance and Insurance Corporation. This bill implements those changes.</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+@@ -14701,4 +14701,4 @@
+       </subdebate.1>
+     </debate>
+   </answers.to.questions>
+-</hansard>
+\ No newline at end of file
++</hansard>
