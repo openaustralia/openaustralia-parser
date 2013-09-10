@@ -1,0 +1,18 @@
+--- original.xml	2013-09-10 12:25:30.463073107 +0300
++++ patched.xml	2013-09-10 12:25:53.943073304 +0300
+@@ -19153,7 +19153,7 @@
+                 <span class="HPS-Normal">
+                   <span style="font-weight:bold;" />
+                   <span style="font-weight:bold;">Federation Chamber adjourned at </span>
+-                  <span style="font-weight:bold;">27:21</span>
++                  <span style="font-weight:bold;">21:27</span>
+                 </span>
+               </p>
+               <p class="HPS-Normal" style="&#xD;&#xA;        margin-bottom:10pt;&#xD;&#xA;      text-align:left;direction:ltr;unicode-bidi:normal;&#xD;&#xA;          text-indent:0pt;&#xD;&#xA;        ">
+@@ -22910,4 +22910,4 @@
+       </subdebate.1>
+     </debate>
+   </answers.to.questions>
+-</hansard>
+\ No newline at end of file
++</hansard>
