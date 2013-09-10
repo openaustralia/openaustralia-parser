@@ -1,0 +1,11 @@
+--- original.xml	2013-09-10 11:34:43.719047547 +0300
++++ patched.xml	2013-09-10 11:28:54.859044620 +0300
+@@ -13312,7 +13312,7 @@
+                 <span class="HPS-Small">(9) Yes. The Attorney-General's Department sought clarification from the NNTT President who stated that he was aware of Ms Maher's relationship with Mr Gallagher but was not aware of her role in MGA Consulting. </span>
+               </p>
+               <p class="HPS-Small" style="direction:ltr;unicode-bidi:normal;&#xD;&#xA;          text-indent:0pt;&#xD;&#xA;        ">
+-                <span class="HPS-Small">(10) No. While the Attorney-General's Department sought clarification from the NNTT President as outlined at (9), the Attorney-General has not received any formal correspondence from the NNTT President. The Attorney-General wrote to the NNTT President in January 2013 (attached), and will publish this letter on the Attorney-General's Department website at &lt;www.ag.gov.au&gt;.</span>
++                <span class="HPS-Small">(10) No. While the Attorney-General's Department sought clarification from the NNTT President as outlined at (9), the Attorney-General has not received any formal correspondence from the NNTT President. The Attorney-General wrote to the NNTT President in January 2013 (attached), and will publish this letter on the Attorney-General's Department website at www.ag.gov.au.</span>
+               </p>
+             </body>
+           </talk.text>
