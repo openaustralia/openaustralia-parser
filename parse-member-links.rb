@@ -93,11 +93,9 @@ data = {}
 page = agent.get(conf.qanda_electorate_url)
 map = {}
 
-page.links[260..409].each do |link|
+page.links[261..410].each do |link|
   map[link.text.downcase] = (page.uri + link.uri).to_s
 end
-# Hack to deal with "Durack" constituency incorrectly spelled as "Durak"
-map["durack"] = map["durak"]
 
 bad_divisions = []
 # Check that the links point to valid pages
