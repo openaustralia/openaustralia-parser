@@ -31,6 +31,8 @@ x.peopleinfo do
     p = people.find_person_by_aph_id(person['aph_id'].upcase)
     params = {:id => p.id, :mp_contactdetails => person['contact_page']}
     params[:mp_website] = person['website'] if person['website']
+    params[:mp_twitter_url] = person['twitter'] if person['twitter']
+    params[:mp_facebook_url] = person['facebook'] if person['facebook']
     x.personinfo(params)
   end
 end
