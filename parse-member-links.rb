@@ -82,6 +82,23 @@ x.consinfos do
     href = "http://www.abc.net.au/elections/federal/2010/guide/s#{name}-results.htm"
     x.consinfo(:canonical => canonical, :abc_election_results_2010 => href)
   end
+
+  puts "Election results 2013 (from the abc.net.au)..."
+  # Representatives
+  abc_root = "http://www.abc.net.au"
+  url = "#{abc_root}/news/federal-election-2013/results/electorates/"
+  doc = Hpricot(open(url))
+  (doc/"span.electorate").each do |span|
+    href = span.parent['href']
+    href = "#{abc_root}#{href}"
+    name = span.inner_text
+    x.consinfo(:canonical => name, :abc_election_results_2013 => href)
+  end
+  # Senate
+  [["nsw", "NSW"], ["vic", "Victoria"], ["qld", "Queensland"], ["wa", "WA"], ["sa", "SA"], ["tas", "Tasmania"], ["act", "ACT"], ["nt", "NT"]].each do |name, canonical|
+    href = "http://www.abc.net.au/news/federal-election-2013/results/senate/#{name}/"
+    x.consinfo(:canonical => canonical, :abc_election_results_2013 => href)
+  end
 end
 xml.close
 
