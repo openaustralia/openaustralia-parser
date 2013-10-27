@@ -30,6 +30,7 @@ x.peopleinfo do
   JSON.parse(scraperwiki_result).each do |person|
     p = people.find_person_by_aph_id(person['aph_id'].upcase)
     params = {:id => p.id, :mp_contact_form => person['contact_page']}
+    params[:mp_email] = person['email'] if person['email']
     params[:mp_website] = person['website'] if person['website']
     params[:mp_twitter_url] = person['twitter'] if person['twitter']
     params[:mp_facebook_url] = person['facebook'] if person['facebook']
