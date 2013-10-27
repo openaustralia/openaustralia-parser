@@ -29,7 +29,7 @@ x.peopleinfo do
   scraperwiki_result = agent.get('https://api.scraperwiki.com/api/1.0/datastore/sqlite?format=jsondict&name=australian_federal_parliament_senators_members_off&query=select%20*%20from%20%60swdata%60').body
   JSON.parse(scraperwiki_result).each do |person|
     p = people.find_person_by_aph_id(person['aph_id'].upcase)
-    params = {:id => p.id, :mp_contactdetails => person['contact_page']}
+    params = {:id => p.id, :mp_contact_form => person['contact_page']}
     params[:mp_website] = person['website'] if person['website']
     params[:mp_twitter_url] = person['twitter'] if person['twitter']
     params[:mp_facebook_url] = person['facebook'] if person['facebook']
