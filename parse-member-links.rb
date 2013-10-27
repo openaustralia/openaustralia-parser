@@ -20,7 +20,7 @@ agent = WWW::Mechanize.new
 puts "Reading member data..."
 people = PeopleCSVReader.read_members
 
-puts "Personal home page & Contact Details (Gov website)..."
+puts "Web pages, social media URLs and email from APH (via ScraperWiki)..."
 
 xml = File.open("#{conf.members_xml_path}/websites.xml", 'w')
 x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
