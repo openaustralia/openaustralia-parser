@@ -167,6 +167,21 @@ xml.close
 
 puts 'Register of interests from APH...'
 
+base_url = 'http://www.aph.gov.au/Parliamentary_Business/Committees/House_of_Representatives_Committees'
+page = agent.get(base_url + '?url=pmi/declarations.htm')
+
+representatives_data = page.search('ul.links')[2].search(:li).map do |li|
+  # A bit of wrangling to replace double spaces and things
+  name_text = li.inner_text.strip.gsub('  ', ' ').split(', Member')[0]
+
+  representative = people.find_person_by_name(Name.last_title_first(name_text))
+  raise if representative.nil?
+
+  url = base_url + li.at(:a).attr(:href)
+
+  {:id => representative.id, :aph_interests_url => url}
+end
+
 base_url = 'http://www.aph.gov.au/Parliamentary_Business/Committees/Senate/Senators_Interests/Register'
 page = agent.get(base_url)
 
@@ -184,6 +199,10 @@ xml = File.open("#{conf.members_xml_path}/links-register-of-interests.xml", 'w')
 x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
 x.instruct!
 x.peopleinfo do
+  representatives_data.each do |representative|
+    x.personinfo(:id => representative[:id],
+                 :aph_interests_url => representative[:aph_interests_url])
+  end
   senate_data.each do |senator|
     x.personinfo(:id => senator[:id],
                  :aph_interests_url => senator[:aph_interests_url],
