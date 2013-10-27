@@ -165,4 +165,31 @@ x.peopleinfo do
 end
 xml.close
 
+puts 'Register of interests from APH...'
+
+base_url = 'http://www.aph.gov.au/Parliamentary_Business/Committees/Senate/Senators_Interests/Register'
+page = agent.get(base_url)
+
+senate_data = page.at('#main_0_content_0_divContent').search('ul.links').map do |ul|
+  senator = people.find_person_by_name(Name.last_title_first(ul.at(:a).inner_text.split(' - ').first))
+  raise if senator.nil?
+
+  url = base_url + ul.at(:a).attr(:href)
+  last_updated = Date.parse(ul.at(:em).inner_text.split(' Last updated ').last)
+
+  {:id => senator.id, :aph_interests_url => url, :aph_interests_last_updated => last_updated}
+end
+
+xml = File.open("#{conf.members_xml_path}/links-register-of-interests.xml", 'w')
+x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
+x.instruct!
+x.peopleinfo do
+  senate_data.each do |senator|
+    x.personinfo(:id => senator[:id],
+                 :aph_interests_url => senator[:aph_interests_url],
+                 :aph_interests_last_updated => senator[:aph_interests_last_updated])
+  end
+end
+xml.close
+
 system(conf.web_root + "/twfy/scripts/mpinfoin.pl links")
