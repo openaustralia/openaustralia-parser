@@ -61,7 +61,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 58,,John Richard Coulter,,SA,11.7.1987 ,,20.11.1995 ,resigned,AD
 59,,Arthur Winston Crane,,WA,1.7.1990 ,,30.6.2002 ,defeated,LIB
 60,,Noel Ashley Crichton-Browne,,WA,1.7.1981 ,,30.6.1996 ,retired,IND LIB
-61,,Patricia Margaret Crossin,,NT,16.6.1998 ,section_15,,still_in_office,ALP
+61,,Patricia Margaret Crossin,,NT,16.6.1998 ,section_15,06.09.2013,retired,ALP
 62,,Rosemary Anne Crowley,,SA,5.3.1983 ,,30.6.2002 ,retired,ALP
 63,,Gordon Sinclair Davidson,,SA,8.2.1962 ,,30.6.1962 ,retired;,LIB
 64,,Gordon Sinclair Davidson,,SA,1.7.1965 ,,30.6.1981 ,retired,LIB
@@ -304,3 +304,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 306,,Anne Ruston,,SA,05.09.2012,section_15,,still_in_office,LIB
 307,,Sue Lines,,WA,15.5.2013,section_15,,still_in_office,ALP
 308,,Sam Dastyari,,NSW,21.8.2013,section_15,,still_in_office,ALP
+309,,Nova Peris,,NT,07.9.2013,,,still_in_office,ALP
