@@ -625,7 +625,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 628,,Harry Alfred Jenkins,Scullin,Vic.,24.11.2011,changed_party,5.8.2013,retired,ALP
 629,,Peter Neil Slipper,Fisher,Qld,24.11.2011,changed_party,09.10.2012,changed_party,SPK
 630,,Peter Neil Slipper,Fisher,Qld,09.10.2012,changed_party,7.9.2013,defeated,IND
-631,,Ms Anna Elizabeth Burke,Chisholm,Vic.,09.10.2012,changed_party,,still_in_office,SPK
+631,,Ms Anna Elizabeth Burke,Chisholm,Vic.,09.10.2012,changed_party,05.08.2013,changed_party,SPK
 632,,Bruce Craig Scott,Maranoa,Qld,09.10.2012,changed_party,,still_in_office,CWM
 633,,Craig Robert Thomson,Dobell,NSW,29.4.2012,,7.9.2013,defeated,IND
 # New members elected in 2013 Federal election
@@ -670,4 +670,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 672,,Craig Laundy,Reid,NSW,7.9.2013,,,still_in_office,LIB
 673,,Lucy Wicks,Robertson,NSW,7.9.2013,,,still_in_office,LIB
 674,,Andrew Giles,Scullin,Vic,7.9.2013,,,still_in_office,ALP
-# Next free member id: 675
+675,,Ms Anna Elizabeth Burke,Chisholm,Vic.,05.08.2013,changed_party,,still_in_office,ALP
+# Next free member id: 676
