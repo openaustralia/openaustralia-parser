@@ -110,7 +110,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 106,,John Joseph Hogg,,Qld,1.7.1996,,19.8.2002,changed_party,ALP
 264,,John Joseph Hogg,,Qld,19.8.2002,changed_party,25.8.2008,changed_party,DPRES
 277,,John Joseph Hogg,,Qld,26.8.2008,changed_party,,still_in_office,PRES
-107,,Gary John Joseph Humphries,,ACT,18.2.2003 ,section_15,,still_in_office,LIB
+107,,Gary John Joseph Humphries,,ACT,18.2.2003 ,section_15,06.09.2013,retired,LIB
 108,,Annette Kay Hurley,,SA,1.7.2005 ,,,still_in_office,ALP
 109,,Stephen Patrick Hutchins,,NSW,14.10.1998 ,section_15,,still_in_office,ALP
 110,,Jean Alice Jenkins,,WA,11.7.1987 ,,30.6.1990 ,defeated,AD
@@ -306,3 +306,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 308,,Sam Dastyari,,NSW,21.8.2013,section_15,,still_in_office,ALP
 309,,Nova Peris,,NT,07.9.2013,,,still_in_office,ALP
 310,,Mehmet Tillem,,Victoria,21.8.2013,section_15,,still_in_office,ALP
+311,,Zed Seselja,,ACT,07.9.2013,,,still_in_office,LIB
