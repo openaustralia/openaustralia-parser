@@ -40,7 +40,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 39,,Gordon Neil Bilney,Kingston,SA,5.3.1983,,2.3.1996,defeated,ALP
 40,,Sharon Leah Bird,Cunningham,NSW,9.10.2004,,,still_in_office,ALP
 41,,Reginald John Birney,Phillip,NSW,13.12.1975,,5.3.1983,defeated,LIB
-42,,Bronwyn Kathleen Bishop,Mackellar,NSW,26.3.1994,by_election,,still_in_office,LIB
+42,,Bronwyn Kathleen Bishop,Mackellar,NSW,26.3.1994,by_election,12.11.2013,changed_party,LIB
 43,,Julie Isabel Bishop,Curtin,WA,3.10.1998,,,still_in_office,LIB
 44,,Cecil Allen Blanchard,Moore,WA,5.3.1983,,24.3.1990,defeated,ALP
 45,,Neal Blewett,Bonython,SA,10.12.1977,,11.2.1994,resigned,ALP
@@ -671,4 +671,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 673,,Lucy Wicks,Robertson,NSW,7.9.2013,,,still_in_office,LIB
 674,,Andrew Giles,Scullin,Vic,7.9.2013,,,still_in_office,ALP
 675,,Ms Anna Elizabeth Burke,Chisholm,Vic.,05.08.2013,changed_party,,still_in_office,ALP
-# Next free member id: 676
+676,,Bronwyn Kathleen Bishop,Mackellar,NSW,12.11.2013,changed_party,,still_in_office,SPK
+# Next free member id: 677
