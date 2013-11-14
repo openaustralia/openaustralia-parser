@@ -151,6 +151,8 @@ class PeopleCSVReader
       "Pauline Hanson's One Nation Party"
     when "DLP"
       "Democratic Labor Party"
+    when "PUP"
+      "Palmer United Party"
     when "ANTI-SOC", "SPK", "CWM", "PRES", "DPRES"
       # Do nothing
       party
