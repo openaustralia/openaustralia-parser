@@ -20,14 +20,14 @@ agent = WWW::Mechanize.new
 puts "Reading member data..."
 people = PeopleCSVReader.read_members
 
-puts "Web pages, social media URLs and email from APH (via ScraperWiki)..."
+puts "Web pages, social media URLs and email from APH (via Morph)..."
 
 xml = File.open("#{conf.members_xml_path}/websites.xml", 'w')
 x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
 x.instruct!
 x.peopleinfo do
-  scraperwiki_result = agent.get('https://api.scraperwiki.com/api/1.0/datastore/sqlite?format=jsondict&name=australian_federal_parliament_senators_members_off&query=select%20*%20from%20%60swdata%60').body
-  JSON.parse(scraperwiki_result).each do |person|
+  morph_result = agent.get(:url => 'https://api.morph.io/openaustralia/aus_mp_contact_details/data.json?query=select%20*%20from%20%60data%60', :headers => {'x-api-key' => conf.morph_api_key}).body
+  JSON.parse(morph_result).each do |person|
     p = people.find_person_by_aph_id(person['aph_id'].upcase)
     params = {:id => p.id, :mp_contact_form => person['contact_page'], :aph_url => person['profile_page']}
     params[:mp_email] = person['email'] if person['email']
