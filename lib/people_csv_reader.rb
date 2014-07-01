@@ -153,6 +153,12 @@ class PeopleCSVReader
       "Democratic Labor Party"
     when "PUP"
       "Palmer United Party"
+    when "LNP"
+      "Liberal National Party"
+    when "LDP"
+      "Liberal Democratic Party"
+    when "MEP"
+      "Australian Motoring Enthusiast Party"
     when "ANTI-SOC", "SPK", "CWM", "PRES", "DPRES"
       # Do nothing
       party
