@@ -14,15 +14,15 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 13,,Cory Bernardi,,SA,4.5.2006,section_15,,still_in_office,LIB
 14,,Simon John Birmingham,,SA,3.5.2007,section_15,,still_in_office,LIB
 15,,Bronwyn Kathleen Bishop,,NSW,11.7.1987,,24.2.1994,resigned,LIB
-16,,Thomas Mark Bishop,,WA,1.7.1996,,,still_in_office,ALP
+16,,Thomas Mark Bishop,,WA,1.7.1996,,30.6.2014,retired,ALP
 17,,Reginald Bishop,,SA,1.7.1962,,30.6.1981,retired,ALP
 18,,Florence Isabel Bjelke-Petersen,,Qld,12.3.1981,section_15,30.6.1993,retired,NPA
 19,,John Rees Black,,Qld,1.12.1984,,30.6.1990,defeated,ALP
 20,,Nick Bolkus,,SA,1.7.1981,,30.6.2005,retired,ALP
 21,,Neville Thomas Bonner,,Qld,11.6.1971,section_15,4.2.1983,defeated,IND
-22,,Ronald Leslie Doyle Boswell,,Qld,5.3.1983,,,still_in_office,NPA
+22,,Ronald Leslie Doyle Boswell,,Qld,5.3.1983,,30.6.2014,retried,NPA
 23,,Vicki Worrall Bourne,,NSW,1.7.1990,,30.6.2002,defeated,AD
-24,,Suzanne Kay Boyce,,Qld,19.4.2007,section_15,,still_in_office,LIB
+24,,Suzanne Kay Boyce,,Qld,19.4.2007,section_15,30.6.2014,retired,LIB
 25,,George Henry Brandis,,Qld,16.5.2000,section_15,,still_in_office,LIB
 26,,Carol Louise Brown,,Tas.,25.8.2005,section_15,,still_in_office,ALP
 27,696,Robert James Brown,,Tas.,1.7.1996,,15.06.2012,resigned,GRN
@@ -71,7 +71,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 68,,Arthur Ray Devlin,,Tas.,1.12.1984 ,,30.6.1990 ,retired,ALP
 69,,Patricia Irene Dunn,,NSW,21.7.1988 ,,30.6.1990 ,defeated,IND
 70,,Peter Drew Durack,,WA,1.7.1971 ,,30.6.1993 ,retired,LIB
-71,,Alan Eggleston,,WA,1.7.1996,,,still_in_office,LIB
+71,,Alan Eggleston,,WA,1.7.1996,,30.6.2014,retired,LIB
 73,,Ronald Charles Elstob,,SA,1.7.1978 ,,5.6.1987 ,retired,ALP
 74,,Christopher Vaughan Evans,,WA,1.7.1993,,12.4.2013,resigned,ALP
 75,,Gareth John Evans,,Vic.,1.7.1978 ,,6.2.1996 ,resigned,ALP
@@ -109,7 +109,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 105,,Robert Murray Hill,,SA,1.7.1981 ,,15.3.2006 ,resigned,LIB
 106,,John Joseph Hogg,,Qld,1.7.1996,,19.8.2002,changed_party,ALP
 264,,John Joseph Hogg,,Qld,19.8.2002,changed_party,25.8.2008,changed_party,DPRES
-277,,John Joseph Hogg,,Qld,26.8.2008,changed_party,,still_in_office,PRES
+277,,John Joseph Hogg,,Qld,26.8.2008,changed_party,30.6.2014,retired,PRES
 107,,Gary John Joseph Humphries,,ACT,18.2.2003 ,section_15,06.09.2013,retired,LIB
 108,,Annette Kay Hurley,,SA,1.7.2005 ,,,still_in_office,ALP
 109,,Stephen Patrick Hutchins,,NSW,14.10.1998 ,section_15,,still_in_office,ALP
@@ -214,7 +214,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 209,,John Peter Sim,,WA,26.11.1964,section_15,30.6.1981 ,retired,LIB
 210,,Karin Nicole Sowada,,NSW,29.8.1991 ,section_15,30.6.1993 ,defeated,AD
 211,,Sid Spindler,,Vic.,1.7.1990 ,,30.6.1996 ,retired,AD
-212,,Ursula Mary Stephens,,NSW,1.7.2002 ,,,still_in_office,ALP
+212,,Ursula Mary Stephens,,NSW,1.7.2002,,30.6.2014,retired,ALP
 213,,Glenn Sterle,,WA,1.7.2005 ,,,still_in_office,ALP
 214,,John Owen Stone,,Qld,11.7.1987 ,,1.3.1990 ,resigned,NPA
 216,,Kathryn Jean Martin Sullivan,,Qld,18.5.1974 ,,5.11.1984 ,resigned,LIB
@@ -254,13 +254,13 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 250,,Catryna Bilyk,,Tasmania,1.7.2008,,,still_in_office,ALP
 251,,Doug Cameron,,NSW,1.7.2008,,,still_in_office,ALP
 252,,Michaelia Cash,,WA,1.7.2008,,,still_in_office,LIB
-253,,Don Farrell,,SA,1.7.2008,,,still_in_office,ALP
+253,,Don Farrell,,SA,1.7.2008,,30.6.2014,retired,ALP
 254,,David Feeney,,Victoria,1.7.2008,,12.8.2013,resigned,ALP
-255,,Mark Furner,,Queensland,1.7.2008,,,still_in_office,ALP
+255,,Mark Furner,,Queensland,1.7.2008,,30.6.2014,retired,ALP
 256,,Sarah Hanson-Young,,SA,1.7.2008,,,still_in_office,GRN
-257,,Helen Kroger,,Victoria,1.7.2008,,,still_in_office,LIB
+257,,Helen Kroger,,Victoria,1.7.2008,,30.6.2014,retired,LIB
 258,,Scott Ludlam,,WA,1.7.2008,,,still_in_office,GRN
-259,,Louise Pratt,,WA,1.7.2008,,,still_in_office,ALP
+259,,Louise Pratt,,WA,1.7.2008,,30.6.2014,retired,ALP
 260,,Scott Ryan,,Victoria,1.7.2008,,,still_in_office,LIB
 261,,John Williams,,NSW,1.7.2008,,,still_in_office,NP
 262,,Nick Xenophon,,SA,1.7.2008,,,still_in_office,IND
@@ -299,13 +299,13 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 301,,Arthur Sinodinos,,NSW,31.10.2011,section_15,,still_in_office,LIB
 302,,Robert John Carr,,NSW,06.03.2012,,24.10.2013,resigned,ALP
 303,,Dean Smith,,WA,2.5.2012,,,still_in_office,LIB
-304,,Lin Estelle Thorp,,Tas.,20.6.2012,,,still_in_office,ALP
+304,,Lin Estelle Thorp,,Tas.,20.6.2012,,30.6.2014,retired,ALP
 305,,Peter Stuart Whish-Wilson,,Tas.,20.06.2012,,,still_in_office,GRN
 306,,Anne Ruston,,SA,05.09.2012,section_15,,still_in_office,LIB
 307,,Sue Lines,,WA,15.5.2013,section_15,,still_in_office,ALP
 308,,Sam Dastyari,,NSW,21.8.2013,section_15,,still_in_office,ALP
 309,,Nova Peris,,NT,07.9.2013,,,still_in_office,ALP
-310,,Mehmet Tillem,,Victoria,21.8.2013,section_15,,still_in_office,ALP
+310,,Mehmet Tillem,,Victoria,21.8.2013,section_15,30.6.2014,retired,ALP
 311,,Zed Seselja,,ACT,07.9.2013,,,still_in_office,LIB
 312,,Deborah O'Neill,,NSW,13.11.2013,section_15,,still_in_office,ALP
 313,,Barry O'Sullivan,,QLD,11.2.2014,section_15,,still_in_office,NP
