@@ -137,7 +137,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 135,,Michael John Macklin,,Qld,1.7.1981 ,,30.6.1990 ,retired,AD
 136,,Graham Ross Maguire,,SA,5.3.1983 ,,30.6.1993 ,defeated,ALP
 137,,Diane Elizabeth Margetts,,WA,1.7.1993 ,,30.6.1999 ,defeated,GWA
-138,,Gavin Mark Marshall,,Vic.,1.7.2002 ,,,still_in_office,ALP
+138,,Gavin Mark Marshall,,Vic.,1.7.2002 ,,6.7.2014,changed_party,ALP
 139,,John Raymond Martyr,,WA,11.3.1981 ,section_15,4.2.1983 ,defeated,LIB
 140,,Brett John Mason,,Qld,1.7.1999 ,,,still_in_office,LIB
 141,,Colin Victor James Mason,,NSW,1.7.1978 ,,5.6.1987 ,retired,AD
@@ -173,7 +173,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 172,,John Wayne Olsen,,SA,7.5.1990 ,section_15,4.5.1992 ,resigned,LIB
 173,,John Horace Panizza,,WA,11.7.1987 ,,31.1.1997 ,died,LIB
 174,,Warwick Raymond Parer,,Qld,22.11.1984 ,section_15,11.2.2000 ,resigned,LIB
-175,,Stephen Shane Parry,,Tas.,1.7.2005,,,still_in_office,LIB
+175,,Stephen Shane Parry,,Tas.,1.7.2005,,6.7.2014,changed_party,LIB
 177,,Marise Ann Payne,,NSW,9.4.1997,section_15,,still_in_office,LIB
 178,,Helen Beatrice Polley,,Tas.,1.7.2005,,,still_in_office,ALP
 179,,Janet Frances Powell,,Vic.,26.8.1986 ,section_15,30.6.1993 ,defeated,IND
@@ -321,3 +321,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 835,,Linda Reynolds,,WA,1.7.2014,,,still_in_office,LIB
 836,,Janet Rice,,Victoria,1.7.2014,,,still_in_office,GRN
 837,,Dio Wang,,WA,1.7.2014,,,still_in_office,PUP
+838,,Stephen Shane Parry,,Tas.,7.7.2014,changed_party,,still_in_office,PRES
+839,,Gavin Mark Marshall,,Vic.,7.7.2014,changed_party,,still_in_office,DPRES
