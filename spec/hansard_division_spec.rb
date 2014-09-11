@@ -54,6 +54,59 @@ describe HansardDivision do
     @division.yes_tellers == ["Joe Bloggs", "Phil Smith"]
     @division.no_tellers == ["John Smith"]
   end  
+
+  describe 'tied vote' do
+    let(:tied_division_xml) do
+      Hpricot.XML('
+      <division>
+        <division.header>
+          <time.stamp>09:06:00</time.stamp>
+          <para>The House divided.&#xA0;&#xA0;&#xA0;&#xA0; </para>
+        </division.header>
+        <para>(The Speaker&#x2014;Mr Harry Jenkins)</para>
+        <division.data>
+          <ayes>
+            <num.votes>3</num.votes>
+            <title>AYES</title>
+            <names>
+              <name>Joe Bloggs *</name>
+              <name>Henry Smith</name>
+              <name>Phil Smith*</name>
+            </names>
+          </ayes>
+          <noes>
+            <num.votes>3</num.votes>
+            <title>NOES</title>
+            <names>
+              <name>John Smith *</name>
+              <name>Jane Doe</name>
+              <name>Mary Quitecontrary</name>
+            </names>
+          </noes>
+        </division.data>
+        <para>* denotes teller</para>
+        <interjection>
+          <talk.start>
+            <talker>
+              <name.id>10000</name.id>
+              <name role="metadata">SPEAKER, The</name>
+              <name role="display">The SPEAKER</name>
+            </talker>
+            <para>—I use my casting vote with the noes on the basis of precedents that indicate leaving propositions in their original state.</para>
+          </talk.start>
+        </interjection>
+        <division.result>
+          <para>Question negatived.</para>
+        </division.result>
+      </division>')
+    end
+
+    it "should include the speaker's casting vote in the event of a tie" do
+      tied_division = HansardDivision.new(tied_division_xml, "", "", nil)
+      tied_division.yes.should == ["Joe Bloggs", "Henry Smith", "Phil Smith"]
+      tied_division.no.should == ["John Smith", "Jane Doe", "Mary Quitecontrary", "Harry Jenkins"]
+    end
+  end
 end
 
 describe HansardDivision, "with pairings" do
