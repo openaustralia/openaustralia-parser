@@ -106,6 +106,14 @@ describe HansardDivision do
       tied_division.yes.should == ["Joe Bloggs", "Henry Smith", "Phil Smith"]
       tied_division.no.should == ["John Smith", "Jane Doe", "Mary Quitecontrary", "Harry Jenkins"]
     end
+
+    it "should not include speaker's vote in Senate divisions" do
+      pending
+    end
+
+    it "should raise an error if we can determine casting vote in the lower house" do
+      pending
+    end
   end
 end
 
