@@ -10,15 +10,27 @@ class HansardDivision
   def permanent_url
     @day.permanent_url
   end
+
+  def house
+    @day.house
+  end
   
   # Return an array of the names of people that voted yes
   def yes
-    process_names(tied? && result == :yes ? raw_yes.push(speaker) : raw_yes)
+    if tied? && house == House.representatives && result == :yes
+      process_names(raw_yes.push(speaker))
+    else
+      process_names(raw_yes)
+    end
   end
 
   # And similarly for the people that voted no
   def no
-    process_names(tied? && result == :no ? raw_no.push(speaker) : raw_no)
+    if tied? && house == House.representatives && result == :no
+      process_names(raw_no.push(speaker))
+    else
+      process_names(raw_no)
+    end
   end
 
   def tied?
