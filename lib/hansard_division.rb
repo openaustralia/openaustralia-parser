@@ -65,7 +65,7 @@ class HansardDivision
   end
 
   def speaker
-    if @content.at('(division) > (para)').inner_text =~ /\(The Speaker&#x2014;(.*)\)/
+    if @content.at('(division) > (para)').inner_text.gsub("\342\200\224", "&#x2014;") =~ /\(The Speaker&#x2014;(.*)\)/
       $~[1]
     else
       raise('Speaker not found')
