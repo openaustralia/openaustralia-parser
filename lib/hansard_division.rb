@@ -66,7 +66,8 @@ class HansardDivision
 
   def speaker
     if @content.at('(division) > (para)').inner_text.gsub("\342\200\224", "&#x2014;") =~ /\(The Speaker&#x2014;(.*)\)/
-      $~[1]
+      speaker_name = Name.title_first_last($~[1])
+      "#{speaker_name.last}, #{speaker_name.title} #{speaker_name.first}"
     else
       raise('Speaker not found')
     end
