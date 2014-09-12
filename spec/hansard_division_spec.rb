@@ -140,25 +140,27 @@ describe HansardDivision do
         </division.result>
       </division>')
     end
+    let(:old_tied_division) { HansardDivision.new(old_tied_division_xml, "", "", mock(HansardDay, :house => 'representatives')) }
+    let(:new_tied_division) { HansardDivision.new(new_tied_division_xml, "", "", mock(HansardDay, :house => 'representatives')) }
 
     it "should include the speaker's casting vote in the event of a tie" do
-      HansardDivision.new(old_tied_division_xml, "", "", nil).no.should == ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Jenkins, Mr Harry"]
-      HansardDivision.new(new_tied_division_xml, "", "", nil).no.should == ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Burke, Ms Anna"]
+      old_tied_division.no.should == ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Jenkins, Mr Harry"]
+      new_tied_division.no.should == ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Burke, Ms Anna"]
     end
 
     describe '#tied?' do
-      it { HansardDivision.new(old_tied_division_xml, "", "", nil).tied?.should be_true }
-      it { HansardDivision.new(new_tied_division_xml, "", "", nil).tied?.should be_true }
+      it { old_tied_division.tied?.should be_true }
+      it { new_tied_division.tied?.should be_true }
     end
 
     describe '#result' do
-      it { HansardDivision.new(old_tied_division_xml, "", "", nil).result.should eq(:no) }
-      it { HansardDivision.new(new_tied_division_xml, "", "", nil).result.should eq(:no) }
+      it { old_tied_division.result.should eq(:no) }
+      it { new_tied_division.result.should eq(:no) }
     end
 
     describe '#speaker' do
-      it { HansardDivision.new(old_tied_division_xml, "", "", nil).speaker.should eq('Jenkins, Mr Harry') }
-      it { HansardDivision.new(new_tied_division_xml, "", "", nil).speaker.should eq('Burke, Ms Anna') }
+      it { old_tied_division.speaker.should eq('Jenkins, Mr Harry') }
+      it { new_tied_division.speaker.should eq('Burke, Ms Anna') }
     end
 
     it "should not include speaker's vote in Senate divisions" do
