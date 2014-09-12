@@ -13,12 +13,20 @@ class HansardDivision
   
   # Return an array of the names of people that voted yes
   def yes
-    tied? && result == :yes ? raw_yes.push(speaker) : raw_yes
+    if tied? && result == :yes
+      raw_yes.map {|text| HansardDivision.name(text)} << speaker
+    else
+      raw_yes.map {|text| HansardDivision.name(text)}
+    end
   end
 
   # And similarly for the people that voted no
   def no
-    tied? && result == :no ? raw_no.push(speaker) : raw_no
+    if tied? && result == :no
+      raw_no.map {|text| HansardDivision.name(text)} << speaker
+    else
+      raw_no.map {|text| HansardDivision.name(text)}
+    end
   end
 
   def tied?
@@ -76,11 +84,11 @@ class HansardDivision
   private
 
   def raw_yes
-    @content.search("(division.data) > ayes > names > name").map {|e| HansardDivision.name(e.inner_html)}
+    @content.search("(division.data) > ayes > names > name").map {|e| e.inner_html}
   end
   
   def raw_no
-    @content.search("(division.data) > noes > names > name").map {|e| HansardDivision.name(e.inner_html)}
+    @content.search("(division.data) > noes > names > name").map {|e| e.inner_html}
   end
   
   def self.name(text)
