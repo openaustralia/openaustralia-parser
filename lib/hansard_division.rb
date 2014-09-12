@@ -24,6 +24,17 @@ class HansardDivision
   def tied?
     raw_yes.count == raw_no.count
   end
+
+  def result
+    case @content.at('(division.result)').inner_text
+    when /agreed to/
+      :yes
+    when /negatived/
+      :no
+    else
+      raise 'Could not determine division result'
+    end
+  end
   
   def pairs
     names = @content.search("(division.data) > pairs > names > name").map {|e| e.inner_html}

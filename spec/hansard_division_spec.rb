@@ -55,6 +55,10 @@ describe HansardDivision do
     division.no_tellers == ["John Smith"]
   end  
 
+  describe '#result' do
+    it { division.result.should eq(:yes) }
+  end
+
   describe 'tied vote' do
     let(:tied_division_xml) do
       Hpricot.XML('
@@ -109,6 +113,10 @@ describe HansardDivision do
 
     describe '#tied?' do
       it { HansardDivision.new(tied_division_xml, "", "", nil).tied?.should be_true }
+    end
+
+    describe '#result' do
+      it { HansardDivision.new(tied_division_xml, "", "", nil).result.should eq(:no) }
     end
 
     it "should not include speaker's vote in Senate divisions" do
