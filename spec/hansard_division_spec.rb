@@ -51,8 +51,8 @@ describe HansardDivision do
   end
 
   it "should recognise the tellers" do
-    division.yes_tellers == ["Joe Bloggs", "Phil Smith"]
-    division.no_tellers == ["John Smith"]
+    division.yes_tellers.should == ["Joe Bloggs", "Phil Smith"]
+    division.no_tellers.should == ["John Smith"]
   end  
 
   describe '#result' do
