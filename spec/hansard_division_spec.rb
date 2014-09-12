@@ -119,6 +119,12 @@ describe HansardDivision do
       it { HansardDivision.new(tied_division_xml, "", "", nil).result.should eq(:no) }
     end
 
+    describe '#speaker' do
+      it { HansardDivision.new(tied_division_xml, "", "", nil).speaker.should eq('Mr Harry Jenkins') }
+
+      pending 'newer form of XML'
+    end
+
     it "should not include speaker's vote in Senate divisions" do
       pending
     end

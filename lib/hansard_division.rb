@@ -63,6 +63,14 @@ class HansardDivision
     end
     time
   end
+
+  def speaker
+    if @content.at('(division) > (para)').inner_text =~ /\(The Speaker&#x2014;(.*)\)/
+      $~[1]
+    else
+      raise('Speaker not found')
+    end
+  end
   
   private
 
