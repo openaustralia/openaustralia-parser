@@ -73,18 +73,18 @@ describe HansardDivision do
             <num.votes>3</num.votes>
             <title>AYES</title>
             <names>
-              <name>Joe Bloggs *</name>
-              <name>Henry Smith</name>
-              <name>Phil Smith*</name>
+              <name>Bloggs, Joe*</name>
+              <name>Smith, Henry</name>
+              <name>Smith, Phil*</name>
             </names>
           </ayes>
           <noes>
             <num.votes>3</num.votes>
             <title>NOES</title>
             <names>
-              <name>John Smith *</name>
-              <name>Jane Doe</name>
-              <name>Mary Quitecontrary</name>
+              <name>Smith, John*</name>
+              <name>Doe, Jane</name>
+              <name>Quitecontrary, Mary</name>
             </names>
           </noes>
         </division.data>
@@ -107,8 +107,8 @@ describe HansardDivision do
 
     it "should include the speaker's casting vote in the event of a tie" do
       tied_division = HansardDivision.new(tied_division_xml, "", "", nil)
-      tied_division.yes.should == ["Joe Bloggs", "Henry Smith", "Phil Smith"]
-      tied_division.no.should == ["John Smith", "Jane Doe", "Mary Quitecontrary", "Jenkins, Mr Harry"]
+      tied_division.yes.should == ["Bloggs, Joe", "Smith, Henry", "Smith, Phil"]
+      tied_division.no.should == ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Jenkins, Mr Harry"]
     end
 
     describe '#tied?' do
