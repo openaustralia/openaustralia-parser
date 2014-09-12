@@ -86,7 +86,7 @@ class HansardDivision
 
     if header_speaker_text.gsub("\342\200\224", "&#x2014;") =~ /[Speaker|President]&#x2014;(.*)\)/
       speaker_name = Name.title_first_last($~[1])
-      "#{speaker_name.last}, #{speaker_name.title} #{speaker_name.first}"
+      "#{speaker_name.last}, " + (speaker_name.initials.empty? ? speaker_name.first : speaker_name.initials)
     else
       raise('Speaker not found')
     end

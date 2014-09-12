@@ -144,8 +144,8 @@ describe HansardDivision do
     let(:new_tied_division) { HansardDivision.new(new_tied_division_xml, "", "", mock(HansardDay, :house => House.representatives)) }
 
     it "should include the speaker's casting vote in the event of a tie" do
-      old_tied_division.no.should == ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Jenkins, Mr Harry"]
-      new_tied_division.no.should == ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Burke, Ms Anna"]
+      old_tied_division.no.should == ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Jenkins, Harry"]
+      new_tied_division.no.should == ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Burke, Anna"]
     end
 
     describe '#tied?' do
@@ -159,8 +159,8 @@ describe HansardDivision do
     end
 
     describe '#speaker' do
-      it { old_tied_division.speaker.should eq('Jenkins, Mr Harry') }
-      it { new_tied_division.speaker.should eq('Burke, Ms Anna') }
+      it { old_tied_division.speaker.should eq('Jenkins, Harry') }
+      it { new_tied_division.speaker.should eq('Burke, Anna') }
     end
 
     it "should not include speaker's vote in Senate divisions" do
