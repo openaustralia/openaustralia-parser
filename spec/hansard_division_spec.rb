@@ -60,7 +60,7 @@ describe HansardDivision do
   end
 
   describe 'tied vote' do
-    let(:tied_division_xml) do
+    let(:old_tied_division_xml) do
       Hpricot.XML('
       <division>
         <division.header>
@@ -104,25 +104,61 @@ describe HansardDivision do
         </division.result>
       </division>')
     end
+    # There's a slightly different layout in newer XML
+    let(:new_tied_division_xml) do
+      Hpricot.XML('
+      <division>
+        <division.header>
+          <body>
+            <p class="HPS-DivisionPreamble">The House divided. [16:13]<br />(The Speaker—Ms Anna Burke)</p>
+          </body>
+        </division.header>
+        <division.data>
+          <ayes>
+            <num.votes>3</num.votes>
+            <title>AYES</title>
+            <names>
+              <name>Bloggs, Joe*</name>
+              <name>Smith, Henry</name>
+              <name>Smith, Phil*</name>
+            </names>
+          </ayes>
+          <noes>
+            <num.votes>3</num.votes>
+            <title>NOES</title>
+            <names>
+              <name>Smith, John*</name>
+              <name>Doe, Jane</name>
+              <name>Quitecontrary, Mary</name>
+            </names>
+          </noes>
+         </division.data>
+        <division.result>
+          <body>
+            <p class="HPS-DivisionFooter">The numbers for the ayes and the noes being equal, the Speaker gave her casting vote with the noes.<br />Question negatived.</p>
+          </body>
+        </division.result>
+      </division>')
+    end
 
     it "should include the speaker's casting vote in the event of a tie" do
-      tied_division = HansardDivision.new(tied_division_xml, "", "", nil)
-      tied_division.yes.should == ["Bloggs, Joe", "Smith, Henry", "Smith, Phil"]
-      tied_division.no.should == ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Jenkins, Mr Harry"]
+      HansardDivision.new(old_tied_division_xml, "", "", nil).no.should == ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Jenkins, Mr Harry"]
+      HansardDivision.new(new_tied_division_xml, "", "", nil).no.should == ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Burke, Ms Anna"]
     end
 
     describe '#tied?' do
-      it { HansardDivision.new(tied_division_xml, "", "", nil).tied?.should be_true }
+      it { HansardDivision.new(old_tied_division_xml, "", "", nil).tied?.should be_true }
+      it { HansardDivision.new(new_tied_division_xml, "", "", nil).tied?.should be_true }
     end
 
     describe '#result' do
-      it { HansardDivision.new(tied_division_xml, "", "", nil).result.should eq(:no) }
+      it { HansardDivision.new(old_tied_division_xml, "", "", nil).result.should eq(:no) }
+      it { HansardDivision.new(new_tied_division_xml, "", "", nil).result.should eq(:no) }
     end
 
     describe '#speaker' do
-      it { HansardDivision.new(tied_division_xml, "", "", nil).speaker.should eq('Jenkins, Mr Harry') }
-
-      pending 'newer form of XML'
+      it { HansardDivision.new(old_tied_division_xml, "", "", nil).speaker.should eq('Jenkins, Mr Harry') }
+      it { HansardDivision.new(new_tied_division_xml, "", "", nil).speaker.should eq('Burke, Ms Anna') }
     end
 
     it "should not include speaker's vote in Senate divisions" do
