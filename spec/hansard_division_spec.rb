@@ -167,10 +167,6 @@ describe HansardDivision do
       HansardDivision.new(old_tied_division_xml, "", "", mock(HansardDay, :house => House.senate)).no.should == ["Smith, John", "Doe, Jane", "Quitecontrary, Mary"]
       HansardDivision.new(new_tied_division_xml, "", "", mock(HansardDay, :house => House.senate)).no.should == ["Smith, John", "Doe, Jane", "Quitecontrary, Mary"]
     end
-
-    it "should raise an error if we can determine casting vote in the lower house" do
-      pending
-    end
   end
 end
 
