@@ -20,6 +20,10 @@ class HansardDivision
   def no
     raw_no.map {|text| HansardDivision.name(text)}
   end
+
+  def tied?
+    raw_yes.count == raw_no.count
+  end
   
   def pairs
     names = @content.search("(division.data) > pairs > names > name").map {|e| e.inner_html}

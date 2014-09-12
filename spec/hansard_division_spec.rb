@@ -107,6 +107,10 @@ describe HansardDivision do
       tied_division.no.should == ["John Smith", "Jane Doe", "Mary Quitecontrary", "Harry Jenkins"]
     end
 
+    describe '#tied?' do
+      it { HansardDivision.new(tied_division_xml, "", "", nil).tied?.should be_true }
+    end
+
     it "should not include speaker's vote in Senate divisions" do
       pending
     end
