@@ -13,12 +13,20 @@ class HansardDivision
   
   # Return an array of the names of people that voted yes
   def yes
-    raw_yes.map {|text| HansardDivision.name(text)}
+    if tied? && result == :yes
+      raw_yes.map {|text| HansardDivision.name(text)} << speaker
+    else
+      raw_yes.map {|text| HansardDivision.name(text)}
+    end
   end
 
   # And similarly for the people that voted no
   def no
-    raw_no.map {|text| HansardDivision.name(text)}
+    if tied? && result == :no
+      raw_no.map {|text| HansardDivision.name(text)} << speaker
+    else
+      raw_no.map {|text| HansardDivision.name(text)}
+    end
   end
 
   def tied?

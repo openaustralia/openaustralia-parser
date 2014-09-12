@@ -108,7 +108,7 @@ describe HansardDivision do
     it "should include the speaker's casting vote in the event of a tie" do
       tied_division = HansardDivision.new(tied_division_xml, "", "", nil)
       tied_division.yes.should == ["Joe Bloggs", "Henry Smith", "Phil Smith"]
-      tied_division.no.should == ["John Smith", "Jane Doe", "Mary Quitecontrary", "Harry Jenkins"]
+      tied_division.no.should == ["John Smith", "Jane Doe", "Mary Quitecontrary", "Mr Harry Jenkins"]
     end
 
     describe '#tied?' do
