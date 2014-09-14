@@ -21,6 +21,10 @@ class HansardUnsupported
 end
 
 class HansardDay
+  # On 2011-02-22 there was a tied vote and the speaker didn't need to cast a deciding
+  # vote because an absolute majority was required
+  ALLOW_TIED_VOTE_DATES = [Date.new(2011,2,22)]
+
   def initialize(page, logger = nil)
     @page, @logger = page, logger
     @house = nil
@@ -53,6 +57,10 @@ class HansardDay
     proof = @page.at('proof').inner_html
     @logger.error "#{date} #{house}: Unexpected value '#{proof}' inside tag <proof>" unless proof == "1" || proof == "0"
     proof == "1"
+  end
+
+  def add_speaker_to_tied_votes?
+    house == House.representatives && !ALLOW_TIED_VOTE_DATES.include?(date)
   end
 
   # Strip any HTML/XML tags from the given text and remove new-line characters
