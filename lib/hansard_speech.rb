@@ -243,7 +243,7 @@ class HansardSpeech
       clean_content_motion(e)
     when 'amendment', 'quote'
       clean_content_recurse(e, 'italic')
-    when 'amendments', 'motionnospeech', 'interjection', 'continue', 'answer', 'question'
+    when 'talk.start', 'amendments', 'motionnospeech', 'interjection', 'continue', 'answer', 'question'
       clean_content_recurse(e)
     when 'tgroup', 'thead', 'tbody'
       clean_content_recurse(e, override_type)
