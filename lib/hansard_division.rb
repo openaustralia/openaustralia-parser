@@ -13,12 +13,35 @@ class HansardDivision
   
   # Return an array of the names of people that voted yes
   def yes
-    raw_yes.map {|text| HansardDivision.name(text)}
+    if add_speaker? :yes
+      process_names(raw_yes.push(speaker))
+    else
+      process_names(raw_yes)
+    end
   end
 
   # And similarly for the people that voted no
   def no
-    raw_no.map {|text| HansardDivision.name(text)}
+    if add_speaker? :no
+      process_names(raw_no.push(speaker))
+    else
+      process_names(raw_no)
+    end
+  end
+
+  def tied?
+    raw_yes.count == raw_no.count
+  end
+
+  def result
+    case @content.at('(division.result)').inner_text
+    when /agreed to/
+      :yes
+    when /negatived/
+      :no
+    else
+      raise 'Could not determine division result'
+    end
   end
   
   def pairs
@@ -48,8 +71,32 @@ class HansardDivision
     end
     time
   end
+
+  def speaker
+    # There's a slight difference between older and newer XML
+    header_speaker_text = if @content.at('(division) > (para)')
+      @content.at('(division) > (para)').inner_text
+    else
+      @content.at('(division.header)').inner_text
+    end
+
+    if header_speaker_text.gsub("\342\200\224", "&#x2014;") =~ /[Speaker|President]&#x2014;(.*)\)/
+      speaker_name = Name.title_first_last($~[1])
+      "#{speaker_name.last}, " + (speaker_name.initials.empty? ? speaker_name.first : speaker_name.initials)
+    else
+      raise('Speaker not found')
+    end
+  end
   
   private
+
+  def add_speaker?(vote)
+    @day.add_speaker_to_tied_votes? && tied? && result == vote
+  end
+
+  def process_names(array)
+    array.map {|text| HansardDivision.name(text)}
+  end
 
   def raw_yes
     @content.search("(division.data) > ayes > names > name").map {|e| e.inner_html}

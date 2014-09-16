@@ -17,3 +17,7 @@ group :test do
   gem 'rspec'
   gem 'rcov'
 end
+
+group :development do
+  gem 'pry'
+end
