@@ -120,15 +120,20 @@ class HansardParser
       filename = "#{@conf.xml_path}/origxml/#{house_loc}/#{date}.xml"
       File.open(filename, 'w') {|f| f.write("#{xml}") }
 
-      # Rewrite the XML data back to a sane format
-      new_xml = @rewriter.rewrite_xml Hpricot.XML(xml)
+      # APH changed their XML format on the 10th of May 2011
+      if date >= Date.new(2011,5,10)
+        # Rewrite the XML data back to a sane format
+        new_xml = @rewriter.rewrite_xml Hpricot.XML(xml)
 
-      # Save the rewritten XML data
-      filename = "#{@conf.xml_path}/rewritexml/#{house_loc}/#{date}.xml"
-      File.open(filename, 'w') {|f| f.write("#{new_xml}") }
+        # Save the rewritten XML data
+        filename = "#{@conf.xml_path}/rewritexml/#{house_loc}/#{date}.xml"
+        File.open(filename, 'w') {|f| f.write("#{new_xml}") }
 
-      # Process the day
-      HansardDay.new(new_xml, @logger)
+        # Process the day
+        HansardDay.new(new_xml, @logger)
+      else
+        HansardDay.new(Hpricot.XML(xml), @logger)
+      end
     end
   end
 
