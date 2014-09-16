@@ -13,20 +13,12 @@ class HansardDivision
   
   # Return an array of the names of people that voted yes
   def yes
-    if add_speaker? :yes
-      process_names(raw_yes.push(speaker))
-    else
-      process_names(raw_yes)
-    end
+    (add_speaker?(:yes) ? raw_yes.push(speaker) : raw_yes).map {|text| HansardDivision.name(text)}
   end
 
   # And similarly for the people that voted no
   def no
-    if add_speaker? :no
-      process_names(raw_no.push(speaker))
-    else
-      process_names(raw_no)
-    end
+    (add_speaker?(:no) ? raw_no.push(speaker) : raw_no).map {|text| HansardDivision.name(text)}
   end
 
   def tied?
@@ -92,10 +84,6 @@ class HansardDivision
 
   def add_speaker?(vote)
     @day.add_speaker_to_tied_votes? && tied? && result == vote
-  end
-
-  def process_names(array)
-    array.map {|text| HansardDivision.name(text)}
   end
 
   def raw_yes
