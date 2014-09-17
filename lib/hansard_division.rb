@@ -25,12 +25,12 @@ class HansardDivision
     raw_yes.count == raw_no.count
   end
 
-  def result
+  def passed?
     case @content.at('(division.result)').inner_text
     when /agreed to/
-      :yes
+      true
     when /negatived/
-      :no
+      false
     else
       raise 'Could not determine division result'
     end
@@ -83,7 +83,11 @@ class HansardDivision
   private
 
   def add_speaker?(vote)
-    @day.add_speaker_to_tied_votes? && tied? && result == vote
+    if vote == :yes
+      @day.add_speaker_to_tied_votes? && tied? && passed?
+    elsif vote == :no
+      @day.add_speaker_to_tied_votes? && tied? && !passed?
+    end
   end
 
   def raw_yes

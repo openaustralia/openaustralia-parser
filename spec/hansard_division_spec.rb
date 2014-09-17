@@ -55,8 +55,8 @@ describe HansardDivision do
     division.no_tellers.should == ["John Smith"]
   end  
 
-  describe '#result' do
-    it { division.result.should eq(:yes) }
+  describe '#passed?' do
+    it { division.passed?.should be_true }
   end
 
   describe 'tied vote' do
@@ -153,9 +153,9 @@ describe HansardDivision do
       it { new_tied_division.tied?.should be_true }
     end
 
-    describe '#result' do
-      it { old_tied_division.result.should eq(:no) }
-      it { new_tied_division.result.should eq(:no) }
+    describe '#passed?' do
+      it { old_tied_division.passed?.should be_false }
+      it { new_tied_division.passed?.should be_false }
     end
 
     describe '#speaker' do
