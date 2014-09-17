@@ -1,0 +1,22 @@
+--- original.xml	2014-09-17 17:54:39.771031975 +1000
++++ patched.xml	2014-09-17 17:56:06.991032707 +1000
+@@ -2860,6 +2860,9 @@
+         </speech>
+         <division>
+           <division.header>
++            <body>
++              <p class="HPS-DivisionPreamble">The House divided. [10:23]<br />(The Speaker—Hon. Harry Jenkins)</p>
++            </body>
+           </division.header>
+           <division.data>
+             <ayes>
+@@ -3030,6 +3033,9 @@
+             </pairs>
+           </division.data>
+           <division.result>
++            <body>
++              <p class="HPS-DivisionFooter">The numbers for the ayes and the noes being equal, Mr Speaker gave his casting vote with the noes.<br />Question negatived.</p>
++            </body>
+           </division.result>
+         </division>
+       </subdebate.2>
