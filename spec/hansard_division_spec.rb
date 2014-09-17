@@ -23,6 +23,7 @@ describe HansardDivision do
 						<name>Joe Bloggs *</name>
 						<name>Henry Smith</name>
 						<name>Phil Smith*</name>
+            <name>Coulton, M (teller)</name>
 					</names>
 				</ayes>
 				<noes>
@@ -30,6 +31,7 @@ describe HansardDivision do
 					<title>NOES</title>
 					<names>
 						<name>John Smith *</name>
+            <name>Secker, PD *Teller</name>
 					</names>
 				</noes>
 			</division.data>
@@ -42,8 +44,8 @@ describe HansardDivision do
   
   it "should parse the xml for a division correctly" do
 		# Note that the *'s are stripped from the names
-		division.yes.should == ["Joe Bloggs", "Henry Smith", "Phil Smith"]
-		division.no.should == ["John Smith"]
+		division.yes.should == ["Joe Bloggs", "Henry Smith", "Phil Smith", "Coulton, M"]
+		division.no.should == ["John Smith", "Secker, PD"]
   end
   
   it "should know the time the division took place" do
@@ -51,8 +53,8 @@ describe HansardDivision do
   end
 
   it "should recognise the tellers" do
-    division.yes_tellers.should == ["Joe Bloggs", "Phil Smith"]
-    division.no_tellers.should == ["John Smith"]
+    division.yes_tellers.should == ["Joe Bloggs", "Phil Smith", "Coulton, M"]
+    division.no_tellers.should == ["John Smith", "Secker, PD"]
   end  
 
   describe '#passed?' do
