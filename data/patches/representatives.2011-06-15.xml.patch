@@ -1,0 +1,29 @@
+--- original.xml	2014-09-17 20:51:44.427958848 +1000
++++ patched.xml	2014-09-17 20:52:54.423959434 +1000
+@@ -379,6 +379,9 @@
+         </division>
+         <division>
+           <division.header>
++            <body>
++              <p class="HPS-DivisionPreamble">The House divided. [09:13]<br />(The Speaker—Mr Harry Jenkins)</p>
++            </body>
+           </division.header>
+           <division.data>
+             <ayes>
+@@ -549,6 +552,9 @@
+             </pairs>
+           </division.data>
+           <division.result>
++            <body>
++              <p class="HPS-DivisionFooter">There being an equality of votes, I am required to exercise my casting vote. I take as my guidance, as I have indicated to the House in the past, <span style="font-style:italic;">House of Representatives Practice</span> pages 182 to 183. I exercise my vote with the noes on the basis that there is not a majority for the proposition, and by casting my vote for the noes it does not stifle further discussion of the proposition.<br />Question negatived.</p>
++            </body>
+           </division.result>
+         </division>
+         <speech>
+@@ -18629,4 +18635,4 @@
+       </speech>
+     </debate>
+   </maincomm.xscript>
+-</hansard>
+\ No newline at end of file
++</hansard>
