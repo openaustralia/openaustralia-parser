@@ -82,10 +82,10 @@ class HansardDivision
   
   private
 
-  def add_speaker?(vote)
-    if vote == :yes
+  def add_speaker?(to_vote)
+    if to_vote == :yes
       @day.add_speaker_to_tied_votes? && tied? && passed?
-    elsif vote == :no
+    elsif to_vote == :no
       @day.add_speaker_to_tied_votes? && tied? && !passed?
     end
   end
