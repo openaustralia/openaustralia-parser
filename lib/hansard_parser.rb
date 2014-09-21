@@ -165,7 +165,7 @@ class HansardParser
           debates.add_heading(page.title, page.subtitle, nil, page.permanent_url)
           # Do nothing
         elsif page.is_a?(Array)
-          debates.add_heading(page.first.title, page.first.subtitle, day.permanent_url, page.first.bill_url) unless page.empty?
+          debates.add_heading(page.first.title, page.first.subtitle, day.permanent_url, page.first.bill_id) unless page.empty?
           speaker = nil
           page.each do |speech|
             if speech
@@ -180,7 +180,7 @@ class HansardParser
             debates.increment_minor_count
           end
         elsif page.is_a?(HansardDivision)
-          debates.add_heading(page.title, page.subtitle, page.bill_url, page.permanent_url)
+          debates.add_heading(page.title, page.subtitle, page.bill_id, page.permanent_url)
           # Lookup names
           yes = page.yes.map do |text|
             unless text.length == 0
@@ -226,7 +226,7 @@ class HansardParser
               end
             end.compact
           end.compact
-          debates.add_division(yes, no, yes_tellers, no_tellers, pairs, page.time, page.permanent_url, page.bill_url)
+          debates.add_division(yes, no, yes_tellers, no_tellers, pairs, page.time, page.permanent_url, page.bill_id)
         end
         # This ensures that every sub day page has a different major count which limits the impact
         # of when we start supporting things like written questions, procedurial text, etc..

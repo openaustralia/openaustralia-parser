@@ -1,21 +1,17 @@
 require 'section'
 
 class Division < Section
-  def initialize(yes, no, yes_tellers, no_tellers, pairs, time, url, bill_url, count, division_count, date, house, logger = nil)
-    @yes, @no, @yes_tellers, @no_tellers, @pairs, @division_count, @bill_url = yes, no, yes_tellers, no_tellers, pairs, division_count, bill_url
+  def initialize(yes, no, yes_tellers, no_tellers, pairs, time, url, bill_id, count, division_count, date, house, logger = nil)
+    @yes, @no, @yes_tellers, @no_tellers, @pairs, @division_count, @bill_id = yes, no, yes_tellers, no_tellers, pairs, division_count, bill_id
     super(time, url, count, date, house, logger)
-  end
-
-  # Quoting of url's is required to be nice and standards compliant
-  def quoted_bill_url
-    if @bill_url != nil
-      @bill_url.gsub('&', '&amp;')
-    end
   end
 
   def output(x)
     division_attributes = {:id => id, :nospeaker => "true", :divdate => @date, :divnumber => @division_count, :time => @time, :url => quoted_url}
-    division_attributes[:bill_url] = quoted_bill_url if @bill_url != nil
+    division_attributes[:bill_id] = @bill_id if @bill_id != nil
+    division_attributes[:bill_url] = @bill_id.split('; ').map { |e|
+      "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{e}"
+    }.join("; ") if @bill_id != nil
     x.division(division_attributes) do
       count_attributes = {:ayes => @yes.size, :noes => @no.size,
         :tellerayes => @yes_tellers.size, :tellernoes => @no_tellers.size}

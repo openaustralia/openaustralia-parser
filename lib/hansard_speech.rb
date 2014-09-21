@@ -6,10 +6,10 @@ require 'name'
 $KCODE = 'u'
 
 class HansardSpeech
-  attr_reader :logger, :title, :subtitle, :bill_url, :time, :day, :interjection, :continuation
+  attr_reader :logger, :title, :subtitle, :bill_id, :time, :day, :interjection, :continuation
   
-  def initialize(content, title, subtitle, bill_url, time, day, logger = nil)
-    @content, @title, @subtitle, @bill_url, @time, @day, @logger = content, title, subtitle, bill_url, time, day, logger
+  def initialize(content, title, subtitle, bill_id, time, day, logger = nil)
+    @content, @title, @subtitle, @bill_id, @time, @day, @logger = content, title, subtitle, bill_id, time, day, logger
     @interjection = name?('interjection')
     @continuation = name?('continue')
   end

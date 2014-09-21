@@ -1,10 +1,10 @@
 require 'enumerator'
 
 class HansardDivision
-  attr_reader :title, :subtitle, :bill_url
+  attr_reader :title, :subtitle, :bill_id
   
-  def initialize(content, title, subtitle, bill_url, day)
-    @content, @title, @subtitle, @bill_url, @day = content, title, subtitle, bill_url, day
+  def initialize(content, title, subtitle, bill_id, day)
+    @content, @title, @subtitle, @bill_id, @day = content, title, subtitle, bill_id, day
   end
   
   def permanent_url
