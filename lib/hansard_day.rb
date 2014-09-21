@@ -87,6 +87,32 @@ class HansardDay
     end
   end
 
+
+  def bill_url(debate)
+    case debate.name
+      when 'debate', 'petition.group'
+        # cognate debates can have multiple bill ids
+        bill_ids = debate.get_elements_by_tag_name('id.no').map { |e| strip_tags(e.inner_html.strip()) }
+        if bill_ids.length > 0
+          type = strip_tags(debate.search('> debateinfo > type').map { |e| e.inner_html.strip() }.join('; '))
+          case type
+            when '' # typically a question in writing if no type provided
+              ''
+            when 'Bills'
+              return bill_ids.map{ |e|
+                "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{e}"
+              }.join('; ')
+            else
+              throw "Unexpected type #{type}"
+          end
+        end
+      when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
+        bill_url(debate.parent)
+      else
+        throw "Unexpected tag #{debate.name}"
+    end
+  end
+
   def subtitle(debate)
     case debate.name
     when 'debate', 'petition.group'
@@ -123,6 +149,7 @@ class HansardDay
     p = []
     title = title(debate)
     subtitle = subtitle(debate)
+    bill_url = bill_url(debate)
 
     question = false
     procedural = false
@@ -133,12 +160,12 @@ class HansardDay
         question = false
         procedural = false
       when 'speech', 'talk'
-        p << e.map_child_node {|c| HansardSpeech.new(c, title, subtitle, time(e), self, @logger)}
+        p << e.map_child_node {|c| HansardSpeech.new(c, title, subtitle, bill_url, time(e), self, @logger)}
         question = false
         procedural = false
       when 'division'
         #puts "SKIP: #{e.name} > #{full_title}"
-        p << HansardDivision.new(e, title, subtitle, self)
+        p << HansardDivision.new(e, title, subtitle, bill_url, self)
         question = false
         procedural = false
       when 'petition'
@@ -152,7 +179,7 @@ class HansardDay
           questions = []
           f = e
           while f && (f.name == 'question' || f.name == 'answer') do
-            questions = questions + f.map_child_node {|c| HansardSpeech.new(c, title, subtitle, time(e), self, @logger)}
+            questions = questions + f.map_child_node {|c| HansardSpeech.new(c, title, subtitle, bill_url, time(e), self, @logger)}
             f = f.next_sibling
           end
           p << questions
@@ -165,7 +192,7 @@ class HansardDay
           procedurals = []
           f = e
           while f && procedural_tags.include?(f.name) do
-            procedurals << HansardSpeech.new(f, title, subtitle, time(f), self, @logger)
+            procedurals << HansardSpeech.new(f, title, subtitle, bill_url, time(f), self, @logger)
             f = f.next_sibling
           end
           p << procedurals
