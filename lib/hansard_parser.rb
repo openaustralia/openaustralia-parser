@@ -162,7 +162,7 @@ class HansardParser
         if page.is_a?(HansardUnsupported)
           # Adding header as soon as possible (even for unsupported sections), so that as new bits of the Han
           # become supported we don't change the id's of the headings.
-          debates.add_heading(page.title, page.subtitle, nil, page.permanent_url)
+          debates.add_heading(page.title, page.subtitle, page.permanent_url, nil)
           # Do nothing
         elsif page.is_a?(Array)
           debates.add_heading(page.first.title, page.first.subtitle, day.permanent_url, page.first.bill_id) unless page.empty?
@@ -180,7 +180,7 @@ class HansardParser
             debates.increment_minor_count
           end
         elsif page.is_a?(HansardDivision)
-          debates.add_heading(page.title, page.subtitle, page.bill_id, page.permanent_url)
+          debates.add_heading(page.title, page.subtitle, page.permanent_url, page.bill_id)
           # Lookup names
           yes = page.yes.map do |text|
             unless text.length == 0
