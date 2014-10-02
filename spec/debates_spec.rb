@@ -80,9 +80,9 @@ EOF
 <debates>
   <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
 <p>This is a speech</p>  </speech>
-  <major-heading bill_id="bill_id" bill_url="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/bill_id" id="uk.org.publicwhip/debate/2000-01-01.1.2" url="url">
+  <major-heading id="uk.org.publicwhip/debate/2000-01-01.1.2" url="url">
 title  </major-heading>
-  <minor-heading id="uk.org.publicwhip/debate/2000-01-01.1.3" url="url">
+  <minor-heading bill_id="bill_id" bill_url="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/bill_id" id="uk.org.publicwhip/debate/2000-01-01.1.3" url="url">
 subtitle  </minor-heading>
   <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.4" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
 <p>And a bit more</p>  </speech>
@@ -97,9 +97,9 @@ EOF
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
-  <major-heading bill_id="bill_id" bill_url="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/bill_id" id="uk.org.publicwhip/debate/2000-01-01.1.1" url="url">
+  <major-heading id="uk.org.publicwhip/debate/2000-01-01.1.1" url="url">
 title  </major-heading>
-  <minor-heading id="uk.org.publicwhip/debate/2000-01-01.1.2" url="url">
+  <minor-heading bill_id="bill_id" bill_url="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/bill_id" id="uk.org.publicwhip/debate/2000-01-01.1.2" url="url">
 subtitle  </minor-heading>
   <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.3" nospeaker="true" talktype="speech" time="9:00" url="url">
 <p>This is a speech</p>  </speech>
