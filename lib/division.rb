@@ -1,18 +1,18 @@
 require 'section'
 
 class Division < Section
-  def initialize(yes, no, yes_tellers, no_tellers, pairs, time, url, bill_id, count, division_count, date, house, logger = nil)
-    @yes, @no, @yes_tellers, @no_tellers, @pairs, @division_count, @bill_id = yes, no, yes_tellers, no_tellers, pairs, division_count, bill_id
+  def initialize(yes, no, yes_tellers, no_tellers, pairs, time, url, bills, count, division_count, date, house, logger = nil)
+    @yes, @no, @yes_tellers, @no_tellers, @pairs, @division_count, @bills = yes, no, yes_tellers, no_tellers, pairs, division_count, bills
     super(time, url, count, date, house, logger)
   end
 
   def output(x)
     division_attributes = {:id => id, :nospeaker => "true", :divdate => @date, :divnumber => @division_count, :time => @time, :url => quoted_url}
     x.division(division_attributes) do
-      if @bill_id != nil
+      if !@bills.empty?
         x.bills do
-          @bill_id.split('; ').each do |bill_id|
-            x.bill({:id => bill_id, :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{bill_id}"})
+          @bills.each do |bill|
+            x.bill({:id => bill[:id], :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{bill[:id]}"}, bill[:title])
           end
         end
       end

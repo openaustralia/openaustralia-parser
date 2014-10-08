@@ -226,7 +226,7 @@ class HansardParser
               end
             end.compact
           end.compact
-          debates.add_division(yes, no, yes_tellers, no_tellers, pairs, page.time, page.permanent_url, page.bill_id)
+          debates.add_division(yes, no, yes_tellers, no_tellers, pairs, page.time, page.permanent_url, page.bills)
         end
         # This ensures that every sub day page has a different major count which limits the impact
         # of when we start supporting things like written questions, procedurial text, etc..
