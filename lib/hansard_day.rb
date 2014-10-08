@@ -113,6 +113,39 @@ class HansardDay
     end
   end
 
+  def bills(debate)
+    results = []
+
+    case debate.name
+    when 'debate', 'petition.group'
+      # cognate debates can have multiple bill ids
+      if debate.at("> debateinfo").children_of_type('id.no').size > 0
+        if debate.at("> debateinfo > type").inner_text.downcase == 'bills'
+          results << {:id => debate.at("/debateinfo").children_of_type('id.no')[0].inner_text, :title => debate.at("> debateinfo > title").inner_text}
+        end
+        debate.search("> debateinfo > cognate").each do |congnate|
+          if congnate.at(:type).inner_text.downcase == 'bills'
+            results << {:id => congnate.at(:cognateinfo).children_of_type('id.no')[0].inner_text, :title => congnate.at(:title).inner_text}
+          end
+        end
+      end
+    # when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
+    #   raise
+    #   if debate.get_elements_by_tag_name('subdebate.text').length > 0
+    #     if debate.get_elements_by_tag_name('subdebate.text')[0].get_elements_by_tag_name('a').length > 0
+    #       bill_ids = debate.get_elements_by_tag_name('subdebate.text')[0].get_elements_by_tag_name('a').map { |e| strip_tags(e['href'].strip()) }
+    #       bill_ids.join('; ')
+    #     end
+    #   else
+    #     bills(debate.parent)
+    #   end
+    # else
+      throw "Unexpected tag #{debate.name}"
+    end
+
+    results
+  end
+
   def subtitle(debate)
     case debate.name
     when 'debate', 'petition.group'
