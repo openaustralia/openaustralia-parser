@@ -25,7 +25,7 @@ class MinorHeading < HeadingBase
     if @bills && !@bills.empty?
       x.bills do
         @bills.each do |bill|
-          x.bill({:id => bill[:id], :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{bill[:id]}"}, bill[:title])
+          x.bill({:id => bill[:id], :url => bill[:url]}, bill[:title])
         end
       end
     end

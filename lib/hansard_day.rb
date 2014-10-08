@@ -95,11 +95,17 @@ class HansardDay
       # cognate debates can have multiple bill ids
       if debate.at("> debateinfo") && debate.at("> debateinfo").children_of_type('id.no').size > 0
         if debate.at("> debateinfo > type").inner_text.downcase == 'bills'
-          results << {:id => debate.at("/debateinfo").children_of_type('id.no')[0].inner_text, :title => debate.at("> debateinfo > title").inner_text}
+          id = debate.at("/debateinfo").children_of_type('id.no')[0].inner_text
+          title = debate.at("> debateinfo > title").inner_text
+          url = bill_url(id)
+          results << {:id => id, :title => title, :url => url}
         end
         debate.search("> debateinfo > cognate").each do |congnate|
           if congnate.at(:type).inner_text.downcase == 'bills'
-            results << {:id => congnate.at(:cognateinfo).children_of_type('id.no')[0].inner_text, :title => congnate.at(:title).inner_text}
+            id = congnate.at(:cognateinfo).children_of_type('id.no')[0].inner_text
+            title = congnate.at(:title).inner_text
+            url = bill_url(id)
+            results << {:id => id, :title => title, :url => url}
           end
         end
       end
@@ -107,7 +113,10 @@ class HansardDay
       if debate.get_elements_by_tag_name('subdebate.text').length > 0
         if debate.get_elements_by_tag_name('subdebate.text')[0].get_elements_by_tag_name('a').length > 0
           debate.get_elements_by_tag_name('subdebate.text')[0].get_elements_by_tag_name('a').each do |a|
-            results << {:id => strip_tags(a['href'].strip), :title => strip_tags(e.inner_text.strip)}
+            id = strip_tags(a['href'].strip)
+            title = strip_tags(e.inner_text.strip)
+            url = bill_url(id)
+            results << {:id => id, :title => title, :url => url}
           end
         end
       else
@@ -252,5 +261,11 @@ class HansardDay
       end
     end
     p
+  end
+
+  private
+
+  def bill_url(id)
+    "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{id}"
   end
 end
