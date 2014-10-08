@@ -416,6 +416,12 @@ EOF
         logger.warn "\nDebate #{f.at('title').inner_text}"
         debate_new_children.append "#{f}"
 
+      when 'subdebate.text'
+        if f.at('a') and f.at('a')['type'] == 'Bill'
+          logger.warn "\nSubdebate.text #{f.at('body').inner_text}"
+          debate_new_children.append "#{f}"
+        end
+
       when 'subdebateinfo'
         logger.warn "  Subdebate.#{level} \"#{f.at('title').inner_text}\" @ #{f.at('(page.no)').inner_text}"
         debate_new_children.append "#{f}"
