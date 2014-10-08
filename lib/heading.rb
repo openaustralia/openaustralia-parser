@@ -1,6 +1,6 @@
 class HeadingBase
-  def initialize(title, count, url, bill_id, date, house)
-    @title, @count, @url, @bill_id, @date, @house = title, count, url, bill_id, date, house
+  def initialize(title, count, url, bills, date, house)
+    @title, @count, @url, @bills, @date, @house = title, count, url, bills, date, house
   end
   
   def id
@@ -21,10 +21,13 @@ end
 class MinorHeading < HeadingBase
   def output(x)
     parameters = {:id => id, :url => @url}
-    parameters[:bill_id] = @bill_id if @bill_id != nil
-    parameters[:bill_url] = @bill_id.split('; ').map { |e|
-      "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{e}"
-    }.join("; ") if @bill_id != nil
     x.tag!("minor-heading", parameters) { x << @title }
+    if @bills && !@bills.empty?
+      x.bills do
+        @bills.each do |bill|
+          x.bill({:id => bill[:id], :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{bill[:id]}"}, bill[:title])
+        end
+      end
+    end
   end
 end

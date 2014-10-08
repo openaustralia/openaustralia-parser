@@ -9,7 +9,7 @@ class Division < Section
   def output(x)
     division_attributes = {:id => id, :nospeaker => "true", :divdate => @date, :divnumber => @division_count, :time => @time, :url => quoted_url}
     x.division(division_attributes) do
-      if !@bills.empty?
+      if @bills && !@bills.empty?
         x.bills do
           @bills.each do |bill|
             x.bill({:id => bill[:id], :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{bill[:id]}"}, bill[:title])
