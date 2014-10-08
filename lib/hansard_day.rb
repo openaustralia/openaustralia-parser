@@ -93,7 +93,7 @@ class HansardDay
     case debate.name
     when 'debate', 'petition.group'
       # cognate debates can have multiple bill ids
-      if debate.at("> debateinfo").children_of_type('id.no').size > 0
+      if debate.at("> debateinfo") && debate.at("> debateinfo").children_of_type('id.no').size > 0
         if debate.at("> debateinfo > type").inner_text.downcase == 'bills'
           results << {:id => debate.at("/debateinfo").children_of_type('id.no')[0].inner_text, :title => debate.at("> debateinfo > title").inner_text}
         end
