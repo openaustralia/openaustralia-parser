@@ -8,11 +8,14 @@ class Division < Section
 
   def output(x)
     division_attributes = {:id => id, :nospeaker => "true", :divdate => @date, :divnumber => @division_count, :time => @time, :url => quoted_url}
-    division_attributes[:bill_id] = @bill_id if @bill_id != nil
-    division_attributes[:bill_url] = @bill_id.split('; ').map { |e|
-      "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{e}"
-    }.join("; ") if @bill_id != nil
     x.division(division_attributes) do
+      if @bill_id != nil
+        x.bills do
+          @bill_id.split('; ').each do |bill_id|
+            x.bill({:id => bill_id, :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{bill_id}"})
+          end
+        end
+      end
       count_attributes = {:ayes => @yes.size, :noes => @no.size,
         :tellerayes => @yes_tellers.size, :tellernoes => @no_tellers.size}
       count_attributes[:pairs] = @pairs.size if @pairs.size > 0

@@ -45,7 +45,10 @@ describe Division do
     # Default builder will return value as string
     x = Builder::XmlMarkup.new(:indent => 2)
     @division1.output(x).should == <<EOF
-<division bill_id="Z12345" bill_url="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" divdate="2008-02-01" divnumber="15" id="uk.org.publicwhip/debate/2008-02-01.10.2" nospeaker="true" time="10:11:00" url="http://foo/link">
+<division divdate="2008-02-01" divnumber="15" id="uk.org.publicwhip/debate/2008-02-01.10.2" nospeaker="true" time="10:11:00" url="http://foo/link">
+  <bills>
+    <bill id="Z12345" url="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345"/>
+  </bills>
   <divisioncount ayes="2" noes="1" tellerayes="1" tellernoes="1"/>
   <memberlist vote="aye">
     <member id="uk.org.publicwhip/member/1" teller="yes" vote="aye">John Smith</member>
@@ -61,7 +64,10 @@ EOF
   it "can output the slightly different form of the xml for the senate" do
     x = Builder::XmlMarkup.new(:indent => 2)
     @division2.output(x).should == <<EOF
-<division bill_id="Z12345" bill_url="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" divdate="2008-02-01" divnumber="3" id="uk.org.publicwhip/lords/2008-02-01.1.2" nospeaker="true" time="9:10:00" url="http://foo/link">
+<division divdate="2008-02-01" divnumber="3" id="uk.org.publicwhip/lords/2008-02-01.1.2" nospeaker="true" time="9:10:00" url="http://foo/link">
+  <bills>
+    <bill id="Z12345" url="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345"/>
+  </bills>
   <divisioncount ayes="1" noes="0" tellerayes="0" tellernoes="0"/>
   <memberlist vote="aye">
     <member id="uk.org.publicwhip/lord/100001" vote="aye">John Smith</member>
@@ -75,7 +81,10 @@ EOF
   it "should output voting pairs" do
     x = Builder::XmlMarkup.new(:indent => 2)
     @division3.output(x).should == <<EOF
-<division bill_id="Z12345" bill_url="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" divdate="2008-02-01" divnumber="3" id="uk.org.publicwhip/lords/2008-02-01.1.2" nospeaker="true" time="9:10:00" url="http://foo/link">
+<division divdate="2008-02-01" divnumber="3" id="uk.org.publicwhip/lords/2008-02-01.1.2" nospeaker="true" time="9:10:00" url="http://foo/link">
+  <bills>
+    <bill id="Z12345" url="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345"/>
+  </bills>
   <divisioncount ayes="0" noes="0" pairs="2" tellerayes="0" tellernoes="0"/>
   <memberlist vote="aye">
   </memberlist>
