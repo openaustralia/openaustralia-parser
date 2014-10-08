@@ -114,7 +114,7 @@ class HansardDay
         if debate.get_elements_by_tag_name('subdebate.text')[0].get_elements_by_tag_name('a').length > 0
           debate.get_elements_by_tag_name('subdebate.text')[0].get_elements_by_tag_name('a').each do |a|
             id = strip_tags(a['href'].strip)
-            title = strip_tags(e.inner_text.strip)
+            title = strip_tags(a.inner_text.strip)
             url = bill_url(id)
             results << {:id => id, :title => title, :url => url}
           end
