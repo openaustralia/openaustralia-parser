@@ -1,18 +1,21 @@
 require 'section'
 
 class Division < Section
-  def initialize(yes, no, yes_tellers, no_tellers, pairs, time, url, bill_id, count, division_count, date, house, logger = nil)
-    @yes, @no, @yes_tellers, @no_tellers, @pairs, @division_count, @bill_id = yes, no, yes_tellers, no_tellers, pairs, division_count, bill_id
+  def initialize(yes, no, yes_tellers, no_tellers, pairs, time, url, bills, count, division_count, date, house, logger = nil)
+    @yes, @no, @yes_tellers, @no_tellers, @pairs, @division_count, @bills = yes, no, yes_tellers, no_tellers, pairs, division_count, bills
     super(time, url, count, date, house, logger)
   end
 
   def output(x)
     division_attributes = {:id => id, :nospeaker => "true", :divdate => @date, :divnumber => @division_count, :time => @time, :url => quoted_url}
-    division_attributes[:bill_id] = @bill_id if @bill_id != nil
-    division_attributes[:bill_url] = @bill_id.split('; ').map { |e|
-      "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{e}"
-    }.join("; ") if @bill_id != nil
     x.division(division_attributes) do
+      if @bills && !@bills.empty?
+        x.bills do
+          @bills.each do |bill|
+            x.bill({:id => bill[:id], :url => bill[:url]}, bill[:title])
+          end
+        end
+      end
       count_attributes = {:ayes => @yes.size, :noes => @no.size,
         :tellerayes => @yes_tellers.size, :tellernoes => @no_tellers.size}
       count_attributes[:pairs] = @pairs.size if @pairs.size > 0

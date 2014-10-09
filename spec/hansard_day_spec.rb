@@ -106,7 +106,6 @@ describe HansardDay do
     @header.permanent_url.should == "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;adv=yes;orderBy=_fragment_number,doc_date-rev;page=0;query=Dataset%3Ahansards,hansards80%20Date%3A25%2F9%2F2008;rec=0;resCount=Default"
   end
   
-  # TODO: This should be a test for HansardPage rather than HansardDay
   it "should be able to figure out all the titles and subtitles" do
     @titles.title(@titles_xml.at('debate')).should == "1"
     @titles.subtitle(@titles_xml.at('debate')).should == ""
@@ -130,7 +129,6 @@ describe HansardDay do
     @titles.subtitle(@titles_xml.at('(subdebate.2)')).should == "11; 12"
   end  
 
-  # TODO: This should be a test for HansardPage rather than HansardDay
   it "should still be able to figure out the title even when there is a title tag within a title tag" do
     x = Builder::MyXmlMarkup.new
     titles_xml = x.hansard {

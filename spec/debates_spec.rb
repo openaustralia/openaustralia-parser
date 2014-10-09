@@ -72,7 +72,7 @@ EOF
   it "always creates a new speech after a heading" do
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
     @debates.increment_minor_count
-    @debates.add_heading("title", "subtitle", "url", "bill_id")
+    @debates.add_heading("title", "subtitle", "url", [{:id => "Z12345", :title => 'A bill to support mongeese', :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345"}])
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>And a bit more</p>"))
 
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
@@ -82,8 +82,11 @@ EOF
 <p>This is a speech</p>  </speech>
   <major-heading id="uk.org.publicwhip/debate/2000-01-01.1.2" url="url">
 title  </major-heading>
-  <minor-heading bill_id="bill_id" bill_url="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/bill_id" id="uk.org.publicwhip/debate/2000-01-01.1.3" url="url">
+  <minor-heading id="uk.org.publicwhip/debate/2000-01-01.1.3" url="url">
 subtitle  </minor-heading>
+  <bills>
+    <bill id="Z12345" url="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345">A bill to support mongeese</bill>
+  </bills>
   <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.4" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
 <p>And a bit more</p>  </speech>
 </debates>
@@ -91,7 +94,7 @@ EOF
   end
   
   it "creates a new speech for a procedural after a heading" do
-    @debates.add_heading("title", "subtitle", "url", "bill_id")
+    @debates.add_heading("title", "subtitle", "url", [{:id => "Z12345", :title => 'A bill to support mongeese', :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345"}])
     @debates.add_speech(nil, "9:00", "url", Hpricot("<p>This is a speech</p>"))
 
     @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
@@ -99,8 +102,11 @@ EOF
 <debates>
   <major-heading id="uk.org.publicwhip/debate/2000-01-01.1.1" url="url">
 title  </major-heading>
-  <minor-heading bill_id="bill_id" bill_url="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/bill_id" id="uk.org.publicwhip/debate/2000-01-01.1.2" url="url">
+  <minor-heading id="uk.org.publicwhip/debate/2000-01-01.1.2" url="url">
 subtitle  </minor-heading>
+  <bills>
+    <bill id="Z12345" url="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345">A bill to support mongeese</bill>
+  </bills>
   <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.3" nospeaker="true" talktype="speech" time="9:00" url="url">
 <p>This is a speech</p>  </speech>
 </debates>

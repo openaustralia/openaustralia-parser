@@ -19,14 +19,14 @@ class Debates
     @latest_minor_heading = nil
   end
   
-  def add_heading(newtitle, newsubtitle, url, bill_id)
+  def add_heading(newtitle, newsubtitle, url, bills)
     # Only add headings if they have changed
     if newtitle != @title
-      @latest_major_heading = MajorHeading.new(newtitle, @count.clone, url, bill_id, @date, @house)
+      @latest_major_heading = MajorHeading.new(newtitle, @count.clone, url, bills, @date, @house)
       @count.increment_minor
     end
     if newtitle != @title || newsubtitle != @subtitle
-      @latest_minor_heading = MinorHeading.new(newsubtitle, @count.clone, url, bill_id, @date, @house)
+      @latest_minor_heading = MinorHeading.new(newsubtitle, @count.clone, url, bills, @date, @house)
       @count.increment_minor
     end
     @title = newtitle
@@ -69,10 +69,10 @@ class Debates
     @items.last.append_to_content(content)
   end
   
-  def add_division(yes, no, yes_tellers, no_tellers, pairs, time, url, bill_id)
+  def add_division(yes, no, yes_tellers, no_tellers, pairs, time, url, bills)
     add_heading_for_real
 
-    @items << Division.new(yes, no, yes_tellers, no_tellers, pairs, time, url, bill_id, @count.clone, @division_count, @date, @house, @logger)
+    @items << Division.new(yes, no, yes_tellers, no_tellers, pairs, time, url, bills, @count.clone, @division_count, @date, @house, @logger)
     increment_division_count
   end
   
