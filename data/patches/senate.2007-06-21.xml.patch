@@ -1,0 +1,11 @@
+--- original.xml	2014-10-12 15:08:48.332945524 +1100
++++ patched.xml	2014-10-12 15:09:21.408945238 +1100
+@@ -848,7 +848,7 @@
+ <talk.start>
+ <talker>
+ <page.no>7</page.no>
+-<time.stamp>09:423:00</time.stamp>
++<time.stamp>09:42:00</time.stamp>
+ <name role="metadata">Nettle, Sen Kerry</name>
+ <name.id>00AOR</name.id>
+ <electorate>New South Wales</electorate>
