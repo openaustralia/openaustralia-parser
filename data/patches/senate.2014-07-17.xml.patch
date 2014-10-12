@@ -1,0 +1,18 @@
+--- original.xml	2014-10-12 18:44:35.760833811 +1100
++++ patched.xml	2014-10-12 18:45:15.452833468 +1100
+@@ -17335,7 +17335,7 @@
+                   <name>Polley, H</name>
+                   <name>Rhiannon, L</name>
+                   <name>Rice, J</name>
+-                  <name>Siewert,R</name>
++                  <name>Siewert, R</name>
+                   <name>Singh, LM</name>
+                   <name>Sterle, G</name>
+                   <name>Urquhart, AE</name>
+@@ -23824,4 +23824,4 @@
+       </subdebate.2>
+     </debate>
+   </chamber.xscript>
+-</hansard>
+\ No newline at end of file
++</hansard>
