@@ -43,7 +43,7 @@ DEPENDENCIES
   i18n
   log4r
   mechanize (= 0.9.2)
-  pry
+  pry (~> 0.9)
   rake
   rcov
   rmagick

@@ -19,5 +19,5 @@ group :test do
 end
 
 group :development do
-  gem 'pry'
+  gem 'pry', '~> 0.9' # Ruby 1.8.7 support dropped in pry > 0.10
 end
