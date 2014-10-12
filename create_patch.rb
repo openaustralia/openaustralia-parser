@@ -47,5 +47,5 @@ patch_file_path = "#{File.dirname(__FILE__)}/data/patches/#{house}.#{date}.xml.p
 File.open("original.xml", "w") {|f| f << parser.hansard_xml_source_data_on_date(date, house)}
 FileUtils.cp 'original.xml', 'patched.xml'
 
-system("mate --wait patched.xml")
+system("subl --wait patched.xml")
 system("diff -u original.xml patched.xml > #{patch_file_path}")
