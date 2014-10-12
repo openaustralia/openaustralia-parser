@@ -1,10 +1,14 @@
---- original.xml	2009-04-02 17:26:16.000000000 +1100
-+++ patched.xml	2009-04-02 17:26:28.000000000 +1100
-@@ -3421,7 +3421,6 @@
- <name>Truss, W.E.</name>
- <name>Tuckey, C.W.</name>
- <name>Turnbull, M.</name>
--<name>Vaile, M.A.J.</name>
- <name>Washer, M.J.</name>
- <name>Windsor, A.H.C.</name>
- <name>Wood, J.</name>
+--- original.xml	2014-10-12 12:54:46.601014909 +1100
++++ patched.xml	2014-10-12 12:55:50.609014357 +1100
+@@ -3696,10 +3696,7 @@
+ <title>PAIRS</title>
+ <names>
+ <name>Bevis, A.R.</name>
+-<name>Abbott</name>
+-<name>,</name>
+-<name> </name>
+-<name>A.J.</name>
++<name>Abbott, A.J.</name>
+ <name>Smith, S.F.</name>
+ <name>Laming, A.</name>
+ </names>
