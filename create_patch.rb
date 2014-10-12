@@ -6,6 +6,7 @@ $:.unshift "#{File.dirname(__FILE__)}/lib"
 require 'environment'
 require 'optparse'
 require 'date'
+require 'fileutils'
 require 'people_csv_reader'
 require 'hansard_parser'
 
@@ -39,7 +40,12 @@ parser = HansardParser.new(people)
 # First check that there isn't already a patch file
 patch_file_path = "#{File.dirname(__FILE__)}/data/patches/#{house}.#{date}.xml.patch"
 
-File.open("original.xml", "w") {|f| f << parser.unpatched_hansard_xml_source_data_on_date(date, house)}
-File.open("patched.xml", "w") {|f| f << parser.hansard_xml_source_data_on_date(date, house)}
+# These get really different results (I think becuase of the rewriter). I can't
+# be bothered to work it out right now so I'm just doing the below instead
+# File.open("original.xml", "w") {|f| f << parser.unpatched_hansard_xml_source_data_on_date(date, house)}
+# File.open("patched.xml", "w") {|f| f << parser.hansard_xml_source_data_on_date(date, house)}
+File.open("original.xml", "w") {|f| f << parser.hansard_xml_source_data_on_date(date, house)}
+FileUtils.cp 'original.xml', 'patched.xml'
+
 system("mate --wait patched.xml")
 system("diff -u original.xml patched.xml > #{patch_file_path}")
