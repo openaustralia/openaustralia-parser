@@ -95,9 +95,7 @@ class HansardParser
           Patch::patch(text, File.read(patch_file_path))
         rescue
           # Reraising error so that we can include a little more info
-          # raise "#{date} #{house}: Patch failed"
-          puts "#{date} #{house}: Patch failed. Moving on"
-          nil
+          raise "#{date} #{house}: Patch failed"
         end
       else
         text
