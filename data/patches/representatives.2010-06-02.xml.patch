@@ -1,0 +1,13 @@
+--- original.xml	2014-10-12 13:45:29.584988654 +1100
++++ patched.xml	2014-10-12 14:04:32.920978789 +1100
+@@ -2796,8 +2796,8 @@
+ <talk.start>
+ <talker>
+ <name.id>EP5</name.id>
+-<name role="metadata">Ferguson, Sen Alan</name>
+-<name role="display">Senator FERGUSON</name>
++<name role="metadata">Ferguson, Martin, MP</name>
++<name role="display">Mr MARTIN FERGUSON</name>
+ </talker>
+ <para>—Take his donations and sell your soul. We will stand up for the national interest of Australia.</para>
+ </talk.start>
