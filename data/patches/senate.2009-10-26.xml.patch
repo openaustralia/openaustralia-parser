@@ -1,0 +1,11 @@
+--- original.xml	2014-10-12 13:33:01.544995108 +1100
++++ patched.xml	2014-10-12 13:36:34.472993271 +1100
+@@ -1507,7 +1507,7 @@
+ <name>Ludlam, S.</name>
+ <name>Milne, C.</name>
+ <name>Siewert, R. *</name>
+-<name>Xenophon. N</name>
++<name>Xenophon, N</name>
+ </names>
+ </ayes>
+ <noes>
