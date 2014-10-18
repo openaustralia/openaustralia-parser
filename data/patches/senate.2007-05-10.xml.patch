@@ -1,0 +1,42 @@
+--- original.xml	2014-10-18 14:00:24.245157827 +1100
++++ patched.xml	2014-10-18 14:09:18.461153217 +1100
+@@ -1161,8 +1161,6 @@
+ <name>Humphries, G.</name>
+ <name>Sherry, N.J.</name>
+ <name>Boswell, R.L.D.</name>
+-<name>Stott Despoja, N.</name>
+-<name>Vanstone, A.E.</name>
+ </names>
+ </pairs>
+ </division.data>
+@@ -4904,7 +4902,9 @@
+ </subdebate.2>
+ </subdebate.1>
+ <subdebate.1>
+-<subdebateinfo></subdebateinfo>
++<subdebateinfo>
++<title>Legal and Constitutional Legislation Committee</title>
++<page.no>96</page.no></subdebateinfo>
+ <subdebate.2>
+ <subdebateinfo>
+ <title>Report: Government Response</title>
+@@ -5210,9 +5210,17 @@
+ </subdebate.2>
+ </subdebate.1>
+ <subdebate.1>
+-<subdebateinfo></subdebateinfo>
++<subdebateinfo>
++<title>Environment, Communications, Information Technology and the Arts References Committee</title>
++<page.no>103</page.no>
++</subdebateinfo>
++</subdebateinfo>
+ <subdebate.2>
+-<subdebateinfo></subdebateinfo>
++<subdebateinfo>
++<title>Report: Government Response</title>
++<page.no>103</page.no>
++</subdebateinfo>
++</subdebateinfo>
+ <speech>
+ <talk.start>
+ <talker>
