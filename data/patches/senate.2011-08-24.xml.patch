@@ -1,0 +1,35 @@
+--- original.xml	2014-10-18 14:11:50.797151902 +1100
++++ patched.xml	2014-10-18 14:16:44.357149369 +1100
+@@ -1877,11 +1877,9 @@
+                 </names>
+               </noes>
+               <pairs>
+-                <num.votes>5</num.votes>
++                <num.votes>4</num.votes>
+                 <title>PAIRS</title>
+                 <names>
+-                  <name>Carr, KJ</name>
+-                  <name>Coonan, H</name>
+                   <name>Evans, C</name>
+                   <name>Ryan, SM</name>
+                   <name>Ludwig, JW</name>
+@@ -1979,11 +1977,9 @@
+                 </names>
+               </noes>
+               <pairs>
+-                <num.votes>5</num.votes>
++                <num.votes>4</num.votes>
+                 <title>PAIRS</title>
+                 <names>
+-                  <name>Carr, KJ</name>
+-                  <name>Coonan, H</name>
+                   <name>Evans, C</name>
+                   <name>Ryan, SM</name>
+                   <name>Ludwig, JW</name>
+@@ -18889,4 +18885,4 @@
+       </subdebate.1>
+     </debate>
+   </chamber.xscript>
+-</hansard>
+\ No newline at end of file
++</hansard>
