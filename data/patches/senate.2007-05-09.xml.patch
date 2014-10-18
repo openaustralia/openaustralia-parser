@@ -1,0 +1,20 @@
+--- original.xml	2014-10-18 13:51:21.137162513 +1100
++++ patched.xml	2014-10-18 13:53:02.805161634 +1100
+@@ -3562,8 +3562,6 @@
+ <num.votes>3</num.votes>
+ <title>PAIRS</title>
+ <names>
+-<name>Brown, C.L.</name>
+-<name>Vanstone, A.E.</name>
+ <name>Kirk, L.</name>
+ <name>Barnett, G.</name>
+ <name>O’Brien, K.W.K.</name>
+@@ -3714,8 +3712,6 @@
+ <num.votes>3</num.votes>
+ <title>PAIRS</title>
+ <names>
+-<name>Brown, C.L.</name>
+-<name>Vanstone, A.E.</name>
+ <name>Kirk, L.</name>
+ <name>Barnett, G.</name>
+ <name>O’Brien, K.W.K.</name>
