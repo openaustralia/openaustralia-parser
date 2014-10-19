@@ -31,13 +31,9 @@ class PeopleImageDownloader
       
       if image.nil?
         puts "WARNING: Can't find photo for #{person.name.full_name}"
-      end
-      
-      if extract_name(page)
-        if image
-          image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH, @@SMALL_THUMBNAIL_HEIGHT).write(small_image_dir + "/#{person.id_count}.jpg")
-          image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH * 2, @@SMALL_THUMBNAIL_HEIGHT * 2).write(large_image_dir + "/#{person.id_count}.jpg")
-        end
+      elsif extract_name(page)
+        image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH, @@SMALL_THUMBNAIL_HEIGHT).write(small_image_dir + "/#{person.id_count}.jpg")
+        image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH * 2, @@SMALL_THUMBNAIL_HEIGHT * 2).write(large_image_dir + "/#{person.id_count}.jpg")
       else
         puts "WARNING: Couldn't find name on page"
       end
