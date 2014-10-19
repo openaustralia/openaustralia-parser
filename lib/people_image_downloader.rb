@@ -27,24 +27,16 @@ class PeopleImageDownloader
     sorted_people.each do |person|
       page = person_bio_page(person)
       next unless page
-      name, birthday, image = extract_name(page), extract_birthday(page), extract_image(page)
+      image = extract_image(page)
       
       if image.nil?
-        puts "WARNING: Can't find photo for #{name.full_name}"
+        puts "WARNING: Can't find photo for #{person.name.full_name}"
       end
       
-      if name
-        # Small HACK - removing title of name
-        name = Name.new(:first => name.first, :middle => name.middle, :last => name.last, :post_title => name.post_title)
-        person = people.find_person_by_name_and_birthday(name, birthday)
-        if person
-          # If no image was found then silently skip over saving the image
-          if image
-            image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH, @@SMALL_THUMBNAIL_HEIGHT).write(small_image_dir + "/#{person.id_count}.jpg")
-            image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH * 2, @@SMALL_THUMBNAIL_HEIGHT * 2).write(large_image_dir + "/#{person.id_count}.jpg")
-          end
-        else
-          puts "WARNING: Skipping photo for #{name.full_name} because they don't exist in the list of people"
+      if extract_name(page)
+        if image
+          image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH, @@SMALL_THUMBNAIL_HEIGHT).write(small_image_dir + "/#{person.id_count}.jpg")
+          image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH * 2, @@SMALL_THUMBNAIL_HEIGHT * 2).write(large_image_dir + "/#{person.id_count}.jpg")
         end
       else
         puts "WARNING: Couldn't find name on page"
