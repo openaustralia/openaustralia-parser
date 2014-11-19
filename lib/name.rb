@@ -52,7 +52,10 @@ class Name
       last = names.shift
     end
     title = Name.extract_title_at_start(names)
-    if names.size >= 1
+    # Check for hypenated first name
+    if names[1] == '-'
+      first = names.shift(3).join
+    elsif names.size >= 1
       # First name could be in the form of initials. So, check for this
       if initials(names[0])
         # Allow several initials separated by spaces
