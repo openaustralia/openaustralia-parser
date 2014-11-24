@@ -289,7 +289,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 287,,David Fawcett,,SA,1.7.2011,,,still_in_office,LIB
 288,,Alex Gallacher,,SA,1.7.2011,,,still_in_office,ALP
 291,,Bridget McKenzie,,Victoria,1.7.2011,,,still_in_office,NP
-292,,John Madigan,,Victoria,1.7.2011,,,still_in_office,DLP
+292,,John Madigan,,Victoria,1.7.2011,,4.9.2014,changed_party,DLP
 293,,Lee Rhiannon,,NSW,1.7.2011,,,still_in_office,GRN
 295,,Lisa Singh,,Tasmania,1.7.2011,,,still_in_office,ALP
 296,,Matt Thistlethwaite,,NSW,1.7.2011,,9.8.2013,resigned,ALP
@@ -324,3 +324,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 838,,Stephen Shane Parry,,Tas.,7.7.2014,changed_party,,still_in_office,PRES
 839,,Gavin Mark Marshall,,Vic.,7.7.2014,changed_party,,still_in_office,DPRES
 840,,Stephen Shane Parry,,Tas.,4.7.2011,changed_party,6.7.2014,changed_party,DPRES
+841,,John Madigan,,Victoria,4.9.2014,,,still_in_office,IND
