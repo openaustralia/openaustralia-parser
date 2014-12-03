@@ -9,6 +9,7 @@ GEM
     hpricot (0.6.164)
     htmlentities (4.3.0)
     i18n (0.6.0)
+    json (1.8.1)
     log4r (1.1.9)
     mechanize (0.9.2)
       nokogiri (>= 1.2.1)
@@ -41,6 +42,7 @@ DEPENDENCIES
   hpricot (= 0.6.164)
   htmlentities
   i18n
+  json
   log4r
   mechanize (= 0.9.2)
   pry (~> 0.9)
