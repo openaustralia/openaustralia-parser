@@ -38,3 +38,6 @@ election_web_root: "http://www.abc.net.au/elections/federal/2007"
 
 # Morph API key
 morph_api_key: XXXXXXXXXXXXXXXXXXXX
+
+# They Vote For You API key
+theyvoteforyou_api_key: XXXXXXXXXXXXXXXXXXXX
