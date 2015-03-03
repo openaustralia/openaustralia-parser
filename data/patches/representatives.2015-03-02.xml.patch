@@ -1,0 +1,18 @@
+--- original.xml	2015-03-03 16:32:20.505506839 +1100
++++ patched.xml	2015-03-03 16:32:32.245506538 +1100
+@@ -10340,7 +10340,7 @@
+                 <span class="HPS-Normal">
+                   <a href="188315" type="MemberSpeech">
+                     <span class="HPS-MemberSpeech">Mr VAN MANEN</span>
+-                  </a> (<span class="HPS-Electorate">Forde</span>) (<span class="HPS-Time">10:339</span>):  I would like to take this opportunity today to commend the initiative shown by one of our local chambers of commerce in addressing the issue of vacant shop space in and around the heart of Beenleigh. The BeNew Beenleigh. Let Great Things Happen project is being run by the Beenleigh Yatala Chamber of Commerce. The newly established BeNew Beenleigh working committee are committed to finding short- and medium-term uses for buildings in Beenleigh's CBD that are currently vacant, disused or awaiting redevelopment. BeNew Beenleigh aim to find artists, entrepreneurs, cultural projects and community groups to use and maintain these buildings until they become commercially viable or are redeveloped.</span>
++                  </a> (<span class="HPS-Electorate">Forde</span>) (<span class="HPS-Time">10:39</span>):  I would like to take this opportunity today to commend the initiative shown by one of our local chambers of commerce in addressing the issue of vacant shop space in and around the heart of Beenleigh. The BeNew Beenleigh. Let Great Things Happen project is being run by the Beenleigh Yatala Chamber of Commerce. The newly established BeNew Beenleigh working committee are committed to finding short- and medium-term uses for buildings in Beenleigh's CBD that are currently vacant, disused or awaiting redevelopment. BeNew Beenleigh aim to find artists, entrepreneurs, cultural projects and community groups to use and maintain these buildings until they become commercially viable or are redeveloped.</span>
+               </p>
+               <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                 <span class="HPS-Normal">The overall goal is to generate activity in the buildings and in the Beenleigh CBD to address the perception that Beenleigh is closed for business during the redevelopment project. The Beenleigh CBD is open for business. I would like to thank the efforts of the Beenleigh Yatala Chamber of Commerce President, Lawrie Dore, Vice President Anje Peiper, Treasurer Lisa Walker and Secretary Aydan Marriott for this initiative, and also committee members Kerry Armstrong, Neil Sanderson, Isaac Martinago, Leanne Taylor, Tony Hope, Stephen Johnson, James Herbst and, last but not least, Michael Rose. I would also like to thank the local business owners for their patience during the CBD upgrade.</span>
+@@ -15118,4 +15118,4 @@
+       </subdebate.1>
+     </debate>
+   </answers.to.questions>
+-</hansard>
+\ No newline at end of file
++</hansard>
