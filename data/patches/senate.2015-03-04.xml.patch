@@ -1,0 +1,18 @@
+--- original.xml	2015-03-05 16:25:36.573651355 +1100
++++ patched.xml	2015-03-05 16:26:17.325650310 +1100
+@@ -3326,7 +3326,7 @@
+                 <span class="HPS-Normal">
+                   <a href="00AOU" type="MemberQuestion">
+                     <span class="HPS-MemberQuestion">Senator WONG</span>
+-                  </a> (<span class="HPS-Electorate">South Australia</span>—<span class="HPS-MinisterialTitles">Leader of the Opposition in the Senate</span>) (<span class="HPS-Time">14:113</span>):  Mr President, I ask a supplementary question. I refer to the government<span style="&#xD;&#xA;    font-family:Tahoma;&#xD;&#xA;  ">'</span>s decision to increase the red tape on foreign investors by imposing a $15 million threshold on agricultural land for some, but not all, foreign investors. I also refer to comments by Ms Westacott who said:</span>
++                  </a> (<span class="HPS-Electorate">South Australia</span>—<span class="HPS-MinisterialTitles">Leader of the Opposition in the Senate</span>) (<span class="HPS-Time">14:13</span>):  Mr President, I ask a supplementary question. I refer to the government<span style="&#xD;&#xA;    font-family:Tahoma;&#xD;&#xA;  ">'</span>s decision to increase the red tape on foreign investors by imposing a $15 million threshold on agricultural land for some, but not all, foreign investors. I also refer to comments by Ms Westacott who said:</span>
+               </p>
+               <p class="HPS-Small" style="direction:ltr;unicode-bidi:normal;">
+                 <span class="HPS-Small">We cannot be sure the benefits of the government's decision will outweigh the costs as no regulatory impact statement has been undertaken.</span>
+@@ -12947,4 +12947,4 @@
+       </subdebate.2>
+     </debate>
+   </chamber.xscript>
+-</hansard>
+\ No newline at end of file
++</hansard>
