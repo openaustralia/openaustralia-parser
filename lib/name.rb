@@ -86,7 +86,7 @@ class Name
       initials_with_fullstops(name)
     elsif (name.upcase == name)
       name
-    elsif (name != "Ed" && name.size <= 2) || name == "DJC" || name == "DGH"
+    elsif (name != "Ed" && name != "Jo" && name.size <= 2) || name == "DJC" || name == "DGH"
       name
     end
   end
