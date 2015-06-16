@@ -139,7 +139,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 137,,Diane Elizabeth Margetts,,WA,1.7.1993 ,,30.6.1999 ,defeated,GWA
 138,,Gavin Mark Marshall,,Vic.,1.7.2002 ,,6.7.2014,changed_party,ALP
 139,,John Raymond Martyr,,WA,11.3.1981 ,section_15,4.2.1983 ,defeated,LIB
-140,,Brett John Mason,,Qld,1.7.1999 ,,,still_in_office,LIB
+140,,Brett John Mason,,Qld,1.7.1999,,15.4.2015,resigned,LIB
 141,,Colin Victor James Mason,,NSW,1.7.1978 ,,5.6.1987 ,retired,AD
 142,,Charles Ronald Maunsell,,Qld,1.7.1968 ,,30.6.1981 ,defeated,NCP
 143,,Ronald Edward McAuliffe,,Qld,1.7.1971 ,,30.6.1981 ,retired,ALP
@@ -329,3 +329,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 843,,Glenn Lazarus,,QLD,13.3.2015,,,still_in_office,IND
 844,,Katy Gallagher,,ACT,26.3.2015,,,still_in_office,ALP
 845,,Jenny McAllister,,NSW,6.5.2015,,,still_in_office,ALP
+846,,Jo Lindgren,,QLD,21.5.2015,section_15,,still_in_office,LIB
