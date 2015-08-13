@@ -182,7 +182,7 @@ representatives_data = page.search('ul.links')[2].search(:li).map do |li|
   {:id => representative.id, :aph_interests_url => url}
 end
 
-base_url = 'http://www.aph.gov.au/Parliamentary_Business/Committees/Senate/Senators_Interests/Register'
+base_url = 'http://www.aph.gov.au/Parliamentary_Business/Committees/Senate/Senators_Interests/Register_4_August'
 page = agent.get(base_url)
 
 senate_data = page.at('#main_0_content_0_divContent').search('ul.links').map do |ul|
