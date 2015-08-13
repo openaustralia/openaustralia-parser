@@ -481,7 +481,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 483,,Peter Neil Slipper,Fisher,Qld,1.12.1984,,11.7.1987,defeated,NPA
 484,,Peter Neil Slipper,Fisher,Qld,13.3.1993,,24.11.2011,changed_party,LIB
 485,,Anthony Charles Smith,Dickson,Qld,2.3.1996,,3.10.1998,defeated,IND
-486,,Anthony David Hawthorn Smith,Casey,Vic.,10.11.2001,,,still_in_office,LIB
+486,,Anthony David Hawthorn Smith,Casey,Vic.,10.11.2001,,10.08.2015,changed_party,LIB
 487,,Silvia Joy Smith,Bass,Tas.,13.3.1993,,2.3.1996,defeated,ALP
 488,,Stephen Francis Smith,Perth,WA,13.3.1993,,5.8.2013,retired,ALP
 489,,Warwick Leslie Smith,Bass,Tas.,2.3.1996,,3.10.1998,defeated,LIB
@@ -671,6 +671,8 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 673,,Lucy Wicks,Robertson,NSW,7.9.2013,,,still_in_office,LIB
 674,,Andrew Giles,Scullin,Vic,7.9.2013,,,still_in_office,ALP
 675,,Ms Anna Elizabeth Burke,Chisholm,Vic.,05.08.2013,changed_party,,still_in_office,ALP
-676,,Bronwyn Kathleen Bishop,Mackellar,NSW,12.11.2013,changed_party,,still_in_office,SPK
+676,,Bronwyn Kathleen Bishop,Mackellar,NSW,12.11.2013,changed_party,02.08.2015,still_in_office,SPK
 677,,Clive Frederick Palmer,Fairfax,Qld,07.09.2013,,,still_in_office,PUP
 678,,Terri Butler,Griffith,QLD,8.2.2014,by_election,,still_in_office,ALP
+679,,Bronwyn Kathleen Bishop,Mackellar,NSW,02.08.2015,changed_party,,still_in_office,LIB
+680,,Anthony David Hawthorn Smith,Casey,Vic.,10.08.2015,changed_party,,still_in_office,SPK
