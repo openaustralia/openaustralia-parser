@@ -1,0 +1,18 @@
+--- original.xml	2015-08-26 10:00:57.406501449 +1000
++++ patched.xml	2015-08-26 10:01:11.374501329 +1000
+@@ -10808,7 +10808,7 @@
+                   <span class="HPS-Small">Participation by federal judges in professional development and training opportunities is voluntary. However, ongoing professional development of the judiciary is encouraged and supported through the courts' own programmes, the National Judiciary College of Australia and the Australasian Institute of Judicial Administration.</span>
+                 </p>
+                 <p class="HPS-Small" style="direction:ltr;unicode-bidi:normal;&#xD;&#xA;          text-indent:0pt;&#xD;&#xA;        ">
+-                  <span class="HPS-Small">The Family Court of Australia has published resources, available on its website &lt;www.familycourt.gov.au&gt;, to assist court users to understand processes of the Court and facilitate the resolution of special medical procedure matters.</span>
++                  <span class="HPS-Small">The Family Court of Australia has published resources, available on its website www.familycourt.gov.au, to assist court users to understand processes of the Court and facilitate the resolution of special medical procedure matters.</span>
+                 </p>
+                 <p class="HPS-Small" style="direction:ltr;unicode-bidi:normal;&#xD;&#xA;          text-indent:0pt;&#xD;&#xA;        ">
+                   <span class="HPS-Small">The Australian Government notes the federal family law courts (the Family Court of Australia and the Federal Circuit Court of Australia (Family Division)) are specialised courts that deal with family law matters. Paragraph 22(2)(b) of the <span style="font-style:italic;">Family Law Act 1975 </span>also provides a person shall not be appointed as a Judge of the Family Court of Australia unless, by reason of training, experience and personality, the person is a suitable person to deal with matters of family law.</span>
+@@ -15371,4 +15371,4 @@
+       </subdebate.2>
+     </debate>
+   </chamber.xscript>
+-</hansard>
+\ No newline at end of file
++</hansard>
