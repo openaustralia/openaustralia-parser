@@ -426,7 +426,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 428,,Harry Vernon Quick,Franklin,Tas.,13.3.1993,,17.10.2007,retired,IND
 429,,Brett Blair Raguse,Forde,Qld,24.11.2007,,21.8.2010,defeated,ALP
 430,,Rowan Eric Ramsey,Grey,SA,24.11.2007,,,still_in_office,LIB
-431,,Donald James Randall,Canning,WA,10.11.2001,,,still_in_office,LIB
+431,,Donald James Randall,Canning,WA,10.11.2001,,21.7.2015,died,LIB
 432,,Donald James Randall,Swan,WA,2.3.1996,,3.10.1998,defeated,LIB
 433,,Kerry Marie Rea,Bonner,Qld,24.11.2007,,21.8.2010,defeated,ALP
 434,,John Edward Reeves,Northern Territory,NT,5.3.1983,,1.12.1984,defeated,ALP
@@ -676,3 +676,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 678,,Terri Butler,Griffith,QLD,8.2.2014,by_election,,still_in_office,ALP
 679,,Bronwyn Kathleen Bishop,Mackellar,NSW,02.08.2015,changed_party,,still_in_office,LIB
 680,,Anthony David Hawthorn Smith,Casey,Vic.,10.08.2015,changed_party,,still_in_office,SPK
+681,,Andrew Hastie,Canning,WA,19.9.2015,by_election,,still_in_office,LIB
