@@ -1,0 +1,18 @@
+--- original.xml	2015-11-15 18:18:35.009304731 +1100
++++ patched.xml	2015-11-15 18:25:45.081286382 +1100
+@@ -7861,7 +7861,7 @@
+                   <span class="HPS-Normal">
+                     <a href="HWB" type="MemberSpeech">
+                       <span class="HPS-MemberSpeech">Mr ZAPPIA</span>
+-                    </a> (<span class="HPS-Electorate">Makin</span>) (<span class="HPS-Time">19:64</span>):  The Social Services Legislation Amendment (No Jab, No Pay) Bill 2015 adds to previous reforms which have linked immunisation to the family tax benefit end-of-year supplement payments. This legislation takes that measure even further and ties immunisation to child-care benefits, child-care rebates and the family tax benefit part A supplement, which I referred to a moment ago. I understand that the changes will commence on 1 January 2016. </span>
++                    </a> (<span class="HPS-Electorate">Makin</span>):  The Social Services Legislation Amendment (No Jab, No Pay) Bill 2015 adds to previous reforms which have linked immunisation to the family tax benefit end-of-year supplement payments. This legislation takes that measure even further and ties immunisation to child-care benefits, child-care rebates and the family tax benefit part A supplement, which I referred to a moment ago. I understand that the changes will commence on 1 January 2016. </span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">Before I get into my general comments about the legislation and for the benefit of anyone listening, I want to say, as other speakers have made clear, there are exemptions to this legislation where it ties receiving government assistance to having children immunised to what we call Australian standards. The exemptions tying immunisation to those payments—whether they are child-care benefits, child care rebates or family tax benefits—are based on the child or the family having a valid medical reason for why the child should be exempt from being vaccinated. That valid medical reason might be that it will have ill effects on the child or it is contraindicated by the doctor. Clearly, it has to be a decision made by the family doctor. There is also an exemption if the child has a natural immunity to the particular disease. The child might have contracted the disease at an earlier stage in life and developed a natural immunity to it. Alternatively, if the child has come from overseas and has had an equivalent vaccination in an overseas country then, again, that child would be exempt from the measures in this legislation. I also note that there is a temporary exemption for a child who might be part of a medical study of some sort—it has to be an approved study—or if the vaccination is temporarily unavailable. Those exemptions are also only temporary. </span>
+@@ -12146,4 +12146,4 @@
+       </subdebate.1>
+     </debate>
+   </answers.to.questions>
+-</hansard>
+\ No newline at end of file
++</hansard>
