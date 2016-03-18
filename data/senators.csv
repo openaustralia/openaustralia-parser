@@ -191,7 +191,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 189,,Aden Derek Ridgeway,,NSW,1.7.1999,,30.6.2005,defeated,AD
 190,,Edward Albert Robertson,,NT,13.12.1975 ,,5.6.1987 ,retired,ALP
 191,,Allan Charles Rocher,,WA,1.7.1978 ,,10.2.1981 ,resigned,LIB
-192,,Michael John Clyde Ronaldson,,Vic.,1.7.2005,,,still_in_office,LIB
+192,,Michael John Clyde Ronaldson,,Vic.,1.7.2005,,28.2.2016,resigned,LIB
 193,,Susan Maree Ryan,,ACT,13.12.1975 ,,29.1.1988 ,resigned,ALP
 194,,Norman Karl Sanders,,Tas.,1.7.1985 ,,1.3.1990 ,resigned,AD
 195,,Santo Santoro,,QLD,29.10.2002 ,section_15,11.4.2007 ,resigned,LIB
@@ -332,3 +332,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 846,,Jo Lindgren,,QLD,21.5.2015,section_15,,still_in_office,LIB
 847,,Nick McKim,,Tasmania,19.8.2015,section_15,,still_in_office,GRN
 848,,Robert Simms,,SA,22.9.2015,section_15,,still_in_office,GRN
+849,,James Paterson,,Victoria,9.3.2016,section_15,,still_in_office,LIB
