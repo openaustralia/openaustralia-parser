@@ -13,6 +13,8 @@ gem 'builder', '2.1.2'
 gem 'log4r'
 
 gem 'rmagick'
+# Travis was complaining this was missing from the Gemfile. Do we really need it?
+gem 'hoe'
 
 group :test do
   gem 'rspec'
