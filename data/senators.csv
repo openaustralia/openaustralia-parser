@@ -309,7 +309,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 311,,Zed Seselja,,ACT,07.9.2013,,,still_in_office,LIB
 312,,Deborah O'Neill,,NSW,13.11.2013,section_15,,still_in_office,ALP
 313,,Barry O'Sullivan,,QLD,11.2.2014,section_15,,still_in_office,NP
-826,,Joe Bullock,,WA,1.7.2014,,,still_in_office,ALP
+826,,Joe Bullock,,WA,1.7.2014,,13.4.2016,resigned,ALP
 827,,Matthew Canavan,,QLD,1.7.2014,,,still_in_office,LNP
 828,,Bob Day,,SA,1.7.2014,,,still_in_office,FFP
 829,,Chris Ketter,,QLD,1.7.2014,,,still_in_office,ALP
@@ -333,3 +333,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 847,,Nick McKim,,Tasmania,19.8.2015,section_15,,still_in_office,GRN
 848,,Robert Simms,,SA,22.9.2015,section_15,,still_in_office,GRN
 849,,James Paterson,,Victoria,9.3.2016,section_15,,still_in_office,LIB
+850,,Patrick Dodson,,WA,28.4.2016,section_15,,still_in_office,ALP
