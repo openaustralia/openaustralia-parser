@@ -25,3 +25,7 @@ TODO.
 ### General elections
 
 TODO.
+
+## Copyright & License
+
+Copyright OpenAustralia Foundation Limited. Licensed under the Affero GPL. See LICENSE file for more details.
