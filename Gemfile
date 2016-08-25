@@ -16,6 +16,8 @@ gem 'rmagick'
 # Travis was complaining this was missing from the Gemfile. Do we really need it?
 gem 'hoe'
 
+gem 'mysql'
+
 group :test do
   gem 'rspec'
   gem 'rcov'
