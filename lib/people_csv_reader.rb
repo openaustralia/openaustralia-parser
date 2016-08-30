@@ -161,6 +161,8 @@ class PeopleCSVReader
       "Australian Motoring Enthusiast Party"
     when "NXT"
       "Nick Xenophon Team"
+    when "DHJP"
+      "Derryn Hinch's Justice Party"
     when "ANTI-SOC", "SPK", "CWM", "PRES", "DPRES"
       # Do nothing
       party
