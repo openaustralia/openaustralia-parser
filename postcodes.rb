@@ -16,8 +16,7 @@ def quote_string(s)
 end
 
 data = CSV.readlines("data/postcodes.csv")
-# Remove the first two elements
-data.shift
+# Remove headers
 data.shift
 
 puts "Reading members data..."
@@ -25,7 +24,7 @@ people = PeopleCSVReader.read_members
 all_members = people.all_periods_in_house(House.representatives)
 
 # First check that all the constituencies are valid
-constituencies = data.map { |row| row[1] }.uniq
+constituencies = data.map { |row| row[1] }.uniq.reject(&:empty?)
 constituencies.each do |constituency|
   throw "Constituency #{constituency} not found" unless all_members.any? {|m| m.division == constituency}
 end
