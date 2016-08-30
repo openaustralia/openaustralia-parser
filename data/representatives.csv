@@ -493,7 +493,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 495,,Warren Edward Snowdon,Northern Territory,NT,11.7.1987,,2.3.1996,defeated,ALP
 496,,Warren Edward Snowdon,Northern Territory,NT,3.10.1998,,10.11.2001,elected_elsewhere,ALP
 497,,Alexander Michael Somlyay,Fairfax,Qld,24.3.1990,,5.8.2013,retired,LIB
-498,,Andrew John Southcott,Boothby,SA,2.3.1996,,,still_in_office,LIB
+498,,Andrew John Southcott,Boothby,SA,2.3.1996,,9.5.2016,retired,LIB
 499,,John Michael Spender,North Sydney,NSW,18.10.1980,,24.3.1990,defeated,LIB
 500,,Clair Stuart Roy St,New England,NSW,3.10.1998,,10.11.2001,defeated,NPA
 501,,Anthony Allan Staley,Chisholm,Vic.,19.9.1970,by_election,19.9.1980,retired,LIB
@@ -703,3 +703,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 704,,Chris Crewther,Dunkley,Vic,2.7.2016,,,still_in_office,LIB
 705,,Milton Dick,Oxley,Qld,2.7.2016,,,still_in_office,ALP
 706,,Trevor Evans,Brisbane,Qld,2.7.2016,,,still_in_office,LIB
+707,,Nicolle Flint,Boothby,SA,2.7.2016,,,still_in_office,LIB
