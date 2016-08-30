@@ -674,7 +674,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 676,,Bronwyn Kathleen Bishop,Mackellar,NSW,12.11.2013,changed_party,02.08.2015,still_in_office,SPK
 677,,Clive Frederick Palmer,Fairfax,Qld,07.09.2013,,9.5.2016,retired,PUP
 678,,Terri Butler,Griffith,QLD,8.2.2014,by_election,,still_in_office,ALP
-679,,Bronwyn Kathleen Bishop,Mackellar,NSW,02.08.2015,changed_party,,still_in_office,LIB
+679,,Bronwyn Kathleen Bishop,Mackellar,NSW,02.08.2015,changed_party,9.5.2016,retired,LIB
 680,,Anthony David Hawthorn Smith,Casey,Vic.,10.08.2015,changed_party,,still_in_office,SPK
 681,,Andrew Hastie,Canning,WA,19.9.2015,by_election,,still_in_office,LIB
 682,,Trent Zimmerman,North Sydney,NSW,5.12.2015,by_election,,still_in_office,LIB
@@ -699,3 +699,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 700,,Damian Drum,Murray,Vic,2.7.2016,,,still_in_office,NP
 701,,Meryl Swanson,Paterson,NSW,2.7.2016,,,still_in_office,ALP
 702,,Luke Gosling,Solomon,NT,2.7.2016,,,still_in_office,ALP
+703,,Jason Falinski,Mackellar,NSW,2.7.2016,,,still_in_office,LIB
