@@ -219,7 +219,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 221,,Bruce William Graham,St George,NSW,10.12.1955,,22.11.1958,defeated,LIB
 222,,Gary Gray,Brand,WA,24.11.2007,,9.5.2016,retired,ALP
 223,,Sharon Joy Grierson,Newcastle,NSW,10.11.2001,,5.8.2013,retired,ALP
-224,,Alan Peter Griffin,Bruce,Vic.,2.3.1996,,,still_in_office,ALP
+224,,Alan Peter Griffin,Bruce,Vic.,2.3.1996,,9.5.2016,retired,ALP
 225,,Alan Peter Griffin,Corinella,Vic.,13.3.1993,,2.3.1996,elected_elsewhere,ALP
 226,,Alan Gordon Griffiths,Maribyrnong,Vic.,5.3.1983,,29.1.1996,retired,ALP
 227,,Raymond John Groom,Braddon,Tas.,13.12.1975,,26.10.1984,retired,LIB
@@ -706,3 +706,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 707,,Nicolle Flint,Boothby,SA,2.7.2016,,,still_in_office,LIB
 708,,Andrew Gee,Calare,NSW,2.7.2016,,,still_in_office,NP
 709,,Madeleine King,Brand,WA,2.7.2016,,,still_in_office,ALP
+720,,Julian Hill,Bruce,Vic.,2.7.2016,,,still_in_office,ALP
