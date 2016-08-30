@@ -46,7 +46,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 44,,Donald Leslie Chipp,,Vic.,1.7.1978,,18.8.1986,resigned,AD
 45,,John Coates,,Tas.,1.7.1981,,20.8.1996,resigned,ALP
 46,,Samuel Herbert Cohen,,Vic.,1.7.1962,,7.10.1969,died,ALP
-47,,Richard Mansell Colbeck,,Tas.,4.2.2002,section_15,,still_in_office,LIB
+47,,Richard Mansell Colbeck,,Tas.,4.2.2002,section_15,9.5.2016,defeated,LIB
 48,,Ruth Nancy Coleman,,WA,18.5.1974,,5.6.1987,retired,ALP
 49,,Stanley James Collard,,Qld,13.12.1975,,5.6.1987,retired,NPA
 50,,Jacinta Mary Ann Collins,,Vic.,3.5.1995,section_15,30.6.2005,defeated,ALP
@@ -102,7 +102,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 98,,Brian Harradine,,Tas.,13.12.1975 ,,30.6.2005 ,retired,IND
 99,,Leonard William Harris,,Qld,2.7.1999,,30.6.2005 ,defeated,PHON
 100,,Jean Margaret Hearn,,Tas.,15.10.1980 ,section_15,30.6.1985 ,retired,ALP
-101,,William Daniel Heffernan,,NSW,18.9.1996,section_15,,still_in_office,LIB
+101,,William Daniel Heffernan,,NSW,18.9.1996,section_15,9.5.2016,retired,LIB
 102,,Albion Hendrickson,,Vic.,1.7.1947 ,,30.6.1971 ,retired,ALP
 103,,John Joseph Herron,,Qld,1.7.1990 ,,5.9.2002 ,resigned,LIB
 104,,Heather Elaine Hill,,Qld,18.11.1998,,23.9.1999 ,disqualified,PHON
@@ -115,7 +115,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 109,,Stephen Patrick Hutchins,,NSW,14.10.1998,section_15,30.6.2011,defeated,ALP
 110,,Jean Alice Jenkins,,WA,11.7.1987 ,,30.6.1990 ,defeated,AD
 111,,Donald Scott Jessop,,SA,1.7.1971 ,,5.6.1987 ,defeated,IND
-112,,David Albert Lloyd Johnston,,WA,1.7.2002 ,,,still_in_office,LIB
+112,,David Albert Lloyd Johnston,,WA,1.7.2002 ,,9.5.2016,defeated,LIB
 113,,Gerry Norman Jones,,Qld,1.7.1981 ,,30.6.1996 ,retired,ALP
 114,,Barnaby Thomas Gerard Joyce,,Qld,1.7.2005,,8.8.2013,resigned,NP
 115,,James Bernard Keeffe,,Qld,1.7.1965 ,,4.2.1983 ,retired,ALP
@@ -129,7 +129,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 124,,Meg Heather Lees,,SA,4.4.1990 ,section_15,30.6.2005 ,defeated,IND
 125,,Austin William Russell Lewis,,Vic.,17.12.1976 ,section_15,30.6.1993 ,retired,LIB
 127,,Stephen Loosley,,NSW,1.7.1990 ,,19.5.1995 ,resigned,ALP
-128,,Joseph William Ludwig,,Qld,1.7.1999,,,still_in_office,ALP
+128,,Joseph William Ludwig,,Qld,1.7.1999,,9.5.2016,retired,ALP
 129,,Kate Alexandra Lundy,,ACT,2.3.1996,,24.3.2015,resigned,ALP
 130,,Ian Douglas Macdonald,,Qld,1.7.1990,,,still_in_office,LIB
 133,,David John Macgibbon,,Qld,1.7.1978 ,,30.6.1999 ,defeated,LIB
@@ -145,14 +145,14 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 143,,Ronald Edward McAuliffe,,Qld,1.7.1971 ,,30.6.1981 ,retired,ALP
 144,,Douglas McClelland,,NSW,1.7.1962,,21.04.1983,changed_party,ALP
 268,,Douglas McClelland,,NSW,21.04.1983,changed_party,23.1.1987,resigned,PRES
-145,,Anne McEwen,,SA,1.7.2005 ,,,still_in_office,ALP
+145,,Anne McEwen,,SA,1.7.2005 ,,9.5.2016,defeated,ALP
 146,,Julian John James McGauran,,Vic.,11.7.1987,,30.6.1990,defeated,NP
 147,,Julian John James McGauran,,Vic.,1.7.1993,,30.6.2011,defeated,NP
 148,,Gordon Douglas McIntosh,,WA,18.5.1974 ,,5.6.1987 ,retired,ALP
 149,,James Philip McKiernan,,WA,1.12.1984 ,,30.6.2002 ,retired,ALP
 150,,Geoffrey Thomas McLaren,,SA,1.7.1971 ,,4.2.1983 ,retired,ALP
 151,,Paul Alexander McLean,,NSW,11.7.1987 ,,23.8.1991 ,resigned,AD
-152,,Jan Elizabeth McLucas,,Qld,1.7.1999,,,still_in_office,ALP
+152,,Jan Elizabeth McLucas,,Qld,1.7.1999,,9.5.2016,retired,ALP
 153,,Robert Francis McMullan,,ACT,16.2.1988 ,section_15,6.2.1996 ,resigned,ALP
 154,,Jean Isobelle Melzer,,Vic.,18.5.1974 ,,30.6.1981 ,defeated,ALP
 155,,Anthony John Messner,,SA,13.12.1975 ,,17.4.1990 ,resigned,LIB
@@ -285,7 +285,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 279,,Christopher John Back,,WA,11.3.2009,,,still_in_office,LIB
 # Next available Senator number is: 280
 285,,Richard Di Natale,,Victoria,1.7.2011,,,still_in_office,GRN
-286,,Sean Edwards,,SA,1.7.2011,,,still_in_office,LIB
+286,,Sean Edwards,,SA,1.7.2011,,9.5.2016,defeated,LIB
 287,,David Fawcett,,SA,1.7.2011,,,still_in_office,LIB
 288,,Alex Gallacher,,SA,1.7.2011,,,still_in_office,ALP
 291,,Bridget McKenzie,,Victoria,1.7.2011,,,still_in_office,NP
@@ -304,7 +304,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 306,,Anne Ruston,,SA,05.09.2012,section_15,,still_in_office,LIB
 307,,Sue Lines,,WA,15.5.2013,section_15,,still_in_office,ALP
 308,,Sam Dastyari,,NSW,21.8.2013,section_15,,still_in_office,ALP
-309,,Nova Peris,,NT,07.9.2013,,,still_in_office,ALP
+309,,Nova Peris,,NT,07.9.2013,,9.5.2016,retired,ALP
 310,,Mehmet Tillem,,Victoria,21.8.2013,section_15,30.6.2014,retired,ALP
 311,,Zed Seselja,,ACT,07.9.2013,,,still_in_office,LIB
 312,,Deborah O'Neill,,NSW,13.11.2013,section_15,,still_in_office,ALP
@@ -317,20 +317,34 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 831,,Glenn Lazarus,,QLD,1.7.2014,,12.3.2015,changed_party,PUP
 832,,David Leyonhjelm,,NSW,1.7.2014,,,still_in_office,LDP
 833,,James McGrath,,QLD,1.7.2014,,,still_in_office,LNP
-834,,Ricky Muir,,Victoria,1.7.2014,,,still_in_office,MEP
+834,,Ricky Muir,,Victoria,1.7.2014,,9.5.2016,defeated,MEP
 835,,Linda Reynolds,,WA,1.7.2014,,,still_in_office,LIB
 836,,Janet Rice,,Victoria,1.7.2014,,,still_in_office,GRN
-837,,Dio Wang,,WA,1.7.2014,,,still_in_office,PUP
+837,,Dio Wang,,WA,1.7.2014,,9.5.2016,defeated,PUP
 838,,Stephen Shane Parry,,Tas.,7.7.2014,changed_party,,still_in_office,PRES
 839,,Gavin Mark Marshall,,Vic.,7.7.2014,changed_party,,still_in_office,DPRES
 840,,Stephen Shane Parry,,Tas.,4.7.2011,changed_party,6.7.2014,changed_party,DPRES
-841,,John Madigan,,Victoria,4.9.2014,,,still_in_office,IND
+841,,John Madigan,,Victoria,4.9.2014,,9.5.2016,defeated,IND
 842,,Jacqui Lambie,,Tasmania,24.11.2014,,,still_in_office,IND
-843,,Glenn Lazarus,,QLD,13.3.2015,,,still_in_office,IND
+843,,Glenn Lazarus,,QLD,13.3.2015,,9.5.2016,defeated,IND
 844,,Katy Gallagher,,ACT,26.3.2015,,,still_in_office,ALP
 845,,Jenny McAllister,,NSW,6.5.2015,,,still_in_office,ALP
-846,,Jo Lindgren,,QLD,21.5.2015,section_15,,still_in_office,LIB
+846,,Jo Lindgren,,QLD,21.5.2015,section_15,9.5.2016,defeated,LIB
 847,,Nick McKim,,Tasmania,19.8.2015,section_15,,still_in_office,GRN
-848,,Robert Simms,,SA,22.9.2015,section_15,,still_in_office,GRN
+848,,Robert Simms,,SA,22.9.2015,section_15,9.5.2016,defeated,GRN
 849,,James Paterson,,Victoria,9.3.2016,section_15,,still_in_office,LIB
 850,,Patrick Dodson,,WA,28.4.2016,section_15,,still_in_office,ALP
+851,,Jonathon Duniam,,Tasmania,1.7.2016,,,still_in_office,LIB
+852,,Brian Burston,,NSW,1.7.2016,,,still_in_office,PHON
+853,,Anthony Chisholm,,QLD,1.7.2016,,,still_in_office,ALP
+854,,Rod Culleton,,WA,1.7.2016,,,still_in_office,PHON
+855,,Don Farrell,,SA,1.7.2016,,,still_in_office,ALP
+856,,Stirling Griff,,SA,1.7.2016,,,still_in_office,NXT
+857,,Pauline Lee Hanson,,QLD,1.7.2016,,,still_in_office,PHON
+858,,Derryn Hinch,,Victoria,1.7.2016,,,still_in_office,DHJP
+859,,Jane Hume,,Victoria,1.7.2016,,,still_in_office,LIB
+860,,Skye Kakoschke-Moore,,SA,1.7.2016,,,still_in_office,NXT
+861,,Malarndirri McCarthy,,NT,2.7.2016,,,still_in_office,ALP
+862,,Louise Pratt,,WA,1.7.2016,,,still_in_office,ALP
+863,,Malcolm Roberts,,QLD,1.7.2016,,,still_in_office,PHON
+864,,Murray Watt,,QLD,1.7.2016,,,still_in_office,ALP

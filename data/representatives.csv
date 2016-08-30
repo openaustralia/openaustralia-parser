@@ -24,7 +24,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 23,,Mark Horden Baker,Braddon,Tas.,9.10.2004,,24.11.2007,defeated,LIB
 24,,Peter Jeremy Baldwin,Sydney,NSW,5.3.1983,,31.8.1998,retired,ALP
 25,,Robert Charles Baldwin,Paterson,NSW,2.3.1996,,3.10.1998,defeated,LIB
-26,,Robert Charles Baldwin,Paterson,NSW,10.11.2001,,,still_in_office,LIB
+26,,Robert Charles Baldwin,Paterson,NSW,10.11.2001,,9.5.2016,retired,LIB
 27,,Phillip Anthony Barresi,Deakin,Vic.,2.3.1996,,24.11.2007,defeated,LIB
 28,,Kerry Joseph Bartlett,Macquarie,NSW,2.3.1996,,24.11.2007,defeated,LIB
 29,,Michael Ehrenfried Baume,Macarthur,NSW,13.12.1975,,5.3.1983,defeated,LIB
@@ -36,7 +36,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 35,,David Peter Beddall,Rankin,Qld,1.12.1984,,31.8.1998,retired,ALP
 36,,Archibald Ronald Bevis,Brisbane,Qld,24.3.1990,,21.8.2010,defeated,ALP
 37,,James Mark Bidgood,Dawson,Qld,24.11.2007,,21.8.2010,retired,ALP
-38,,Bruce Fredrick Billson,Dunkley,Vic.,2.3.1996,,,still_in_office,LIB
+38,,Bruce Fredrick Billson,Dunkley,Vic.,2.3.1996,,9.5.2016,retired,LIB
 39,,Gordon Neil Bilney,Kingston,SA,5.3.1983,,2.3.1996,defeated,ALP
 40,,Sharon Leah Bird,Cunningham,NSW,9.10.2004,,,still_in_office,ALP
 41,,Reginald John Birney,Phillip,NSW,13.12.1975,,5.3.1983,defeated,LIB
@@ -108,7 +108,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 108,,Philip Ronald Cleary,Wills,Vic.,13.3.1993,,2.3.1996,defeated,IND
 109,,Peter Robert Cleeland,McEwen,Vic.,1.12.1984,,24.3.1990,defeated,ALP
 110,,Peter Robert Cleeland,McEwen,Vic.,13.3.1993,,2.3.1996,defeated,ALP
-111,,John Kenneth Cobb,Calare,NSW,24.11.2007,,,still_in_office,NP
+111,,John Kenneth Cobb,Calare,NSW,24.11.2007,,9.5.2016,retired,NP
 112,,Michael Roy Cobb,Parkes,NSW,1.12.1984,,31.8.1998,retired,NPA
 113,,Barry Cohen,Robertson,NSW,25.10.1969,,19.2.1990,retired,ALP
 114,,William Peter Coleman,Wentworth,NSW,11.4.1981,by_election,5.6.1987,retired,LIB
@@ -217,15 +217,15 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 219,,Bruce William Graham,North Sydney,NSW,26.11.1966,,19.9.1980,retired,LIB
 220,,Bruce William Graham,St George,NSW,10.12.1949,,29.5.1954,defeated,LIB
 221,,Bruce William Graham,St George,NSW,10.12.1955,,22.11.1958,defeated,LIB
-222,,Gary Gray,Brand,WA,24.11.2007,,,still_in_office,ALP
+222,,Gary Gray,Brand,WA,24.11.2007,,9.5.2016,retired,ALP
 223,,Sharon Joy Grierson,Newcastle,NSW,10.11.2001,,5.8.2013,retired,ALP
-224,,Alan Peter Griffin,Bruce,Vic.,2.3.1996,,,still_in_office,ALP
+224,,Alan Peter Griffin,Bruce,Vic.,2.3.1996,,9.5.2016,retired,ALP
 225,,Alan Peter Griffin,Corinella,Vic.,13.3.1993,,2.3.1996,elected_elsewhere,ALP
 226,,Alan Gordon Griffiths,Maribyrnong,Vic.,5.3.1983,,29.1.1996,retired,ALP
 227,,Raymond John Groom,Braddon,Tas.,13.12.1975,,26.10.1984,retired,LIB
 228,,Barry Wayne Haase,Kalgoorlie,WA,3.10.1998,,21.8.2010,elected_elsewhere,LIB
 229,,Damian Francis Hale,Solomon,NT,24.11.2007,,21.8.2010,defeated,ALP
-230,,Jill Griffiths Hall,Shortland,NSW,3.10.1998,,,still_in_office,ALP
+230,,Jill Griffiths Hall,Shortland,NSW,3.10.1998,,9.5.2016,retired,ALP
 231,,Raymond Steele Hall,Boothby,SA,21.2.1981,by_election,29.1.1996,retired,LIB
 232,,Robert George Halverson,Casey,Vic.,1.12.1984,,30.4.1996,changed_party,LIB
 233,,Gerard Leslie Hand,Melbourne,Vic.,5.3.1983,,8.2.1993,retired,ALP
@@ -284,7 +284,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 286,,Harry Alfred Jenkins,Scullin,Vic.,4.5.1993,changed_party,29.1.1996,changed_party,CWM
 287,,Harry Alfred Jenkins,Scullin,Vic.,29.1.1996,changed_party,11.2.2008,changed_party,ALP
 288,,Harry Alfred Jenkins,Scullin,Vic.,12.2.2008,changed_party,24.11.2011,changed_party,SPK
-289,,Dennis Geoffrey Jensen,Tangney,WA,9.10.2004,,,still_in_office,LIB
+289,,Dennis Geoffrey Jensen,Tangney,WA,9.10.2004,,9.5.2016,defeated,LIB
 290,,Gary Thomas Johns,Petrie,Qld,11.7.1987,,2.3.1996,defeated,ALP
 291,,Leonard Keith Johnson,Burke,Vic.,25.10.1969,,19.9.1980,retired,ALP
 292,,Leslie Royston Johnson,Hughes,NSW,10.12.1955,,26.11.1966,defeated,ALP
@@ -337,7 +337,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 339,,Philip Ernest Lucock,Lyne,NSW,22.3.1952,by_election,19.9.1980,retired,NCP
 340,,Stephen Augustus Lusher,Hume,NSW,18.5.1974,,1.12.1984,defeated,NPA
 341,,Phillip Reginald (later Sir Phillip) Lynch,Flinders,Vic.,26.11.1966,,22.10.1982,resigned,LIB
-342,,Ian Elgin Macfarlane,Groom,Qld,3.10.1998,,,still_in_office,LIB
+342,,Ian Elgin Macfarlane,Groom,Qld,3.10.1998,,9.5.2016,retired,LIB
 343,,Edward Carrington Mack,North Sydney,NSW,24.3.1990,,29.1.1996,retired,IND
 344,,Michael John Randal Mackellar,Warringah,NSW,25.10.1969,,18.2.1994,resigned,LIB
 345,,Alexander John Mackenzie,Calare,NSW,13.12.1975,,5.3.1983,defeated,NPA
@@ -410,7 +410,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 412,,Lloyd Reginald Terrence O'Neil,Grey,SA,5.3.1983,,8.2.1993,retired,ALP
 413,,Michael Keith Organ,Cunningham,NSW,19.10.2002,by_election,9.10.2004,defeated,GRN
 414,,Julie Ann Owens,Parramatta,NSW,9.10.2004,,,still_in_office,ALP
-415,,Melissa Parke,Fremantle,WA,24.11.2007,,,still_in_office,ALP
+415,,Melissa Parke,Fremantle,WA,24.11.2007,,9.5.2016,retired,ALP
 416,,Andrew Sharp Peacock,Kooyong,Vic.,2.4.1966,by_election,17.9.1994,resigned,LIB
 417,,Christopher John Pearce,Aston,Vic.,14.7.2001,by_election,21.8.2010,retired,LIB
 418,,Graham Douglas Perrett,Moreton,Qld,24.11.2007,,,still_in_office,ALP
@@ -435,9 +435,9 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 437,,Peter Keaston Reith,Flinders,Vic.,4.12.1982,by_election,5.3.1983,defeated,LIB
 438,,Kym Charles Richardson,Kingston,SA,9.10.2004,,24.11.2007,defeated,LIB
 439,,John Peter Riggall,McMillan,Vic.,24.3.1990,,13.3.1993,defeated,LIB
-440,,Bernard Fernando Ripoll,Oxley,Qld,3.10.1998,,,still_in_office,ALP
+440,,Bernard Fernando Ripoll,Oxley,Qld,3.10.1998,,9.5.2016,retired,ALP
 441,,Amanda Louise Rishworth,Kingston,SA,24.11.2007,,,still_in_office,ALP
-442,,Andrew John Robb,Goldstein,Vic.,9.10.2004,,,still_in_office,LIB
+442,,Andrew John Robb,Goldstein,Vic.,9.10.2004,,9.5.2016,retired,LIB
 443,,Stuart Rowland Robert,Fadden,Qld,24.11.2007,,,still_in_office,LIB
 444,,Eric Laidlaw Robinson,McPherson,Qld,2.12.1972,,7.1.1981,died,LIB
 445,,Ian Louis Robinson,Cowper,NSW,30.11.1963,,1.12.1984,elected_elsewhere,NPA
@@ -446,7 +446,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 448,,Michael John Clyde Ronaldson,Ballarat,Vic.,24.3.1990,,8.10.2001,retired,LIB
 449,,Nicola Louise Roxon,Gellibrand,Vic.,3.10.1998,,5.8.2013,retired,ALP
 450,,Kevin Michael Rudd,Griffith,Qld,3.10.1998,,22.11.2013,resigned,ALP
-451,,Philip Maxwell Ruddock,Berowra,NSW,13.3.1993,,,still_in_office,LIB
+451,,Philip Maxwell Ruddock,Berowra,NSW,13.3.1993,,9.5.2016,retired,LIB
 452,,Philip Maxwell Ruddock,Dundas,NSW,13.12.1975,,13.3.1993,elected_elsewhere,LIB
 453,,Philip Maxwell Ruddock,Parramatta,NSW,22.9.1973,by_election,13.12.1975,elected_elsewhere,LIB
 454,,Janelle Anne Saffin,Page,NSW,24.11.2007,,7.9.2013,defeated,ALP
@@ -476,7 +476,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 478,,Peter Sid Sidebottom,Braddon,Tas,24.11.2007,,7.9.2013,defeated,ALP
 479,,David William Simmons,Calare,NSW,5.3.1983,,29.1.1996,retired,ALP
 480,,Barry Douglas Simon,McMillan,Vic.,13.12.1975,,18.10.1980,defeated,LIB
-481,,Luke Xavier Linton Simpkins,Cowan,WA,24.11.2007,,,still_in_office,LIB
+481,,Luke Xavier Linton Simpkins,Cowan,WA,24.11.2007,,2.7.2016,defeated,LIB
 482,,Ian McCahon Sinclair,New England,NSW,30.11.1963,,4.3.1998,changed_party,NPA
 483,,Peter Neil Slipper,Fisher,Qld,1.12.1984,,11.7.1987,defeated,NPA
 484,,Peter Neil Slipper,Fisher,Qld,13.3.1993,,24.11.2011,changed_party,LIB
@@ -493,14 +493,14 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 495,,Warren Edward Snowdon,Northern Territory,NT,11.7.1987,,2.3.1996,defeated,ALP
 496,,Warren Edward Snowdon,Northern Territory,NT,3.10.1998,,10.11.2001,elected_elsewhere,ALP
 497,,Alexander Michael Somlyay,Fairfax,Qld,24.3.1990,,5.8.2013,retired,LIB
-498,,Andrew John Southcott,Boothby,SA,2.3.1996,,,still_in_office,LIB
+498,,Andrew John Southcott,Boothby,SA,2.3.1996,,9.5.2016,retired,LIB
 499,,John Michael Spender,North Sydney,NSW,18.10.1980,,24.3.1990,defeated,LIB
 500,,Clair Stuart Roy St,New England,NSW,3.10.1998,,10.11.2001,defeated,NPA
 501,,Anthony Allan Staley,Chisholm,Vic.,19.9.1970,by_election,19.9.1980,retired,LIB
 502,,Peter Richard Staples,Diamond Valley,Vic.,5.3.1983,,1.12.1984,elected_elsewhere,ALP
 503,,Peter Richard Staples,Jagajaga,Vic.,1.12.1984,,29.1.1996,retired,ALP
 504,,Alan Peter Steedman,Casey,Vic.,5.3.1983,,1.12.1984,defeated,ALP
-505,,Sharman Nancy Stone,Murray,Vic.,2.3.1996,,,still_in_office,LIB
+505,,Sharman Nancy Stone,Murray,Vic.,2.3.1996,,9.5.2016,retired,LIB
 506,,Anthony Austin Street,Corangamite,Vic.,26.11.1966,,18.1.1984,resigned,LIB
 507,,Jonathan Harold Sullivan,Longman,Qld,24.11.2007,,21.8.2010,defeated,ALP
 508,,Kathryn Jean Martin Sullivan,Moncrieff,Qld,1.12.1984,,8.10.2001,retired,LIB
@@ -516,12 +516,12 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 518,,Andrew Peter Thomson,Wentworth,NSW,8.4.1995,by_election,8.10.2001,retired,LIB
 519,,Craig Robert Thomson,Dobell,NSW,24.11.2007,,29.4.2012,changed_party,ALP
 520,,David Scott Thomson,Leichhardt,Qld,13.12.1975,,5.3.1983,defeated,NPA
-521,,Kelvin John Thomson,Wills,Vic.,2.3.1996,,,still_in_office,ALP
+521,,Kelvin John Thomson,Wills,Vic.,2.3.1996,,9.5.2016,retired,ALP
 522,,Kenneth Vincent Ticehurst,Dobell,NSW,10.11.2001,,24.11.2007,defeated,LIB
 523,,Robert Edward Tickner,Hughes,NSW,18.2.1984,by_election,2.3.1996,defeated,ALP
 524,,David William Tollner,Solomon,NT,10.11.2001,,24.11.2007,defeated,CLP
 525,,Chris Allan Trevor,Flynn,Qld,24.11.2007,,21.8.2010,defeated,ALP
-526,,Warren Errol Truss,Wide Bay,Qld,24.3.1990,,,still_in_office,NP
+526,,Warren Errol Truss,Wide Bay,Qld,24.3.1990,,9.5.2016,retired,NP
 527,,Charles Wilson Tuckey,O'Connor,WA,18.10.1980,,21.8.2010,defeated,LIB
 528,,Malcolm Bligh Turnbull,Wentworth,NSW,9.10.2004,,,still_in_office,LIB
 529,,James Pearce Turnour,Leichhardt,Qld,24.11.2007,,21.8.2010,defeated,ALP
@@ -581,7 +581,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 583,,Ian McCahon Sinclair,New England,NSW,4.3.1998,changed_party,31.8.1998,retired,SPK
 584,,John Neil Andrew,Wakefield,SA,10.11.1998,changed_party,31.8.2004,retired,SPK
 585,,Robert Oakeshott,Lyne,NSW,6.9.2008,by_election,5.8.2013,retired,IND
-586,,Jamie Briggs,Mayo,SA,6.9.2008,by_election,,still_in_office,LIB
+586,,Jamie Briggs,Mayo,SA,6.9.2008,by_election,2.7.2016,defeated,LIB
 587,,Paul William Fletcher,Bradfield,NSW,5.12.2009,by_election,,still_in_office,LIB
 588,,Kelly O'Dwyer,Higgins,Vic.,5.12.2009,by_election,,still_in_office,LIB
 589,,John Alexander,Bennelong,NSW,21.8.2010,,,still_in_office,LIB
@@ -592,61 +592,61 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 594,,Ken Wyatt,Hasluck,WA,21.8.2010,,,still_in_office,LIB
 595,,Laura Smyth,La Trobe,Vic,21.8.2010,,7.9.2013,defeated,ALP
 596,,Warren Entsch,Leichhardt,Qld,21.8.2010,,,still_in_office,LIB
-597,,Wyatt Roy,Longman,Qld,21.8.2010,,,still_in_office,LIB
-598,,Louise Markus,Macquarie,NSW,21.8.2010,,,still_in_office,LIB
+597,,Wyatt Roy,Longman,Qld,21.8.2010,,2.7.2016,defeated,LIB
+598,,Louise Markus,Macquarie,NSW,21.8.2010,,2.7.2016,defeated,LIB
 599,,Rob Mitchell,McEwen,Vic,21.8.2010,,,still_in_office,ALP
 600,,Adam Bandt,Melbourne,Vic,21.8.2010,,,still_in_office,GRN
 601,,Tony Crook,O'Connor,WA,21.8.2010,,5.8.2013,retired,Nats
-602,,Natasha Griggs,Solomon,NT,21.8.2010,,,still_in_office,CLP
+602,,Natasha Griggs,Solomon,NT,21.8.2010,,2.7.2016,defeated,CLP
 603,,Geoff Lyons,Bass,Tas,21.8.2010,,7.9.2013,defeated,ALP
 604,,Gai Brodtmann,Canberra,ACT,21.8.2010,,,still_in_office,ALP
-605,,Russell Matheson,Macarthur,NSW,21.8.2010,,,still_in_office,LIB
-606,,Stephen Jones,Throsby,NSW,21.8.2010,,,still_in_office,ALP
+605,,Russell Matheson,Macarthur,NSW,21.8.2010,,2.7.2016,defeated,LIB
+606,,Stephen Jones,Throsby,NSW,21.8.2010,,2.7.2016,elected_elsewhere,ALP
 607,,Josh Frydenberg,Kooyong,Vic,21.8.2010,,,still_in_office,LIB
 608,,Dan Tehan,Wannon,Vic,21.8.2010,,,still_in_office,LIB
 609,,Michael McCormack,Riverina,NSW,21.8.2010,,,still_in_office,Nats
 610,,Chris Hayes,Fowler,NSW,21.8.2010,,,still_in_office,ALP
-611,,Ewen Jones,Herbert,Qld,21.8.2010,,,still_in_office,LIB
+611,,Ewen Jones,Herbert,Qld,21.8.2010,,2.7.2016,defeated,LIB
 612,,Karen Andrews,McPherson,Qld,21.8.2010,,,still_in_office,LIB
-613,,Andrew Leigh,Fraser,ACT,21.8.2010,,,still_in_office,ALP
+613,,Andrew Leigh,Fraser,ACT,21.8.2010,,2.7.2016,elected_elsewhere,ALP
 614,,Deborah O'Neill,Robertson,NSW,21.8.2010,,7.9.2013,defeated,ALP
 615,,Alan Tudge,Aston,Vic,21.8.2010,,,still_in_office,LIB
 616,,Ed Husic,Chifley,NSW,21.8.2010,,,still_in_office,ALP
 617,,Craig Kelly,Hughes,NSW,21.8.2010,,,still_in_office,LIB
 618,,Michelle Rowland,Greenway,NSW,21.8.2010,,,still_in_office,ALP
-619,,Laurie Donald Thomas Ferguson,Werriwa,NSW,21.8.2010,,,still_in_office,ALP
+619,,Laurie Donald Thomas Ferguson,Werriwa,NSW,21.8.2010,,9.5.2016,resigned,ALP
 620,,John Paul Murphy,Reid,NSW,21.8.2010,,7.9.2013,defeated,ALP
 622,,Barry Wayne Haase,Durack,WA,21.8.2010,,5.8.2013,retired,LIB
 623,,Christopher Eyles Bowen,McMahon,NSW,21.8.2010,,,still_in_office,ALP
 624,,Scott Buchholz,Wright,Qld,21.8.2010,,,still_in_office,LIB
 625,,Jane Prentice,Ryan,QLD,21.8.2010,,,still_in_office,LIB
 626,,Ross Xavier Vasta,Bonner,Qld,21.8.2010,,,still_in_office,LIB
-627,,Teresa Gambaro,Brisbane,Qld,21.8.2010,,,still_in_office,LIB
+627,,Teresa Gambaro,Brisbane,Qld,21.8.2010,,9.5.2016,retired,LIB
 628,,Harry Alfred Jenkins,Scullin,Vic.,24.11.2011,changed_party,5.8.2013,retired,ALP
 629,,Peter Neil Slipper,Fisher,Qld,24.11.2011,changed_party,09.10.2012,changed_party,SPK
 630,,Peter Neil Slipper,Fisher,Qld,09.10.2012,changed_party,7.9.2013,defeated,IND
 631,,Ms Anna Elizabeth Burke,Chisholm,Vic.,09.10.2012,changed_party,05.08.2013,changed_party,SPK
-632,,Bruce Craig Scott,Maranoa,Qld,09.10.2012,changed_party,,still_in_office,CWM
+632,,Bruce Craig Scott,Maranoa,Qld,09.10.2012,changed_party,9.5.2016,retired,CWM
 633,,Craig Robert Thomson,Dobell,NSW,29.4.2012,,7.9.2013,defeated,IND
 # New members elected in 2013 Federal election
 634,,David Coleman,Banks,NSW,7.9.2013,,,still_in_office,LIB
 635,,Tony Pasin,Barker,SA,7.9.2013,,,still_in_office,LIB
-636,,Nickolas Varvaris,Barton,NSW,7.9.2013,,,still_in_office,LIB
-637,,Andrew Nikolic,Bass,Tas,7.9.2013,,,still_in_office,LIB
+636,,Nickolas Varvaris,Barton,NSW,7.9.2013,,2.7.2016,defeated,LIB
+637,,Andrew Nikolic,Bass,Tas,7.9.2013,,2.7.2016,defeated,LIB
 638,,David Feeney,Batman,Vic,7.9.2013,,,still_in_office,ALP
 639,,Lisa Chesters,Bendigo,Vic,7.9.2013,,,still_in_office,ALP
-640,,Brett Whiteley,Braddon,Tas,7.9.2013,,,still_in_office,LIB
+640,,Brett Whiteley,Braddon,Tas,7.9.2013,,2.7.2016,defeated,LIB
 641,,Michelle Landry,Capricornia,QLD,7.9.2013,,,still_in_office,LIB
-642,,Pat Conroy,Charlton,NSW,7.9.2013,,,still_in_office,ALP
+642,,Pat Conroy,Charlton,NSW,7.9.2013,,2.7.2016,elected_elsewhere,ALP
 643,,Sarah Henderson,Corangamite,Vic,7.9.2013,,,still_in_office,LIB
 644,,Michael Sukkar,Deakin,Vic,7.9.2013,,,still_in_office,LIB
-645,,Karen Mcnamara,Dobell,NSW,7.9.2013,,,still_in_office,LIB
+645,,Karen Mcnamara,Dobell,NSW,7.9.2013,,2.7.2016,defeated,LIB
 646,,Melissa Price,Durack,WA,7.9.2013,,,still_in_office,LIB
-647,,Peter Hendy,Eden-Monaro,NSW,7.9.2013,,,still_in_office,LIB
-648,,Mal Brough,Fisher,QLD,7.9.2013,,,still_in_office,LIB
+647,,Peter Hendy,Eden-Monaro,NSW,7.9.2013,,2.7.2016,defeated,LIB
+648,,Mal Brough,Fisher,QLD,7.9.2013,,9.5.2016,retired,LIB
 649,,Tim Watts,Gellibrand,Vic,7.9.2013,,,still_in_office,ALP
 650,,Ann Sudmalis,Gilmore,NSW,7.9.2013,,,still_in_office,LIB
-651,,Matt Williams,Hindmarsh,SA,7.9.2013,,,still_in_office,LIB
+651,,Matt Williams,Hindmarsh,SA,7.9.2013,,2.7.2016,defeated,LIB
 652,,Keith Pitt,Hinkler,QLD,7.9.2013,,,still_in_office,LIB
 653,,Clare O'Neil,Hotham,Vic,7.9.2013,,,still_in_office,ALP
 654,,Angus Taylor,Hume,NSW,7.9.2013,,,still_in_office,LIB
@@ -654,9 +654,9 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 656,,Matt Thistlethwaite,Kingsford Smith,NSW,7.9.2013,,,still_in_office,ALP
 657,,Jason Wood,La Trobe,Vic,7.9.2013,,,still_in_office,LIB
 658,,Joanne Ryan,Lalor,Vic,7.9.2013,,,still_in_office,ALP
-659,,Fiona Scott,Lindsay,NSW,7.9.2013,,,still_in_office,LIB
+659,,Fiona Scott,Lindsay,NSW,7.9.2013,,2.7.2016,defeated,LIB
 660,,David Gillespie,Lyne,NSW,7.9.2013,,,still_in_office,NP
-661,,Eric Hutchinson,Lyons,Tas,7.9.2013,,,still_in_office,LIB
+661,,Eric Hutchinson,Lyons,Tas,7.9.2013,,2.7.2016,defeated,LIB
 662,,Andrew Broad,Mallee,Vic,7.9.2013,,,still_in_office,NP
 663,,Ian Goodenough,Moore,WA,7.9.2013,,,still_in_office,LIB
 664,,Barnaby Joyce,New England,NSW,7.9.2013,,,still_in_office,NP
@@ -664,17 +664,60 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 666,,Rick Wilson,O'Connor,WA,7.9.2013,,,still_in_office,LIB
 667,,Kevin Hogan,Page,NSW,7.9.2013,,,still_in_office,NP
 668,,Christian Porter,Pearce,WA,7.9.2013,,,still_in_office,LIB
-669,,Alannah MacTiernan,Perth,WA,7.9.2013,,,still_in_office,ALP
+669,,Alannah MacTiernan,Perth,WA,7.9.2013,,9.5.2016,retired,ALP
 670,,Luke Howarth,Petrie,QLD,7.9.2013,,,still_in_office,LIB
 671,,Jim Chalmers,Rankin,QLD,7.9.2013,,,still_in_office,ALP
 672,,Craig Laundy,Reid,NSW,7.9.2013,,,still_in_office,LIB
 673,,Lucy Wicks,Robertson,NSW,7.9.2013,,,still_in_office,LIB
 674,,Andrew Giles,Scullin,Vic,7.9.2013,,,still_in_office,ALP
-675,,Ms Anna Elizabeth Burke,Chisholm,Vic.,05.08.2013,changed_party,,still_in_office,ALP
+675,,Ms Anna Elizabeth Burke,Chisholm,Vic.,05.08.2013,changed_party,9.5.2016,retired,ALP
 676,,Bronwyn Kathleen Bishop,Mackellar,NSW,12.11.2013,changed_party,02.08.2015,still_in_office,SPK
-677,,Clive Frederick Palmer,Fairfax,Qld,07.09.2013,,,still_in_office,PUP
+677,,Clive Frederick Palmer,Fairfax,Qld,07.09.2013,,9.5.2016,retired,PUP
 678,,Terri Butler,Griffith,QLD,8.2.2014,by_election,,still_in_office,ALP
-679,,Bronwyn Kathleen Bishop,Mackellar,NSW,02.08.2015,changed_party,,still_in_office,LIB
+679,,Bronwyn Kathleen Bishop,Mackellar,NSW,02.08.2015,changed_party,9.5.2016,retired,LIB
 680,,Anthony David Hawthorn Smith,Casey,Vic.,10.08.2015,changed_party,,still_in_office,SPK
 681,,Andrew Hastie,Canning,WA,19.9.2015,by_election,,still_in_office,LIB
 682,,Trent Zimmerman,North Sydney,NSW,5.12.2015,by_election,,still_in_office,LIB
+# New members elected in 2016 Federal election
+683,,Linda Burney,Barton,NSW,2.7.2016,,,still_in_office,ALP
+684,,Ross Hart,Bass,Tas,2.7.2016,,,still_in_office,ALP
+685,,Justine Keay,Braddon,Tas,2.7.2016,,,still_in_office,ALP
+686,,Matt Keogh,Burt,WA,2.7.2016,,,still_in_office,ALP
+687,,Julia Banks,Chisholm,Vic,2.7.2016,,,still_in_office,LIB
+688,,Anne Aly,Cowan,WA,2.7.2016,,,still_in_office,ALP
+689,,Emma McBride,Dobell,NSW,2.7.2016,,,still_in_office,ALP
+690,,Michael Joseph Kelly,Eden-Monaro,NSW,2.7.2016,,,still_in_office,ALP
+691,,Ted O'Brien,Fairfax,QLD,2.7.2016,,,still_in_office,LNP
+692,,Cathy O'Toole,Herbert,QLD,2.7.2016,,,still_in_office,ALP
+693,,Steve Georganas,Hindmarsh,SA,2.7.2016,,,still_in_office,ALP
+694,,Emma Husar,Lindsay,NSW,2.7.2016,,,still_in_office,ALP
+695,,Susan Lamb,Longman,QLD,2.7.2016,,,still_in_office,ALP
+696,,Brian Mitchell,Lyons,Tas,2.7.2016,,,still_in_office,ALP
+697,,Mike Freelander,Macarthur,NSW,2.7.2016,,,still_in_office,ALP
+698,,Susan Templeman,Macquarie,NSW,2.7.2016,,,still_in_office,ALP
+699,,Rebekha Sharkie,Mayo,SA,2.7.2016,,,still_in_office,NXT
+700,,Damian Drum,Murray,Vic,2.7.2016,,,still_in_office,NP
+701,,Meryl Swanson,Paterson,NSW,2.7.2016,,,still_in_office,ALP
+702,,Luke Gosling,Solomon,NT,2.7.2016,,,still_in_office,ALP
+703,,Jason Falinski,Mackellar,NSW,2.7.2016,,,still_in_office,LIB
+704,,Chris Crewther,Dunkley,Vic,2.7.2016,,,still_in_office,LIB
+705,,Milton Dick,Oxley,Qld,2.7.2016,,,still_in_office,ALP
+706,,Trevor Evans,Brisbane,Qld,2.7.2016,,,still_in_office,LIB
+707,,Nicolle Flint,Boothby,SA,2.7.2016,,,still_in_office,LIB
+708,,Andrew Gee,Calare,NSW,2.7.2016,,,still_in_office,NP
+709,,Madeleine King,Brand,WA,2.7.2016,,,still_in_office,ALP
+710,,Julian Hill,Bruce,Vic.,2.7.2016,,,still_in_office,ALP
+711,,Pat Conroy,Shortland,NSW,2.7.2016,,,still_in_office,ALP
+712,,Ben Morton,Tangney,WA,2.7.2016,,,still_in_office,LIB
+713,,Peter Khalil,Wills,Vic.,2.7.2016,,,still_in_office,ALP
+714,,Julian Leeser,Berowra,NSW,2.7.2016,,,still_in_office,LIB
+715,,John McVeigh,Groom,Qld,2.7.2016,,,still_in_office,LIB
+716,,David Littleproud,Maranoa,Qld,2.7.2016,,,still_in_office,NP
+717,,Tim Hammond,Perth,WA,2.7.2016,,,still_in_office,ALP
+718,,Llew O'Brien,Wide Bay,Qld,2.7.2016,,,still_in_office,NP
+719,,Josh Wilson,Fremantle,WA,2.7.2016,,,still_in_office,ALP
+720,,Tim Wilson,Goldstein,Vic.,2.7.2016,,,still_in_office,LIB
+721,,Anne Stanley,Werriwa,NSW,2.7.2016,,,still_in_office,ALP
+722,,Andrew Wallace,Fisher,QLD,2.7.2016,,,still_in_office,LIB
+723,,Andrew Leigh,Fenner,ACT,2.7.2016,,,still_in_office,ALP
+724,,Stephen Jones,Whitlam,NSW,2.7.2016,,,still_in_office,ALP
