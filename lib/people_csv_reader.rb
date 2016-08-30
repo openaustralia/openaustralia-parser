@@ -159,6 +159,8 @@ class PeopleCSVReader
       "Liberal Democratic Party"
     when "MEP"
       "Australian Motoring Enthusiast Party"
+    when "NXT"
+      "Nick Xenophon Team"
     when "ANTI-SOC", "SPK", "CWM", "PRES", "DPRES"
       # Do nothing
       party
