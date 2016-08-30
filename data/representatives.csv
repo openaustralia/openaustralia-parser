@@ -410,7 +410,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 412,,Lloyd Reginald Terrence O'Neil,Grey,SA,5.3.1983,,8.2.1993,retired,ALP
 413,,Michael Keith Organ,Cunningham,NSW,19.10.2002,by_election,9.10.2004,defeated,GRN
 414,,Julie Ann Owens,Parramatta,NSW,9.10.2004,,,still_in_office,ALP
-415,,Melissa Parke,Fremantle,WA,24.11.2007,,,still_in_office,ALP
+415,,Melissa Parke,Fremantle,WA,24.11.2007,,9.5.2016,retired,ALP
 416,,Andrew Sharp Peacock,Kooyong,Vic.,2.4.1966,by_election,17.9.1994,resigned,LIB
 417,,Christopher John Pearce,Aston,Vic.,14.7.2001,by_election,21.8.2010,retired,LIB
 418,,Graham Douglas Perrett,Moreton,Qld,24.11.2007,,,still_in_office,ALP
@@ -715,3 +715,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 716,,David Littleproud,Maranoa,Qld,2.7.2016,,,still_in_office,NP
 717,,Tim Hammond,Perth,WA,2.7.2016,,,still_in_office,ALP
 718,,Llew O'Brien,Wide Bay,Qld,2.7.2016,,,still_in_office,NP
+719,,Josh Wilson,Fremantle,WA,2.7.2016,,,still_in_office,ALP
