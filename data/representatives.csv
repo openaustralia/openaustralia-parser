@@ -643,7 +643,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 645,,Karen Mcnamara,Dobell,NSW,7.9.2013,,2.7.2016,defeated,LIB
 646,,Melissa Price,Durack,WA,7.9.2013,,,still_in_office,LIB
 647,,Peter Hendy,Eden-Monaro,NSW,7.9.2013,,2.7.2016,defeated,LIB
-648,,Mal Brough,Fisher,QLD,7.9.2013,,,still_in_office,LIB
+648,,Mal Brough,Fisher,QLD,7.9.2013,,9.5.2016,retired,LIB
 649,,Tim Watts,Gellibrand,Vic,7.9.2013,,,still_in_office,ALP
 650,,Ann Sudmalis,Gilmore,NSW,7.9.2013,,,still_in_office,LIB
 651,,Matt Williams,Hindmarsh,SA,7.9.2013,,2.7.2016,defeated,LIB
@@ -718,3 +718,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 719,,Josh Wilson,Fremantle,WA,2.7.2016,,,still_in_office,ALP
 720,,Tim Wilson,Goldstein,Vic.,2.7.2016,,,still_in_office,LIB
 721,,Anne Stanley,Werriwa,NSW,2.7.2016,,,still_in_office,ALP
+722,,Andrew Wallace,Fisher,QLD,2.7.2016,,,still_in_office,LIB
