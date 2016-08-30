@@ -614,7 +614,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 616,,Ed Husic,Chifley,NSW,21.8.2010,,,still_in_office,ALP
 617,,Craig Kelly,Hughes,NSW,21.8.2010,,,still_in_office,LIB
 618,,Michelle Rowland,Greenway,NSW,21.8.2010,,,still_in_office,ALP
-619,,Laurie Donald Thomas Ferguson,Werriwa,NSW,21.8.2010,,,still_in_office,ALP
+619,,Laurie Donald Thomas Ferguson,Werriwa,NSW,21.8.2010,,9.5.2016,resigned,ALP
 620,,John Paul Murphy,Reid,NSW,21.8.2010,,7.9.2013,defeated,ALP
 622,,Barry Wayne Haase,Durack,WA,21.8.2010,,5.8.2013,retired,LIB
 623,,Christopher Eyles Bowen,McMahon,NSW,21.8.2010,,,still_in_office,ALP
@@ -717,3 +717,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 718,,Llew O'Brien,Wide Bay,Qld,2.7.2016,,,still_in_office,NP
 719,,Josh Wilson,Fremantle,WA,2.7.2016,,,still_in_office,ALP
 720,,Tim Wilson,Goldstein,Vic.,2.7.2016,,,still_in_office,LIB
+721,,Anne Stanley,Werriwa,NSW,2.7.2016,,,still_in_office,ALP
