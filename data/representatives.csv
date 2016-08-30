@@ -446,7 +446,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 448,,Michael John Clyde Ronaldson,Ballarat,Vic.,24.3.1990,,8.10.2001,retired,LIB
 449,,Nicola Louise Roxon,Gellibrand,Vic.,3.10.1998,,5.8.2013,retired,ALP
 450,,Kevin Michael Rudd,Griffith,Qld,3.10.1998,,22.11.2013,resigned,ALP
-451,,Philip Maxwell Ruddock,Berowra,NSW,13.3.1993,,,still_in_office,LIB
+451,,Philip Maxwell Ruddock,Berowra,NSW,13.3.1993,,9.5.2016,resigned,LIB
 452,,Philip Maxwell Ruddock,Dundas,NSW,13.12.1975,,13.3.1993,elected_elsewhere,LIB
 453,,Philip Maxwell Ruddock,Parramatta,NSW,22.9.1973,by_election,13.12.1975,elected_elsewhere,LIB
 454,,Janelle Anne Saffin,Page,NSW,24.11.2007,,7.9.2013,defeated,ALP
@@ -710,3 +710,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 711,,Pat Conroy,Shortland,NSW,2.7.2016,,,still_in_office,ALP
 712,,Ben Morton,Tangney,WA,2.7.2016,,,still_in_office,LIB
 713,,Peter Khalil,Wills,Vic.,2.7.2016,,,still_in_office,ALP
+714,,Julian Leeser,Berowra,NSW,2.7.2016,,,still_in_office,LIB
