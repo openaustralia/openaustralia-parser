@@ -626,7 +626,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 629,,Peter Neil Slipper,Fisher,Qld,24.11.2011,changed_party,09.10.2012,changed_party,SPK
 630,,Peter Neil Slipper,Fisher,Qld,09.10.2012,changed_party,7.9.2013,defeated,IND
 631,,Ms Anna Elizabeth Burke,Chisholm,Vic.,09.10.2012,changed_party,05.08.2013,changed_party,SPK
-632,,Bruce Craig Scott,Maranoa,Qld,09.10.2012,changed_party,,still_in_office,CWM
+632,,Bruce Craig Scott,Maranoa,Qld,09.10.2012,changed_party,9.5.2016,retired,CWM
 633,,Craig Robert Thomson,Dobell,NSW,29.4.2012,,7.9.2013,defeated,IND
 # New members elected in 2013 Federal election
 634,,David Coleman,Banks,NSW,7.9.2013,,,still_in_office,LIB
@@ -712,3 +712,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 713,,Peter Khalil,Wills,Vic.,2.7.2016,,,still_in_office,ALP
 714,,Julian Leeser,Berowra,NSW,2.7.2016,,,still_in_office,LIB
 715,,John McVeigh,Groom,Qld,2.7.2016,,,still_in_office,LIB
+716,,David Littleproud,Maranoa,Qld,2.7.2016,,,still_in_office,NP
