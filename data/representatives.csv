@@ -108,7 +108,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 108,,Philip Ronald Cleary,Wills,Vic.,13.3.1993,,2.3.1996,defeated,IND
 109,,Peter Robert Cleeland,McEwen,Vic.,1.12.1984,,24.3.1990,defeated,ALP
 110,,Peter Robert Cleeland,McEwen,Vic.,13.3.1993,,2.3.1996,defeated,ALP
-111,,John Kenneth Cobb,Calare,NSW,24.11.2007,,,still_in_office,NP
+111,,John Kenneth Cobb,Calare,NSW,24.11.2007,,9.5.2016,retired,NP
 112,,Michael Roy Cobb,Parkes,NSW,1.12.1984,,31.8.1998,retired,NPA
 113,,Barry Cohen,Robertson,NSW,25.10.1969,,19.2.1990,retired,ALP
 114,,William Peter Coleman,Wentworth,NSW,11.4.1981,by_election,5.6.1987,retired,LIB
@@ -704,3 +704,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 705,,Milton Dick,Oxley,Qld,2.7.2016,,,still_in_office,ALP
 706,,Trevor Evans,Brisbane,Qld,2.7.2016,,,still_in_office,LIB
 707,,Nicolle Flint,Boothby,SA,2.7.2016,,,still_in_office,LIB
+708,,Andrew Gee,Calare,NSW,2.7.2016,,,still_in_office,NP
