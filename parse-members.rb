@@ -23,7 +23,7 @@ divisions = members.map {|member| member.division}.uniq.sort
 # Electoral divisions that don't exist anymore
 old_divisions = ["Angas", "Balaclava", "Bonython", "Burke", "Corinella", "Darling", "Darling Downs", "Diamond Valley",
   "Dundas", "Evans", "Gwydir", "Hawker", "Henty", "Namadgi", "Northern Territory", "Phillip", "Riverina-Darling", "St George",
-  "Streeton", "Wilmot", "Kalgoorlie", "Lowe", "Prospect", "Charlton"]
+  "Streeton", "Wilmot", "Kalgoorlie", "Lowe", "Prospect", "Charlton", "Fraser", "Throsby"]
 
 divisions.each do |division|
   #puts "Checking division #{division}..."

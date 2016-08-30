@@ -601,14 +601,14 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 603,,Geoff Lyons,Bass,Tas,21.8.2010,,7.9.2013,defeated,ALP
 604,,Gai Brodtmann,Canberra,ACT,21.8.2010,,,still_in_office,ALP
 605,,Russell Matheson,Macarthur,NSW,21.8.2010,,2.7.2016,defeated,LIB
-606,,Stephen Jones,Throsby,NSW,21.8.2010,,,still_in_office,ALP
+606,,Stephen Jones,Throsby,NSW,21.8.2010,,2.7.2016,elected_elsewhere,ALP
 607,,Josh Frydenberg,Kooyong,Vic,21.8.2010,,,still_in_office,LIB
 608,,Dan Tehan,Wannon,Vic,21.8.2010,,,still_in_office,LIB
 609,,Michael McCormack,Riverina,NSW,21.8.2010,,,still_in_office,Nats
 610,,Chris Hayes,Fowler,NSW,21.8.2010,,,still_in_office,ALP
 611,,Ewen Jones,Herbert,Qld,21.8.2010,,2.7.2016,defeated,LIB
 612,,Karen Andrews,McPherson,Qld,21.8.2010,,,still_in_office,LIB
-613,,Andrew Leigh,Fraser,ACT,21.8.2010,,,still_in_office,ALP
+613,,Andrew Leigh,Fraser,ACT,21.8.2010,,2.7.2016,elected_elsewhere,ALP
 614,,Deborah O'Neill,Robertson,NSW,21.8.2010,,7.9.2013,defeated,ALP
 615,,Alan Tudge,Aston,Vic,21.8.2010,,,still_in_office,LIB
 616,,Ed Husic,Chifley,NSW,21.8.2010,,,still_in_office,ALP
@@ -719,3 +719,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 720,,Tim Wilson,Goldstein,Vic.,2.7.2016,,,still_in_office,LIB
 721,,Anne Stanley,Werriwa,NSW,2.7.2016,,,still_in_office,ALP
 722,,Andrew Wallace,Fisher,QLD,2.7.2016,,,still_in_office,LIB
+723,,Andrew Leigh,Fenner,ACT,2.7.2016,,,still_in_office,ALP
+724,,Stephen Jones,Whitlam,NSW,2.7.2016,,,still_in_office,ALP
