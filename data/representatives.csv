@@ -621,7 +621,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 624,,Scott Buchholz,Wright,Qld,21.8.2010,,,still_in_office,LIB
 625,,Jane Prentice,Ryan,QLD,21.8.2010,,,still_in_office,LIB
 626,,Ross Xavier Vasta,Bonner,Qld,21.8.2010,,,still_in_office,LIB
-627,,Teresa Gambaro,Brisbane,Qld,21.8.2010,,,still_in_office,LIB
+627,,Teresa Gambaro,Brisbane,Qld,21.8.2010,,9.5.2016,retired,LIB
 628,,Harry Alfred Jenkins,Scullin,Vic.,24.11.2011,changed_party,5.8.2013,retired,ALP
 629,,Peter Neil Slipper,Fisher,Qld,24.11.2011,changed_party,09.10.2012,changed_party,SPK
 630,,Peter Neil Slipper,Fisher,Qld,09.10.2012,changed_party,7.9.2013,defeated,IND
@@ -702,3 +702,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 703,,Jason Falinski,Mackellar,NSW,2.7.2016,,,still_in_office,LIB
 704,,Chris Crewther,Dunkley,Vic,2.7.2016,,,still_in_office,LIB
 705,,Milton Dick,Oxley,Qld,2.7.2016,,,still_in_office,ALP
+706,,Trevor Evans,Brisbane,Qld,2.7.2016,,,still_in_office,LIB
