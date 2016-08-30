@@ -225,7 +225,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 227,,Raymond John Groom,Braddon,Tas.,13.12.1975,,26.10.1984,retired,LIB
 228,,Barry Wayne Haase,Kalgoorlie,WA,3.10.1998,,21.8.2010,elected_elsewhere,LIB
 229,,Damian Francis Hale,Solomon,NT,24.11.2007,,21.8.2010,defeated,ALP
-230,,Jill Griffiths Hall,Shortland,NSW,3.10.1998,,,still_in_office,ALP
+230,,Jill Griffiths Hall,Shortland,NSW,3.10.1998,,9.5.2016,retired,ALP
 231,,Raymond Steele Hall,Boothby,SA,21.2.1981,by_election,29.1.1996,retired,LIB
 232,,Robert George Halverson,Casey,Vic.,1.12.1984,,30.4.1996,changed_party,LIB
 233,,Gerard Leslie Hand,Melbourne,Vic.,5.3.1983,,8.2.1993,retired,ALP
@@ -707,3 +707,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 708,,Andrew Gee,Calare,NSW,2.7.2016,,,still_in_office,NP
 709,,Madeleine King,Brand,WA,2.7.2016,,,still_in_office,ALP
 710,,Julian Hill,Bruce,Vic.,2.7.2016,,,still_in_office,ALP
+711,,Pat Conroy,Shortland,NSW,2.7.2016,,,still_in_office,ALP
