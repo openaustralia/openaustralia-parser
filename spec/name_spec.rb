@@ -64,5 +64,12 @@ describe Name do
       name.middle.should == 'Margaret'
       name.last.should == 'Kelly'
     end
+
+    it 'parses all-caps, hyphenated last names' do
+      name = Name.last_title_first("  HANSON  -  YOUNG  ,   Sarah   Coral")
+      name.first.should == 'Sarah'
+      name.middle.should == 'Coral'
+      name.last.should == 'Hanson-Young'
+    end
   end
 end
