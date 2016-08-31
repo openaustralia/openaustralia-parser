@@ -48,6 +48,9 @@ class Name
       last = names[0..1].join(' ')
       names.shift
       names.shift
+    # Check for hyphenated last names
+    elsif names[1] == '-'
+      last = names.shift(3).join
     else
       last = names.shift
     end
