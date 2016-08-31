@@ -102,5 +102,12 @@ describe Name do
       name.middle.should == 'Coral'
       name.last.should == 'Hanson-Young'
     end
+
+    it 'parses hyphenated last names' do
+      name = Name.last_title_first("  KAKOSCHKE  -  MOORE  ,   Skye  ")
+      name.first.should == 'Skye'
+      name.middle.should == ""
+      name.last.should == 'Kakoschke-Moore'
+    end
   end
 end
