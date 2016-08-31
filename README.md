@@ -16,6 +16,28 @@ The sitting dates shown on [the calendar](http://www.openaustralia.org.au/debate
 
 In the `recess.php` file you need to specify the date ranges that the parliament is in _recess_, i.e. NOT sitting. This is a bit unintuitive and it's easy to get the wrong way around so take care.
 
+### Adding or removing people
+
+#### What
+
+During the term of a parliament, for all sorts of reasons, people can leave (e.g. retirement, death) or enter parliament (e.g. by-election, appointed to fill a [casual vacancy](https://en.wikipedia.org/wiki/Australian_Senate#Casual_vacancies)). At a general election lots of people leave and enter parliament as they're elected or not re-elected.
+
+#### How
+
+##### Leaving parliament
+
+When someone leaves parliament you need to update their membership record's date and reason they left parliament. This could be in [`data/representatives.csv`](https://github.com/openaustralia/openaustralia-parser/blob/master/data/representatives.csv) or [`data/senators.csv`](https://github.com/openaustralia/openaustralia-parser/blob/master/data/senators.csv), depending on which House they were in.
+
+Here's [an example](https://github.com/openaustralia/openaustralia-parser/commit/1b20b321c436c819f256461fa79b4d9c8762f71c#diff-04102f0761533ac76b4dade410634698R39) that was part of the 2016 election where Bruce Billson retired (and Chris Crewther was added as his replacement in the same commit).
+
+##### Changing parties
+
+TODO.
+
+##### Entering parliament
+
+TODO.
+
 ### Ministerial reshuffles
 
 #### What
