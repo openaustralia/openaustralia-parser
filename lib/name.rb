@@ -48,6 +48,9 @@ class Name
       last = names[0..1].join(' ')
       names.shift
       names.shift
+    # Check for hyphenated last names
+    elsif names[1] == '-'
+      last = names.shift(3).join
     else
       last = names.shift
     end
@@ -84,9 +87,11 @@ class Name
     # HACK: Added specific handling for initials DJC, DGH
     if initials_with_fullstops(name)
       initials_with_fullstops(name)
-    elsif (name.upcase == name)
+    # Heuristic: If word is all caps we'll assume that these are initials
+    # HACK: unless it is "-", which could be part of a hyphenated name in specific case
+    elsif (name.upcase == name) && name != "-"
       name
-    elsif (name != "Ed" && name != "Jo" && name.size <= 2) || name == "DJC" || name == "DGH"
+    elsif (name != "Ed" && name != "Jo" && name != "-" && name.size <= 2) || name == "DJC" || name == "DGH"
       name
     end
   end
