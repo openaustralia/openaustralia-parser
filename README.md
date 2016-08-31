@@ -16,6 +16,10 @@ The sitting dates shown on [the calendar](http://www.openaustralia.org.au/debate
 
 In the `recess.php` file you need to specify the date ranges that the parliament is in _recess_, i.e. NOT sitting. This is a bit unintuitive and it's easy to get the wrong way around so take care.
 
+#### Checking
+
+After you've made these changes open your development copy of OpenAustralia.org and visit the [calendar page](http://www.openaustralia.org.au/debates/?y=2016) for the year you've changed to see if it looks OK. Non-sitting dates should be grey and should say "recess" when you hover over them.
+
 ### Adding or removing people
 
 #### What
@@ -40,6 +44,10 @@ When you add someone you need to create a membership record, like those discusse
 
 For example, [Linda Burney's](http://www.aph.gov.au/Senators_and_Members/Parliamentarian?MPID=8GH) is `8GH` as you can see in the URL of her APH page http://www.aph.gov.au/Senators_and_Members/Parliamentarian?MPID=<strong>8GH</strong> and also in [the commit](https://github.com/openaustralia/openaustralia-parser/commit/8c286a12f5cc00682a011b4159d821ccc7b3b245#diff-b66a2e76ccb4627268b1733ec86424e8R887) that added her to OpenAustralia.org.
 
+#### Checking
+
+After making changes run [`./parse-members.rb`](https://github.com/openaustralia/openaustralia-parser/blob/master/parse-members.rb), check the output, and also check that it's loaded your changes correctly into your development copy of OpenAustralia.org.
+
 ### Ministerial reshuffles
 
 #### What
@@ -53,6 +61,10 @@ These change when there's a ministerial reshuffle. This can happen because the p
 These changes are usually tabled in parliament and show up in Hansard under the heading _Ministerial Arrangements_ or _Shadow Ministerial Arrangements_. Here's [an example](http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;adv=yes;db=CHAMBER;id=chamber%2Fhansardr%2F1133bdef-2731-42fb-a226-6522e1a8fec5%2F0025;orderBy=_fragment_number,doc_date-rev;page=0;query=Dataset%3Ahansardr,hansardr80%20Date%3A30%2F8%2F2016;rec=0;resCount=Default) of the one from the start of the 2016 parliament.
 
 What you need to do is go through that document and make sure the data that we have in [`data/ministers.csv`](https://github.com/openaustralia/openaustralia-parser/blob/master/data/ministers.csv) or [`data/shadow-ministers.csv`](https://github.com/openaustralia/openaustralia-parser/blob/master/data/shadow-ministers.csv) matches it. This means adding "to" dates to people that are no longer in the list and adding new records for those people that have been added.
+
+#### Checking
+
+After making changes run [`./parse-members.rb`](https://github.com/openaustralia/openaustralia-parser/blob/master/parse-members.rb), check the output, and also check that it's loaded your changes correctly into your development copy of OpenAustralia.org.
 
 ## Copyright & License
 
