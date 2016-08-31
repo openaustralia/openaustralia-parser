@@ -26,7 +26,7 @@ During the term of a parliament, for all sorts of reasons, people can leave (e.g
 
 ##### Leaving parliament
 
-When someone leaves parliament you need to update their membership record's date and reason they left parliament. This could be in [`data/representatives.csv`](https://github.com/openaustralia/openaustralia-parser/blob/master/data/representatives.csv) or [`data/senators.csv`](https://github.com/openaustralia/openaustralia-parser/blob/master/data/senators.csv), depending on which House they were in.
+When someone leaves parliament you need to update their membership record's end date and reason they left parliament. This could be in [`data/representatives.csv`](https://github.com/openaustralia/openaustralia-parser/blob/master/data/representatives.csv) or [`data/senators.csv`](https://github.com/openaustralia/openaustralia-parser/blob/master/data/senators.csv), depending on which House they were in.
 
 Here's [an example](https://github.com/openaustralia/openaustralia-parser/commit/1b20b321c436c819f256461fa79b4d9c8762f71c#diff-04102f0761533ac76b4dade410634698R39) that was part of the 2016 election where Bruce Billson retired (and Chris Crewther was added as his replacement in the same commit).
 
