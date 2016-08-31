@@ -8,9 +8,13 @@ We try to automate data updates to OpenAustralia.org as much as possible but in 
 
 ### Recesses/calendar
 
+#### What
+
 The sitting dates shown on [the calendar](http://www.openaustralia.org.au/debates/?y=2016) on OpenAustralia.org and a little banner on the front page are based on information in [`recess.php`](https://github.com/openaustralia/twfy/blob/master/www/includes/easyparliament/recess.php) in the [web application's repository](https://github.com/openaustralia/twfy/).
 
-In that file you need to specify the date ranges that the parliament is in _recess_, i.e. NOT sitting. This is a bit unintuitive and it's easy to get the wrong way around so take care.
+#### How
+
+In the `recess.php` file you need to specify the date ranges that the parliament is in _recess_, i.e. NOT sitting. This is a bit unintuitive and it's easy to get the wrong way around so take care.
 
 ### Someone leaves or enters parliament
 
