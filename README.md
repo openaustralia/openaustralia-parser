@@ -16,17 +16,7 @@ The sitting dates shown on [the calendar](http://www.openaustralia.org.au/debate
 
 In the `recess.php` file you need to specify the date ranges that the parliament is in _recess_, i.e. NOT sitting. This is a bit unintuitive and it's easy to get the wrong way around so take care.
 
-### Someone leaves or enters parliament
-
-During the term of a parliament for all sorts of reasons people can leave (e.g. retirement, death) or enter parliament (e.g. by-election, appointed to fill a [casual vacancy](https://en.wikipedia.org/wiki/Australian_Senate#Casual_vacancies)).
-
-TODO: Document what you have to do.
-
 ### Ministerial reshuffles
-
-TODO.
-
-### General elections
 
 TODO.
 
