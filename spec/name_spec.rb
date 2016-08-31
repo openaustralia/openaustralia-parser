@@ -13,13 +13,13 @@ describe Name do
       expect(Name.initials("John.Lawrence")).to eq "JohnLawrence"
     end
 
-    it "returns the full string if it is all caps" do
+    it "returns the full string if it is all-caps" do
       expect(Name.initials("XS")).to eq "XS"
       expect(Name.initials("ALLCAPSWHENYASPELLMANAME")).to eq "ALLCAPSWHENYASPELLMANAME"
       expect(Name.initials("YOUNG")).to eq "YOUNG"
     end
 
-    it "returns the string if it is all non-letter character" do
+    it "returns the string if it is all non-letter characters" do
       expect(Name.initials("1234")).to eq "1234"
       expect(Name.initials("–")).to eq "–"
     end
