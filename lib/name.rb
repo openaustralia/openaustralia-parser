@@ -84,6 +84,7 @@ class Name
     # HACK: Added specific handling for initials DJC, DGH
     if initials_with_fullstops(name)
       initials_with_fullstops(name)
+    # Heuristic: If word is all caps we'll assume that these are initials
     elsif (name.upcase == name)
       name
     elsif (name != "Ed" && name != "Jo" && name.size <= 2) || name == "DJC" || name == "DGH"
