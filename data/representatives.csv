@@ -120,7 +120,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 120,,Ann Kathleen Corcoran,Isaacs,Vic.,12.8.2000,by_election,17.10.2007,retired,ALP
 121,,Peter Howard Costello,Higgins,Vic.,24.3.1990,,19.10.2009,resigned,LIB
 122,,John Francis Cotter,Kalgoorlie,WA,13.12.1975,,18.10.1980,defeated,LIB
-123,,Mark Maclean Coulton,Parkes,NSW,24.11.2007,,,still_in_office,Nats
+123,,Mark Maclean Coulton,Parkes,NSW,24.11.2007,,30.8.2016,changed_party,Nats
 124,,Brian William Courtice,Hinkler,Qld,11.7.1987,,13.3.1993,defeated,ALP
 125,,David Bruce Cowan,Lyne,NSW,18.10.1980,,8.2.1993,retired,NPA
 126,,David Alexander Cox,Kingston,SA,3.10.1998,,9.10.2004,defeated,ALP
@@ -721,3 +721,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 722,,Andrew Wallace,Fisher,QLD,2.7.2016,,,still_in_office,LIB
 723,,Andrew Leigh,Fenner,ACT,2.7.2016,,,still_in_office,ALP
 724,,Stephen Jones,Whitlam,NSW,2.7.2016,,,still_in_office,ALP
+725,,Mark Maclean Coulton,Parkes,NSW,30.8.2016,changed_party,,still_in_office,CWM
