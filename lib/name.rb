@@ -85,9 +85,10 @@ class Name
     if initials_with_fullstops(name)
       initials_with_fullstops(name)
     # Heuristic: If word is all caps we'll assume that these are initials
-    elsif (name.upcase == name)
+    # HACK: unless it is "-", which could be part of a hyphenated name in specific case
+    elsif (name.upcase == name) && name != "-"
       name
-    elsif (name != "Ed" && name != "Jo" && name.size <= 2) || name == "DJC" || name == "DGH"
+    elsif (name != "Ed" && name != "Jo" && name != "-" && name.size <= 2) || name == "DJC" || name == "DGH"
       name
     end
   end

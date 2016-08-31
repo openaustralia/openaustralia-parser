@@ -21,7 +21,10 @@ describe Name do
 
     it "returns the string if it is all non-letter characters" do
       expect(Name.initials("1234")).to eq "1234"
-      expect(Name.initials("–")).to eq "–"
+    end
+
+    it "returns nil if it is a specific non-letter character" do
+      expect(Name.initials("-")).to eq nil
     end
 
     it "returns nil if it is a specific two letter name (Ed or Jo)" do
