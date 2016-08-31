@@ -18,7 +18,17 @@ In the `recess.php` file you need to specify the date ranges that the parliament
 
 ### Ministerial reshuffles
 
-TODO.
+#### What
+
+On each person's profile page we show the positions they hold or have held in the past. For example, these could be _Shadow Minister for Health_ or _Prime Minister_. We also show it next to their name in the debates to give some extra context about who is speaking.
+
+These change when there's a ministerial reshuffle. This can happen because the party decides to make a change or because it's forced to, e.g. when someone leaves parliament. In addition to the government's ministry there's also the opposition's shadown ministry.
+
+#### How
+
+These changes are usually tabled in parliament and show up in Hansard under the heading _Ministerial Arrangements_ or _Shadow Ministerial Arrangemnts_. Here's [an example](http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;adv=yes;db=CHAMBER;id=chamber%2Fhansardr%2F1133bdef-2731-42fb-a226-6522e1a8fec5%2F0025;orderBy=_fragment_number,doc_date-rev;page=0;query=Dataset%3Ahansardr,hansardr80%20Date%3A30%2F8%2F2016;rec=0;resCount=Default) of the one from the start of the 2016 parliament.
+
+What you need to do is go through that document and make sure the data that we have in [`data/ministers.csv`](https://github.com/openaustralia/openaustralia-parser/blob/master/data/ministers.csv) or [`data/shadow-ministers.csv`](https://github.com/openaustralia/openaustralia-parser/blob/master/data/shadow-ministers.csv) matches it. This means adding "to" dates to people that are no longer in the list and adding new records for those people that have been added.
 
 ## Copyright & License
 
