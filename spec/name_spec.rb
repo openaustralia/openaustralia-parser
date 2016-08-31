@@ -54,6 +54,34 @@ describe Name do
   end
 
   describe '.last_title_first' do
+    it 'parses names with no middle names' do
+      name = Name.last_title_first("  ALY  ,   Anne  ")
+      name.first.should == 'Anne'
+      name.middle.should == ""
+      name.last.should == 'Aly'
+    end
+
+    it 'parses names with middle names' do
+      name = Name.last_title_first("  BAKER  ,   Mark     Horden  ")
+      name.first.should == 'Mark'
+      name.middle.should == 'Horden'
+      name.last.should == 'Baker'
+    end
+
+    it 'parses names with titles' do
+      name = Name.last_title_first("  BACK  , Dr   Christopher     John  ")
+      name.first.should == 'Christopher'
+      name.middle.should == 'John'
+      name.last.should == 'Back'
+    end
+
+    it 'parses names with titles and brackets' do
+      name = Name.last_title_first("  BAILEY  , the Hon. Frances (  Fran  )   Esther  ")
+      name.first.should == 'Frances'
+      name.middle.should == 'Esther'
+      name.last.should == 'Bailey'
+    end
+
     it 'parses non-hypenated first names' do
       name = Name.last_title_first("  BROWN  ,   Robert   (Bob)   James  ")
       name.first.should == 'Robert'
@@ -68,7 +96,7 @@ describe Name do
       name.last.should == 'Kelly'
     end
 
-    it 'parses all-caps, hyphenated last names' do
+    it 'parses hyphenated last names' do
       name = Name.last_title_first("  HANSON  -  YOUNG  ,   Sarah   Coral")
       name.first.should == 'Sarah'
       name.middle.should == 'Coral'
