@@ -32,7 +32,7 @@ Here's [an example](https://github.com/openaustralia/openaustralia-parser/commit
 
 ##### Changing parties
 
-TODO.
+When someone [changes parties](https://github.com/openaustralia/openaustralia-parser/commit/41838814d7b51059d6ba56c0f1a4c74aece2cba6), or [becomes Speaker](https://github.com/openaustralia/openaustralia-parser/commit/2f6990bb8da5e5452103c649ac92c18709fadf3e), you need to update their membership record's end date and reason (to `changed_party`), and create a new one for their new party membership.
 
 ##### Entering parliament
 
