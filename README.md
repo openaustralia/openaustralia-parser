@@ -36,7 +36,9 @@ When someone [changes parties](https://github.com/openaustralia/openaustralia-pa
 
 ##### Entering parliament
 
-TODO.
+When you add someone you need to create a membership record, like those discussed in the above sections about leaving parliament or changing parties, and you also need to create a new Person record in [`data/people.csv`](https://github.com/openaustralia/openaustralia-parser/blob/master/data/people.csv). The "APH ID" referred to in this file is the one you can find in the URL string of the person's APH profile page.
+
+For example, [Linda Burney's](http://www.aph.gov.au/Senators_and_Members/Parliamentarian?MPID=8GH) is `8GH` as you can see in the URL of her APH page http://www.aph.gov.au/Senators_and_Members/Parliamentarian?MPID=<strong>8GH</strong> and also in [the commit](https://github.com/openaustralia/openaustralia-parser/commit/8c286a12f5cc00682a011b4159d821ccc7b3b245#diff-b66a2e76ccb4627268b1733ec86424e8R887) that added her to OpenAustralia.org.
 
 ### Ministerial reshuffles
 
