@@ -4,7 +4,7 @@ See for installation instructions http://software.openaustralia.org/install-pars
 
 ## Data updates
 
-We try to automate data updates to OpenAustralia.org as much as possible but in some circumstances it's not currently possible. This section lists the various bits of data that we need to keep up to date manually.
+We try to automate data updates to [OpenAustralia.org](http://www.openaustralia.org.au/) as much as possible but in some circumstances it's not currently possible. This section lists the various bits of data that we need to keep up to date manually.
 
 ### Recesses/calendar
 
