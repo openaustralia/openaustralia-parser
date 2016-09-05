@@ -182,18 +182,21 @@ representatives_data = page.search('ul.links')[2].search(:li).map do |li|
   {:id => representative.id, :aph_interests_url => url}
 end
 
-base_url = 'http://www.aph.gov.au/Parliamentary_Business/Committees/Senate/Senators_Interests/Register_4_August'
-page = agent.get(base_url)
+# Disabled until it comes back on the 27th of September: http://www.aph.gov.au/Parliamentary_Business/Committees/Senate/Senators_Interests/
+puts "DISABLED: The Register of Senators' Interests data disabled because it's offline."
+senate_data = []
+# base_url = 'http://www.aph.gov.au/Parliamentary_Business/Committees/Senate/Senators_Interests/Register_4_August'
+# page = agent.get(base_url)
 
-senate_data = page.at('#main_0_content_0_divContent').search('ul.links').map do |ul|
-  senator = people.find_person_by_name(Name.last_title_first(ul.at(:a).inner_text.split(' - ').first))
-  raise if senator.nil?
+# senate_data = page.at('#main_0_content_0_divContent').search('ul.links').map do |ul|
+#   senator = people.find_person_by_name(Name.last_title_first(ul.at(:a).inner_text.split(' - ').first))
+#   raise if senator.nil?
 
-  url = base_url + ul.at(:a).attr(:href)
-  last_updated = Date.parse(ul.at(:em).inner_text.split(' Last updated ').last)
+#   url = base_url + ul.at(:a).attr(:href)
+#   last_updated = Date.parse(ul.at(:em).inner_text.split(' Last updated ').last)
 
-  {:id => senator.id, :aph_interests_url => url, :aph_interests_last_updated => last_updated}
-end
+#   {:id => senator.id, :aph_interests_url => url, :aph_interests_last_updated => last_updated}
+# end
 
 xml = File.open("#{conf.members_xml_path}/links-register-of-interests.xml", 'w')
 x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
