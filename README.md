@@ -4,7 +4,7 @@ See for installation instructions http://software.openaustralia.org/install-pars
 
 ## Data updates
 
-While we have largely automated data updates to OpenAustralia.org, the parliamentary calendar and people records (and their ministerial roles) must be updated manually. This section explains how you can update these bits and check your changes.
+While we have largely automated data updates to [OpenAustralia.org](http://www.openaustralia.org.au/), the parliamentary calendar and people records (and their ministerial roles) must be updated manually. This section explains how you can update these bits and check your changes.
 
 ### Updating recess and sitting dates in the calendar
 
