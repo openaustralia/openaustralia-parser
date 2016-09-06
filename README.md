@@ -37,9 +37,15 @@ When someone [changes parties](https://github.com/openaustralia/openaustralia-pa
 
 ##### Entering parliament
 
-When you add someone you need to create a membership record, like those discussed in the above sections about leaving parliament or changing parties, and you also need to create a new Person record in [`data/people.csv`](https://github.com/openaustralia/openaustralia-parser/blob/master/data/people.csv). The "APH ID" referred to in this file is the one you can find in the URL string of the person's APH profile page.
+When a new person enters parliament, you need to create **two kinds of records** for them.
 
+Firstly, you need to add a new Person record at the end of [`data/people.csv`](https://github.com/openaustralia/openaustralia-parser/blob/master/data/people.csv).
+The "APH ID" referred to in this file is the one you can find in the URL string of the person's APH profile page.
 For example, [Linda Burney's](http://www.aph.gov.au/Senators_and_Members/Parliamentarian?MPID=8GH) is `8GH` as you can see in the URL of her APH page http://www.aph.gov.au/Senators_and_Members/Parliamentarian?MPID=<strong>8GH</strong> and also in [the commit](https://github.com/openaustralia/openaustralia-parser/commit/8c286a12f5cc00682a011b4159d821ccc7b3b245#diff-b66a2e76ccb4627268b1733ec86424e8R887) that added her to OpenAustralia.org.
+
+Secondly, you need to create a membership record for them, just like [when a person changes parties](https://github.com/openaustralia/openaustralia-parser#changing-parties).
+
+See [commit ee9d91c](https://github.com/openaustralia/openaustralia-parser/commit/ee9d91c7250688200217cb47b51aa43c45f3b8e1) for an example of making both the required changes for new MP Malarndirri McCarthy.
 
 #### Checking
 
