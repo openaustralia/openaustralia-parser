@@ -8,9 +8,8 @@ While we have largely automated data updates to OpenAustralia.org, the parliamen
 
 ### Updating recess and sitting dates in the calendar
 
-#### What
-
-The sitting dates shown on [the calendar](http://www.openaustralia.org.au/debates/?y=2016) on OpenAustralia.org and a little banner on the front page are based on information in [`recess.php`](https://github.com/openaustralia/twfy/blob/master/www/includes/easyparliament/recess.php) in the [web application's repository](https://github.com/openaustralia/twfy/).
+The parliamentary sitting dates are shown on [the calendar](http://www.openaustralia.org.au/debates/?y=2016) on OpenAustralia.org and as a little banner on the front page.
+These are both based on information in [`recess.php`](https://github.com/openaustralia/twfy/blob/master/www/includes/easyparliament/recess.php) in the [web application's repository](https://github.com/openaustralia/twfy/).
 
 #### How
 
@@ -21,8 +20,6 @@ In the `recess.php` file you need to specify the date ranges that the parliament
 After you've made these changes open your development copy of OpenAustralia.org and visit the [calendar page](http://www.openaustralia.org.au/debates/?y=2016) for the year you've changed to see if it looks OK. Non-sitting dates should be grey and should say "recess" when you hover over them.
 
 ### Adding or removing people
-
-#### What
 
 During the term of a parliament, for all sorts of reasons, people can leave (e.g. retirement, death) or enter parliament (e.g. by-election, appointed to fill a [casual vacancy](https://en.wikipedia.org/wiki/Australian_Senate#Casual_vacancies)). At a general election lots of people leave and enter parliament as they're elected or not re-elected.
 
@@ -49,8 +46,6 @@ For example, [Linda Burney's](http://www.aph.gov.au/Senators_and_Members/Parliam
 After making changes run [`./parse-members.rb`](https://github.com/openaustralia/openaustralia-parser/blob/master/parse-members.rb), check the output, and also check that it's loaded your changes correctly into your development copy of OpenAustralia.org.
 
 ### Ministerial reshuffles
-
-#### What
 
 On each person's profile page we show the positions they hold or have held in the past. For example, these could be _Shadow Minister for Health_ or _Prime Minister_. We also show it next to their name in the debates to give some extra context about who is speaking.
 
