@@ -53,7 +53,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 265,,Jacinta Mary Ann Collins,,Vic.,8.5.2008,,,still_in_office,ALP
 51,,Robert Lindsay Collins,,NT,11.7.1987,,30.3.1998,resigned,ALP
 52,,Malcolm Arthur Colston,,Qld,13.12.1975,,30.6.1999,retired,IND
-53,,Stephen Michael Conroy,,Vic.,30.4.1996,section_15,,still_in_office,ALP
+53,,Stephen Michael Conroy,,Vic.,30.4.1996,section_15,30.9.2016,resigned,ALP
 54,,Peter Francis Salmon Cook,,WA,5.3.1983,,30.6.2005,retired,ALP
 55,,Helen Lloyd Coonan,,NSW,1.7.1996,,22.8.2011,resigned,LIB
 56,,Bernard Cornelius Cooney,,Vic.,1.12.1984,,30.6.2002,retired,ALP
@@ -348,3 +348,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 862,,Louise Pratt,,WA,1.7.2016,,,still_in_office,ALP
 863,,Malcolm Roberts,,QLD,1.7.2016,,,still_in_office,PHON
 864,,Murray Watt,,QLD,1.7.2016,,,still_in_office,ALP
+865,,Kimberley Kitching,,Vic.,25.10.2016,section_15,,still_in_office,ALP
