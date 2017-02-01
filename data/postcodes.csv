@@ -1,4 +1,4 @@
-postcode,electorate
+postcode,"COALESCE(NULLIF(electorate,''),redistributedElectorate)"
 3153,Aston
 3155,Aston
 3156,Aston
@@ -429,11 +429,11 @@ postcode,electorate
 3722,Indi
 3747,Indi
 3672,Indi
-6112,""
-6155,""
-6111,""
-6110,""
-6147,""
+6112,Burt
+6155,Burt
+6111,Burt
+6110,Burt
+6147,Burt
 3168,Bruce
 3175,Bruce
 3150,Bruce
@@ -1538,7 +1538,7 @@ postcode,electorate
 3739,Indi
 3713,Indi
 2605,Canberra
-6108,""
+6108,Burt
 2607,Canberra
 2603,Canberra
 2609,Canberra
