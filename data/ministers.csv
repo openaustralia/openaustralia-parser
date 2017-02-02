@@ -392,8 +392,8 @@
 "The Hon Mal Brough MP",18/07/2004,27/01/2006,"Minister for Revenue and Assistant Treasurer"
 "The Hon Mal Brough MP",27/01/2006,03/12/2007,"Minister Assisting the Prime Minister for Indigenous Affairs"
 "The Hon Mal Brough MP",27/01/2006,03/12/2007,"Minister for Families, Community Services and Indigenous Affairs"
-The Hon Mal Brough MP,21/09/2015,,Special Minister of State
-The Hon Mal Brough MP,21/09/2015,,Minister for Defence Materiel and Science
+The Hon Mal Brough MP,21/09/2015,18/02/2016,Special Minister of State
+The Hon Mal Brough MP,21/09/2015,18/02/2016,Minister for Defence Materiel and Science
 "The Hon Malcolm Turnbull MP",27/01/2006,30/01/2007,"Parliamentary Secretary to the Prime Minister"
 "The Hon Malcolm Turnbull MP",30/01/2007,03/12/2007,"Minister for the Environment and Water Resources"
 "The Hon Mark Butler MP",09/06/2009,14/09/2010,"Parliamentary Secretary for Health"
@@ -533,9 +533,9 @@ The Hon Mal Brough MP,21/09/2015,,Minister for Defence Materiel and Science
 "The Hon Wayne Swan MP",24/06/2010,27/06/2013,"Deputy Prime Minister"
 "The Hon Yvette D'Ath MP",04/02/2013,18/09/2013,"Parliamentary Secretary for Climate Change and Energy Efficiency"
 The Hon Tony Abbott MP,18/09/2013,15/09/2015,Prime Minister
-The Hon Warren Truss MP,18/09/2013,,Deputy Prime Minister
-The Hon Warren Truss MP,18/09/2013,,Minister for Infrastructure and Regional Development
-The Hon Warren Truss MP,18/09/2013,,Leader of the Nationals
+The Hon Warren Truss MP,18/09/2013,18/02/2016,Deputy Prime Minister
+The Hon Warren Truss MP,18/09/2013,18/02/2016,Minister for Infrastructure and Regional Development
+The Hon Warren Truss MP,18/09/2013,12/02/2016,Leader of the Nationals
 The Hon Julie Bishop MP,18/09/2013,,Minister for Foreign Affairs
 The Hon Julie Bishop MP,18/09/2013,,Deputy Leader of the Liberal Party
 Senator the Hon Eric Abetz,18/09/2013,21/09/2015,Minister for Employment
@@ -568,17 +568,20 @@ The Hon Peter Dutton MP,18/09/2013,23/11/2014,Minister for Health
 The Hon Peter Dutton MP,18/09/2013,23/11/2014,Minister for Sport
 The Hon Peter Dutton MP,23/11/2014,,Minister for Immigration and Border Protection
 The Hon Bruce Billson MP,18/09/2013,21/09/2015,Minister for Small Business
-The Hon Andrew Robb AO MP,18/09/2013,,Minister for Trade and Investment
+The Hon Andrew Robb AO MP,18/09/2013,18/02/2016,Minister for Trade and Investment
 Senator the Hon David Johnston,18/09/2013,23/11/2014,Minister for Defence
 The Hon Greg Hunt MP,18/09/2013,30/08/2016,Minister for the Environment
-The Hon Greg Hunt MP,30/08/2016,,"Minister for Industry, Innovation and Science"
+The Hon Greg Hunt MP,30/08/2016,24/01/2017,"Minister for Industry, Innovation and Science"
+The Hon Greg Hunt MP,24/01/2017,,Minister for Health
+The Hon Greg Hunt MP,24/01/2017,,Minister for Sport
 The Hon Scott Morrison MP,18/09/2013,23/11/2014,Minister for Immigration and Border Protection
 The Hon Scott Morrison MP,23/11/2014,21/09/2015,Minister for Social Services
 The Hon Scott Morrison MP,21/09/2015,,Treasurer
 Senator the Hon Mathias Cormann,18/09/2013,,Minister for Finance
+Senator the Hon Mathias Cormann,24/01/2017,,Deputy Leader of the Government in the Senate
 Senator the Hon Mitch Fifield,18/09/2013,21/09/2015,Assistant Minister for Social Services
 Senator the Hon Mitch Fifield,18/09/2013,,Manager of Government Business in the Senate
-Senator the Hon Mitch Fifield,21/09/2015,,Minister Assisting the Prime Minister for Digital Government
+Senator the Hon Mitch Fifield,21/09/2015,18/02/2016,Minister Assisting the Prime Minister for Digital Government
 Senator the Hon Mitch Fifield,21/09/2015,,Minister for Communications
 Senator the Hon Mitch Fifield,21/09/2015,,Minister for the Arts
 The Hon Luke Hartsuyker MP,18/09/2013,21/09/2015,Assistant Minister for Employment
@@ -597,16 +600,16 @@ Senator the Hon Michael Ronaldson,18/09/2013,21/09/2015,Minister for Veterans’
 Senator the Hon Michael Ronaldson,18/09/2013,21/09/2015,Minister Assisting the Prime Minister for the Centenary of ANZAC
 Senator the Hon Michael Ronaldson,18/09/2013,21/09/2015,Special Minister of State
 The Hon Sussan Ley MP,18/09/2013,23/11/2014,Assistant Minister for Education
-The Hon Sussan Ley MP,23/11/2014,,Minister for Health
-The Hon Sussan Ley MP,23/11/2014,,Minister for Sport
-The Hon Sussan Ley MP,21/09/2015,,Minister for Aged Care
+The Hon Sussan Ley MP,23/11/2014,19/07/2016,Minister for Health
+The Hon Sussan Ley MP,23/11/2014,24/01/2017,Minister for Sport
+The Hon Sussan Ley MP,21/09/2015,19/07/2016,Minister for Aged Care
 Senator the Hon Marise Payne,18/09/2013,21/09/2015,Minister for Human Services
 Senator the Hon Marise Payne,21/09/2015,,Minister for Defence
 The Hon Michael Keenan MP,18/09/2013,,Minister for Justice
 The Hon Michael Keenan MP,28/05/2015,,"Minister Assisting the Prime Minister for Counter-Terrorism"
 The Hon Stuart Robert MP,18/09/2013,21/09/2015,Assistant Minister for Defence
-The Hon Stuart Robert MP,21/09/2015,,Minister for Veterans’ Affairs
-The Hon Stuart Robert MP,21/09/2015,,Minister Assisting the Prime Minister for the Centenary of ANZAC
+The Hon Stuart Robert MP,21/09/2015,30/08/2016,Minister for Veterans’ Affairs
+The Hon Stuart Robert MP,21/09/2015,30/08/2016,Minister Assisting the Prime Minister for the Centenary of ANZAC
 The Hon Stuart Robert MP,21/09/2015,,Minister for Human Services
 Senator the Hon Michaelia Cash,18/09/2013,21/09/2015,Assistant Minister for Immigration and Border Protection
 Senator the Hon Michaelia Cash,18/09/2013,21/09/2015,Minister Assisting the Prime Minister for Women
@@ -614,12 +617,13 @@ Senator the Hon Michaelia Cash,21/09/2015,,Minister for Women
 Senator the Hon Michaelia Cash,21/09/2015,,Minister Assisting the Prime Minister for the Public Service
 Senator the Hon Michaelia Cash,21/09/2015,,Minister for Employment
 The Hon Jamie Briggs MP,18/09/2013,21/09/2015,Assistant Minister for Infrastructure and Regional Development
-The Hon Jamie Briggs MP,21/09/2015,,Minister for Cities and the Built Environment
+The Hon Jamie Briggs MP,21/09/2015,30/12/2015,Minister for Cities and the Built Environment
 Senator the Hon Arthur Sinodinos AO,18/09/2013,19/12/2014,Assistant Treasurer
-Senator the Hon Arthur Sinodinos AO,21/09/2015,,Cabinet Secretary
+Senator the Hon Arthur Sinodinos AO,21/09/2015,24/01/2017,Cabinet Secretary
+Senator the Hon Arthur Sinodinos AO,24/01/2017,,Minister for Industry, Innovation and Science
 Senator the Hon Richard Colbeck,18/09/2013,21/09/2015,Parliamentary Secretary to the Minister for Agriculture
-Senator the Hon Richard Colbeck,21/09/2015,,Minister for Tourism and International Education
-Senator the Hon Richard Colbeck,21/09/2015,,Minister Assisting the Minister for Trade and Investment
+Senator the Hon Richard Colbeck,21/09/2015,19/07/2016,Minister for Tourism and International Education
+Senator the Hon Richard Colbeck,21/09/2015,19/07/2016,Minister Assisting the Minister for Trade and Investment
 The Hon Bob Baldwin MP,18/09/2013,23/11/2014,Parliamentary Secretary to the Minister for Industry
 The Hon Bob Baldwin MP,23/11/2014,21/09/2015,Parliamentary Secretary to the Minister for the Environment
 Senator the Hon Brett Mason,18/09/2013,23/11/2014,Parliamentary Secretary to the Minister for Foreign Affairs
@@ -636,8 +640,9 @@ Senator the Hon Simon Birmingham,23/11/2014,21/09/2015,Assistant Minister for Ed
 Senator the Hon Simon Birmingham,21/09/2015,,Minister for Education and Training
 Senator the Hon Scott Ryan,18/09/2013,23/11/2014,Parliamentary Secretary to the Minister for Education
 Senator the Hon Scott Ryan,23/11/2014,21/09/2015,Parliamentary Secretary to the Minister for Education and Training
-Senator the Hon Scott Ryan,21/09/2015,,Assistant Cabinet Secretary
+Senator the Hon Scott Ryan,21/09/2015,18/02/2016,Assistant Cabinet Secretary
 Senator the Hon Scott Ryan,30/08/2016,,"Special Minister of State"
+Senator the Hon Scott Ryan,24/01/2017,,Minister Assisting the Prime Minister for Cabinet
 The Hon Darren Chester MP,18/09/2013,21/09/2015,Parliamentary Secretary to the Minister for Defence
 The Hon Darren Chester MP,21/09/2015,30/08/2016,Assistant Minister for Defence
 The Hon Darren Chester MP,30/08/2016,,"Minister for Infrastructure and Transport"
@@ -666,13 +671,15 @@ The Hon Kelly O’Dwyer MP,21/09/2015,30/08/2016,Assistant Treasurer
 The Hon Kelly O’Dwyer MP,30/08/2016,,"Minister for Revenue and Financial Services"
 The Hon Malcolm Turnbull MP,15/09/2015,,Prime Minister
 Senator the Hon James McGrath,21/09/2015,,Assistant Minister to the Prime Minister
-The Hon Dr Peter Hendy MP,21/09/2015,,Assistant Minister for Productivity
+The Hon Dr Peter Hendy MP,21/09/2015,18/02/2016,Assistant Minister for Productivity
 The Hon Alex Hawke MP,21/09/2015,30/08/2016,"Assistant Minister to the Treasurer"
 The Hon Alex Hawke MP,30/08/2016,,"Assistant Minister for Immigration and Border Protection"
 Senator the Hon Anne Ruston,21/09/2015,,Assistant Minister for Agriculture and Water Resources
-The Hon Wyatt Roy MP,21/09/2015,,Assistant Minister for Innovation
+The Hon Wyatt Roy MP,21/09/2015,19/07/2016,Assistant Minister for Innovation
 The Hon Ken Wyatt AM MP,21/09/2015,30/08/2016,Assistant Minister for Health
-The Hon Ken Wyatt AM MP,30/08/2016,,"Assistant Minister for Health And Aged Care"
+The Hon Ken Wyatt AM MP,30/08/2016,24/01/2017,"Assistant Minister for Health And Aged Care"
+The Hon Ken Wyatt AM MP,24/01/2017,,Minister for Aged Care
+The Hon Ken Wyatt AM MP,24/01/2017,,Minister for Indigenous Health
 The Hon Dan Tehan MP,30/08/2016,,"Minister Assisting the Prime Minister for Cyber Security"
 The Hon Dan Tehan MP,30/08/2016,,"Minister for Veterans’ Affairs"
 The Hon Dan Tehan MP,30/08/2016,,"Minister Assisting the Prime Minister for the Centenary of ANZAC"
@@ -681,6 +688,8 @@ The Hon Angus Taylor MP,30/08/2016,,"Assistant Minister for Cities and Digital T
 The Hon Keith Pitt MP,30/08/2016,,"Assistant Minister for Trade, Tourism and Investment"
 Senator the Hon Matt Canavan,30/08/2016,,"Minister for Resources and Northern Australia"
 The Hon Craig Laundy MP,30/08/2016,,"Assistant Minister for Industry, Innovation and Science"
-The Hon Dr David Gillespie MP,30/08/2016,,"Assistant Minister for Rural Health"
+The Hon Dr David Gillespie MP,30/08/2016,24/01/2017,"Assistant Minister for Rural Health"
+The Hon Dr David Gillespie MP,24/01/2017,,Assistant Minister for Health
 The Hon Jane Prentice MP,30/08/2016,,"Assistant Minister for Social Services and Disability Services"
 Senator the Hon Zed Seselja,30/08/2016,,"Assistant Minister for Social Services and Multicultural Affairs"
+The Hon Michael Sukkar MP,24/01/2017,,Assistant Minister to the Treasurer
