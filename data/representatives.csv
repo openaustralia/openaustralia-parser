@@ -58,7 +58,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 57,,Russell Evan Broadbent,McMillan,Vic.,9.10.2004,,,still_in_office,LIB
 58,,Malcolm Thomas Brough,Longman,Qld,2.3.1996,,24.11.2007,defeated,LIB
 59,,John Joseph Brown,Parramatta,NSW,10.12.1977,,19.2.1990,retired,ALP
-# TODO: Joseph Tilley Brown should be removed when possible,,,,,,,,,,
+# TODO: Joseph Tilley Brown should be removed when possible,,,,,,,,,
 60,,Joseph Tilley Brown,Indi,Vic.,12.12.1906,,13.4.1910,defeated,ANTI-SOC
 62,74,Robert James Brown,Charlton,NSW,1.12.1984,,31.8.1998,retired,ALP
 63,74,Robert James Brown,Hunter,NSW,18.10.1980,,1.12.1984,elected_elsewhere,ALP
@@ -671,7 +671,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 673,,Lucy Wicks,Robertson,NSW,7.9.2013,,,still_in_office,LIB
 674,,Andrew Giles,Scullin,Vic,7.9.2013,,,still_in_office,ALP
 675,,Ms Anna Elizabeth Burke,Chisholm,Vic.,05.08.2013,changed_party,9.5.2016,retired,ALP
-676,,Bronwyn Kathleen Bishop,Mackellar,NSW,12.11.2013,changed_party,02.08.2015,still_in_office,SPK
+676,,Bronwyn Kathleen Bishop,Mackellar,NSW,12.11.2013,changed_party,02.08.2015,changed_party,SPK
 677,,Clive Frederick Palmer,Fairfax,Qld,07.09.2013,,9.5.2016,retired,PUP
 678,,Terri Butler,Griffith,QLD,8.2.2014,by_election,,still_in_office,ALP
 679,,Bronwyn Kathleen Bishop,Mackellar,NSW,02.08.2015,changed_party,9.5.2016,retired,LIB
