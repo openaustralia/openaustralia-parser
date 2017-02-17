@@ -11,7 +11,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 11,,Michael Eamon Beahan,,WA,11.7.1987,,01.02.1994,changed_party,ALP
 272,,Michael Eamon Beahan,,WA,01.02.1994,changed_party,30.6.1996,defeated,PRES
 12,,Robert John Bell,,Tas.,7.3.1990,section_15,30.6.1996,defeated,AD
-13,,Cory Bernardi,,SA,4.5.2006,section_15,,still_in_office,LIB
+13,,Cory Bernardi,,SA,4.5.2006,section_15,7.2.2017,changed_party,LIB
 14,,Simon John Birmingham,,SA,3.5.2007,section_15,,still_in_office,LIB
 15,,Bronwyn Kathleen Bishop,,NSW,11.7.1987,,24.2.1994,resigned,LIB
 16,,Thomas Mark Bishop,,WA,1.7.1996,,30.6.2014,retired,ALP
@@ -349,3 +349,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 863,,Malcolm Roberts,,QLD,1.7.2016,,,still_in_office,PHON
 864,,Murray Watt,,QLD,1.7.2016,,,still_in_office,ALP
 865,,Kimberley Kitching,,Vic.,25.10.2016,section_15,,still_in_office,ALP
+866,,Cory Bernardi,,SA,7.2.2017,,,still_in_office,AC
