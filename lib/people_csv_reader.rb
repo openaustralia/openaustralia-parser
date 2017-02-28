@@ -163,6 +163,8 @@ class PeopleCSVReader
       "Nick Xenophon Team"
     when "DHJP"
       "Derryn Hinch's Justice Party"
+    when "AC"
+      "Australian Conservatives"
     when "ANTI-SOC", "SPK", "CWM", "PRES", "DPRES"
       # Do nothing
       party
