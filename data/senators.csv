@@ -337,7 +337,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 851,,Jonathon Duniam,,Tasmania,1.7.2016,,,still_in_office,LIB
 852,,Brian Burston,,NSW,1.7.2016,,,still_in_office,PHON
 853,,Anthony Chisholm,,QLD,1.7.2016,,,still_in_office,ALP
-854,,Rod Culleton,,WA,1.7.2016,,,still_in_office,PHON
+854,,Rod Culleton,,WA,1.7.2016,,,defeated,PHON
 855,,Don Farrell,,SA,1.7.2016,,,still_in_office,ALP
 856,,Stirling Griff,,SA,1.7.2016,,,still_in_office,NXT
 857,,Pauline Lee Hanson,,QLD,1.7.2016,,,still_in_office,PHON
@@ -351,3 +351,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 865,,Kimberley Kitching,,Vic.,25.10.2016,section_15,,still_in_office,ALP
 866,,Cory Bernardi,,SA,7.2.2017,changed_party,,still_in_office,AC
 867,,Nick Xenophon,,SA,1.7.2016,changed_party,,still_in_office,NXT
+868,,Peter Georgiou,,WA,26.3.2017,,,still_in_office,PHON
