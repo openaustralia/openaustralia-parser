@@ -302,7 +302,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 304,,Lin Estelle Thorp,,Tas.,20.6.2012,,30.6.2014,retired,ALP
 305,,Peter Stuart Whish-Wilson,,Tas.,20.06.2012,,,still_in_office,GRN
 306,,Anne Ruston,,SA,05.09.2012,section_15,,still_in_office,LIB
-307,,Sue Lines,,WA,15.5.2013,section_15,,still_in_office,ALP
+307,,Sue Lines,,WA,15.5.2013,section_15,30.9.2016,changed_party,ALP
 308,,Sam Dastyari,,NSW,21.8.2013,section_15,,still_in_office,ALP
 309,,Nova Peris,,NT,07.9.2013,,9.5.2016,retired,ALP
 310,,Mehmet Tillem,,Victoria,21.8.2013,section_15,30.6.2014,retired,ALP
@@ -322,7 +322,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 836,,Janet Rice,,Victoria,1.7.2014,,,still_in_office,GRN
 837,,Dio Wang,,WA,1.7.2014,,9.5.2016,defeated,PUP
 838,,Stephen Shane Parry,,Tas.,7.7.2014,changed_party,,still_in_office,PRES
-839,,Gavin Mark Marshall,,Vic.,7.7.2014,changed_party,,still_in_office,DPRES
+839,,Gavin Mark Marshall,,Vic.,7.7.2014,changed_party,9.5.2016,changed_party,DPRES
 840,,Stephen Shane Parry,,Tas.,4.7.2011,changed_party,6.7.2014,changed_party,DPRES
 841,,John Madigan,,Victoria,4.9.2014,,9.5.2016,defeated,IND
 842,,Jacqui Lambie,,Tasmania,24.11.2014,,,still_in_office,IND
@@ -354,3 +354,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 868,,Peter Georgiou,,WA,20.3.2017,,,still_in_office,PHON
 869,,Lucy Gichuhi,,SA,19.4.2017,declared_elected,3.5.2017,changed_party,FFP
 870,,Lucy Gichuhi,,SA,3.5.2017,,,still_in_office,IND
+871,,Gavin Mark Marshall,,Vic.,9.5.2016,changed_party,,still_in_office,ALP
+872,,Sue Lines,,WA,30.9.2016,changed_party,,still_in_office,DPRES
