@@ -1,0 +1,49 @@
+--- original.xml	2017-07-18 00:20:03.840000000 +0000
++++ patched.xml	2017-07-18 00:20:38.010000000 +0000
+@@ -4813,7 +4813,7 @@
+ <name>McClelland, RB</name>
+ <name>McMullan, RF</name>
+ <name>Melham, D</name>
+-<name>Murphy, J.P</name>
++<name>Murphy, JP</name>
+ <name>O’Connor, BP</name>
+ <name>O’Connor, GM</name>
+ <name>Owens, J</name>
+@@ -5674,9 +5674,7 @@
+ <name>Dutton, PC</name>
+ <name>Elson, KS</name>
+ <name>Entsch, WG</name>
+-<name>Farmer,</name>
+-<name> </name>
+-<name> PF</name>
++<name>Farmer, PF</name>
+ <name>Fawcett, D</name>
+ <name>Ferguson, MD</name>
+ <name>Forrest, JA *</name>
+@@ -5776,7 +5774,7 @@
+ <name>Lawrence, CM</name>
+ <name>Livermore, KF</name>
+ <name>Macklin, JL</name>
+-<name>McClelland, RF</name>
++<name>McClelland, RB</name>
+ <name>McMullan, RF</name>
+ <name>Melham, D</name>
+ <name>Murphy, JP</name>
+@@ -5857,7 +5855,7 @@
+ <name>McClelland, RB</name>
+ <name>McMullan, RF</name>
+ <name>Melham, D</name>
+-<name>Murphy, J.P</name>
++<name>Murphy, JP</name>
+ <name>O’Connor, BP</name>
+ <name>O’Connor, GM</name>
+ <name>Owens, J</name>
+@@ -6105,7 +6103,7 @@
+ <name>McClelland, RB</name>
+ <name>McMullan, RF</name>
+ <name>Melham, D</name>
+-<name>Murphy, J.P</name>
++<name>Murphy, JP</name>
+ <name>O’Connor, BP</name>
+ <name>O’Connor, GM</name>
+ <name>Owens, J</name>

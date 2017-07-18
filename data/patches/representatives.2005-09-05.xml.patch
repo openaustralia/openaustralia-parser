@@ -1,0 +1,24 @@
+--- original.xml	2017-07-18 05:05:26.709029064 +0000
++++ patched.xml	2017-07-18 05:05:49.383340868 +0000
+@@ -2448,9 +2448,7 @@
+ <num.votes>56</num.votes>
+ <title>AYES</title>
+ <names>
+-<name>A</name>
+-<name>dams</name>
+-<name>, D.G.H.</name>
++<name>Adams, D.G.H.</name>
+ <name>Albanese, A.N.</name>
+ <name>Beazley, K.C.</name>
+ <name>Bevis, A.R.</name>
+@@ -2512,9 +2510,7 @@
+ <num.votes>83</num.votes>
+ <title>NOES</title>
+ <names>
+-<name>A</name>
+-<name>bbott</name>
+-<name>, A.J.</name>
++<name>Abbott, A.J.</name>
+ <name>Anderson, J.D.</name>
+ <name>Andrews, K.J.</name>
+ <name>Bailey, F.E.</name>

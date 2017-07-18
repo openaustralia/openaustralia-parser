@@ -1,0 +1,36 @@
+--- original.xml	2017-07-18 07:37:26.744951932 +0000
++++ patched.xml	2017-07-18 07:37:49.898906124 +0000
+@@ -1945,14 +1945,7 @@
+ <name>McClelland, RB</name>
+ <name>McMullan, RF</name>
+ <name>Melham, D</name>
+-<name>Murphy</name>
+-<name> </name>
+-<name>73</name>
+-<name>AYES</name>
+-<name>57</name>
+-<name>NOES</name>
+-<name>* denotes teller</name>
+-<name>Question agreed to., J.P</name>
++<name>Murphy, J.P</name>
+ <name>O’Connor, BP</name>
+ <name>O’Connor, GM</name>
+ <name>Owens, J</name>
+@@ -7042,7 +7035,7 @@
+ <name>Jenkins, HA</name>
+ <name>Kerr, DJC</name>
+ <name>King, CF</name>
+-<name>Lawrence, CM MCMCOMMISSION</name>
++<name>Lawrence, CM</name>
+ <name>Livermore, KF</name>
+ <name>Macklin, JL</name>
+ <name>McClelland, RB</name>
+@@ -7050,7 +7043,7 @@
+ <name>Melham, D</name>
+ <name>Murphy, JP</name>
+ <name>O’Connor, BP</name>
+-<name>O’Connor, GOVERNMENT MEMBER</name>
++<name>O’Connor, GM</name>
+ <name>Owens, J</name>
+ <name>Plibersek, T</name>
+ <name>Price, LRS</name>

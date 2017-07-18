@@ -1,0 +1,11 @@
+--- original.xml	2017-07-18 04:49:17.976526114 +0000
++++ patched.xml	2017-07-18 04:49:32.989517586 +0000
+@@ -755,7 +755,7 @@
+ <talk.start>
+ <talker>
+ <page.no>20</page.no>
+-<time.stamp>13:445:00</time.stamp>
++<time.stamp>13:44:00</time.stamp>
+ <name role="metadata">Georganas, Steve, MP</name>
+ <name.id>DZY</name.id>
+ <electorate>Hindmarsh</electorate>

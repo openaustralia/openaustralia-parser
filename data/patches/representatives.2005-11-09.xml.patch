@@ -1,0 +1,11 @@
+--- original.xml	2017-07-18 00:49:53.270000000 +0000
++++ patched.xml	2017-07-18 00:49:57.690000000 +0000
+@@ -3955,7 +3955,7 @@
+ <continue>
+ <talk.start>
+ <talker>
+-<name.id>mXH4</name.id>
++<name.id>XH4</name.id>
+ <name role="metadata">McGauran, Peter, MP</name>
+ <name role="display">Mr McGAURAN</name>
+ </talker>
