@@ -97,10 +97,10 @@ def parse_with_retry(interactive, parse, date, path, house)
       choice = STDIN.gets.upcase[0..0]
       if choice == "P"
         system "#{File.dirname(__FILE__)}/create_patch.rb #{house} #{date}"
-        parse_with_retry parse, date, path, house
+        parse_with_retry interactive, parse, date, path, house
         break
       elsif choice == 'R':
-        parse_with_retry parse, date, path, house
+        parse_with_retry interactive, parse, date, path, house
         break
       elsif choice == 'C'
         break
