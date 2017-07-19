@@ -87,11 +87,11 @@ def parse_with_retry(interactive, parse, date, path, house)
     parse.call date, path, house
   rescue Exception => e
     puts "ERROR While processing #{house} #{date}:"
-    puts e.message  
-    puts e.backtrace.join("\n\t")
     if not interactive
       raise
     end
+    puts e.message  
+    puts e.backtrace.join("\n\t")
     while 1
       print "Retry / Patch / Continue / Quit? "
       choice = STDIN.gets.upcase[0..0]
