@@ -86,6 +86,7 @@ def parse_with_retry(interactive, parse, date, path, house)
   begin
     parse.call date, path, house
   rescue Exception => e
+    puts "ERROR While processing #{house} #{date}:"
     puts e.message  
     puts e.backtrace.join("\n\t")
     if not interactive
