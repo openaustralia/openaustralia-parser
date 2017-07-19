@@ -79,20 +79,40 @@ parser = HansardParser.new(people)
 
 progress = ProgressBar.new("parse-speeches", ((to_date - from_date + 1) * 2).to_i)
 
+def parse_with_retry(parse, date, path, house)
+  begin
+    parse.call date, path, house
+  rescue Exception => e
+    puts e.message  
+    puts e.backtrace.join("\n\t")
+    while 1
+      print "Patch / Continue / Quit? "
+      choice = STDIN.gets.upcase[0..0]
+      if choice == "P"
+        system "#{File.dirname(__FILE__)}/create_patch.rb #{house} #{date}"
+        parse_with_retry parse, date, path, house
+        break
+      elsif choice == 'C'
+        break
+      elsif choice == 'Q'
+        raise
+      end
+    end
+  end
+end
+
 # Kind of helpful to start at the end date and go backwards when using the "--proof" option. So, always going to do this now.
 date = to_date
 while date >= from_date
   if options[:proof]
-    parser.parse_date_house_only_in_proof(date, "#{conf.xml_path}/scrapedxml/representatives_debates/#{date}.xml", House.representatives)
+    parse = labmda {|a,b,c| parser.parse_date_house_only_in_proof a,b,c}
   else
-    parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/representatives_debates/#{date}.xml", House.representatives)
+    parse = lambda {|a,b,c| parser.parse_date_house a, b, c}
   end
+  parse_with_retry parse, date, "#{conf.xml_path}/scrapedxml/representatives_debates/#{date}.xml", House.representatives
   progress.inc
-  if options[:proof]
-    parser.parse_date_house_only_in_proof(date, "#{conf.xml_path}/scrapedxml/senate_debates/#{date}.xml", House.senate)
-  else
-    parser.parse_date_house(date, "#{conf.xml_path}/scrapedxml/senate_debates/#{date}.xml", House.senate)
-  end
+
+  parse_with_retry parse, date, "#{conf.xml_path}/scrapedxml/senate_debates/#{date}.xml", House.senate
   progress.inc
   date = date - 1
 end

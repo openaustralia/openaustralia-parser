@@ -21,7 +21,7 @@ if ARGV.size != 2
   exit
 end
     
-if ARGV[0] == "reps"
+if ARGV[0] == "reps" or ARGV[0] == "representatives"
   house = House.representatives
 elsif ARGV[0] == "senate"
   house = House.senate
