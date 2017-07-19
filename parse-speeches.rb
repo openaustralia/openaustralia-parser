@@ -31,7 +31,7 @@ def parse_date(text)
 end
 
 # Defaults
-options = {:load_database => true, :proof => false, :force => false}
+options = {:load_database => true, :proof => false, :force => false, :interactive => false}
 
 OptionParser.new do |opts|
   opts.banner = <<EOF
@@ -41,6 +41,9 @@ Usage: parse-speeches.rb [options] <from-date> [<to-date>]
 EOF
   opts.on("--no-load", "Just generate XML and don't load up database") do |l|
     options[:load_database] = l
+  end
+  opts.on("--interactive", "Upon error, allow the user to patch interactively") do |l|
+    options[:interactive] = l
   end
   opts.on("--proof", "Only parse dates that are at proof stage. Will redownload and populate html cache for those dates.") do |l|
     options[:proof] = l
@@ -79,12 +82,15 @@ parser = HansardParser.new(people)
 
 progress = ProgressBar.new("parse-speeches", ((to_date - from_date + 1) * 2).to_i)
 
-def parse_with_retry(parse, date, path, house)
+def parse_with_retry(interactive, parse, date, path, house)
   begin
     parse.call date, path, house
   rescue Exception => e
     puts e.message  
     puts e.backtrace.join("\n\t")
+    if not interactive
+      raise
+    end
     while 1
       print "Patch / Continue / Quit? "
       choice = STDIN.gets.upcase[0..0]
@@ -109,10 +115,10 @@ while date >= from_date
   else
     parse = lambda {|a,b,c| parser.parse_date_house a, b, c}
   end
-  parse_with_retry parse, date, "#{conf.xml_path}/scrapedxml/representatives_debates/#{date}.xml", House.representatives
+  parse_with_retry options[:interactive], parse, date, "#{conf.xml_path}/scrapedxml/representatives_debates/#{date}.xml", House.representatives
   progress.inc
 
-  parse_with_retry parse, date, "#{conf.xml_path}/scrapedxml/senate_debates/#{date}.xml", House.senate
+  parse_with_retry options[:interactive], parse, date, "#{conf.xml_path}/scrapedxml/senate_debates/#{date}.xml", House.senate
   progress.inc
   date = date - 1
 end
