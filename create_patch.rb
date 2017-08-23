@@ -21,7 +21,7 @@ if ARGV.size != 2
   exit
 end
     
-if ARGV[0] == "reps"
+if ARGV[0] == "reps" or ARGV[0] == "representatives"
   house = House.representatives
 elsif ARGV[0] == "senate"
   house = House.senate
@@ -47,5 +47,5 @@ patch_file_path = "#{File.dirname(__FILE__)}/data/patches/#{house}.#{date}.xml.p
 File.open("original.xml", "w") {|f| f << parser.hansard_xml_source_data_on_date(date, house)}
 FileUtils.cp 'original.xml', 'patched.xml'
 
-system("subl --wait patched.xml")
-system("diff -u original.xml patched.xml > #{patch_file_path}")
+system("vim patched.xml")
+system("diff -u original.xml patched.xml >> #{patch_file_path}")
