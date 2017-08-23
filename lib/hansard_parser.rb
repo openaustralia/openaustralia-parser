@@ -103,8 +103,7 @@ class HansardParser
     end
   end
 
-  # Returns HansardDate object for a particular day
-  def hansard_day_on_date(date, house)
+  def xml_path(prefix, date, house)
     if house == House.representatives
        house_loc = "representatives_debates"
     elsif house == House.senate
@@ -112,22 +111,31 @@ class HansardParser
     else
        throw "Assertion failed! unknown house!"
     end
+    "#{@conf.xml_path}/#{prefix}xml/#{house_loc}/#{date}.xml"
+  end
 
+  # Returns HansardDate object for a particular day
+  def hansard_day_on_date(date, house)
     # Load the XML data
-    xml = hansard_xml_source_data_on_date(date, house)
-    if xml
-      # Save the original XML data
-      filename = "#{@conf.xml_path}/origxml/#{house_loc}/#{date}.xml"
-      File.open(filename, 'w') {|f| f.write("#{xml}") }
+    origxml_path = xml_path("orig", date, house)
+    if use_stored and File.size?(origxml_path)
+      xml = File.read(origxml_path)
+    else
+      xml = hansard_xml_source_data_on_date(date, house)
+      if xml
+        # Save the original XML data
+        File.open(origxml_path, 'w') {|f| f.write("#{xml}") }
+      end
+    end
 
+    if xml
       # APH changed their XML format on the 10th of May 2011
       if date >= Date.new(2011,5,10)
         # Rewrite the XML data back to a sane format
         new_xml = @rewriter.rewrite_xml Hpricot.XML(xml)
 
         # Save the rewritten XML data
-        filename = "#{@conf.xml_path}/rewritexml/#{house_loc}/#{date}.xml"
-        File.open(filename, 'w') {|f| f.write("#{new_xml}") }
+        File.open(xml_path("rewrite", date, house), 'w') {|f| f.write("#{new_xml}") }
 
         # Process the day
         HansardDay.new(new_xml, @logger)
