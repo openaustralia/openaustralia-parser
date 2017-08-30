@@ -48,4 +48,4 @@ File.open("original.xml", "w") {|f| f << parser.hansard_xml_source_data_on_date(
 FileUtils.cp 'original.xml', 'patched.xml'
 
 system("subl --wait patched.xml")
-system("diff -u original.xml patched.xml > #{patch_file_path}")
+system("diff -u original.xml patched.xml >> #{patch_file_path}")
