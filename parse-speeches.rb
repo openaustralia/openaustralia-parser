@@ -87,24 +87,24 @@ def parse_with_retry(interactive, parse, date, path, house)
     parse.call date, path, house
   rescue Exception => e
     puts "ERROR While processing #{house} #{date}:"
-    if not interactive
-      raise
-    end
+    raise unless interactive
+
     puts e.message  
     puts e.backtrace.join("\n\t")
     while 1
       print "Retry / Patch / Continue / Quit? "
       choice = STDIN.gets.upcase[0..0]
-      if choice == "P"
+      case choice
+      when "P"
         system "#{File.dirname(__FILE__)}/create_patch.rb #{house} #{date}"
         parse_with_retry interactive, parse, date, path, house
         break
-      elsif choice == 'R':
+      when "R"
         parse_with_retry interactive, parse, date, path, house
         break
-      elsif choice == 'C'
+      when "C"
         break
-      elsif choice == 'Q'
+      when "Q"
         raise
       end
     end
