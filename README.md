@@ -115,7 +115,7 @@ The other most common failure is that APH has published something wacky. To fix 
 
 ### Skipping email alerts after fixing a scraper failure
 
-If you've fixed a failure load lots of missing data into OpenAustralia.org it will automatically send lots of email alerts the next day. This probably isn't what the subscribers want so you need a way to skip sending email alerts for the data you've just loaded.
+If you've fixed a failure and you load lots of missing data into OpenAustralia.org it will automatically send lots of email alerts the next day. This probably isn't what the subscribers want so you need a way to skip sending email alerts for the data you've just loaded.
 
 **tl;dr** Bump the timestamp and batch number in `alerts-lastsent` which is in `twfy/scripts`.
 
