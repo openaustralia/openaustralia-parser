@@ -67,6 +67,52 @@ What you need to do is go through that document and make sure the data that we h
 
 After making changes run [`./parse-members.rb`](https://github.com/openaustralia/openaustralia-parser/blob/master/parse-members.rb), check the output, and also check that it's loaded your changes correctly into your development copy of OpenAustralia.org.
 
+## Failures
+
+Every weekday the `./parse-speeches.rb` script gets run by cron to parse and import new speeches into OpenAustralia.org. From time to time this fails. We can see this when there's a missing day of debates on OpenAustralia.org on the calendar, e.g. http://www.openaustralia.org.au/debates/?y=2017
+
+![Probably a parser failure](https://user-images.githubusercontent.com/48945/31870296-ed69eb78-b7f8-11e7-93e7-9fe1c9b51337.png)
+
+Or by checking the cron output which is emailed to the OAF `web-administrators` Google Group and posted in the `#openaustralia-log` Slack channel. It will look something like this:
+
+```
+Start time: 2017-09-05 09:05:01 AEST
+Parsing from APH to XML and loading into the database
+[DEPRECATION] requiring "RMagick" is deprecated. Use "rmagick" instead
+WARNING: Nokogiri was built against LibXML version 2.7.6, but has dynamically loaded 2.7.8
+
+
+parse-speeche:   0% |                                          | ETA:  --:--:--
+parse-speeche:  50% |ooooooooooooooooooooo                     | ETA:  00:00:19
+./../openaustralia-parser/lib/hansard_parser.rb:197:in `throw': uncaught throw `2017-09-04 senate: Couldn't figure out who Brockman, S is in division (voting no)' (NameError)
+        from ../../openaustralia-parser/lib/hansard_parser.rb:197:in `parse_date_house'
+        from ../../openaustralia-parser/lib/hansard_parser.rb:193:in `map'
+        from ../../openaustralia-parser/lib/hansard_parser.rb:193:in `parse_date_house'
+        from ../../openaustralia-parser/lib/hansard_parser.rb:159:in `each'
+        from ../../openaustralia-parser/lib/hansard_parser.rb:159:in `parse_date_house'
+        from ../../openaustralia-parser/parse-speeches.rb:94
+Xapian indexing
+Running rssgenerate
+./sitemap.rb:386:in `notify_search_engines': uninitialized constant Sitemap::PINGMYMAP_API_URL (NameError)
+        from ./sitemap.rb:453
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap1.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap2.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap3.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap4.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap5.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap6.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap7.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap8.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap9.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap10.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap11.xml.gz)...
+Whole thing done time: 2017-09-05 10:40:40
+```
+
+You can see in the output above there's an exception thrown by the parser. It's complaining about not being able to figure out who the person is that's voted in a division. This is one of the most common failures. The fix is to [add the person](#adding-or-removing-people) using the instructions above and run the parser again for the missing days.
+
+The other most common failure is that APH has published something wacky. To fix this you need to delete the cache for that day and run the parser again.
+
 ## Copyright & License
 
 Copyright OpenAustralia Foundation Limited. Licensed under the Affero GPL. See LICENSE file for more details.
