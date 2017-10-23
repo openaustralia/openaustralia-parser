@@ -282,7 +282,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 233,,Ruth Stephanie Webber,,WA,1.7.2002 ,,30.6.2008,defeated,ALP
 # Changes on 11.3.2009
 72,,Christopher Martin Ellison,,WA,1.7.1993,,30.1.2009,resigned,LIB
-279,,Christopher John Back,,WA,11.3.2009,,,still_in_office,LIB
+279,,Christopher John Back,,WA,11.3.2009,,31.7.2017,resigned,LIB
 # Next available Senator number is: 280
 285,,Richard Di Natale,,Victoria,1.7.2011,,,still_in_office,GRN
 286,,Sean Edwards,,SA,1.7.2011,,9.5.2016,defeated,LIB
@@ -356,3 +356,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 870,,Lucy Gichuhi,,SA,3.5.2017,,,still_in_office,IND
 871,,Gavin Mark Marshall,,Vic.,9.5.2016,changed_party,,still_in_office,ALP
 872,,Sue Lines,,WA,30.9.2016,changed_party,,still_in_office,DPRES
+873,,Slade Brockman,,WA,16.8.2017,section_15,,still_in_office,LIB
