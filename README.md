@@ -67,6 +67,101 @@ What you need to do is go through that document and make sure the data that we h
 
 After making changes run [`./parse-members.rb`](https://github.com/openaustralia/openaustralia-parser/blob/master/parse-members.rb), check the output, and also check that it's loaded your changes correctly into your development copy of OpenAustralia.org.
 
+## Failures
+
+Every weekday the `./parse-speeches.rb` script gets run by cron to parse and import new speeches into OpenAustralia.org. From time to time this fails. We can see this when there's a missing day of debates on OpenAustralia.org on the calendar, e.g. http://www.openaustralia.org.au/debates/?y=2017
+
+![Probably a parser failure](https://user-images.githubusercontent.com/48945/31870296-ed69eb78-b7f8-11e7-93e7-9fe1c9b51337.png)
+
+Or by checking the cron output which is emailed to the OAF `web-administrators` Google Group and posted in the `#openaustralia-log` Slack channel. It will look something like this:
+
+```
+Start time: 2017-09-05 09:05:01 AEST
+Parsing from APH to XML and loading into the database
+[DEPRECATION] requiring "RMagick" is deprecated. Use "rmagick" instead
+WARNING: Nokogiri was built against LibXML version 2.7.6, but has dynamically loaded 2.7.8
+
+
+parse-speeche:   0% |                                          | ETA:  --:--:--
+parse-speeche:  50% |ooooooooooooooooooooo                     | ETA:  00:00:19
+./../openaustralia-parser/lib/hansard_parser.rb:197:in `throw': uncaught throw `2017-09-04 senate: Couldn't figure out who Brockman, S is in division (voting no)' (NameError)
+        from ../../openaustralia-parser/lib/hansard_parser.rb:197:in `parse_date_house'
+        from ../../openaustralia-parser/lib/hansard_parser.rb:193:in `map'
+        from ../../openaustralia-parser/lib/hansard_parser.rb:193:in `parse_date_house'
+        from ../../openaustralia-parser/lib/hansard_parser.rb:159:in `each'
+        from ../../openaustralia-parser/lib/hansard_parser.rb:159:in `parse_date_house'
+        from ../../openaustralia-parser/parse-speeches.rb:94
+Xapian indexing
+Running rssgenerate
+./sitemap.rb:386:in `notify_search_engines': uninitialized constant Sitemap::PINGMYMAP_API_URL (NameError)
+        from ./sitemap.rb:453
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap1.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap2.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap3.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap4.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap5.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap6.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap7.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap8.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap9.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap10.xml.gz)...
+Writing sitemap file (/srv/www/www.openaustralia.org/current/twfy/www/docs/sitemaps/sitemap11.xml.gz)...
+Whole thing done time: 2017-09-05 10:40:40
+```
+
+You can see in the output above there's an exception thrown by the parser. It's complaining about not being able to figure out who the person is that's voted in a division. This is one of the most common failures. The fix is to [add the person](#adding-or-removing-people) using the instructions above and run the parser again for the missing days.
+
+The other most common failure is that APH has published something wacky. To fix this you need to delete the cache for that day and run the parser again.
+
+### Skipping email alerts after fixing a scraper failure
+
+If you've fixed a failure and you load lots of missing data into OpenAustralia.org it will automatically send lots of email alerts the next day. This probably isn't what the subscribers want so you need a way to skip sending email alerts for the data you've just loaded.
+
+**tl;dr** Bump the timestamp and batch number in `alerts-lastsent` which is in `twfy/scripts`.
+
+The `alerts-lastsent` file has two lines, the first is a Unix timestamp and the second is a batch ID.
+
+After you've loaded debates into the DB and run indexing (`twfy/scripts/xml2db.pl` and `twfy/search/index.pl` (indexing is run from `/srv/www/www.openaustralia.org/current/twfy/scripts` with `../search/index.pl /srv/www/www.openaustralia.org/shared/searchdb sincefile /srv/www/www.openaustralia.org/shared/searchdb/../searchdb-lastupdated`)) update the first line to the current time as this will be later than the index you just did - you can find out the time with `date +%s`. Then increment the batch ID on the second line and save the file.
+
+Now when you run `alertmailer.php` it shouldn't send out alerts for any of the debates you've just loaded. There's more detail in this helpful email from mySociety's Matthew Somerville.
+
+>> I've never quite understood the relationship between the alert
+>> emailer and the xapian index. Unfortunately, looking through the code
+>> hasn't helped me much. :-(
+>
+> Sorry, it's all a bit strewn about. I'll try and explain below.
+>
+>> Let's say I make some fixes to the parser and I regenerate all the xml
+>> files. I then reload this into the database and do a xapian reindex on
+>> everything. How can I do this without generating spurious email alerts
+>> the next day for any pages that have changed?
+>
+> Unbelievably, it might just work, although there are a number of extra things you can do if you're worried about it (or just test it better than we ever did ;) ). Here's the full process of how email alerts runs, then some history, and then some actually maybe useful stuff ;)
+>
+> 1. Firstly, the database. When you load data with xml2db.pl, a brand new GID gets new created and modified timestamps set to NOW(). When you reload data, if the GID is the same then only the modified timestamp is updated to NOW(), the created doesn't change ever.
+>
+> 2. When running a Xapian index with index.pl, if you use "sincefile" as we do, then it only indexes GIDs that have a modified column dated since the last time it ran. If you run Xapian index with a date range etc., then it will index or reindex everything on those dates.
+>
+> 3. Whatever is decided to be indexed, each gets a new batch number (that goes up 1 each time you run Xapian indexing and it indexes something), and also gets a "created" value consisting of its hansard created column concatenated with its hpos.
+>
+> 4. When you run the alert email script, it only fetches those GIDs that have: a) a *batch number* larger than the highest batch number last time the script was run; b) a *created* higher than the last time the script was run; c) is later than the manual date given in the script (line 174ish).
+>
+>
+> So let's do a worked example. You've fixed a parser bug which has caused 10 GIDs on 2001-01-01 to change, and 5 new GIDs to appear on 2002-02-02. You ran the email alert script yesterday, before doing this, up to batch 100. You reload the XML for those two days, the 10 GIDs on 2001-01-01 get their modified column updated, the 5 new GIDS on 2002-02-02 get inserted. You reindex with sincefile, and those 15 GIDs get indexed (or you reindex with those two dates and everything on those 2 days gets indexed), with batch ID 101. You run the email alert script, which will only return things: * in batch ID 101 * created since yesterday - ie the 5 new GIDs from 2002-02-02, but not the 10 from 2001-01-01.
+>
+>
+> Hope that makes sense. Now, the original theory was that people would want to be alerted to new stuff even if it was old. But it turns out that a) they don't (they'll complain saying why have they got an alert for old stuff), b) all of our old "new" stuff wasn't actually new, but was because of parser fixes or because they make spelling corrections and our model means everything on that day gets a new GID in that case - which is awful but it's too late to change now...
+>
+> So what we do. I try to make sure any changing of old content isn't added/indexed along with new stuff - ie. run major changes during holidays etc.. Then when the loading/indexing is done, I can manually bump the batch number/ timestamp in the alerts-lastsent file so that the alert script thinks it's been run on that data already and will just ignore it.
+>
+> If there's some new stuff indexed as well, which you do want to send alerts for, then that's what the manual date in the alert script is for, to just say "ignore anything before this date completely". Bit yucky, I know, but then so's everything.
+>
+>
+> Phew, hope that's of use to you, and happy Easter!
+>
+> ATB,
+> Matthew
+
 ## Copyright & License
 
 Copyright OpenAustralia Foundation Limited. Licensed under the Affero GPL. See LICENSE file for more details.
