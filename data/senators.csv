@@ -325,7 +325,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 839,,Gavin Mark Marshall,,Vic.,7.7.2014,changed_party,9.5.2016,changed_party,DPRES
 840,,Stephen Shane Parry,,Tas.,4.7.2011,changed_party,6.7.2014,changed_party,DPRES
 841,,John Madigan,,Victoria,4.9.2014,,9.5.2016,defeated,IND
-842,,Jacqui Lambie,,Tasmania,24.11.2014,,,still_in_office,IND
+842,,Jacqui Lambie,,Tasmania,24.11.2014,,14.11.2017,resigned,IND
 843,,Glenn Lazarus,,QLD,13.3.2015,,9.5.2016,defeated,IND
 844,,Katy Gallagher,,ACT,26.3.2015,,,still_in_office,ALP
 845,,Jenny McAllister,,NSW,6.5.2015,,,still_in_office,ALP
@@ -350,10 +350,14 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 864,,Murray Watt,,QLD,1.7.2016,,,still_in_office,ALP
 865,,Kimberley Kitching,,Vic.,25.10.2016,section_15,,still_in_office,ALP
 866,,Cory Bernardi,,SA,7.2.2017,changed_party,,still_in_office,AC
-867,,Nick Xenophon,,SA,1.7.2016,changed_party,,still_in_office,NXT
+867,,Nick Xenophon,,SA,1.7.2016,changed_party,6.10.2017,resigned,NXT
 868,,Peter Georgiou,,WA,20.3.2017,,,still_in_office,PHON
 869,,Lucy Gichuhi,,SA,19.4.2017,declared_elected,3.5.2017,changed_party,FFP
 870,,Lucy Gichuhi,,SA,3.5.2017,,,still_in_office,IND
 871,,Gavin Mark Marshall,,Vic.,9.5.2016,changed_party,,still_in_office,ALP
 872,,Sue Lines,,WA,30.9.2016,changed_party,,still_in_office,DPRES
 873,,Slade Brockman,,WA,16.8.2017,section_15,,still_in_office,LIB
+874,,Jordon Steele-John,,WA,10.11.2017,,,still_in_office,GRN
+875,,Andrew Bartlett,,Qld,10.11.2017,,,still_in_office,GRN
+876,,Fraser Anning,,Qld,10.11.2017,,,still_in_office,PHON
+
