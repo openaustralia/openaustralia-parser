@@ -261,7 +261,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 257,,Helen Kroger,,Victoria,1.7.2008,,30.6.2014,retired,LIB
 258,,Scott Ludlam,,WA,1.7.2008,,14.7.2017,resigned,GRN
 259,,Louise Pratt,,WA,1.7.2008,,30.6.2014,retired,ALP
-260,,Scott Ryan,,Victoria,1.7.2008,,,still_in_office,LIB
+260,,Scott Ryan,,Victoria,1.7.2008,,12.11.2017,changed_party,LIB
 261,,John Williams,,NSW,1.7.2008,,,still_in_office,NP
 262,,Nick Xenophon,,SA,1.7.2008,,1.7.2016,changed_party,IND
 # Senators that finished on 1 July 2008
@@ -321,7 +321,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 835,,Linda Reynolds,,WA,1.7.2014,,,still_in_office,LIB
 836,,Janet Rice,,Victoria,1.7.2014,,,still_in_office,GRN
 837,,Dio Wang,,WA,1.7.2014,,9.5.2016,defeated,PUP
-838,,Stephen Shane Parry,,Tas.,7.7.2014,changed_party,1.11.2017,resigned,PRES
+838,,Stephen Shane Parry,,Tas.,7.7.2014,changed_party,12.11.2017,resigned,PRES
 839,,Gavin Mark Marshall,,Vic.,7.7.2014,changed_party,9.5.2016,changed_party,DPRES
 840,,Stephen Shane Parry,,Tas.,4.7.2011,changed_party,6.7.2014,changed_party,DPRES
 841,,John Madigan,,Victoria,4.9.2014,,9.5.2016,defeated,IND
@@ -360,3 +360,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 874,,Jordon Steele-John,,WA,10.11.2017,recount,,still_in_office,GRN
 875,,Andrew Bartlett,,Qld,10.11.2017,recount,,still_in_office,GRN
 876,,Fraser Anning,,Qld,10.11.2017,recount,,still_in_office,PHON
+877,,Scott Ryan,,Victoria,13.11.2017,,,still_in_office,PRES
