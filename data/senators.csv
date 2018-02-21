@@ -361,5 +361,8 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 875,,Andrew Bartlett,,Qld,10.11.2017,recount,,still_in_office,GRN
 876,,Fraser Anning,,Qld,10.11.2017,recount,15.1.2018,changed_party,PHON
 877,,Scott Ryan,,Victoria,13.11.2017,,,still_in_office,PRES
-888,,Rex Patrick,,SA,14.11.2017,section_15,,still_in_office,NXT
+# Ordering here has gotten a little out of synch as the choosing of
+# 888 for Rex Patrick was a mistake and we'll just have to fill in the gaps
+# until we get past 888 again and then things will be simpler once more
 879,,Fraser Anning,,Qld,15.1.2018,changed_party,,still_in_office,IND
+888,,Rex Patrick,,SA,14.11.2017,section_15,,still_in_office,NXT
