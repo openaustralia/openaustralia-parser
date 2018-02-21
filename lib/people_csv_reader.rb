@@ -165,6 +165,8 @@ class PeopleCSVReader
       "Derryn Hinch's Justice Party"
     when "AC"
       "Australian Conservatives"
+    when "KAP"
+      "Katter's Australian Party"
     when "ANTI-SOC", "SPK", "CWM", "PRES", "DPRES"
       # Do nothing
       party

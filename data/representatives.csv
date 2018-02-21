@@ -297,7 +297,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 299,,Charles Keith Jones,Newcastle,NSW,22.11.1958,,4.2.1983,retired,ALP
 300,,David Francis Jull,Bowman,Qld,13.12.1975,,5.3.1983,defeated,LIB
 301,,David Francis Jull,Fadden,Qld,1.12.1984,,17.10.2007,retired,LIB
-302,,Robert Carl Katter,Kennedy,Qld,13.3.1993,,,still_in_office,IND
+302,,Robert Carl Katter,Kennedy,Qld,13.3.1993,,27.9.2011,changed_party,IND
 303,,Robert Cummin Katter,Kennedy,Qld,26.11.1966,,19.2.1990,retired,NPA
 304,,Paul John Keating,Blaxland,NSW,25.10.1969,,23.4.1996,resigned,ALP
 305,,Michael Fayat Keenan,Stirling,WA,9.10.2004,,,still_in_office,LIB
@@ -585,9 +585,9 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 587,,Paul William Fletcher,Bradfield,NSW,5.12.2009,by_election,,still_in_office,LIB
 588,,Kelly O'Dwyer,Higgins,Vic.,5.12.2009,by_election,,still_in_office,LIB
 589,,John Alexander,Bennelong,NSW,21.8.2010,,11.11.2017,resigned,LIB
-590,,George Robert Christensen,Dawson,Qld,21.8.2010,,,still_in_office,LIB
+590,,George Robert Christensen,Dawson,Qld,21.8.2010,,,still_in_office,NP
 591,,Andrew Wilkie,Denison,Tas,21.8.2010,,,still_in_office,IND
-592,,Ken O'Dowd,Flynn,Qld,21.8.2010,,,still_in_office,LIB
+592,,Ken O'Dowd,Flynn,Qld,21.8.2010,,,still_in_office,NP
 593,,Bert Van Manen,Forde,Qld,21.8.2010,,,still_in_office,LIB
 594,,Ken Wyatt,Hasluck,WA,21.8.2010,,,still_in_office,LIB
 595,,Laura Smyth,La Trobe,Vic,21.8.2010,,7.9.2013,defeated,ALP
@@ -604,7 +604,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 606,,Stephen Jones,Throsby,NSW,21.8.2010,,2.7.2016,elected_elsewhere,ALP
 607,,Josh Frydenberg,Kooyong,Vic,21.8.2010,,,still_in_office,LIB
 608,,Dan Tehan,Wannon,Vic,21.8.2010,,,still_in_office,LIB
-609,,Michael McCormack,Riverina,NSW,21.8.2010,,,still_in_office,Nats
+609,,Michael McCormack,Riverina,NSW,21.8.2010,,,still_in_office,NP
 610,,Chris Hayes,Fowler,NSW,21.8.2010,,,still_in_office,ALP
 611,,Ewen Jones,Herbert,Qld,21.8.2010,,2.7.2016,defeated,LIB
 612,,Karen Andrews,McPherson,Qld,21.8.2010,,,still_in_office,LIB
@@ -636,7 +636,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 638,,David Feeney,Batman,Vic,7.9.2013,,,still_in_office,ALP
 639,,Lisa Chesters,Bendigo,Vic,7.9.2013,,,still_in_office,ALP
 640,,Brett Whiteley,Braddon,Tas,7.9.2013,,2.7.2016,defeated,LIB
-641,,Michelle Landry,Capricornia,QLD,7.9.2013,,,still_in_office,LIB
+641,,Michelle Landry,Capricornia,QLD,7.9.2013,,,still_in_office,NP
 642,,Pat Conroy,Charlton,NSW,7.9.2013,,2.7.2016,elected_elsewhere,ALP
 643,,Sarah Henderson,Corangamite,Vic,7.9.2013,,,still_in_office,LIB
 644,,Michael Sukkar,Deakin,Vic,7.9.2013,,,still_in_office,LIB
@@ -647,7 +647,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 649,,Tim Watts,Gellibrand,Vic,7.9.2013,,,still_in_office,ALP
 650,,Ann Sudmalis,Gilmore,NSW,7.9.2013,,,still_in_office,LIB
 651,,Matt Williams,Hindmarsh,SA,7.9.2013,,2.7.2016,defeated,LIB
-652,,Keith Pitt,Hinkler,QLD,7.9.2013,,,still_in_office,LIB
+652,,Keith Pitt,Hinkler,QLD,7.9.2013,,,still_in_office,NP
 653,,Clare O'Neil,Hotham,Vic,7.9.2013,,,still_in_office,ALP
 654,,Angus Taylor,Hume,NSW,7.9.2013,,,still_in_office,LIB
 655,,Cathy McGowan,Indi,Vic,7.9.2013,,,still_in_office,IND
@@ -687,7 +687,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 688,,Anne Aly,Cowan,WA,2.7.2016,,,still_in_office,ALP
 689,,Emma McBride,Dobell,NSW,2.7.2016,,,still_in_office,ALP
 690,,Michael Joseph Kelly,Eden-Monaro,NSW,2.7.2016,,,still_in_office,ALP
-691,,Ted O'Brien,Fairfax,QLD,2.7.2016,,,still_in_office,LNP
+691,,Ted O'Brien,Fairfax,QLD,2.7.2016,,,still_in_office,LIB
 692,,Cathy O'Toole,Herbert,QLD,2.7.2016,,,still_in_office,ALP
 693,,Steve Georganas,Hindmarsh,SA,2.7.2016,,,still_in_office,ALP
 694,,Emma Husar,Lindsay,NSW,2.7.2016,,,still_in_office,ALP
@@ -722,3 +722,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 723,,Andrew Leigh,Fenner,ACT,2.7.2016,,,still_in_office,ALP
 724,,Stephen Jones,Whitlam,NSW,2.7.2016,,,still_in_office,ALP
 725,,Mark Maclean Coulton,Parkes,NSW,30.8.2016,changed_party,,still_in_office,CWM
+726,,Robert Carl Katter,Kennedy,Qld,27.9.2011,changed_party,,still_in_office,KAP
+727,,Barnaby Joyce,New England,NSW,2.12.2017,,,still_in_office,NP
