@@ -59,6 +59,19 @@ class PeopleXMLWriter
     'became_presiding_officer'
   ]
 
+  # Discovered that mysql was silently dropping values for these fields
+  # that weren't valid enum values rather than erroring. The newer version
+  # of mysql that we're using now does error. So, to maintain compatibility
+  # strip out "bad" values.
+  # TODO: Update the openaustralia.org.au web app to handle new enum values
+  def PeopleXMLWriter.limit_from_why(from_why)
+    VALID_FROM_WHY.include?(from_why) ? from_why : "unknown"
+  end
+
+  def PeopleXMLWriter.limit_to_why(to_why)
+    VALID_TO_WHY.include?(to_why) ? to_why : "unknown"
+  end
+
   def PeopleXMLWriter.write_members(people, filename)
     conf = Configuration.new
 
@@ -68,16 +81,8 @@ class PeopleXMLWriter
     x.members do
       people.each do |person|
         person.house_periods.each do |period|
-          # Discovered that mysql was silently dropping values for these fields
-          # that weren't valid enum values rather than erroring. The newer version
-          # of mysql that we're using now does error. So, to maintain compatibility
-          # strip out "bad" values.
-          # TODO: Update the openaustralia.org.au web app to handle new enum values
-          from_why = period.from_why
-          to_why = period.to_why
-          from_why = "unknown" unless VALID_FROM_WHY.include?(from_why)
-          to_why = "unknown" unless VALID_TO_WHY.include?(to_why)
-
+          from_why = limit_from_why(period.from_why)
+          to_why = limit_to_why(period.to_why)
           x.member(:id => period.id,
             :house => "representatives", :title => period.person.name.title, :firstname => period.person.name.first,
             :lastname => period.person.name.last, :division => period.division, :party => period.party,
@@ -97,10 +102,12 @@ class PeopleXMLWriter
     x.members do
       people.each do |person|
         person.senate_periods.each do |period|
+          from_why = limit_from_why(period.from_why)
+          to_why = limit_to_why(period.to_why)
           x.member(:id => period.id,
             :house => "senate", :title => period.person.name.title, :firstname => period.person.name.first,
             :lastname => period.person.name.last, :division => period.state, :party => period.party,
-            :fromdate => period.from_date, :todate => period.to_date, :fromwhy => period.from_why, :towhy => period.to_why)
+            :fromdate => period.from_date, :todate => period.to_date, :fromwhy => from_why, :towhy => to_why)
         end
       end
     end
