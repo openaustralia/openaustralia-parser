@@ -46,6 +46,19 @@ class PeopleXMLWriter
   end
   
   def PeopleXMLWriter.write_members(people, filename)
+    # This is based on the enum in the database schema
+    VALID_FROM_WHY = [
+      'unknown', 'general_election', 'by_election', 'changed_party',
+      'reinstated', 'appointed', 'devolution', 'election', 'accession',
+      'regional_election', 'replaced_in_region', 'became_presiding_officer'
+    ]
+    VALID_TO_WHY = [
+      'unknown', 'still_in_office', 'general_election',
+      'general_election_standing', 'general_election_not_standing',
+      'changed_party', 'died', 'declared_void', 'resigned', 'disqualified',
+      'became_peer', 'devolution', 'dissolution', 'retired', 'regional_election',
+      'became_presiding_officer'
+    ]
     conf = Configuration.new
     
     xml = File.open(filename, 'w')
@@ -54,10 +67,20 @@ class PeopleXMLWriter
     x.members do
       people.each do |person|
         person.house_periods.each do |period|
+          # Discovered that mysql was silently dropping values for these fields
+          # that weren't valid enum values rather than erroring. The newer version
+          # of mysql that we're using now does error. So, to maintain compatibility
+          # strip out "bad" values.
+          # TODO: Update the openaustralia.org.au web app to handle new enum values
+          from_why = period.from_why
+          to_why = period.to_why
+          from_why = "unknown" unless VALID_FROM_WHY.include?(from_why)
+          to_why = "unknown" unless VALID_TO_WHY.include?(to_why)
+
           x.member(:id => period.id,
             :house => "representatives", :title => period.person.name.title, :firstname => period.person.name.first,
             :lastname => period.person.name.last, :division => period.division, :party => period.party,
-            :fromdate => period.from_date, :todate => period.to_date, :fromwhy => period.from_why, :towhy => period.to_why)
+            :fromdate => period.from_date, :todate => period.to_date, :fromwhy => from_why, :towhy => to_why)
         end
       end
     end
