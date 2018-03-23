@@ -633,7 +633,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 635,,Tony Pasin,Barker,SA,7.9.2013,,,still_in_office,LIB
 636,,Nickolas Varvaris,Barton,NSW,7.9.2013,,2.7.2016,defeated,LIB
 637,,Andrew Nikolic,Bass,Tas,7.9.2013,,2.7.2016,defeated,LIB
-638,,David Feeney,Batman,Vic,7.9.2013,,1.2.2018,resigned,ALP
+638,,David Feeney,Batman,Vic,7.9.2013,,,still_in_office,ALP
 639,,Lisa Chesters,Bendigo,Vic,7.9.2013,,,still_in_office,ALP
 640,,Brett Whiteley,Braddon,Tas,7.9.2013,,2.7.2016,defeated,LIB
 641,,Michelle Landry,Capricornia,QLD,7.9.2013,,,still_in_office,NP
@@ -725,4 +725,3 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 726,,Robert Carl Katter,Kennedy,Qld,27.9.2011,changed_party,,still_in_office,KAP
 727,,Barnaby Joyce,New England,NSW,2.12.2017,,,still_in_office,NP
 728,,John Alexander,Bennelong,NSW,16.12.2017,by_election,,still_in_office,LIB
-729,,Ged Kearney,Batman,Vic.,17.3.2018,by_election,,still_in_office,ALP
