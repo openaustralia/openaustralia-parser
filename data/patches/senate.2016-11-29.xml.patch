@@ -1,0 +1,17 @@
+--- original.xml	2018-03-27 15:58:07.000000000 +1100
++++ patched.xml	2018-03-27 15:58:53.000000000 +1100
+@@ -15096,7 +15096,6 @@
+                   <name>Cash, MC</name>
+                   <name>Chisholm, A</name>
+                   <name>Collins, JMA</name>
+-                  <name>Conroy, SM</name>
+                   <name>Cormann, M</name>
+                   <name>Culleton, RN</name>
+                   <name>Dastyari, S</name>
+@@ -17120,4 +17119,4 @@
+       </subdebate.2>
+     </debate>
+   </chamber.xscript>
+-</hansard>
+\ No newline at end of file
++</hansard>
