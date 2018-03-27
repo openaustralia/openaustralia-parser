@@ -1,0 +1,17 @@
+--- original.xml	2018-03-27 15:25:26.000000000 +1100
++++ patched.xml	2018-03-27 15:26:19.000000000 +1100
+@@ -4031,7 +4031,6 @@
+                   <name>Simms, RA</name>
+                   <name>Wang, Z</name>
+                   <name>Waters, LJ</name>
+-                  <name>Wright, PL</name>
+                 </names>
+               </ayes>
+               <noes>
+@@ -16141,4 +16140,4 @@
+       </subdebate.2>
+     </debate>
+   </chamber.xscript>
+-</hansard>
+\ No newline at end of file
++</hansard>
