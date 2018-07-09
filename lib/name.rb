@@ -88,6 +88,9 @@ class Name
     if initials_with_fullstops(name)
       initials_with_fullstops(name)
     # Heuristic: If word is all caps we'll assume that these are initials
+    # HACK: Unless it's "DAVID", which is how SMITH, DAVID is represented.
+    elsif name == "DAVID"
+      nil
     # HACK: unless it is "-", which could be part of a hyphenated name in specific case
     elsif (name.upcase == name) && name != "-"
       name
