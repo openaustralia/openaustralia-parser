@@ -713,7 +713,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 714,,Julian Leeser,Berowra,NSW,2.7.2016,,,still_in_office,LIB
 715,,John McVeigh,Groom,Qld,2.7.2016,,,still_in_office,LIB
 716,,David Littleproud,Maranoa,Qld,2.7.2016,,,still_in_office,NP
-717,,Tim Hammond,Perth,WA,2.7.2016,,,still_in_office,ALP
+717,,Tim Hammond,Perth,WA,2.7.2016,,28.7.2018,retired,ALP
 718,,Llew O'Brien,Wide Bay,Qld,2.7.2016,,,still_in_office,NP
 719,,Josh Wilson,Fremantle,WA,2.7.2016,,,still_in_office,ALP
 720,,Tim Wilson,Goldstein,Vic.,2.7.2016,,,still_in_office,LIB
@@ -726,3 +726,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 727,,Barnaby Joyce,New England,NSW,2.12.2017,,,still_in_office,NP
 728,,John Alexander,Bennelong,NSW,16.12.2017,by_election,,still_in_office,LIB
 729,,Ged Kearney,Batman,Vic.,17.3.2018,by_election,,still_in_office,ALP
+730,,Patrick Gorman,Perth,WA,28.7.2018,by_election,,still_in_office,ALP
