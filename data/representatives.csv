@@ -681,7 +681,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 # New members elected in 2016 Federal election
 683,,Linda Burney,Barton,NSW,2.7.2016,,,still_in_office,ALP
 684,,Ross Hart,Bass,Tas,2.7.2016,,,still_in_office,ALP
-685,,Justine Keay,Braddon,Tas,2.7.2016,,,still_in_office,ALP
+685,,Justine Keay,Braddon,Tas,2.7.2016,,10.5.2018,resigned,ALP
 686,,Matt Keogh,Burt,WA,2.7.2016,,,still_in_office,ALP
 687,,Julia Banks,Chisholm,Vic,2.7.2016,,,still_in_office,LIB
 688,,Anne Aly,Cowan,WA,2.7.2016,,,still_in_office,ALP
@@ -691,11 +691,11 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 692,,Cathy O'Toole,Herbert,QLD,2.7.2016,,,still_in_office,ALP
 693,,Steve Georganas,Hindmarsh,SA,2.7.2016,,,still_in_office,ALP
 694,,Emma Husar,Lindsay,NSW,2.7.2016,,,still_in_office,ALP
-695,,Susan Lamb,Longman,QLD,2.7.2016,,,still_in_office,ALP
+695,,Susan Lamb,Longman,QLD,2.7.2016,,10.5.2018,resigned,ALP
 696,,Brian Mitchell,Lyons,Tas,2.7.2016,,,still_in_office,ALP
 697,,Mike Freelander,Macarthur,NSW,2.7.2016,,,still_in_office,ALP
 698,,Susan Templeman,Macquarie,NSW,2.7.2016,,,still_in_office,ALP
-699,,Rebekha Sharkie,Mayo,SA,2.7.2016,,,still_in_office,NXT
+699,,Rebekha Sharkie,Mayo,SA,2.7.2016,,10.4.2018,changed_party,NXT
 700,,Damian Drum,Murray,Vic,2.7.2016,,,still_in_office,NP
 701,,Meryl Swanson,Paterson,NSW,2.7.2016,,,still_in_office,ALP
 702,,Luke Gosling,Solomon,NT,2.7.2016,,,still_in_office,ALP
@@ -713,9 +713,9 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 714,,Julian Leeser,Berowra,NSW,2.7.2016,,,still_in_office,LIB
 715,,John McVeigh,Groom,Qld,2.7.2016,,,still_in_office,LIB
 716,,David Littleproud,Maranoa,Qld,2.7.2016,,,still_in_office,NP
-717,,Tim Hammond,Perth,WA,2.7.2016,,28.7.2018,retired,ALP
+717,,Tim Hammond,Perth,WA,2.7.2016,,10.5.2018,resigned,ALP
 718,,Llew O'Brien,Wide Bay,Qld,2.7.2016,,,still_in_office,NP
-719,,Josh Wilson,Fremantle,WA,2.7.2016,,,still_in_office,ALP
+719,,Josh Wilson,Fremantle,WA,2.7.2016,,10.5.2018,resigned,ALP
 720,,Tim Wilson,Goldstein,Vic.,2.7.2016,,,still_in_office,LIB
 721,,Anne Stanley,Werriwa,NSW,2.7.2016,,,still_in_office,ALP
 722,,Andrew Wallace,Fisher,QLD,2.7.2016,,,still_in_office,LIB
@@ -727,3 +727,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 728,,John Alexander,Bennelong,NSW,16.12.2017,by_election,,still_in_office,LIB
 729,,Ged Kearney,Batman,Vic.,17.3.2018,by_election,,still_in_office,ALP
 730,,Patrick Gorman,Perth,WA,28.7.2018,by_election,,still_in_office,ALP
+731,,Rebekha Sharkie,Mayo,SA,10.4.2018,changed_party,11.5.2018,resigned,CA
