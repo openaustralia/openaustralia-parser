@@ -113,6 +113,42 @@ You can see in the output above there's an exception thrown by the parser. It's 
 
 The other most common failure is that APH has published something wacky. To fix this you need to delete the cache for that day and run the parser again.
 
+Once you've loaded the speeches, you'll need to [index](#Indexing)
+the days you just loaded.
+
+### Indexing
+
+After you've fixed a parsing issue and loaded in data from the missing
+days, you may need to manually add those dates to the index. The
+`morningupdate` cron job normally indexes yesterday's speeches, but if
+that's missed we don't have anything that will autoamaticall find and
+index the missing days.
+
+However, this is fairly easy to do. To index all speeches between the
+25th June 2018 and 17th August 2018:
+
+```
+export XAPIANDB=/srv/www/production/shared/search/searchdb
+/srv/www/production/current/twfy/search/index.pl $XAPIANDB daterange2018-06-25 2018-08-17
+xapian indexing debate 2018-06-25
+xapian indexing lords 2018-06-25
+xapian indexing debate 2018-06-26
+xapian indexing lords 2018-06-26
+xapian indexing debate 2018-06-27
+xapian indexing lords 2018-06-27
+xapian indexing debate 2018-06-28
+xapian indexing lords 2018-06-28
+xapian indexing debate 2018-08-13
+xapian indexing lords 2018-08-13
+xapian indexing debate 2018-08-14
+xapian indexing lords 2018-08-14
+xapian indexing debate 2018-08-15
+xapian indexing lords 2018-08-15
+xapian indexing debate 2018-08-16
+xapian indexing lords 2018-08-16
+
+```
+
 ### Skipping email alerts after fixing a scraper failure
 
 If you've fixed a failure and you load lots of missing data into OpenAustralia.org it will automatically send lots of email alerts the next day. This probably isn't what the subscribers want so you need a way to skip sending email alerts for the data you've just loaded.
@@ -121,7 +157,7 @@ If you've fixed a failure and you load lots of missing data into OpenAustralia.o
 
 The `alerts-lastsent` file has two lines, the first is a Unix timestamp and the second is a batch ID.
 
-After you've loaded debates into the DB and run indexing (`twfy/scripts/xml2db.pl` and `twfy/search/index.pl` (indexing is run from `/srv/www/www.openaustralia.org/current/twfy/scripts` with `../search/index.pl /srv/www/www.openaustralia.org/shared/searchdb sincefile /srv/www/www.openaustralia.org/shared/searchdb/../searchdb-lastupdated`)) update the first line to the current time as this will be later than the index you just did - you can find out the time with `date +%s`. Then increment the batch ID on the second line and save the file.
+After you've loaded debates into the DB and run [indexing](#Indexing) update the first line to the current time as this will be later than the index you just did - you can find out the time with `date +%s`. Then increment the batch ID on the second line and save the file.
 
 Now when you run `alertmailer.php` it shouldn't send out alerts for any of the debates you've just loaded. There's more detail in this helpful email from mySociety's Matthew Somerville.
 
