@@ -728,3 +728,8 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 729,,Ged Kearney,Batman,Vic.,17.3.2018,by_election,,still_in_office,ALP
 730,,Patrick Gorman,Perth,WA,28.7.2018,by_election,,still_in_office,ALP
 731,,Rebekha Sharkie,Mayo,SA,10.4.2018,changed_party,11.5.2018,resigned,CA
+#Super saturday; see also 730
+732,,Justine Keay,Braddon,Tas,28.7.2018,,,still_in_office,ALP
+734,,Susan Lamb,Longman,QLD,28.7.2018,,,still_in_office,ALP
+735,,Rebekha Sharkie,Mayo,SA,28.7.2018,,,still_in_office,CA
+736,,Josh Wilson,Fremantle,WA,28.7.2018,,,still_in_office,ALP
