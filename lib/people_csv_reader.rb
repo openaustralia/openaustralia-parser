@@ -167,6 +167,8 @@ class PeopleCSVReader
       "Australian Conservatives"
     when "KAP"
       "Katter's Australian Party"
+    when "CA"
+      "Centre Alliance"
     when "ANTI-SOC", "SPK", "CWM", "PRES", "DPRES"
       # Do nothing
       party
