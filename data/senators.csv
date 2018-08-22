@@ -290,7 +290,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 288,,Alex Gallacher,,SA,1.7.2011,,,still_in_office,ALP
 291,,Bridget McKenzie,,Victoria,1.7.2011,,,still_in_office,NP
 292,,John Madigan,,Victoria,1.7.2011,,4.9.2014,changed_party,DLP
-293,,Lee Rhiannon,,NSW,1.7.2011,,,still_in_office,GRN
+293,,Lee Rhiannon,,NSW,1.7.2011,,18.08.2018,resigned,GRN
 295,,Lisa Singh,,Tasmania,1.7.2011,,,still_in_office,ALP
 296,,Matt Thistlethwaite,,NSW,1.7.2011,,9.8.2013,resigned,ALP
 297,,Anne Urquhart,,Tasmania,1.7.2011,,,still_in_office,ALP
@@ -327,7 +327,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 841,,John Madigan,,Victoria,4.9.2014,,9.5.2016,defeated,IND
 842,,Jacqui Lambie,,Tasmania,24.11.2014,,14.11.2017,resigned,IND
 843,,Glenn Lazarus,,QLD,13.3.2015,,9.5.2016,defeated,IND
-844,,Katy Gallagher,,ACT,26.3.2015,,9.5.2018,disqualified,ALP
+844,,Katy Gallagher,,ACT,26.3.2015,,10.5.2018,disqualified,ALP
 845,,Jenny McAllister,,NSW,6.5.2015,,,still_in_office,ALP
 846,,Jo Lindgren,,QLD,21.5.2015,section_15,9.5.2016,defeated,LIB
 847,,Nick McKim,,Tasmania,19.8.2015,section_15,,still_in_office,GRN
@@ -369,6 +369,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 880,,Richard Mansell Colbeck,,Tasmania,9.2.2018,high_court,,still_in_office,LIB
 881,,Kristina Keneally,,NSW,14.2.2018,section_15,,still_in_office,ALP
 882,,Fraser Anning,,Qld,4.6.2018,changed_party,,still_in_office,KAP
+883,,Mehreen Faruqi,,NSW,18.8.2018,section_15,,still_in_office,GRN
 888,,Rex Patrick,,SA,14.11.2017,section_15,10.4.2018,changed_party,NXT
 889,,Jim Molan,,NSW,22.12.2017,,,still_in_office,LIB
 890,,Amanda Stoker,,Qld,21.3.2018,section_15,,still_in_office,LIB
