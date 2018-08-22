@@ -628,7 +628,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 631,,Ms Anna Elizabeth Burke,Chisholm,Vic.,09.10.2012,changed_party,05.08.2013,changed_party,SPK
 632,,Bruce Craig Scott,Maranoa,Qld,09.10.2012,changed_party,9.5.2016,retired,CWM
 633,,Craig Robert Thomson,Dobell,NSW,29.4.2012,,7.9.2013,defeated,IND
-# New members elected in 2013 Federal election
+# New members elected in 2013 Federal election,,,,,,,,,
 634,,David Coleman,Banks,NSW,7.9.2013,,,still_in_office,LIB
 635,,Tony Pasin,Barker,SA,7.9.2013,,,still_in_office,LIB
 636,,Nickolas Varvaris,Barton,NSW,7.9.2013,,2.7.2016,defeated,LIB
@@ -678,7 +678,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 680,,Anthony David Hawthorn Smith,Casey,Vic.,10.08.2015,changed_party,,still_in_office,SPK
 681,,Andrew Hastie,Canning,WA,19.9.2015,by_election,,still_in_office,LIB
 682,,Trent Zimmerman,North Sydney,NSW,5.12.2015,by_election,,still_in_office,LIB
-# New members elected in 2016 Federal election
+# New members elected in 2016 Federal election,,,,,,,,,
 683,,Linda Burney,Barton,NSW,2.7.2016,,,still_in_office,ALP
 684,,Ross Hart,Bass,Tas,2.7.2016,,,still_in_office,ALP
 685,,Justine Keay,Braddon,Tas,2.7.2016,,10.5.2018,resigned,ALP
@@ -728,7 +728,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 729,,Ged Kearney,Batman,Vic.,17.3.2018,by_election,,still_in_office,ALP
 730,,Patrick Gorman,Perth,WA,28.7.2018,by_election,,still_in_office,ALP
 731,,Rebekha Sharkie,Mayo,SA,10.4.2018,changed_party,11.5.2018,resigned,CA
-#Super saturday; see also 730
+#Super saturday; see also 730,,,,,,,,,
 732,,Justine Keay,Braddon,Tas,28.7.2018,,,still_in_office,ALP
 734,,Susan Lamb,Longman,QLD,28.7.2018,,,still_in_office,ALP
 735,,Rebekha Sharkie,Mayo,SA,28.7.2018,,,still_in_office,CA
