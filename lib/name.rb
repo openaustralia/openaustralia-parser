@@ -77,7 +77,7 @@ class Name
   
   # Extract a post title from the end if one is available
   def Name.post_title(names)
-    valid_post_titles = ["AM", "SC", "AO", "MBE", "QC", "OBE", "KSJ", "JP", "MP", "AC", "RFD", "OAM", "MC"]
+    valid_post_titles = ["AM", "SC", "AO", "MBE", "QC", "OBE", "KSJ", "JP", "MP", "AC", "RFD", "OAM", "MC", "CSC"]
     names.pop if valid_post_titles.include?(names.last)
   end
   
