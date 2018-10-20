@@ -1,0 +1,19 @@
+--- original.xml	2284-11-30 14:13:17.881686125 +1100
++++ patched.xml	2284-11-30 14:15:24.347875329 +1100
+@@ -11768,8 +11768,7 @@
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+-                    <span class="HPS-OfficeInterjecting">The P</span>
+-                    <span class="HPS-OfficeInterjecting">RESIDENT:</span>  Leave is granted for one minute.</span>
++                    <span class="HPS-OfficeInterjecting">The PRESIDENT:</span>  Leave is granted for one minute.</span>
+                 </p>
+                 <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+                   <span class="HPS-Normal">
+@@ -17318,4 +17317,4 @@
+       </subdebate.2>
+     </debate>
+   </chamber.xscript>
+-</hansard>
+\ No newline at end of file
++</hansard>
