@@ -31,6 +31,8 @@ class HansardDivision
       true
     when /negatived/
       false
+    when /was not carried/
+      false
     else
       raise 'Could not determine division result'
     end
