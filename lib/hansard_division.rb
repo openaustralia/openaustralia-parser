@@ -27,11 +27,13 @@ class HansardDivision
 
   def passed?
     case @content.at('(division.result)').inner_text
+    when /casting vote with the ayes/
+      true
+    when /casting vote with the noes/
+      false
     when /agreed to/
       true
     when /negatived/
-      false
-    when /was not carried/
       false
     else
       raise 'Could not determine division result'
