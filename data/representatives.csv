@@ -523,7 +523,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 525,,Chris Allan Trevor,Flynn,Qld,24.11.2007,,21.8.2010,defeated,ALP
 526,,Warren Errol Truss,Wide Bay,Qld,24.3.1990,,9.5.2016,retired,NP
 527,,Charles Wilson Tuckey,O'Connor,WA,18.10.1980,,21.8.2010,defeated,LIB
-528,,Malcolm Bligh Turnbull,Wentworth,NSW,9.10.2004,,,still_in_office,LIB
+528,,Malcolm Bligh Turnbull,Wentworth,NSW,9.10.2004,,24.8.2018,retired,LIB
 529,,James Pearce Turnour,Leichhardt,Qld,24.11.2007,,21.8.2010,defeated,ALP
 530,,Thomas Uren,Reid,NSW,22.11.1958,,19.2.1990,retired,ALP
 531,,Mark Anthony James Vaile,Lyne,NSW,13.3.1993,,30.7.2008,resigned,NP
@@ -733,3 +733,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 734,,Susan Lamb,Longman,QLD,28.7.2018,,,still_in_office,ALP
 735,,Rebekha Sharkie,Mayo,SA,28.7.2018,,,still_in_office,CA
 736,,Josh Wilson,Fremantle,WA,28.7.2018,,,still_in_office,ALP
+737,,Kerryn Phelps,Wentworth,NSW,05.11.2018,by_election,,still_in_office,IND
