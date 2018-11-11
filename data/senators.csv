@@ -368,7 +368,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 879,,Fraser Anning,,Qld,15.1.2018,changed_party,4.6.2018,changed_party,IND
 880,,Richard Mansell Colbeck,,Tasmania,9.2.2018,high_court,,still_in_office,LIB
 881,,Kristina Keneally,,NSW,14.2.2018,section_15,,still_in_office,ALP
-882,,Fraser Anning,,Qld,4.6.2018,changed_party,,still_in_office,KAP
+882,,Fraser Anning,,Qld,4.6.2018,changed_party,25.10.2018,changed_party,KAP
 883,,Mehreen Faruqi,,NSW,18.8.2018,section_15,,still_in_office,GRN
 884,,Larissa Waters,,Queensland,6.9.2018,section_15,,still_in_office,GRN
 888,,Rex Patrick,,SA,14.11.2017,section_15,10.4.2018,changed_party,NXT
@@ -379,3 +379,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 893,,David Smith,,ACT,23.5.2018,,,still_in_office,ALP
 894,,Stirling Griff,,SA,10.4.2018,changed_party,,still_in_office,CA
 895,,Rex Patrick,,SA,10.4.2018,changed_party,,still_in_office,CA
+896,,Fraser Anning,,Qld,25.10.2018,changed_party,,still_in_office,IND
