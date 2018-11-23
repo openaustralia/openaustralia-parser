@@ -39,7 +39,7 @@ x.peopleinfo do
 end
 xml.close
 
-abc_root = "http://www.abc.net.au"
+abc_root = "https://www.abc.net.au"
 xml = File.open("#{conf.members_xml_path}/links-abc-election.xml", 'w')
 x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
 x.instruct!
@@ -70,7 +70,7 @@ x.consinfos do
 
   puts "Election results 2010 (from the abc.net.au) ..."
   # Representatives
-  abc_2010_root = "http://www.abc.net.au/elections/federal/2010/guide"
+  abc_2010_root = "https://www.abc.net.au/elections/federal/2010/guide"
   url = "#{abc_2010_root}/electorateresults.htm"
   doc = Hpricot(open(url))
   (doc/"td.electorate").each do |td|
@@ -88,7 +88,7 @@ x.consinfos do
 
   puts "Election results 2013 (from the abc.net.au)..."
   # Representatives
-  abc_root = "http://www.abc.net.au"
+  abc_root = "https://www.abc.net.au"
   url = "#{abc_root}/news/federal-election-2013/results/electorates/"
   doc = Hpricot(open(url))
   (doc/"span.electorate").each do |span|
@@ -99,7 +99,7 @@ x.consinfos do
   end
   # Senate
   [["nsw", "NSW"], ["vic", "Victoria"], ["qld", "Queensland"], ["wa", "WA"], ["sa", "SA"], ["tas", "Tasmania"], ["act", "ACT"], ["nt", "NT"]].each do |name, canonical|
-    href = "http://www.abc.net.au/news/federal-election-2013/results/senate/#{name}/"
+    href = "https://www.abc.net.au/news/federal-election-2013/results/senate/#{name}/"
     x.consinfo(:canonical => canonical, :abc_election_results_2013 => href)
   end
 end
