@@ -683,7 +683,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 684,,Ross Hart,Bass,Tas,2.7.2016,,,still_in_office,ALP
 685,,Justine Keay,Braddon,Tas,2.7.2016,,10.5.2018,resigned,ALP
 686,,Matt Keogh,Burt,WA,2.7.2016,,,still_in_office,ALP
-687,,Julia Banks,Chisholm,Vic,2.7.2016,,,still_in_office,LIB
+687,,Julia Banks,Chisholm,Vic,2.7.2016,,27.11.2018,changed_party,LIB
 688,,Anne Aly,Cowan,WA,2.7.2016,,,still_in_office,ALP
 689,,Emma McBride,Dobell,NSW,2.7.2016,,,still_in_office,ALP
 690,,Michael Joseph Kelly,Eden-Monaro,NSW,2.7.2016,,,still_in_office,ALP
@@ -734,3 +734,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 735,,Rebekha Sharkie,Mayo,SA,28.7.2018,,,still_in_office,CA
 736,,Josh Wilson,Fremantle,WA,28.7.2018,,,still_in_office,ALP
 737,,Kerryn Phelps,Wentworth,NSW,05.11.2018,by_election,,still_in_office,IND
+738,,Julia Banks,Chisholm,Vic,27.11.2018,changed_party,,still_in_office,IND
+
