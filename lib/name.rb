@@ -287,7 +287,7 @@ class Name
   end
   
   def Name.matches_hon?(name)
-    name.downcase == "hon." || name.downcase == "hon"
+    name.downcase == "hon." || name.downcase == "hon" || name.downcase == "honourable" || name.downcase == "honourable."
   end
   
   # Extract a title at the beginning of the list of names if available and shift
