@@ -316,7 +316,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 829,,Chris Ketter,,QLD,1.7.2014,,,still_in_office,ALP
 830,,Jacqui Lambie,,Tasmania,1.7.2014,,23.11.2014,changed_party,PUP
 831,,Glenn Lazarus,,QLD,1.7.2014,,12.3.2015,changed_party,PUP
-832,,David Leyonhjelm,,NSW,1.7.2014,,,still_in_office,LDP
+832,,David Leyonhjelm,,NSW,1.7.2014,,1.3.2019,resigned,LDP
 833,,James McGrath,,QLD,1.7.2014,,,still_in_office,LNP
 834,,Ricky Muir,,Victoria,1.7.2014,,9.5.2016,defeated,MEP
 835,,Linda Reynolds,,WA,1.7.2014,,,still_in_office,LIB
@@ -383,3 +383,6 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 896,,Fraser Anning,,Qld,25.10.2018,changed_party,,still_in_office,IND
 897,,Brian Burston,,NSW,18.6.2018,changed_party,,still_in_office,UAP
 898,,Lucy Gichuhi,,SA,2.2.2018,changed_party,,still_in_office,LIB
+899,,Wendy Askew,,Tasmania,6.3.2019,section_15,,still_in_office,LIB
+900,,Raff Ciccone,,Victoria,6.3.2019,section_15,,still_in_office,ALP
+
