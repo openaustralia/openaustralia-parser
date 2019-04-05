@@ -371,7 +371,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 881,,Kristina Keneally,,NSW,14.2.2018,section_15,,still_in_office,ALP
 882,,Fraser Anning,,Qld,4.6.2018,changed_party,25.10.2018,changed_party,KAP
 883,,Mehreen Faruqi,,NSW,18.8.2018,section_15,,still_in_office,GRN
-884,,Larissa Waters,,Queensland,6.9.2018,section_15,,still_in_office,GRN
+884,,Larissa Waters,,Queensland,`6.9.2018,section_15,,still_in_office,GRN
 888,,Rex Patrick,,SA,14.11.2017,section_15,10.4.2018,changed_party,NXT
 889,,Jim Molan,,NSW,22.12.2017,,,still_in_office,LIB
 890,,Amanda Stoker,,Qld,21.3.2018,section_15,,still_in_office,LIB
@@ -385,3 +385,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 898,,Lucy Gichuhi,,SA,2.2.2018,changed_party,,still_in_office,LIB
 899,,Wendy Askew,,Tasmania,6.3.2019,section_15,,still_in_office,LIB
 900,,Raff Ciccone,,Victoria,6.3.2019,section_15,,still_in_office,ALP
+901,,Duncan Spender,,NSW,20.3.2019,section_15,,still_in_office,LDP
