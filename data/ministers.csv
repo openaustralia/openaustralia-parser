@@ -557,11 +557,11 @@ The Hon Christopher Pyne MP,18/09/2013,23/11/2014,Minister for Education
 The Hon Christopher Pyne MP,23/11/2014,21/09/2015,Minister for Education and Training
 "The Hon Christopher Pyne MP",21/09/2015,30/08/2016,"Minister for Industry, Innovation and Science"
 "The Hon Christopher Pyne MP",30/08/2016,26/08/2018,"Minister for Defence Industry"
-The Hon Christopher Pyne MP,18/09/2013,,"Leader of the House"
-The Hon Christopher Pyne MP,26/08/2018,,Minister for Defence
-The Hon Christopher Pyne MP,02/03/2019,,"Minister for Defence Industry in the House"
-Senator the Hon Nigel Scullion,18/09/2013,,Minister for Indigenous Affairs
-Senator the Hon Nigel Scullion,18/09/2013,,Leader of the Nationals in the Senate
+The Hon Christopher Pyne MP,18/09/2013,29/05/2019,"Leader of the House"
+The Hon Christopher Pyne MP,26/08/2018,29/05/2019,Minister for Defence
+The Hon Christopher Pyne MP,02/03/2019,29/05/2019,"Minister for Defence Industry in the House"
+Senator the Hon Nigel Scullion,18/09/2013,29/05/2019,Minister for Indigenous Affairs
+Senator the Hon Nigel Scullion,18/09/2013,29/05/2019,Leader of the Nationals in the Senate
 The Hon Ian Macfarlane MP,18/09/2013,23/11/2014,Minister for Industry
 The Hon Ian Macfarlane MP,23/11/2014,21/09/2015,Minister for Industry and Science
 The Hon Kevin Andrews MP,18/09/2013,23/11/2014,Minister for Social Services
@@ -571,7 +571,7 @@ The Hon Peter Dutton MP,18/09/2013,23/11/2014,Minister for Health
 The Hon Peter Dutton MP,18/09/2013,23/11/2014,Minister for Sport
 The Hon Peter Dutton MP,23/11/2014,26/08/2018,Minister for Immigration and Border Protection
 The Hon Peter Dutton MP,20/12/2017,,"Minister for Home Affairs"
-The Hon Peter Dutton MP,02/03/2019,,"Minister for Emergency Management and North Queensland Recovery in the House"
+The Hon Peter Dutton MP,02/03/2019,29/05/2019,"Minister for Emergency Management and North Queensland Recovery in the House"
 The Hon Bruce Billson MP,18/09/2013,21/09/2015,Minister for Small Business
 The Hon Andrew Robb AO MP,18/09/2013,18/02/2016,Minister for Trade and Investment
 Senator the Hon David Johnston,18/09/2013,23/11/2014,Minister for Defence
@@ -579,24 +579,27 @@ The Hon Greg Hunt MP,18/09/2013,30/08/2016,Minister for the Environment
 The Hon Greg Hunt MP,30/08/2016,24/01/2017,"Minister for Industry, Innovation and Science"
 The Hon Greg Hunt MP,24/01/2017,,Minister for Health
 The Hon Greg Hunt MP,24/01/2017,20/12/2017,Minister for Sport
+The Hon Greg Hunt MP,29/05/2019,,"Minister Assisting the Prime Minister for the Public Service and Cabinet"
 The Hon Scott Morrison MP,18/09/2013,23/11/2014,Minister for Immigration and Border Protection
 The Hon Scott Morrison MP,23/11/2014,21/09/2015,Minister for Social Services
 The Hon Scott Morrison MP,21/09/2015,24/08/2018,Treasurer
 The Hon Scott Morrison MP,24/08/2018,,Prime Minister
+The Hon Scott Morrison MP,29/05/2019,,"Minister for the Public Service"
 Senator the Hon Mathias Cormann,18/09/2013,26/08/2018,Minister for Finance
 Senator the Hon Mathias Cormann,24/01/2017,20/12/2017,Deputy Leader of the Government in the Senate
 Senator the Hon Mathias Cormann,20/12/2017,,Vice-President of the Executive Council
 Senator the Hon Mathias Cormann,20/12/2017,,Leader of the Government in the Senate
 Senator the Hon Mathias Cormann,20/12/2017,26/08/2018,"Special Minister of State"
-Senator the Hon Mathias Cormann,26/08/2018,,Minister for Finance and the Public Service
+Senator the Hon Mathias Cormann,26/08/2018,29/05/2019,Minister for Finance and the Public Service
+Senator the Hon Mathias Cormann,29/05/2019,,"Minister for Finance"
 Senator the Hon Mitch Fifield,18/09/2013,21/09/2015,Assistant Minister for Social Services
 Senator the Hon Mitch Fifield,18/09/2013,20/12/2017,Manager of Government Business in the Senate
 Senator the Hon Mitch Fifield,21/09/2015,18/02/2016,Minister Assisting the Prime Minister for Digital Government
 Senator the Hon Mitch Fifield,21/09/2015,26/08/2018,Minister for Communications
 Senator the Hon Mitch Fifield,21/09/2015,26/08/2018,Minister for the Arts
 Senator the Hon Mitch Fifield,20/12/2017,26/08/2018,"Deputy Leader of the Government in the Senate"
-Senator the Hon Mitch Fifield,26/08/2018,,Minister for Communications and the Arts
-Senator the Hon Mitch Fifield,26/08/2018,,Manager of Government Business in the Senate
+Senator the Hon Mitch Fifield,26/08/2018,29/05/2019,Minister for Communications and the Arts
+Senator the Hon Mitch Fifield,26/08/2018,29/05/2019,Manager of Government Business in the Senate
 The Hon Luke Hartsuyker MP,18/09/2013,21/09/2015,Assistant Minister for Employment
 The Hon Luke Hartsuyker MP,18/09/2013,30/08/2016,Deputy Leader of the House
 The Hon Darren Chester MP,30/08/2016,20/12/2017,"Deputy Leader of the House"
@@ -617,27 +620,32 @@ The Hon Sussan Ley MP,18/09/2013,23/11/2014,Assistant Minister for Education
 The Hon Sussan Ley MP,23/11/2014,19/07/2016,Minister for Health
 The Hon Sussan Ley MP,23/11/2014,24/01/2017,Minister for Sport
 The Hon Sussan Ley MP,21/09/2015,19/07/2016,Minister for Aged Care
-The Hon Sussan Ley MP,26/08/2018,,Assistant Minister for Regional Development and Territories
+The Hon Sussan Ley MP,26/08/2018,29/05/2019,Assistant Minister for Regional Development and Territories
+The Hon Sussan Ley MP,29/05/2019,,"Minister for the Environment"
 Senator the Hon Marise Payne,18/09/2013,21/09/2015,Minister for Human Services
 Senator the Hon Marise Payne,21/09/2015,26/08/2018,Minister for Defence
 Senator the Hon Marise Payne,26/08/2018,,Minister for Foreign Affairs
+Senator the Hon Marise Payne,29/05/2019,,"Minister for Women"
 The Hon Michael Keenan MP,18/09/2013,20/12/2017,Minister for Justice
 The Hon Michael Keenan MP,28/05/2015,20/12/2017,"Minister Assisting the Prime Minister for Counter-Terrorism"
 The Hon Michael Keenan MP,20/12/2017,26/08/2018,"Minister Assisting the Prime Minister for Digital Transformation"
 The Hon Michael Keenan MP,20/12/2017,26/08/2018,"Minister for Human Services"
-The Hon Michael Keenan MP,26/08/2018,,Minister for Human Services and Digital Transformation
+The Hon Michael Keenan MP,26/08/2018,29/05/2019,Minister for Human Services and Digital Transformation
 The Hon Stuart Robert MP,18/09/2013,21/09/2015,Assistant Minister for Defence
 The Hon Stuart Robert MP,21/09/2015,30/08/2016,Minister for Veterans’ Affairs
 The Hon Stuart Robert MP,21/09/2015,30/08/2016,Minister Assisting the Prime Minister for the Centenary of ANZAC
 The Hon Stuart Robert MP,21/09/2015,20/12/2017,Minister for Human Services
-The Hon Stuart Robert MP,26/08/2018,,Assistant Treasurer
+The Hon Stuart Robert MP,26/08/2018,29/05/2019,Assistant Treasurer
+The Hon Stuart Robert MP,29/05/2019,,"Minister for the National Disability Insurance Scheme"
+The Hon Stuart Robert MP,29/05/2019,,"Minister for Government Services"
 Senator the Hon Michaelia Cash,18/09/2013,21/09/2015,Assistant Minister for Immigration and Border Protection
 Senator the Hon Michaelia Cash,18/09/2013,21/09/2015,Minister Assisting the Prime Minister for Women
 Senator the Hon Michaelia Cash,21/09/2015,20/12/2017,Minister for Women
 Senator the Hon Michaelia Cash,21/09/2015,20/12/2017,Minister Assisting the Prime Minister for the Public Service
 Senator the Hon Michaelia Cash,21/09/2015,20/12/2017,Minister for Employment
 Senator the Hon Michaelia Cash,20/12/2017,26/08/2018,"Minister for Jobs and Innovation"
-Senator the Hon Michaelia Cash,26/08/2018,,Minister for Small and Family Business, Skills and Vocational Education
+Senator the Hon Michaelia Cash,26/08/2018,29/05/2019,Minister for Small and Family Business, Skills and Vocational Education
+Senator the Hon Michaelia Cash,29/05/2019,,"Minister for Employment, Skills, Small and Family Business"
 The Hon Jamie Briggs MP,18/09/2013,21/09/2015,Assistant Minister for Infrastructure and Regional Development
 The Hon Jamie Briggs MP,21/09/2015,30/12/2015,Minister for Cities and the Built Environment
 Senator the Hon Arthur Sinodinos AO,18/09/2013,19/12/2014,Assistant Treasurer
@@ -646,7 +654,9 @@ Senator the Hon Arthur Sinodinos AO,24/01/2017,20/12/2017,"Minister for Industry
 Senator the Hon Richard Colbeck,18/09/2013,21/09/2015,Parliamentary Secretary to the Minister for Agriculture
 Senator the Hon Richard Colbeck,21/09/2015,19/07/2016,Minister for Tourism and International Education
 Senator the Hon Richard Colbeck,21/09/2015,19/07/2016,Minister Assisting the Minister for Trade and Investment
-Senator the Hon Richard Colbeck,26/08/2018,,Assistant Minister for Agriculture and Water Resources
+Senator the Hon Richard Colbeck,26/08/2018,29/05/2019,Assistant Minister for Agriculture and Water Resources
+Senator the Hon Richard Colbeck,29/05/2019,,"Minister for Aged Care and Senior Australians"
+Senator the Hon Richard Colbeck,29/05/2019,,"Minister for Youth and Sport"
 The Hon Bob Baldwin MP,18/09/2013,23/11/2014,Parliamentary Secretary to the Minister for Industry
 The Hon Bob Baldwin MP,23/11/2014,21/09/2015,Parliamentary Secretary to the Minister for the Environment
 Senator the Hon Brett Mason,18/09/2013,23/11/2014,Parliamentary Secretary to the Minister for Foreign Affairs
@@ -677,20 +687,22 @@ The Hon Paul Fletcher MP,18/09/2013,21/09/2015,Parliamentary Secretary to the Mi
 "The Hon Paul Fletcher MP",21/09/2015,30/08/2016,"Minister for Territories, Local Government and Major Projects"
 "The Hon Paul Fletcher MP",30/08/2016,20/12/2017,"Minister for Urban Infrastructure"
 "The Hon Paul Fletcher MP",20/12/2017,26/08/2018,"Minister for Urban Infrastructure and Cities"
-"The Hon Paul Fletcher MP",26/08/2018,,Minister for Families and Social Services
+"The Hon Paul Fletcher MP",26/08/2018,29/05/2019,Minister for Families and Social Services
+"The Hon Paul Fletcher MP",29/05/2019,,"Minister for Communications, Cyber Safety and the Arts"
 The Hon Josh Frydenberg MP,18/09/2013,23/11/2014,Parliamentary Secretary to the Prime Minister
 The Hon Josh Frydenberg MP,23/12/2014,21/09/2015,Assistant Treasurer
 "The Hon Josh Frydenberg MP",21/09/2015,30/08/2016,"Minister for Resources, Energy and Northern Australia"
 "The Hon Josh Frydenberg MP",30/08/2016,24/08/2018,"Minister for the Environment and Energy"
 "The Hon Josh Frydenberg MP",24/08/2018,,Treasurer
 "The Hon Josh Frydenberg MP",24/08/2018,,"Deputy Leader of the Liberal Party"
-"The Hon Josh Frydenberg MP",02/03/2019,,"Minister for Trade, Tourism and Investment in the House"
+"The Hon Josh Frydenberg MP",02/03/2019,29/05/2019,"Minister for Trade, Tourism and Investment in the House"
 The Hon Alan Tudge MP,18/09/2013,21/09/2015,Parliamentary Secretary to the Prime Minister
 The Hon Alan Tudge MP,21/09/2015,30/08/2016,Assistant Minister to the Prime Minister
 The Hon Alan Tudge MP,21/09/2015,30/08/2016,Assistant Minister for Social Services
 The Hon Alan Tudge MP,30/08/2016,20/12/2017,"Minister for Human Services"
 The Hon Alan Tudge MP,20/12/2017,26/08/2018,"Minister for Citizenship and Multicultural Affairs"
-The Hon Alan Tudge MP,26/08/2018,,Minister for Cities, Urban Infrastructure and Population
+The Hon Alan Tudge MP,26/08/2018,29/05/2019,Minister for Cities, Urban Infrastructure and Population
+The Hon Alan Tudge MP,29/05/2019,,"Minister for Population, Cities and Urban Infrastructure"
 The Hon Michael McCormack MP,18/09/2013,21/09/2015,Parliamentary Secretary to the Minister for Finance
 The Hon Michael McCormack MP,21/09/2015,30/08/2016,Assistant Minister to the Deputy Prime Minister
 The Hon Michael McCormack MP,30/08/2016,20/12/2017,"Minister for Small Business"
@@ -701,6 +713,8 @@ The Hon Michael McCormack MP,20/12/2017,05/03/2018,"Minister Assisting the Prime
 The Hon Christian Porter MP,23/11/2014,21/09/2015,Parliamentary Secretary to the Prime Minister
 The Hon Christian Porter MP,21/09/2015,20/12/2017,Minister for Social Services
 The Hon Christian Porter MP,20/12/2017,,Attorney-General
+The Hon Christian Porter MP,29/05/2019,,"Leader of the House"
+The Hon Christian Porter MP,29/05/2019,,"Minister for Industrial Relations"
 The Hon Karen Andrews MP,23/11/2014,21/09/2015,Parliamentary Secretary to the Minister for Industry and Science
 The Hon Karen Andrews MP,30/09/2015,21/09/2015,Assistant Minister for Science
 The Hon Karen Andrews MP,30/08/2016,26/08/2018,"Assistant Minister for Vocational Education and Skills"
@@ -711,22 +725,27 @@ The Hon Kelly O’Dwyer MP,21/09/2015,30/08/2016,Assistant Treasurer
 The Hon Kelly O’Dwyer MP,30/08/2016,26/08/2018,"Minister for Revenue and Financial Services"
 The Hon Kelly O'Dwyer MP,20/12/2017,26/08/2018,Minister for Women
 The Hon Kelly O'Dwyer MP,20/12/2017,26/08/2018,"Minister Assisting the Prime Minister for the Public Service"
-The Hon Kelly O'Dwyer MP,26/08/2018,,Minister for Jobs, Industrial Relations and Women
+The Hon Kelly O'Dwyer MP,26/08/2018,29/05/2019,Minister for Jobs, Industrial Relations and Women
 The Hon Malcolm Turnbull MP,15/09/2015,24/08/2018,Prime Minister
 Senator the Hon James McGrath,21/09/2015,26/08/2018,Assistant Minister to the Prime Minister
 The Hon Dr Peter Hendy MP,21/09/2015,18/02/2016,Assistant Minister for Productivity
 The Hon Alex Hawke MP,21/09/2015,30/08/2016,"Assistant Minister to the Treasurer"
 The Hon Alex Hawke MP,30/08/2016,20/12/2017,"Assistant Minister for Immigration and Border Protection"
 The Hon Alex Hawke MP,20/12/2017,26/08/2018,"Assistant Minister for Home Affairs"
-The Hon Alex Hawke MP,26/08/2018,,Special Minister of State
+The Hon Alex Hawke MP,26/08/2018,29/05/2019,Special Minister of State
+The Hon Alex Hawke MP,29/05/2019,,"Minister for International Development and the Pacific"
+The Hon Alex Hawke MP,29/05/2019,,"Assistant Defence Minister"
 Senator the Hon Anne Ruston,21/09/2015,26/08/2018,Assistant Minister for Agriculture and Water Resources
-Senator the Hon Anne Ruston,26/08/2018,,Assistant Minister for International Development and the Pacific
+Senator the Hon Anne Ruston,26/08/2018,29/05/2019,Assistant Minister for International Development and the Pacific
+Senator the Hon Anne Ruston,29/05/2019,,"Minister for Families and Social Services"
+Senator the Hon Anne Ruston,29/05/2019,,"Manager of Government Business in the Senate"
 The Hon Wyatt Roy MP,21/09/2015,19/07/2016,Assistant Minister for Innovation
 The Hon Ken Wyatt AM MP,21/09/2015,30/08/2016,Assistant Minister for Health
 The Hon Ken Wyatt AM MP,30/08/2016,24/01/2017,"Assistant Minister for Health And Aged Care"
 The Hon Ken Wyatt AM MP,24/01/2017,26/08/2018,Minister for Aged Care
-The Hon Ken Wyatt AM MP,24/01/2017,,Minister for Indigenous Health
-The Hon Ken Wyatt AM MP,26/08/2018,,Minister for Senior Australians and Aged Care
+The Hon Ken Wyatt AM MP,24/01/2017,29/05/2019,Minister for Indigenous Health
+The Hon Ken Wyatt AM MP,26/08/2018,29/05/2019,Minister for Senior Australians and Aged Care
+The Hon Ken Wyatt AM MP,29/05/2019,,"Minister for Indigenous Australians"
 The Hon Dan Tehan MP,30/08/2016,20/12/2017,"Minister Assisting the Prime Minister for Cyber Security"
 The Hon Dan Tehan MP,30/08/2016,20/12/2017,"Minister for Veterans’ Affairs"
 The Hon Dan Tehan MP,30/08/2016,20/12/2017,"Minister Assisting the Prime Minister for the Centenary of ANZAC"
@@ -735,7 +754,8 @@ The Hon Dan Tehan MP,20/12/2017,26/08/2018,"Minister for Social Services"
 The Hon Dan Tehan MP,26/08/2018,,Minister for Education
 The Hon Angus Taylor MP,30/08/2016,20/12/2017,"Assistant Minister for Cities and Digital Transformation"
 The Hon Angus Taylor MP,20/12/2017,26/08/2018,"Minister for Law Enforcement and Cybersecurity"
-The Hon Angus Taylor MP,26/08/2018,,Minister for Energy
+The Hon Angus Taylor MP,26/08/2018,29/05/2019,Minister for Energy
+The Hon Angus Taylor MP,29/05/2019,,"Minister for Energy and Emissions Reduction"
 The Hon Keith Pitt MP,30/08/2016,20/12/2017,"Assistant Minister for Trade, Tourism and Investment"
 Senator the Hon Matt Canavan,30/08/2016,,"Minister for Resources and Northern Australia"
 The Hon Craig Laundy MP,30/08/2016,20/12/2017,"Assistant Minister for Industry, Innovation and Science"
@@ -746,37 +766,60 @@ The Hon Dr David Gillespie MP,20/12/2017,26/08/2018,"Assistant Minister for Chil
 The Hon Jane Prentice MP,30/08/2016,26/08/2018,"Assistant Minister for Social Services and Disability Services"
 Senator the Hon Zed Seselja,30/08/2016,20/12/2017,"Assistant Minister for Social Services and Multicultural Affairs"
 Senator the Hon Zed Seselja,20/12/2017,26/08/2018,"Assistant Minister for Science, Jobs and Innovation"
-Senator the Hon Zed Seselja,26/08/2018,,Assistant Minister for Treasury and Finance
+Senator the Hon Zed Seselja,26/08/2018,29/05/2019,Assistant Minister for Treasury and Finance
+Senator the Hon Zed Seselja,29/05/2019,,"Assistant Minister for Finance, Charities and Electoral Matters"
 The Hon Michael Sukkar MP,24/01/2017,26/08/2018,Assistant Minister to the Treasurer
+The Hon Michael Sukkar MP,29/05/2019,,"Assistant Treasurer"
+The Hon Michael Sukkar MP,29/05/2019,,"Minister for Housing"
 The Hon Dr John McVeigh MP,20/12/2017,26/08/2018,"Minister for Regional Development, Territories and Local Government"
 The Hon Damian Drum MP,20/12/2017,26/08/2018,Assistant Minister to the Deputy Prime Minister
 Senator the Hon Concetta Fierravanti-Wells,20/12/2017,26/08/2018,"Minister for International Development and the Pacific"
 The Hon David Coleman MP,20/12/2017,26/08/2018,Assistant Minister for Finance
-The Hon David Coleman MP,26/08/2018,,Minister for Immigration, Citizenship and Multicultural Affairs
+The Hon David Coleman MP,26/08/2018,29/05/2019,Minister for Immigration, Citizenship and Multicultural Affairs
+The Hon David Coleman MP,29/05/2019,,"Minister for Immigration, Citizenship, Migrant Services and Multicultural Affairs"
 Senator the Hon Bridget McKenzie,20/12/2017,26/08/2018,"Minister for Regional Communications"
 Senator the Hon Bridget McKenzie,20/12/2017,26/08/2018,"Minister for Rural Health"
 Senator the Hon Bridget McKenzie,20/12/2017,26/08/2018,"Minister for Sport"
-Senator the Hon Bridget McKenzie,26/08/2018,,Minister for Regional Services, Sport, Local Government and Decentralisation
+Senator the Hon Bridget McKenzie,26/08/2018,29/05/2019,Minister for Regional Services, Sport, Local Government and Decentralisation
+Senator the Hon Bridget McKenzie,29/05/2019,,"Minister for Agriculture"
 The Hon Melissa Price MP,20/12/2017,26/08/2018,"Assistant Minister for the Environment"
-The Hon Melissa Price MP,26/08/2018,,Minister for the Environment
-The Hon David Littleproud MP,20/12/2017,,"Minister for Agriculture and Water Resources"
+The Hon Melissa Price MP,26/08/2018,29/05/2019,Minister for the Environment
+The Hon Melissa Price MP,29/05/2019,,"Minister for Defence Industry"
+The Hon David Littleproud MP,20/12/2017,29/05/2019,"Minister for Agriculture and Water Resources"
+The Hon David Littleproud MP,29/05/2019,,"Minister for Water Resources, Drought, Rural Finance, Natural Disaster and Emergency Management"
 The Hon Michael McCormack MP,26/02/2018,,"Leader of the Nationals"
-The Hon Michael McCormack MP,05/03/2018,,"Deputy Prime Minister and Minister for Infrastructure and Transport"
-The Hon Darren Chester MP,05/03/2018,,"Minister for Veterans' Affairs"
-The Hon Darren Chester MP,05/03/2018,,"Minister for Defence Personnel"
-The Hon Darren Chester MP,05/03/2018,,"Minister Assisting the Prime Minister for the Centenary of ANZAC"
+The Hon Michael McCormack MP,05/03/2018,29/05/2019,"Deputy Prime Minister and Minister for Infrastructure and Transport"
+The Hon Michael McCormack MP,29/05/2019,,"Deputy Prime Minister and Minister for Infrastructure, Transport and Regional Development"
+The Hon Darren Chester MP,05/03/2018,29/05/2019,"Minister for Veterans' Affairs"
+The Hon Darren Chester MP,05/03/2018,29/05/2019,"Minister for Defence Personnel"
+The Hon Darren Chester MP,05/03/2018,29/05/2019,"Minister Assisting the Prime Minister for the Centenary of ANZAC"
 The Hon Darren Chester MP,05/03/2018,,Deputy Leader of the House
-The Hon Steve Irons MP,26/08/2018,,Assistant Minister to the Prime Minister
-The Hon Andrew Broad MP,26/08/2018,,Assistant Minister to the Deputy Prime Minister
-The Hon Scott Buchholz MP,26/08/2018,,Assistant Minister for Roads and Transport
-Senator the Hon David Fawcett,26/08/2018,,Assistant Minister for Defence
-The Hon Mark Coulton MP,26/08/2018,,Assistant Minister for Trade, Tourism and Investment
+The Hon Darren Chester MP,29/05/2019,,"Minister for Veterans and Defence Personnel"
+The Hon Steve Irons MP,26/08/2018,29/05/2019,Assistant Minister to the Prime Minister
+The Hon Steve Irons MP,29/05/2019,,"Assistant Minister for Vocational Education, Training and Apprenticeships"
+The Hon Andrew Broad MP,26/08/2018,29/05/2019,Assistant Minister to the Deputy Prime Minister
+The Hon Scott Buchholz MP,26/08/2018,29/05/2019,Assistant Minister for Roads and Transport
+The Hon Scott Buchholz MP,29/05/2019,,"Assistant Minister for Road Safety and Freight Transport"
+Senator the Hon David Fawcett,26/08/2018,29/05/2019,Assistant Minister for Defence
+The Hon Mark Coulton MP,26/08/2018,29/05/2019,Assistant Minister for Trade, Tourism and Investment
+The Hon Mark Coulton MP,29/05/2019,,"Assistant Trade and Investment Minister"
+The Hon Mark Coulton MP,29/05/2019,,"Minister for Regional Services, Decentralisation and Local Government"
 Senator the Hon Linda Reynolds CSC,26/08/2018,02/03/2019,Assistant Minister for Home Affairs
-Senator the Hon Linda Reynolds CSC,02/03/2019,,"Minister for Defence in the Senate"
-Senator the Hon Linda Reynolds CSC,02/03/2019,,"Minister for Defence Industry"
-Senator the Hon Linda Reynolds CSC,02/03/2019,,"Minister for Veterans' Affairs in the Senate"
-Senator the Hon Linda Reynolds CSC,02/03/2019,,"Minister for Defence Personnel in the Senate"
-Senator the Hon Linda Reynolds CSC,02/03/2019,,"Minister Assisting the Prime Minister for the Centenary of ANZAC in the Senate"
-Senator the Hon Linda Reynolds CSC,02/03/2019,,"Minister for Emergency Management and North Queensland Recovery"
-The Hon Sarah Henderson MP,26/08/2018,,Assistant Minister for Social Services, Housing and Disability Services
+Senator the Hon Linda Reynolds CSC,02/03/2019,29/05/2019,"Minister for Defence in the Senate"
+Senator the Hon Linda Reynolds CSC,02/03/2019,29/05/2019,"Minister for Defence Industry"
+Senator the Hon Linda Reynolds CSC,02/03/2019,29/05/2019,"Minister for Veterans' Affairs in the Senate"
+Senator the Hon Linda Reynolds CSC,02/03/2019,29/05/2019,"Minister for Defence Personnel in the Senate"
+Senator the Hon Linda Reynolds CSC,02/03/2019,29/05/2019,"Minister Assisting the Prime Minister for the Centenary of ANZAC in the Senate"
+Senator the Hon Linda Reynolds CSC,02/03/2019,29/05/2019,"Minister for Emergency Management and North Queensland Recovery"
+Senator the Hon Linda Reynolds CSC,29/05/2019,,"Minister for Defence"
+The Hon Sarah Henderson MP,26/08/2018,29/05/2019,Assistant Minister for Social Services, Housing and Disability Services
 The Hon Michelle Landry MP,26/08/2018,,Assistant Minister for Children and Families
+The Hon Ben Morton MP,29/05/2019,,"Assistant Minister to the Prime Minister and Cabinet"
+The Hon Andrew Gee MP,29/05/2019,,"Assistant Minister to the Deputy Prime Minister"
+The Hon Nola Marino MP,29/05/2019,,"Assistant Minister for Regional Development and Territories"
+Senator the Hon Jane Hume,29/05/2019,,"Assistant Minister for Superannuation, Financial Services and Financial Technology"
+Senator the Hon Jonathon Duniam,29/05/2019,,"Assistant Minister for Forestry and Fisheries"
+Senator the Hon Jonathon Duniam,29/05/2019,,"Assistant Minister for Regional Tourism"
+The Hon Jason Wood MP,29/05/2019,,"Assistant Minister for Customs, Community Safety and Multicultural Affairs"
+The Hon Trevor Evans MP,29/05/2019,,"Assistant Minister for Waste Reduction and Environmental Management"
+The Hon Luke Howarth MP,29/05/2019,,"Assistant Minister for Community Housing, Homelessness and Community Services"
