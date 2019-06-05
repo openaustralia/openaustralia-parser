@@ -180,6 +180,7 @@ class HansardParser
             debates.increment_minor_count
           end
         elsif page.is_a?(HansardDivision)
+          puts "#{date} #{house} #{page.title} #{page.subtitle}"
           debates.add_heading(page.title, page.subtitle, page.permanent_url, page.bills)
           # Lookup names
           yes = page.yes.map do |text|
