@@ -132,7 +132,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 127,,Stephen Loosley,,NSW,1.7.1990 ,,19.5.1995 ,resigned,ALP
 128,,Joseph William Ludwig,,Qld,1.7.1999,,9.5.2016,retired,ALP
 129,,Kate Alexandra Lundy,,ACT,2.3.1996,,24.3.2015,resigned,ALP
-130,,Ian Douglas Macdonald,,Qld,1.7.1990,,,still_in_office,LIB
+130,,Ian Douglas Macdonald,,Qld,1.7.1990,,1.7.2019,defeated,LIB
 133,,David John Macgibbon,,Qld,1.7.1978 ,,30.6.1999 ,defeated,LIB
 134,,Susan Mary Mackay,,Tas.,8.3.1996 ,section_15,29.7.2005 ,resigned,ALP
 135,,Michael John Macklin,,Qld,1.7.1981 ,,30.6.1990 ,retired,AD
@@ -160,7 +160,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 156,,Christine Anne Milne,,Tas.,1.7.2005,,10.8.2015,resigned,GRN
 157,,Nicholas Hugh Minchin,,SA,1.7.1993,,30.6.2011,retired,LIB
 158,,Alan Joseph Missen,,Vic.,18.5.1974 ,,30.3.1986 ,died,LIB
-159,,Claire Mary Moore,,Qld,1.7.2002,,,still_in_office,ALP
+159,,Claire Mary Moore,,Qld,1.7.2002,,1.7.2019,retired,ALP
 160,,John Joseph Morris,,NSW,1.7.1985 ,,30.6.1990 ,retired,ALP
 161,,James Anthony Mulvihill,,NSW,1.7.1965 ,,4.2.1983 ,retired,ALP
 162,,Shayne Michael Murphy,,Tas.,1.7.1993 ,,30.6.2005 ,defeated,IND
@@ -199,7 +199,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 196,,Christopher Cleland Schacht,,SA,11.7.1987 ,,30.6.2002 ,defeated,ALP
 197,,Douglas Barr Scott,,NSW,6.8.1970 ,section_15,20.11.1970 ,term expired ,NPA
 198,,Douglas Barr Scott,,NSW,18.5.1974 ,,30.6.1985 ,retired,NPA
-199,,Nigel Gregory Scullion,,NT,10.11.2001 ,,,still_in_office,CLP
+199,,Nigel Gregory Scullion,,NT,10.11.2001 ,,1.7.2019,retired,CLP
 200,,Glenister Sheil,,Qld,1.12.1984 ,,30.6.1990 ,defeated,NCP
 201,,Glenister Sheil,,Qld,18.5.1974 ,,6.2.1981 ,resigned ,NCP
 202,,Nicholas John Sherry,,Tas.,1.7.1990,,01.06.2012,resigned,ALP
@@ -253,7 +253,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 # Senators that started on 1 July 2008,,,,,,,,,
 249,,Mark Arbib,,NSW,1.7.2008,,05.03.2012,resigned,ALP
 250,,Catryna Bilyk,,Tasmania,1.7.2008,,,still_in_office,ALP
-251,,Doug Cameron,,NSW,1.7.2008,,,still_in_office,ALP
+251,,Doug Cameron,,NSW,1.7.2008,,1.7.2019,retired,ALP
 252,,Michaelia Cash,,WA,1.7.2008,,,still_in_office,LIB
 253,,Don Farrell,,SA,1.7.2008,,30.6.2014,retired,ALP
 254,,David Feeney,,Victoria,1.7.2008,,12.8.2013,resigned,ALP
@@ -263,7 +263,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 258,,Scott Ludlam,,WA,1.7.2008,,14.7.2017,resigned,GRN
 259,,Louise Pratt,,WA,1.7.2008,,30.6.2014,retired,ALP
 260,,Scott Ryan,,Victoria,1.7.2008,,12.11.2017,changed_party,LIB
-261,,John Williams,,NSW,1.7.2008,,,still_in_office,NP
+261,,John Williams,,NSW,1.7.2008,,1.7.2019,retired,NP
 262,,Nick Xenophon,,SA,1.7.2008,,1.7.2016,changed_party,IND
 # Senators that finished on 1 July 2008,,,,,,,,,
 3,,Lynette Fay Allison,,Vic.,1.7.1996,,30.6.2008,defeated,AD
@@ -292,7 +292,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 291,,Bridget McKenzie,,Victoria,1.7.2011,,,still_in_office,NP
 292,,John Madigan,,Victoria,1.7.2011,,4.9.2014,changed_party,DLP
 293,,Lee Rhiannon,,NSW,1.7.2011,,18.08.2018,resigned,GRN
-295,,Lisa Singh,,Tasmania,1.7.2011,,,still_in_office,ALP
+295,,Lisa Singh,,Tasmania,1.7.2011,,1.7.2019,defeated,ALP
 296,,Matt Thistlethwaite,,NSW,1.7.2011,,9.8.2013,resigned,ALP
 297,,Anne Urquhart,,Tasmania,1.7.2011,,,still_in_office,ALP
 298,,Larissa Waters,,Queensland,1.7.2011,,18.7.2017,resigned,GRN
@@ -309,11 +309,11 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 310,,Mehmet Tillem,,Victoria,21.8.2013,section_15,30.6.2014,retired,ALP
 311,,Zed Seselja,,ACT,07.9.2013,,,still_in_office,LIB
 312,,Deborah O'Neill,,NSW,13.11.2013,section_15,,still_in_office,ALP
-313,,Barry O'Sullivan,,QLD,11.2.2014,section_15,,still_in_office,NP
+313,,Barry O'Sullivan,,QLD,11.2.2014,section_15,1.7.2019,retired,NP
 826,,Joe Bullock,,WA,1.7.2014,,13.4.2016,resigned,ALP
 827,,Matthew Canavan,,QLD,1.7.2014,,,still_in_office,LNP
 828,,Bob Day,,SA,1.7.2014,,1.11.2016,resigned,FFP
-829,,Chris Ketter,,QLD,1.7.2014,,,still_in_office,ALP
+829,,Chris Ketter,,QLD,1.7.2014,,1.7.2019,defeated,ALP
 830,,Jacqui Lambie,,Tasmania,1.7.2014,,23.11.2014,changed_party,PUP
 831,,Glenn Lazarus,,QLD,1.7.2014,,12.3.2015,changed_party,PUP
 832,,David Leyonhjelm,,NSW,1.7.2014,,1.3.2019,resigned,LDP
@@ -342,7 +342,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 855,,Don Farrell,,SA,1.7.2016,,,still_in_office,ALP
 856,,Stirling Griff,,SA,1.7.2016,,10.4.2018,changed_party,NXT
 857,,Pauline Lee Hanson,,QLD,1.7.2016,,,still_in_office,PHON
-858,,Derryn Hinch,,Victoria,1.7.2016,,,still_in_office,DHJP
+858,,Derryn Hinch,,Victoria,1.7.2016,,1.7.2019,defeated,DHJP
 859,,Jane Hume,,Victoria,1.7.2016,,,still_in_office,LIB
 860,,Skye Kakoschke-Moore,,SA,1.7.2016,,22.11.2017,resigned,NXT
 861,,Malarndirri McCarthy,,NT,2.7.2016,,,still_in_office,ALP
@@ -352,17 +352,17 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 865,,Kimberley Kitching,,Vic.,25.10.2016,section_15,,still_in_office,ALP
 866,,Cory Bernardi,,SA,7.2.2017,changed_party,,still_in_office,AC
 867,,Nick Xenophon,,SA,1.7.2016,changed_party,6.10.2017,resigned,NXT
-868,,Peter Georgiou,,WA,20.3.2017,,,still_in_office,PHON
+868,,Peter Georgiou,,WA,20.3.2017,,1.7.2019,defeated,PHON
 869,,Lucy Gichuhi,,SA,19.4.2017,declared_elected,3.5.2017,changed_party,FFP
 870,,Lucy Gichuhi,,SA,3.5.2017,changed_party,2.2.2018,changed_party,IND
-871,,Gavin Mark Marshall,,Vic.,9.5.2016,changed_party,,still_in_office,ALP
+871,,Gavin Mark Marshall,,Vic.,9.5.2016,changed_party,1.7.2019,defeated,ALP
 872,,Sue Lines,,WA,30.9.2016,changed_party,,still_in_office,DPRES
 873,,Slade Brockman,,WA,16.8.2017,section_15,,still_in_office,LIB
 874,,Jordon Steele-John,,WA,10.11.2017,recount,,still_in_office,GRN
 875,,Andrew Bartlett,,Qld,10.11.2017,recount,27.8.2018,resigned,GRN
 876,,Fraser Anning,,Qld,10.11.2017,recount,15.1.2018,changed_party,PHON
 877,,Scott Ryan,,Victoria,13.11.2017,,,still_in_office,PRES
-878,,Steve Martin,,Tasmania,9.2.2018,high_court,,still_in_office,IND
+878,,Steve Martin,,Tasmania,9.2.2018,high_court,1.7.2019,defeated,IND
 # Ordering here has gotten a little out of synch as the choosing of,,,,,,,,,
 # 888 for Rex Patrick was a mistake and we'll just have to fill in the gaps,,,,,,,,,
 # until we get past 888 again and then things will be simpler once more,,,,,,,,,
@@ -373,16 +373,35 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 883,,Mehreen Faruqi,,NSW,18.8.2018,section_15,,still_in_office,GRN
 884,,Larissa Waters,,Queensland,`6.9.2018,section_15,,still_in_office,GRN
 888,,Rex Patrick,,SA,14.11.2017,section_15,10.4.2018,changed_party,NXT
-889,,Jim Molan,,NSW,22.12.2017,,,still_in_office,LIB
+889,,Jim Molan,,NSW,22.12.2017,,1.7.2019,defeated,LIB
 890,,Amanda Stoker,,Qld,21.3.2018,section_15,,still_in_office,LIB
 891,,Tim Storer,,SA,16.2.2018,,26.2.2018,changed_party,NXT
-892,,Tim Storer,,SA,26.2.2018,changed_party,,still_in_office,IND
+892,,Tim Storer,,SA,26.2.2018,changed_party,1.7.2019,defeated,IND
 893,,David Smith,,ACT,23.5.2018,,11.4.2019,resigned,ALP
 894,,Stirling Griff,,SA,10.4.2018,changed_party,,still_in_office,CA
 895,,Rex Patrick,,SA,10.4.2018,changed_party,,still_in_office,CA
-896,,Fraser Anning,,Qld,25.10.2018,changed_party,,still_in_office,IND
-897,,Brian Burston,,NSW,18.6.2018,changed_party,,still_in_office,UAP
-898,,Lucy Gichuhi,,SA,2.2.2018,changed_party,,still_in_office,LIB
+896,,Fraser Anning,,Qld,25.10.2018,changed_party,1.7.2019,defeated,IND
+897,,Brian Burston,,NSW,18.6.2018,changed_party,1.7.2019,defeated,UAP
+898,,Lucy Gichuhi,,SA,2.2.2018,changed_party,1.7.2019,defeated,LIB
 899,,Wendy Askew,,Tasmania,6.3.2019,section_15,,still_in_office,LIB
 900,,Raff Ciccone,,Victoria,6.3.2019,section_15,,still_in_office,ALP
-901,,Duncan Spender,,NSW,20.3.2019,section_15,,still_in_office,LDP
+901,,Duncan Spender,,NSW,20.3.2019,section_15,1.7.2019,defeated,LDP
+902,,Alex Antic,,SA,1.7.2019,,,still_in_office,LIB
+903,,Tim Ayres,,NSW,1.7.2019,,,still_in_office,ALP
+904,,Andrew Bragg,,NSW,1.7.2019,,,still_in_office,LIB
+905,,Claire Chandler,,Tasmania,1.7.2019,,,still_in_office,LIB
+906,,Perin Davey,,NSW,1.7.2019,,,still_in_office,NP
+907,,Katy Gallagher,,ACT,1.7.2019,,,still_in_office,ALP
+908,,Nita Green,,Qld,1.7.2019,,,still_in_office,ALP
+909,,Hollie Hughes,,NSW,1.7.2019,,,still_in_office,LIB
+910,,Jacqui Lambie,,Tasmania,1.7.2019,,,still_in_office,JLN
+911,,Susan McDonald,,Qld,1.7.2019,,,still_in_office,NP
+912,,Sam McMahon,,NT,1.7.2019,,,still_in_office,CLP
+913,,Matt O'Sullivan,,WA,1.7.2019,,,still_in_office,LIB
+914,,Gerard Rennick,,Qld,1.7.2019,,,still_in_office,LIB
+915,,Malcolm Roberts,,Qld,1.7.2019,,,still_in_office,PHON
+916,,Paul Scarr,,Qld,1.7.2019,,,still_in_office,LIB
+917,,Tony Sheldon,,NSW,1.7.2019,,,still_in_office,ALP
+918,,Marielle Smith,,SA,1.7.2019,,,still_in_office,ALP
+919,,David Van,,Vic,1.7.2019,,,still_in_office,LIB
+920,,Jess Walsh,,Vic,1.7.2019,,,still_in_office,ALP
