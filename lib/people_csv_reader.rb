@@ -171,6 +171,8 @@ class PeopleCSVReader
       "United Australia Party"
     when "CA"
       "Centre Alliance"
+    when "JLN"
+      "Jacqui Lambie Network"
     when "ANTI-SOC", "SPK", "CWM", "PRES", "DPRES"
       # Do nothing
       party
