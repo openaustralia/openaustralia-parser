@@ -5,8 +5,24 @@ $:.unshift "#{File.dirname(__FILE__)}/lib"
 require 'configuration'
 require 'people'
 require 'enumerator'
+require 'optparse'
 
-conf = Configuration.new
+options = {}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: parse-members.rb [--test]"
+
+  opts.on("--test", "Run in test mode (no DB updates)") do |test|
+    options[:test] = test
+  end
+end.parse!
+
+if options[:test]
+  config = {}
+  conf = Configuration.new config
+else
+  conf = Configuration.new
+end
 
 FileUtils.mkdir_p conf.members_xml_path
 
@@ -60,6 +76,11 @@ puts "Writing XML..."
 people.write_xml("#{conf.members_xml_path}/people.xml", "#{conf.members_xml_path}/representatives.xml", "#{conf.members_xml_path}/senators.xml",
   "#{conf.members_xml_path}/ministers.xml", "#{conf.members_xml_path}/divisions.xml")
 
-# And load up the database
-# Starts with 'perl' to be friendly with Windows
-system("perl #{conf.web_root}/twfy/scripts/xml2db.pl --members --all --force")
+
+if options[:test]
+  puts "Created xml files in #{conf.members_xml_path}"
+else
+  # And load up the database
+  # Starts with 'perl' to be friendly with Windows
+  system("perl #{conf.web_root}/twfy/scripts/xml2db.pl --members --all --force")
+end
