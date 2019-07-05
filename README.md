@@ -49,7 +49,7 @@ See [commit ee9d91c](https://github.com/openaustralia/openaustralia-parser/commi
 
 #### Checking
 
-After making changes, first run `make`. This will run several scripts in test mode to check that the various CSV files can be parsed correctly.
+After making changes to the data files, you can run `bundle exec ./postcodes.rb --test` and `bundle exec ./parse-members.rb --test`. In test mode, these scripts will simply verify that the data files can be correctly parsed, without writing to the database.
 
 These checks are also run by Travis when your changes are pushed to github.
 

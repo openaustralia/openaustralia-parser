@@ -6,4 +6,9 @@ before_install:
 jobs:
   include:
     - stage: test
-      script: make test_postcodes
+      script: bundle exec rake
+      name: Run code tests
+    - script: bundle exec ./postcodes.rb --test
+      name: Test postcodes.csv
+    - script: bundle exec ./parse-members.csv --test
+      name: Test members datafiles 

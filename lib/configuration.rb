@@ -7,13 +7,7 @@ class Configuration
   
   @@conf = nil
   
-  def initialize
-    if @@conf.nil?
-      # Load the configuration
-      @@conf = YAML::load( File.open( "#{File.dirname(__FILE__)}/../configuration.yml" ) )
-      @@conf = {} if !@@conf
-    end
-    
+  def load_mysociety_config
     # Load the information from the mysociety configuration
     require "#{web_root}/rblib/config"
     MySociety::Config.set_file("#{web_root}/twfy/conf/general")
@@ -26,6 +20,20 @@ class Configuration
     @xml_path = MySociety::Config.get('RAWDATA')
     @regmem_pdf_path = MySociety::Config.get('REGMEMPDFPATH')
     @base_dir = MySociety::Config.get('BASEDIR')
+  end
+
+  def initialize(conf = nil)
+    if @@conf.nil?
+      if conf.nil?
+        # Load the configuration from the config file
+        @@conf = YAML::load( File.open( "#{File.dirname(__FILE__)}/../configuration.yml" ) )
+        @@conf = {} if !@@conf
+        load_mysociety_config
+      else
+        @@conf = conf if !@@conf
+        @members_xml_path = "./xml_output"
+      end
+    end
   end
   
   # Ruby magic
