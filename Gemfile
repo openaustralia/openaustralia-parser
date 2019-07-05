@@ -7,7 +7,7 @@ gem 'nokogiri', "~> 1.5.0"
 gem 'mechanize', '0.9.2'
 # Force using this version of hpricot so Marshal.dump of PageProxy object doesn't fail. Ugh.
 gem 'hpricot', "= 0.6.164"
-gem 'htmlentities'
+gem 'htmlentities', "<= 4.3.1"
 gem 'json', "~> 1.8.6"
 
 gem 'builder', '2.1.2'
