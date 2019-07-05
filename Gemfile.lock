@@ -10,7 +10,7 @@ GEM
     hoe (3.18.0)
       rake (>= 0.8, < 13.0)
     hpricot (0.6.164)
-    htmlentities (4.3.4)
+    htmlentities (4.3.1)
     i18n (0.6.11)
     json (1.8.6)
     log4r (1.1.10)
@@ -45,7 +45,7 @@ DEPENDENCIES
   builder (= 2.1.2)
   hoe
   hpricot (= 0.6.164)
-  htmlentities
+  htmlentities (<= 4.3.1)
   i18n (~> 0.6.11)
   json (~> 1.8.6)
   log4r
