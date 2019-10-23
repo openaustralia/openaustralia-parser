@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
 gem 'rake', "~> 10.5.0"
-gem 'activesupport', "< 4.0.0"
+gem 'activesupport', "< 5.0.0"
 gem 'i18n', "~> 0.6.11" # Required by activesupport
 gem 'nokogiri', "~> 1.5.0"
 gem 'mechanize', '0.9.2'
