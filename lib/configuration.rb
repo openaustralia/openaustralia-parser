@@ -29,8 +29,9 @@ class Configuration
       @@conf = YAML::load( File.open( "#{File.dirname(__FILE__)}/../configuration.yml" ) )
       @@conf = {} if !@@conf
     end
-    load_mysociety_config
-    unless conf.nil?
+    if conf.nil?
+      load_mysociety_config
+    else
       @@conf = conf if !@@conf
       @members_xml_path = "./xml_output"
     end
