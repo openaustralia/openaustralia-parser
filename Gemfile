@@ -3,7 +3,7 @@ source "http://rubygems.org"
 gem 'rake', "~> 10.5.0"
 gem 'activesupport', "< 4.0.0"
 gem 'i18n', "~> 0.6.11" # Required by activesupport
-gem 'nokogiri', "~> 1.5.0"
+gem 'nokogiri', "~> 1.10.4"
 gem 'mechanize', '0.9.2'
 # Force using this version of hpricot so Marshal.dump of PageProxy object doesn't fail. Ugh.
 gem 'hpricot', "= 0.6.164"
