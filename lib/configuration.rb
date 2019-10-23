@@ -24,17 +24,17 @@ class Configuration
 
   def initialize(conf = nil)
     if @@conf.nil?
-      if conf.nil?
-        # Load the configuration from the config file
-        @@conf = YAML::load( File.open( "#{File.dirname(__FILE__)}/../configuration.yml" ) )
-        @@conf = {} if !@@conf
-        load_mysociety_config
-      else
-        @@conf = conf if !@@conf
-        @members_xml_path = "./xml_output"
-      end
+      puts "Loading config from: #{File.dirname(__FILE__)}/../configuration.yml"
+      # Load the configuration from the config file
+      @@conf = YAML::load( File.open( "#{File.dirname(__FILE__)}/../configuration.yml" ) )
+      @@conf = {} if !@@conf
     end
-  end
+    load_mysociety_config
+    unless conf.nil?
+      @@conf = conf if !@@conf
+      @members_xml_path = "./xml_output"
+    end
+  end                  
   
   # Ruby magic
   def method_missing(method_id)
