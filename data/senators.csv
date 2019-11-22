@@ -297,7 +297,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 297,,Anne Urquhart,,Tasmania,1.7.2011,,,still_in_office,ALP
 298,,Larissa Waters,,Queensland,1.7.2011,,18.7.2017,resigned,GRN
 300,,Penny Wright,,SA,1.7.2011,,10.9.2015,resigned,GRN
-301,,Arthur Sinodinos,,NSW,31.10.2011,section_15,,still_in_office,LIB
+301,,Arthur Sinodinos,,NSW,31.10.2011,section_15,11.11.2019,resigned,LIB
 302,,Robert John Carr,,NSW,06.03.2012,,24.10.2013,resigned,ALP
 303,,Dean Smith,,WA,2.5.2012,,,still_in_office,LIB
 304,,Lin Estelle Thorp,,Tas.,20.6.2012,,30.6.2014,retired,ALP
@@ -406,3 +406,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 919,,David Van,,Vic,1.7.2019,,,still_in_office,LIB
 920,,Jess Walsh,,Vic,1.7.2019,,,still_in_office,ALP
 921,,Sarah Henderson,,Vic,11.9.2019,section_15,,still_in_office,LIB
+922,,Jim Molan,,NSW,11.11.2019,,,still_in_office,LIB
+
