@@ -350,7 +350,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 863,,Malcolm Roberts,,QLD,1.7.2016,,27.10.2017,disqualified,PHON
 864,,Murray Watt,,QLD,1.7.2016,,,still_in_office,ALP
 865,,Kimberley Kitching,,Vic.,25.10.2016,section_15,,still_in_office,ALP
-866,,Cory Bernardi,,SA,7.2.2017,changed_party,,still_in_office,AC
+866,,Cory Bernardi,,SA,7.2.2017,changed_party,20.1.2020,resigned,AC
 867,,Nick Xenophon,,SA,1.7.2016,changed_party,6.10.2017,resigned,NXT
 868,,Peter Georgiou,,WA,20.3.2017,,1.7.2019,defeated,PHON
 869,,Lucy Gichuhi,,SA,19.4.2017,declared_elected,3.5.2017,changed_party,FFP
@@ -407,3 +407,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 920,,Jess Walsh,,Vic,1.7.2019,,,still_in_office,ALP
 921,,Sarah Henderson,,Vic,11.9.2019,section_15,,still_in_office,LIB
 922,,Jim Molan,,NSW,11.11.2019,section_15,,still_in_office,LIB
+923,,Andrew McLachlan,,SA,6.2.2020,section_15,,still_in_office,LIB
