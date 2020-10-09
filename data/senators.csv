@@ -379,7 +379,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 892,,Tim Storer,,SA,26.2.2018,changed_party,1.7.2019,defeated,IND
 893,,David Smith,,ACT,23.5.2018,,11.4.2019,resigned,ALP
 894,,Stirling Griff,,SA,10.4.2018,changed_party,,still_in_office,CA
-895,,Rex Patrick,,SA,10.4.2018,changed_party,,still_in_office,CA
+895,,Rex Patrick,,SA,10.4.2018,changed_party,10.8.2020,changed_party,CA
 896,,Fraser Anning,,Qld,25.10.2018,changed_party,1.7.2019,defeated,IND
 897,,Brian Burston,,NSW,18.6.2018,changed_party,1.7.2019,defeated,UAP
 898,,Lucy Gichuhi,,SA,2.2.2018,changed_party,1.7.2019,defeated,LIB
@@ -408,3 +408,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 921,,Sarah Henderson,,Vic,11.9.2019,section_15,,still_in_office,LIB
 922,,Jim Molan,,NSW,11.11.2019,section_15,,still_in_office,LIB
 923,,Andrew McLachlan,,SA,6.2.2020,section_15,,still_in_office,LIB
+924,,Rex Patrick,,SA,10.8.2020,changed_party,,still_in_office,IND
+925,,Lidia Thorpe,,Vic,4.9.2020,section_15,,still_in_office,GRN
