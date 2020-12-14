@@ -13,3 +13,5 @@ data/register_of_interests/senate/*.pdf
 data/register_of_interests/representatives/*.pdf
 .*.sw?
 configuration.yml
+.vagrant
+ubuntu-xenial-16.04-cloudimg-console.log
