@@ -45,7 +45,9 @@ def compare_xml(ref_path, test_path, date, count)
       ref = "regression_failed_ref.xml"
       system("tidy -xml -utf8 -o #{test} #{test_path}")
       system("tidy -xml -utf8 -o #{ref} #{ref_path}")
-      system("opendiff #{test} #{ref}")
+      puts("******")
+      system("diff #{test_path} #{ref_path}")
+      puts("******")
       puts "ERROR: #{test_path} and #{ref_path} don't match"
       puts "Regression tests FAILED on date #{date} at count #{count}!"
       # Give the user the option to overwrite the reference file and continue
