@@ -77,7 +77,7 @@ def test_date(date, conf, parser, count)
   parser.parse_date_house(date, new_reps_xml_path, House.representatives)
   compare_xml(ref_reps_xml_path, new_reps_xml_path, date, count)
   parser.parse_date_house(date, new_senate_xml_path, House.senate)
-  compare_xml(ref_senate_xml_path, new_senate_xml_path, date, count)  
+  compare_xml(ref_senate_xml_path, new_senate_xml_path, date, count)
 end
 
 class Array
@@ -112,13 +112,13 @@ dates[skip..-1].each do |date|
   count = count + 1
   puts "Regression test progress: Done #{count}/#{dates.size}"
   seconds_left = ((Time.new - time0) / (count - skip) * (dates.size - count)).to_i
-  
+
   minutes_left = (seconds_left / 60).to_i
   seconds_left = seconds_left - 60 * minutes_left
-  
+
   hours_left = (minutes_left / 60).to_i
   minutes_left = minutes_left - 60 * hours_left
-  
+
   if hours_left > 0
     puts "Estimated time left to completion: #{hours_left} hours #{minutes_left} mins"
   else
