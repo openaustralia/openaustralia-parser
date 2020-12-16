@@ -22,9 +22,7 @@ skip = 0
 # Dates to test first before anything else
 # Update this list with any dates that have shown up problems in the past
 
-test_first = [Date.new(2019,7,23), Date.new(2019,9,16), Date.new(2019,2,19),
-              Date.new(2019,9,17), Date.new(2019,9,18), Date.new(2019,9,19),
-              Date.new(2019,9,20)]
+test_first = []
 
 skip_dates = []
 
