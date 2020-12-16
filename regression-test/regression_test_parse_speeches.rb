@@ -13,8 +13,8 @@ require 'configuration'
 
 # Range of dates to test
 
-from_date = Date.new(2007, 1, 1)
-to_date = Date.new(2008, 1, 1) - 1
+from_date = Date.new(2019, 1, 1)
+to_date = Date.new(2020, 1, 1) - 1
 
 # Number of items to skip at the beginning
 skip = 0
@@ -22,7 +22,9 @@ skip = 0
 # Dates to test first before anything else
 # Update this list with any dates that have shown up problems in the past
 
-test_first = [Date.new(2007,8,8), Date.new(2007,8,14), Date.new(2007,5,8), Date.new(2007,2,14)]
+test_first = [Date.new(2019,7,23), Date.new(2019,9,16), Date.new(2019,2,19),
+              Date.new(2019,9,17), Date.new(2019,9,18), Date.new(2019,9,19),
+              Date.new(2019,9,20)]
 
 skip_dates = []
 
