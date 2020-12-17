@@ -1,7 +1,7 @@
 # Currently a section can be either a speech or a division
 class Section
   attr_accessor :time, :url
-  
+
   def initialize(time, url, count, date, house, logger = nil)
     @time, @url, @count, @date, @house, @logger = time, url, count, date, house, logger
   end
@@ -10,7 +10,7 @@ class Section
   def quoted_url
     @url.gsub('&', '&amp;')
   end
-  
+
   def id
     if @house.representatives?
       "uk.org.publicwhip/debate/#{@date}.#{@count}"
