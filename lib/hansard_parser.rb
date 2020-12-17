@@ -112,14 +112,19 @@ class HansardParser
     else
        throw "Assertion failed! unknown house!"
     end
-
-    # Load the XML data
-    xml = hansard_xml_source_data_on_date(date, house)
+    # Use the origxml as a cache if it exists. Otherwise fetch
+    # it via the web from aph
+    filename = "#{@conf.xml_path}/origxml/#{house_loc}/#{date}.xml"
+    if File.exists?(filename)
+      puts "Reading cached xml from #{filename}..."
+      xml = File.read(filename)
+    else
+      # Load the XML data
+      xml = hansard_xml_source_data_on_date(date, house)
+      # And cache it
+      File.open(filename, 'w') {|f| f.write("#{xml}") } if xml
+    end
     if xml
-      # Save the original XML data
-      filename = "#{@conf.xml_path}/origxml/#{house_loc}/#{date}.xml"
-      File.open(filename, 'w') {|f| f.write("#{xml}") }
-
       # APH changed their XML format on the 10th of May 2011
       if date >= Date.new(2011,5,10)
         # Rewrite the XML data back to a sane format
