@@ -20,7 +20,7 @@ if ARGV.size != 2
   puts "Wrong number of parameters"
   exit
 end
-    
+
 if ARGV[0] == "reps" || ARGV[0] == "representatives"
   house = House.representatives
 elsif ARGV[0] == "senate"

@@ -6,7 +6,7 @@ require 'section'
 class Speech < Section
   attr_accessor :speaker, :content, :interjection, :continuation, :duration,
     :word_count_for_continuations
-  
+
   def initialize(speaker, time, url, count, date, house, logger = nil)
     @speaker = speaker
     @content = Hpricot::Elements.new
@@ -14,7 +14,7 @@ class Speech < Section
     @word_count_for_continuations = 0
     super(time, url, count, date, house, logger)
   end
-  
+
   def output(x)
     time = @time.nil? ? "unknown" : @time
     if @logger && @content.inner_text.strip == ""
@@ -30,7 +30,7 @@ class Speech < Section
       :approximate_duration => @duration.to_i, :approximate_wordcount => words
     })) { x << @content.to_s }
   end
-  
+
   def append_to_content(content)
     # Put entities back into the content so that, for instance, '&' becomes '&amp;'
     # Since we are outputting XML rather than HTML in order to save us the trouble of putting the HTML entities in the XML
@@ -59,7 +59,7 @@ class Speech < Section
 
   def duration=(duration_estimate)
     # Cleanup up durations less than zero
-    if (duration_estimate < 0) 
+    if (duration_estimate < 0)
       duration_estimate = 0
     end
     if !interjection && !continuation

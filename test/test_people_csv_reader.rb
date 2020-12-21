@@ -17,7 +17,7 @@ class TestPeopleCSVReader < Test::Unit::TestCase
     people = PeopleCSVReader.read_members
     PeopleCSVReader.read_all_ministers(people)
     sophie_mirabella = people.find_person_by_name(Name.new(:first => "Sophie", :last => "Mirabella"))
-    
+
     assert_equal(ref, sophie_mirabella)
   end
 end
