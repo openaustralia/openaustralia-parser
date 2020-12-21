@@ -17,7 +17,6 @@ class PeopleImageDownloader
 
     @conf = Configuration.new
     @agent = MechanizeProxy.new
-    @agent.cache_subdirectory = "member_images"
   end
 
   def download(people, small_image_dir, large_image_dir)

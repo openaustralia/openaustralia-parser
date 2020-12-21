@@ -25,10 +25,8 @@ puts "Reading member data..."
 people = people = PeopleCSVReader.read_members
 
 agent = MechanizeProxy.new
-# Slightly naughty because Wikipedia specifically blocks Ruby Mechanize but I'm justifying it because we
-# are using the html_cache here so that will mean there is a very small amount of traffic generally
+# Slightly naughty because Wikipedia specifically blocks Ruby Mechanize
 agent.user_agent_alias = 'Mac Safari'
-agent.cache_subdirectory = "wikipedia"
 
 puts "Wikipedia links for Representatives..."
 links = extract_all_representative_wikipedia_links(people, agent)

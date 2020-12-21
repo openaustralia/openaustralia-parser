@@ -49,17 +49,11 @@ class HansardParser
     @rewriter = HansardRewriter.new(@logger)
   end
 
-  # Returns the subdirectory where html_cache files for a particular date are stored
-  def cache_subdirectory(date, house)
-    date.to_s
-  end
-
   # Returns the XML file loaded from aph.gov.au as plain text which contains all the Hansard data
   # Returns nil it it doesn't exist
   # This is the original data without any patches applied at this end
   def unpatched_hansard_xml_source_data_on_date(date, house)
     agent = MechanizeProxy.new
-    agent.cache_subdirectory = cache_subdirectory(date, house)
 
     # This is the page returned by Parlinfo Search for that day
     url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;adv=yes;orderBy=_fragment_number,doc_date-rev;page=0;query=Dataset%3Ahansard#{house.representatives? ? "r" : "s"},hansard#{house.representatives? ? "r" : "s"}80%20Date%3A#{date.day}%2F#{date.month}%2F#{date.year};rec=0;resCount=Default"
