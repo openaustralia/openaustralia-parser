@@ -2,7 +2,6 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'environment'
 require 'mechanize'
 require 'open-uri'
 require 'name'

@@ -1,6 +1,5 @@
 # Very stripped down proxy for WWW::Mechanize
 
-require 'environment'
 require 'mechanize'
 require 'configuration'
 

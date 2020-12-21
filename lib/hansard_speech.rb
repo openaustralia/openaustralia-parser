@@ -1,6 +1,5 @@
 # encoding: utf-8
 
-require 'environment'
 require 'active_support'
 require 'hpricot_additions'
 require 'name'

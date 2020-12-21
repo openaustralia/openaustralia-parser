@@ -1,6 +1,5 @@
 # encoding: utf-8
 
-require 'environment'
 require 'speech'
 require 'mechanize_proxy'
 require 'configuration'

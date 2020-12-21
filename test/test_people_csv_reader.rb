@@ -1,6 +1,5 @@
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
-require 'environment'
 require 'test/unit'
 
 require 'people_csv_reader'

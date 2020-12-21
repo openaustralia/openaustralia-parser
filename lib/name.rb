@@ -1,6 +1,5 @@
 # encoding: utf-8
 
-require 'environment'
 require 'enumerator'
 require 'active_support/all'
 
