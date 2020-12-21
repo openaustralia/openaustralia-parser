@@ -1,8 +1,8 @@
+# encoding: utf-8
+
 require 'environment'
 require 'enumerator'
 require 'active_support/all'
-
-$KCODE = 'u'
 
 # Handle all our silly name parsing needs
 class Name

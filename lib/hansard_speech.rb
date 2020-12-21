@@ -1,9 +1,9 @@
+# encoding: utf-8
+
 require 'environment'
 require 'active_support'
 require 'hpricot_additions'
 require 'name'
-
-$KCODE = 'u'
 
 class HansardSpeech
   attr_reader :logger, :title, :subtitle, :bills, :time, :day, :interjection, :continuation
@@ -73,7 +73,7 @@ class HansardSpeech
   def HansardSpeech.clean_content_inline(e)
     text = strip_leading_dash(e.inner_html)
 
-    attributes_keys = e.attributes.keys
+    attributes_keys = e.attributes.to_hash.keys
     # Always ignore font-size
     attributes_keys.delete('font-size')
 
@@ -131,10 +131,10 @@ class HansardSpeech
   def HansardSpeech.clean_content_para_content(e)
     t = ""
     e.children.each do |c|
-      if c.respond_to?(:name)
-        t << clean_content_any(c)
-      else
+      if c.kind_of?(Hpricot::Text)
         t << strip_leading_dash(c.to_s)
+      else
+        t << clean_content_any(c)
       end
     end
     t
@@ -207,7 +207,7 @@ class HansardSpeech
 
   def HansardSpeech.clean_content_entry(e, override_type = nil)
     attributes = 'valign="top"'
-    if e.attributes['colspan']
+    if e.attributes['colspan'] && e.attributes['colspan'] != ""
       attributes << ' colspan="' + e.attributes['colspan'] + '"'
     end
     '<td ' + attributes + '>' + clean_content_recurse(e, override_type) + '</td>'
@@ -300,6 +300,6 @@ class HansardSpeech
   end
 
   def name?(name)
-    @content.respond_to?(:name) ? name == @content.name : !!@content.at("/#{name}")
+    !!@content.at("/#{name}")
   end
 end

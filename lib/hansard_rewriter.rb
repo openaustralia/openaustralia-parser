@@ -86,7 +86,7 @@ class HansardRewriter
     #      </p>
     input_text_node.search('//body/p').each do |p|
       text = p.inner_text.strip
-      if text.match(/^The (([^S]*SPEAKER)|([^R]*RESIDENT)):  /):
+      if text.match(/^The (([^S]*SPEAKER)|([^R]*RESIDENT)):  /)
         logger.info "Doing rewrite #{text}"
         logger.info "Before: #{p}"
         p.inner_html = p.inner_html.gsub(
@@ -148,7 +148,7 @@ EOF
 
         # Is this start of a speech? We can tell by the fact it has spans
         # with the HPS-Time class.
-        if speech_node.nil? or p.search('[@class=HPS-Time]').length > 0:
+        if speech_node.nil? or p.search('[@class=HPS-Time]').length > 0
           # Rip out the electorate
           #<span class="HPS-Electorate">Grayndler</span>
           electorate = p.search("//span[@class=HPS-Electorate]")

@@ -16,7 +16,7 @@ module Hpricot
     end
 
     def append(str)
-      html(children + Hpricot.make(str))
+      self.inner_html = inner_html + str
     end
   end
 end

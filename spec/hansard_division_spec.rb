@@ -1,8 +1,11 @@
+# encoding: utf-8
+
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require "test/unit"
 
 require "hansard_division"
+require "hansard_day"
 require 'hpricot'
 
 describe HansardDivision do

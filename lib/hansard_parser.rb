@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'environment'
 require 'speech'
 require 'mechanize_proxy'
@@ -12,8 +14,6 @@ require 'log4r'
 require 'hansard_day'
 require 'hansard_rewriter'
 require 'patch'
-
-$KCODE = 'u'
 
 class UnknownSpeaker
   def initialize(name)
