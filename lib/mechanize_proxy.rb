@@ -9,11 +9,11 @@ require 'configuration'
 class MechanizeProxyCache
   # By setting cache_subdirectory can put cached files under a subdirectory in the html_cache_path
   attr_accessor :cache_subdirectory
-  
+
   def initialize
     @conf = Configuration.new
   end
-  
+
   def load_and_cache_page(uri)
     if url_cached?(uri)
       read_cache(uri)
@@ -27,7 +27,7 @@ class MechanizeProxyCache
       write_cache(page)
     end
   end
-  
+
   def to_absolute_uri(url, cur_page)
     unless url.is_a? URI
       url = url.to_s.strip.gsub(/[^#{0.chr}-#{125.chr}]/) { |match|
@@ -61,7 +61,7 @@ class MechanizeProxyCache
 
     return url
   end
-  
+
   def url_cached?(uri)
     File.exists?(url_to_filename(uri))
   end
@@ -74,7 +74,7 @@ class MechanizeProxyCache
       throw "Cache file #{url_to_filename(uri)} is corrupt. Delete it and retry."
     end
   end
-  
+
   # Returns original page
   def write_cache(page)
     filename = url_to_filename(page.uri)
@@ -85,7 +85,7 @@ class MechanizeProxyCache
     end
     page
   end
-  
+
   def url_to_filename(url)
     if cache_subdirectory
       "#{@conf.html_cache_path}/#{cache_subdirectory}/#{url.to_s.tr('/', '_')}"
@@ -93,7 +93,7 @@ class MechanizeProxyCache
       "#{@conf.html_cache_path}/#{url.to_s.tr('/', '_')}"
     end
   end
-  
+
   class Util
     def self.html_unescape(s)
       return s unless s
@@ -115,22 +115,22 @@ class MechanizeProxy
   def initialize
     @agent = WWW::Mechanize.new
     # For the time being force the use of Hpricot rather than nokogiri
-    WWW::Mechanize.html_parser = Hpricot 
+    WWW::Mechanize.html_parser = Hpricot
     @cache = MechanizeProxyCache.new
   end
-  
+
   def cache_subdirectory
     @cache.cache_subdirectory
   end
-  
+
   def cache_subdirectory=(path)
     @cache.cache_subdirectory = path
   end
-  
+
   def user_agent_alias=(a)
     @agent.user_agent_alias = a
   end
-  
+
   def get(url)
     uri = URI.parse(url)
     @cache.load_and_cache_page(uri) { @agent.get(url) }
@@ -140,20 +140,20 @@ class MechanizeProxy
     uri = @cache.to_absolute_uri(link.href, link.page)
     @cache.load_and_cache_page(uri) { @agent.get(uri) }
   end
-  
+
   def transact
     @agent.transact { yield }
-  end  
+  end
 end
 
 class FileProxy
   attr_reader :uri
-  
+
   def initialize(doc, uri)
     @doc = doc
     @uri = uri
   end
-  
+
   def body
     @doc
   end
@@ -162,12 +162,12 @@ end
 class PageProxy
   extend Forwardable
   attr_reader :uri
-  
+
   def initialize(doc, uri)
     @doc = doc
     @uri = uri
   end
-  
+
   def parser
     @doc
   end
@@ -175,14 +175,14 @@ class PageProxy
   def links
     @doc.search('a').map{|e| LinkProxy.new(e, self)}
   end
-  
+
   def link_with(args)
     text = args.delete(:text)
     throw "Currently not supporting anything other than :text args in link_with" unless args.empty?
     tag = @doc.search('a').find{|e| e.inner_text == text}
     LinkProxy.new(tag, self) if tag
   end
-  
+
   def_delegator :@doc, :search, :search
   def_delegator :@doc, :/, :/
   def_delegator :@doc, :at, :at
@@ -194,24 +194,23 @@ end
 
 class LinkProxy
   attr_reader :attributes, :page
-  
+
   def initialize(attributes, page)
     @attributes = attributes
     @page = page
   end
-  
+
   def text
     @attributes.inner_text
   end
-  
+
   alias :to_s :text
 
   def href
     @attributes['href']
   end
-  
+
   def uri
     URI.parse(href)
-  end  
+  end
 end
-
