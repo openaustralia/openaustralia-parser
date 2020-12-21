@@ -15,4 +15,3 @@ gem 'rspec'
 gem 'rcov'
 
 gem 'rmagick'
-

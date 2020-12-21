@@ -24,7 +24,7 @@ class HansardRewriter
         text = text[0..text.length-2]
       end
     end
-    
+
     # Clean up multiple white space in a row.
     text = text.gsub(/\s\s+/m, ' ')
 
@@ -70,7 +70,7 @@ class HansardRewriter
     end
     input_text_node.search('//body/a').remove
 
-    # Many speaker interjections/continuates are not properly marked with 
+    # Many speaker interjections/continuates are not properly marked with
     # <a href> links, we rework them so we don't have the special case below.
 
     #      <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
@@ -136,7 +136,7 @@ EOF
       member_iinterjecting = italic_text.strip() == para_text
 
       # Is this a new speaker? We can tell by there existing an '<a href'
-      # record with a class that starts with "Member". 
+      # record with a class that starts with "Member".
       # (There are also '<a href' records which point to bills rather then
       # people.)
       ahref = p.search('//a')[0] if p.search('//a').length > 0
@@ -351,7 +351,7 @@ EOF
 
         when 'HPS-Bullet', 'HPS-SmallBullet'
 
-          if text_node.nil? 
+          if text_node.nil?
             logger.warn "    Ignoring bullet node as text_node was null\n#{p}"
           else
             logger.warn "    Found new bullet point"
@@ -366,7 +366,7 @@ EOF
             amendment_node.append <<EOF
 <amendment>#{restore_tags(text)}</amendment>
 EOF
-          elsif text_node.nil? 
+          elsif text_node.nil?
             logger.warn "    Ignoring quote node as text_node was null\n#{p}"
           else
             logger.warn "    Found new quote"
@@ -394,7 +394,7 @@ EOF
       case f.name
       when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
         f.name = "subdebate.#{level+1}"
-        f.child_nodes.each do |e| 
+        f.child_nodes.each do |e|
           case e.name
           when 'debate.text', 'subdebate.text'
             if e.inner_text.strip.length > 0

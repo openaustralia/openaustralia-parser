@@ -39,13 +39,13 @@ describe HansardDivision do
 			</division.result>
 		</division>'), "", "", "", mock(HansardDay, :add_speaker_to_tied_votes? => true))
   end
-  
+
   it "should parse the xml for a division correctly" do
 		# Note that the *'s are stripped from the names
 		division.yes.should == ["Joe Bloggs", "Henry Smith", "Phil Smith"]
 		division.no.should == ["John Smith"]
   end
-  
+
   it "should know the time the division took place" do
 		division.time.should == "09:06:00"
   end
@@ -53,7 +53,7 @@ describe HansardDivision do
   it "should recognise the tellers" do
     division.yes_tellers.should == ["Joe Bloggs", "Phil Smith"]
     division.no_tellers.should == ["John Smith"]
-  end  
+  end
 
   describe '#passed?' do
     it { division.passed?.should be_true }

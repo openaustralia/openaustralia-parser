@@ -7,11 +7,11 @@ $KCODE = 'u'
 # Handle all our silly name parsing needs
 class Name
   attr_reader :title, :first, :middle, :initials, :last, :post_title
-  
+
   def initialize(params)
     # First normalize the unicode.
     params.map {|key, value| [key, (value.mb_chars.normalize if value)]}
-    
+
     @title = params[:title] || ""
     @first = (Name.capitalize_name(params[:first]) if params[:first]) || ""
     @middle = (Name.capitalize_each_name(params[:middle]) if params[:middle]) || ""
@@ -21,7 +21,7 @@ class Name
     invalid_keys = params.keys - [:title, :first, :middle, :initials, :last, :post_title]
     throw "Invalid keys #{invalid_keys} used" unless invalid_keys.empty?
   end
-  
+
   def Name.remove_text_in_brackets(text)
     open = text.index('(')
     if open
@@ -34,7 +34,7 @@ class Name
     # Remove extra spaces
     text.squeeze(' ')
   end
-  
+
   def Name.last_title_first(text)
     # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
     text = text.mb_chars.normalize
@@ -74,13 +74,13 @@ class Name
     middle = names[0..-1].join(' ')
     Name.new(:title => title, :initials => initials, :last => last, :first => first, :middle => middle, :post_title => post_title)
   end
-  
+
   # Extract a post title from the end if one is available
   def Name.post_title(names)
     valid_post_titles = ["AM", "SC", "AO", "MBE", "QC", "OBE", "KSJ", "JP", "MP", "AC", "RFD", "OAM", "MC", "CSC"]
     names.pop if valid_post_titles.include?(names.last)
   end
-  
+
   # Returns initials if the name could be a set of initials
   def Name.initials(name)
     # If only one or two letters assume that these are initials
@@ -98,7 +98,7 @@ class Name
       name
     end
   end
-  
+
   # Returns true if the name could be a set of initials with full stops in them (e.g. "A.B.")
   def Name.initials_with_fullstops(name)
     # Heuristic: If word has any fullstops in it we'll assume that these are initials
@@ -107,7 +107,7 @@ class Name
       name.delete('.')
     end
   end
-  
+
   def Name.title_first_last(text)
     # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
     text = text.mb_chars.normalize
@@ -143,7 +143,7 @@ class Name
     end
     Name.new(:title => title, :last => last, :first => first, :middle => middle, :initials => initials, :post_title => post_title)
   end
-  
+
   def first_initial
     if has_first_initial?
       @initials[0..0]
@@ -151,7 +151,7 @@ class Name
       @first[0..0]
     end
   end
-  
+
   def middle_initials
     if has_middle_initials?
       @initials[1..-1]
@@ -184,7 +184,7 @@ class Name
     throw "No last name" unless has_last?
     "#{@first} #{@last}"
   end
-  
+
   def full_name
     t = ""
     t = t + "#{title} " if has_title?
@@ -194,35 +194,35 @@ class Name
     t = t + ", #{post_title}" if has_post_title?
     t
   end
-  
+
   def has_title?
     @title != ""
   end
-  
+
   def has_first?
     @first != ""
   end
-  
+
   def has_middle?
     @middle != ""
   end
-  
+
   def has_first_initial?
     @initials.size > 0
   end
-  
+
   def has_middle_initials?
     @initials.size > 1
   end
-  
+
   def has_last?
     @last != ""
   end
-  
+
   def has_post_title?
     @post_title != ""
   end
-  
+
   def first_matches?(name)
     if !has_first? || !name.has_first?
       # Check here if one name has initials and no first name and the other has a first name
@@ -249,27 +249,27 @@ class Name
       @middle == name.middle
     end
   end
-  
+
   # Names don't have to be identical to match but rather the parts of the name
   # that exist in both names have to match
   def matches?(name)
     # Both names need to have a last name to match
     return false unless has_last? && name.has_last?
-    
+
     (!has_title?           || !name.has_title?           || @title      == name.title) &&
     first_matches?(name) &&
     middle_matches?(name) &&
     (!has_last?            || !name.has_last?            || @last       == name.last) &&
     (!has_post_title?      || !name.has_post_title?      || @post_title == name.post_title)
   end
-  
+
   def ==(name)
     @title == name.title && @first == name.first &&
       @middle == name.middle && @initials == name.initials && @last == name.last && @post_title == name.post_title
   end
-  
+
   private
-  
+
   def Name.extract_title_at_start(names)
     titles = Array.new
     while title = Name.title(names)
@@ -277,7 +277,7 @@ class Name
     end
     titles.join(' ')
   end
-  
+
   def Name.extract_post_title_at_end(names)
     post_titles = []
     while post_title = Name.post_title(names)
@@ -285,11 +285,11 @@ class Name
     end
     post_titles.join(' ')
   end
-  
+
   def Name.matches_hon?(name)
     name.downcase == "hon." || name.downcase == "hon" || name.downcase == "honourable" || name.downcase == "honourable."
   end
-  
+
   # Extract a title at the beginning of the list of names if available and shift
   def Name.title(names)
     if names.size >= 3 && names[0].downcase == "the" && names[1].downcase == "rt" && matches_hon?(names[2])
@@ -312,7 +312,7 @@ class Name
       end
     end
   end
-  
+
   # Capitalise a name using special rules
   def Name.capitalize_name(name)
     # Simple capitlisation
