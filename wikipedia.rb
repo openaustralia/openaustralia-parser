@@ -12,7 +12,7 @@ require 'extract_wikipedia_links'
 def write_links(links, filename)
   xml = File.open(filename, 'w')
   x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
-  x.instruct!  
+  x.instruct!
   x.peopleinfo do
     links.each { |link| x.personinfo(:id => link[0], :wikipedia_url => link[1]) }
   end

@@ -28,7 +28,7 @@ class PeopleImageDownloader
       page = person_bio_page(person)
       next unless page
       name, birthday, image = extract_name(page), extract_birthday(page), extract_image(page)
-      
+
       if image.nil?
         puts "WARNING: Can't find photo for #{name.full_name}"
       end
@@ -64,7 +64,7 @@ class PeopleImageDownloader
       page
     end
   end
-  
+
   def person_bio_page(person)
     # Each person can be looked up with a query like this:
     # http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Dataset:allmps%20John%20Smith
@@ -97,7 +97,7 @@ class PeopleImageDownloader
       throw "Unexpected form for title of biography page: #{title}"
     end
   end
-  
+
   # Returns an array of values for the metadata
   def raw_metadata(page)
     labels = page.search('dt.mdLabel')
@@ -111,7 +111,7 @@ class PeopleImageDownloader
     end
     metadata
   end
-  
+
   # Extract a hash of all the metadata tags and values
   def extract_metadata_tags(page)
     r = raw_metadata(page)
@@ -123,7 +123,7 @@ class PeopleImageDownloader
     str=doc.to_s
     str.gsub(/<\/?[^>]*>/, "")
   end
-  
+
   def extract_birthday(page)
     #Try to scrape the member's birthday.
     #Here's an example of what we are looking for:
@@ -143,7 +143,7 @@ class PeopleImageDownloader
     end
     birthday
   end
-  
+
   def extract_image(page)
     img_tag = page.search('div.box').search("img").first
     if img_tag
