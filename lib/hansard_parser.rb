@@ -123,11 +123,19 @@ class HansardParser
     if File.exists?(filename)
       puts "Reading cached xml from #{filename}..."
       xml = File.read(filename)
+      # An empty file signifies there is no data for this day
+      xml = nil if xml == ""
     else
       # Load the XML data
       xml = hansard_xml_source_data_on_date(date, house)
       # And cache it
-      File.open(filename, 'w') {|f| f.write("#{xml}") } if xml
+      File.open(filename, 'w') do |f|
+        # If there is no data for this day (parliament didn't sit) then
+        # still create a file but leave it empty. This allows to
+        # cache that fact without having to rerequest things from the aph
+        # site
+        f.write("#{xml}") if xml
+      end
     end
     if xml
       # APH changed their XML format on the 10th of May 2011
