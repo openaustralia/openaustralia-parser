@@ -66,7 +66,7 @@ class HansardRewriter
     #--------------------------------------------------------------------------
     # To make things a little simpler we have to rework top level <a href> tags
     input_text_node.search('//body/a').each do |p|
-      input_text_node.at('body').insert_after(Hpricot.make("<p>#{p}</p>"), p)
+      input_text_node.at('body').insert_after(Hpricot.XML("<p>#{p}</p>"), p)
     end
     input_text_node.search('//body/a').remove
 
@@ -111,7 +111,7 @@ EOF
 
     role_map = {}
 
-    new_xml = Hpricot('')
+    new_xml = Hpricot.XML('')
     input_text_node.search('/body/p').each do |p|
       # Skip empty nodes
       if p.inner_text.strip.length == 0
@@ -407,7 +407,7 @@ EOF
 
     # We use a seperate list as we don't want the new children to appear when
     # doing the loop.
-    debate_new_children = Hpricot('')
+    debate_new_children = Hpricot.XML('')
 
     debate.child_nodes.each do |f|
       case f.name

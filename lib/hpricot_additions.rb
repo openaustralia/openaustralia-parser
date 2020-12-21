@@ -8,7 +8,7 @@ module Hpricot
     end
 
     def child_nodes
-      children.find_all {|c| c.respond_to?(:name)}
+      containers
     end
 
     def map_child_node

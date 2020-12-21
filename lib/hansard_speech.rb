@@ -130,7 +130,7 @@ class HansardSpeech
   # Pass a <para>Some text</para> block. Returns cleaned "Some text"
   def HansardSpeech.clean_content_para_content(e)
     t = ""
-    e.children.each do |c|
+    (e.children || []).each do |c|
       if c.kind_of?(Hpricot::Text)
         t << strip_leading_dash(c.to_s)
       else
@@ -300,6 +300,6 @@ class HansardSpeech
   end
 
   def name?(name)
-    !!@content.at("/#{name}")
+    @content.kind_of?(Hpricot::Text) ? !!@content.at("/#{name}") : name == @content.name
   end
 end
