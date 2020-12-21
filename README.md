@@ -82,8 +82,6 @@ Or by checking the cron output which is emailed to the OAF `web-administrators` 
 ```
 Start time: 2017-09-05 09:05:01 AEST
 Parsing from APH to XML and loading into the database
-[DEPRECATION] requiring "RMagick" is deprecated. Use "rmagick" instead
-WARNING: Nokogiri was built against LibXML version 2.7.6, but has dynamically loaded 2.7.8
 
 
 parse-speeche:   0% |                                          | ETA:  --:--:--
