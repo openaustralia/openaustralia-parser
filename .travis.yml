@@ -1,6 +1,6 @@
 dist: trusty
 language: ruby
-rvm: 1.8.7
+rvm: 1.9.3
 before_install:
   - gem update --system 1.6.2 # Downgrade to the same version installed on the server
   - gem --version
