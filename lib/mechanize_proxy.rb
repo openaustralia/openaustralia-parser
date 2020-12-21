@@ -132,13 +132,11 @@ class MechanizeProxy
   end
 
   def get(url)
-    uri = URI.parse(url)
-    @cache.load_and_cache_page(uri) { @agent.get(url) }
+    @agent.get(url)
   end
-  
+
   def click(link)
-    uri = @cache.to_absolute_uri(link.href, link.page)
-    @cache.load_and_cache_page(uri) { @agent.get(uri) }
+    @agent.click(link)
   end
 
   def transact
