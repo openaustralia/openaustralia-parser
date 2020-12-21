@@ -28,7 +28,7 @@ describe HansardSpeech, "should recognise who's talking" do
   end
 
 	it "in a motionnospeech block" do
-	  speech = HansardSpeech.new(Hpricot.XML('<motionnospeech><name>Mr BILLSON</name></motionnospeech>'), "", "", "", "", nil)
+	  speech = HansardSpeech.new(Hpricot.XML('<motionnospeech><name>Mr BILLSON</name></motionnospeech>').at("motionnospeech"), "", "", "", "", nil)
 		speech.speakername.should == "Mr BILLSON"
 		speech.aph_id.should be_nil
 		speech.interjection.should be_false
@@ -45,7 +45,7 @@ describe HansardSpeech, "should recognise who's talking" do
 					<name role="display">The SPEAKER</name>
 				</talker>
 			</talk.start>
-		</interjection>'), "", "", "", "", nil)
+		</interjection>').at("interjection"), "", "", "", "", nil)
 		speech.speakername.should == "The SPEAKER"
 		speech.aph_id.should == "10000"
 		speech.interjection.should be_true
@@ -63,7 +63,7 @@ describe HansardSpeech, "should recognise who's talking" do
 				</talker>
 				<para>I listened to all the accusations of bad faith without interjecting.</para>
 			</talk.start>
-		</continue>'), "", "", "", "", nil)
+		</continue>').at("continue"), "", "", "", "", nil)
 		speech.interjection.should be_false
 		speech.continuation.should be_true
   end
@@ -77,7 +77,7 @@ describe HansardSpeech, "should recognise who's talking" do
 					<name role="display">The DEPUTY SPEAKER</name>
 				</talker>
 			</talk.start>
-		</interjection>'), "", "", "", "", nil)
+		</interjection>').at("interjection"), "", "", "", "", nil)
 		speech.speakername.should == "Jenkins, Harry (The DEPUTY SPEAKER)"
 		speech.interjection.should be_true
 		speech.continuation.should be_false
