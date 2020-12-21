@@ -103,18 +103,29 @@ class HansardParser
     end
   end
 
-  # Returns HansardDate object for a particular day
-  def hansard_day_on_date(date, house)
+  def house_directory_name(house)
     if house == House.representatives
-       house_loc = "representatives_debates"
+       "representatives_debates"
     elsif house == House.senate
-       house_loc = "senate_debates"
+       "senate_debates"
     else
        throw "Assertion failed! unknown house!"
     end
+  end
+
+  def origxml_filename(date, house)
+    "#{@conf.xml_path}/origxml/#{house_directory_name(house)}/#{date}.xml"
+  end
+
+  def rewritexml_filename(date, house)
+    "#{@conf.xml_path}/rewritexml/#{house_directory_name(house)}/#{date}.xml"
+  end
+
+  # Returns HansardDate object for a particular day
+  def hansard_day_on_date(date, house)
     # Use the origxml as a cache if it exists. Otherwise fetch
     # it via the web from aph
-    filename = "#{@conf.xml_path}/origxml/#{house_loc}/#{date}.xml"
+    filename = origxml_filename(date, house)
     if File.exists?(filename)
       puts "Reading cached xml from #{filename}..."
       xml = File.read(filename)
@@ -131,8 +142,7 @@ class HansardParser
         new_xml = @rewriter.rewrite_xml Hpricot.XML(xml)
 
         # Save the rewritten XML data
-        filename = "#{@conf.xml_path}/rewritexml/#{house_loc}/#{date}.xml"
-        File.open(filename, 'w') {|f| f.write("#{new_xml}") }
+        File.open(rewritexml_filename(date, house), 'w') {|f| f.write("#{new_xml}") }
 
         # Process the day
         HansardDay.new(new_xml, @logger)
