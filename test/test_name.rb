@@ -20,7 +20,7 @@ class TestName < Test::Unit::TestCase
   end
 
   def test_new_wrong_parameters
-    assert_raise(NameError){ Name.new(:first => "foo", :blah => "dibble") }
+    assert_raise(RuntimeError) { Name.new(:first => "foo", :blah => "dibble") }
   end
 
   def test_equals
