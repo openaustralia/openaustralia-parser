@@ -11,7 +11,7 @@ describe People do
     @people << Person.new(:name => Name.new(:first => "John", :last => "Smith"), :count => 1)
     @people.last.add_period(:from_date => Date.new(2000, 1, 1), :to_date => Date.new(2001, 1, 1),
       :house => House.representatives, :division => "A", :party => "SPK", :count => 1)
-    
+
     @people << Person.new(:name => Name.new(:first => "Joe", :last => "Smith"), :count => 2)
     @people.last.add_period(:from_date => Date.new(2001, 1, 1), :to_date => Date.new(2002, 1, 1),
       :house => House.representatives, :division => "B", :party => "SPK", :count => 2)
@@ -24,7 +24,7 @@ describe People do
   it "can list all the electoral divisions for all the members" do
     expect(@people.divisions).to eq %w{A B C}
   end
-  
+
   it "knows who the speaker is" do
     member = @people.house_speaker(Date.new(2000, 6, 1))
     expect(member.person.name.full_name).to eq "John Smith"

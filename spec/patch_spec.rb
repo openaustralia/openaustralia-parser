@@ -5,7 +5,7 @@ require "test/unit"
 require 'patch'
 
 describe Patch do
-  before :each do 
+  before :each do
     @original = <<EOF
 Mary had a little lamb
 whose fleece was white as snow.
@@ -24,7 +24,7 @@ EOF
 +And everywhere that Mary went the lamb was sure to go.
 EOF
   end
-  
+
   it "can patch a string with a unified diff and return a new string" do
     expect(Patch::patch(@original, @patch)).to eq <<EOF
 Mary had a little lamb
@@ -32,7 +32,7 @@ whose fleece was white as snow.
 And everywhere that Mary went the lamb was sure to go.
 EOF
   end
-  
+
   it "raises an error when the patch doesn't go" do
     expect {Patch.patch("foo", @patch)}.to raise_error(RuntimeError)
   end

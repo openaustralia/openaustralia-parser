@@ -28,7 +28,7 @@ describe HansardDay do
         x.proof 1
       }
     }
-    
+
     x = Builder::MyXmlMarkup.new
 
     @titles_xml = Hpricot.XML(x.hansard {
@@ -73,7 +73,7 @@ describe HansardDay do
          		x.speech
           }
         }
-        
+
         x.debate {
     			x.debateinfo { x.title 10 }
     			x.subdebate_1 {
@@ -105,7 +105,7 @@ describe HansardDay do
     # result for that date rather than the individual speeches.
     expect(@header.permanent_url).to eq "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;adv=yes;orderBy=_fragment_number,doc_date-rev;page=0;query=Dataset%3Ahansards,hansards80%20Date%3A25%2F9%2F2008;rec=0;resCount=Default"
   end
-  
+
   it "should be able to figure out all the titles and subtitles" do
     expect(@titles.title(@titles_xml.at('debate'))).to eq "1"
     expect(@titles.subtitle(@titles_xml.at('debate'))).to eq ""
@@ -150,13 +150,13 @@ describe HansardDay do
         }
       }
     }
-    
+
     xml = Hpricot.XML(titles_xml)
 
     expect(HansardDay.new(xml).title(xml.at('(subdebate.1)'))).to eq "1; 2; 3; 4; 5"
     expect(HansardDay.new(xml).subtitle(xml.at('(subdebate.1)'))).to eq "6"
   end
-  
+
   it "should know when the page is considered in proof stage" do
     expect(@header).to be_in_proof
   end

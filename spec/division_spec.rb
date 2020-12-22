@@ -29,18 +29,18 @@ describe Division do
     joe_member2 = Period.new(:person => joe_person, :house => House.senate, :count => 2)
     henry_member2 = Period.new(:person => henry_person, :house => House.senate, :count => 3)
     jack_member2 = Period.new(:person => jack_person, :house => House.senate, :count => 4)
-    
+
     @division2 = Division.new([john_member2], [], [], [], [], "9:10:00", "http://foo/link", [{:id => "Z12345", :title => "A bill to support mongeese", :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345"}], Count.new(1, 2), 3, Date.new(2008, 2, 1), House.senate)
 
     @division3 = Division.new([], [], [], [], [[john_member2, joe_member2], [henry_member2, jack_member2]],
       "9:10:00", "http://foo/link", [{:id => "Z12345", :title => "A bill to support mongeese", :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345"}], Count.new(1, 2), 3, Date.new(2008, 2, 1), House.senate)
   end
-  
+
   it "has the id in the correct form" do
     # Time, URL, Major count, Minor count, Date, and house
     expect(@division1.id).to eq "uk.org.publicwhip/debate/2008-02-01.10.2"
   end
-  
+
   it "can output xml in the expected form" do
     # Default builder will return value as string
     x = Builder::XmlMarkup.new(:indent => 2)
@@ -60,7 +60,7 @@ describe Division do
 </division>
 EOF
   end
-  
+
   it "can output the slightly different form of the xml for the senate" do
     x = Builder::XmlMarkup.new(:indent => 2)
     expect(@division2.output(x)).to eq <<EOF
@@ -77,7 +77,7 @@ EOF
 </division>
 EOF
   end
-  
+
   it "should output voting pairs" do
     x = Builder::XmlMarkup.new(:indent => 2)
     expect(@division3.output(x)).to eq <<EOF
@@ -104,4 +104,3 @@ EOF
 EOF
   end
 end
-  
