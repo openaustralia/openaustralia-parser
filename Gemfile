@@ -5,7 +5,7 @@ gem 'activesupport', "< 4.0.0"
 gem 'i18n', "~> 0.6.11" # Required by activesupport
 gem 'nokogiri', "~> 1.5.0"
 gem 'mechanize'
-gem 'hpricot', "0.8.6"
+gem 'hpricot'
 gem 'htmlentities'
 gem 'json', "~> 1.8.6"
 

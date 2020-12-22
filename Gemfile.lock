@@ -57,7 +57,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport (< 4.0.0)
   builder (= 2.1.2)
-  hpricot (= 0.8.6)
+  hpricot
   htmlentities
   i18n (~> 0.6.11)
   json (~> 1.8.6)
