@@ -18,7 +18,8 @@ gem 'mysql'
 
 group :test do
   gem 'rspec', "~> 2.11.0"
-  gem 'rcov', "~> 0.9.10"
+  # TODO: rcov doesn't work on ruby > 1.8. Switch to simplecov
+  # gem 'rcov', "~> 0.9.10"
 end
 
 group :development do
