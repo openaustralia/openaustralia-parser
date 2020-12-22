@@ -59,7 +59,6 @@ DEPENDENCIES
   builder (= 2.1.2)
   hpricot
   htmlentities
-  i18n (~> 0.6.11)
   json (~> 1.8.6)
   log4r
   mechanize

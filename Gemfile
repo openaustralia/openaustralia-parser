@@ -2,7 +2,6 @@ source "http://rubygems.org"
 
 gem 'rake', "~> 10.5.0"
 gem 'activesupport', "< 4.0.0"
-gem 'i18n', "~> 0.6.11" # Required by activesupport
 gem 'mechanize'
 gem 'hpricot'
 gem 'htmlentities'
