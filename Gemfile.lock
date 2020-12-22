@@ -31,6 +31,7 @@ GEM
     net-http-persistent (2.9.4)
     nokogiri (1.5.11)
     ntlm-http (0.1.1)
+    power_assert (1.2.0)
     rake (10.5.0)
     rmagick (2.16.0)
     rspec (3.10.0)
@@ -46,6 +47,8 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.0)
+    test-unit (3.3.7)
+      power_assert
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
@@ -66,6 +69,7 @@ DEPENDENCIES
   rake (~> 10.5.0)
   rmagick
   rspec
+  test-unit
 
 BUNDLED WITH
    1.17.3
