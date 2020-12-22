@@ -21,7 +21,3 @@ group :test do
   # TODO: rcov doesn't work on ruby > 1.8. Switch to simplecov
   # gem 'rcov', "~> 0.9.10"
 end
-
-group :development do
-  gem 'pry', '~> 0.10.4' # Ruby 1.8.7 support dropped in pry > 0.10
-end
