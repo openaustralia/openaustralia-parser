@@ -18,7 +18,7 @@ class Name
     @post_title = (params[:post_title].upcase if params[:post_title]) || ""
     @last = (Name.capitalize_each_name(params[:last]) if params[:last]) || ""
     invalid_keys = params.keys - [:title, :first, :middle, :initials, :last, :post_title]
-    throw "Invalid keys #{invalid_keys} used" unless invalid_keys.empty?
+    raise "Invalid keys #{invalid_keys} used" unless invalid_keys.empty?
   end
 
   def Name.remove_text_in_brackets(text)
@@ -180,7 +180,7 @@ class Name
   end
 
   def informal_name
-    throw "No last name" unless has_last?
+    raise "No last name" unless has_last?
     "#{@first} #{@last}"
   end
 

@@ -83,13 +83,13 @@ class HansardSpeech
     end
 
     if attributes_keys.delete('font-style')
-      throw "Unexpected font-style value #{e.attributes['font-style']}" unless e.attributes['font-style'] == 'italic'
+      raise "Unexpected font-style value #{e.attributes['font-style']}" unless e.attributes['font-style'] == 'italic'
 
       text = '<i>' + text + '</i>'
     end
 
     if attributes_keys.delete('font-weight')
-      throw "Unexpected font-weight value #{e.attributes['font-weight']}" unless e.attributes['font-weight'] == 'bold'
+      raise "Unexpected font-weight value #{e.attributes['font-weight']}" unless e.attributes['font-weight'] == 'bold'
 
       # Workaround for badly marked up content. If a bold item is surrounded in brackets assume it is a name and remove it
       # Alternatively if the bold item is a generic name, remove it as well
@@ -107,11 +107,11 @@ class HansardSpeech
       when 'subscript'
         text = '<sub>' + text + '</sub>'
       else
-        throw "Unexpected font-variant value #{e.attributes['font-variant']}"
+        raise "Unexpected font-variant value #{e.attributes['font-variant']}"
       end
     end
 
-    throw "Unexpected attributes #{attributes_keys.join(', ')}" unless attributes_keys.empty?
+    raise "Unexpected attributes #{attributes_keys.join(', ')}" unless attributes_keys.empty?
 
     # Handle inlines for motionnospeech in a special way
     if e.parent.name == "motionnospeech"
@@ -162,7 +162,7 @@ class HansardSpeech
     when 'bold'
       '<b><p>' + clean_content_para_content(e) + '</p></b>'
     else
-      throw "Unexpected type value #{type}"
+      raise "Unexpected type value #{type}"
     end
   end
 
@@ -177,7 +177,7 @@ class HansardSpeech
       when 'table'
         d << clean_content_table(f)
       else
-        throw "Unexpected tag #{f.name}"
+        raise "Unexpected tag #{f.name}"
       end
     end
     if e.has_attribute?('label')
@@ -193,7 +193,7 @@ class HansardSpeech
     # Check that all the children are consistent
     e.search('> item').each do |c|
       if c.has_attribute?('label') != label
-        throw "Children of <list> are using the 'label' attribute inconsistently"
+        raise "Children of <list> are using the 'label' attribute inconsistently"
       end
     end
 
@@ -229,7 +229,7 @@ class HansardSpeech
       when 'table'
         t << clean_content_table(e)
       else
-        throw "Unexpected tag #{e.name}"
+        raise "Unexpected tag #{e.name}"
       end
     end
     t << '</p>'
@@ -273,7 +273,7 @@ class HansardSpeech
       puts "Came across an <Error> tag in the XML. That's probably not good. Skipping it."
       ""
     else
-      throw "Unexpected tag #{e.name}"
+      raise "Unexpected tag #{e.name}"
     end
   end
 

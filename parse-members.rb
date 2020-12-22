@@ -46,7 +46,7 @@ divisions.each do |division|
   division_members = members.find_all { |member| member.division == division}.sort {|a,b| a.from_date <=> b.from_date}
   division_members.each do |member|
     #puts "  From: #{member.from_date} To: #{member.to_date} Member: #{member.person.name.full_name} Party: #{member.party}"
-    throw "From and To date the wrong way round" unless member.from_date < member.to_date
+    raise "From and To date the wrong way round" unless member.from_date < member.to_date
   end
   division_members.each_cons(2) do |a,b|
     overlap = a.to_date - b.from_date

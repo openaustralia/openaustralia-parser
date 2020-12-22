@@ -33,7 +33,7 @@ And everywhere that Mary went the lamb was sure to go.
 EOF
   end
   
-  it "throws an error when the patch doesn't go" do
+  it "raises an error when the patch doesn't go" do
     lambda {Patch.patch("foo", @patch)}.should raise_error
   end
 end

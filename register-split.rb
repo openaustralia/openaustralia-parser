@@ -49,7 +49,7 @@ def read_in_ranges(p, filename_prefix, people)
       else
         person = people.find_person_by_name(name)
       end
-      throw "Couldn't find #{name.full_name}" if person.nil?
+      raise "Couldn't find #{name.full_name}" if person.nil?
       p[person] ||= []
       p[person] << PageRange.new(pdf_filename, start_page, end_page)
     end

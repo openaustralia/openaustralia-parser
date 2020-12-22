@@ -102,7 +102,7 @@ class HansardParser
     elsif house == House.senate
        "senate_debates"
     else
-       throw "Assertion failed! unknown house!"
+       raise "Assertion failed! unknown house!"
     end
   end
 
@@ -203,7 +203,7 @@ class HansardParser
             unless text.length == 0
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
-              throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes)" if member.nil?
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes)" if member.nil?
               member
             end
           end.compact
@@ -211,7 +211,7 @@ class HansardParser
             unless text.length == 0
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
-              throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no)" if member.nil?
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no)" if member.nil?
               member
             end
           end.compact
@@ -219,7 +219,7 @@ class HansardParser
             unless text.length == 0
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
-              throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes and teller)" if member.nil?
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes and teller)" if member.nil?
               member
             end
           end.compact
@@ -227,7 +227,7 @@ class HansardParser
             unless text.length == 0
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
-              throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no and teller)" if member.nil?
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no and teller)" if member.nil?
               member
             end
           end.compact
@@ -237,7 +237,7 @@ class HansardParser
                 name = Name.last_title_first(text)
                 member = @people.find_member_by_name_current_on_date(name, date, house)
                 if member.nil?
-                  throw "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair)"
+                  raise "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair)"
                 end
                 member
               end
@@ -294,7 +294,7 @@ class HansardParser
 
   def lookup_speaker_by_name(speech, date, house)
     #puts "Looking up speaker by name: #{speech.speakername}"
-    throw "speakername can not be nil in lookup_speaker" if speech.speakername.nil?
+    raise "speakername can not be nil in lookup_speaker" if speech.speakername.nil?
 
     member = lookup_speaker_by_title(speech, date, house)
     # If member hasn't already been set then lookup using speakername

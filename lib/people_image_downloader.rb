@@ -93,7 +93,7 @@ class PeopleImageDownloader
     if title =~ /^(Biography for )?(.*)$/
       Name.last_title_first($~[2])
     else
-      throw "Unexpected form for title of biography page: #{title}"
+      raise "Unexpected form for title of biography page: #{title}"
     end
   end
 
@@ -101,7 +101,7 @@ class PeopleImageDownloader
   def raw_metadata(page)
     labels = page.search('dt.mdLabel')
     values = page.search('dd.mdValue')
-    throw "Number of values do not match number of labels" if labels.size != values.size
+    raise "Number of values do not match number of labels" if labels.size != values.size
     metadata = {}
     (0..labels.size-1).each do |index|
       label = labels[index].inner_html
