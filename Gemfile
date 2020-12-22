@@ -15,7 +15,7 @@ gem 'log4r'
 
 gem 'rmagick'
 
-gem 'mysql'
+gem 'mysql2'
 
 group :test do
   gem 'rspec'
