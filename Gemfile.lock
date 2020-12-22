@@ -41,6 +41,7 @@ GEM
 
 PLATFORMS
   ruby
+  x86_64-linux
 
 DEPENDENCIES
   activesupport (< 4.0.0)
@@ -57,4 +58,4 @@ DEPENDENCIES
   test-unit
 
 BUNDLED WITH
-   1.17.3
+   2.2.2
