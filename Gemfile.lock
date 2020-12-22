@@ -12,7 +12,6 @@ GEM
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     iconv (1.0.8)
-    json (1.8.6)
     log4r (1.1.10)
     mechanize (1.0.0)
       nokogiri (>= 1.2.1)
@@ -49,7 +48,6 @@ DEPENDENCIES
   hpricot
   htmlentities
   iconv
-  json (~> 1.8.6)
   log4r
   mechanize (~> 1)
   mysql2

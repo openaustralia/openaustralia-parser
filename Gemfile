@@ -10,7 +10,6 @@ gem 'hpricot'
 # iconv is required by Mechanize 1
 gem 'iconv'
 gem 'htmlentities'
-gem 'json', "~> 1.8.6"
 
 # Version 3 of builder outputs utf8 strings which will make the regression
 # tests fail. It would be good to check that the rest of the pipeline
