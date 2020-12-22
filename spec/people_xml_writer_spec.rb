@@ -6,9 +6,9 @@ require "people_xml_writer"
 
 describe PeopleXMLWriter do
   it "writes out xml file of electoral divisions" do
-    people = mock("People")
-    people.stub!(:divisions).and_return(["Blah", "Foo"])
-        
+    people = double("People")
+    people.stub(:divisions).and_return(["Blah", "Foo"])
+
     result = ""
     # So confusing: This is divisions as in electoral divisions rather than voting divisions
     PeopleXMLWriter.write_divisions(people, result)

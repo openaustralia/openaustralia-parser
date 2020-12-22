@@ -8,9 +8,9 @@ require 'builder_alpha_attributes'
 
 describe Debates do
   before :each do
-    @james = mock("Person", :name => mock("Name", :full_name => "james"), :id => 101)
-    @henry = mock("Person", :name => mock("Name", :full_name => "henry"), :id => 102)
-    @rebecca = mock("Person", :name => mock("Name", :full_name => "rebecca"), :id => 103)
+    @james = double("Person", :name => double("Name", :full_name => "james"), :id => 101)
+    @henry = double("Person", :name => double("Name", :full_name => "henry"), :id => 102)
+    @rebecca = double("Person", :name => double("Name", :full_name => "rebecca"), :id => 103)
     @debates = Debates.new(Date.new(2000,1,1), House.representatives)
   end
   

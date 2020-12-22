@@ -23,16 +23,16 @@ describe HansardSpeech, "should recognise who's talking" do
 
 		speech.speakername.should == "Mr RUDD"
 		speech.aph_id.should == "83T"
-		speech.interjection.should be_false
-		speech.continuation.should be_false
+		speech.interjection.should be false
+		speech.continuation.should be false
   end
 
 	it "in a motionnospeech block" do
 	  speech = HansardSpeech.new(Hpricot.XML('<motionnospeech><name>Mr BILLSON</name></motionnospeech>').at("motionnospeech"), "", "", "", "", nil)
 		speech.speakername.should == "Mr BILLSON"
 		speech.aph_id.should be_nil
-		speech.interjection.should be_false
-		speech.continuation.should be_false
+		speech.interjection.should be false
+		speech.continuation.should be false
 	end
 
 	it "in an interjection block" do
@@ -48,8 +48,8 @@ describe HansardSpeech, "should recognise who's talking" do
 		</interjection>').at("interjection"), "", "", "", "", nil)
 		speech.speakername.should == "The SPEAKER"
 		speech.aph_id.should == "10000"
-		speech.interjection.should be_true
-		speech.continuation.should be_false
+		speech.interjection.should be true
+		speech.continuation.should be false
   end
 
   it "is not an interjection if the talker is specified but there is interjecting in the text" do
@@ -64,8 +64,8 @@ describe HansardSpeech, "should recognise who's talking" do
 				<para>I listened to all the accusations of bad faith without interjecting.</para>
 			</talk.start>
 		</continue>').at("continue"), "", "", "", "", nil)
-		speech.interjection.should be_false
-		speech.continuation.should be_true
+		speech.interjection.should be false
+		speech.continuation.should be true
   end
 
   it "should return the version of the speakername with more information" do
@@ -79,8 +79,8 @@ describe HansardSpeech, "should recognise who's talking" do
 			</talk.start>
 		</interjection>').at("interjection"), "", "", "", "", nil)
 		speech.speakername.should == "Jenkins, Harry (The DEPUTY SPEAKER)"
-		speech.interjection.should be_true
-		speech.continuation.should be_false
+		speech.interjection.should be true
+		speech.continuation.should be false
   end
 
   it "should recognise generic speakers interjecting" do

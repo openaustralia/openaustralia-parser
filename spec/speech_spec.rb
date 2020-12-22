@@ -45,8 +45,7 @@ describe Speech do
 
       subject{ Speech.new(member, "05:00:00", "<p> some content</p>", Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
 
-      its(:adjournment){ should be_nil }
-
+      it { subject.adjournment.should be_nil }
     end
 
     describe "with content with an adjournment" do
@@ -57,8 +56,7 @@ describe Speech do
         subject.append_to_content(content)
       end
 
-      its(:adjournment){ should be_eql(Time.local(2006, 1, 1, 19, 31))}
-
+      it { subject.adjournment.should be_eql(Time.local(2006, 1, 1, 19, 31)) }
     end
   end
 
@@ -68,8 +66,7 @@ describe Speech do
 
       subject{ Speech.new(member, "09:00:00", 'url', Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
       before{ subject.duration = -1000 }
-      its(:duration){ should be_zero }
-
+      it { subject.duration.should be_zero }
     end
 
     describe "with a duration that is more than 10 minutes out from an estimate of " +
@@ -82,10 +79,8 @@ describe Speech do
         subject.append_to_content(Hpricot(html))
         subject.duration = 60
       end
-      its(:duration){ should == minutes_by_wordcount * 60 }
-
+      it { subject.duration.should == minutes_by_wordcount * 60 }
     end
-
   end
 
 
@@ -108,7 +103,6 @@ describe Speech do
       it "should count the last word of a paragraph and the first word of a new paragraph as two words" do
         subject.words.should == 2
       end
-
     end
   end
 end
