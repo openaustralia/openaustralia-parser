@@ -45,21 +45,21 @@ describe HansardDivision do
 
   it "should parse the xml for a division correctly" do
 		# Note that the *'s are stripped from the names
-		division.yes.should == ["Joe Bloggs", "Henry Smith", "Phil Smith"]
-		division.no.should == ["John Smith"]
+		expect(division.yes).to eq ["Joe Bloggs", "Henry Smith", "Phil Smith"]
+		expect(division.no).to eq ["John Smith"]
   end
 
   it "should know the time the division took place" do
-		division.time.should == "09:06:00"
+		expect(division.time).to eq "09:06:00"
   end
 
   it "should recognise the tellers" do
-    division.yes_tellers.should == ["Joe Bloggs", "Phil Smith"]
-    division.no_tellers.should == ["John Smith"]
+    expect(division.yes_tellers).to eq ["Joe Bloggs", "Phil Smith"]
+    expect(division.no_tellers).to eq ["John Smith"]
   end
 
   describe '#passed?' do
-    it { division.passed?.should be true }
+    it { expect(division.passed?).to be true }
   end
 
   describe 'tied vote' do
@@ -147,28 +147,28 @@ describe HansardDivision do
     let(:new_tied_division) { HansardDivision.new(new_tied_division_xml, "", "", "", double(HansardDay, :add_speaker_to_tied_votes? => true)) }
 
     it "should include the speaker's casting vote in the event of a tie" do
-      old_tied_division.no.should == ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Jenkins, Harry"]
-      new_tied_division.no.should == ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Burke, Anna"]
+      expect(old_tied_division.no).to eq ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Jenkins, Harry"]
+      expect(new_tied_division.no).to eq ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Burke, Anna"]
     end
 
     describe '#tied?' do
-      it { old_tied_division.tied?.should be true }
-      it { new_tied_division.tied?.should be true }
+      it { expect(old_tied_division.tied?).to be true }
+      it { expect(new_tied_division.tied?).to be true }
     end
 
     describe '#passed?' do
-      it { old_tied_division.passed?.should be false }
-      it { new_tied_division.passed?.should be false }
+      it { expect(old_tied_division.passed?).to be false }
+      it { expect(new_tied_division.passed?).to be false }
     end
 
     describe '#speaker' do
-      it { old_tied_division.speaker.should eq('Jenkins, Harry') }
-      it { new_tied_division.speaker.should eq('Burke, Anna') }
+      it { expect(old_tied_division.speaker).to eq('Jenkins, Harry') }
+      it { expect(new_tied_division.speaker).to eq('Burke, Anna') }
     end
 
     it "should not include speaker's vote when told not to by HansardDay (e.g. for Senate divisions)" do
-      HansardDivision.new(old_tied_division_xml, "", "", "", double(HansardDay, :add_speaker_to_tied_votes? => false)).no.should == ["Smith, John", "Doe, Jane", "Quitecontrary, Mary"]
-      HansardDivision.new(new_tied_division_xml, "", "", "", double(HansardDay, :add_speaker_to_tied_votes? => false)).no.should == ["Smith, John", "Doe, Jane", "Quitecontrary, Mary"]
+      expect(HansardDivision.new(old_tied_division_xml, "", "", "", double(HansardDay, :add_speaker_to_tied_votes? => false)).no).to eq ["Smith, John", "Doe, Jane", "Quitecontrary, Mary"]
+      expect(HansardDivision.new(new_tied_division_xml, "", "", "", double(HansardDay, :add_speaker_to_tied_votes? => false)).no).to eq ["Smith, John", "Doe, Jane", "Quitecontrary, Mary"]
     end
   end
 end
@@ -202,7 +202,7 @@ describe HansardDivision, "with pairings" do
   end
 
   it "should parse the pairs votes" do
-    @division.pairs.should == [["Lundy, K.A.", "McGauran, J.J.J."], ["Stephens, U.", "Barnett, G."]]
+    expect(@division.pairs).to eq [["Lundy, K.A.", "McGauran, J.J.J."], ["Stephens, U.", "Barnett, G."]]
   end
 
   describe "with no timestamp but a time in the preamble" do
@@ -242,7 +242,7 @@ describe HansardDivision, "with pairings" do
     end
 
     it "should correctly extract the time" do
-      division_without_timestamp.time.should == '09:32'
+      expect(division_without_timestamp.time).to eq '09:32'
     end
   end
 end

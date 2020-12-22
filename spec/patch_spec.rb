@@ -26,7 +26,7 @@ EOF
   end
   
   it "can patch a string with a unified diff and return a new string" do
-    Patch::patch(@original, @patch).should == <<EOF
+    expect(Patch::patch(@original, @patch)).to eq <<EOF
 Mary had a little lamb
 whose fleece was white as snow.
 And everywhere that Mary went the lamb was sure to go.
@@ -34,6 +34,6 @@ EOF
   end
   
   it "raises an error when the patch doesn't go" do
-    lambda {Patch.patch("foo", @patch)}.should raise_error
+    expect {Patch.patch("foo", @patch)}.to raise_error(RuntimeError)
   end
 end

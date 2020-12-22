@@ -56,58 +56,58 @@ describe Name do
   describe '.last_title_first' do
     it 'parses names with no middle names' do
       name = Name.last_title_first("  ALY  ,   Anne  ")
-      name.first.should == 'Anne'
-      name.middle.should == ""
-      name.last.should == 'Aly'
+      expect(name.first).to eq 'Anne'
+      expect(name.middle).to eq ""
+      expect(name.last).to eq 'Aly'
     end
 
     it 'parses names with middle names' do
       name = Name.last_title_first("  BAKER  ,   Mark     Horden  ")
-      name.first.should == 'Mark'
-      name.middle.should == 'Horden'
-      name.last.should == 'Baker'
+      expect(name.first).to eq 'Mark'
+      expect(name.middle).to eq 'Horden'
+      expect(name.last).to eq 'Baker'
     end
 
     it 'parses names with titles' do
       name = Name.last_title_first("  BACK  , Dr   Christopher     John  ")
-      name.first.should == 'Christopher'
-      name.middle.should == 'John'
-      name.last.should == 'Back'
+      expect(name.first).to eq 'Christopher'
+      expect(name.middle).to eq 'John'
+      expect(name.last).to eq 'Back'
     end
 
     it 'parses names with titles and brackets' do
       name = Name.last_title_first("  BAILEY  , the Hon. Frances (  Fran  )   Esther  ")
-      name.first.should == 'Frances'
-      name.middle.should == 'Esther'
-      name.last.should == 'Bailey'
+      expect(name.first).to eq 'Frances'
+      expect(name.middle).to eq 'Esther'
+      expect(name.last).to eq 'Bailey'
     end
 
     it 'parses non-hypenated first names' do
       name = Name.last_title_first("  BROWN  ,   Robert   (Bob)   James  ")
-      name.first.should == 'Robert'
-      name.middle.should == 'James'
-      name.last.should == 'Brown'
+      expect(name.first).to eq 'Robert'
+      expect(name.middle).to eq 'James'
+      expect(name.last).to eq 'Brown'
     end
 
     it 'parses hyphenated first names' do
       name = Name.last_title_first("  KELLY  , the Hon.   De  -  Anne     Margaret  ")
-      name.first.should == 'De-Anne'
-      name.middle.should == 'Margaret'
-      name.last.should == 'Kelly'
+      expect(name.first).to eq 'De-Anne'
+      expect(name.middle).to eq 'Margaret'
+      expect(name.last).to eq 'Kelly'
     end
 
     it 'parses hyphenated last names' do
       name = Name.last_title_first("  HANSON  -  YOUNG  ,   Sarah   Coral")
-      name.first.should == 'Sarah'
-      name.middle.should == 'Coral'
-      name.last.should == 'Hanson-Young'
+      expect(name.first).to eq 'Sarah'
+      expect(name.middle).to eq 'Coral'
+      expect(name.last).to eq 'Hanson-Young'
     end
 
     it 'parses hyphenated last names' do
       name = Name.last_title_first("  KAKOSCHKE  -  MOORE  ,   Skye  ")
-      name.first.should == 'Skye'
-      name.middle.should == ""
-      name.last.should == 'Kakoschke-Moore'
+      expect(name.first).to eq 'Skye'
+      expect(name.middle).to eq ""
+      expect(name.last).to eq 'Kakoschke-Moore'
     end
   end
 end
