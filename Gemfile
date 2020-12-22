@@ -13,8 +13,6 @@ gem 'builder', '2.1.2'
 gem 'log4r'
 
 gem 'rmagick', "~> 2.16.0"
-# Travis was complaining this was missing from the Gemfile. Do we really need it?
-gem 'hoe'
 
 gem 'mysql'
 
