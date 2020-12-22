@@ -1,6 +1,6 @@
 dist: trusty
 language: ruby
-rvm: 2.4.10
+rvm: 2.5.8
 jobs:
   include:
     - stage: test
