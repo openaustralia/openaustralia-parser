@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-gem 'rake', "~> 10.5.0"
+gem 'rake'
 gem 'activesupport', "< 4.0.0"
 
 # Mechanize 2 drop support for hpricot which we're still using.

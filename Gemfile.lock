@@ -21,7 +21,7 @@ GEM
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     power_assert (1.2.0)
-    rake (10.5.0)
+    rake (13.0.3)
     rmagick (4.1.2)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
@@ -51,7 +51,7 @@ DEPENDENCIES
   log4r
   mechanize (~> 1)
   mysql2
-  rake (~> 10.5.0)
+  rake
   rmagick
   rspec
   test-unit
