@@ -13,7 +13,7 @@ describe Debates do
     @rebecca = double("Person", :name => double("Name", :full_name => "rebecca"), :id => 103)
     @debates = Debates.new(Date.new(2000,1,1), House.representatives)
   end
-  
+
   it "creates a speech when adding content to an empty debate" do
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
 
@@ -25,7 +25,7 @@ describe Debates do
 </debates>
 EOF
   end
-  
+
   it "appends to a speech when the speaker is the same" do
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>And a bit more</p>"))
@@ -38,7 +38,7 @@ EOF
 </debates>
 EOF
   end
-  
+
   it "creates a new speech as an interjection when the speaker changes" do
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
     @debates.increment_minor_count
@@ -54,7 +54,7 @@ EOF
 </debates>
 EOF
   end
-  
+
   it "appends to a procedural text when the previous speech is procedural" do
     @debates.add_speech(nil, "9:00", "url", Hpricot("<p>This is a speech</p>"))
     @debates.increment_minor_count
@@ -68,7 +68,7 @@ EOF
 </debates>
 EOF
   end
-  
+
   it "always creates a new speech after a heading" do
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
     @debates.increment_minor_count
@@ -92,7 +92,7 @@ subtitle  </minor-heading>
 </debates>
 EOF
   end
-  
+
   it "creates a new speech for a procedural after a heading" do
     @debates.add_heading("title", "subtitle", "url", [{:id => "Z12345", :title => 'A bill to support mongeese', :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345"}])
     @debates.add_speech(nil, "9:00", "url", Hpricot("<p>This is a speech</p>"))
@@ -112,7 +112,7 @@ subtitle  </minor-heading>
 </debates>
 EOF
   end
-  
+
   it "creates a new speech when adding a procedural to a speech by a person" do
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
     @debates.increment_minor_count
@@ -183,7 +183,7 @@ EOF
       end
 
     end
-    
+
     describe "the last section with an adjournment time in the data" do
 
       before do
@@ -262,5 +262,5 @@ EOF
     end
 
   end
-  
+
 end
