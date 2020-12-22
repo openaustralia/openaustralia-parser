@@ -12,7 +12,7 @@ gem 'json', "~> 1.8.6"
 gem 'builder', '2.1.2'
 gem 'log4r'
 
-gem 'rmagick', "~> 2.16.0"
+gem 'rmagick'
 
 gem 'mysql'
 
