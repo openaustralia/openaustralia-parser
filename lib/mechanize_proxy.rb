@@ -1,13 +1,13 @@
-# Very stripped down proxy for WWW::Mechanize
+# Very stripped down proxy for Mechanize
 
 require 'mechanize'
 require 'configuration'
 
 class MechanizeProxy
   def initialize
-    @agent = WWW::Mechanize.new
+    @agent = Mechanize.new
     # For the time being force the use of Hpricot rather than nokogiri
-    WWW::Mechanize.html_parser = Hpricot
+    Mechanize.html_parser = Hpricot
   end
 
   def user_agent_alias=(a)

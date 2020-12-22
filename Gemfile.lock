@@ -6,39 +6,21 @@ GEM
       multi_json (~> 1.0)
     builder (2.1.2)
     concurrent-ruby (1.1.7)
-    connection_pool (2.2.3)
     diff-lcs (1.4.4)
-    domain_name (0.5.20190701)
-      unf (>= 0.0.5, < 1.0.0)
     hpricot (0.8.6)
     htmlentities (4.3.4)
-    http-cookie (1.0.3)
-      domain_name (~> 0.5)
     i18n (0.9.5)
       concurrent-ruby (~> 1.0)
+    iconv (1.0.8)
     json (1.8.6)
     log4r (1.1.10)
-    mechanize (2.7.6)
-      domain_name (~> 0.5, >= 0.5.1)
-      http-cookie (~> 1.0)
-      mime-types (>= 1.17.2)
-      net-http-digest_auth (~> 1.1, >= 1.1.1)
-      net-http-persistent (>= 2.5.2)
-      nokogiri (~> 1.6)
-      ntlm-http (~> 0.1, >= 0.1.1)
-      webrobots (>= 0.0.9, < 0.2)
-    mime-types (3.3.1)
-      mime-types-data (~> 3.2015)
-    mime-types-data (3.2020.1104)
+    mechanize (1.0.0)
+      nokogiri (>= 1.2.1)
     mini_portile2 (2.4.0)
     multi_json (1.15.0)
     mysql2 (0.5.3)
-    net-http-digest_auth (1.4.1)
-    net-http-persistent (4.0.0)
-      connection_pool (~> 2.2)
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
-    ntlm-http (0.1.1)
     power_assert (1.2.0)
     rake (10.5.0)
     rmagick (4.1.2)
@@ -57,10 +39,6 @@ GEM
     rspec-support (3.10.0)
     test-unit (3.3.7)
       power_assert
-    unf (0.1.4)
-      unf_ext
-    unf_ext (0.0.7.7)
-    webrobots (0.1.2)
 
 PLATFORMS
   ruby
@@ -70,9 +48,10 @@ DEPENDENCIES
   builder (~> 2)
   hpricot
   htmlentities
+  iconv
   json (~> 1.8.6)
   log4r
-  mechanize
+  mechanize (~> 1)
   mysql2
   rake (~> 10.5.0)
   rmagick

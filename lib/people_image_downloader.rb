@@ -151,7 +151,7 @@ class PeopleImageDownloader
         #puts "About to lookup image #{relative_image_url}..."
         res = @agent.get(relative_image_url)
         Magick::Image.from_blob(res.body)[0]
-      #rescue RuntimeError, Magick::ImageMagickError, WWW::Mechanize::ResponseCodeError
+      #rescue RuntimeError, Magick::ImageMagickError, Mechanize::ResponseCodeError
       #  return nil
       #end
     end

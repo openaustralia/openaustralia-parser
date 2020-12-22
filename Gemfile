@@ -2,8 +2,13 @@ source "http://rubygems.org"
 
 gem 'rake', "~> 10.5.0"
 gem 'activesupport', "< 4.0.0"
-gem 'mechanize'
+
+# Mechanize 2 drop support for hpricot which we're still using.
+# We should switch to using nokogiri
+gem 'mechanize', "~> 1"
 gem 'hpricot'
+# iconv is required by Mechanize 1
+gem 'iconv'
 gem 'htmlentities'
 gem 'json', "~> 1.8.6"
 
