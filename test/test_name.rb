@@ -60,7 +60,7 @@ class TestName < Test::Unit::TestCase
       Name.last_title_first("Johnson, JF"))
   end
 
-  def test_initials_last
+  def test_initials_last2
     assert_equal(Name.new(:last => "Johnson", :initials => "JFK"),
       Name.last_title_first("Johnson, JFK"))
   end
