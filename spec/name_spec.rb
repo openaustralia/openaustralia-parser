@@ -54,6 +54,13 @@ describe Name do
   end
 
   describe '.last_title_first' do
+    it "handles a messed up name" do
+      name = Name.last_title_first("STEELE-  JOHN  , Jordon Alexander")
+      expect(name.first).to eq "Jordon"
+      expect(name.middle).to eq "Alexander"
+      expect(name.last).to eq "Steele-John"
+    end
+
     it "correctly handles a title and a middle name" do
       name = Name.last_title_first("MARTIN, Dr. Fiona Barbouttis")
       expect(name.title).to eq "Dr."
