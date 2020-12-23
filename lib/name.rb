@@ -46,11 +46,6 @@ class Name
       last = names[0..1].join(' ')
       names.shift
       names.shift
-      # Hack to deal with one badly formatted hyphenated name
-    elsif names.size >= 2 && names[0].downcase == "steele-" && names[1].downcase == "john"
-      last = names[0..1].join
-      names.shift
-      names.shift
     # Check for hyphenated last names
     elsif names[1] == '-'
       last = names.shift(3).join
