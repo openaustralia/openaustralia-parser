@@ -7,8 +7,6 @@ require 'debates'
 require 'builder_alpha_attributes'
 require 'house'
 require 'people_image_downloader'
-# Using Active Support (part of Ruby on Rails) for Unicode support
-require 'active_support'
 require 'log4r'
 require 'hansard_day'
 require 'hansard_rewriter'

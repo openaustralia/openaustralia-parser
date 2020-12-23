@@ -30,7 +30,7 @@ describe Speech do
     nbsp = [160].pack('U')
     doc = Hpricot("<p>Q&A#{nbsp}—</p>")
     # Make sure that you normalise the unicode before comparing.
-    expect(doc.to_s.mb_chars.normalize).to eq "<p>Q&A#{nbsp}—</p>".mb_chars.normalize
+    expect(doc.to_s.unicode_normalize(:nfkc)).to eq "<p>Q&A#{nbsp}—</p>".unicode_normalize(:nfkc)
 
     coder = HTMLEntities.new
     expect(coder.encode("Q&A#{nbsp}—", :basic)).to eq "Q&amp;A#{nbsp}—"

@@ -1,6 +1,5 @@
 # encoding: utf-8
 
-require 'active_support'
 require 'hpricot_additions'
 require 'name'
 
@@ -55,7 +54,7 @@ class HansardSpeech
     nbhyphen = [0x2011].pack('U')
     nbsp = [160].pack('U')
 
-    t = text.mb_chars.gsub(nbhyphen, '-')
+    t = text.gsub(nbhyphen, '-')
     # TODO: Not handling dashes and nbsp the same here. Should really be stripping whitespace completely before doing
     # anything for consistency sake.
     if t.strip[0..0] == '—'

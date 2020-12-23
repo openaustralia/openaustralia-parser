@@ -1,8 +1,6 @@
 source "http://rubygems.org"
 
 gem 'rake'
-# Upgrading activesupport is currently blocking upgrading to Ruby 2.7
-gem 'activesupport', "< 4.0.0"
 
 # Mechanize 2 drop support for hpricot which we're still using.
 # We should switch to using nokogiri

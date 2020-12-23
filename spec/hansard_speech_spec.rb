@@ -3,7 +3,6 @@
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require "test/unit"
-require 'active_support'
 
 require "hansard_speech"
 
@@ -177,7 +176,7 @@ describe HansardSpeech, "should clean content" do
     nbsp = [160].pack('U')
     content = "<speech><para>#{nbsp}#{nbsp}#{nbsp} Foo</para></speech>"
     expected = "<p>#{nbsp}#{nbsp} Foo</p>"
-    expect(HansardSpeech.clean_content_para(Hpricot.XML(content).at('para')).mb_chars.normalize).to eq expected.mb_chars.normalize
+    expect(HansardSpeech.clean_content_para(Hpricot.XML(content).at('para')).unicode_normalize(:nfkc)).to eq expected.unicode_normalize(:nfkc)
   end
 
   it "in a graphic block" do

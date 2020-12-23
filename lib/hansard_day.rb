@@ -5,6 +5,7 @@ require 'hpricot_additions'
 require 'house'
 require 'hansard_division'
 require 'hansard_speech'
+require 'date'
 
 # Use this for sections of the Hansard that we're not currently supporting. Allows us to track
 # title and subtitle.
