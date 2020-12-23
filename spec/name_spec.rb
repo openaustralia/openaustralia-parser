@@ -54,6 +54,14 @@ describe Name do
   end
 
   describe '.last_title_first' do
+    it "correctly handles a title and a middle name" do
+      name = Name.last_title_first("MARTIN, Dr. Fiona Barbouttis")
+      expect(name.title).to eq "Dr."
+      expect(name.first).to eq "Fiona"
+      expect(name.middle).to eq "Barbouttis"
+      expect(name.last).to eq "Martin"
+    end
+
     it 'parses names with no middle names' do
       name = Name.last_title_first("  ALY  ,   Anne  ")
       expect(name.first).to eq 'Anne'
@@ -70,6 +78,7 @@ describe Name do
 
     it 'parses names with titles' do
       name = Name.last_title_first("  BACK  , Dr   Christopher     John  ")
+      expect(name.title).to eq "Dr"
       expect(name.first).to eq 'Christopher'
       expect(name.middle).to eq 'John'
       expect(name.last).to eq 'Back'
@@ -77,6 +86,7 @@ describe Name do
 
     it 'parses names with titles and brackets' do
       name = Name.last_title_first("  BAILEY  , the Hon. Frances (  Fran  )   Esther  ")
+      expect(name.title).to eq 'the Hon.'
       expect(name.first).to eq 'Frances'
       expect(name.middle).to eq 'Esther'
       expect(name.last).to eq 'Bailey'
@@ -91,6 +101,7 @@ describe Name do
 
     it 'parses hyphenated first names' do
       name = Name.last_title_first("  KELLY  , the Hon.   De  -  Anne     Margaret  ")
+      expect(name.title).to eq "the Hon."
       expect(name.first).to eq 'De-Anne'
       expect(name.middle).to eq 'Margaret'
       expect(name.last).to eq 'Kelly'
