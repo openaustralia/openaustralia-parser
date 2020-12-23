@@ -39,6 +39,7 @@ class PeopleImageDownloader
 
       if image.nil?
         puts "WARNING: Can't find photo for #{name.full_name}"
+        next
       end
 
       if name
@@ -46,11 +47,8 @@ class PeopleImageDownloader
         name = Name.new(:first => name.first, :middle => name.middle, :last => name.last, :post_title => name.post_title)
         person = people.find_person_by_name_and_birthday(name, birthday)
         if person
-          # If no image was found then silently skip over saving the image
-          if image
-            image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH, @@SMALL_THUMBNAIL_HEIGHT).write(small_image_filename)
-            image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH * 2, @@SMALL_THUMBNAIL_HEIGHT * 2).write(large_image_filename)
-          end
+          image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH, @@SMALL_THUMBNAIL_HEIGHT).write(small_image_filename)
+          image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH * 2, @@SMALL_THUMBNAIL_HEIGHT * 2).write(large_image_filename)
         else
           puts "WARNING: Skipping photo for #{name.full_name} because they don't exist in the list of people"
         end
