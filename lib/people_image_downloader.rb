@@ -24,6 +24,15 @@ class PeopleImageDownloader
     sorted_people = people.sort {|a, b| a.name.last <=> b.name.last}
 
     sorted_people.each do |person|
+      small_image_filename = small_image_dir + "/#{person.id_count}.jpg"
+      large_image_filename = large_image_dir + "/#{person.id_count}.jpg"
+
+      # TODO: Add an option so that we can redownload old photos easily
+      if File.exists?(small_image_filename) && File.exists?(large_image_filename)
+        puts "Photo for #{person.name.full_name} is already downloaded. So, skipping."
+        next
+      end
+
       page = person_bio_page(person)
       next unless page
       name, birthday, image = extract_name(page), extract_birthday(page), extract_image(page)
@@ -39,8 +48,8 @@ class PeopleImageDownloader
         if person
           # If no image was found then silently skip over saving the image
           if image
-            image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH, @@SMALL_THUMBNAIL_HEIGHT).write(small_image_dir + "/#{person.id_count}.jpg")
-            image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH * 2, @@SMALL_THUMBNAIL_HEIGHT * 2).write(large_image_dir + "/#{person.id_count}.jpg")
+            image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH, @@SMALL_THUMBNAIL_HEIGHT).write(small_image_filename)
+            image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH * 2, @@SMALL_THUMBNAIL_HEIGHT * 2).write(large_image_filename)
           end
         else
           puts "WARNING: Skipping photo for #{name.full_name} because they don't exist in the list of people"
