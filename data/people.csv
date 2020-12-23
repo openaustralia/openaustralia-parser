@@ -504,7 +504,7 @@ person count,aph id,name,birthday,alt name
 493,,Justin Hilary O'Byrne,
 494,84S,Michelle Anne O'Byrne,
 495,EU4,William George O'Chee,
-496,00AN3,Brendan Patrick O'Connor,
+496,00AN3,Brendan Patrick O'Connor,,Brendan Patrick John O'Connor
 497,WU5,Gavan Michael O'Connor,
 498,,Frank Lionel O'Keefe,
 499,CE4,Neil Patrick O'Keefe,
@@ -745,7 +745,7 @@ person count,aph id,name,birthday,alt name
 730,M3A,Ken Wyatt,
 731,172770,Laura Smyth,
 732,M2X,Wyatt Roy,
-733,M3E,Rob Mitchell,
+733,M3E,Rob Mitchell,,Robert George Mitchell
 734,M3C,Adam Bandt,
 735,M3K,Tony Crook,,Anthony John Crook
 736,220370,Natasha Griggs,
@@ -840,7 +840,7 @@ person count,aph id,name,birthday,alt name
 812,243609,Andrew Giles,,
 813,249127,Pat Conroy,,Patrick Martin Conroy
 814,140590,Clare O'Neil,,
-815,208884,Christian Porter,,
+815,208884,Christian Porter,,Charles Christian Porter
 816,198084,Rick Wilson,,Richard James Wilson
 817,231027,Angus Taylor,,
 818,249308,Melissa Price,,
