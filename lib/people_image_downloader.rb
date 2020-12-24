@@ -1,5 +1,5 @@
 require 'rmagick'
-require 'mechanize_proxy'
+require 'mechanize'
 
 require 'configuration'
 require 'name'
@@ -16,7 +16,9 @@ class PeopleImageDownloader
     Hpricot.buffer_size = 262144
 
     @conf = Configuration.new
-    @agent = MechanizeProxy.new
+    @agent = Mechanize.new
+    # For the time being force the use of Hpricot rather than nokogiri
+    Mechanize.html_parser = Hpricot
   end
 
   def download(people, small_image_dir, large_image_dir)

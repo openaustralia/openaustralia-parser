@@ -5,7 +5,7 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'mechanize_proxy'
+require 'mechanize'
 require 'hpricot'
 require 'name'
 
@@ -14,7 +14,10 @@ def simplify_whitespace(str)
 end
 
 def extract_positions_from_page(url)
-  agent = MechanizeProxy.new
+  agent = Mechanize.new
+  # For the time being force the use of Hpricot rather than nokogiri
+  Mechanize.html_parser = Hpricot
+
   page = agent.get(url)
 
   # Main content section - <sarcasm>look how elegant this is when you do use tables for layouts</sarcasm>
