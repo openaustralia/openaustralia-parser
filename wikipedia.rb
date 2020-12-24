@@ -25,8 +25,6 @@ puts "Reading member data..."
 people = people = PeopleCSVReader.read_members
 
 agent = Mechanize.new
-# For the time being force the use of Hpricot rather than nokogiri
-Mechanize.html_parser = Hpricot
 
 # Slightly naughty because Wikipedia specifically blocks Ruby Mechanize
 agent.user_agent_alias = 'Mac Safari'
