@@ -17,8 +17,6 @@ class PeopleImageDownloader
 
     @conf = Configuration.new
     @agent = Mechanize.new
-    # For the time being force the use of Hpricot rather than nokogiri
-    Mechanize.html_parser = Hpricot
   end
 
   def download(people, small_image_dir, large_image_dir)
