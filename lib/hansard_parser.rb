@@ -51,8 +51,6 @@ class HansardParser
   # This is the original data without any patches applied at this end
   def unpatched_hansard_xml_source_data_on_date(date, house)
     agent = Mechanize.new
-    # For the time being force the use of Hpricot rather than nokogiri
-    Mechanize.html_parser = Hpricot
 
     # This is the page returned by Parlinfo Search for that day
     url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;adv=yes;orderBy=_fragment_number,doc_date-rev;page=0;query=Dataset%3Ahansard#{house.representatives? ? "r" : "s"},hansard#{house.representatives? ? "r" : "s"}80%20Date%3A#{date.day}%2F#{date.month}%2F#{date.year};rec=0;resCount=Default"
