@@ -65,7 +65,7 @@ shadows.each do |shadow|
   start_date = shadow[:start_date]
   end_date = shadow[:end_date]
   positions = shadow[:positions]
-  
+
   if name.post_title == "MP"
     # Reformat names if they're an MP
     name = Name.new(:first => name.first, :middle => name.middle, :last => name.last)
@@ -78,7 +78,7 @@ shadows.each do |shadow|
   end
   start_date_string = "#{start_date.day}/#{start_date.month}/#{start_date.year}"
   end_date_string = "#{end_date.day}/#{end_date.month}/#{end_date.year}" if end_date
-  
+
   positions.each do |position|
     puts "#{name.full_name},#{start_date_string},#{end_date_string},\"#{position}\""
   end
