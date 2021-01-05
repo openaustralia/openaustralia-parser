@@ -60,7 +60,7 @@ class Debates
     add_heading_for_real
 
     # Only add new speech if the speaker has changed
-    if !@items.last.kind_of?(Speech) || speaker != last_speaker
+    if !@items.last.is_a?(Speech) || speaker != last_speaker
       speech = Speech.new(speaker, time, url, @count.clone, @date, @house, @logger)
       speech.interjection = interjection
       speech.continuation = continuation

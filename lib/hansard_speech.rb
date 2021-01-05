@@ -129,7 +129,7 @@ class HansardSpeech
   def HansardSpeech.clean_content_para_content(e)
     t = ""
     (e.children || []).each do |c|
-      if c.kind_of?(Hpricot::Text)
+      if c.is_a?(Hpricot::Text)
         t << strip_leading_dash(c.to_s)
       else
         t << clean_content_any(c)
@@ -298,6 +298,6 @@ class HansardSpeech
   end
 
   def name?(name)
-    @content.kind_of?(Hpricot::Text) ? !!@content.at("/#{name}") : name == @content.name
+    @content.is_a?(Hpricot::Text) ? !!@content.at("/#{name}") : name == @content.name
   end
 end

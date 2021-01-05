@@ -202,17 +202,6 @@ Style/BlockDelimiters:
     - 'lib/progressbar.rb'
     - 'spec/hansard_day_spec.rb'
 
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: is_a?, kind_of?
-Style/ClassCheck:
-  Exclude:
-    - 'lib/debates.rb'
-    - 'lib/hansard_speech.rb'
-    - 'lib/period.rb'
-    - 'lib/speech.rb'
-
 # Offense count: 47
 # Cop supports --auto-correct.
 Style/ClassMethods:

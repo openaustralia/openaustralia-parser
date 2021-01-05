@@ -100,7 +100,7 @@ class Period < PeriodBase
   end
 
   def ==(other)
-    other.kind_of?(Period) && id == other.id && from_date == other.from_date && to_date == other.to_date &&
+    other.is_a?(Period) && id == other.id && from_date == other.from_date && to_date == other.to_date &&
       from_why == other.from_why && to_why == other.to_why && division == other.division && state == other.state && party == other.party && house == other.house
   end
 end

@@ -40,7 +40,7 @@ class Speech < Section
       text.swap(coder.encode(text, :basic))
     end
     # Append to stored content
-    if content.kind_of?(Array)
+    if content.is_a?(Array)
       @content = @content + content
     else
       @content << content
