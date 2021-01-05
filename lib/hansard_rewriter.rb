@@ -446,7 +446,7 @@ EOF
         debate_new_children.append "#{f}"
 
       # Things we are delibaretly removing
-      when 'continue', 'interjection', 'talk', 'debate.text', 'subdebate.text'
+      when 'continue', 'interjection', 'talk', 'debate.text'
         # pass
 
       else
