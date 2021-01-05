@@ -1,14 +1,14 @@
-require 'speech'
-require 'mechanize'
-require 'configuration'
-require 'debates'
-require 'builder_alpha_attributes'
-require 'house'
-require 'people_image_downloader'
-require 'log4r'
-require 'hansard_day'
-require 'hansard_rewriter'
-require 'patch'
+require "speech"
+require "mechanize"
+require "configuration"
+require "debates"
+require "builder_alpha_attributes"
+require "house"
+require "people_image_downloader"
+require "log4r"
+require "hansard_day"
+require "hansard_rewriter"
+require "patch"
 
 class UnknownSpeaker
   def initialize(name)
@@ -32,13 +32,13 @@ class HansardParser
     @conf = Configuration.new
 
     # Set up logging
-    @logger = Log4r::Logger.new 'HansardParser'
+    @logger = Log4r::Logger.new "HansardParser"
     # Log to both standard out and the file set in configuration.yml
     o1 = Log4r::Outputter.stdout
     # Only log error messages or above to standard output
     o1.level = Log4r::ERROR
     @logger.add(o1)
-    @logger.add(Log4r::FileOutputter.new('foo', filename: @conf.log_path, trunc: false,
+    @logger.add(Log4r::FileOutputter.new("foo", filename: @conf.log_path, trunc: false,
                                                 formatter: Log4r::PatternFormatter.new(pattern: "[%l] %d :: %M")))
 
     @rewriter = HansardRewriter.new(@logger)
@@ -54,7 +54,7 @@ class HansardParser
     url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;adv=yes;orderBy=_fragment_number,doc_date-rev;page=0;query=Dataset%3Ahansard#{house.representatives? ? "r" : "s"},hansard#{house.representatives? ? "r" : "s"}80%20Date%3A#{date.day}%2F#{date.month}%2F#{date.year};rec=0;resCount=Default"
     page = agent.get(url)
 
-    tag = page.at('div#content center')
+    tag = page.at("div#content center")
     if tag && tag.inner_html =~ /^Unable to find document/
       nil
     else
@@ -74,8 +74,8 @@ class HansardParser
     text = unpatched_hansard_xml_source_data_on_date(date, house)
     if text
       # Horribe hack to fix some stupid wrapping
-      text = text.gsub(/\r/, '')
-      text = text.gsub(/<\/span>[^<]*<span style="&#xD;&#xA;    font-size:9.5pt;&#xD;&#xA;  ">/m, '')
+      text = text.gsub(/\r/, "")
+      text = text.gsub(/<\/span>[^<]*<span style="&#xD;&#xA;    font-size:9.5pt;&#xD;&#xA;  ">/m, "")
 
       # Now check whether there is a patch for that day and if so apply it
       patch_file_path = "#{File.dirname(__FILE__)}/../data/patches/#{house}.#{date}.xml.patch"
@@ -124,7 +124,7 @@ class HansardParser
       # Load the XML data
       xml = hansard_xml_source_data_on_date(date, house)
       # And cache it
-      File.open(filename, 'w') do |f|
+      File.open(filename, "w") do |f|
         # If there is no data for this day (parliament didn't sit) then
         # still create a file but leave it empty. This allows to
         # cache that fact without having to rerequest things from the aph
@@ -139,7 +139,7 @@ class HansardParser
         new_xml = @rewriter.rewrite_xml Hpricot.XML(xml)
 
         # Save the rewritten XML data
-        File.open(rewritexml_filename(date, house), 'w') { |f| f.write("#{new_xml}") }
+        File.open(rewritexml_filename(date, house), "w") { |f| f.write("#{new_xml}") }
 
         # Process the day
         HansardDay.new(new_xml, @logger)

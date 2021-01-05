@@ -1,6 +1,6 @@
-require 'hpricot'
-require 'htmlentities'
-require 'section'
+require "hpricot"
+require "htmlentities"
+require "section"
 
 class Speech < Section
   attr_accessor :speaker, :content, :interjection, :continuation,
@@ -49,11 +49,11 @@ class Speech < Section
 
   def talk_type
     if @interjection
-      'interjection'
+      "interjection"
     elsif @continuation
-      'continuation'
+      "continuation"
     else
-      'speech'
+      "speech"
     end
   end
 

@@ -2,8 +2,8 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'configuration'
-require 'people'
+require "configuration"
+require "people"
 
 conf = Configuration.new
 

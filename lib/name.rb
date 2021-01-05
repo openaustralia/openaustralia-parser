@@ -17,14 +17,14 @@ class Name
   end
 
   def self.remove_text_in_brackets(text)
-    open = text.index('(')
+    open = text.index("(")
     if open
-      close = text.index(')', open)
+      close = text.index(")", open)
       text = text[0..open - 1] + text[close + 1..-1] if close
     end
 
     # Remove extra spaces
-    text.squeeze(' ')
+    text.squeeze(" ")
   end
 
   def self.last_title_first(text)
@@ -32,23 +32,23 @@ class Name
     text = text.unicode_normalize(:nfkc)
     # Do the following before the split so we can handle things like "(foo bar)"
     text = remove_text_in_brackets(text)
-    names = text.delete(',').split(' ')
+    names = text.delete(",").split(" ")
     # Hack to deal with a specific person who has two last names that aren't hyphenated
     if names.size >= 2 && names[0].downcase == "stott" && names[1].downcase == "despoja" ||
        names.size >= 2 && names[0].downcase == "van" && names[1].downcase == "manen" ||
        names.size >= 2 && names[0].downcase == "di" && names[1].downcase == "natale"
-      last = names[0..1].join(' ')
+      last = names[0..1].join(" ")
       names.shift
       names.shift
     # Check for hyphenated last names
-    elsif names[1] == '-'
+    elsif names[1] == "-"
       last = names.shift(3).join
     else
       last = names.shift
     end
     title = Name.extract_title_at_start(names)
     # Check for hypenated first name
-    if names[1] == '-'
+    if names[1] == "-"
       first = names.shift(3).join
     elsif names.size >= 1
       # First name could be in the form of initials. So, check for this
@@ -63,7 +63,7 @@ class Name
       end
     end
     post_title = extract_post_title_at_end(names)
-    middle = names[0..-1].join(' ')
+    middle = names[0..-1].join(" ")
     Name.new(title: title, initials: initials, last: last, first: first, middle: middle, post_title: post_title)
   end
 
@@ -95,13 +95,13 @@ class Name
   def self.initials_with_fullstops(name)
     # Heuristic: If word has any fullstops in it we'll assume that these are initials
     # This allows a degree of flexibility, such as allowing "A.B.", "A.B..", "A.B.C", etc...
-    name.delete('.') if name.include?('.')
+    name.delete(".") if name.include?(".")
   end
 
   def self.title_first_last(text)
     # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
     text = text.unicode_normalize(:nfkc)
-    names = text.delete(',').split(' ')
+    names = text.delete(",").split(" ")
     title = Name.extract_title_at_start(names)
     if names.size == 1
       last = names[0]
@@ -109,7 +109,7 @@ class Name
     elsif names.size == 2 && names[0].downcase == "stott" && names[1].downcase == "despoja" ||
           names.size == 2 && names[0].downcase == "van" && names[1].downcase == "manen" ||
           names.size >= 2 && names[0].downcase == "di" && names[1].downcase == "natale"
-      last = names[0..1].join(' ')
+      last = names[0..1].join(" ")
       names.shift
       names.shift
     elsif names.size >= 2
@@ -123,13 +123,13 @@ class Name
       if names.size >= 2 && names[-2].downcase == "stott" && names[-1].downcase == "despoja" ||
          names.size >= 2 && names[-2].downcase == "van" && names[-1].downcase == "manen" ||
          names.size >= 2 && names[0].downcase == "di" && names[1].downcase == "natale"
-        last = names[-2..-1].join(' ')
+        last = names[-2..-1].join(" ")
         names.pop
       else
         last = names[-1]
       end
       names.pop
-      middle = names[0..-1].join(' ')
+      middle = names[0..-1].join(" ")
     end
     Name.new(title: title, last: last, first: first, middle: middle, initials: initials, post_title: post_title)
   end
@@ -146,7 +146,7 @@ class Name
     if has_middle_initials?
       @initials[1..-1]
     else
-      @middle.split(' ').map { |n| n[0..0] }.join
+      @middle.split(" ").map { |n| n[0..0] }.join
     end
   end
 
@@ -262,7 +262,7 @@ class Name
     while (title = Name.title(names))
       titles << title
     end
-    titles.join(' ')
+    titles.join(" ")
   end
 
   def self.extract_post_title_at_end(names)
@@ -270,7 +270,7 @@ class Name
     while (post_title = Name.post_title(names))
       post_titles.unshift(post_title)
     end
-    post_titles.join(' ')
+    post_titles.join(" ")
   end
 
   def self.matches_hon?(name)
@@ -311,11 +311,11 @@ class Name
     # If name is hyphenated capitalise each side on its own
     # TODO: Fix 'activesupport' gem so that multibyte chars properly pass through include?
     # Cast to normal string for include? necessary because of bug in activesupport multibyte chars
-    name = name.split('-').map { |n| capitalize_name(n) }.join('-') if name.to_s.include?('-')
+    name = name.split("-").map { |n| capitalize_name(n) }.join("-") if name.to_s.include?("-")
     name
   end
 
   def self.capitalize_each_name(name)
-    name.split(' ').map { |t| Name.capitalize_name(t) }.join(' ')
+    name.split(" ").map { |t| Name.capitalize_name(t) }.join(" ")
   end
 end

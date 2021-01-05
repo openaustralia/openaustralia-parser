@@ -3,11 +3,11 @@ $:.unshift "#{File.dirname(__FILE__)}/../lib"
 require "test/unit"
 
 require "division"
-require 'house'
-require 'person'
-require 'name'
-require 'builder_alpha_attributes'
-require 'count'
+require "house"
+require "person"
+require "name"
+require "builder_alpha_attributes"
+require "count"
 
 # The Division class knows how to output XML
 describe Division do

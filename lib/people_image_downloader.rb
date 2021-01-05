@@ -1,9 +1,9 @@
-require 'rmagick'
-require 'mechanize'
+require "rmagick"
+require "mechanize"
 
-require 'configuration'
-require 'name'
-require 'hpricot'
+require "configuration"
+require "name"
+require "hpricot"
 
 # TODO: Rename class
 class PeopleImageDownloader
@@ -61,11 +61,11 @@ class PeopleImageDownloader
 
   # Returns nil if page can't be found
   def biography_page_for_person_with_name(text)
-    url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Dataset:allmps%20" + text.gsub(' ', '%20')
+    url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Dataset:allmps%20" + text.gsub(" ", "%20")
     page = @agent.get(url)
     # Check if the returned page is a valid one. If not just ignore it
-    tag1 = page.at('div#content')
-    tag2 = page.at('div#content div.error')
+    tag1 = page.at("div#content")
+    tag2 = page.at("div#content div.error")
     unless (tag2 && tag2.inner_text =~ /There was an unexpected error while processing your request./) ||
            (tag1 && tag1.inner_html =~ /No results found/)
       page
@@ -105,14 +105,14 @@ class PeopleImageDownloader
 
   # Returns an array of values for the metadata
   def raw_metadata(page)
-    labels = page.search('dt.mdLabel')
-    values = page.search('dd.mdValue')
+    labels = page.search("dt.mdLabel")
+    values = page.search("dd.mdValue")
     raise "Number of values do not match number of labels" if labels.size != values.size
 
     metadata = {}
     (0..labels.size - 1).each do |index|
       label = labels[index].inner_html
-      value = values[index].search('p.mdItem').map { |e| e.inner_html.gsub(/&nbsp;/, '') }
+      value = values[index].search("p.mdItem").map { |e| e.inner_html.gsub(/&nbsp;/, "") }
       metadata[label] = value unless value.empty?
     end
     metadata
@@ -121,7 +121,7 @@ class PeopleImageDownloader
   # Extract a hash of all the metadata tags and values
   def extract_metadata_tags(page)
     r = raw_metadata(page)
-    r.each_pair { |key, value| r[key] = value.join(', ') }
+    r.each_pair { |key, value| r[key] = value.join(", ") }
     r
   end
 
@@ -151,9 +151,9 @@ class PeopleImageDownloader
   end
 
   def extract_image(page)
-    img_tag = page.search('div.box').search("img").first
+    img_tag = page.search("div.box").search("img").first
     if img_tag
-      relative_image_url = img_tag.attributes['src']
+      relative_image_url = img_tag.attributes["src"]
       # begin
       # puts "About to lookup image #{relative_image_url}..."
       res = @agent.get(relative_image_url)

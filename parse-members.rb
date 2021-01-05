@@ -2,9 +2,9 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'configuration'
-require 'people'
-require 'optparse'
+require "configuration"
+require "people"
+require "optparse"
 
 options = {}
 

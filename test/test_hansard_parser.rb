@@ -2,14 +2,14 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
-require 'test/unit'
-require 'hansard_parser'
-require 'hpricot'
-require 'people'
+require "test/unit"
+require "hansard_parser"
+require "hpricot"
+require "people"
 
 class TestHansardParser < Test::Unit::TestCase
   def test_generic_speakers
-    speech = HansardSpeech.new(Hpricot(''), "", "", "", "", nil)
+    speech = HansardSpeech.new(Hpricot(""), "", "", "", "", nil)
     assert(HansardSpeech.generic_speaker?("Honourable member"))
     assert(HansardSpeech.generic_speaker?("Honourable members"))
     assert(HansardSpeech.generic_speaker?("Government member"))

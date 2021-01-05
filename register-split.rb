@@ -9,10 +9,10 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'csv'
-require 'name'
-require 'people'
-require 'configuration'
+require "csv"
+require "name"
+require "people"
+require "configuration"
 
 # Full path to pdftk executable
 pdftk = "/usr/local/bin/pdftk"
@@ -37,7 +37,7 @@ def read_in_ranges(p, filename_prefix, people)
     end_page = if i + 1 < data.size
                  data[i + 1][0].to_i - 1
                else
-                 'end'
+                 "end"
                end
     # Ignore page ranges marked as blank
     if last_name.downcase != "** blank page **"
@@ -95,13 +95,13 @@ p.each do |person, ranges|
   filenames = []
   pages = []
   ranges.each_index do |i|
-    letter = 'A'
+    letter = "A"
     letter[0] = letter[0] + i
     filenames << "#{letter}=#{ranges[i].filename}"
     pages << "#{letter}#{ranges[i].start}-#{ranges[i].end}"
   end
-  filenames = filenames.join(' ')
-  pages = pages.join(' ')
+  filenames = filenames.join(" ")
+  pages = pages.join(" ")
   command = "#{pdftk} #{filenames} cat #{pages} output #{conf.base_dir}#{conf.regmem_pdf_path}/register_interests_#{person.id_count}.pdf"
   puts "Splitting and combining pdfs for #{person.name.full_name}..."
   system(command)

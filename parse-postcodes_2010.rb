@@ -2,10 +2,10 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'rubygems'
-require 'mechanize'
-require 'configuration'
-require 'people'
+require "rubygems"
+require "mechanize"
+require "configuration"
+require "people"
 
 conf = Configuration.new
 
@@ -19,8 +19,8 @@ data.shift
 valid_postcodes = data.map { |row| row.first }.uniq.sort
 
 def extract_divisions_from_page(page)
-  divisions = page.search('div/table/tr/td[4]').map { |t| t.inner_text }
-  redistributed_divisions = page.search('div/table/tr/td[5]').map { |t| t.inner_text }
+  divisions = page.search("div/table/tr/td[4]").map { |t| t.inner_text }
+  redistributed_divisions = page.search("div/table/tr/td[5]").map { |t| t.inner_text }
   raise "expected same number of divisions as redistributed divisions" unless divisions.size == redistributed_divisions.size
 
   combined = []
@@ -39,7 +39,7 @@ def extract_divisions_from_page(page)
 end
 
 def other_pages?(page)
-  page.at('table table')
+  page.at("table table")
 end
 
 def extract_divisions_for_postcode(agent, postcode)
@@ -54,7 +54,7 @@ def extract_divisions_for_postcode(agent, postcode)
       page_number += 1
       puts "  Page #{page_number}..."
       form = page.form_with(name: "aspnetForm")
-      form["__EVENTTARGET"] = 'ctl00$ContentPlaceHolderBody$gridViewLocalities'
+      form["__EVENTTARGET"] = "ctl00$ContentPlaceHolderBody$gridViewLocalities"
       form["__EVENTARGUMENT"] = "Page$#{page_number}"
       page = form.submit
       new_divisions = extract_divisions_from_page(page)

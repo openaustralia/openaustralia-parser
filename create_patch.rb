@@ -3,11 +3,11 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'optparse'
-require 'date'
-require 'fileutils'
-require 'people_csv_reader'
-require 'hansard_parser'
+require "optparse"
+require "date"
+require "fileutils"
+require "people_csv_reader"
+require "hansard_parser"
 
 OptionParser.new do |opts|
   opts.banner = <<~EOF
@@ -45,7 +45,7 @@ patch_file_path = "#{File.dirname(__FILE__)}/data/patches/#{house}.#{date}.xml.p
 # File.open("original.xml", "w") {|f| f << parser.unpatched_hansard_xml_source_data_on_date(date, house)}
 # File.open("patched.xml", "w") {|f| f << parser.hansard_xml_source_data_on_date(date, house)}
 File.open("original.xml", "w") { |f| f << parser.hansard_xml_source_data_on_date(date, house) }
-FileUtils.cp 'original.xml', 'patched.xml'
+FileUtils.cp "original.xml", "patched.xml"
 
 $stdout.puts "Edit patched.xml to your liking, then:"
 $stdout.puts "diff -u original.xml patched.xml \>\> #{patch_file_path}"

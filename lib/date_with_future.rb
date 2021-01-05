@@ -1,4 +1,4 @@
-require 'date'
+require "date"
 
 class DateWithFuture < Date
   # Returns a date a long time in the future

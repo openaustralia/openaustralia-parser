@@ -3,12 +3,12 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'rubygems'
-require 'csv'
-require 'mysql2'
-require 'configuration'
-require 'people'
-require 'optparse'
+require "rubygems"
+require "csv"
+require "mysql2"
+require "configuration"
+require "people"
+require "optparse"
 
 options = {}
 
@@ -48,6 +48,6 @@ else
   # Clear out the old data
   db.query("DELETE FROM postcode_lookup")
 
-  values = data.map { |row| "('#{row[0]}', '#{quote_string(row[1])}')" }.join(',')
+  values = data.map { |row| "('#{row[0]}', '#{quote_string(row[1])}')" }.join(",")
   db.query("INSERT INTO postcode_lookup (postcode, name) VALUES #{values}")
 end

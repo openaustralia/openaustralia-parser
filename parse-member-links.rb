@@ -2,13 +2,13 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'mechanize'
-require 'open-uri'
-require 'name'
-require 'people'
-require 'hpricot'
-require 'configuration'
-require 'json'
+require "mechanize"
+require "open-uri"
+require "name"
+require "people"
+require "hpricot"
+require "configuration"
+require "json"
 
 conf = Configuration.new
 
@@ -21,25 +21,25 @@ people = PeopleCSVReader.read_members
 
 puts "Web pages, social media URLs and email from APH (via Morph)..."
 
-xml = File.open("#{conf.members_xml_path}/websites.xml", 'w')
+xml = File.open("#{conf.members_xml_path}/websites.xml", "w")
 x = Builder::XmlMarkup.new(target: xml, indent: 1)
 x.instruct!
 x.peopleinfo do
-  morph_result = agent.get(url: 'https://api.morph.io/openaustralia/aus_mp_contact_details/data.json?query=select%20*%20from%20%60data%60', headers: { 'x-api-key' => conf.morph_api_key }).body
+  morph_result = agent.get(url: "https://api.morph.io/openaustralia/aus_mp_contact_details/data.json?query=select%20*%20from%20%60data%60", headers: { "x-api-key" => conf.morph_api_key }).body
   JSON.parse(morph_result).each do |person|
-    p = people.find_person_by_aph_id(person['aph_id'].upcase)
-    params = { id: p.id, mp_contact_form: person['contact_page'], aph_url: person['profile_page'] }
-    params[:mp_email] = person['email'] if person['email']
-    params[:mp_website] = person['website'] if person['website']
-    params[:mp_twitter_url] = person['twitter'] if person['twitter']
-    params[:mp_facebook_url] = person['facebook'] if person['facebook']
+    p = people.find_person_by_aph_id(person["aph_id"].upcase)
+    params = { id: p.id, mp_contact_form: person["contact_page"], aph_url: person["profile_page"] }
+    params[:mp_email] = person["email"] if person["email"]
+    params[:mp_website] = person["website"] if person["website"]
+    params[:mp_twitter_url] = person["twitter"] if person["twitter"]
+    params[:mp_facebook_url] = person["facebook"] if person["facebook"]
     x.personinfo(params)
   end
 end
 xml.close
 
 abc_root = "https://www.abc.net.au"
-xml = File.open("#{conf.members_xml_path}/links-abc-election.xml", 'w')
+xml = File.open("#{conf.members_xml_path}/links-abc-election.xml", "w")
 x = Builder::XmlMarkup.new(target: xml, indent: 1)
 x.instruct!
 
@@ -50,18 +50,18 @@ x.consinfos do
   url = "#{conf.election_web_root}/results/electorateindex.htm"
   doc = Hpricot(open(url))
   (doc / "td.electorate").each do |td|
-    href = td.at("a")['href']
+    href = td.at("a")["href"]
     href = "#{abc_root}#{href}"
     name = td.at("a").inner_text
-    name = name.gsub(/\*/, '').strip
+    name = name.gsub(/\*/, "").strip
     x.consinfo(canonical: name, abc_election_results_2007: href)
   end
   # Senate
   url = "#{conf.election_web_root}/results/senate/"
   doc = Hpricot(open(url))
   (doc / :a).each do |a|
-    if /results\/senate\/(\w+)\.htm/.match(a['href'])
-      href = abc_root + a['href']
+    if /results\/senate\/(\w+)\.htm/.match(a["href"])
+      href = abc_root + a["href"]
       name = a.inner_text
       x.consinfo(canonical: name, abc_election_results_2007: href)
     end
@@ -73,10 +73,10 @@ x.consinfos do
   url = "#{abc_2010_root}/electorateresults.htm"
   doc = Hpricot(open(url))
   (doc / "td.electorate").each do |td|
-    href = td.at("a")['href']
+    href = td.at("a")["href"]
     href = "#{abc_2010_root}/#{href}"
     name = td.at("a").inner_text
-    name = name.gsub(/\*/, '').strip
+    name = name.gsub(/\*/, "").strip
     x.consinfo(canonical: name, abc_election_results_2010: href)
   end
   # Senate
@@ -91,7 +91,7 @@ x.consinfos do
   url = "#{abc_root}/news/federal-election-2013/results/electorates/"
   doc = Hpricot(open(url))
   (doc / "span.electorate").each do |span|
-    href = span.parent['href']
+    href = span.parent["href"]
     href = "#{abc_root}#{href}"
     name = span.inner_text
     x.consinfo(canonical: name, abc_election_results_2013: href)
@@ -168,14 +168,14 @@ xml.close
 # end
 # xml.close
 
-puts 'Register of interests from APH...'
+puts "Register of interests from APH..."
 
-base_url = 'http://www.aph.gov.au/Parliamentary_Business/Committees/House_of_Representatives_Committees'
-page = agent.get(base_url + '?url=pmi/declarations.htm')
+base_url = "http://www.aph.gov.au/Parliamentary_Business/Committees/House_of_Representatives_Committees"
+page = agent.get(base_url + "?url=pmi/declarations.htm")
 
-representatives_data = page.search('ul.links')[2].search(:li).map do |li|
+representatives_data = page.search("ul.links")[2].search(:li).map do |li|
   # A bit of wrangling to replace double spaces and things
-  name_text = li.inner_text.strip.gsub('  ', ' ').split(', Member')[0]
+  name_text = li.inner_text.strip.gsub("  ", " ").split(", Member")[0]
 
   representative = people.find_person_by_name(Name.last_title_first(name_text))
   raise if representative.nil?
@@ -201,7 +201,7 @@ senate_data = []
 #   {:id => senator.id, :aph_interests_url => url, :aph_interests_last_updated => last_updated}
 # end
 
-xml = File.open("#{conf.members_xml_path}/links-register-of-interests.xml", 'w')
+xml = File.open("#{conf.members_xml_path}/links-register-of-interests.xml", "w")
 x = Builder::XmlMarkup.new(target: xml, indent: 1)
 x.instruct!
 x.peopleinfo do

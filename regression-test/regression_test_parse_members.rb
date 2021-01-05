@@ -7,8 +7,8 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
-require 'configuration'
-require 'people'
+require "configuration"
+require "people"
 
 def compare_xml(test_file, ref_file)
   system("diff #{test_file} #{ref_file}")

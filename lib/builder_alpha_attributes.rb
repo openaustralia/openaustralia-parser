@@ -1,7 +1,7 @@
 # XML Builder with a patch to sort the attributes so that they are in alphabetical order.
 # This makes it easier to do simple diffs between XML files
 
-require 'builder'
+require "builder"
 
 module Builder
   class XmlMarkup < XmlBase

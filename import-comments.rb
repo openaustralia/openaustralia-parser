@@ -2,9 +2,9 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'configuration'
-require 'mysql'
-require 'csv'
+require "configuration"
+require "mysql"
+require "csv"
 
 conf = Configuration.new
 

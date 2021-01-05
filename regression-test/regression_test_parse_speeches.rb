@@ -7,9 +7,9 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
-require 'people'
-require 'hansard_parser'
-require 'configuration'
+require "people"
+require "hansard_parser"
+require "configuration"
 
 # Range of dates to test
 

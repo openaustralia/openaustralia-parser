@@ -1,5 +1,5 @@
-require 'builder_alpha_attributes'
-require 'configuration'
+require "builder_alpha_attributes"
+require "configuration"
 
 class PeopleXMLWriter
   def self.write(people, people_filename, members_filename, senators_filename, ministers_filename, divisions_filename)
@@ -9,7 +9,7 @@ class PeopleXMLWriter
     write_members(people, members_filename)
     write_senators(people, senators_filename)
     write_ministers(people, ministers_filename)
-    File.open(divisions_filename, 'w') { |f| write_divisions(people, f) }
+    File.open(divisions_filename, "w") { |f| write_divisions(people, f) }
   end
 
   def self.write_divisions(people, output)
@@ -26,7 +26,7 @@ class PeopleXMLWriter
   def self.write_ministers(people, filename)
     conf = Configuration.new
 
-    xml = File.open(filename, 'w')
+    xml = File.open(filename, "w")
     x = Builder::XmlMarkup.new(target: xml, indent: 1)
     x.instruct!
     x.ministers do
@@ -46,16 +46,16 @@ class PeopleXMLWriter
 
   # This is based on the enum in the database schema
   VALID_FROM_WHY = [
-    'unknown', 'general_election', 'by_election', 'changed_party',
-    'reinstated', 'appointed', 'devolution', 'election', 'accession',
-    'regional_election', 'replaced_in_region', 'became_presiding_officer'
+    "unknown", "general_election", "by_election", "changed_party",
+    "reinstated", "appointed", "devolution", "election", "accession",
+    "regional_election", "replaced_in_region", "became_presiding_officer"
   ]
   VALID_TO_WHY = [
-    'unknown', 'still_in_office', 'general_election',
-    'general_election_standing', 'general_election_not_standing',
-    'changed_party', 'died', 'declared_void', 'resigned', 'disqualified',
-    'became_peer', 'devolution', 'dissolution', 'retired', 'regional_election',
-    'became_presiding_officer'
+    "unknown", "still_in_office", "general_election",
+    "general_election_standing", "general_election_not_standing",
+    "changed_party", "died", "declared_void", "resigned", "disqualified",
+    "became_peer", "devolution", "dissolution", "retired", "regional_election",
+    "became_presiding_officer"
   ]
 
   # Discovered that mysql was silently dropping values for these fields
@@ -74,7 +74,7 @@ class PeopleXMLWriter
   def self.write_members(people, filename)
     conf = Configuration.new
 
-    xml = File.open(filename, 'w')
+    xml = File.open(filename, "w")
     x = Builder::XmlMarkup.new(target: xml, indent: 1)
     x.instruct!
     x.members do
@@ -95,7 +95,7 @@ class PeopleXMLWriter
   def self.write_senators(people, filename)
     conf = Configuration.new
 
-    xml = File.open(filename, 'w')
+    xml = File.open(filename, "w")
     x = Builder::XmlMarkup.new(target: xml, indent: 1)
     x.instruct!
     x.members do
@@ -116,7 +116,7 @@ class PeopleXMLWriter
   def self.write_people(people, filename)
     conf = Configuration.new
 
-    xml = File.open(filename, 'w')
+    xml = File.open(filename, "w")
     x = Builder::XmlMarkup.new(target: xml, indent: 1)
     x.instruct!
     x.people do

@@ -2,8 +2,8 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
-require 'test/unit'
-require 'name'
+require "test/unit"
+require "name"
 
 class TestName < Test::Unit::TestCase
   def setup
@@ -105,7 +105,7 @@ class TestName < Test::Unit::TestCase
     # assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.title_first_last("Mr John Smith"))
     # assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.last_title_first("Smith, Mr John"))
     # Now check similar names with unicode
-    nbsp = [160].pack('U')
+    nbsp = [160].pack("U")
     assert_equal(Name.new(title: "Mr", first: "John", last: "Smith"), Name.title_first_last("Mr#{nbsp}John#{nbsp}Smith"))
     # assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.last_title_first("Smith,#{nbsp}Mr#{nbsp}John"))
   end

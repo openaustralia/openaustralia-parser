@@ -1,10 +1,10 @@
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
-require 'test/unit'
-require 'date'
+require "test/unit"
+require "date"
 
-require 'person'
-require 'name'
+require "person"
+require "name"
 
 class TestPerson < Test::Unit::TestCase
   def test_equality

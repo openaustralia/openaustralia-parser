@@ -4,7 +4,7 @@ require "test/unit"
 
 require "hansard_division"
 require "hansard_day"
-require 'hpricot'
+require "hpricot"
 
 describe HansardDivision do
   subject(:division) do
@@ -56,11 +56,11 @@ describe HansardDivision do
     expect(division.no_tellers).to eq ["John Smith"]
   end
 
-  describe '#passed?' do
+  describe "#passed?" do
     it { expect(division.passed?).to be true }
   end
 
-  describe 'tied vote' do
+  describe "tied vote" do
     let(:old_tied_division_xml) do
       Hpricot.XML('
       <division>
@@ -149,19 +149,19 @@ describe HansardDivision do
       expect(new_tied_division.no).to eq ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Burke, Anna"]
     end
 
-    describe '#tied?' do
+    describe "#tied?" do
       it { expect(old_tied_division.tied?).to be true }
       it { expect(new_tied_division.tied?).to be true }
     end
 
-    describe '#passed?' do
+    describe "#passed?" do
       it { expect(old_tied_division.passed?).to be false }
       it { expect(new_tied_division.passed?).to be false }
     end
 
-    describe '#speaker' do
-      it { expect(old_tied_division.speaker).to eq('Jenkins, Harry') }
-      it { expect(new_tied_division.speaker).to eq('Burke, Anna') }
+    describe "#speaker" do
+      it { expect(old_tied_division.speaker).to eq("Jenkins, Harry") }
+      it { expect(new_tied_division.speaker).to eq("Burke, Anna") }
     end
 
     it "should not include speaker's vote when told not to by HansardDay (e.g. for Senate divisions)" do
@@ -240,7 +240,7 @@ describe HansardDivision, "with pairings" do
     end
 
     it "should correctly extract the time" do
-      expect(division_without_timestamp.time).to eq '09:32'
+      expect(division_without_timestamp.time).to eq "09:32"
     end
   end
 end

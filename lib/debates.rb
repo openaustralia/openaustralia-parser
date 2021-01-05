@@ -1,7 +1,7 @@
-require 'heading'
-require 'speech'
-require 'division'
-require 'count'
+require "heading"
+require "speech"
+require "division"
+require "count"
 
 # Holds the data for debates on one day
 # Also knows how to output the XML data for that
@@ -124,7 +124,7 @@ class Debates
   end
 
   def output(xml_filename)
-    xml = File.open(xml_filename, 'w')
+    xml = File.open(xml_filename, "w")
     x = Builder::XmlMarkup.new(target: xml, indent: 1)
     output_builder(x)
 

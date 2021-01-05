@@ -1,4 +1,4 @@
-require 'section'
+require "section"
 
 class Division < Section
   def initialize(yes, no, yes_tellers, no_tellers, pairs, time, url, bills, count, division_count, date, house, logger = nil)

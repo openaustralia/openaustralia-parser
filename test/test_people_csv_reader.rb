@@ -1,8 +1,8 @@
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
-require 'test/unit'
+require "test/unit"
 
-require 'people_csv_reader'
+require "people_csv_reader"
 
 class TestPeopleCSVReader < Test::Unit::TestCase
   def test_sophie_mirabella

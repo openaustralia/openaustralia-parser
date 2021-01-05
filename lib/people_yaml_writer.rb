@@ -27,13 +27,13 @@ class PeopleYamlWriter
       a["minister"] = minister unless minister.empty?
       a
     end
-    File.open(filename, 'w') do |out|
+    File.open(filename, "w") do |out|
       YAML.dump(yaml_people, out)
     end
   end
 end
 
-require 'people_csv_reader'
+require "people_csv_reader"
 
 puts "Reading members data..."
 people = PeopleCSVReader.read_members

@@ -1,12 +1,12 @@
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
-require 'test/unit'
-require 'date'
+require "test/unit"
+require "date"
 
-require 'period'
-require 'name'
-require 'person'
-require 'date_with_future'
+require "period"
+require "name"
+require "person"
+require "date_with_future"
 
 class TestPeriod < Test::Unit::TestCase
   def setup

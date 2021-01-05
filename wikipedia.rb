@@ -3,14 +3,14 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'name'
-require 'people'
-require 'mechanize'
-require 'configuration'
-require 'extract_wikipedia_links'
+require "name"
+require "people"
+require "mechanize"
+require "configuration"
+require "extract_wikipedia_links"
 
 def write_links(links, filename)
-  xml = File.open(filename, 'w')
+  xml = File.open(filename, "w")
   x = Builder::XmlMarkup.new(target: xml, indent: 1)
   x.instruct!
   x.peopleinfo do
@@ -27,7 +27,7 @@ people = people = PeopleCSVReader.read_members
 agent = Mechanize.new
 
 # Slightly naughty because Wikipedia specifically blocks Ruby Mechanize
-agent.user_agent_alias = 'Mac Safari'
+agent.user_agent_alias = "Mac Safari"
 
 puts "Wikipedia links for Representatives..."
 links = extract_all_representative_wikipedia_links(people, agent)

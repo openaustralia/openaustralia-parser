@@ -1,7 +1,7 @@
-require 'people_csv_reader'
-require 'people_xml_writer'
-require 'people_image_downloader'
-require 'house'
+require "people_csv_reader"
+require "people_xml_writer"
+require "people_image_downloader"
+require "house"
 
 class People < Array
   def initialize

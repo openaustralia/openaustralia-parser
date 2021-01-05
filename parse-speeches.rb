@@ -2,11 +2,11 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'people'
-require 'hansard_parser'
-require 'configuration'
-require 'optparse'
-require 'progressbar'
+require "people"
+require "hansard_parser"
+require "configuration"
+require "optparse"
+require "progressbar"
 
 def parse_date(text)
   today = Date.today

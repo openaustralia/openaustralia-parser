@@ -1,15 +1,15 @@
-require 'csv'
-require 'ostruct'
-require 'date_with_future'
-require 'people'
-require 'person'
-require 'name'
+require "csv"
+require "ostruct"
+require "date_with_future"
+require "people"
+require "person"
+require "name"
 
 class PeopleCSVReader
   # Ignores comment lines starting with '#'
   def self.read_raw_csv(filename)
     data = CSV.readlines(filename)
-    data.delete_if { |line| line[0] && line[0][0..0] == '#' }
+    data.delete_if { |line| line[0] && line[0][0..0] == "#" }
     data
   end
 

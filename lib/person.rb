@@ -1,5 +1,5 @@
-require 'period'
-require 'house'
+require "period"
+require "house"
 
 class Person
   attr_reader :periods, :person_count, :name, :alternate_names, :minister_positions, :birthday, :aph_id

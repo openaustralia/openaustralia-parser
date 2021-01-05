@@ -1,7 +1,7 @@
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
-require 'test/unit'
-require 'date_with_future'
+require "test/unit"
+require "date_with_future"
 
 class TestDateWithFuture < Test::Unit::TestCase
   def test_normal_date

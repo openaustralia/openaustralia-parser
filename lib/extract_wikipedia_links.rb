@@ -31,7 +31,7 @@ end
 
 def extract_links_from_wikipedia(doc, people, links)
   doc.search("//table").first.search("tr").each do |row|
-    link = row.search('td a')[0]
+    link = row.search("td a")[0]
     if link
       name = Name.title_first_last(link.inner_html)
       person = people.find_person_by_name(name)

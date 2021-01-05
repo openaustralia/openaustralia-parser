@@ -24,7 +24,7 @@ class HansardDivision
   end
 
   def passed?
-    case @content.at('(division.result)').inner_text
+    case @content.at("(division.result)").inner_text
     when /casting vote with the ayes/
       true
     when /casting vote with the noes/
@@ -36,7 +36,7 @@ class HansardDivision
     when /was not carried/
       false
     else
-      raise 'Could not determine division result'
+      raise "Could not determine division result"
     end
   end
 
@@ -59,10 +59,10 @@ class HansardDivision
   end
 
   def time
-    tag = @content.at('(division.header) > (time.stamp)')
+    tag = @content.at("(division.header) > (time.stamp)")
     time = tag.inner_html if tag
     # if no timestamp, fallback to extracting out of preamble
-    if !time && (header = @content.at('(division.header)'))
+    if !time && (header = @content.at("(division.header)"))
       results = header.inner_html.match(/\[(..:..)\]/)
       time = results[1] if results
     end
@@ -71,17 +71,17 @@ class HansardDivision
 
   def speaker
     # There's a slight difference between older and newer XML
-    header_speaker_text = if @content.at('(division) > (para)')
-                            @content.at('(division) > (para)').inner_text
+    header_speaker_text = if @content.at("(division) > (para)")
+                            @content.at("(division) > (para)").inner_text
                           else
-                            @content.at('(division.header)').inner_text
+                            @content.at("(division.header)").inner_text
                           end
 
     if header_speaker_text.gsub("\342\200\224", "&#x2014;") =~ /[Speaker|President]&#x2014;(.*)\)/
       speaker_name = Name.title_first_last($~[1])
       "#{speaker_name.last}, " + (speaker_name.initials.empty? ? speaker_name.first : speaker_name.initials)
     else
-      raise('Speaker not found')
+      raise("Speaker not found")
     end
   end
 

@@ -1,14 +1,14 @@
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
-require 'test/unit'
+require "test/unit"
 
-require 'hansard_day'
+require "hansard_day"
 
 # Make it simpler to generate XML with tags with '.' in them. Translate occurences of '_' to '.'
 module Builder
   class MyXmlMarkup < XmlMarkup
     def method_missing(sym, *args, &block)
-      super(sym.to_s.tr('_', '.').to_sym, *args, &block)
+      super(sym.to_s.tr("_", ".").to_sym, *args, &block)
     end
   end
 end
@@ -107,26 +107,26 @@ describe HansardDay do
   end
 
   it "should be able to figure out all the titles and subtitles" do
-    expect(@titles.title(@titles_xml.at('debate'))).to eq "1"
-    expect(@titles.subtitle(@titles_xml.at('debate'))).to eq ""
+    expect(@titles.title(@titles_xml.at("debate"))).to eq "1"
+    expect(@titles.subtitle(@titles_xml.at("debate"))).to eq ""
 
-    expect(@titles.title(@titles_xml.at('(subdebate.1)'))).to eq "2"
-    expect(@titles.subtitle(@titles_xml.at('(subdebate.1)'))).to eq "3; 14"
+    expect(@titles.title(@titles_xml.at("(subdebate.1)"))).to eq "2"
+    expect(@titles.subtitle(@titles_xml.at("(subdebate.1)"))).to eq "3; 14"
 
-    expect(@titles.title(@titles_xml.search('(subdebate.1)')[1])).to eq "4"
-    expect(@titles.subtitle(@titles_xml.search('(subdebate.1)')[1])).to eq "5"
+    expect(@titles.title(@titles_xml.search("(subdebate.1)")[1])).to eq "4"
+    expect(@titles.subtitle(@titles_xml.search("(subdebate.1)")[1])).to eq "5"
 
-    expect(@titles.title(@titles_xml.search('(subdebate.1)')[2])).to eq "4"
-    expect(@titles.subtitle(@titles_xml.search('(subdebate.1)')[2])).to eq "6"
+    expect(@titles.title(@titles_xml.search("(subdebate.1)")[2])).to eq "4"
+    expect(@titles.subtitle(@titles_xml.search("(subdebate.1)")[2])).to eq "6"
 
-    expect(@titles.title(@titles_xml.search('(subdebate.1)')[3])).to eq "7; 13"
-    expect(@titles.subtitle(@titles_xml.search('(subdebate.1)')[3])).to eq "8"
+    expect(@titles.title(@titles_xml.search("(subdebate.1)")[3])).to eq "7; 13"
+    expect(@titles.subtitle(@titles_xml.search("(subdebate.1)")[3])).to eq "8"
 
-    expect(@titles.title(@titles_xml.search('(subdebate.1)')[4])).to eq "7; 13"
-    expect(@titles.subtitle(@titles_xml.search('(subdebate.1)')[4])).to eq "9"
+    expect(@titles.title(@titles_xml.search("(subdebate.1)")[4])).to eq "7; 13"
+    expect(@titles.subtitle(@titles_xml.search("(subdebate.1)")[4])).to eq "9"
 
-    expect(@titles.title(@titles_xml.at('(subdebate.2)'))).to eq "10"
-    expect(@titles.subtitle(@titles_xml.at('(subdebate.2)'))).to eq "11; 12"
+    expect(@titles.title(@titles_xml.at("(subdebate.2)"))).to eq "10"
+    expect(@titles.subtitle(@titles_xml.at("(subdebate.2)"))).to eq "11; 12"
   end
 
   it "should still be able to figure out the title even when there is a title tag within a title tag" do
@@ -153,8 +153,8 @@ describe HansardDay do
 
     xml = Hpricot.XML(titles_xml)
 
-    expect(HansardDay.new(xml).title(xml.at('(subdebate.1)'))).to eq "1; 2; 3; 4; 5"
-    expect(HansardDay.new(xml).subtitle(xml.at('(subdebate.1)'))).to eq "6"
+    expect(HansardDay.new(xml).title(xml.at("(subdebate.1)"))).to eq "1; 2; 3; 4; 5"
+    expect(HansardDay.new(xml).subtitle(xml.at("(subdebate.1)"))).to eq "6"
   end
 
   it "should know when the page is considered in proof stage" do

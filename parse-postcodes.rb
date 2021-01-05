@@ -2,9 +2,9 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'rubygems'
-require 'configuration'
-require 'cgi'
+require "rubygems"
+require "configuration"
+require "cgi"
 
 conf = Configuration.new
 

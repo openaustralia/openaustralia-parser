@@ -1,6 +1,6 @@
 # vim: set ts=2 sw=2 et sts=2 ai:
 
-require 'hpricot_additions'
+require "hpricot_additions"
 
 class HansardRewriter
   attr_reader :logger
@@ -13,7 +13,7 @@ class HansardRewriter
   # Clean up random crap in the code
   def santize(text, name)
     # Remove any DOS linebreaks
-    text = text.gsub("\r", '')
+    text = text.gsub("\r", "")
     # Remove any excess white space
     text = text.strip
 
@@ -23,7 +23,7 @@ class HansardRewriter
     end
 
     # Clean up multiple white space in a row.
-    text = text.gsub(/\s\s+/m, ' ')
+    text = text.gsub(/\s\s+/m, " ")
 
     return text
   end
@@ -37,7 +37,7 @@ class HansardRewriter
 
   def lookup_aph_id(aph_id, name)
     if name.match(/^The (([^S]*SPEAKER)|([^R]*RESIDENT))/i)
-      if aph_id != '10000'
+      if aph_id != "10000"
         logger.warn "    Found aph id #{aph_id} of #{name}"
         @role_map[name] = aph_id
       elsif @role_map.include? name
@@ -59,10 +59,10 @@ class HansardRewriter
     # Do some pre-work on the body tag to make it easier to work with.
     #--------------------------------------------------------------------------
     # To make things a little simpler we have to rework top level <a href> tags
-    input_text_node.search('//body/a').each do |p|
-      input_text_node.at('body').insert_after(Hpricot.XML("<p>#{p}</p>"), p)
+    input_text_node.search("//body/a").each do |p|
+      input_text_node.at("body").insert_after(Hpricot.XML("<p>#{p}</p>"), p)
     end
-    input_text_node.search('//body/a').remove
+    input_text_node.search("//body/a").remove
 
     # Many speaker interjections/continuates are not properly marked with
     # <a href> links, we rework them so we don't have the special case below.
@@ -78,7 +78,7 @@ class HansardRewriter
     #            <span class="HPS-MemberInterjecting">The DEPUTY SPEAKER:</span>
     #          </a>  bla bla</span>
     #      </p>
-    input_text_node.search('//body/p').each do |p|
+    input_text_node.search("//body/p").each do |p|
       text = p.inner_text.strip
       if text.match(/^The (([^S]*SPEAKER)|([^R]*RESIDENT)):  /)
         logger.info "Doing rewrite #{text}"
@@ -105,8 +105,8 @@ EOF
 
     role_map = {}
 
-    new_xml = Hpricot.XML('')
-    input_text_node.search('/body/p').each do |p|
+    new_xml = Hpricot.XML("")
+    input_text_node.search("/body/p").each do |p|
       # Skip empty nodes
       if p.inner_text.strip.length == 0
         logger.warn "    Ignoring para node as it was empty\n#{p}"
@@ -121,8 +121,8 @@ EOF
       # it's all a MemberIInterjecting
       para_text = p.inner_text.strip
       italic_text = ""
-      p.search('//span').each do |t|
-        if (not t.attributes['style'].nil?) && t.attributes['style'].match(/italic/)
+      p.search("//span").each do |t|
+        if (not t.attributes["style"].nil?) && t.attributes["style"].match(/italic/)
           italic_text = "#{italic_text}#{t.inner_text}"
           t.inner_html = "{italic}#{t.inner_html}{/italic}"
         end
@@ -133,16 +133,16 @@ EOF
       # record with a class that starts with "Member".
       # (There are also '<a href' records which point to bills rather then
       # people.)
-      ahref = p.search('//a')[0] if p.search('//a').length > 0
-      if (not ahref.nil?) && ahref.attributes['type'].nil?
+      ahref = p.search("//a")[0] if p.search("//a").length > 0
+      if (not ahref.nil?) && ahref.attributes["type"].nil?
         logger.warn "    Found a link without type!? #{ahref}"
         next
       end
-      if (not ahref.nil?) && ahref.attributes['type'].match(/^Member|Office/)
+      if (not ahref.nil?) && ahref.attributes["type"].match(/^Member|Office/)
 
         # Is this start of a speech? We can tell by the fact it has spans
         # with the HPS-Time class.
-        if speech_node.nil? || (p.search('[@class=HPS-Time]').length > 0)
+        if speech_node.nil? || (p.search("[@class=HPS-Time]").length > 0)
           # Rip out the electorate
           # <span class="HPS-Electorate">Grayndler</span>
           electorate = p.search("//span[@class=HPS-Electorate]")
@@ -161,7 +161,7 @@ EOF
           else
             # We've got a badly formed date, let's try something else
             fallback = p.inner_html.match(/(\d+):*<span class="HPS-Time">:*(\d\d)<\/span>/mi)
-            ripped_out_time = fallback[1] + ':' + fallback[2] if fallback
+            ripped_out_time = fallback[1] + ":" + fallback[2] if fallback
           end
           time.remove
 
@@ -169,17 +169,17 @@ EOF
           name = santize(ahref.inner_text, true)
 
           # Pull out the aph_id
-          aph_id = lookup_aph_id(ahref.attributes['href'], name)
+          aph_id = lookup_aph_id(ahref.attributes["href"], name)
 
           # Rip the a link out.
-          p.search('//a').remove
+          p.search("//a").remove
 
           # Extract the text
           text = santize(p.inner_text, false)
           # Remove the leftover (—) from electorate stuff
-          text = text.gsub(/^\([^)]*\) /, '')
+          text = text.gsub(/^\([^)]*\) /, "")
           # Left over from removing the HPS-Time
-          text = text.gsub(/^\([^)]*\): /, '')
+          text = text.gsub(/^\([^)]*\): /, "")
 
           logger.warn "    Found new speech by #{name}"
 
@@ -209,20 +209,20 @@ EOF
 
           # Class will be either "MemberContinuation" or
           # "MemberInterjecting" - strip off the "Member" part.
-          case ahref.attributes['type']
-          when 'MemberContinuation', 'MemberContinuation1'
+          case ahref.attributes["type"]
+          when "MemberContinuation", "MemberContinuation1"
             type = "continue"
-          when 'MemberInterjecting', 'MemberInterjecting1'
+          when "MemberInterjecting", "MemberInterjecting1"
             type = "interjection"
-          when 'OfficeContinuation', 'OfficeContinuation1'
+          when "OfficeContinuation", "OfficeContinuation1"
             type = "continue"
-          when 'OfficeInterjecting', 'OfficeInterjecting1'
+          when "OfficeInterjecting", "OfficeInterjecting1"
             type = "interjection"
-          when 'MemberQuestion', 'MemberQuestion1'
+          when "MemberQuestion", "MemberQuestion1"
             type = "question"
-          when 'MemberAnswer', 'MemberAnswer1'
+          when "MemberAnswer", "MemberAnswer1"
             type = "answer"
-          when 'MemberSpeech', 'MemberSpeech1'
+          when "MemberSpeech", "MemberSpeech1"
             type = "continue"
           else
             raise "Assertion failed! Unknown type #{ahref.attributes['type']}"
@@ -241,16 +241,16 @@ EOF
           name = santize(ahref.inner_text, true)
 
           # Pull out the aph_id
-          aph_id = lookup_aph_id(ahref.attributes['href'], name)
+          aph_id = lookup_aph_id(ahref.attributes["href"], name)
 
           # Rip out the a tag
-          p.search('//a').remove
+          p.search("//a").remove
 
           # Clean up the text a little
           text = santize(p.inner_text, false)
           if extra_spans.length > 0
             # Left over from removing the extra spans
-            text = text.gsub(/^\(\s*\): /, '')
+            text = text.gsub(/^\(\s*\): /, "")
           end
 
           logger.warn "    Found new #{type} by #{name}"
@@ -268,7 +268,7 @@ EOF
           text_node = speech_node.search(type)[-1]
         end
 
-      elsif (not ahref.nil?) && ahref.attributes['type'].match(/^Bill/)
+      elsif (not ahref.nil?) && ahref.attributes["type"].match(/^Bill/)
         # Bills don't have speeches, just dump the paragraphs into the subdebate.
         speech_node = new_xml
         text_node = new_xml
@@ -279,8 +279,8 @@ EOF
 
         next if text.length == 0
 
-        case p.attributes['class']
-        when 'HPS-Debate', 'HPS-SubDebate', 'HPS-SubSubDebate'
+        case p.attributes["class"]
+        when "HPS-Debate", "HPS-SubDebate", "HPS-SubSubDebate"
           # FIXME: We should handle bill readings a bit better then this.
 
           logger.warn "    Found title #{p.attributes['class']}, resetting"
@@ -288,7 +288,7 @@ EOF
           text_node = new_xml
           amendment_node = nil
 
-        when 'HPS-Normal'
+        when "HPS-Normal"
 
           if not amendment_node.nil?
             logger.warn "      Found paragraph in an amendment"
@@ -324,8 +324,8 @@ EOF
           elsif text_node.nil?
             logger.warn "    Ignoring para node as text_node was null\n#{p}"
 
-          elsif (p.search('span[@class=HPS-MemberIInterjecting]').length > 0) ||
-                (p.search('span[@class=HPS-MemberInterjecting]').length > 0) ||
+          elsif (p.search("span[@class=HPS-MemberIInterjecting]").length > 0) ||
+                (p.search("span[@class=HPS-MemberInterjecting]").length > 0) ||
                 member_iinterjecting
             logger.warn "    Found new /italics/ paragraph"
             text_node.append <<~EOF
@@ -339,7 +339,7 @@ EOF
             EOF
           end
 
-        when 'HPS-Bullet', 'HPS-SmallBullet'
+        when "HPS-Bullet", "HPS-SmallBullet"
 
           if text_node.nil?
             logger.warn "    Ignoring bullet node as text_node was null\n#{p}"
@@ -350,7 +350,7 @@ EOF
             EOF
           end
 
-        when 'HPS-Small', 'HPS-NormalWeb'
+        when "HPS-Small", "HPS-NormalWeb"
           if not amendment_node.nil?
             logger.warn "      Found amendment"
             amendment_node.append <<~EOF
@@ -366,14 +366,14 @@ EOF
           end
 
         # Things we are delibaretly ignoring
-        when 'HPS-DivisionSummary'
+        when "HPS-DivisionSummary"
 
         else
           logger.warn "    Unknown attribute class #{p.attributes['class']}, ignoring"
         end
       end
     end
-    input_text_node.search('*').remove
+    input_text_node.search("*").remove
     return new_xml
   end
 
@@ -382,11 +382,11 @@ EOF
     subdebate_found = false
     debate.child_nodes.each do |f|
       case f.name
-      when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
+      when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
         f.name = "subdebate.#{level + 1}"
         f.child_nodes.each do |e|
           case e.name
-          when 'debate.text', 'subdebate.text'
+          when "debate.text", "subdebate.text"
             subdebate_found = true if e.inner_text.strip.length > 0
           end
         end
@@ -395,44 +395,44 @@ EOF
 
     # We use a seperate list as we don't want the new children to appear when
     # doing the loop.
-    debate_new_children = Hpricot.XML('')
+    debate_new_children = Hpricot.XML("")
 
     debate.child_nodes.each do |f|
       case f.name
       # Things to pass through un-molested
-      when 'debateinfo'
+      when "debateinfo"
         logger.warn "\nDebate #{f.at('title').inner_text}"
         debate_new_children.append "#{f}"
 
-      when 'subdebate.text'
-        if f.at('a') && (f.at('a')['type'] == 'Bill')
+      when "subdebate.text"
+        if f.at("a") && (f.at("a")["type"] == "Bill")
           logger.warn "\nSubdebate.text #{f.at('body').inner_text}"
           debate_new_children.append "#{f}"
         end
 
-      when 'subdebateinfo'
+      when "subdebateinfo"
         logger.warn "  Subdebate.#{level} \"#{f.at('title').inner_text}\" @ #{f.at('(page.no)').inner_text}"
         debate_new_children.append "#{f}"
 
       # Things we have to process recursively
-      when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
+      when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
         debate_new_children.append "#{rewrite_debate(f, level + 1)}"
 
       # The actual transcript of the proceedings we are going to process
-      when 'question', 'answer', 'speech'
+      when "question", "answer", "speech"
         if not subdebate_found
           # We're interested in the talk.text node but have to find it manually due to a bug
           # with Hpricot xpath meaning nodes with a dot '.' in the name are not found.
-          talk = f.child_nodes.detect { |node| node.name == 'talk.text' }
+          talk = f.child_nodes.detect { |node| node.name == "talk.text" }
           debate_new_children.append "#{process_textnode(talk)}" if talk
         end
 
       # Divisions are actually still the same format, so we just append them.
-      when 'division'
+      when "division"
         debate_new_children.append "#{f}"
 
       # Things we are delibaretly removing
-      when 'continue', 'interjection', 'talk', 'debate.text'
+      when "continue", "interjection", "talk", "debate.text"
         # pass
 
       else
