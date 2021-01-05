@@ -2,9 +2,7 @@ require 'hansard_rewriter'
 require 'log4r'
 
 describe HansardRewriter do
-
   describe "with speeches containing xml like '(10<span class=\"HPS-Time\">:01</span>):' " do
-
     let!(:bad_xml){ File.open("#{File.dirname(__FILE__)}/fixtures/bad-dates.xml").read }
     let!(:rewriter){ HansardRewriter.new(Log4r::Logger.new('TestHansardParser')) }
     let!(:rewritten_xml){ rewriter.rewrite_xml(Hpricot.XML(bad_xml)) }

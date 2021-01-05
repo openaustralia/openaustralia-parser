@@ -11,7 +11,6 @@ require 'count'
 require 'builder_alpha_attributes'
 
 describe Speech do
-
   let!(:person){ Person.new(:name => Name.new(:first => "John", :last => "Smith"), :count => 1) }
   let!(:member){ Period.new(:person => person, :house => House.representatives, :count => 1) }
 
@@ -40,16 +39,13 @@ describe Speech do
   end
 
   describe "#adjournment" do
-
     describe "with content with no adjournment" do
-
       subject{ Speech.new(member, "05:00:00", "<p> some content</p>", Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
 
       it { expect(subject.adjournment).to be_nil }
     end
 
     describe "with content with an adjournment" do
-
       let!(:content){ Hpricot("<p> some content\n\nadjourned at 19:31</p>") }
       subject{ Speech.new(member, "09:00:00", 'url', Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
       before do
@@ -61,9 +57,7 @@ describe Speech do
   end
 
   describe "#duration=" do
-
     describe "with a duration less than zero"  do
-
       subject{ Speech.new(member, "09:00:00", 'url', Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
       before{ subject.duration = -1000 }
       it { expect(subject.duration).to be_zero }
@@ -71,7 +65,6 @@ describe Speech do
 
     describe "with a duration that is more than 10 minutes out from an estimate of " +
              "duration made by taking the word count / 120 (average words per minute people speak at) * 60"  do
-
       subject{ Speech.new(member, "09:00:00", 'url', Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
       let!(:minutes_by_wordcount){ 12 }
       let!(:html){ (120 * minutes_by_wordcount).times.map{ "<i>word</i>" }.join(" ") }
@@ -85,7 +78,6 @@ describe Speech do
 
 
   describe "#words" do
-
     let!(:content){ Hpricot("<p> some content\n\n<span>another word. New sentence.</span> </p>") }
     subject{ Speech.new(member, "09:00:00", 'url', Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
     before do
@@ -97,7 +89,6 @@ describe Speech do
     end
 
     describe "with paragraph tags" do
-
       let!(:content){ Hpricot("<p>para1</p><p>para2</p>") }
 
       it "should count the last word of a paragraph and the first word of a new paragraph as two words" do

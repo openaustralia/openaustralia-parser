@@ -206,7 +206,6 @@ describe HansardDivision, "with pairings" do
   end
 
   describe "with no timestamp but a time in the preamble" do
-
     let(:division_without_timestamp) do
       HansardDivision.new(Hpricot.XML('
     <division>

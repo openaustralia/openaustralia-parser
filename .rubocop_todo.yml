@@ -46,20 +46,6 @@ Layout/EmptyLinesAroundAccessModifier:
   Exclude:
     - 'lib/progressbar.rb'
 
-# Offense count: 35
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, no_empty_lines
-Layout/EmptyLinesAroundBlockBody:
-  Exclude:
-    - 'lib/debates.rb'
-    - 'spec/debates_spec.rb'
-    - 'spec/hansard_division_spec.rb'
-    - 'spec/hansard_rewriter_spec.rb'
-    - 'spec/hansard_speech_spec.rb'
-    - 'spec/section_spec.rb'
-    - 'spec/speech_spec.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

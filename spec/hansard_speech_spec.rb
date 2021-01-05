@@ -7,7 +7,6 @@ require "test/unit"
 require "hansard_speech"
 
 describe HansardSpeech, "should recognise who's talking" do
-
   it "in a speech block" do
     speech = HansardSpeech.new(Hpricot.XML('
 		<speech>

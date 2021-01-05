@@ -150,13 +150,11 @@ EOF
   end
 
   describe "#calculate_speech_durations" do
-
     before do
       @debates.items.clear
     end
 
     describe "a speech followed by another speech by a different person" do
-
       before do
         @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
         @debates.add_speech(@henry, "9:08", "url", Hpricot("<p>And a bit more</p>"))
@@ -166,11 +164,9 @@ EOF
       it "should calculate the duration based on the start of the next speech" do
         expect(@debates.items.first.duration).to eq 8 * 60
       end
-
     end
 
     describe "a speech followed by an interjection" do
-
       before do
         @debates.add_speech(@henry, "9:08", "url", Hpricot("<p>And a bit more</p>"))
         @debates.add_speech(@james, "9:12", "url", Hpricot("<p>I interject!</p>"), true)
@@ -181,11 +177,9 @@ EOF
       it "should calculate the duration based on the start of the next speech - skipping interjectsions" do
         expect(@debates.items.first.duration).to eq 10 * 60
       end
-
     end
 
     describe "the last section with an adjournment time in the data" do
-
       before do
         @debates.add_speech(@rebecca, "9:18", "url", Hpricot("<p>Some text adjourned at 9:21</p>"))
         @debates.add_speech(@rebecca, "9:50", "url", Hpricot("<p>Post adjournment</p>"))
@@ -195,11 +189,9 @@ EOF
       it "should use the adjournment time to work out the duration" do
         expect(@debates.items.first.duration).to eq 3 * 60
       end
-
     end
 
     describe "an interjection" do
-
       before do
         @debates.add_speech(@james, "9:00", "url", Hpricot("<p>I interject!</p>"), true)
         @debates.add_speech(@henry, "9:08", "url", Hpricot("<p>And a bit more</p>"))
@@ -209,11 +201,9 @@ EOF
       it "should not have a duration set" do
         expect(@debates.items.first.duration).to be_zero
       end
-
     end
 
     describe "a continuation" do
-
       before do
         @debates.add_speech(@james, "9:00", "url", Hpricot("<p>I interject!</p>"))
         @debates.add_speech(@henry, "9:04", "url", Hpricot("<p>I interject!</p>"), true)
@@ -225,11 +215,9 @@ EOF
       it "should not have a duration set" do
         expect(@debates.items[2].duration).to be_zero
       end
-
     end
 
     describe "a speech without a time (this rarely occurs but somtimes the xml is that broken)" do
-
       before do
         @html = "<p>This is a speech</p>" * (121 * 3) # over 10 minutes of words
         @debates.add_speech(@james, nil, "url", Hpricot(@html))
@@ -240,11 +228,9 @@ EOF
       it "should fallback to an estimate based on word count / 120 (the number of words spoken per minute)" do
         expect(@debates.items[0].duration).to eq (121 * 4 * 3 / 120).round * 60
       end
-
     end
 
     describe "a speech followed by a continuation" do
-
       before do
         # Add a speech with only 1 minute of words
         @debates.add_speech(@james, "9:08", "url", Hpricot("test " * 120))
@@ -258,9 +244,6 @@ EOF
       it "should should use speech.word_count_for_continuations when estimating the duration" do
         expect(@debates.items[0].duration).to eq (11 * 60)
       end
-
     end
-
   end
-
 end
