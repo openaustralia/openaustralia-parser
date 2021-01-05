@@ -50,7 +50,7 @@ class PeopleCSVReader
       start_date = parse_date(start_date)
       end_date = parse_end_date(end_date)
       start_reason = parse_start_reason(start_reason)
-      valid_states = ["NSW", "Tasmania", "WA", "Queensland", "Victoria", "SA", "NT", "ACT"]
+      valid_states = %w[NSW Tasmania WA Queensland Victoria SA NT ACT]
       state = "Tasmania" if state == "Tas." || state == "Tas"
       state = "Victoria" if state == "Vic." || state == "Vic"
       state = "Queensland" if state == "Qld" || state == "QLD"

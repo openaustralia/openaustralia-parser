@@ -45,17 +45,17 @@ class PeopleXMLWriter
   end
 
   # This is based on the enum in the database schema
-  VALID_FROM_WHY = [
-    "unknown", "general_election", "by_election", "changed_party",
-    "reinstated", "appointed", "devolution", "election", "accession",
-    "regional_election", "replaced_in_region", "became_presiding_officer"
+  VALID_FROM_WHY = %w[
+    unknown general_election by_election changed_party
+    reinstated appointed devolution election accession
+    regional_election replaced_in_region became_presiding_officer
   ]
-  VALID_TO_WHY = [
-    "unknown", "still_in_office", "general_election",
-    "general_election_standing", "general_election_not_standing",
-    "changed_party", "died", "declared_void", "resigned", "disqualified",
-    "became_peer", "devolution", "dissolution", "retired", "regional_election",
-    "became_presiding_officer"
+  VALID_TO_WHY = %w[
+    unknown still_in_office general_election
+    general_election_standing general_election_not_standing
+    changed_party died declared_void resigned disqualified
+    became_peer devolution dissolution retired regional_election
+    became_presiding_officer
   ]
 
   # Discovered that mysql was silently dropping values for these fields

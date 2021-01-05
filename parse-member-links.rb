@@ -80,7 +80,7 @@ x.consinfos do
     x.consinfo(canonical: name, abc_election_results_2010: href)
   end
   # Senate
-  [["nsw", "NSW"], ["vic", "Victoria"], ["qld", "Queensland"], ["wa", "WA"], ["sa", "SA"], ["tas", "Tasmania"], ["act", "ACT"], ["nt", "NT"]].each do |name, canonical|
+  [%w[nsw NSW], %w[vic Victoria], %w[qld Queensland], %w[wa WA], %w[sa SA], %w[tas Tasmania], %w[act ACT], %w[nt NT]].each do |name, canonical|
     href = "http://www.abc.net.au/elections/federal/2010/guide/s#{name}-results.htm"
     x.consinfo(canonical: canonical, abc_election_results_2010: href)
   end
@@ -97,7 +97,7 @@ x.consinfos do
     x.consinfo(canonical: name, abc_election_results_2013: href)
   end
   # Senate
-  [["nsw", "NSW"], ["vic", "Victoria"], ["qld", "Queensland"], ["wa", "WA"], ["sa", "SA"], ["tas", "Tasmania"], ["act", "ACT"], ["nt", "NT"]].each do |name, canonical|
+  [%w[nsw NSW], %w[vic Victoria], %w[qld Queensland], %w[wa WA], %w[sa SA], %w[tas Tasmania], %w[act ACT], %w[nt NT]].each do |name, canonical|
     href = "https://www.abc.net.au/news/federal-election-2013/results/senate/#{name}/"
     x.consinfo(canonical: canonical, abc_election_results_2013: href)
   end

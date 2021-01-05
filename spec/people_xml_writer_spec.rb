@@ -6,7 +6,7 @@ require "people_xml_writer"
 
 describe PeopleXMLWriter do
   it "writes out xml file of electoral divisions" do
-    people = double("People", divisions: ["Blah", "Foo"])
+    people = double("People", divisions: %w[Blah Foo])
 
     result = ""
     # So confusing: This is divisions as in electoral divisions rather than voting divisions

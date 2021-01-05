@@ -2,7 +2,7 @@ def extract_all_representative_wikipedia_links(people, agent)
   links = {}
   # ["1980", "1983", "1984", "1987", "1990", "1993", "1996", "1998", "2001", "2004", "2007", "2010"].each_cons(2) do |pair|
   # Only going to get wikipedia links going back to 2004 for the time being
-  ["2004", "2007", "2010"].each_cons(2) do |pair|
+  %w[2004 2007 2010].each_cons(2) do |pair|
     puts "Analysing years #{pair[0]}-#{pair[1]}"
     url = "http://en.wikipedia.org/wiki/Members_of_the_Australian_House_of_Representatives%2C_#{pair[0]}-#{pair[1]}"
     extract_links_from_wikipedia(agent.get(url).parser, people, links)
