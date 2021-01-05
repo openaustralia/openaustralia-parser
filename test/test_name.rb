@@ -145,23 +145,23 @@ class TestName < Test::Unit::TestCase
     assert_equal("AM", name.post_title)
   end
 
-  def test_post_title_MBE
+  def test_post_title_mbe
     assert_equal(Name.new(:first => "John", :last => "Smith", :post_title => "MBE"), Name.last_title_first("Smith, John, MBE"))
   end
 
-  def test_post_title_QC
+  def test_post_title_qc
     assert_equal(Name.new(:first => "John", :last => "Smith", :post_title => "QC"), Name.last_title_first("Smith, John, QC"))
   end
 
-  def test_post_title_OBE
+  def test_post_title_obe
     assert_equal(Name.new(:first => "John", :last => "Smith", :post_title => "OBE"), Name.last_title_first("Smith, John, OBE"))
   end
 
-  def test_post_title_KSJ
+  def test_post_title_ksj
     assert_equal(Name.new(:first => "John", :last => "Smith", :post_title => "KSJ"), Name.last_title_first("Smith, John, KSJ"))
   end
 
-  def test_post_title_JP
+  def test_post_title_jp
     assert_equal(Name.new(:first => "John", :last => "Smith", :post_title => "JP"), Name.last_title_first("Smith, John, JP"))
   end
 
@@ -215,12 +215,12 @@ class TestName < Test::Unit::TestCase
     assert(name1.matches?(name2))
   end
 
-  def test_The_Hon_John_Howard_MP
+  def test_the_hon_john_howard_mp
     assert_equal(Name.title_first_last("The Hon John Howard MP"),
       Name.new(:title => "the Hon.", :first => "John", :last => "Howard", :post_title => "MP"))
   end
 
-  def test_Senator_the_Hon_Nick_Minchin
+  def test_senator_the_hon_nick_minchin
     assert_equal(Name.title_first_last("Senator the Hon Nick Minchin"),
       Name.new(:title => "Senator the Hon.", :first => "Nick", :last => "Minchin"))
   end
