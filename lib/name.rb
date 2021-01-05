@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 # Handle all our silly name parsing needs
 class Name
   attr_reader :title, :first, :middle, :initials, :last, :post_title

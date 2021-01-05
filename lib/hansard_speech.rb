@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require 'hpricot_additions'
 require 'name'
 

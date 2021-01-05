@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 class HansardDivision
   attr_reader :title, :subtitle, :bills
 

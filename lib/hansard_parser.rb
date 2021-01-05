@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 require 'speech'
 require 'mechanize'
 require 'configuration'

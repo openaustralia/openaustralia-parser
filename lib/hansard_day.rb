@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 # vim: set ts=2 sw=2 et sts=2 ai:
 
 require 'hpricot_additions'

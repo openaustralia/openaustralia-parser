@@ -207,21 +207,6 @@ Style/ColonMethodCall:
 Style/Documentation:
   Enabled: false
 
-# Offense count: 10
-# Cop supports --auto-correct.
-Style/Encoding:
-  Exclude:
-    - 'lib/hansard_day.rb'
-    - 'lib/hansard_division.rb'
-    - 'lib/hansard_parser.rb'
-    - 'lib/hansard_rewriter.rb'
-    - 'lib/hansard_speech.rb'
-    - 'lib/name.rb'
-    - 'spec/hansard_division_spec.rb'
-    - 'spec/hansard_speech_spec.rb'
-    - 'spec/speech_spec.rb'
-    - 'test/test_name.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/EvenOdd:
