@@ -435,7 +435,8 @@ EOF
         if not subdebate_found
           # We're interested in the talk.text node but have to find it manually due to a bug
           # with Hpricot xpath meaning nodes with a dot '.' in the name are not found.
-          if talk = f.child_nodes.detect { |node| node.name == 'talk.text' }
+          talk = f.child_nodes.detect { |node| node.name == 'talk.text' }
+          if talk
             debate_new_children.append "#{process_textnode(talk)}"
           end
         end

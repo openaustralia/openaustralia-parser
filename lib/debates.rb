@@ -102,7 +102,8 @@ class Debates
       end
 
       # if this speech ends with an adjournment, use that as the end time
-      if adjournment = section.adjournment
+      adjournment = section.adjournment
+      if adjournment
         section.duration = adjournment - section.to_time
         next
       end

@@ -271,7 +271,7 @@ class Name
 
   def Name.extract_title_at_start(names)
     titles = Array.new
-    while title = Name.title(names)
+    while (title = Name.title(names))
       titles << title
     end
     titles.join(' ')
@@ -279,7 +279,7 @@ class Name
 
   def Name.extract_post_title_at_end(names)
     post_titles = []
-    while post_title = Name.post_title(names)
+    while (post_title = Name.post_title(names))
       post_titles.unshift(post_title)
     end
     post_titles.join(' ')
