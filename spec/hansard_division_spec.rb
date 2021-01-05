@@ -9,7 +9,7 @@ require "hpricot"
 describe HansardDivision do
   subject(:division) do
     # Tellers are indicated with a "*". There might be or might not be a space before the "*".
-    HansardDivision.new(Hpricot.XML('
+    HansardDivision.new(Hpricot.XML("
     <division>
 			<division.header>
 				<time.stamp>09:06:00</time.stamp>
@@ -38,7 +38,7 @@ describe HansardDivision do
 			<division.result>
 				<para>Question agreed to.</para>
 			</division.result>
-		</division>'), "", "", "", double(HansardDay, add_speaker_to_tied_votes?: true))
+		</division>"), "", "", "", double(HansardDay, add_speaker_to_tied_votes?: true))
   end
 
   it "should parse the xml for a division correctly" do
@@ -174,7 +174,7 @@ end
 describe HansardDivision, "with pairings" do
   before(:each) do
     @division = HansardDivision.new(Hpricot.XML(
-                                      '<division>
+                                      "<division>
           <division.header>
               <time.stamp>10:36:00</time.stamp>
               <para>The Senate divided.&#xA0;&#xA0;&#xA0;&#xA0; </para>
@@ -196,7 +196,7 @@ describe HansardDivision, "with pairings" do
           <division.result>
               <para>Question negatived.</para>
           </division.result>
-      </division>'
+      </division>"
                                     ), "", "", "", nil)
   end
 
