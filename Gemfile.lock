@@ -1,6 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    ast (2.4.1)
     builder (2.1.2)
     connection_pool (2.2.3)
     diff-lcs (1.4.4)
@@ -31,8 +32,14 @@ GEM
     nokogiri (1.10.10)
       mini_portile2 (~> 2.4.0)
     ntlm-http (0.1.1)
+    parallel (1.20.1)
+    parser (3.0.0.0)
+      ast (~> 2.4.1)
     power_assert (1.2.0)
+    rainbow (3.0.0)
     rake (13.0.3)
+    regexp_parser (2.0.3)
+    rexml (3.2.4)
     rmagick (4.1.2)
     rspec (3.10.0)
       rspec-core (~> 3.10.0)
@@ -47,11 +54,24 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.10.0)
     rspec-support (3.10.0)
+    rubocop (1.7.0)
+      parallel (~> 1.10)
+      parser (>= 2.7.1.5)
+      rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.8, < 3.0)
+      rexml
+      rubocop-ast (>= 1.2.0, < 2.0)
+      ruby-progressbar (~> 1.7)
+      unicode-display_width (>= 1.4.0, < 2.0)
+    rubocop-ast (1.4.0)
+      parser (>= 2.7.1.5)
+    ruby-progressbar (1.11.0)
     test-unit (3.3.7)
       power_assert
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.7)
+    unicode-display_width (1.7.0)
     webrobots (0.1.2)
 
 PLATFORMS
@@ -67,6 +87,7 @@ DEPENDENCIES
   rake
   rmagick
   rspec
+  rubocop (~> 1.7)
   test-unit
 
 BUNDLED WITH
