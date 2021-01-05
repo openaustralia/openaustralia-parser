@@ -17,8 +17,8 @@ describe HansardDay do
   before(:each) do
     x = Builder::MyXmlMarkup.new
 
-    header_xml = x.hansard {
-      x.session_header {
+    header_xml = x.hansard do
+      x.session_header do
         x.date "2008-09-25"
         x.parliament_no 42
         x.session_no 1
@@ -26,66 +26,66 @@ describe HansardDay do
         x.chamber "SENATE"
         x.page_no 0
         x.proof 1
-      }
-    }
+      end
+    end
 
     x = Builder::MyXmlMarkup.new
 
-    @titles_xml = Hpricot.XML(x.hansard {
-      x.chamber_xscript {
-        x.debate {
+    @titles_xml = Hpricot.XML(x.hansard do
+      x.chamber_xscript do
+        x.debate do
           x.debateinfo { x.title 1 }
           x.speech
-        }
-        x.debate {
+        end
+        x.debate do
           x.debateinfo { x.title 2 }
-          x.subdebate_1 {
+          x.subdebate_1 do
             x.subdebateinfo { x.title 3; x.title 14 }
             x.speech
-          }
-        }
+          end
+        end
 
-        x.debate {
+        x.debate do
           x.debateinfo { x.title 4 }
-          x.subdebate_1 {
+          x.subdebate_1 do
             x.subdebateinfo { x.title 5 }
             x.speech
-          }
-          x.subdebate_1 {
+          end
+          x.subdebate_1 do
             x.subdebateinfo { x.title 6 }
             x.speech
-          }
-        }
+          end
+        end
 
-        x.debate {
-          x.debateinfo {
+        x.debate do
+          x.debateinfo do
             x.title 7
-            x.cognate {
+            x.cognate do
               x.cognateinfo { x.title 13 }
-            }
-          }
-          x.subdebate_1 {
+            end
+          end
+          x.subdebate_1 do
             x.subdebateinfo { x.title 8 }
             x.speech
-          }
-          x.subdebate_1 {
+          end
+          x.subdebate_1 do
             x.subdebateinfo { x.title 9 }
             x.speech
-          }
-        }
+          end
+        end
 
-        x.debate {
+        x.debate do
           x.debateinfo { x.title 10 }
-          x.subdebate_1 {
+          x.subdebate_1 do
             x.subdebateinfo { x.title 11 }
-            x.subdebate_2 {
+            x.subdebate_2 do
               x.subdebateinfo { x.title 12 }
               x.speech
-            }
-          }
-        }
-      }
-    })
+            end
+          end
+        end
+      end
+    end)
 
     @header = HansardDay.new(Hpricot.XML(header_xml))
 
@@ -131,25 +131,25 @@ describe HansardDay do
 
   it "should still be able to figure out the title even when there is a title tag within a title tag" do
     x = Builder::MyXmlMarkup.new
-    titles_xml = x.hansard {
-      x.chamber_xscript {
-        x.debate {
-          x.debateinfo {
+    titles_xml = x.hansard do
+      x.chamber_xscript do
+        x.debate do
+          x.debateinfo do
             x.title 1
             x.cognate { x.cognateinfo { x.title 2 } }
             x.cognate { x.cognateinfo { x.title 3 } }
             x.cognate { x.cognateinfo { x.title { x.title 4 } } }
             x.cognate { x.cognateinfo { x.title { x.title 5 } } }
-          }
-          x.subdebate_1 {
-            x.subdebateinfo {
+          end
+          x.subdebate_1 do
+            x.subdebateinfo do
               x.title 6
-            }
+            end
             x.speech
-          }
-        }
-      }
-    }
+          end
+        end
+      end
+    end
 
     xml = Hpricot.XML(titles_xml)
 

@@ -111,12 +111,12 @@ class Debates
       # Scan ahead looking for the next section (skipping sections without time
       # or interjections or continuations). Also keep track of how many words
       # were used in continuations
-      next_section = @items[(index + 1)..-1].detect { |next_item|
+      next_section = @items[(index + 1)..-1].detect do |next_item|
         if next_item.is_a?(Speech) && next_item.continuation
           section.word_count_for_continuations += next_item.words
         end
         next_item.is_a?(Speech) && next_item.time && !next_item.interjection && !next_item.continuation
-      }
+      end
 
       # Calculate the duration if a next section is found, otherwise, stop
       if next_section
