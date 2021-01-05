@@ -9,7 +9,7 @@ require 'people'
 
 conf = Configuration.new
 
-agent = WWW::Mechanize.new
+agent = Mechanize.new
 
 puts "Reading Australia post office data..."
 data = CSV.readlines("data/pc-full_20100629.csv")
@@ -71,7 +71,7 @@ file.puts(",")
 
 valid_postcodes.each do |postcode|
   divisions = extract_divisions_for_postcode(agent, postcode)
-  
+
   if divisions.empty?
     puts "  * No divisions *"
   else
@@ -81,4 +81,3 @@ valid_postcodes.each do |postcode|
     end
   end
 end
-

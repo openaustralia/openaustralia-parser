@@ -58,19 +58,19 @@ class PeopleCSVReader
       state = "Tasmania" if state == "Tas." || state == "Tas"
       state = "Victoria" if state == "Vic." || state == "Vic"
       state = "Queensland" if state == "Qld" || state == "QLD"
-      throw "State #{state} is not a valid. Allowed values are #{valid_states.join(', ')}" unless valid_states.member?(state)
+      raise "State #{state} is not a valid. Allowed values are #{valid_states.join(', ')}" unless valid_states.member?(state)
       name = Name.title_first_last(name_text)
-      throw "Division is undefined for #{name.full_name}" if house.representatives? && division.nil?
+      raise "Division is undefined for #{name.full_name}" if house.representatives? && division.nil?
 
       matches = people.find_people_by_name(name)
       if matches.size == 0
-        throw "Couldn't find person #{name.full_name}"
+        raise "Couldn't find person #{name.full_name}"
       elsif matches.size > 1
         # In a situation where several people match we use the "person count" field to disambiguate
         if person_count
           person = people.find_person_by_count(person_count.to_i)
         else
-          throw "More than one match for name #{name.full_name} found"
+          raise "More than one match for name #{name.full_name} found"
         end
       else
         person = matches.first
@@ -106,7 +106,7 @@ class PeopleCSVReader
       end
       n = Name.title_first_last(name)
       person = people.find_person_by_name_current_on_date(n, from_date) if n
-      throw "Can't find #{name} for date #{from_date}" if person.nil?
+      raise "Can't find #{name} for date #{from_date}" if person.nil?
       person.add_minister_position(:from_date => from_date, :to_date => to_date, :position => position)
     end
   end
@@ -177,7 +177,7 @@ class PeopleCSVReader
       # Do nothing
       party
     else
-      throw "Unrecognised party: '#{party}'"
+      raise "Unrecognised party: '#{party}'"
     end
   end
   

@@ -1,36 +1,34 @@
-require 'environment'
-require 'active_support'
+# encoding: utf-8
+
 require 'hpricot_additions'
 require 'name'
 
-$KCODE = 'u'
-
 class HansardSpeech
   attr_reader :logger, :title, :subtitle, :bills, :time, :day, :interjection, :continuation
-  
+
   def initialize(content, title, subtitle, bills, time, day, logger = nil)
     @content, @title, @subtitle, @bills, @time, @day, @logger = content, title, subtitle, bills, time, day, logger
     @interjection = name?('interjection')
     @continuation = name?('continue')
   end
-  
+
   # The url of a speech is just the url of the day that it comes from
   def permanent_url
     day.permanent_url
   end
-  
+
   def speakername
     # First try to lookup name using the proper tags. If that doesn't work try looking in the text
     speakername_from_tag || speakername_from_text
   end
-  
+
   def aph_id
     aph_id_tag = @content.at('//(name.id)')
     aph_id_tag ? aph_id_tag.inner_html : nil
   end
-  
+
   private
-  
+
   def speakername_from_tag
     # If there are multiple <name> tags prefer the one with the attribute role='display'
     talkername_tag1 = @content.at('name[@role=metadata]')
@@ -42,21 +40,21 @@ class HansardSpeech
     end
     talkername_tag ? talkername_tag.inner_html : nil
   end
-  
+
   def speakername_from_text
     if strip_tags(@content) =~ /^([a-z].*?)( interjecting)?—/i and HansardSpeech.generic_speaker?($~[1])
       $~[1]
     end
   end
-  
+
   public
-  
+
   def HansardSpeech.strip_leading_dash(text)
     # Unicode Character 'Non-breaking hyphen' (U+2011)
     nbhyphen = [0x2011].pack('U')
     nbsp = [160].pack('U')
-    
-    t = text.mb_chars.gsub(nbhyphen, '-')
+
+    t = text.gsub(nbhyphen, '-')
     # TODO: Not handling dashes and nbsp the same here. Should really be stripping whitespace completely before doing
     # anything for consistency sake.
     if t.strip[0..0] == '—'
@@ -69,11 +67,11 @@ class HansardSpeech
       t
     end
   end
-  
+
   def HansardSpeech.clean_content_inline(e)
     text = strip_leading_dash(e.inner_html)
 
-    attributes_keys = e.attributes.keys
+    attributes_keys = e.attributes.to_hash.keys
     # Always ignore font-size
     attributes_keys.delete('font-size')
 
@@ -84,13 +82,13 @@ class HansardSpeech
     end
 
     if attributes_keys.delete('font-style')
-      throw "Unexpected font-style value #{e.attributes['font-style']}" unless e.attributes['font-style'] == 'italic'
-      
+      raise "Unexpected font-style value #{e.attributes['font-style']}" unless e.attributes['font-style'] == 'italic'
+
       text = '<i>' + text + '</i>'
     end
-        
+
     if attributes_keys.delete('font-weight')
-      throw "Unexpected font-weight value #{e.attributes['font-weight']}" unless e.attributes['font-weight'] == 'bold'
+      raise "Unexpected font-weight value #{e.attributes['font-weight']}" unless e.attributes['font-weight'] == 'bold'
 
       # Workaround for badly marked up content. If a bold item is surrounded in brackets assume it is a name and remove it
       # Alternatively if the bold item is a generic name, remove it as well
@@ -108,38 +106,38 @@ class HansardSpeech
       when 'subscript'
         text = '<sub>' + text + '</sub>'
       else
-        throw "Unexpected font-variant value #{e.attributes['font-variant']}"
+        raise "Unexpected font-variant value #{e.attributes['font-variant']}"
       end
     end
-    
-    throw "Unexpected attributes #{attributes_keys.join(', ')}" unless attributes_keys.empty?
-    
+
+    raise "Unexpected attributes #{attributes_keys.join(', ')}" unless attributes_keys.empty?
+
     # Handle inlines for motionnospeech in a special way
     if e.parent.name == "motionnospeech"
       text = '<p>' + text + '</p>'
     end
-    
+
     text
   end
-  
+
   def HansardSpeech.clean_content_graphic(e)
     # TODO: Probably the path needs to be different depending on whether Reps or Senate
     '<img src="http://parlinfoweb.aph.gov.au/parlinfo/Repository/Chamber/HANSARDR/' + e.attributes['href'] + '"/>'
   end
-  
+
   # Pass a <para>Some text</para> block. Returns cleaned "Some text"
   def HansardSpeech.clean_content_para_content(e)
     t = ""
-    e.children.each do |c|
-      if c.respond_to?(:name)
-        t << clean_content_any(c)
-      else
+    (e.children || []).each do |c|
+      if c.kind_of?(Hpricot::Text)
         t << strip_leading_dash(c.to_s)
+      else
+        t << clean_content_any(c)
       end
     end
     t
   end
-  
+
   # Pass a <para>Some text</para> block. Returns cleaned "<p>Some text</p>"
   def HansardSpeech.clean_content_para(e, override_type = nil)
     if override_type
@@ -147,7 +145,7 @@ class HansardSpeech
     else
       type = ""
     end
-    
+
     case e.attributes['class']
     when 'italic'
       type = 'italic'
@@ -163,10 +161,10 @@ class HansardSpeech
     when 'bold'
       '<b><p>' + clean_content_para_content(e) + '</p></b>'
     else
-      throw "Unexpected type value #{type}"
+      raise "Unexpected type value #{type}"
     end
   end
-  
+
   def HansardSpeech.clean_content_item(e)
     d = ""
     e.each_child_node do |f|
@@ -178,7 +176,7 @@ class HansardSpeech
       when 'table'
         d << clean_content_table(f)
       else
-        throw "Unexpected tag #{f.name}"
+        raise "Unexpected tag #{f.name}"
       end
     end
     if e.has_attribute?('label')
@@ -187,17 +185,17 @@ class HansardSpeech
       '<li>' + d + '</li>'
     end
   end
-  
+
   def HansardSpeech.clean_content_list(e)
     # We figure out whether to generate a <dl> or <ul> based on whether the child tags all have a 'label' attribute or not
     label = e.at('> item').has_attribute?('label') if e.at('> item')
     # Check that all the children are consistent
     e.search('> item').each do |c|
       if c.has_attribute?('label') != label
-        throw "Children of <list> are using the 'label' attribute inconsistently"
+        raise "Children of <list> are using the 'label' attribute inconsistently"
       end
     end
-    
+
     if label
       '<dl>' + clean_content_recurse(e) + '</dl>'
     else
@@ -207,17 +205,17 @@ class HansardSpeech
 
   def HansardSpeech.clean_content_entry(e, override_type = nil)
     attributes = 'valign="top"'
-    if e.attributes['colspan']
+    if e.attributes['colspan'] && e.attributes['colspan'] != ""
       attributes << ' colspan="' + e.attributes['colspan'] + '"'
     end
     '<td ' + attributes + '>' + clean_content_recurse(e, override_type) + '</td>'
   end
-  
+
   def HansardSpeech.clean_content_table(e, override_type = nil)
     # Not sure if I really should put border="0" here. Hmmm...
     '<table border="0">' + clean_content_recurse(e, override_type) + '</table>'
   end
-  
+
   def HansardSpeech.clean_content_motion(e)
     # Hmmm. what if there are two para's below? will we get the wrong formatting?
     t = '<p pwmotiontext="moved">'
@@ -230,13 +228,13 @@ class HansardSpeech
       when 'table'
         t << clean_content_table(e)
       else
-        throw "Unexpected tag #{e.name}"
+        raise "Unexpected tag #{e.name}"
       end
     end
     t << '</p>'
-    t    
+    t
   end
-  
+
   def HansardSpeech.clean_content_any(e, override_type = nil)
     case e.name
     when 'motion'
@@ -267,25 +265,25 @@ class HansardSpeech
       clean_content_graphic(e)
     when 'talker', 'name', 'electorate', 'role', 'time.stamp', 'tggroup', 'separator', 'colspec'
       ""
-    when 'talk.text', 'debate.text', 'subdebate.text' 
+    when 'talk.text', 'debate.text', 'subdebate.text'
       ""
     when 'Error'
       # Should use @logger.warn here but can't because I don't have access to the logger object. Ho hum.
       puts "Came across an <Error> tag in the XML. That's probably not good. Skipping it."
       ""
     else
-      throw "Unexpected tag #{e.name}"
+      raise "Unexpected tag #{e.name}"
     end
   end
-  
+
   def HansardSpeech.clean_content_recurse(e, override_type = nil)
     t = ""
     e.each_child_node do |e|
       t << clean_content_any(e, override_type)
     end
-    t    
+    t
   end
-  
+
   def clean_content
     Hpricot.XML(HansardSpeech.clean_content_any(@content))
   end
@@ -300,6 +298,6 @@ class HansardSpeech
   end
 
   def name?(name)
-    @content.respond_to?(:name) ? name == @content.name : !!@content.at("/#{name}")
+    @content.kind_of?(Hpricot::Text) ? !!@content.at("/#{name}") : name == @content.name
   end
 end

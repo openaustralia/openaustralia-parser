@@ -1,19 +1,16 @@
-require 'environment'
+# encoding: utf-8
+
 require 'speech'
-require 'mechanize_proxy'
+require 'mechanize'
 require 'configuration'
 require 'debates'
 require 'builder_alpha_attributes'
 require 'house'
 require 'people_image_downloader'
-# Using Active Support (part of Ruby on Rails) for Unicode support
-require 'active_support'
 require 'log4r'
 require 'hansard_day'
 require 'hansard_rewriter'
 require 'patch'
-
-$KCODE = 'u'
 
 class UnknownSpeaker
   def initialize(name)
@@ -53,7 +50,7 @@ class HansardParser
   # Returns nil it it doesn't exist
   # This is the original data without any patches applied at this end
   def unpatched_hansard_xml_source_data_on_date(date, house)
-    agent = MechanizeProxy.new
+    agent = Mechanize.new
 
     # This is the page returned by Parlinfo Search for that day
     url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;adv=yes;orderBy=_fragment_number,doc_date-rev;page=0;query=Dataset%3Ahansard#{house.representatives? ? "r" : "s"},hansard#{house.representatives? ? "r" : "s"}80%20Date%3A#{date.day}%2F#{date.month}%2F#{date.year};rec=0;resCount=Default"
@@ -103,7 +100,7 @@ class HansardParser
     elsif house == House.senate
        "senate_debates"
     else
-       throw "Assertion failed! unknown house!"
+       raise "Assertion failed! unknown house!"
     end
   end
 
@@ -123,11 +120,19 @@ class HansardParser
     if File.exists?(filename)
       puts "Reading cached xml from #{filename}..."
       xml = File.read(filename)
+      # An empty file signifies there is no data for this day
+      xml = nil if xml == ""
     else
       # Load the XML data
       xml = hansard_xml_source_data_on_date(date, house)
       # And cache it
-      File.open(filename, 'w') {|f| f.write("#{xml}") } if xml
+      File.open(filename, 'w') do |f|
+        # If there is no data for this day (parliament didn't sit) then
+        # still create a file but leave it empty. This allows to
+        # cache that fact without having to rerequest things from the aph
+        # site
+        f.write("#{xml}") if xml
+      end
     end
     if xml
       # APH changed their XML format on the 10th of May 2011
@@ -196,7 +201,7 @@ class HansardParser
             unless text.length == 0
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
-              throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes)" if member.nil?
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes)" if member.nil?
               member
             end
           end.compact
@@ -204,7 +209,7 @@ class HansardParser
             unless text.length == 0
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
-              throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no)" if member.nil?
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no)" if member.nil?
               member
             end
           end.compact
@@ -212,7 +217,7 @@ class HansardParser
             unless text.length == 0
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
-              throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes and teller)" if member.nil?
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes and teller)" if member.nil?
               member
             end
           end.compact
@@ -220,7 +225,7 @@ class HansardParser
             unless text.length == 0
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
-              throw "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no and teller)" if member.nil?
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no and teller)" if member.nil?
               member
             end
           end.compact
@@ -230,7 +235,7 @@ class HansardParser
                 name = Name.last_title_first(text)
                 member = @people.find_member_by_name_current_on_date(name, date, house)
                 if member.nil?
-                  throw "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair)"
+                  raise "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair)"
                 end
                 member
               end
@@ -287,7 +292,7 @@ class HansardParser
 
   def lookup_speaker_by_name(speech, date, house)
     #puts "Looking up speaker by name: #{speech.speakername}"
-    throw "speakername can not be nil in lookup_speaker" if speech.speakername.nil?
+    raise "speakername can not be nil in lookup_speaker" if speech.speakername.nil?
 
     member = lookup_speaker_by_title(speech, date, house)
     # If member hasn't already been set then lookup using speakername

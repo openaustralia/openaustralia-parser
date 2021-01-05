@@ -14,7 +14,7 @@ class House
   end
   
   def initialize(name)
-    throw "Name of house must '#{REPRESENTATIVES}' or '#{SENATE}'" unless name == REPRESENTATIVES || name == SENATE
+    raise "Name of house must '#{REPRESENTATIVES}' or '#{SENATE}'" unless name == REPRESENTATIVES || name == SENATE
     @name = name    
   end
   

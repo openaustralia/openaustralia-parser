@@ -1,9 +1,6 @@
-dist: trusty
+dist: xenial
 language: ruby
-rvm: 1.8.7
-before_install:
-  - gem update --system 1.6.2 # Downgrade to the same version installed on the server
-  - gem --version
+rvm: 2.7.2
 jobs:
   include:
     - stage: test

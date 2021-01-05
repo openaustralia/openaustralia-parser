@@ -5,7 +5,7 @@ $:.unshift "#{File.dirname(__FILE__)}/lib"
 
 require 'name'
 require 'people'
-require 'mechanize_proxy'
+require 'mechanize'
 require 'configuration'
 require 'extract_wikipedia_links'
 
@@ -24,7 +24,8 @@ conf = Configuration.new
 puts "Reading member data..."
 people = people = PeopleCSVReader.read_members
 
-agent = MechanizeProxy.new
+agent = Mechanize.new
+
 # Slightly naughty because Wikipedia specifically blocks Ruby Mechanize
 agent.user_agent_alias = 'Mac Safari'
 

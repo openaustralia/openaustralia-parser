@@ -8,16 +8,16 @@ require 'builder_alpha_attributes'
 
 describe Debates do
   before :each do
-    @james = mock("Person", :name => mock("Name", :full_name => "james"), :id => 101)
-    @henry = mock("Person", :name => mock("Name", :full_name => "henry"), :id => 102)
-    @rebecca = mock("Person", :name => mock("Name", :full_name => "rebecca"), :id => 103)
+    @james = double("Person", :name => double("Name", :full_name => "james"), :id => 101)
+    @henry = double("Person", :name => double("Name", :full_name => "henry"), :id => 102)
+    @rebecca = double("Person", :name => double("Name", :full_name => "rebecca"), :id => 103)
     @debates = Debates.new(Date.new(2000,1,1), House.representatives)
   end
-  
+
   it "creates a speech when adding content to an empty debate" do
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
 
-    @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
+    expect(@debates.output_builder(Builder::XmlMarkup.new(:indent => 2))).to eq <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
   <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
@@ -25,12 +25,12 @@ describe Debates do
 </debates>
 EOF
   end
-  
+
   it "appends to a speech when the speaker is the same" do
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>And a bit more</p>"))
 
-    @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
+    expect(@debates.output_builder(Builder::XmlMarkup.new(:indent => 2))).to eq <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
   <speech approximate_duration="0" approximate_wordcount="8" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
@@ -38,13 +38,13 @@ EOF
 </debates>
 EOF
   end
-  
+
   it "creates a new speech as an interjection when the speaker changes" do
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
     @debates.increment_minor_count
     @debates.add_speech(@henry, "9:00", "url", Hpricot("<p>And a bit more</p>"), true)
 
-    @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
+    expect(@debates.output_builder(Builder::XmlMarkup.new(:indent => 2))).to eq <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
   <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
@@ -54,13 +54,13 @@ EOF
 </debates>
 EOF
   end
-  
+
   it "appends to a procedural text when the previous speech is procedural" do
     @debates.add_speech(nil, "9:00", "url", Hpricot("<p>This is a speech</p>"))
     @debates.increment_minor_count
     @debates.add_speech(nil, "9:00", "url", Hpricot("<p>And a bit more</p>"))
 
-    @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
+    expect(@debates.output_builder(Builder::XmlMarkup.new(:indent => 2))).to eq <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
   <speech approximate_duration="0" approximate_wordcount="8" id="uk.org.publicwhip/debate/2000-01-01.1.1" nospeaker="true" talktype="speech" time="9:00" url="url">
@@ -68,14 +68,14 @@ EOF
 </debates>
 EOF
   end
-  
+
   it "always creates a new speech after a heading" do
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
     @debates.increment_minor_count
     @debates.add_heading("title", "subtitle", "url", [{:id => "Z12345", :title => 'A bill to support mongeese', :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345"}])
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>And a bit more</p>"))
 
-    @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
+    expect(@debates.output_builder(Builder::XmlMarkup.new(:indent => 2))).to eq <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
   <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
@@ -92,12 +92,12 @@ subtitle  </minor-heading>
 </debates>
 EOF
   end
-  
+
   it "creates a new speech for a procedural after a heading" do
     @debates.add_heading("title", "subtitle", "url", [{:id => "Z12345", :title => 'A bill to support mongeese', :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345"}])
     @debates.add_speech(nil, "9:00", "url", Hpricot("<p>This is a speech</p>"))
 
-    @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
+    expect(@debates.output_builder(Builder::XmlMarkup.new(:indent => 2))).to eq <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
   <major-heading id="uk.org.publicwhip/debate/2000-01-01.1.1" url="url">
@@ -112,13 +112,13 @@ subtitle  </minor-heading>
 </debates>
 EOF
   end
-  
+
   it "creates a new speech when adding a procedural to a speech by a person" do
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
     @debates.increment_minor_count
     @debates.add_speech(nil, "9:00", "url", Hpricot("<p>And a bit more</p>"))
 
-    @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
+    expect(@debates.output_builder(Builder::XmlMarkup.new(:indent => 2))).to eq <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
   <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
@@ -136,7 +136,7 @@ EOF
     @debates.increment_minor_count
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>And a bit more</p>"), false, true)
 
-    @debates.output_builder(Builder::XmlMarkup.new(:indent => 2)).should == <<EOF
+    expect(@debates.output_builder(Builder::XmlMarkup.new(:indent => 2))).to eq <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <debates>
   <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
@@ -164,7 +164,7 @@ EOF
       end
 
       it "should calculate the duration based on the start of the next speech" do
-        @debates.items.first.duration.should == 8 * 60
+        expect(@debates.items.first.duration).to eq 8 * 60
       end
 
     end
@@ -179,11 +179,11 @@ EOF
       end
 
       it "should calculate the duration based on the start of the next speech - skipping interjectsions" do
-        @debates.items.first.duration.should == 10 * 60
+        expect(@debates.items.first.duration).to eq 10 * 60
       end
 
     end
-    
+
     describe "the last section with an adjournment time in the data" do
 
       before do
@@ -193,7 +193,7 @@ EOF
       end
 
       it "should use the adjournment time to work out the duration" do
-        @debates.items.first.duration.should == 3 * 60
+        expect(@debates.items.first.duration).to eq 3 * 60
       end
 
     end
@@ -207,7 +207,7 @@ EOF
       end
 
       it "should not have a duration set" do
-        @debates.items.first.duration.should be_zero
+        expect(@debates.items.first.duration).to be_zero
       end
 
     end
@@ -223,7 +223,7 @@ EOF
       end
 
       it "should not have a duration set" do
-        @debates.items[2].duration.should be_zero
+        expect(@debates.items[2].duration).to be_zero
       end
 
     end
@@ -238,7 +238,7 @@ EOF
       end
 
       it "should fallback to an estimate based on word count / 120 (the number of words spoken per minute)" do
-        @debates.items[0].duration.should == (121 * 4 * 3 / 120).round * 60
+        expect(@debates.items[0].duration).to eq (121 * 4 * 3 / 120).round * 60
       end
 
     end
@@ -256,11 +256,11 @@ EOF
       end
 
       it "should should use speech.word_count_for_continuations when estimating the duration" do
-        @debates.items[0].duration.should == (11 * 60)
+        expect(@debates.items[0].duration).to eq (11 * 60)
       end
 
     end
 
   end
-  
+
 end

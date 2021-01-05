@@ -1,5 +1,5 @@
-require 'RMagick'
-require 'mechanize_proxy'
+require 'rmagick'
+require 'mechanize'
 
 require 'configuration'
 require 'name'
@@ -16,7 +16,7 @@ class PeopleImageDownloader
     Hpricot.buffer_size = 262144
 
     @conf = Configuration.new
-    @agent = MechanizeProxy.new
+    @agent = Mechanize.new
   end
 
   def download(people, small_image_dir, large_image_dir)
@@ -24,12 +24,22 @@ class PeopleImageDownloader
     sorted_people = people.sort {|a, b| a.name.last <=> b.name.last}
 
     sorted_people.each do |person|
+      small_image_filename = small_image_dir + "/#{person.id_count}.jpg"
+      large_image_filename = large_image_dir + "/#{person.id_count}.jpg"
+
+      # TODO: Add an option so that we can redownload old photos easily
+      if File.exists?(small_image_filename) && File.exists?(large_image_filename)
+        puts "Photo for #{person.name.full_name} is already downloaded. So, skipping."
+        next
+      end
+
       page = person_bio_page(person)
       next unless page
       name, birthday, image = extract_name(page), extract_birthday(page), extract_image(page)
 
       if image.nil?
         puts "WARNING: Can't find photo for #{name.full_name}"
+        next
       end
 
       if name
@@ -37,11 +47,8 @@ class PeopleImageDownloader
         name = Name.new(:first => name.first, :middle => name.middle, :last => name.last, :post_title => name.post_title)
         person = people.find_person_by_name_and_birthday(name, birthday)
         if person
-          # If no image was found then silently skip over saving the image
-          if image
-            image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH, @@SMALL_THUMBNAIL_HEIGHT).write(small_image_dir + "/#{person.id_count}.jpg")
-            image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH * 2, @@SMALL_THUMBNAIL_HEIGHT * 2).write(large_image_dir + "/#{person.id_count}.jpg")
-          end
+          image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH, @@SMALL_THUMBNAIL_HEIGHT).write(small_image_filename)
+          image.resize_to_fit(@@SMALL_THUMBNAIL_WIDTH * 2, @@SMALL_THUMBNAIL_HEIGHT * 2).write(large_image_filename)
         else
           puts "WARNING: Skipping photo for #{name.full_name} because they don't exist in the list of people"
         end
@@ -93,7 +100,7 @@ class PeopleImageDownloader
     if title =~ /^(Biography for )?(.*)$/
       Name.last_title_first($~[2])
     else
-      throw "Unexpected form for title of biography page: #{title}"
+      raise "Unexpected form for title of biography page: #{title}"
     end
   end
 
@@ -101,7 +108,7 @@ class PeopleImageDownloader
   def raw_metadata(page)
     labels = page.search('dt.mdLabel')
     values = page.search('dd.mdValue')
-    throw "Number of values do not match number of labels" if labels.size != values.size
+    raise "Number of values do not match number of labels" if labels.size != values.size
     metadata = {}
     (0..labels.size-1).each do |index|
       label = labels[index].inner_html
@@ -151,7 +158,7 @@ class PeopleImageDownloader
         #puts "About to lookup image #{relative_image_url}..."
         res = @agent.get(relative_image_url)
         Magick::Image.from_blob(res.body)[0]
-      #rescue RuntimeError, Magick::ImageMagickError, WWW::Mechanize::ResponseCodeError
+      #rescue RuntimeError, Magick::ImageMagickError, Mechanize::ResponseCodeError
       #  return nil
       #end
     end

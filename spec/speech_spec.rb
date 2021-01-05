@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require "test/unit"
@@ -19,23 +21,23 @@ describe Speech do
   end
 
   it "outputs a simple speech" do
-    @speech.append_to_content(Hpricot('<p>A speech</p>'))    
-    @speech.output(Builder::XmlMarkup.new).should == '<speech approximate_duration="0" approximate_wordcount="2" id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" talktype="speech" time="05:00:00" url="http://foo.co.uk/"><p>A speech</p></speech>'
+    @speech.append_to_content(Hpricot('<p>A speech</p>'))
+    expect(@speech.output(Builder::XmlMarkup.new)).to eq '<speech approximate_duration="0" approximate_wordcount="2" id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" talktype="speech" time="05:00:00" url="http://foo.co.uk/"><p>A speech</p></speech>'
   end
-  
+
   it "encodes html entities" do
     # I'm pretty sure that Mechanize unescapes when it reads things in. So, we'll simulate that here
     nbsp = [160].pack('U')
     doc = Hpricot("<p>Q&A#{nbsp}—</p>")
     # Make sure that you normalise the unicode before comparing.
-    doc.to_s.mb_chars.normalize.should == "<p>Q&A#{nbsp}—</p>".mb_chars.normalize
-    
+    expect(doc.to_s.unicode_normalize(:nfkc)).to eq "<p>Q&A#{nbsp}—</p>".unicode_normalize(:nfkc)
+
     coder = HTMLEntities.new
-    coder.encode("Q&A#{nbsp}—", :basic).should == "Q&amp;A#{nbsp}—"
-    
+    expect(coder.encode("Q&A#{nbsp}—", :basic)).to eq "Q&amp;A#{nbsp}—"
+
     @speech.append_to_content(doc)
-    @speech.output(Builder::XmlMarkup.new).should == '<speech approximate_duration="0" approximate_wordcount="1" id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" talktype="speech" time="05:00:00" url="http://foo.co.uk/"><p>Q&amp;A' + nbsp + '—</p></speech>'
-  end  
+    expect(@speech.output(Builder::XmlMarkup.new)).to eq '<speech approximate_duration="0" approximate_wordcount="1" id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" talktype="speech" time="05:00:00" url="http://foo.co.uk/"><p>Q&amp;A' + nbsp + '—</p></speech>'
+  end
 
   describe "#adjournment" do
 
@@ -43,20 +45,18 @@ describe Speech do
 
       subject{ Speech.new(member, "05:00:00", "<p> some content</p>", Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
 
-      its(:adjournment){ should be_nil }
-
+      it { expect(subject.adjournment).to be_nil }
     end
 
     describe "with content with an adjournment" do
-      
+
       let!(:content){ Hpricot("<p> some content\n\nadjourned at 19:31</p>") }
       subject{ Speech.new(member, "09:00:00", 'url', Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
       before do
         subject.append_to_content(content)
       end
 
-      its(:adjournment){ should be_eql(Time.local(2006, 1, 1, 19, 31))}
-
+      it { expect(subject.adjournment).to be_eql(Time.local(2006, 1, 1, 19, 31)) }
     end
   end
 
@@ -66,8 +66,7 @@ describe Speech do
 
       subject{ Speech.new(member, "09:00:00", 'url', Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
       before{ subject.duration = -1000 }
-      its(:duration){ should be_zero }
-
+      it { expect(subject.duration).to be_zero }
     end
 
     describe "with a duration that is more than 10 minutes out from an estimate of " +
@@ -80,10 +79,8 @@ describe Speech do
         subject.append_to_content(Hpricot(html))
         subject.duration = 60
       end
-      its(:duration){ should == minutes_by_wordcount * 60 }
-
+      it { expect(subject.duration).to eq minutes_by_wordcount * 60 }
     end
-
   end
 
 
@@ -94,9 +91,9 @@ describe Speech do
     before do
       subject.append_to_content(content)
     end
-    
+
     it "should return a word count excluding html tags" do
-      subject.words.should == 6
+      expect(subject.words).to eq 6
     end
 
     describe "with paragraph tags" do
@@ -104,9 +101,8 @@ describe Speech do
       let!(:content){ Hpricot("<p>para1</p><p>para2</p>") }
 
       it "should count the last word of a paragraph and the first word of a new paragraph as two words" do
-        subject.words.should == 2
+        expect(subject.words).to eq 2
       end
-
     end
   end
 end

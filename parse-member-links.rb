@@ -2,7 +2,6 @@
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'environment'
 require 'mechanize'
 require 'open-uri'
 require 'name'
@@ -15,7 +14,7 @@ conf = Configuration.new
 
 # Not using caching proxy since we will be running this script once a day and we
 # always want to get the new data
-agent = WWW::Mechanize.new
+agent = Mechanize.new
 
 puts "Reading member data..."
 people = PeopleCSVReader.read_members
@@ -126,7 +125,7 @@ xml.close
 # map.each_pair do |division, url|
 #   begin
 #     agent.get(url)
-#   rescue WWW::Mechanize::ResponseCodeError
+#   rescue Mechanize::ResponseCodeError
 #     bad_divisions << division
 #     puts "ERROR: Invalid url #{url} for division #{division}"
 #   end

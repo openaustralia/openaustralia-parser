@@ -39,7 +39,7 @@ all_members = people.all_periods_in_house(House.representatives)
 # First check that all the constituencies are valid
 constituencies = data.map { |row| row[1] }.uniq.reject(&:empty?)
 constituencies.each do |constituency|
-  throw "Constituency #{constituency} not found" unless all_members.any? {|m| m.division == constituency}
+  raise "Constituency #{constituency} not found" unless all_members.any? {|m| m.division == constituency}
 end
 
 if options[:test]
