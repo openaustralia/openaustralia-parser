@@ -119,7 +119,7 @@ while date >= from_date
   parse = if options[:proof]
             labmda { |a, b, c| parser.parse_date_house_only_in_proof a, b, c }
           else
-            lambda { |a, b, c| parser.parse_date_house a, b, c }
+            ->(a, b, c) { parser.parse_date_house a, b, c }
           end
   parse_with_retry options[:interactive], parse, date, "#{conf.xml_path}/scrapedxml/representatives_debates/#{date}.xml", House.representatives
   progress.inc

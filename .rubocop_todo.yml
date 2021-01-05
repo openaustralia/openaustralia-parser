@@ -246,14 +246,6 @@ Style/GuardClause:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: line_count_dependent, lambda, literal
-Style/Lambda:
-  Exclude:
-    - 'parse-speeches.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 Style/LineEndConcatenation:
   Exclude:
     - 'spec/speech_spec.rb'
