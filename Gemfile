@@ -2,9 +2,9 @@ source "http://rubygems.org"
 
 gem 'rake'
 
-gem 'mechanize'
 gem 'hpricot'
 gem 'htmlentities'
+gem 'mechanize'
 
 # Version 3 of builder outputs utf8 strings which will make the regression
 # tests fail. It would be good to check that the rest of the pipeline
