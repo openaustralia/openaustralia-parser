@@ -61,7 +61,7 @@ describe Speech do
       it { expect(subject.duration).to be_zero }
     end
 
-    describe "with a duration that is more than 10 minutes out from an estimate of " +
+    describe "with a duration that is more than 10 minutes out from an estimate of " \
              "duration made by taking the word count / 120 (average words per minute people speak at) * 60" do
       subject { Speech.new(member, "09:00:00", 'url', Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
       let!(:minutes_by_wordcount) { 12 }

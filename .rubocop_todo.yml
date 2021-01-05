@@ -244,12 +244,6 @@ Style/GuardClause:
     - 'regression-test/regression_test_parse_members.rb'
     - 'xml_schemas/save_all_xml_files.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/LineEndConcatenation:
-  Exclude:
-    - 'spec/speech_spec.rb'
-
 # Offense count: 13
 # Cop supports --auto-correct.
 # Configuration parameters: IgnoredMethods.
