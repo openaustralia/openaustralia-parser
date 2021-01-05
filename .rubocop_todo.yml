@@ -165,12 +165,6 @@ Security/Open:
   Exclude:
     - 'parse-member-links.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Security/YAMLLoad:
-  Exclude:
-    - 'lib/configuration.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
