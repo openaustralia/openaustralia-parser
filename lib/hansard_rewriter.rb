@@ -119,7 +119,7 @@ EOF
       # Sometimes HPS-MemberIInterjecting are signified by just an italic
       # style applied. We are just going to assume if it has some italics
       # it's all a MemberIInterjecting
-      para_text = p.inner_text.strip()
+      para_text = p.inner_text.strip
       italic_text = ""
       p.search('//span').each do |t|
         if (not t.attributes['style'].nil?) && t.attributes['style'].match(/italic/)
@@ -127,7 +127,7 @@ EOF
           t.inner_html = "{italic}#{t.inner_html}{/italic}"
         end
       end
-      member_iinterjecting = italic_text.strip() == para_text
+      member_iinterjecting = italic_text.strip == para_text
 
       # Is this a new speaker? We can tell by there existing an '<a href'
       # record with a class that starts with "Member".
@@ -275,7 +275,7 @@ EOF
 
       else
         # Some type of text paragaph
-        text = santize(p.inner_text.strip(), false).strip()
+        text = santize(p.inner_text.strip, false).strip
 
         next if text.length == 0
 

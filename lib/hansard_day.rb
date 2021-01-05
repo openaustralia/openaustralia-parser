@@ -71,17 +71,17 @@ class HansardDay
   # Search for the title tag and return its value, stripping out any HTML tags
   def title_tag_value(debate)
     # Doing this rather than calling inner_text to preserve html entities which for some reason get all screwed up by inner_text
-    strip_tags(debate.search('> * > title').map { |e| e.inner_html.strip() }.join('; ')).strip()
+    strip_tags(debate.search('> * > title').map { |e| e.inner_html.strip }.join('; ')).strip
   end
 
   def title(debate)
     case debate.name
     when 'debate', 'petition.group'
-      title = title_tag_value(debate).strip()
+      title = title_tag_value(debate).strip
       cognates = debate.search('> debateinfo > cognate > cognateinfo > title').map { |a| strip_tags(a.inner_html) }
       ([title] + cognates).join('; ')
     when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
-      title(debate.parent).strip()
+      title(debate.parent).strip
     else
       raise "Unexpected tag #{debate.name}"
     end
@@ -137,22 +137,22 @@ class HansardDay
     when 'debate', 'petition.group'
       ""
     when 'subdebate.1'
-      title_tag_value(debate).strip()
+      title_tag_value(debate).strip
     when 'subdebate.2', 'subdebate.3', 'subdebate.4'
       front = ""
       if debate.parent.name == "subdebate.1"
-        front = subtitle(debate.parent).strip()
+        front = subtitle(debate.parent).strip
       else
         possible_firstdebates = debate.parent.search("(subdebate.1)")
         front = if possible_firstdebates.length != 1
-                  title(debate).strip()
+                  title(debate).strip
                 else
-                  subtitle(possible_firstdebates[0]).strip()
+                  subtitle(possible_firstdebates[0]).strip
                 end
       end
       raise "Front title is to short! '#{front}' #{front.length}" if front.length == 0
 
-      (front + '; ' + title_tag_value(debate)).strip()
+      (front + '; ' + title_tag_value(debate)).strip
     else
       raise "Unexpected tag #{debate.name}"
     end
