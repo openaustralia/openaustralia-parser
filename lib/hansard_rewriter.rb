@@ -99,7 +99,7 @@ class HansardRewriter
           </a>  \\6</span>
       </p>
 EOF
-)
+        )
         logger.info "After: #{p}"
       end
     end
