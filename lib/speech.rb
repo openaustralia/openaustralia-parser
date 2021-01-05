@@ -3,8 +3,9 @@ require 'htmlentities'
 require 'section'
 
 class Speech < Section
-  attr_accessor :speaker, :content, :interjection, :continuation, :duration,
+  attr_accessor :speaker, :content, :interjection, :continuation,
                 :word_count_for_continuations
+  attr_reader :duration
 
   def initialize(speaker, time, url, count, date, house, logger = nil)
     @speaker = speaker
