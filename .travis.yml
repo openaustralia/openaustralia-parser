@@ -8,5 +8,3 @@ jobs:
       name: Run code tests
     - script: bundle exec ./postcodes.rb --test
       name: Test postcodes.csv
-    - script: bundle exec ./parse-members.rb --test
-      name: Test members datafiles
