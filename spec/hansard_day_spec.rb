@@ -83,7 +83,7 @@ describe HansardDay do
            		x.speech
     				}
     			}
-    		}
+        }
       }
     })
 

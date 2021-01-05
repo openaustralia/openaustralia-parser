@@ -49,7 +49,7 @@ describe HansardSpeech, "should recognise who's talking" do
 		expect(speech.aph_id).to eq "10000"
 		expect(speech.interjection).to be true
 		expect(speech.continuation).to be false
-  end
+ end
 
   it "is not an interjection if the talker is specified but there is interjecting in the text" do
     speech = HansardSpeech.new(Hpricot.XML('
