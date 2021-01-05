@@ -244,14 +244,6 @@ Style/GuardClause:
     - 'regression-test/regression_test_parse_members.rb'
     - 'xml_schemas/save_all_xml_files.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: AllowIfModifier.
-Style/IfInsideElse:
-  Exclude:
-    - 'lib/hansard_rewriter.rb'
-    - 'lib/people.rb'
-
 # Offense count: 30
 # Cop supports --auto-correct.
 Style/IfUnlessModifier:

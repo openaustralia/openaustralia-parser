@@ -148,8 +148,8 @@ class People < Array
       else
         raise "More than one match for name #{name.full_name} #{name.real_initials} found in #{house.name}"
       end
-    else
-      matches[0] if matches.size == 1
+    elsif matches.size == 1
+      matches[0]
     end
   end
 

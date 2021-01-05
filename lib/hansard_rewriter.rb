@@ -42,13 +42,11 @@ class HansardRewriter
       if aph_id != '10000'
         logger.warn "    Found aph id #{aph_id} of #{name}"
         @role_map[name] = aph_id
+      elsif @role_map.include? name
+        aph_id = @role_map[name]
+        logger.warn "    WARNING: Looked up aph id via role_map #{name} which was #{aph_id}"
       else
-        if @role_map.include? name
-          aph_id = @role_map[name]
-          logger.warn "    WARNING: Looked up aph id via role_map #{name} which was #{aph_id}"
-        else
-          logger.warn "    WARNING: Trying to lookup aph id via role_map #{name} but it wasn't found"
-        end
+        logger.warn "    WARNING: Trying to lookup aph id via role_map #{name} but it wasn't found"
       end
     end
     return aph_id
