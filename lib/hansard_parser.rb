@@ -173,12 +173,13 @@ class HansardParser
       day.pages.each do |page|
         content = true
 
-        if page.is_a?(HansardUnsupported)
+        case page
+        when HansardUnsupported
           # Adding header as soon as possible (even for unsupported sections), so that as new bits of the Han
           # become supported we don't change the id's of the headings.
           debates.add_heading(page.title, page.subtitle, page.permanent_url, nil)
           # Do nothing
-        elsif page.is_a?(Array)
+        when Array
           debates.add_heading(page.first.title, page.first.subtitle, day.permanent_url, page.first.bills) unless page.empty?
           speaker = nil
           page.each do |speech|
@@ -193,7 +194,7 @@ class HansardParser
             end
             debates.increment_minor_count
           end
-        elsif page.is_a?(HansardDivision)
+        when HansardDivision
           puts "#{date} #{house} #{page.title} #{page.subtitle}"
           debates.add_heading(page.title, page.subtitle, page.permanent_url, page.bills)
           # Lookup names
@@ -278,17 +279,18 @@ class HansardParser
 
     # Handle speakers where they are referred to by position rather than name
     # Handle names in brackets first
-    if speech.speakername =~ /^(.*) \(the (deputy speaker|acting deputy president|temporary chairman)\)/i
+    case speech.speakername
+    when /^(.*) \(the (deputy speaker|acting deputy president|temporary chairman)\)/i
       @people.find_member_by_name_current_on_date(Name.last_title_first($~[1]), date, house)
-    elsif speech.speakername =~ /^the (deputy speaker|acting deputy president|temporary chairman) \((.*)\)/i
+    when /^the (deputy speaker|acting deputy president|temporary chairman) \((.*)\)/i
       @people.find_member_by_name_current_on_date(Name.title_first_last($~[2]), date, house)
-    elsif speech.speakername =~ /^the speaker/i
+    when /^the speaker/i
       @people.house_speaker(date)
-    elsif speech.speakername =~ /^the deputy speaker/i
+    when /^the deputy speaker/i
       @people.deputy_house_speaker(date)
-    elsif speech.speakername =~ /^the president/i
+    when /^the president/i
       @people.senate_president(date)
-    elsif speech.speakername =~ /^(the )?chairman/i || speech.speakername =~ /^the deputy president/i
+    when /^(the )?chairman/i, /^the deputy president/i
       # The "Chairman" in the main Senate Hansard is when the Senate is sitting as a committee of the whole Senate.
       # In this case, the "Chairman" is the deputy president. See http://www.aph.gov.au/senate/pubs/briefs/brief06.htm#3
       @people.deputy_senate_president(date)

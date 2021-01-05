@@ -20,9 +20,10 @@ if ARGV.size != 2
   exit
 end
 
-if ARGV[0] == "reps" || ARGV[0] == "representatives"
+case ARGV[0]
+when "reps", "representatives"
   house = House.representatives
-elsif ARGV[0] == "senate"
+when "senate"
   house = House.senate
 else
   puts "Expected 'reps' or 'senate' for first parameter"

@@ -202,15 +202,6 @@ Style/BlockDelimiters:
     - 'lib/progressbar.rb'
     - 'spec/hansard_day_spec.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-Style/CaseLikeIf:
-  Exclude:
-    - 'create_patch.rb'
-    - 'lib/hansard_division.rb'
-    - 'lib/hansard_parser.rb'
-    - 'parse-speeches.rb'
-
 # Offense count: 5
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
