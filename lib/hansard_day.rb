@@ -36,10 +36,10 @@ class HansardDay
     # Cache value
     unless @house
       @house = case @page.at('chamber').inner_text.downcase
-        when "senate" then House.senate
-        when "reps", "house of reps" then House.representatives
-        else raise "Unexpected value for contents '#{@page.at('chamber').inner_text}' of <chamber> tag"
-      end
+               when "senate" then House.senate
+               when "reps", "house of reps" then House.representatives
+               else raise "Unexpected value for contents '#{@page.at('chamber').inner_text}' of <chamber> tag"
+               end
     end
     @house
   end
@@ -244,12 +244,12 @@ class HansardDay
       when 'chamber.xscript', 'maincomm.xscript', 'fedchamb.xscript'
         e.each_child_node do |e|
           case e.name
-            when 'business.start', 'adjournment', 'interrupt', 'interjection'
-              p << nil
-            when 'debate', 'petition.group'
-              p = p + pages_from_debate(e)
-            else
-              raise "Unexpected tag #{e.name}"
+          when 'business.start', 'adjournment', 'interrupt', 'interjection'
+            p << nil
+          when 'debate', 'petition.group'
+            p = p + pages_from_debate(e)
+          else
+            raise "Unexpected tag #{e.name}"
           end
         end
       when 'answers.to.questions'
