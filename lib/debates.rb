@@ -97,9 +97,7 @@ class Debates
       end
 
       # Interjections are skipped
-      if section.interjection || section.continuation
-        next
-      end
+      next if section.interjection || section.continuation
 
       # if this speech ends with an adjournment, use that as the end time
       adjournment = section.adjournment
@@ -112,9 +110,7 @@ class Debates
       # or interjections or continuations). Also keep track of how many words
       # were used in continuations
       next_section = @items[(index + 1)..-1].detect do |next_item|
-        if next_item.is_a?(Speech) && next_item.continuation
-          section.word_count_for_continuations += next_item.words
-        end
+        section.word_count_for_continuations += next_item.words if next_item.is_a?(Speech) && next_item.continuation
         next_item.is_a?(Speech) && next_item.time && !next_item.interjection && !next_item.continuation
       end
 

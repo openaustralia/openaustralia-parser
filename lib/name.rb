@@ -20,9 +20,7 @@ class Name
     open = text.index('(')
     if open
       close = text.index(')', open)
-      if close
-        text = text[0..open - 1] + text[close + 1..-1]
-      end
+      text = text[0..open - 1] + text[close + 1..-1] if close
     end
 
     # Remove extra spaces
@@ -97,9 +95,7 @@ class Name
   def self.initials_with_fullstops(name)
     # Heuristic: If word has any fullstops in it we'll assume that these are initials
     # This allows a degree of flexibility, such as allowing "A.B.", "A.B..", "A.B.C", etc...
-    if name.include?('.')
-      name.delete('.')
-    end
+    name.delete('.') if name.include?('.')
   end
 
   def self.title_first_last(text)
@@ -166,9 +162,7 @@ class Name
         @first
       else
         p_initials = first_initial
-        if not @middle.nil?
-          p_initials = "#{p_initials}#{@middle.split(' ').map { |n| n[0..0] }.join}"
-        end
+        p_initials = "#{p_initials}#{@middle.split(' ').map { |n| n[0..0] }.join}" if not @middle.nil?
         p_initials
       end
     end
@@ -313,9 +307,7 @@ class Name
     # Replace a unicode character
     name = name.capitalize.gsub("\342\200\231", "'")
     # Exceptions to capitalisation rule
-    if name[0..1] == "O'" || name[0..1] == "Mc" || name[0..1] == "D'"
-      name = name[0..1] + name[2..-1].capitalize
-    end
+    name = name[0..1] + name[2..-1].capitalize if name[0..1] == "O'" || name[0..1] == "Mc" || name[0..1] == "D'"
     # If name is hyphenated capitalise each side on its own
     # TODO: Fix 'activesupport' gem so that multibyte chars properly pass through include?
     # Cast to normal string for include? necessary because of bug in activesupport multibyte chars

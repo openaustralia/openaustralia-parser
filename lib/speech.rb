@@ -59,16 +59,12 @@ class Speech < Section
 
   def duration=(duration_estimate)
     # Cleanup up durations less than zero
-    if (duration_estimate < 0)
-      duration_estimate = 0
-    end
+    duration_estimate = 0 if (duration_estimate < 0)
     if !interjection && !continuation
       # If the duration seems to be off the word count estimate by more than 10
       # minutes, fallback to the wordcount estimate
       duration_from_wordcount = ((words + word_count_for_continuations) / 120).round * 60;
-      if (duration_estimate - duration_from_wordcount).abs > 600
-        duration_estimate = duration_from_wordcount
-      end
+      duration_estimate = duration_from_wordcount if (duration_estimate - duration_from_wordcount).abs > 600
     end
     @duration = duration_estimate
   end

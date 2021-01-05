@@ -23,9 +23,7 @@ def check_wikipedia_page(url, agent)
     title = $~[1]
     edit_url = "http://en.wikipedia.org/w/index.php?title=#{title}&action=edit"
     text = agent.get(edit_url).parser.to_s
-    unless text =~ /\{\{OpenAustralia(\|.*)?\}\}/
-      puts "WARNING: No OpenAustralia link on #{url}"
-    end
+    puts "WARNING: No OpenAustralia link on #{url}" unless text =~ /\{\{OpenAustralia(\|.*)?\}\}/
   else
     puts "WARNING: Unexpected form of url: #{url}"
   end

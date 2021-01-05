@@ -49,13 +49,9 @@ divisions.each do |division|
   end
   division_members.each_cons(2) do |a, b|
     overlap = a.to_date - b.from_date
-    if overlap > 0
-      puts "ERROR: Members #{a.person.name.full_name} and #{b.person.name.full_name} both in at the same time (overlap by #{overlap} days)"
-    end
+    puts "ERROR: Members #{a.person.name.full_name} and #{b.person.name.full_name} both in at the same time (overlap by #{overlap} days)" if overlap > 0
   end
-  unless old_divisions.member?(division) || division_members.any? { |m| m.current? }
-    puts "WARNING: No current member for #{division}"
-  end
+  puts "WARNING: No current member for #{division}" unless old_divisions.member?(division) || division_members.any? { |m| m.current? }
   if division_members.first.from_date > Date.new(1980, 1, 1)
     # puts "WARNING: Earliest member in division #{division} is #{division_members.first.person.name.full_name} who started on #{division_members.first.from_date}"
   end
@@ -65,9 +61,7 @@ people.each do |person|
   person_members = person.periods.sort { |a, b| a.from_date <=> b.from_date }
   person_members.each_cons(2) do |a, b|
     overlap = a.to_date - b.from_date
-    if overlap > 0
-      puts "ERROR: #{person.name.full_name} has two periods that overlap (by #{overlap} days)"
-    end
+    puts "ERROR: #{person.name.full_name} has two periods that overlap (by #{overlap} days)" if overlap > 0
   end
 end
 

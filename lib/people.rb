@@ -115,13 +115,9 @@ class People < Array
           if n.real_initials[0..2] == name.real_initials[0..2]
             found = nil
             refined_matches.each do |x|
-              if x.person == m.person
-                found = x.person
-              end
+              found = x.person if x.person == m.person
             end
-            if found.nil?
-              refined_matches << m
-            end
+            refined_matches << m if found.nil?
           end
         end
       end
@@ -132,13 +128,9 @@ class People < Array
             if n.real_initials[0..1] == name.real_initials[0..1]
               found = nil
               refined_matches.each do |x|
-                if x.person == m.person
-                  found = x.person
-                end
+                found = x.person if x.person == m.person
               end
-              if found.nil?
-                refined_matches << m
-              end
+              refined_matches << m if found.nil?
             end
           end
         end

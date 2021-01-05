@@ -19,9 +19,7 @@ class HansardRewriter
 
     # Remove any trailing colons if it's a name
     if name
-      if text.match(/:$/)
-        text = text[0..text.length - 2]
-      end
+      text = text[0..text.length - 2] if text.match(/:$/)
     end
 
     # Clean up multiple white space in a row.
@@ -163,9 +161,7 @@ EOF
           else
             # We've got a badly formed date, let's try something else
             fallback = p.inner_html.match(/(\d+):*<span class="HPS-Time">:*(\d\d)<\/span>/mi)
-            if fallback
-              ripped_out_time = fallback[1] + ':' + fallback[2]
-            end
+            ripped_out_time = fallback[1] + ':' + fallback[2] if fallback
           end
           time.remove
 
@@ -281,9 +277,7 @@ EOF
         # Some type of text paragaph
         text = santize(p.inner_text.strip(), false).strip()
 
-        if text.length == 0
-          next
-        end
+        next if text.length == 0
 
         case p.attributes['class']
         when 'HPS-Debate', 'HPS-SubDebate', 'HPS-SubSubDebate'
@@ -393,9 +387,7 @@ EOF
         f.child_nodes.each do |e|
           case e.name
           when 'debate.text', 'subdebate.text'
-            if e.inner_text.strip.length > 0
-              subdebate_found = true
-            end
+            subdebate_found = true if e.inner_text.strip.length > 0
           end
         end
       end
@@ -432,9 +424,7 @@ EOF
           # We're interested in the talk.text node but have to find it manually due to a bug
           # with Hpricot xpath meaning nodes with a dot '.' in the name are not found.
           talk = f.child_nodes.detect { |node| node.name == 'talk.text' }
-          if talk
-            debate_new_children.append "#{process_textnode(talk)}"
-          end
+          debate_new_children.append "#{process_textnode(talk)}" if talk
         end
 
       # Divisions are actually still the same format, so we just append them.

@@ -244,25 +244,6 @@ Style/GuardClause:
     - 'regression-test/regression_test_parse_members.rb'
     - 'xml_schemas/save_all_xml_files.rb'
 
-# Offense count: 30
-# Cop supports --auto-correct.
-Style/IfUnlessModifier:
-  Exclude:
-    - 'lib/debates.rb'
-    - 'lib/extract_wikipedia_links.rb'
-    - 'lib/hansard_parser.rb'
-    - 'lib/hansard_rewriter.rb'
-    - 'lib/hansard_speech.rb'
-    - 'lib/name.rb'
-    - 'lib/people.rb'
-    - 'lib/people_csv_reader.rb'
-    - 'lib/people_image_downloader.rb'
-    - 'lib/progressbar.rb'
-    - 'lib/speech.rb'
-    - 'parse-members.rb'
-    - 'postcodes.rb'
-    - 'xml_schemas/save_all_xml_files.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/InfiniteLoop:

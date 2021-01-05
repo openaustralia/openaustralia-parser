@@ -40,9 +40,7 @@ class HansardSpeech
   end
 
   def speakername_from_text
-    if strip_tags(@content) =~ (/^([a-z].*?)( interjecting)?—/i) && HansardSpeech.generic_speaker?($~[1])
-      $~[1]
-    end
+    $~[1] if strip_tags(@content) =~ (/^([a-z].*?)( interjecting)?—/i) && HansardSpeech.generic_speaker?($~[1])
   end
 
   public
@@ -111,9 +109,7 @@ class HansardSpeech
     raise "Unexpected attributes #{attributes_keys.join(', ')}" unless attributes_keys.empty?
 
     # Handle inlines for motionnospeech in a special way
-    if e.parent.name == "motionnospeech"
-      text = '<p>' + text + '</p>'
-    end
+    text = '<p>' + text + '</p>' if e.parent.name == "motionnospeech"
 
     text
   end
@@ -185,9 +181,7 @@ class HansardSpeech
     label = e.at('> item').has_attribute?('label') if e.at('> item')
     # Check that all the children are consistent
     e.search('> item').each do |c|
-      if c.has_attribute?('label') != label
-        raise "Children of <list> are using the 'label' attribute inconsistently"
-      end
+      raise "Children of <list> are using the 'label' attribute inconsistently" if c.has_attribute?('label') != label
     end
 
     if label
@@ -199,9 +193,7 @@ class HansardSpeech
 
   def self.clean_content_entry(e, override_type = nil)
     attributes = 'valign="top"'
-    if e.attributes['colspan'] && e.attributes['colspan'] != ""
-      attributes << ' colspan="' + e.attributes['colspan'] + '"'
-    end
+    attributes << ' colspan="' + e.attributes['colspan'] + '"' if e.attributes['colspan'] && e.attributes['colspan'] != ""
     '<td ' + attributes + '>' + clean_content_recurse(e, override_type) + '</td>'
   end
 

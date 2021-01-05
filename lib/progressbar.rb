@@ -217,9 +217,7 @@ class ProgressBar
   end
 
   def set(count)
-    if count < 0 || count > @total
-      raise "invalid count: #{count} (total: #{@total})"
-    end
+    raise "invalid count: #{count} (total: #{@total})" if count < 0 || count > @total
 
     @current = count
     show_if_needed

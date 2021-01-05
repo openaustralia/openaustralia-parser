@@ -84,9 +84,7 @@ class PeopleImageDownloader
     end.uniq
     # Check each variant of a person's name and return the biography page for the first one that exists
     matching_name = name_variants.find { |n| biography_page_for_person_with_name(n) }
-    if matching_name.nil?
-      matching_name = name_variants_no_middle_name.find { |n| biography_page_for_person_with_name(n) }
-    end
+    matching_name = name_variants_no_middle_name.find { |n| biography_page_for_person_with_name(n) } if matching_name.nil?
     page = biography_page_for_person_with_name(matching_name) if matching_name
     if page.nil?
       puts "WARNING: No biography page found for #{name_variants.join(' or ')}"

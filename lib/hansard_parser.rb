@@ -237,9 +237,7 @@ class HansardParser
               unless text.length == 0
                 name = Name.last_title_first(text)
                 member = @people.find_member_by_name_current_on_date(name, date, house)
-                if member.nil?
-                  raise "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair)"
-                end
+                raise "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair)" if member.nil?
 
                 member
               end

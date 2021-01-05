@@ -20,9 +20,7 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-unless options[:test]
-  conf = Configuration.new
-end
+conf = Configuration.new unless options[:test]
 
 def quote_string(s)
   s.gsub(/\\/, '\&\&').gsub(/'/, "''") # ' (for ruby-mode)
