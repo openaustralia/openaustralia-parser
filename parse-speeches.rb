@@ -93,7 +93,7 @@ def parse_with_retry(interactive, parse, date, path, house)
 
     puts e.message
     puts e.backtrace.join("\n\t")
-    while 1
+    loop do
       print "Retry / Patch / Continue / Quit? "
       choice = STDIN.gets.upcase[0..0]
       case choice
