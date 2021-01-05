@@ -5,7 +5,7 @@ def extract_all_representative_wikipedia_links(people, agent)
   ["2004", "2007", "2010"].each_cons(2) do |pair|
     puts "Analysing years #{pair[0]}-#{pair[1]}"
     url = "http://en.wikipedia.org/wiki/Members_of_the_Australian_House_of_Representatives%2C_#{pair[0]}-#{pair[1]}"
-    extract_links_from_wikipedia(agent.get(url).parser, people, links, agent)
+    extract_links_from_wikipedia(agent.get(url).parser, people, links)
   end
   links
 end
@@ -13,7 +13,7 @@ end
 def extract_all_senator_wikipedia_links(people, agent)
   links = {}
   url = "http://en.wikipedia.org/wiki/Members_of_the_Australian_Senate%2C_2005-2008"
-  extract_links_from_wikipedia(agent.get(url).parser, people, links, agent)
+  extract_links_from_wikipedia(agent.get(url).parser, people, links)
   links
 end
 
@@ -31,7 +31,7 @@ def check_wikipedia_page(url, agent)
   end
 end
 
-def extract_links_from_wikipedia(doc, people, links, agent)
+def extract_links_from_wikipedia(doc, people, links)
   doc.search("//table").first.search("tr").each do |row|
     link = row.search('td a')[0]
     if link

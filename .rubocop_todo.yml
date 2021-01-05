@@ -41,13 +41,6 @@ Lint/ShadowingOuterLocalVariable:
     - 'lib/hansard_day.rb'
     - 'lib/hansard_speech.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods, IgnoreNotImplementedMethods.
-Lint/UnusedMethodArgument:
-  Exclude:
-    - 'lib/extract_wikipedia_links.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: ContextCreatingMethods, MethodCreatingMethods.
