@@ -181,18 +181,6 @@ Style/Alias:
   Exclude:
     - 'Rakefile'
 
-# Offense count: 12
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: always, conditionals
-Style/AndOr:
-  Exclude:
-    - 'lib/hansard_rewriter.rb'
-    - 'lib/hansard_speech.rb'
-    - 'lib/name.rb'
-    - 'lib/people_csv_reader.rb'
-    - 'lib/people_image_downloader.rb'
-
 # Offense count: 2
 # Configuration parameters: AllowedChars.
 Style/AsciiComments:

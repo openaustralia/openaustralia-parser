@@ -42,7 +42,7 @@ class HansardSpeech
   end
 
   def speakername_from_text
-    if strip_tags(@content) =~ /^([a-z].*?)( interjecting)?—/i and HansardSpeech.generic_speaker?($~[1])
+    if strip_tags(@content) =~ (/^([a-z].*?)( interjecting)?—/i) && HansardSpeech.generic_speaker?($~[1])
       $~[1]
     end
   end

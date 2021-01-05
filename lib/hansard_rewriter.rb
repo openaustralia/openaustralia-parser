@@ -128,7 +128,7 @@ EOF
       para_text = p.inner_text.strip()
       italic_text = ""
       p.search('//span').each do |t|
-        if not t.attributes['style'].nil? and t.attributes['style'].match(/italic/)
+        if (not t.attributes['style'].nil?) && t.attributes['style'].match(/italic/)
           italic_text = "#{italic_text}#{t.inner_text}"
           t.inner_html = "{italic}#{t.inner_html}{/italic}"
         end
@@ -140,15 +140,15 @@ EOF
       # (There are also '<a href' records which point to bills rather then
       # people.)
       ahref = p.search('//a')[0] if p.search('//a').length > 0
-      if not ahref.nil? and ahref.attributes['type'].nil?
+      if (not ahref.nil?) && ahref.attributes['type'].nil?
         logger.warn "    Found a link without type!? #{ahref}"
         next
       end
-      if not ahref.nil? and ahref.attributes['type'].match(/^Member|Office/)
+      if (not ahref.nil?) && ahref.attributes['type'].match(/^Member|Office/)
 
         # Is this start of a speech? We can tell by the fact it has spans
         # with the HPS-Time class.
-        if speech_node.nil? or p.search('[@class=HPS-Time]').length > 0
+        if speech_node.nil? || (p.search('[@class=HPS-Time]').length > 0)
           # Rip out the electorate
           # <span class="HPS-Electorate">Grayndler</span>
           electorate = p.search("//span[@class=HPS-Electorate]")
@@ -276,7 +276,7 @@ EOF
           text_node = speech_node.search(type)[-1]
         end
 
-      elsif not ahref.nil? and ahref.attributes['type'].match(/^Bill/)
+      elsif (not ahref.nil?) && ahref.attributes['type'].match(/^Bill/)
         # Bills don't have speeches, just dump the paragraphs into the subdebate.
         speech_node = new_xml
         text_node = new_xml
@@ -334,8 +334,8 @@ EOF
           elsif text_node.nil?
             logger.warn "    Ignoring para node as text_node was null\n#{p}"
 
-          elsif p.search('span[@class=HPS-MemberIInterjecting]').length > 0 or
-                p.search('span[@class=HPS-MemberInterjecting]').length > 0 or
+          elsif (p.search('span[@class=HPS-MemberIInterjecting]').length > 0) ||
+                (p.search('span[@class=HPS-MemberInterjecting]').length > 0) ||
                 member_iinterjecting
             logger.warn "    Found new /italics/ paragraph"
             text_node.append <<~EOF
@@ -417,7 +417,7 @@ EOF
         debate_new_children.append "#{f}"
 
       when 'subdebate.text'
-        if f.at('a') and f.at('a')['type'] == 'Bill'
+        if f.at('a') && (f.at('a')['type'] == 'Bill')
           logger.warn "\nSubdebate.text #{f.at('body').inner_text}"
           debate_new_children.append "#{f}"
         end

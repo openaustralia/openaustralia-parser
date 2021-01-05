@@ -159,7 +159,7 @@ class Name
   def real_initials
     # If only one or two letters assume that these are initials
     # HACK: Added specific handling for initials DJC, DGH
-    if not @initials.nil? and @initials.length > 0
+    if (not @initials.nil?) && (@initials.length > 0)
       @initials
     elsif not @first.nil?
       if @first.upcase == @first
