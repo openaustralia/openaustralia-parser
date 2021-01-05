@@ -10,9 +10,9 @@ require 'people_csv_reader'
 require 'hansard_parser'
 
 OptionParser.new do |opts|
-  opts.banner = <<EOF
-Usage: create-patch.rb <reps|senate> <year.month.day>
-EOF
+  opts.banner = <<~EOF
+    Usage: create-patch.rb <reps|senate> <year.month.day>
+  EOF
 end.parse!
 
 if ARGV.size != 2
@@ -43,7 +43,7 @@ patch_file_path = "#{File.dirname(__FILE__)}/data/patches/#{house}.#{date}.xml.p
 # be bothered to work it out right now so I'm just doing the below instead
 # File.open("original.xml", "w") {|f| f << parser.unpatched_hansard_xml_source_data_on_date(date, house)}
 # File.open("patched.xml", "w") {|f| f << parser.hansard_xml_source_data_on_date(date, house)}
-File.open("original.xml", "w") {|f| f << parser.hansard_xml_source_data_on_date(date, house)}
+File.open("original.xml", "w") { |f| f << parser.hansard_xml_source_data_on_date(date, house) }
 FileUtils.cp 'original.xml', 'patched.xml'
 
 $stdout.puts "Edit patched.xml to your liking, then:"

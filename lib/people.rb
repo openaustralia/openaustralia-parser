@@ -4,12 +4,11 @@ require 'people_image_downloader'
 require 'house'
 
 class People < Array
-  
   def initialize
     # A hash from lastname to all people that have the lastname (used for speeding up name lookup)
     @last_names = {}
   end
-  
+
   # Override method to populate @last_names
   def <<(person)
     person.all_names.each do |name|
@@ -18,46 +17,49 @@ class People < Array
     end
     super
   end
-  
+
   # Methods that return Person object
-  
+
   # Returns nil if non found. raises exception if more than one match
   def find_person_by_name(name)
     matches = find_people_by_name(name)
     raise "More than one match for name #{name.full_name} found" if matches.size > 1
+
     matches[0] if matches.size == 1
   end
-  
+
   def find_person_by_aph_id(aph_id)
-    find{|p| p.aph_id == aph_id}
+    find { |p| p.aph_id == aph_id }
   end
-  
+
   def find_person_by_count(count)
-    find{|p| p.person_count == count}
-  end  
+    find { |p| p.person_count == count }
+  end
 
   def find_person_by_name_current_on_date(name, date)
     matches = find_people_by_name_current_on_date(name, date)
     raise "More than one match for name #{name.full_name} found" if matches.size > 1
+
     matches[0] if matches.size == 1
   end
-  
+
   def find_person_by_name_and_birthday(name, birthday)
     matches = find_people_by_name_and_birthday(name, birthday)
     raise "More than one match for name #{name.full_name} with birthday #{birthday} found" if matches.size > 1
+
     matches[0] if matches.size == 1
   end
 
   def find_people_by_name_and_birthday(name, birthday)
     # Only use the birthday to match if it has been set
-    find_people_by_name(name).find_all {|m| m.birthday.nil? || m.birthday == birthday}
+    find_people_by_name(name).find_all { |m| m.birthday.nil? || m.birthday == birthday }
   end
 
   # Returns all the people that match a particular name and have current senate/house of representatives positions on the date
   def find_people_by_name_current_on_date(name, date)
-    find_people_by_name(name).find_all {|p| p.current_position_on_date?(date)} 
+    find_people_by_name(name).find_all { |p| p.current_position_on_date?(date) }
   end
-  
+
   def find_people_by_name(name)
     potential = find_people_by_lastname(name.last)
     if potential.nil?
@@ -65,37 +67,41 @@ class People < Array
     elsif potential.length == 1
       potential
     else
-      potential.find_all{|p| p.name_matches?(name)}
+      potential.find_all { |p| p.name_matches?(name) }
     end
   end
-  
+
   def find_people_by_lastname(lastname)
     @last_names[lastname]
   end
-  
+
   # Methods that return Period objects
-  
+
   def house_speaker(date)
-    member = find_members_current_on(date, House.representatives).find {|m| m.house_speaker?}
+    member = find_members_current_on(date, House.representatives).find { |m| m.house_speaker? }
     raise "Could not find house speaker for date #{date}" if member.nil?
+
     member
   end
-  
+
   def senate_president(date)
-    member = find_members_current_on(date, House.senate).find {|m| m.senate_president?}
+    member = find_members_current_on(date, House.senate).find { |m| m.senate_president? }
     raise "Could not find senate president for date #{date}" if member.nil?
+
     member
   end
-  
+
   def deputy_senate_president(date)
-    member = find_members_current_on(date, House.senate).find {|m| m.deputy_senate_president?}
+    member = find_members_current_on(date, House.senate).find { |m| m.deputy_senate_president? }
     raise "Could not find deputy senate president for date #{date}" if member.nil?
+
     member
   end
-  
+
   def deputy_house_speaker(date)
-    member = find_members_current_on(date, House.representatives).find {|m| m.deputy_house_speaker?}
+    member = find_members_current_on(date, House.representatives).find { |m| m.deputy_house_speaker? }
     raise "Could not find deputy house speaker for date #{date}" if member.nil?
+
     member
   end
 
@@ -146,41 +152,41 @@ class People < Array
       matches[0] if matches.size == 1
     end
   end
-  
+
   def find_members_by_name(name)
-    find_people_by_name(name).map{|p| p.periods}.flatten
+    find_people_by_name(name).map { |p| p.periods }.flatten
   end
-  
+
   def find_members_by_name_current_on_date(name, date, house)
-    find_members_by_name(name).find_all{|m| m.current_on_date?(date) && m.house == house}
+    find_members_by_name(name).find_all { |m| m.current_on_date?(date) && m.house == house }
   end
-  
+
   def find_current_members(house)
-    all_periods_in_house(house).find_all {|m| m.current?}
+    all_periods_in_house(house).find_all { |m| m.current? }
   end
-  
+
   def find_members_current_on(date, house)
-    all_periods_in_house(house).find_all {|m| m.current_on_date?(date)}
+    all_periods_in_house(house).find_all { |m| m.current_on_date?(date) }
   end
-  
+
   # End of methods that return Period objects
-  
+
   # All the electoral divisions that have ever existed (even if they don't exist anymore)
   def divisions
-    all_periods_in_house(House.representatives).map {|p| p.division}.uniq
+    all_periods_in_house(House.representatives).map { |p| p.division }.uniq
   end
-  
+
   # Facade for readers and writers
   def write_xml(people_filename, members_filename, senators_filename, ministers_filename, divisions_filename)
     PeopleXMLWriter.write(self, people_filename, members_filename, senators_filename, ministers_filename, divisions_filename)
   end
-  
+
   def download_images(small_image_dir, large_image_dir)
     downloader = PeopleImageDownloader.new
     downloader.download(self, small_image_dir, large_image_dir)
   end
-  
+
   def all_periods_in_house(house)
-    map {|p| p.periods}.flatten.find_all{|p| p.house == house}
+    map { |p| p.periods }.flatten.find_all { |p| p.house == house }
   end
 end

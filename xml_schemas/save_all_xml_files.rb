@@ -12,7 +12,7 @@ FileUtils.mkdir_p "source/2.0"
 FileUtils.mkdir_p "source/2.1"
 
 def write_tidied_xml(text, filename)
-  File.open(filename, 'w') {|f| f << text }
+  File.open(filename, 'w') { |f| f << text }
   system("tidy -q -i -w 200 -xml -utf8 -o #{filename} #{filename}")
 end
 
@@ -27,6 +27,7 @@ def write_hansard_xml_source_data_on_date(date, house)
     if version != "2.0" && version != "2.1"
       raise "Unrecognised schema version #{version}"
     end
+
     write_tidied_xml(text, "source/#{version}/#{date}-#{house.representatives? ? "reps" : "senate"}.xml")
   end
 end
@@ -36,5 +37,3 @@ end
   write_hansard_xml_source_data_on_date(date, House.representatives)
   write_hansard_xml_source_data_on_date(date, House.senate)
 end
-
-

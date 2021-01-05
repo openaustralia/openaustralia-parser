@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 # vim: set ts=2 sw=2 et sts=2 ai:
 
 require 'hpricot_additions'
@@ -21,7 +22,7 @@ class HansardRewriter
     # Remove any trailing colons if it's a name
     if name
       if text.match(/:$/)
-        text = text[0..text.length-2]
+        text = text[0..text.length - 2]
       end
     end
 
@@ -61,7 +62,6 @@ class HansardRewriter
   # HTML stay a certain way - I've tried to put asserts where things might go
   # wrong rather then produce crappy output.
   def process_textnode(input_text_node)
-
     # Do some pre-work on the body tag to make it easier to work with.
     #--------------------------------------------------------------------------
     # To make things a little simpler we have to rework top level <a href> tags
@@ -150,12 +150,12 @@ EOF
         # with the HPS-Time class.
         if speech_node.nil? or p.search('[@class=HPS-Time]').length > 0
           # Rip out the electorate
-          #<span class="HPS-Electorate">Grayndler</span>
+          # <span class="HPS-Electorate">Grayndler</span>
           electorate = p.search("//span[@class=HPS-Electorate]")
           electorate.remove
 
           # Rip out the title
-          #<span class="HPS-MinisterialTitles">Leader of the House and Minister for Infrastructure and Transport</span>
+          # <span class="HPS-MinisterialTitles">Leader of the House and Minister for Infrastructure and Transport</span>
           title = p.search("//span[@class=HPS-MinisterialTitles]")
           title.remove
 
@@ -191,17 +191,17 @@ EOF
 
           logger.warn "    Found new speech by #{name}"
 
-          new_node = <<EOF
-<speech>
-  <talker>
-    <time.stamp>#{ripped_out_time}</time.stamp>
-    <name role="metadata">#{name}</name>
-    <name.id>#{aph_id}</name.id>
-    <electorate>#{electorate.inner_text}</electorate>
-  </talker>
-  <para>#{restore_tags(text)}</para>
-</speech>
-EOF
+          new_node = <<~EOF
+            <speech>
+              <talker>
+                <time.stamp>#{ripped_out_time}</time.stamp>
+                <name role="metadata">#{name}</name>
+                <name.id>#{aph_id}</name.id>
+                <electorate>#{electorate.inner_text}</electorate>
+              </talker>
+              <para>#{restore_tags(text)}</para>
+            </speech>
+          EOF
           new_xml.append new_node
           speech_node = new_xml.search("speech")[-1]
           text_node = speech_node
@@ -263,15 +263,15 @@ EOF
 
           logger.warn "    Found new #{type} by #{name}"
 
-          new_node = <<EOF
-<#{type}>
-  <talker>
-    <name role="metadata">#{name}</name>
-    <name.id>#{aph_id}</name.id>
-  </talker>
-  <para>#{restore_tags(text)}</para>
-</#{type}>
-EOF
+          new_node = <<~EOF
+            <#{type}>
+              <talker>
+                <name role="metadata">#{name}</name>
+                <name.id>#{aph_id}</name.id>
+              </talker>
+              <para>#{restore_tags(text)}</para>
+            </#{type}>
+          EOF
           speech_node.append(new_node)
           text_node = speech_node.search(type)[-1]
         end
@@ -303,9 +303,9 @@ EOF
           if not amendment_node.nil?
             logger.warn "      Found paragraph in an amendment"
 
-            amendment_node.append <<EOF
-<para>#{restore_tags(text)}</para>
-EOF
+            amendment_node.append <<~EOF
+              <para>#{restore_tags(text)}</para>
+            EOF
 
           # We special case bill's returned from the senate with amendments
           elsif p.inner_text.match(/Bill returned from the Senate with .*amendments?/i)
@@ -321,11 +321,11 @@ EOF
               search_node = text_node
             end
 
-            search_node.append <<EOF
-<amendments>
-  <para>#{restore_tags(text)}</para>
-</amendments>
-EOF
+            search_node.append <<~EOF
+              <amendments>
+                <para>#{restore_tags(text)}</para>
+              </amendments>
+            EOF
             amendment_node = search_node.search("amendments")[-1]
 
             speech_node = nil
@@ -338,15 +338,15 @@ EOF
                 p.search('span[@class=HPS-MemberInterjecting]').length > 0 or
                 member_iinterjecting
             logger.warn "    Found new /italics/ paragraph"
-            text_node.append <<EOF
-<para class="italic">#{restore_tags(text)}</para>
-EOF
+            text_node.append <<~EOF
+              <para class="italic">#{restore_tags(text)}</para>
+            EOF
 
           else
             logger.warn "    Found new paragraph"
-            text_node.append <<EOF
-<para>#{restore_tags(text)}</para>
-EOF
+            text_node.append <<~EOF
+              <para>#{restore_tags(text)}</para>
+            EOF
           end
 
         when 'HPS-Bullet', 'HPS-SmallBullet'
@@ -355,24 +355,24 @@ EOF
             logger.warn "    Ignoring bullet node as text_node was null\n#{p}"
           else
             logger.warn "    Found new bullet point"
-            text_node.append <<EOF
-<list>#{restore_tags(text)}</list>
-EOF
+            text_node.append <<~EOF
+              <list>#{restore_tags(text)}</list>
+            EOF
           end
 
         when 'HPS-Small', 'HPS-NormalWeb'
           if not amendment_node.nil?
             logger.warn "      Found amendment"
-            amendment_node.append <<EOF
-<amendment>#{restore_tags(text)}</amendment>
-EOF
+            amendment_node.append <<~EOF
+              <amendment>#{restore_tags(text)}</amendment>
+            EOF
           elsif text_node.nil?
             logger.warn "    Ignoring quote node as text_node was null\n#{p}"
           else
             logger.warn "    Found new quote"
-            text_node.append <<EOF
-<quote><para class="block">#{restore_tags(text)}</para></quote>
-EOF
+            text_node.append <<~EOF
+              <quote><para class="block">#{restore_tags(text)}</para></quote>
+            EOF
           end
 
         # Things we are delibaretly ignoring
@@ -393,7 +393,7 @@ EOF
     debate.child_nodes.each do |f|
       case f.name
       when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
-        f.name = "subdebate.#{level+1}"
+        f.name = "subdebate.#{level + 1}"
         f.child_nodes.each do |e|
           case e.name
           when 'debate.text', 'subdebate.text'
@@ -428,21 +428,21 @@ EOF
 
       # Things we have to process recursively
       when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
-        debate_new_children.append "#{ rewrite_debate(f, level+1) }"
+        debate_new_children.append "#{rewrite_debate(f, level + 1)}"
 
       # The actual transcript of the proceedings we are going to process
       when 'question', 'answer', 'speech'
         if not subdebate_found
           # We're interested in the talk.text node but have to find it manually due to a bug
           # with Hpricot xpath meaning nodes with a dot '.' in the name are not found.
-          if talk = f.child_nodes.detect {|node| node.name == 'talk.text'}
+          if talk = f.child_nodes.detect { |node| node.name == 'talk.text' }
             debate_new_children.append "#{process_textnode(talk)}"
           end
         end
 
       # Divisions are actually still the same format, so we just append them.
       when 'division'
-        debate_new_children.append "#{ f }"
+        debate_new_children.append "#{f}"
 
       # Things we are delibaretly removing
       when 'continue', 'interjection', 'talk', 'debate.text', 'subdebate.text'

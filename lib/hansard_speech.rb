@@ -289,7 +289,7 @@ class HansardSpeech
   end
 
   def strip_tags(doc)
-    str=doc.to_s
+    str = doc.to_s
     str.gsub(/<\/?[^>]*>/, "")
   end
 

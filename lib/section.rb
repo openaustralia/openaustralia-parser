@@ -19,7 +19,7 @@ class Section
     end
   end
 
-  def to_time(alternate_time=nil)
+  def to_time(alternate_time = nil)
     time = (alternate_time || @time).split(':').map(&:to_i)
     hour = time[0]
     minutes = time[1]

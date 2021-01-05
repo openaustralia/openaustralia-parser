@@ -21,7 +21,7 @@ class PeopleImageDownloader
 
   def download(people, small_image_dir, large_image_dir)
     # Sort all the people by last name
-    sorted_people = people.sort {|a, b| a.name.last <=> b.name.last}
+    sorted_people = people.sort { |a, b| a.name.last <=> b.name.last }
 
     sorted_people.each do |person|
       small_image_filename = small_image_dir + "/#{person.id_count}.jpg"
@@ -35,6 +35,7 @@ class PeopleImageDownloader
 
       page = person_bio_page(person)
       next unless page
+
       name, birthday, image = extract_name(page), extract_birthday(page), extract_image(page)
 
       if image.nil?
@@ -66,7 +67,7 @@ class PeopleImageDownloader
     tag1 = page.at('div#content')
     tag2 = page.at('div#content div.error')
     unless (tag2 && tag2.inner_text =~ /There was an unexpected error while processing your request./) ||
-      (tag1 && tag1.inner_html =~ /No results found/)
+           (tag1 && tag1.inner_html =~ /No results found/)
       page
     end
   end
@@ -82,9 +83,9 @@ class PeopleImageDownloader
       Name.new(:first => n.first, :last => n.last).full_name
     end.uniq
     # Check each variant of a person's name and return the biography page for the first one that exists
-    matching_name = name_variants.find {|n| biography_page_for_person_with_name(n)}
+    matching_name = name_variants.find { |n| biography_page_for_person_with_name(n) }
     if matching_name.nil?
-      matching_name = name_variants_no_middle_name.find {|n| biography_page_for_person_with_name(n)}
+      matching_name = name_variants_no_middle_name.find { |n| biography_page_for_person_with_name(n) }
     end
     page = biography_page_for_person_with_name(matching_name) if matching_name
     if page.nil?
@@ -109,10 +110,11 @@ class PeopleImageDownloader
     labels = page.search('dt.mdLabel')
     values = page.search('dd.mdValue')
     raise "Number of values do not match number of labels" if labels.size != values.size
+
     metadata = {}
-    (0..labels.size-1).each do |index|
+    (0..labels.size - 1).each do |index|
       label = labels[index].inner_html
-      value = values[index].search('p.mdItem').map{|e| e.inner_html.gsub(/&nbsp;/, '')}
+      value = values[index].search('p.mdItem').map { |e| e.inner_html.gsub(/&nbsp;/, '') }
       metadata[label] = value unless value.empty?
     end
     metadata
@@ -121,26 +123,26 @@ class PeopleImageDownloader
   # Extract a hash of all the metadata tags and values
   def extract_metadata_tags(page)
     r = raw_metadata(page)
-    r.each_pair {|key, value| r[key] = value.join(', ')}
+    r.each_pair { |key, value| r[key] = value.join(', ') }
     r
   end
 
   def strip_tags(doc)
-    str=doc.to_s
+    str = doc.to_s
     str.gsub(/<\/?[^>]*>/, "")
   end
 
   def extract_birthday(page)
-    #Try to scrape the member's birthday.
-    #Here's an example of what we are looking for:
-    #<H2>Personal</H2>
-    #<P>Born 9.1.42
+    # Try to scrape the member's birthday.
+    # Here's an example of what we are looking for:
+    # <H2>Personal</H2>
+    # <P>Born 9.1.42
     # or
-    #<H2>Personal</H2><P>
-    #<P>Born 4.11.1957
+    # <H2>Personal</H2><P>
+    # <P>Born 4.11.1957
 
     born = page.parser.to_s.match("Born\\s\\d\\d?\\.\\d\\d?\\.\\d\\d(\\d\\d)?")
-    if(born and born.to_s.size > 0)
+    if born and born.to_s.size > 0
       born_text = born.to_s[5..-1]
       born_text = born_text.insert(-3, "19") if born_text.match("\\.\\d\\d$") # change 9.1.42 to 9.1.1942
       birthday = Date.strptime(born_text, "%d.%m.%Y")
@@ -154,13 +156,13 @@ class PeopleImageDownloader
     img_tag = page.search('div.box').search("img").first
     if img_tag
       relative_image_url = img_tag.attributes['src']
-      #begin
-      #puts "About to lookup image #{relative_image_url}..."
+      # begin
+      # puts "About to lookup image #{relative_image_url}..."
       res = @agent.get(relative_image_url)
       Magick::Image.from_blob(res.body)[0]
-      #rescue RuntimeError, Magick::ImageMagickError, Mechanize::ResponseCodeError
+      # rescue RuntimeError, Magick::ImageMagickError, Mechanize::ResponseCodeError
       #  return nil
-      #end
+      # end
     end
   end
 end

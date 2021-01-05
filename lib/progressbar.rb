@@ -12,7 +12,7 @@
 class ProgressBar
   VERSION = "0.9"
 
-  def initialize (title, total, out = STDERR)
+  def initialize(title, total, out = STDERR)
     @title = title
     @total = total
     @out = out
@@ -35,11 +35,12 @@ class ProgressBar
   attr_accessor :start_time
 
   private
+
   def fmt_bar
     bar_width = do_percentage * @terminal_width / 100
-    sprintf("|%s%s|", 
-            @bar_mark * bar_width, 
-            " " *  (@terminal_width - bar_width))
+    sprintf("|%s%s|",
+            @bar_mark * bar_width,
+            " " * (@terminal_width - bar_width))
   end
 
   def fmt_percentage
@@ -51,23 +52,23 @@ class ProgressBar
   end
 
   def fmt_stat_for_file_transfer
-    if @finished_p then 
+    if @finished_p then
       sprintf("%s %s %s", bytes, transfer_rate, elapsed)
-    else 
+    else
       sprintf("%s %s %s", bytes, transfer_rate, eta)
     end
   end
 
   def fmt_title
-    @title[0,(@title_width - 1)] + ":"
+    @title[0, (@title_width - 1)] + ":"
   end
 
-  def convert_bytes (bytes)
+  def convert_bytes(bytes)
     if bytes < 1024
       sprintf("%6dB", bytes)
     elsif bytes < 1024 * 1000 # 1000kb
       sprintf("%5.1fKB", bytes.to_f / 1024)
-    elsif bytes < 1024 * 1024 * 1000  # 1000mb
+    elsif bytes < 1024 * 1024 * 1000 # 1000mb
       sprintf("%5.1fMB", bytes.to_f / 1024 / 1024)
     else
       sprintf("%5.1fGB", bytes.to_f / 1024 / 1024 / 1024)
@@ -83,7 +84,7 @@ class ProgressBar
     convert_bytes(@current)
   end
 
-  def format_time (t)
+  def format_time(t)
     t = t.to_i
     sec = t % 60
     min  = (t / 60) % 60
@@ -106,7 +107,7 @@ class ProgressBar
     elapsed = Time.now - @start_time
     sprintf("Time: %s", format_time(elapsed))
   end
-  
+
   def eol
     if @finished_p then "\n" else "\r" end
   end
@@ -115,7 +116,7 @@ class ProgressBar
     if @total.zero?
       100
     else
-      @current  * 100 / @total
+      @current * 100 / @total
     end
   end
 
@@ -137,14 +138,14 @@ class ProgressBar
   end
 
   def show
-    arguments = @format_arguments.map {|method| 
+    arguments = @format_arguments.map { |method|
       method = sprintf("fmt_%s", method)
       send(method)
     }
     line = sprintf(@format, *arguments)
 
     width = get_width
-    if line.length == width - 1 
+    if line.length == width - 1
       @out.print(line + eol)
       @out.flush
     elsif line.length >= width
@@ -167,13 +168,14 @@ class ProgressBar
     end
 
     # Use "!=" instead of ">" to support negative changes
-    if cur_percentage != prev_percentage || 
-        Time.now - @previous_time >= 1 || @finished_p
+    if cur_percentage != prev_percentage ||
+       Time.now - @previous_time >= 1 || @finished_p
       show
     end
   end
 
   public
+
   def clear
     @out.print "\r"
     @out.print(" " * (get_width - 1))
@@ -194,11 +196,11 @@ class ProgressBar
     @format_arguments = [:title, :percentage, :bar, :stat_for_file_transfer]
   end
 
-  def format= (format)
+  def format=(format)
     @format = format
   end
 
-  def format_arguments= (arguments)
+  def format_arguments=(arguments)
     @format_arguments = arguments
   end
 
@@ -207,17 +209,18 @@ class ProgressBar
     show
   end
 
-  def inc (step = 1)
+  def inc(step = 1)
     @current += step
     @current = @total if @current > @total
     show_if_needed
     @previous = @current
   end
 
-  def set (count)
+  def set(count)
     if count < 0 || count > @total
       raise "invalid count: #{count} (total: #{@total})"
     end
+
     @current = count
     show_if_needed
     @previous = @current
@@ -233,4 +236,3 @@ class ReversedProgressBar < ProgressBar
     100 - super
   end
 end
-

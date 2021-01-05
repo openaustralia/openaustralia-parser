@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 # vim: set ts=2 sw=2 et sts=2 ai:
 
 require 'hpricot_additions'
@@ -8,7 +9,7 @@ require 'hansard_speech'
 require 'date'
 
 # Use this for sections of the Hansard that we're not currently supporting. Allows us to track
-# title and subtitle.
+#  title and subtitle.
 class HansardUnsupported
   attr_reader :title, :subtitle
 
@@ -24,7 +25,7 @@ end
 class HansardDay
   # On 2011-02-22 there was a tied vote and the speaker didn't need to cast a deciding
   # vote because an absolute majority was required
-  ALLOW_TIED_VOTE_DATES = [Date.new(2011,2,22)]
+  ALLOW_TIED_VOTE_DATES = [Date.new(2011, 2, 22)]
 
   def initialize(page, logger = nil)
     @page, @logger = page, logger
@@ -72,14 +73,14 @@ class HansardDay
   # Search for the title tag and return its value, stripping out any HTML tags
   def title_tag_value(debate)
     # Doing this rather than calling inner_text to preserve html entities which for some reason get all screwed up by inner_text
-    strip_tags(debate.search('> * > title').map{|e| e.inner_html.strip()}.join('; ')).strip()
+    strip_tags(debate.search('> * > title').map { |e| e.inner_html.strip() }.join('; ')).strip()
   end
 
   def title(debate)
     case debate.name
     when 'debate', 'petition.group'
       title = title_tag_value(debate).strip()
-      cognates = debate.search('> debateinfo > cognate > cognateinfo > title').map{|a| strip_tags(a.inner_html)}
+      cognates = debate.search('> debateinfo > cognate > cognateinfo > title').map { |a| strip_tags(a.inner_html) }
       ([title] + cognates).join('; ')
     when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
       title(debate.parent).strip()
@@ -99,16 +100,16 @@ class HansardDay
           id = debate.at("/debateinfo").children_of_type('id.no')[0].inner_text
           title = debate.at("> debateinfo > title").inner_text
           url = bill_url(id)
-          results << {:id => id, :title => title, :url => url}
+          results << { :id => id, :title => title, :url => url }
         end
         debate.search("> debateinfo > cognate").each do |congnate|
           if congnate.at(:type).inner_text.downcase == 'bills'
             id_elem = congnate.at(:cognateinfo).children_of_type('id.no')[0]
-            if id_elem  # some old Hansard duplicates <cognateinfo> with <id.no> missing
+            if id_elem # some old Hansard duplicates <cognateinfo> with <id.no> missing
               id = id_elem.inner_text
               title = congnate.at(:title).inner_text
               url = bill_url(id)
-              results << {:id => id, :title => title, :url => url}
+              results << { :id => id, :title => title, :url => url }
             end
           end
         end
@@ -120,7 +121,7 @@ class HansardDay
             id = strip_tags(a['href'].strip)
             title = strip_tags(a.inner_text.strip)
             url = bill_url(id)
-            results << {:id => id, :title => title, :url => url}
+            results << { :id => id, :title => title, :url => url }
           end
         end
       else
@@ -152,6 +153,7 @@ class HansardDay
         end
       end
       raise "Front title is to short! '#{front}' #{front.length}" if front.length == 0
+
       (front + '; ' + title_tag_value(debate)).strip()
     else
       raise "Unexpected tag #{debate.name}"
@@ -165,7 +167,6 @@ class HansardDay
   end
 
   def pages_from_debate(debate)
-
     p = []
     title = title(debate)
     subtitle = subtitle(debate)
@@ -180,16 +181,16 @@ class HansardDay
         question = false
         procedural = false
       when 'speech', 'talk'
-        p << e.map_child_node {|c| HansardSpeech.new(c, title, subtitle, bills, time(e), self, @logger)}
+        p << e.map_child_node { |c| HansardSpeech.new(c, title, subtitle, bills, time(e), self, @logger) }
         question = false
         procedural = false
       when 'division'
-        #puts "SKIP: #{e.name} > #{full_title}"
+        # puts "SKIP: #{e.name} > #{full_title}"
         p << HansardDivision.new(e, title, subtitle, bills, self)
         question = false
         procedural = false
       when 'petition'
-        #puts "SKIP: #{e.name} > #{full_title}"
+        # puts "SKIP: #{e.name} > #{full_title}"
         p << HansardUnsupported.new(title, subtitle, self)
         question = false
         procedural = false
@@ -199,7 +200,7 @@ class HansardDay
           questions = []
           f = e
           while f && (f.name == 'question' || f.name == 'answer') do
-            questions = questions + f.map_child_node {|c| HansardSpeech.new(c, title, subtitle, bills, time(e), self, @logger)}
+            questions = questions + f.map_child_node { |c| HansardSpeech.new(c, title, subtitle, bills, time(e), self, @logger) }
             f = f.next_sibling
           end
           p << questions

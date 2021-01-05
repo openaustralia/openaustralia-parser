@@ -34,14 +34,14 @@ describe HansardDay do
     @titles_xml = Hpricot.XML(x.hansard {
       x.chamber_xscript {
         x.debate {
-       		x.debateinfo { x.title 1 }
-       		x.speech
+          x.debateinfo { x.title 1 }
+          x.speech
         }
         x.debate {
-          x.debateinfo { x.title 2}
+          x.debateinfo { x.title 2 }
           x.subdebate_1 {
             x.subdebateinfo { x.title 3; x.title 14 }
-         		x.speech
+            x.speech
           }
         }
 
@@ -49,11 +49,11 @@ describe HansardDay do
           x.debateinfo { x.title 4 }
           x.subdebate_1 {
             x.subdebateinfo { x.title 5 }
-         		x.speech
+            x.speech
           }
           x.subdebate_1 {
             x.subdebateinfo { x.title 6 }
-         		x.speech
+            x.speech
           }
         }
 
@@ -66,23 +66,23 @@ describe HansardDay do
           }
           x.subdebate_1 {
             x.subdebateinfo { x.title 8 }
-         		x.speech
+            x.speech
           }
           x.subdebate_1 {
             x.subdebateinfo { x.title 9 }
-         		x.speech
+            x.speech
           }
         }
 
         x.debate {
-    			x.debateinfo { x.title 10 }
-    			x.subdebate_1 {
-    				x.subdebateinfo { x.title 11 }
-    				x.subdebate_2 {
-    					x.subdebateinfo { x.title 12 }
-           		x.speech
-    				}
-    			}
+          x.debateinfo { x.title 10 }
+          x.subdebate_1 {
+            x.subdebateinfo { x.title 11 }
+            x.subdebate_2 {
+              x.subdebateinfo { x.title 12 }
+              x.speech
+            }
+          }
         }
       }
     })

@@ -19,15 +19,15 @@ end
 task :gems do
   module Kernel
     alias :gem_old :gem
-    def gem(name,*version_requirements)
+    def gem(name, *version_requirements)
       begin
-        gem_old(name,*version_requirements)
+        gem_old(name, *version_requirements)
       rescue Gem::LoadError
         print "  [ ]"
       else
         print "  [I]"
       end
-      puts "  %-20s %s" % [ name, version_requirements.inspect ]
+      puts "  %-20s %s" % [name, version_requirements.inspect]
     end
   end
 

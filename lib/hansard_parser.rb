@@ -96,11 +96,11 @@ class HansardParser
 
   def house_directory_name(house)
     if house == House.representatives
-       "representatives_debates"
+      "representatives_debates"
     elsif house == House.senate
-       "senate_debates"
+      "senate_debates"
     else
-       raise "Assertion failed! unknown house!"
+      raise "Assertion failed! unknown house!"
     end
   end
 
@@ -136,12 +136,12 @@ class HansardParser
     end
     if xml
       # APH changed their XML format on the 10th of May 2011
-      if date >= Date.new(2011,5,10)
+      if date >= Date.new(2011, 5, 10)
         # Rewrite the XML data back to a sane format
         new_xml = @rewriter.rewrite_xml Hpricot.XML(xml)
 
         # Save the rewritten XML data
-        File.open(rewritexml_filename(date, house), 'w') {|f| f.write("#{new_xml}") }
+        File.open(rewritexml_filename(date, house), 'w') { |f| f.write("#{new_xml}") }
 
         # Process the day
         HansardDay.new(new_xml, @logger)
@@ -202,6 +202,7 @@ class HansardParser
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
               raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes)" if member.nil?
+
               member
             end
           end.compact
@@ -210,6 +211,7 @@ class HansardParser
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
               raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no)" if member.nil?
+
               member
             end
           end.compact
@@ -218,6 +220,7 @@ class HansardParser
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
               raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes and teller)" if member.nil?
+
               member
             end
           end.compact
@@ -226,6 +229,7 @@ class HansardParser
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
               raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no and teller)" if member.nil?
+
               member
             end
           end.compact
@@ -237,6 +241,7 @@ class HansardParser
                 if member.nil?
                   raise "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair)"
                 end
+
                 member
               end
             end.compact
@@ -291,7 +296,7 @@ class HansardParser
   end
 
   def lookup_speaker_by_name(speech, date, house)
-    #puts "Looking up speaker by name: #{speech.speakername}"
+    # puts "Looking up speaker by name: #{speech.speakername}"
     raise "speakername can not be nil in lookup_speaker" if speech.speakername.nil?
 
     member = lookup_speaker_by_title(speech, date, house)

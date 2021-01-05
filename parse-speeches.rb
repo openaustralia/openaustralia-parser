@@ -10,7 +10,7 @@ require 'progressbar'
 
 def parse_date(text)
   today = Date.today
-  
+
   if text == "today"
     today
   elsif text == "yesterday"
@@ -31,14 +31,14 @@ def parse_date(text)
 end
 
 # Defaults
-options = {:load_database => true, :proof => false, :force => false, :interactive => false}
+options = { :load_database => true, :proof => false, :force => false, :interactive => false }
 
 OptionParser.new do |opts|
-  opts.banner = <<EOF
-Usage: parse-speeches.rb [options] <from-date> [<to-date>]
-    formatting of date:
-      year.month.day or today or yesterday
-EOF
+  opts.banner = <<~EOF
+    Usage: parse-speeches.rb [options] <from-date> [<to-date>]
+        formatting of date:
+          year.month.day or today or yesterday
+  EOF
   opts.on("--no-load", "Just generate XML and don't load up database") do |l|
     options[:load_database] = l
   end
@@ -57,7 +57,7 @@ if ARGV.size != 1 && ARGV.size != 2
   puts "Need to supply one or two dates"
   exit
 end
-    
+
 from_date = parse_date(ARGV[0])
 
 if ARGV.size == 1
@@ -89,7 +89,7 @@ def parse_with_retry(interactive, parse, date, path, house)
     puts "ERROR While processing #{house} #{date}:"
     raise unless interactive
 
-    puts e.message  
+    puts e.message
     puts e.backtrace.join("\n\t")
     while 1
       print "Retry / Patch / Continue / Quit? "
@@ -115,9 +115,9 @@ end
 date = to_date
 while date >= from_date
   if options[:proof]
-    parse = labmda {|a,b,c| parser.parse_date_house_only_in_proof a,b,c}
+    parse = labmda { |a, b, c| parser.parse_date_house_only_in_proof a, b, c }
   else
-    parse = lambda {|a,b,c| parser.parse_date_house a, b, c}
+    parse = lambda { |a, b, c| parser.parse_date_house a, b, c }
   end
   parse_with_retry options[:interactive], parse, date, "#{conf.xml_path}/scrapedxml/representatives_debates/#{date}.xml", House.representatives
   progress.inc
@@ -135,7 +135,7 @@ if options[:load_database]
   command_options << " --debates"
   command_options << " --lordsdebates"
   command_options << " --force" if options[:force]
-  
+
   # Starts with 'perl' to be friendly with Windows
   system("perl #{conf.web_root}/twfy/scripts/xml2db.pl #{command_options}")
 end

@@ -25,10 +25,10 @@ xml = File.open("#{conf.members_xml_path}/websites.xml", 'w')
 x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
 x.instruct!
 x.peopleinfo do
-  morph_result = agent.get(:url => 'https://api.morph.io/openaustralia/aus_mp_contact_details/data.json?query=select%20*%20from%20%60data%60', :headers => {'x-api-key' => conf.morph_api_key}).body
+  morph_result = agent.get(:url => 'https://api.morph.io/openaustralia/aus_mp_contact_details/data.json?query=select%20*%20from%20%60data%60', :headers => { 'x-api-key' => conf.morph_api_key }).body
   JSON.parse(morph_result).each do |person|
     p = people.find_person_by_aph_id(person['aph_id'].upcase)
-    params = {:id => p.id, :mp_contact_form => person['contact_page'], :aph_url => person['profile_page']}
+    params = { :id => p.id, :mp_contact_form => person['contact_page'], :aph_url => person['profile_page'] }
     params[:mp_email] = person['email'] if person['email']
     params[:mp_website] = person['website'] if person['website']
     params[:mp_twitter_url] = person['twitter'] if person['twitter']
@@ -49,17 +49,17 @@ x.consinfos do
   # Representatives
   url = "#{conf.election_web_root}/results/electorateindex.htm"
   doc = Hpricot(open(url))
-  (doc/"td.electorate").each do |td|
+  (doc / "td.electorate").each do |td|
     href = td.at("a")['href']
     href = "#{abc_root}#{href}"
     name = td.at("a").inner_text
-    name = name.gsub(/\*/,'').strip
+    name = name.gsub(/\*/, '').strip
     x.consinfo(:canonical => name, :abc_election_results_2007 => href)
   end
   # Senate
   url = "#{conf.election_web_root}/results/senate/"
   doc = Hpricot(open(url))
-  (doc/:a).each do |a|
+  (doc / :a).each do |a|
     if /results\/senate\/(\w+)\.htm/.match(a['href'])
       href = abc_root + a['href']
       name = a.inner_text
@@ -72,11 +72,11 @@ x.consinfos do
   abc_2010_root = "https://www.abc.net.au/elections/federal/2010/guide"
   url = "#{abc_2010_root}/electorateresults.htm"
   doc = Hpricot(open(url))
-  (doc/"td.electorate").each do |td|
+  (doc / "td.electorate").each do |td|
     href = td.at("a")['href']
     href = "#{abc_2010_root}/#{href}"
     name = td.at("a").inner_text
-    name = name.gsub(/\*/,'').strip
+    name = name.gsub(/\*/, '').strip
     x.consinfo(:canonical => name, :abc_election_results_2010 => href)
   end
   # Senate
@@ -90,7 +90,7 @@ x.consinfos do
   abc_root = "https://www.abc.net.au"
   url = "#{abc_root}/news/federal-election-2013/results/electorates/"
   doc = Hpricot(open(url))
-  (doc/"span.electorate").each do |span|
+  (doc / "span.electorate").each do |span|
     href = span.parent['href']
     href = "#{abc_root}#{href}"
     name = span.inner_text
@@ -182,7 +182,7 @@ representatives_data = page.search('ul.links')[2].search(:li).map do |li|
 
   url = base_url + li.at(:a).attr(:href)
 
-  {:id => representative.id, :aph_interests_url => url}
+  { :id => representative.id, :aph_interests_url => url }
 end
 
 # Disabled until it comes back on the 27th of September: http://www.aph.gov.au/Parliamentary_Business/Committees/Senate/Senators_Interests/

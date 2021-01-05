@@ -8,7 +8,7 @@ class Name
 
   def initialize(params)
     # First normalize the unicode.
-    params.map {|key, value| [key, (value.unicode_normalize(:nfkc) if value)]}
+    params.map { |key, value| [key, (value.unicode_normalize(:nfkc) if value)] }
 
     @title = params[:title] || ""
     @first = (Name.capitalize_name(params[:first]) if params[:first]) || ""
@@ -25,7 +25,7 @@ class Name
     if open
       close = text.index(')', open)
       if close
-        text = text[0..open-1] + text[close+1..-1]
+        text = text[0..open - 1] + text[close + 1..-1]
       end
     end
 
@@ -154,7 +154,7 @@ class Name
     if has_middle_initials?
       @initials[1..-1]
     else
-      @middle.split(' ').map{|n| n[0..0]}.join
+      @middle.split(' ').map { |n| n[0..0] }.join
     end
   end
 
@@ -171,7 +171,7 @@ class Name
       else
         p_initials = first_initial
         if not @middle.nil?
-          p_initials = "#{p_initials}#{@middle.split(' ').map{|n| n[0..0]}.join}"
+          p_initials = "#{p_initials}#{@middle.split(' ').map { |n| n[0..0] }.join}"
         end
         p_initials
       end
@@ -180,6 +180,7 @@ class Name
 
   def informal_name
     raise "No last name" unless has_last?
+
     "#{@first} #{@last}"
   end
 
@@ -239,7 +240,7 @@ class Name
   def middle_matches?(name)
     if !has_middle? || !name.has_middle?
       if (has_middle_initials? && name.has_middle?) || (has_middle? && name.has_middle_initials?)
-        middle_initials == name.middle_initials[0..middle_initials.length-1]
+        middle_initials == name.middle_initials[0..middle_initials.length - 1]
       else
         true
       end
@@ -254,11 +255,11 @@ class Name
     # Both names need to have a last name to match
     return false unless has_last? && name.has_last?
 
-    (!has_title?           || !name.has_title?           || @title      == name.title) &&
-    first_matches?(name) &&
-    middle_matches?(name) &&
-    (!has_last?            || !name.has_last?            || @last       == name.last) &&
-    (!has_post_title?      || !name.has_post_title?      || @post_title == name.post_title)
+    (!has_title? || !name.has_title? || @title == name.title) &&
+      first_matches?(name) &&
+      middle_matches?(name) &&
+      (!has_last?            || !name.has_last?            || @last       == name.last) &&
+      (!has_post_title?      || !name.has_post_title?      || @post_title == name.post_title)
   end
 
   def ==(name)
@@ -300,8 +301,8 @@ class Name
       names.shift
       "the Hon."
     elsif names.size >= 1 && matches_hon?(names[0])
-        names.shift
-        "Hon."
+      names.shift
+      "Hon."
     elsif names.size >= 1
       title = names[0]
       if title == "Dr" || title == "Dr." || title == "Mr" || title == "Mrs" || title == "Ms" || title == "Miss" || title == "Senator" || title == "Sen" || title == "Lady"
@@ -324,11 +325,11 @@ class Name
     # If name is hyphenated capitalise each side on its own
     # TODO: Fix 'activesupport' gem so that multibyte chars properly pass through include?
     # Cast to normal string for include? necessary because of bug in activesupport multibyte chars
-    name = name.split('-').map{|n| capitalize_name(n)}.join('-') if name.to_s.include?('-')
+    name = name.split('-').map { |n| capitalize_name(n) }.join('-') if name.to_s.include?('-')
     name
   end
 
   def Name.capitalize_each_name(name)
-    name.split(' ').map{|t| Name.capitalize_name(t)}.join(' ')
+    name.split(' ').map { |t| Name.capitalize_name(t) }.join(' ')
   end
 end

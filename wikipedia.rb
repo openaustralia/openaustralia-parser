@@ -33,7 +33,7 @@ puts "Wikipedia links for Representatives..."
 links = extract_all_representative_wikipedia_links(people, agent)
 write_links(links, "#{conf.members_xml_path}/wikipedia-commons.xml")
 # For Representatives just for curiousity sake find out which has a link back to OpenAustralia
-links.each {|link| check_wikipedia_page(link[1], agent) }
+links.each { |link| check_wikipedia_page(link[1], agent) }
 puts "Wikipedia links for Senators..."
 write_links(extract_all_senator_wikipedia_links(people, agent), "#{conf.members_xml_path}/wikipedia-lords.xml")
 

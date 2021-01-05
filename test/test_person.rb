@@ -17,7 +17,7 @@ class TestPerson < Test::Unit::TestCase
     john_smith2.add_period(:house => House.representatives, :division => "division1", :party => "party1",
                            :from_date => Date.new(2000, 1, 1), :to_date => Date.new(2001, 1, 1),
                            :from_why => "general_election", :to_why => "defeated", :count => 1)
-    
+
     henry_jones = Person.new(:name => Name.new(:first => "Henry", :last => "Jones"), :count => 2)
     henry_jones.add_period(:house => House.representatives, :division => "division2", :party => "party2",
                            :from_date => Date.new(2000, 1, 1), :to_date => Date.new(2001, 1, 1),
@@ -26,7 +26,7 @@ class TestPerson < Test::Unit::TestCase
     assert_equal(john_smith1, john_smith2)
     assert_not_equal(henry_jones, john_smith2)
   end
-  
+
   def test_multiple_names
     john_smith = Name.new(:first => "John", :last => "Smith")
     jack_smith = Name.new(:first => "Jack", :last => "Smith")
@@ -35,7 +35,7 @@ class TestPerson < Test::Unit::TestCase
     assert_equal([jack_smith], person.alternate_names)
     assert_equal([john_smith, jack_smith], person.all_names)
   end
-  
+
   def test_name_matches
     john_smith = Name.new(:first => "John", :last => "Smith")
     jack_smith = Name.new(:first => "Jack", :last => "Smith")

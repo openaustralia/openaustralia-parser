@@ -18,7 +18,7 @@ class Debates
     @latest_major_heading = nil
     @latest_minor_heading = nil
   end
-  
+
   def add_heading(newtitle, newsubtitle, url, bills)
     # Only add headings if they have changed
     if newtitle != @title
@@ -32,7 +32,7 @@ class Debates
     @title = newtitle
     @subtitle = newsubtitle
   end
-  
+
   def add_heading_for_real
     if @latest_major_heading
       @items << @latest_major_heading
@@ -43,22 +43,22 @@ class Debates
       @latest_minor_heading = nil
     end
   end
-  
+
   def increment_minor_count
     @count.increment_minor
   end
-  
+
   def increment_major_count
     @count.increment_major
   end
-  
+
   def increment_division_count
     @division_count = @division_count + 1
   end
-  
-  def add_speech(speaker, time, url, content, interjection=false, continuation=false)
+
+  def add_speech(speaker, time, url, content, interjection = false, continuation = false)
     add_heading_for_real
-    
+
     # Only add new speech if the speaker has changed
     if !@items.last.kind_of?(Speech) || speaker != last_speaker
       speech = Speech.new(speaker, time, url, @count.clone, @date, @house, @logger)
@@ -68,22 +68,22 @@ class Debates
     end
     @items.last.append_to_content(content)
   end
-  
+
   def add_division(yes, no, yes_tellers, no_tellers, pairs, time, url, bills)
     add_heading_for_real
 
     @items << Division.new(yes, no, yes_tellers, no_tellers, pairs, time, url, bills, @count.clone, @division_count, @date, @house, @logger)
     increment_division_count
   end
-  
+
   def last_speaker
     @items.last.speaker if @items.last.respond_to?(:speaker)
   end
-  
+
   def output_builder(x)
     x.instruct!
     x.debates do
-      @items.each {|i| i.output(x)}
+      @items.each { |i| i.output(x) }
     end
   end
 
@@ -110,9 +110,9 @@ class Debates
       # Scan ahead looking for the next section (skipping sections without time
       # or interjections or continuations). Also keep track of how many words
       # were used in continuations
-      next_section = @items[(index + 1)..-1].detect{|next_item|
+      next_section = @items[(index + 1)..-1].detect { |next_item|
         if next_item.is_a?(Speech) && next_item.continuation
-          section.word_count_for_continuations += next_item.words  
+          section.word_count_for_continuations += next_item.words
         end
         next_item.is_a?(Speech) && next_item.time && !next_item.interjection && !next_item.continuation
       }
@@ -125,12 +125,12 @@ class Debates
       end
     end
   end
-  
+
   def output(xml_filename)
     xml = File.open(xml_filename, 'w')
     x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
     output_builder(x)
-    
+
     xml.close
-  end  
+  end
 end

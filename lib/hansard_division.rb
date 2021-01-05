@@ -15,12 +15,12 @@ class HansardDivision
 
   # Return an array of the names of people that voted yes
   def yes
-    (add_speaker?(:yes) ? raw_yes.push(speaker) : raw_yes).map {|text| HansardDivision.name(text)}
+    (add_speaker?(:yes) ? raw_yes.push(speaker) : raw_yes).map { |text| HansardDivision.name(text) }
   end
 
   # And similarly for the people that voted no
   def no
-    (add_speaker?(:no) ? raw_no.push(speaker) : raw_no).map {|text| HansardDivision.name(text)}
+    (add_speaker?(:no) ? raw_no.push(speaker) : raw_no).map { |text| HansardDivision.name(text) }
   end
 
   def tied?
@@ -45,8 +45,9 @@ class HansardDivision
   end
 
   def pairs
-    names = @content.search("(division.data) > pairs > names > name").map {|e| e.inner_html}
+    names = @content.search("(division.data) > pairs > names > name").map { |e| e.inner_html }
     raise "Not an even number of people in the pairs voting" if names.size % 2 != 0
+
     # Format the flat list of names into pairs (assuming that the people in pairs appear consecutively)
     pairs = []
     names.each_slice(2) { |p| pairs << p }
@@ -54,11 +55,11 @@ class HansardDivision
   end
 
   def yes_tellers
-    raw_yes.find_all {|text| HansardDivision.teller?(text)}.map {|text| HansardDivision.name(text)}
+    raw_yes.find_all { |text| HansardDivision.teller?(text) }.map { |text| HansardDivision.name(text) }
   end
 
   def no_tellers
-    raw_no.find_all {|text| HansardDivision.teller?(text)}.map {|text| HansardDivision.name(text)}
+    raw_no.find_all { |text| HansardDivision.teller?(text) }.map { |text| HansardDivision.name(text) }
   end
 
   def time
@@ -75,10 +76,10 @@ class HansardDivision
   def speaker
     # There's a slight difference between older and newer XML
     header_speaker_text = if @content.at('(division) > (para)')
-      @content.at('(division) > (para)').inner_text
-    else
-      @content.at('(division.header)').inner_text
-    end
+                            @content.at('(division) > (para)').inner_text
+                          else
+                            @content.at('(division.header)').inner_text
+                          end
 
     if header_speaker_text.gsub("\342\200\224", "&#x2014;") =~ /[Speaker|President]&#x2014;(.*)\)/
       speaker_name = Name.title_first_last($~[1])
@@ -99,11 +100,11 @@ class HansardDivision
   end
 
   def raw_yes
-    @content.search("(division.data) > ayes > names > name").map {|e| e.inner_html}
+    @content.search("(division.data) > ayes > names > name").map { |e| e.inner_html }
   end
 
   def raw_no
-    @content.search("(division.data) > noes > names > name").map {|e| e.inner_html}
+    @content.search("(division.data) > noes > names > name").map { |e| e.inner_html }
   end
 
   def self.name(text)

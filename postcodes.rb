@@ -39,7 +39,7 @@ all_members = people.all_periods_in_house(House.representatives)
 # First check that all the constituencies are valid
 constituencies = data.map { |row| row[1] }.uniq.reject(&:empty?)
 constituencies.each do |constituency|
-  raise "Constituency #{constituency} not found" unless all_members.any? {|m| m.division == constituency}
+  raise "Constituency #{constituency} not found" unless all_members.any? { |m| m.division == constituency }
 end
 
 if options[:test]
@@ -50,6 +50,6 @@ else
   # Clear out the old data
   db.query("DELETE FROM postcode_lookup")
 
-  values = data.map {|row| "('#{row[0]}', '#{quote_string(row[1])}')" }.join(',')
+  values = data.map { |row| "('#{row[0]}', '#{quote_string(row[1])}')" }.join(',')
   db.query("INSERT INTO postcode_lookup (postcode, name) VALUES #{values}")
 end

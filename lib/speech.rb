@@ -23,11 +23,11 @@ class Speech < Section
         @logger.error "#{@date} #{@house}: Empty speech by #{@speaker.person.name.full_name}"
       end
     end
-    speaker_attributes = @speaker ? {:speakername => @speaker.name.full_name, :speakerid => @speaker.id} : {:nospeaker => "true"}
+    speaker_attributes = @speaker ? { :speakername => @speaker.name.full_name, :speakerid => @speaker.id } : { :nospeaker => "true" }
     x.speech(speaker_attributes.merge({
-      :time => time, :url => quoted_url, :id => id, :talktype => talk_type,
-      :approximate_duration => @duration.to_i, :approximate_wordcount => words
-    })) { x << @content.to_s }
+                                        :time => time, :url => quoted_url, :id => id, :talktype => talk_type,
+                                        :approximate_duration => @duration.to_i, :approximate_wordcount => words
+                                      })) { x << @content.to_s }
   end
 
   def append_to_content(content)
@@ -85,5 +85,4 @@ class Speech < Section
     html = @content.inner_html.gsub(/<\/p>/, "</p>\n")
     Hpricot(html).inner_text.split.count
   end
-
 end

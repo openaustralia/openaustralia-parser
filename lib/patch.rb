@@ -12,9 +12,10 @@ module Patch
     patch = Tempfile.new('patch')
     patch << patch_text
     patch.flush
-    
+
     system("patch --quiet #{original.path} < #{patch.path}")
     raise "Patch failed" unless $? == 0
+
     original.open.readlines.join
   end
 end

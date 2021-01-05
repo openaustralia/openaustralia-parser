@@ -4,9 +4,9 @@ class Configuration
   # TODO: Could have conflicts between these and names in the configuration file
   attr_reader :database_host, :database_user, :database_password, :database_name, :file_image_path, :members_xml_path, :xml_path,
               :regmem_pdf_path, :base_dir
-  
+
   @@conf = nil
-  
+
   def load_mysociety_config
     # Load the information from the mysociety configuration
     require "#{web_root}/rblib/config"
@@ -26,7 +26,7 @@ class Configuration
     if @@conf.nil?
       puts "Loading config from: #{File.dirname(__FILE__)}/../configuration.yml"
       # Load the configuration from the config file
-      @@conf = YAML::load( File.open( "#{File.dirname(__FILE__)}/../configuration.yml" ) )
+      @@conf = YAML::load(File.open("#{File.dirname(__FILE__)}/../configuration.yml"))
       @@conf = {} if !@@conf
     end
     if conf.nil?
@@ -35,8 +35,8 @@ class Configuration
       @@conf = conf if !@@conf
       @members_xml_path = "./xml_output"
     end
-  end                  
-  
+  end
+
   # Ruby magic
   def method_missing(method_id)
     name = method_id.id2name

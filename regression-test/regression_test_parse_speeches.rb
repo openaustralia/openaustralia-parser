@@ -26,8 +26,6 @@ test_first = []
 
 skip_dates = []
 
-#
-
 conf = Configuration.new
 
 # First load people back in so that we can look up member id's

@@ -16,12 +16,13 @@ data = CSV.readlines("data/pc-full_20100629.csv")
 # Ignore header
 data.shift
 
-valid_postcodes = data.map {|row| row.first}.uniq.sort
+valid_postcodes = data.map { |row| row.first }.uniq.sort
 
 def extract_divisions_from_page(page)
-  divisions = page.search('div/table/tr/td[4]').map {|t| t.inner_text}
-  redistributed_divisions = page.search('div/table/tr/td[5]').map {|t| t.inner_text}
+  divisions = page.search('div/table/tr/td[4]').map { |t| t.inner_text }
+  redistributed_divisions = page.search('div/table/tr/td[5]').map { |t| t.inner_text }
   raise "expected same number of divisions as redistributed divisions" unless divisions.size == redistributed_divisions.size
+
   combined = []
   divisions.each_index do |i|
     v1 = divisions[i]

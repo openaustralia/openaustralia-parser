@@ -25,7 +25,7 @@ PageRange = Struct.new(:filename, :start, :end)
 def read_in_ranges(p, filename_prefix, people)
   pdf_filename = "data/register_of_interests/#{filename_prefix}.pdf"
   split_filename = "data/register_of_interests/#{filename_prefix}.split"
-  
+
   # Read in one split file
   data = CSV.readlines(split_filename)
   # Throw away first line (comment)
@@ -35,14 +35,14 @@ def read_in_ranges(p, filename_prefix, people)
     start_page, last_name, first_name, date_text = data[i]
     start_page = start_page.to_i
     if i + 1 < data.size
-      end_page = data[i+1][0].to_i - 1
+      end_page = data[i + 1][0].to_i - 1
     else
       end_page = 'end'
     end
     # Ignore page ranges marked as blank
     if last_name.downcase != "** blank page **"
       name = Name.last_title_first(last_name + " " + first_name)
-      #member = people.find_member_by_name_current_on_date(name, date, house)
+      # member = people.find_member_by_name_current_on_date(name, date, house)
       if date_text
         date = Date.parse(date_text)
         person = people.find_person_by_name_current_on_date(name, date)
@@ -50,6 +50,7 @@ def read_in_ranges(p, filename_prefix, people)
         person = people.find_person_by_name(name)
       end
       raise "Couldn't find #{name.full_name}" if person.nil?
+
       p[person] ||= []
       p[person] << PageRange.new(pdf_filename, start_page, end_page)
     end
@@ -103,5 +104,5 @@ p.each do |person, ranges|
   pages = pages.join(' ')
   command = "#{pdftk} #{filenames} cat #{pages} output #{conf.base_dir}#{conf.regmem_pdf_path}/register_interests_#{person.id_count}.pdf"
   puts "Splitting and combining pdfs for #{person.name.full_name}..."
-  system(command)  
+  system(command)
 end

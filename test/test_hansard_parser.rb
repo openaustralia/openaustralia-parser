@@ -17,7 +17,7 @@ class TestHansardParser < Test::Unit::TestCase
     assert(HansardSpeech.generic_speaker?("Opposition member"))
     assert(HansardSpeech.generic_speaker?("Opposition members"))
     assert(HansardSpeech.generic_speaker?("a government member"))
-    
+
     assert(!HansardSpeech.generic_speaker?("John Smith"))
   end
 end

@@ -19,22 +19,22 @@ describe HansardSpeech, "should recognise who's talking" do
 			</talk.start>
 		</speech>'), "", "", "", "", nil)
 
-		expect(speech.speakername).to eq "Mr RUDD"
-		expect(speech.aph_id).to eq "83T"
-		expect(speech.interjection).to be false
-		expect(speech.continuation).to be false
+    expect(speech.speakername).to eq "Mr RUDD"
+    expect(speech.aph_id).to eq "83T"
+    expect(speech.interjection).to be false
+    expect(speech.continuation).to be false
   end
 
-	it "in a motionnospeech block" do
-	  speech = HansardSpeech.new(Hpricot.XML('<motionnospeech><name>Mr BILLSON</name></motionnospeech>').at("motionnospeech"), "", "", "", "", nil)
-		expect(speech.speakername).to eq "Mr BILLSON"
-		expect(speech.aph_id).to be_nil
-		expect(speech.interjection).to be false
-		expect(speech.continuation).to be false
-	end
+  it "in a motionnospeech block" do
+    speech = HansardSpeech.new(Hpricot.XML('<motionnospeech><name>Mr BILLSON</name></motionnospeech>').at("motionnospeech"), "", "", "", "", nil)
+    expect(speech.speakername).to eq "Mr BILLSON"
+    expect(speech.aph_id).to be_nil
+    expect(speech.interjection).to be false
+    expect(speech.continuation).to be false
+  end
 
-	it "in an interjection block" do
-	  speech = HansardSpeech.new(Hpricot.XML('
+  it "in an interjection block" do
+    speech = HansardSpeech.new(Hpricot.XML('
 	  <interjection>
 			<talk.start>
 				<talker>
@@ -44,11 +44,11 @@ describe HansardSpeech, "should recognise who's talking" do
 				</talker>
 			</talk.start>
 		</interjection>').at("interjection"), "", "", "", "", nil)
-		expect(speech.speakername).to eq "The SPEAKER"
-		expect(speech.aph_id).to eq "10000"
-		expect(speech.interjection).to be true
-		expect(speech.continuation).to be false
- end
+    expect(speech.speakername).to eq "The SPEAKER"
+    expect(speech.aph_id).to eq "10000"
+    expect(speech.interjection).to be true
+    expect(speech.continuation).to be false
+  end
 
   it "is not an interjection if the talker is specified but there is interjecting in the text" do
     speech = HansardSpeech.new(Hpricot.XML('
@@ -62,8 +62,8 @@ describe HansardSpeech, "should recognise who's talking" do
 				<para>I listened to all the accusations of bad faith without interjecting.</para>
 			</talk.start>
 		</continue>').at("continue"), "", "", "", "", nil)
-		expect(speech.interjection).to be false
-		expect(speech.continuation).to be true
+    expect(speech.interjection).to be false
+    expect(speech.continuation).to be true
   end
 
   it "should return the version of the speakername with more information" do
@@ -76,9 +76,9 @@ describe HansardSpeech, "should recognise who's talking" do
 				</talker>
 			</talk.start>
 		</interjection>').at("interjection"), "", "", "", "", nil)
-		expect(speech.speakername).to eq "Jenkins, Harry (The DEPUTY SPEAKER)"
-		expect(speech.interjection).to be true
-		expect(speech.continuation).to be false
+    expect(speech.speakername).to eq "Jenkins, Harry (The DEPUTY SPEAKER)"
+    expect(speech.interjection).to be true
+    expect(speech.continuation).to be false
   end
 
   it "should recognise generic speakers interjecting" do
@@ -105,8 +105,8 @@ describe HansardSpeech, "should clean content" do
 
   it "in a motion block" do
     content = '<motion><para><inline font-size="9pt">Some intro</inline></para><list type="loweralpha"><item label="(a)"><para>Point a</para></item><item label="(b)"><para>Point b</para></item></list></motion>'
-		expected_result = '<p pwmotiontext="moved">Some intro<dl><dt>(a)</dt><dd>Point a</dd><dt>(b)</dt><dd>Point b</dd></dl></p>'
-		expect(HansardSpeech.new(Hpricot.XML(content).at('motion'), "", "", "", "", nil).clean_content.to_s).to eq expected_result
+    expected_result = '<p pwmotiontext="moved">Some intro<dl><dt>(a)</dt><dd>Point a</dd><dt>(b)</dt><dd>Point b</dd></dl></p>'
+    expect(HansardSpeech.new(Hpricot.XML(content).at('motion'), "", "", "", "", nil).clean_content.to_s).to eq expected_result
   end
 
   # Split the following into separate tests

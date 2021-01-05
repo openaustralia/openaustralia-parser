@@ -44,13 +44,13 @@ describe HansardDivision do
   end
 
   it "should parse the xml for a division correctly" do
-		# Note that the *'s are stripped from the names
-		expect(division.yes).to eq ["Joe Bloggs", "Henry Smith", "Phil Smith"]
-		expect(division.no).to eq ["John Smith"]
+    # Note that the *'s are stripped from the names
+    expect(division.yes).to eq ["Joe Bloggs", "Henry Smith", "Phil Smith"]
+    expect(division.no).to eq ["John Smith"]
   end
 
   it "should know the time the division took place" do
-		expect(division.time).to eq "09:06:00"
+    expect(division.time).to eq "09:06:00"
   end
 
   it "should recognise the tellers" do
@@ -176,7 +176,7 @@ end
 describe HansardDivision, "with pairings" do
   before(:each) do
     @division = HansardDivision.new(Hpricot.XML(
-      '<division>
+                                      '<division>
           <division.header>
               <time.stamp>10:36:00</time.stamp>
               <para>The Senate divided.&#xA0;&#xA0;&#xA0;&#xA0; </para>
@@ -198,7 +198,8 @@ describe HansardDivision, "with pairings" do
           <division.result>
               <para>Question negatived.</para>
           </division.result>
-      </division>'), "", "", "", nil)
+      </division>'
+                                    ), "", "", "", nil)
   end
 
   it "should parse the pairs votes" do

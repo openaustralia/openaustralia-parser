@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-#!/usr/bin/env ruby
+# !/usr/bin/env ruby
 
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
@@ -104,12 +104,12 @@ class TestName < Test::Unit::TestCase
 
   def test_non_breaking_space
     # First check names without any unicode
-    #assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.title_first_last("Mr John Smith"))
-    #assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.last_title_first("Smith, Mr John"))
+    # assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.title_first_last("Mr John Smith"))
+    # assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.last_title_first("Smith, Mr John"))
     # Now check similar names with unicode
     nbsp = [160].pack('U')
     assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.title_first_last("Mr#{nbsp}John#{nbsp}Smith"))
-    #assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.last_title_first("Smith,#{nbsp}Mr#{nbsp}John"))
+    # assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.last_title_first("Smith,#{nbsp}Mr#{nbsp}John"))
   end
 
   def test_double_barrelled
@@ -235,8 +235,8 @@ class TestName < Test::Unit::TestCase
 
   def test_matches_with_first_initials
     l_johnson = Name.title_first_last("L Johnson")
-    leonard_keith_johnson = Name.new(:first => "Leonard", :middle => "Keith",   :last => "Johnson")
-    leslie_royston_johnson = Name.new(:first => "Leslie",  :middle => "Royston", :last => "Johnson")
+    leonard_keith_johnson = Name.new(:first => "Leonard", :middle => "Keith", :last => "Johnson")
+    leslie_royston_johnson = Name.new(:first => "Leslie", :middle => "Royston", :last => "Johnson")
     peter_francis_johnson = Name.new(:first => "Peter", :middle => "Francis", :last => "Johnson")
     assert(!peter_francis_johnson.matches?(l_johnson))
     assert(leonard_keith_johnson.matches?(l_johnson))
@@ -245,8 +245,8 @@ class TestName < Test::Unit::TestCase
 
   def test_matches_with_middle_initials
     lk_johnson = Name.title_first_last("LK Johnson")
-    leonard_keith_johnson = Name.new(:first => "Leonard", :middle => "Keith",   :last => "Johnson")
-    leslie_royston_johnson = Name.new(:first => "Leslie",  :middle => "Royston", :last => "Johnson")
+    leonard_keith_johnson = Name.new(:first => "Leonard", :middle => "Keith", :last => "Johnson")
+    leslie_royston_johnson = Name.new(:first => "Leslie", :middle => "Royston", :last => "Johnson")
 
     assert(!leslie_royston_johnson.matches?(lk_johnson))
     assert(leonard_keith_johnson.matches?(lk_johnson))
