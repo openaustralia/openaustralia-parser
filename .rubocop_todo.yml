@@ -522,13 +522,6 @@ Style/StringConcatenation:
     - 'spec/speech_spec.rb'
     - 'wikipedia.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: MinSize.
-# SupportedStyles: percent, brackets
-Style/SymbolArray:
-  EnforcedStyle: brackets
-
 # Offense count: 19
 # Cop supports --auto-correct.
 # Configuration parameters: IgnoredMethods.

@@ -25,7 +25,7 @@ class ProgressBar
     @previous_time = @start_time
     @title_width = 14
     @format = "%-#{@title_width}s %3d%% %s %s"
-    @format_arguments = [:title, :percentage, :bar, :stat]
+    @format_arguments = %i[title percentage bar stat]
     clear
     show
   end
@@ -193,7 +193,7 @@ class ProgressBar
   end
 
   def file_transfer_mode
-    @format_arguments = [:title, :percentage, :bar, :stat_for_file_transfer]
+    @format_arguments = %i[title percentage bar stat_for_file_transfer]
   end
 
   def format=(format)

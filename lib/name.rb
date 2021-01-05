@@ -12,7 +12,7 @@ class Name
     @initials = (params[:initials].upcase if params[:initials]) || ""
     @post_title = (params[:post_title].upcase if params[:post_title]) || ""
     @last = (Name.capitalize_each_name(params[:last]) if params[:last]) || ""
-    invalid_keys = params.keys - [:title, :first, :middle, :initials, :last, :post_title]
+    invalid_keys = params.keys - %i[title first middle initials last post_title]
     raise "Invalid keys #{invalid_keys} used" unless invalid_keys.empty?
   end
 
