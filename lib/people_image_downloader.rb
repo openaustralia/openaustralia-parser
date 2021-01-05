@@ -28,7 +28,7 @@ class PeopleImageDownloader
       large_image_filename = large_image_dir + "/#{person.id_count}.jpg"
 
       # TODO: Add an option so that we can redownload old photos easily
-      if File.exists?(small_image_filename) && File.exists?(large_image_filename)
+      if File.exist?(small_image_filename) && File.exist?(large_image_filename)
         puts "Photo for #{person.name.full_name} is already downloaded. So, skipping."
         next
       end

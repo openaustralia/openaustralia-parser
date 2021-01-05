@@ -81,7 +81,7 @@ class HansardParser
 
       # Now check whether there is a patch for that day and if so apply it
       patch_file_path = "#{File.dirname(__FILE__)}/../data/patches/#{house}.#{date}.xml.patch"
-      if File.exists?(patch_file_path)
+      if File.exist?(patch_file_path)
         begin
           Patch::patch(text, File.read(patch_file_path))
         rescue
@@ -117,7 +117,7 @@ class HansardParser
     # Use the origxml as a cache if it exists. Otherwise fetch
     # it via the web from aph
     filename = origxml_filename(date, house)
-    if File.exists?(filename)
+    if File.exist?(filename)
       puts "Reading cached xml from #{filename}..."
       xml = File.read(filename)
       # An empty file signifies there is no data for this day

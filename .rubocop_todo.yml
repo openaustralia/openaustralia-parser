@@ -6,14 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 8
-# Cop supports --auto-correct.
-Lint/DeprecatedClassMethods:
-  Exclude:
-    - 'lib/hansard_parser.rb'
-    - 'lib/people_image_downloader.rb'
-    - 'regression-test/regression_test_parse_speeches.rb'
-
 # Offense count: 1
 Lint/DuplicateCaseCondition:
   Exclude:

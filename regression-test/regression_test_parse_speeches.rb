@@ -34,7 +34,7 @@ people = PeopleCSVReader.read_members
 parser = HansardParser.new(people)
 
 def compare_xml(ref_path, test_path, date, count)
-  if File.exists?(ref_path) && File.exists?(test_path)
+  if File.exist?(ref_path) && File.exist?(test_path)
     command = "diff -q #{test_path} #{ref_path}"
     puts command
     system(command)
@@ -56,11 +56,11 @@ def compare_xml(ref_path, test_path, date, count)
         exit
       end
     end
-  elsif File.exists?(ref_path)
+  elsif File.exist?(ref_path)
     puts "ERROR: #{test_path} is missing"
     puts "Regression tests FAILED on date #{date} at count #{count}!"
     exit
-  elsif File.exists?(test_path)
+  elsif File.exist?(test_path)
     puts "ERROR: #{ref_path} is missing"
     puts "Regression tests FAILED on date #{date} at count #{count}!"
     exit
