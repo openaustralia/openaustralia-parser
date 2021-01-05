@@ -41,7 +41,7 @@ def extract_links_from_wikipedia(doc, people, links, agent)
         if link.get_attribute("href").match(/^\/wiki\/(.*)$/)
           title = $~[1]
         else
-          throw "Unexpected link format"
+          raise "Unexpected link format"
         end
         url = "http://en.wikipedia.org/wiki/#{title}"
         if links.has_key?(person.id) && links[person.id] != url

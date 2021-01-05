@@ -376,7 +376,7 @@ person count,aph id,name,birthday,alt name
 365,RH4,Duncan James Colquhoun Kerr,
 366,,Bernard Francis Kilgariff,
 367,,Denis James (later Sir James) Killen,
-368,00AMR,Ms Catherine Fiona King,
+368,00AMR,Ms Catherine Fiona King,,The Hon. Catherine King
 369,00AMQ,Mr Peter Edward King,
 370,00AOO,Linda Jean Kirk,
 371,SH4,Richard Emanuel Klugman,
@@ -504,7 +504,7 @@ person count,aph id,name,birthday,alt name
 493,,Justin Hilary O'Byrne,
 494,84S,Michelle Anne O'Byrne,
 495,EU4,William George O'Chee,
-496,00AN3,Brendan Patrick O'Connor,
+496,00AN3,Brendan Patrick O'Connor,,Brendan Patrick John O'Connor
 497,WU5,Gavan Michael O'Connor,
 498,,Frank Lionel O'Keefe,
 499,CE4,Neil Patrick O'Keefe,
@@ -745,7 +745,7 @@ person count,aph id,name,birthday,alt name
 730,M3A,Ken Wyatt,
 731,172770,Laura Smyth,
 732,M2X,Wyatt Roy,
-733,M3E,Rob Mitchell,
+733,M3E,Rob Mitchell,,Robert George Mitchell
 734,M3C,Adam Bandt,
 735,M3K,Tony Crook,,Anthony John Crook
 736,220370,Natasha Griggs,
@@ -840,7 +840,7 @@ person count,aph id,name,birthday,alt name
 812,243609,Andrew Giles,,
 813,249127,Pat Conroy,,Patrick Martin Conroy
 814,140590,Clare O'Neil,,
-815,208884,Christian Porter,,
+815,208884,Christian Porter,,Charles Christian Porter
 816,198084,Rick Wilson,,Richard James Wilson
 817,231027,Angus Taylor,,
 818,249308,Melissa Price,,
@@ -901,7 +901,7 @@ person count,aph id,name,birthday,alt name
 874,265980,Rebekha Sharkie,,
 875,56430,Damian Drum,,
 876,264170,Meryl Swanson,,
-877,245392,Luke Gosling,,
+877,245392,Luke Gosling,,Luke John Gosling OAM
 878,G86,Jason Falinski,,
 879,248969,Chris Crewther,,
 880,53517,Milton Dick,,
@@ -919,7 +919,7 @@ person count,aph id,name,birthday,alt name
 892,265991,Llew O'Brien,,Llewellyn O'Brien
 893,265970,Josh Wilson,,Joshua Hamilton Wilson
 894,IMW,Tim Wilson,,Timothy Robert Wilson
-895,265990,Anne Stanley,,
+895,265990,Anne Stanley,,Anne Maree Stanley
 896,265967,Andrew Wallace,,
 897,247512,Kimberley Kitching,,
 898,269583,Peter Georgiou,,
@@ -937,3 +937,54 @@ person count,aph id,name,birthday,alt name
 910,276714,David Smith,,David Philip Benedict Smith
 911,74519,Patrick Gorman,,
 912,250362,Mehreen Faruqi,,
+913,008Z0,Kerryn Phelps,,Dr Kerryn Phelps AM
+914,281558,Wendy Askew,,
+915,281503,Raff Ciccone,,Rafael Ciccone
+916,244276,Duncan Spender,,
+917,282237,Bridget Archer,,
+918,282306,Gavin Pearce,,Gavin Bruce Pearce
+919,144732,Alicia Payne,,
+920,282918,Gladys Liu,,
+921,263547,Libby Coker,,Elizabeth Ann Coker
+922,279991,Pat Conaghan,,Patrick John Conaghan
+923,80072,Celia Hammond,,Celia Monica Hammond
+924,133646,Peta Murphy,,Peta Jan Murphy
+925,132880,Daniel Mulino,,
+926,147140,Fiona Phillips,,
+927,281826,Phillip Thompson,,Phillip Bruce Thompson OAM
+928,282986,Katie Allen,,Dr Katrina Jane Allen
+929,282335,Helen Haines,,Dr Helen Mary Haines
+930,282212,Kate Thwaites,,Kate Lynne Thwaites
+931,264121,Anika Wells,,Anika Shay Wells
+932,281513,Melissa McIntosh,,Melissa Iris McIntosh
+933,201906,Terry Young,,Terry James Young
+934,278522,Josh Burns,,Joshua Solomon Burns
+935,281688,Anne Webster,,Dr Anne Elizabeth Webster
+936,282981,Angie Bell,,Angie Marion Bell
+937,282982,Fiona Martin,,Dr Fiona Barbouttis Martin
+938,282983,Julian Simmonds,,Julian Graham John Simmonds
+939,282984,Vince Connelly,,Vincent Gerard Connelly
+940,176304,James Stevens,,
+941,175696,Zali Steggall,,Zali Steggall OAM
+942,274506,Dave Sharma,,Devanand Noel Sharma
+943,273828,Hollie Hughes,,Hollie Alexandra Hughes
+944,168275,Tony Sheldon,,
+945,256063,Andrew Bragg,,Andrew James Bragg
+946,16913,Tim Ayres,,Timothy Ayres
+947,281697,Perin Davey,,Perin McGregor Davey
+948,282728,Sam McMahon,,Samantha Jane McMahon
+949,282997,Paul Scarr,,Paul Martin Scarr
+950,259819,Nita Green,,Nita Louise Green
+951,123072,Susan McDonald,,Susan Eileen McDonald
+952,283596,Gerard Rennick,,
+953,281603,Marielle Smith,,Marielle Catherine Feuerherdt Smith
+954,269375,Alex Antic,,Alexander Charles Antic
+955,264449,Claire Chandler,,
+956,252157,Jess Walsh,,Jessica Cecille Walsh
+957,283601,David Van,,David Allan Van
+958,283585,Matt O'Sullivan,,Matthew Anthony O'Sullivan
+959,287062,Andrew McLachlan,,Andrew Lockhart McLachlan
+960,281988,Kristy McBain,,Kristy Louise McBain
+961,280304,Lidia Thorpe,,Lidia Alma Thorpe
+962,291406,Ben Small,,Benjamin John Small
+963,291387,Garth Hamilton,,Garth Russell Hamilton

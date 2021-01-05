@@ -49,7 +49,11 @@ See [commit ee9d91c](https://github.com/openaustralia/openaustralia-parser/commi
 
 #### Checking
 
-After making changes run [`./parse-members.rb`](https://github.com/openaustralia/openaustralia-parser/blob/master/parse-members.rb), check the output, and also check that it's loaded your changes correctly into your development copy of OpenAustralia.org.
+After making changes to the data files, you can run `bundle exec ./postcodes.rb --test` and `bundle exec ./parse-members.rb --test`. In test mode, these scripts will simply verify that the data files can be correctly parsed, without writing to the database.
+
+These checks are also run by Travis when your changes are pushed to github.
+
+If you have a local development copy of OpenAustralia.org, you can also run [`./parse-members.rb`](https://github.com/openaustralia/openaustralia-parser/blob/master/parse-members.rb), and check that it's loaded your changes correctly into your development copy of OpenAustralia.org.
 
 ### Ministerial reshuffles
 
@@ -78,8 +82,6 @@ Or by checking the cron output which is emailed to the OAF `web-administrators` 
 ```
 Start time: 2017-09-05 09:05:01 AEST
 Parsing from APH to XML and loading into the database
-[DEPRECATION] requiring "RMagick" is deprecated. Use "rmagick" instead
-WARNING: Nokogiri was built against LibXML version 2.7.6, but has dynamically loaded 2.7.8
 
 
 parse-speeche:   0% |                                          | ETA:  --:--:--

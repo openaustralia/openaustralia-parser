@@ -30,8 +30,8 @@ class TestPeriod < Test::Unit::TestCase
   
   def test_invalid_parameter
     # :foo isn't valid
-    assert_raises(NameError) { Period.new(:count => 1, :foo => "Blah", :house => House.representatives, :person => @person) }
+    assert_raises(RuntimeError) { Period.new(:count => 1, :foo => "Blah", :house => House.representatives, :person => @person) }
     # :count is missing
-    assert_raises(NameError) { Period.new(:house => House.representatives, :person => @person) }
+    assert_raises(RuntimeError) { Period.new(:house => House.representatives, :person => @person) }
   end
 end

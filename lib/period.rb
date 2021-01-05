@@ -5,7 +5,7 @@ class PeriodBase
     @from_date =  params.delete(:from_date)
     @to_date =    params.delete(:to_date)
     @person =     params.delete(:person)
-    throw "Invalid keys: #{params.keys}" unless params.empty?
+    raise "Invalid keys: #{params.keys}" unless params.empty?
   end  
 
   def current_on_date?(date)
@@ -69,14 +69,14 @@ class Period < PeriodBase
   
   def initialize(params)
     # TODO: Make some parameters compulsary and others optional
-    throw ":person and :count parameter required in Period.new" unless params[:person] && params[:count]
+    raise ":person and :count parameter required in Period.new" unless params[:person] && params[:count]
     @from_why =   params.delete(:from_why)
     @to_why =     params.delete(:to_why)
     @division =   params.delete(:division)
     @state =      params.delete(:state)
     @party =      params.delete(:party)
     @house =      params.delete(:house)
-    throw ":house parameter not valid" unless representative? || senator?
+    raise ":house parameter not valid" unless representative? || senator?
     @count =      params.delete(:count)
     super
   end

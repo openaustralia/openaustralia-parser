@@ -1,0 +1,25 @@
+--- original.xml	2020-01-02 18:48:19.004135310 +1100
++++ patched.xml	2020-01-02 18:53:08.885896061 +1100
+@@ -42055,7 +42055,6 @@
+                   <name>Porter, CC</name>
+                   <name>Price, ML</name>
+                   <name>Ramsey, RE (teller)</name>
+-                  <name>Rishworth, AL</name>
+                   <name>Robert, SR</name>
+                   <name>Sharma, DN</name>
+                   <name>Simmonds, J</name>
+@@ -42128,6 +42127,7 @@
+                   <name>Perrett, GD</name>
+                   <name>Phillips, FE</name>
+                   <name>Plibersek, TJ</name>
++                  <name>Rishworth, AL</name>
+                   <name>Rowland, MA</name>
+                   <name>Ryan, JC (teller)</name>
+                   <name>Sharkie, RCC</name>
+@@ -51012,4 +51012,4 @@
+       </subdebate.1>
+     </debate>
+   </fedchamb.xscript>
+-</hansard>
+\ No newline at end of file
++</hansard>

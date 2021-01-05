@@ -32,12 +32,12 @@ data_path = "#{File.dirname(__FILE__)}/../data"
 people = PeopleCSVReader.read_members
 PeopleCSVReader.read_all_ministers(people)
 puts "Writing XML..."
-people.write_xml("#{conf.members_xml_path}/people.xml", "#{conf.members_xml_path}/all-members.xml",
-  "#{conf.members_xml_path}/peers-ucl.xml", "#{conf.members_xml_path}/ministers.xml", "#{conf.members_xml_path}/constituencies.xml")
+people.write_xml("#{conf.members_xml_path}/people.xml", "#{conf.members_xml_path}/representatives.xml",
+  "#{conf.members_xml_path}/senators.xml", "#{conf.members_xml_path}/ministers.xml", "#{conf.members_xml_path}/divisions.xml")
 
 ref_path = "#{File.dirname(__FILE__)}/../../ref"
 compare_xml("#{conf.members_xml_path}/people.xml", "#{ref_path}/people.xml")
-compare_xml("#{conf.members_xml_path}/all-members.xml", "#{ref_path}/all-members.xml")
-compare_xml("#{conf.members_xml_path}/peers-ucl.xml", "#{ref_path}/peers-ucl.xml")
+compare_xml("#{conf.members_xml_path}/representatives.xml", "#{ref_path}/representatives.xml")
+compare_xml("#{conf.members_xml_path}/senators.xml", "#{ref_path}/senators.xml")
 compare_xml("#{conf.members_xml_path}/ministers.xml", "#{ref_path}/ministers.xml")
-compare_xml("#{conf.members_xml_path}/constituencies.xml", "#{ref_path}/constituencies.xml")
+compare_xml("#{conf.members_xml_path}/divisions.xml", "#{ref_path}/divisions.xml")

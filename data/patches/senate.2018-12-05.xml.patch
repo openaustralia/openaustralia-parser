@@ -1,0 +1,27 @@
+--- original.xml       2018-12-19 20:21:02.771141395 +1100
++++ patched.xml        2018-12-19 20:38:16.775601544 +1100
+@@ -12603,7 +12603,7 @@
+                 <name>McCarthy, M</name>
+                 <name>Paterson, J</name>
+                 <name>Wong, P</name>
+-                <name>Smith, D</name>
++                <name>Smith, DA</name>
+               </names>
+             </pairs>
+           </division.data>
+@@ -12813,7 +12813,7 @@
+                 <name>McCarthy, M</name>
+                 <name>Paterson, J</name>
+                 <name>Wong, P</name>
+-                <name>Smith, D</name>
++                <name>Smith, DA</name>
+               </names>
+             </pairs>
+           </division.data>
+@@ -19539,4 +19539,4 @@
+       </subdebate.2>
+     </debate>
+   </chamber.xscript>
+-</hansard>
+\ No newline at end of file
++</hansard>

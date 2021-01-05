@@ -5,6 +5,7 @@ require 'hpricot_additions'
 require 'house'
 require 'hansard_division'
 require 'hansard_speech'
+require 'date'
 
 # Use this for sections of the Hansard that we're not currently supporting. Allows us to track
 # title and subtitle.
@@ -37,7 +38,7 @@ class HansardDay
       @house = case @page.at('chamber').inner_text.downcase
         when "senate" then House.senate
         when "reps", "house of reps" then House.representatives
-        else throw "Unexpected value for contents '#{@page.at('chamber').inner_text}' of <chamber> tag"
+        else raise "Unexpected value for contents '#{@page.at('chamber').inner_text}' of <chamber> tag"
       end
     end
     @house
@@ -83,7 +84,7 @@ class HansardDay
     when 'subdebate.1', 'subdebate.2', 'subdebate.3', 'subdebate.4'
       title(debate.parent).strip()
     else
-      throw "Unexpected tag #{debate.name}"
+      raise "Unexpected tag #{debate.name}"
     end
   end
 
@@ -126,7 +127,7 @@ class HansardDay
         results = bills(debate.parent)
       end
     else
-      throw "Unexpected tag #{debate.name}"
+      raise "Unexpected tag #{debate.name}"
     end
 
     results
@@ -150,10 +151,10 @@ class HansardDay
           front = subtitle(possible_firstdebates[0]).strip()
         end
       end
-      throw "Front title is to short! '#{front}' #{front.length}" if front.length == 0
+      raise "Front title is to short! '#{front}' #{front.length}" if front.length == 0
       (front + '; ' + title_tag_value(debate)).strip()
     else
-      throw "Unexpected tag #{debate.name}"
+      raise "Unexpected tag #{debate.name}"
     end
   end
 
@@ -223,7 +224,7 @@ class HansardDay
         question = false
         procedural = false
       else
-        throw "Unexpected tag #{e.name}"
+        raise "Unexpected tag #{e.name}"
       end
     end
     p
@@ -248,7 +249,7 @@ class HansardDay
             when 'debate', 'petition.group'
               p = p + pages_from_debate(e)
             else
-              throw "Unexpected tag #{e.name}"
+              raise "Unexpected tag #{e.name}"
           end
         end
       when 'answers.to.questions'
@@ -256,11 +257,11 @@ class HansardDay
           case e.name
           when 'debate'
           else
-            throw "Unexpected tag #{e.name}"
+            raise "Unexpected tag #{e.name}"
           end
         end
       else
-        throw "Unexpected tag #{e.name}"
+        raise "Unexpected tag #{e.name}"
       end
     end
     p

@@ -21,10 +21,10 @@ class People < Array
   
   # Methods that return Person object
   
-  # Returns nil if non found. Throws exception if more than one match
+  # Returns nil if non found. raises exception if more than one match
   def find_person_by_name(name)
     matches = find_people_by_name(name)
-    throw "More than one match for name #{name.full_name} found" if matches.size > 1
+    raise "More than one match for name #{name.full_name} found" if matches.size > 1
     matches[0] if matches.size == 1
   end
   
@@ -38,13 +38,13 @@ class People < Array
 
   def find_person_by_name_current_on_date(name, date)
     matches = find_people_by_name_current_on_date(name, date)
-    throw "More than one match for name #{name.full_name} found" if matches.size > 1
+    raise "More than one match for name #{name.full_name} found" if matches.size > 1
     matches[0] if matches.size == 1
   end
   
   def find_person_by_name_and_birthday(name, birthday)
     matches = find_people_by_name_and_birthday(name, birthday)
-    throw "More than one match for name #{name.full_name} with birthday #{birthday} found" if matches.size > 1
+    raise "More than one match for name #{name.full_name} with birthday #{birthday} found" if matches.size > 1
     matches[0] if matches.size == 1
   end
 
@@ -77,25 +77,25 @@ class People < Array
   
   def house_speaker(date)
     member = find_members_current_on(date, House.representatives).find {|m| m.house_speaker?}
-    throw "Could not find house speaker for date #{date}" if member.nil?
+    raise "Could not find house speaker for date #{date}" if member.nil?
     member
   end
   
   def senate_president(date)
     member = find_members_current_on(date, House.senate).find {|m| m.senate_president?}
-    throw "Could not find senate president for date #{date}" if member.nil?
+    raise "Could not find senate president for date #{date}" if member.nil?
     member
   end
   
   def deputy_senate_president(date)
     member = find_members_current_on(date, House.senate).find {|m| m.deputy_senate_president?}
-    throw "Could not find deputy senate president for date #{date}" if member.nil?
+    raise "Could not find deputy senate president for date #{date}" if member.nil?
     member
   end
   
   def deputy_house_speaker(date)
     member = find_members_current_on(date, House.representatives).find {|m| m.deputy_house_speaker?}
-    throw "Could not find deputy house speaker for date #{date}" if member.nil?
+    raise "Could not find deputy house speaker for date #{date}" if member.nil?
     member
   end
 
@@ -140,7 +140,7 @@ class People < Array
       if refined_matches.size == 1
         refined_matches[0]
       else
-        throw "More than one match for name #{name.full_name} #{name.real_initials} found in #{house.name}"
+        raise "More than one match for name #{name.full_name} #{name.real_initials} found in #{house.name}"
       end
     else
       matches[0] if matches.size == 1

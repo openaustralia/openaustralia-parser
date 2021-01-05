@@ -1,28 +1,24 @@
 source "http://rubygems.org"
 
 gem 'rake'
-gem 'activesupport'
-gem 'i18n' # Required by activesupport
-gem 'mechanize', '0.9.2'
-# Force using this version of hpricot so Marshal.dump of PageProxy object doesn't fail. Ugh.
-gem 'hpricot', "= 0.6.164"
-gem 'htmlentities'
-gem 'json'
 
-gem 'builder', '2.1.2'
+gem 'mechanize'
+gem 'hpricot'
+gem 'htmlentities'
+
+# Version 3 of builder outputs utf8 strings which will make the regression
+# tests fail. It would be good to check that the rest of the pipeline
+# (on openaustralia.org.au) can handle this change before we upgrade.
+gem 'builder', "~> 2"
 gem 'log4r'
 
 gem 'rmagick'
-# Travis was complaining this was missing from the Gemfile. Do we really need it?
-gem 'hoe'
 
-gem 'mysql'
+gem 'mysql2'
 
 group :test do
   gem 'rspec'
-  gem 'rcov'
-end
-
-group :development do
-  gem 'pry', '~> 0.9' # Ruby 1.8.7 support dropped in pry > 0.10
+  gem 'test-unit'
+  # TODO: rcov doesn't work on ruby > 1.8. Switch to simplecov
+  # gem 'rcov', "~> 0.9.10"
 end

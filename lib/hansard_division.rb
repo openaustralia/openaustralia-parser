@@ -1,16 +1,18 @@
+# encoding: utf-8
+
 require 'enumerator'
 
 class HansardDivision
   attr_reader :title, :subtitle, :bills
-  
+
   def initialize(content, title, subtitle, bills, day)
     @content, @title, @subtitle, @bills, @day = content, title, subtitle, bills, day
   end
-  
+
   def permanent_url
     @day.permanent_url
   end
-  
+
   # Return an array of the names of people that voted yes
   def yes
     (add_speaker?(:yes) ? raw_yes.push(speaker) : raw_yes).map {|text| HansardDivision.name(text)}
@@ -27,15 +29,21 @@ class HansardDivision
 
   def passed?
     case @content.at('(division.result)').inner_text
+    when /casting vote with the ayes/
+      true
+    when /casting vote with the noes/
+      false
     when /agreed to/
       true
     when /negatived/
+      false
+    when /was not carried/
       false
     else
       raise 'Could not determine division result'
     end
   end
-  
+
   def pairs
     names = @content.search("(division.data) > pairs > names > name").map {|e| e.inner_html}
     raise "Not an even number of people in the pairs voting" if names.size % 2 != 0
@@ -44,15 +52,15 @@ class HansardDivision
     names.each_slice(2) { |p| pairs << p }
     pairs
   end
-  
+
   def yes_tellers
     raw_yes.find_all {|text| HansardDivision.teller?(text)}.map {|text| HansardDivision.name(text)}
   end
-  
+
   def no_tellers
     raw_no.find_all {|text| HansardDivision.teller?(text)}.map {|text| HansardDivision.name(text)}
   end
-  
+
   def time
     tag = @content.at('(division.header) > (time.stamp)')
     time = tag.inner_html if tag
@@ -79,7 +87,7 @@ class HansardDivision
       raise('Speaker not found')
     end
   end
-  
+
   private
 
   def add_speaker?(to_vote)
@@ -93,15 +101,15 @@ class HansardDivision
   def raw_yes
     @content.search("(division.data) > ayes > names > name").map {|e| e.inner_html}
   end
-  
+
   def raw_no
     @content.search("(division.data) > noes > names > name").map {|e| e.inner_html}
   end
-  
+
   def self.name(text)
     text =~ /^(.*)\*$/ ? $~[1].strip : text
   end
-  
+
   def self.teller?(text)
     text =~ /^(.*)\*$/
   end

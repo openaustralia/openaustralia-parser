@@ -5,11 +5,24 @@ $:.unshift "#{File.dirname(__FILE__)}/lib"
 
 require 'rubygems'
 require 'csv'
-require 'mysql'
+require 'mysql2'
 require 'configuration'
 require 'people'
+require 'optparse'
 
-conf = Configuration.new
+options = {}
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: postcodes.rb [--test]"
+
+  opts.on("--test", "Run in test mode (no DB updates)") do |test|
+    options[:test] = test
+  end
+end.parse!
+
+unless options[:test]
+  conf = Configuration.new
+end
 
 def quote_string(s)
   s.gsub(/\\/, '\&\&').gsub(/'/, "''") # ' (for ruby-mode)
@@ -26,13 +39,17 @@ all_members = people.all_periods_in_house(House.representatives)
 # First check that all the constituencies are valid
 constituencies = data.map { |row| row[1] }.uniq.reject(&:empty?)
 constituencies.each do |constituency|
-  throw "Constituency #{constituency} not found" unless all_members.any? {|m| m.division == constituency}
+  raise "Constituency #{constituency} not found" unless all_members.any? {|m| m.division == constituency}
 end
 
-db = Mysql.real_connect(conf.database_host, conf.database_user, conf.database_password, conf.database_name)
+if options[:test]
+  puts "Postcodes look good!"
+else
+  db = Mysql2::Client.new(host: conf.database_host, username: conf.database_user, password: conf.database_password, database: conf.database_name)
 
-# Clear out the old data
-db.query("DELETE FROM postcode_lookup")
+  # Clear out the old data
+  db.query("DELETE FROM postcode_lookup")
 
-values = data.map {|row| "('#{row[0]}', '#{quote_string(row[1])}')" }.join(',')
-db.query("INSERT INTO postcode_lookup (postcode, name) VALUES #{values}")
+  values = data.map {|row| "('#{row[0]}', '#{quote_string(row[1])}')" }.join(',')
+  db.query("INSERT INTO postcode_lookup (postcode, name) VALUES #{values}")
+end

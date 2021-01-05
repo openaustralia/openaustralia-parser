@@ -13,8 +13,8 @@ require 'configuration'
 
 # Range of dates to test
 
-from_date = Date.new(2007, 1, 1)
-to_date = Date.new(2008, 1, 1) - 1
+from_date = Date.new(2019, 1, 1)
+to_date = Date.new(2020, 1, 1) - 1
 
 # Number of items to skip at the beginning
 skip = 0
@@ -22,7 +22,7 @@ skip = 0
 # Dates to test first before anything else
 # Update this list with any dates that have shown up problems in the past
 
-test_first = [Date.new(2007,8,8), Date.new(2007,8,14), Date.new(2007,5,8), Date.new(2007,2,14)]
+test_first = []
 
 skip_dates = []
 
@@ -45,7 +45,9 @@ def compare_xml(ref_path, test_path, date, count)
       ref = "regression_failed_ref.xml"
       system("tidy -xml -utf8 -o #{test} #{test_path}")
       system("tidy -xml -utf8 -o #{ref} #{ref_path}")
-      system("opendiff #{test} #{ref}")
+      puts("******")
+      system("diff #{test_path} #{ref_path}")
+      puts("******")
       puts "ERROR: #{test_path} and #{ref_path} don't match"
       puts "Regression tests FAILED on date #{date} at count #{count}!"
       # Give the user the option to overwrite the reference file and continue
@@ -77,7 +79,7 @@ def test_date(date, conf, parser, count)
   parser.parse_date_house(date, new_reps_xml_path, House.representatives)
   compare_xml(ref_reps_xml_path, new_reps_xml_path, date, count)
   parser.parse_date_house(date, new_senate_xml_path, House.senate)
-  compare_xml(ref_senate_xml_path, new_senate_xml_path, date, count)  
+  compare_xml(ref_senate_xml_path, new_senate_xml_path, date, count)
 end
 
 class Array
@@ -112,13 +114,13 @@ dates[skip..-1].each do |date|
   count = count + 1
   puts "Regression test progress: Done #{count}/#{dates.size}"
   seconds_left = ((Time.new - time0) / (count - skip) * (dates.size - count)).to_i
-  
+
   minutes_left = (seconds_left / 60).to_i
   seconds_left = seconds_left - 60 * minutes_left
-  
+
   hours_left = (minutes_left / 60).to_i
   minutes_left = minutes_left - 60 * hours_left
-  
+
   if hours_left > 0
     puts "Estimated time left to completion: #{hours_left} hours #{minutes_left} mins"
   else

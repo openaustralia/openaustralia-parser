@@ -19,7 +19,7 @@ describe Section do
       subject{ Section.new("9:14", 'url', Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
 
       it "should combine the date and time attributes to return a Time object" do
-        subject.to_time.should be_eql(Time.local(2006, 1, 1, 9, 14))
+        expect(subject.to_time).to be_eql(Time.local(2006, 1, 1, 9, 14))
       end
 
     end
