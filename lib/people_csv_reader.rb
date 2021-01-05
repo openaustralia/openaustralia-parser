@@ -118,8 +118,6 @@ class PeopleCSVReader
     read_ministers(people, shadow_ministers_filename)
   end
 
-  private
-
   def PeopleCSVReader.parse_party(party)
     case party
     when "LIB"

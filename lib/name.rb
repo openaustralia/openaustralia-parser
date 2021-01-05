@@ -265,8 +265,6 @@ class Name
       @middle == name.middle && @initials == name.initials && @last == name.last && @post_title == name.post_title
   end
 
-  private
-
   def Name.extract_title_at_start(names)
     titles = Array.new
     while (title = Name.title(names))
