@@ -74,7 +74,7 @@ end
 
 puts "Writing XML..."
 people.write_xml("#{conf.members_xml_path}/people.xml", "#{conf.members_xml_path}/representatives.xml", "#{conf.members_xml_path}/senators.xml",
-  "#{conf.members_xml_path}/ministers.xml", "#{conf.members_xml_path}/divisions.xml")
+                 "#{conf.members_xml_path}/ministers.xml", "#{conf.members_xml_path}/divisions.xml")
 
 
 if options[:test]

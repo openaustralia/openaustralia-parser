@@ -33,7 +33,7 @@ people = PeopleCSVReader.read_members
 PeopleCSVReader.read_all_ministers(people)
 puts "Writing XML..."
 people.write_xml("#{conf.members_xml_path}/people.xml", "#{conf.members_xml_path}/representatives.xml",
-  "#{conf.members_xml_path}/senators.xml", "#{conf.members_xml_path}/ministers.xml", "#{conf.members_xml_path}/divisions.xml")
+                 "#{conf.members_xml_path}/senators.xml", "#{conf.members_xml_path}/ministers.xml", "#{conf.members_xml_path}/divisions.xml")
 
 ref_path = "#{File.dirname(__FILE__)}/../../ref"
 compare_xml("#{conf.members_xml_path}/people.xml", "#{ref_path}/people.xml")

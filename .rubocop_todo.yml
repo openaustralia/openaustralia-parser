@@ -6,20 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 23
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: with_first_argument, with_fixed_indentation
-Layout/ArgumentAlignment:
-  Exclude:
-    - 'lib/configuration.rb'
-    - 'lib/hansard_parser.rb'
-    - 'lib/speech.rb'
-    - 'parse-members.rb'
-    - 'regression-test/regression_test_parse_members.rb'
-    - 'spec/division_spec.rb'
-    - 'test/test_name.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, IndentationWidth.

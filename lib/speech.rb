@@ -4,7 +4,7 @@ require 'section'
 
 class Speech < Section
   attr_accessor :speaker, :content, :interjection, :continuation, :duration,
-    :word_count_for_continuations
+                :word_count_for_continuations
 
   def initialize(speaker, time, url, count, date, house, logger = nil)
     @speaker = speaker

@@ -189,7 +189,7 @@ class HansardParser
               speaker = this_speaker unless speech.interjection
 
               debates.add_speech(this_speaker, speech.time, speech.permanent_url,
-                  speech.clean_content, speech.interjection, speech.continuation)
+                                 speech.clean_content, speech.interjection, speech.continuation)
             end
             debates.increment_minor_count
           end

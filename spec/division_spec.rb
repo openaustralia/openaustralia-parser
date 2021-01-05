@@ -23,7 +23,7 @@ describe Division do
 
     # John and Joe vote yes and Henry votes no. John and Henry are tellers
     @division1 = Division.new([john_member, joe_member], [henry_member], [john_member], [henry_member],
-      [], "10:11:00", "http://foo/link", [{:id => "Z12345", :title => "A bill to support mongeese", :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345"}],Count.new(10, 2), 15, Date.new(2008, 2, 1), House.representatives)
+                              [], "10:11:00", "http://foo/link", [{:id => "Z12345", :title => "A bill to support mongeese", :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345"}],Count.new(10, 2), 15, Date.new(2008, 2, 1), House.representatives)
 
     john_member2 = Period.new(:person => john_person, :house => House.senate, :count => 1)
     joe_member2 = Period.new(:person => joe_person, :house => House.senate, :count => 2)
@@ -33,7 +33,7 @@ describe Division do
     @division2 = Division.new([john_member2], [], [], [], [], "9:10:00", "http://foo/link", [{:id => "Z12345", :title => "A bill to support mongeese", :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345"}], Count.new(1, 2), 3, Date.new(2008, 2, 1), House.senate)
 
     @division3 = Division.new([], [], [], [], [[john_member2, joe_member2], [henry_member2, jack_member2]],
-      "9:10:00", "http://foo/link", [{:id => "Z12345", :title => "A bill to support mongeese", :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345"}], Count.new(1, 2), 3, Date.new(2008, 2, 1), House.senate)
+                              "9:10:00", "http://foo/link", [{:id => "Z12345", :title => "A bill to support mongeese", :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345"}], Count.new(1, 2), 3, Date.new(2008, 2, 1), House.senate)
   end
 
   it "has the id in the correct form" do

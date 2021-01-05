@@ -42,37 +42,37 @@ class TestName < Test::Unit::TestCase
 
   def test_middle_name
     assert_equal(Name.new(:last => "Albanese", :first => "Anthony", :middle => "Norman"),
-      Name.last_title_first("Albanese Anthony Norman"))
+                 Name.last_title_first("Albanese Anthony Norman"))
   end
 
   def test_two_middle_names
     assert_equal(Name.new(:last => "Albanese", :first => "Anthony", :middle => "Norman peter"),
-      Name.last_title_first("Albanese Anthony Norman Peter"))
+                 Name.last_title_first("Albanese Anthony Norman Peter"))
   end
 
   def test_the_hon
     assert_equal(Name.new(:last => "Baird", :title => "the Hon.", :first => "Bruce", :middle => "George"),
-      Name.last_title_first("Baird the Hon. Bruce George"))
+                 Name.last_title_first("Baird the Hon. Bruce George"))
   end
 
   def test_initials_last
     assert_equal(Name.new(:last => "Johnson", :initials => "JF"),
-      Name.last_title_first("Johnson, JF"))
+                 Name.last_title_first("Johnson, JF"))
   end
 
   def test_initials_last2
     assert_equal(Name.new(:last => "Johnson", :initials => "JFK"),
-      Name.last_title_first("Johnson, JFK"))
+                 Name.last_title_first("Johnson, JFK"))
   end
 
   def test_nickname
     assert_equal(Name.new(:last => "Abbott", :title => "the Hon.", :first => "Anthony", :middle => "John"),
-      Name.last_title_first("ABBOTT, the Hon. Anthony (Tony) John"))
+                 Name.last_title_first("ABBOTT, the Hon. Anthony (Tony) John"))
   end
 
   def test_dr
     assert_equal(Name.new(:last => "Emerson", :title => "Dr", :first => "Craig", :middle => "Anthony"),
-      Name.last_title_first("EMERSON, Dr Craig Anthony"))
+                 Name.last_title_first("EMERSON, Dr Craig Anthony"))
   end
 
   def test_informal_name
@@ -123,7 +123,7 @@ class TestName < Test::Unit::TestCase
     assert_equal(Name.new(:title => "Mrs", :last => "Smith"), Name.title_first_last("Mrs Smith"))
     assert_equal(Name.new(:title => "Ms", :first => "Julie", :last => "Smith"), Name.title_first_last("Ms Julie Smith"))
     assert_equal(Name.new(:title => "Ms", :first => "Julie", :middle => "Sarah Marie", :last => "Smith"),
-      Name.title_first_last("Ms Julie Sarah Marie Smith"))
+                 Name.title_first_last("Ms Julie Sarah Marie Smith"))
   end
 
   def test_john_debus
@@ -171,22 +171,22 @@ class TestName < Test::Unit::TestCase
 
   def test_ian_sinclair
     assert_equal(Name.new(:last => "Sinclair", :title => "the Rt Hon.", :first => "Ian", :middle => "McCahon"),
-      Name.last_title_first("SINCLAIR, the Rt Hon. Ian Mccahon"))
+                 Name.last_title_first("SINCLAIR, the Rt Hon. Ian Mccahon"))
   end
 
   def test_two_post_titles
     assert_equal(Name.new(:last => "Williams", :title => "the Hon.", :first => "Daryl", :middle => "Robert", :post_title => "AM QC"),
-      Name.last_title_first("WILLIAMS, the Hon. Daryl Robert, AM, QC"))
+                 Name.last_title_first("WILLIAMS, the Hon. Daryl Robert, AM, QC"))
   end
 
   def test_stott_despoja
     # Difficult situation of two last names which aren't hyphenated
     assert_equal(Name.new(:last => "Stott Despoja", :first => "Natasha", :middle => "Jessica"),
-      Name.last_title_first("STOTT DESPOJA, Natasha Jessica"))
+                 Name.last_title_first("STOTT DESPOJA, Natasha Jessica"))
     assert_equal(Name.new(:last => "Stott Despoja", :title => "Senator"),
-      Name.title_first_last("Senator STOTT DESPOJA"))
+                 Name.title_first_last("Senator STOTT DESPOJA"))
     assert_equal(Name.new(:last => "Stott Despoja", :first => "Natasha"),
-      Name.title_first_last("Natasha Stott Despoja"))
+                 Name.title_first_last("Natasha Stott Despoja"))
   end
 
   # Class for simple (naive) way of comparing two names. Only compares parts of the name
@@ -205,7 +205,7 @@ class TestName < Test::Unit::TestCase
 
   def test_nickname_after_middle_names
     assert_equal(Name.new(:last => "Macdonald", :title => "the Hon.", :first => "John", :middle => "Alexander Lindsay"),
-      Name.last_title_first("MACDONALD, the Hon. John Alexander Lindsay (Sandy)"))
+                 Name.last_title_first("MACDONALD, the Hon. John Alexander Lindsay (Sandy)"))
   end
 
   # This test for the regression introduced by adding support for initials
@@ -217,12 +217,12 @@ class TestName < Test::Unit::TestCase
 
   def test_the_hon_john_howard_mp
     assert_equal(Name.title_first_last("The Hon John Howard MP"),
-      Name.new(:title => "the Hon.", :first => "John", :last => "Howard", :post_title => "MP"))
+                 Name.new(:title => "the Hon.", :first => "John", :last => "Howard", :post_title => "MP"))
   end
 
   def test_senator_the_hon_nick_minchin
     assert_equal(Name.title_first_last("Senator the Hon Nick Minchin"),
-      Name.new(:title => "Senator the Hon.", :first => "Nick", :last => "Minchin"))
+                 Name.new(:title => "Senator the Hon.", :first => "Nick", :last => "Minchin"))
   end
 
   def test_title_first_last_djc_kerr
