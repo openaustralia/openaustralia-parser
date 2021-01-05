@@ -38,9 +38,9 @@ class ProgressBar
 
   def fmt_bar
     bar_width = do_percentage * @terminal_width / 100
-    sprintf("|%s%s|",
-            @bar_mark * bar_width,
-            " " * (@terminal_width - bar_width))
+    format("|%s%s|",
+           @bar_mark * bar_width,
+           " " * (@terminal_width - bar_width))
   end
 
   def fmt_percentage
@@ -53,9 +53,9 @@ class ProgressBar
 
   def fmt_stat_for_file_transfer
     if @finished_p then
-      sprintf("%s %s %s", bytes, transfer_rate, elapsed)
+      format("%s %s %s", bytes, transfer_rate, elapsed)
     else
-      sprintf("%s %s %s", bytes, transfer_rate, eta)
+      format("%s %s %s", bytes, transfer_rate, eta)
     end
   end
 
@@ -65,19 +65,19 @@ class ProgressBar
 
   def convert_bytes(bytes)
     if bytes < 1024
-      sprintf("%6dB", bytes)
+      format("%6dB", bytes)
     elsif bytes < 1024 * 1000 # 1000kb
-      sprintf("%5.1fKB", bytes.to_f / 1024)
+      format("%5.1fKB", bytes.to_f / 1024)
     elsif bytes < 1024 * 1024 * 1000 # 1000mb
-      sprintf("%5.1fMB", bytes.to_f / 1024 / 1024)
+      format("%5.1fMB", bytes.to_f / 1024 / 1024)
     else
-      sprintf("%5.1fGB", bytes.to_f / 1024 / 1024 / 1024)
+      format("%5.1fGB", bytes.to_f / 1024 / 1024 / 1024)
     end
   end
 
   def transfer_rate
     bytes_per_second = @current.to_f / (Time.now - @start_time)
-    sprintf("%s/s", convert_bytes(bytes_per_second))
+    format("%s/s", convert_bytes(bytes_per_second))
   end
 
   def bytes
@@ -89,7 +89,7 @@ class ProgressBar
     sec = t % 60
     min  = (t / 60) % 60
     hour = t / 3600
-    sprintf("%02d:%02d:%02d", hour, min, sec);
+    format("%02d:%02d:%02d", hour, min, sec);
   end
 
   # ETA stands for Estimated Time of Arrival.
@@ -99,13 +99,13 @@ class ProgressBar
     else
       elapsed = Time.now - @start_time
       eta = elapsed * @total / @current - elapsed;
-      sprintf("ETA:  %s", format_time(eta))
+      format("ETA:  %s", format_time(eta))
     end
   end
 
   def elapsed
     elapsed = Time.now - @start_time
-    sprintf("Time: %s", format_time(elapsed))
+    format("Time: %s", format_time(elapsed))
   end
 
   def eol
@@ -139,10 +139,10 @@ class ProgressBar
 
   def show
     arguments = @format_arguments.map do |method|
-      method = sprintf("fmt_%s", method)
+      method = format("fmt_%s", method)
       send(method)
     end
-    line = sprintf(@format, *arguments)
+    line = format(@format, *arguments)
 
     width = get_width
     if line.length == width - 1

@@ -207,15 +207,6 @@ Style/ColonMethodCall:
 Style/Documentation:
   Enabled: false
 
-# Offense count: 14
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: format, sprintf, percent
-Style/FormatString:
-  Exclude:
-    - 'Rakefile'
-    - 'lib/progressbar.rb'
-
 # Offense count: 13
 # Configuration parameters: MaxUnannotatedPlaceholdersAllowed.
 # SupportedStyles: annotated, template, unannotated
