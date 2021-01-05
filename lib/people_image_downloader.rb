@@ -155,9 +155,9 @@ class PeopleImageDownloader
     if img_tag
       relative_image_url = img_tag.attributes['src']
       #begin
-        #puts "About to lookup image #{relative_image_url}..."
-        res = @agent.get(relative_image_url)
-        Magick::Image.from_blob(res.body)[0]
+      #puts "About to lookup image #{relative_image_url}..."
+      res = @agent.get(relative_image_url)
+      Magick::Image.from_blob(res.body)[0]
       #rescue RuntimeError, Magick::ImageMagickError, Mechanize::ResponseCodeError
       #  return nil
       #end

@@ -36,9 +36,9 @@ class TestName < Test::Unit::TestCase
     assert_equal(@joanna_gash, Name.last_title_first("GASH joanna"))
   end
 
-#  def test_comma
-#    assert_equal(@joanna_gash, Name.last_title_first("Gash, Joanna"))
-#  end
+  #  def test_comma
+  #    assert_equal(@joanna_gash, Name.last_title_first("Gash, Joanna"))
+  #  end
 
   def test_middle_name
     assert_equal(Name.new(:last => "Albanese", :first => "Anthony", :middle => "Norman"),
