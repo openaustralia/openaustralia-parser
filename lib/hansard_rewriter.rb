@@ -108,7 +108,7 @@ EOF
     new_xml = Hpricot.XML("")
     input_text_node.search("/body/p").each do |p|
       # Skip empty nodes
-      if p.inner_text.strip.length == 0
+      if p.inner_text.strip.empty?
         logger.warn "    Ignoring para node as it was empty\n#{p}"
         next
       end
@@ -133,7 +133,7 @@ EOF
       # record with a class that starts with "Member".
       # (There are also '<a href' records which point to bills rather then
       # people.)
-      ahref = p.search("//a")[0] if p.search("//a").length > 0
+      ahref = p.search("//a")[0] if !p.search("//a").empty?
       if (not ahref.nil?) && ahref.attributes["type"].nil?
         logger.warn "    Found a link without type!? #{ahref}"
         next
@@ -142,7 +142,7 @@ EOF
 
         # Is this start of a speech? We can tell by the fact it has spans
         # with the HPS-Time class.
-        if speech_node.nil? || (p.search("[@class=HPS-Time]").length > 0)
+        if speech_node.nil? || !p.search("[@class=HPS-Time]").empty?
           # Rip out the electorate
           # <span class="HPS-Electorate">Grayndler</span>
           electorate = p.search("//span[@class=HPS-Electorate]")
@@ -231,7 +231,7 @@ EOF
           # Sometimes we get a second span with the same HPS-Type which just
           # contains someone name. Remove it.
           extra_spans = p.search("span > span[@class=HPS-#{ahref.attributes['type']}]")
-          if extra_spans.length > 0
+          if !extra_spans.empty?
             logger.warn "    Removing excess spans #{extra_spans.length}, removing the following text '#{extra_spans.inner_text}'"
             extra_spans.remove
 
@@ -248,7 +248,7 @@ EOF
 
           # Clean up the text a little
           text = santize(p.inner_text, false)
-          if extra_spans.length > 0
+          if !extra_spans.empty?
             # Left over from removing the extra spans
             text = text.gsub(/^\(\s*\): /, "")
           end
@@ -277,7 +277,7 @@ EOF
         # Some type of text paragaph
         text = santize(p.inner_text.strip, false).strip
 
-        next if text.length == 0
+        next if text.empty?
 
         case p.attributes["class"]
         when "HPS-Debate", "HPS-SubDebate", "HPS-SubSubDebate"
@@ -324,8 +324,8 @@ EOF
           elsif text_node.nil?
             logger.warn "    Ignoring para node as text_node was null\n#{p}"
 
-          elsif (p.search("span[@class=HPS-MemberIInterjecting]").length > 0) ||
-                (p.search("span[@class=HPS-MemberInterjecting]").length > 0) ||
+          elsif !p.search("span[@class=HPS-MemberIInterjecting]").empty? ||
+                !p.search("span[@class=HPS-MemberInterjecting]").empty? ||
                 member_iinterjecting
             logger.warn "    Found new /italics/ paragraph"
             text_node.append <<~EOF
@@ -387,7 +387,7 @@ EOF
         f.child_nodes.each do |e|
           case e.name
           when "debate.text", "subdebate.text"
-            subdebate_found = true if e.inner_text.strip.length > 0
+            subdebate_found = true if !e.inner_text.strip.empty?
           end
         end
       end

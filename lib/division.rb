@@ -18,12 +18,12 @@ class Division < Section
       end
       count_attributes = { ayes: @yes.size, noes: @no.size,
                            tellerayes: @yes_tellers.size, tellernoes: @no_tellers.size }
-      count_attributes[:pairs] = @pairs.size if @pairs.size > 0
+      count_attributes[:pairs] = @pairs.size unless @pairs.empty?
       x.divisioncount(count_attributes)
       output_vote_list(x, @yes, @yes_tellers, "aye")
       output_vote_list(x, @no, @no_tellers, "no")
       # Output pairs votes
-      if @pairs.size > 0
+      unless @pairs.empty?
         x.pairs do
           @pairs.each do |pair|
             x.pair do

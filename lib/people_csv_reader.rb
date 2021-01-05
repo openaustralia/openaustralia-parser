@@ -26,7 +26,7 @@ class PeopleCSVReader
       # You can specify multiple alternate names by filling out the next columns
       alternate_names = []
       line[4..-1].each do |t|
-        alternate_names << Name.title_first_last(t) if (not t.nil?) && (t.length > 0)
+        alternate_names << Name.title_first_last(t) if (not t.nil?) && !t.empty?
       end
       people << Person.new(
         name: name, alternate_names: alternate_names,
@@ -60,7 +60,7 @@ class PeopleCSVReader
       raise "Division is undefined for #{name.full_name}" if house.representatives? && division.nil?
 
       matches = people.find_people_by_name(name)
-      if matches.size == 0
+      if matches.empty?
         raise "Couldn't find person #{name.full_name}"
       elsif matches.size > 1
         # In a situation where several people match we use the "person count" field to disambiguate

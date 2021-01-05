@@ -121,7 +121,7 @@ class People < Array
           end
         end
       end
-      if refined_matches.size == 0
+      if refined_matches.empty?
         # Try again with just the first initial
         matches.each do |m|
           m.person.all_names.each do |n|

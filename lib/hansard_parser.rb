@@ -197,7 +197,7 @@ class HansardParser
           debates.add_heading(page.title, page.subtitle, page.permanent_url, page.bills)
           # Lookup names
           yes = page.yes.map do |text|
-            unless text.length == 0
+            unless text.empty?
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
               raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes)" if member.nil?
@@ -206,7 +206,7 @@ class HansardParser
             end
           end.compact
           no = page.no.map do |text|
-            unless text.length == 0
+            unless text.empty?
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
               raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no)" if member.nil?
@@ -215,7 +215,7 @@ class HansardParser
             end
           end.compact
           yes_tellers = page.yes_tellers.map do |text|
-            unless text.length == 0
+            unless text.empty?
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
               raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes and teller)" if member.nil?
@@ -224,7 +224,7 @@ class HansardParser
             end
           end.compact
           no_tellers = page.no_tellers.map do |text|
-            unless text.length == 0
+            unless text.empty?
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
               raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no and teller)" if member.nil?
@@ -234,7 +234,7 @@ class HansardParser
           end.compact
           pairs = page.pairs.map do |pair|
             pair.map do |text|
-              unless text.length == 0
+              unless text.empty?
                 name = Name.last_title_first(text)
                 member = @people.find_member_by_name_current_on_date(name, date, house)
                 raise "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair)" if member.nil?

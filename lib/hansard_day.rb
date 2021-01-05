@@ -93,7 +93,7 @@ class HansardDay
     case debate.name
     when "debate", "petition.group"
       # cognate debates can have multiple bill ids
-      if debate.at("> debateinfo") && debate.at("> debateinfo").children_of_type("id.no").size > 0
+      if debate.at("> debateinfo") && !debate.at("> debateinfo").children_of_type("id.no").empty?
         if debate.at("> debateinfo > type").inner_text.downcase == "bills"
           id = debate.at("/debateinfo").children_of_type("id.no")[0].inner_text
           title = debate.at("> debateinfo > title").inner_text
@@ -113,8 +113,8 @@ class HansardDay
         end
       end
     when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
-      if debate.get_elements_by_tag_name("subdebate.text").length > 0
-        if debate.get_elements_by_tag_name("subdebate.text")[0].get_elements_by_tag_name("a").length > 0
+      if !debate.get_elements_by_tag_name("subdebate.text").empty?
+        unless debate.get_elements_by_tag_name("subdebate.text")[0].get_elements_by_tag_name("a").empty?
           debate.get_elements_by_tag_name("subdebate.text")[0].get_elements_by_tag_name("a").each do |a|
             id = strip_tags(a["href"].strip)
             title = strip_tags(a.inner_text.strip)
@@ -150,7 +150,7 @@ class HansardDay
                   subtitle(possible_firstdebates[0]).strip
                 end
       end
-      raise "Front title is to short! '#{front}' #{front.length}" if front.length == 0
+      raise "Front title is to short! '#{front}' #{front.length}" if front.empty?
 
       (front + "; " + title_tag_value(debate)).strip
     else
