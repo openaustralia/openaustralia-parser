@@ -5,7 +5,7 @@ $:.unshift "#{File.dirname(__FILE__)}/lib"
 
 require 'rubygems'
 require 'csv'
-require 'mysql'
+require 'mysql2'
 require 'configuration'
 require 'people'
 require 'optparse'
@@ -45,7 +45,7 @@ end
 if options[:test]
   puts "Postcodes look good!"
 else
-  db = Mysql.real_connect(conf.database_host, conf.database_user, conf.database_password, conf.database_name)
+  db = Mysql2::Client.new(host: conf.database_host, username: conf.database_user, password: conf.database_password, database: conf.database_name)
 
   # Clear out the old data
   db.query("DELETE FROM postcode_lookup")
