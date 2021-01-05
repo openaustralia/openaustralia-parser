@@ -183,7 +183,7 @@ class HansardParser
           page.each do |speech|
             if speech
               # Only change speaker if a speaker name or url was found
-              this_speaker = (speech.speakername || speech.aph_id) ? lookup_speaker(speech, date, house) : speaker
+              this_speaker = speech.speakername || speech.aph_id ? lookup_speaker(speech, date, house) : speaker
               # With interjections the next speech should never be by the person doing the interjection
               speaker = this_speaker unless speech.interjection
 
