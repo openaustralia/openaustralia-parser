@@ -242,7 +242,7 @@ describe Debates do
       end
 
       it "should should use speech.word_count_for_continuations when estimating the duration" do
-        expect(@debates.items[0].duration).to eq (11 * 60)
+        expect(@debates.items[0].duration).to eq(11 * 60)
       end
     end
   end

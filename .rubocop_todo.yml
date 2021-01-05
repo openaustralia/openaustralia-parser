@@ -29,12 +29,6 @@ Lint/MissingSuper:
   Exclude:
     - 'lib/people.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Lint/ParenthesesAsGroupedExpression:
-  Exclude:
-    - 'spec/debates_spec.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 Lint/RedundantRequireStatement:
