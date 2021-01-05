@@ -43,11 +43,11 @@ class Person
   end
 
   def house_periods
-    @periods.find_all { |p| p.representative? }
+    @periods.find_all(&:representative?)
   end
 
   def senate_periods
-    @periods.find_all { |p| p.senator? }
+    @periods.find_all(&:senator?)
   end
 
   def add_period(params)

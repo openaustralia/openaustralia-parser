@@ -78,28 +78,28 @@ class People < Array
   # Methods that return Period objects
 
   def house_speaker(date)
-    member = find_members_current_on(date, House.representatives).find { |m| m.house_speaker? }
+    member = find_members_current_on(date, House.representatives).find(&:house_speaker?)
     raise "Could not find house speaker for date #{date}" if member.nil?
 
     member
   end
 
   def senate_president(date)
-    member = find_members_current_on(date, House.senate).find { |m| m.senate_president? }
+    member = find_members_current_on(date, House.senate).find(&:senate_president?)
     raise "Could not find senate president for date #{date}" if member.nil?
 
     member
   end
 
   def deputy_senate_president(date)
-    member = find_members_current_on(date, House.senate).find { |m| m.deputy_senate_president? }
+    member = find_members_current_on(date, House.senate).find(&:deputy_senate_president?)
     raise "Could not find deputy senate president for date #{date}" if member.nil?
 
     member
   end
 
   def deputy_house_speaker(date)
-    member = find_members_current_on(date, House.representatives).find { |m| m.deputy_house_speaker? }
+    member = find_members_current_on(date, House.representatives).find(&:deputy_house_speaker?)
     raise "Could not find deputy house speaker for date #{date}" if member.nil?
 
     member
@@ -146,7 +146,7 @@ class People < Array
   end
 
   def find_members_by_name(name)
-    find_people_by_name(name).map { |p| p.periods }.flatten
+    find_people_by_name(name).map(&:periods).flatten
   end
 
   def find_members_by_name_current_on_date(name, date, house)
@@ -154,7 +154,7 @@ class People < Array
   end
 
   def find_current_members(house)
-    all_periods_in_house(house).find_all { |m| m.current? }
+    all_periods_in_house(house).find_all(&:current?)
   end
 
   def find_members_current_on(date, house)
@@ -165,7 +165,7 @@ class People < Array
 
   # All the electoral divisions that have ever existed (even if they don't exist anymore)
   def divisions
-    all_periods_in_house(House.representatives).map { |p| p.division }.uniq
+    all_periods_in_house(House.representatives).map(&:division).uniq
   end
 
   # Facade for readers and writers
@@ -179,6 +179,6 @@ class People < Array
   end
 
   def all_periods_in_house(house)
-    map { |p| p.periods }.flatten.find_all { |p| p.house == house }
+    map(&:periods).flatten.find_all { |p| p.house == house }
   end
 end

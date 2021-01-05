@@ -41,7 +41,7 @@ class HansardDivision
   end
 
   def pairs
-    names = @content.search("(division.data) > pairs > names > name").map { |e| e.inner_html }
+    names = @content.search("(division.data) > pairs > names > name").map(&:inner_html)
     raise "Not an even number of people in the pairs voting" if names.size.odd?
 
     # Format the flat list of names into pairs (assuming that the people in pairs appear consecutively)
@@ -97,11 +97,11 @@ class HansardDivision
   end
 
   def raw_yes
-    @content.search("(division.data) > ayes > names > name").map { |e| e.inner_html }
+    @content.search("(division.data) > ayes > names > name").map(&:inner_html)
   end
 
   def raw_no
-    @content.search("(division.data) > noes > names > name").map { |e| e.inner_html }
+    @content.search("(division.data) > noes > names > name").map(&:inner_html)
   end
 
   def self.name(text)

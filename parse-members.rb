@@ -33,7 +33,7 @@ puts "Running consistency checks..."
 # Collect all the division names
 
 members = people.all_periods_in_house(House.representatives)
-divisions = members.map { |member| member.division }.uniq.sort
+divisions = members.map(&:division).uniq.sort
 
 # Electoral divisions that don't exist anymore
 old_divisions = ["Angas", "Balaclava", "Bonython", "Burke", "Corinella", "Darling", "Darling Downs", "Diamond Valley",
@@ -51,7 +51,7 @@ divisions.each do |division|
     overlap = a.to_date - b.from_date
     puts "ERROR: Members #{a.person.name.full_name} and #{b.person.name.full_name} both in at the same time (overlap by #{overlap} days)" if overlap > 0
   end
-  puts "WARNING: No current member for #{division}" unless old_divisions.member?(division) || division_members.any? { |m| m.current? }
+  puts "WARNING: No current member for #{division}" unless old_divisions.member?(division) || division_members.any?(&:current?)
   if division_members.first.from_date > Date.new(1980, 1, 1)
     # puts "WARNING: Earliest member in division #{division} is #{division_members.first.person.name.full_name} who started on #{division_members.first.from_date}"
   end

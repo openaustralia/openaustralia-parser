@@ -522,19 +522,6 @@ Style/StringConcatenation:
     - 'spec/speech_spec.rb'
     - 'wikipedia.rb'
 
-# Offense count: 19
-# Cop supports --auto-correct.
-# Configuration parameters: IgnoredMethods.
-# IgnoredMethods: respond_to, define_method
-Style/SymbolProc:
-  Exclude:
-    - 'lib/hansard_division.rb'
-    - 'lib/people.rb'
-    - 'lib/people_yaml_writer.rb'
-    - 'lib/person.rb'
-    - 'parse-members.rb'
-    - 'parse-postcodes_2010.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, AllowSafeAssignment.

@@ -3,7 +3,7 @@ class PeopleYamlWriter
     yaml_people = people.map do |person|
       # @minister_positions = []
       a = { "id" => person.person_count, "name" => person.name.full_name }
-      a["alternate_names"] = person.alternate_names.map { |n| n.full_name } unless person.alternate_names.empty?
+      a["alternate_names"] = person.alternate_names.map(&:full_name) unless person.alternate_names.empty?
       a["birthday"] = person.birthday unless person.birthday.nil?
       representative = person.house_periods.map do |p|
         b = { "from" => { "date" => p.from_date, "why" => p.from_why.to_s },
