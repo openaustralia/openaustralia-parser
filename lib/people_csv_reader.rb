@@ -31,10 +31,10 @@ class PeopleCSVReader
         end
       end
       people << Person.new(
-        :name => name, :alternate_names => alternate_names,
-        :count => person_count.to_i,
-        :birthday => (birthday ? Date.strptime(birthday) : nil),
-        :aph_id => aph_id
+        name: name, alternate_names: alternate_names,
+        count: person_count.to_i,
+        birthday: (birthday ? Date.strptime(birthday) : nil),
+        aph_id: aph_id
       )
     end
     people
@@ -75,8 +75,8 @@ class PeopleCSVReader
         person = matches.first
       end
 
-      person.add_period(:house => house, :division => division, :state => state, :party => party,
-                        :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason, :count => member_count.to_i)
+      person.add_period(house: house, division: division, state: state, party: party,
+                        from_date: start_date, to_date: end_date, from_why: start_reason, to_why: end_reason, count: member_count.to_i)
     end
 
     people
@@ -108,7 +108,7 @@ class PeopleCSVReader
       person = people.find_person_by_name_current_on_date(n, from_date) if n
       raise "Can't find #{name} for date #{from_date}" if person.nil?
 
-      person.add_minister_position(:from_date => from_date, :to_date => to_date, :position => position)
+      person.add_minister_position(from_date: from_date, to_date: to_date, position: position)
     end
   end
 

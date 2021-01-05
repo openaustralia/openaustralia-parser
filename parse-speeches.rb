@@ -33,7 +33,7 @@ def parse_date(text)
 end
 
 # Defaults
-options = { :load_database => true, :proof => false, :force => false, :interactive => false }
+options = { load_database: true, proof: false, force: false, interactive: false }
 
 OptionParser.new do |opts|
   opts.banner = <<~EOF

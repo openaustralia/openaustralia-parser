@@ -14,18 +14,18 @@ end
 
 class MajorHeading < HeadingBase
   def output(x)
-    x.tag!("major-heading", :id => id, :url => @url) { x << @title }
+    x.tag!("major-heading", id: id, url: @url) { x << @title }
   end
 end
 
 class MinorHeading < HeadingBase
   def output(x)
-    parameters = { :id => id, :url => @url }
+    parameters = { id: id, url: @url }
     x.tag!("minor-heading", parameters) { x << @title }
     if @bills && !@bills.empty?
       x.bills do
         @bills.each do |bill|
-          x.bill({ :id => bill[:id], :url => bill[:url] }, bill[:title])
+          x.bill({ id: bill[:id], url: bill[:url] }, bill[:title])
         end
       end
     end

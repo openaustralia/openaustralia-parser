@@ -66,7 +66,7 @@ class Name
     end
     post_title = extract_post_title_at_end(names)
     middle = names[0..-1].join(' ')
-    Name.new(:title => title, :initials => initials, :last => last, :first => first, :middle => middle, :post_title => post_title)
+    Name.new(title: title, initials: initials, last: last, first: first, middle: middle, post_title: post_title)
   end
 
   # Extract a post title from the end if one is available
@@ -135,7 +135,7 @@ class Name
       names.pop
       middle = names[0..-1].join(' ')
     end
-    Name.new(:title => title, :last => last, :first => first, :middle => middle, :initials => initials, :post_title => post_title)
+    Name.new(title: title, last: last, first: first, middle: middle, initials: initials, post_title: post_title)
   end
 
   def first_initial

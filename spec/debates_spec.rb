@@ -8,16 +8,16 @@ require 'builder_alpha_attributes'
 
 describe Debates do
   before :each do
-    @james = double("Person", :name => double("Name", :full_name => "james"), :id => 101)
-    @henry = double("Person", :name => double("Name", :full_name => "henry"), :id => 102)
-    @rebecca = double("Person", :name => double("Name", :full_name => "rebecca"), :id => 103)
+    @james = double("Person", name: double("Name", full_name: "james"), id: 101)
+    @henry = double("Person", name: double("Name", full_name: "henry"), id: 102)
+    @rebecca = double("Person", name: double("Name", full_name: "rebecca"), id: 103)
     @debates = Debates.new(Date.new(2000, 1, 1), House.representatives)
   end
 
   it "creates a speech when adding content to an empty debate" do
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
 
-    expect(@debates.output_builder(Builder::XmlMarkup.new(:indent => 2))).to eq <<~EOF
+    expect(@debates.output_builder(Builder::XmlMarkup.new(indent: 2))).to eq <<~EOF
       <?xml version="1.0" encoding="UTF-8"?>
       <debates>
         <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
@@ -30,7 +30,7 @@ describe Debates do
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>And a bit more</p>"))
 
-    expect(@debates.output_builder(Builder::XmlMarkup.new(:indent => 2))).to eq <<~EOF
+    expect(@debates.output_builder(Builder::XmlMarkup.new(indent: 2))).to eq <<~EOF
       <?xml version="1.0" encoding="UTF-8"?>
       <debates>
         <speech approximate_duration="0" approximate_wordcount="8" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
@@ -44,7 +44,7 @@ describe Debates do
     @debates.increment_minor_count
     @debates.add_speech(@henry, "9:00", "url", Hpricot("<p>And a bit more</p>"), true)
 
-    expect(@debates.output_builder(Builder::XmlMarkup.new(:indent => 2))).to eq <<~EOF
+    expect(@debates.output_builder(Builder::XmlMarkup.new(indent: 2))).to eq <<~EOF
       <?xml version="1.0" encoding="UTF-8"?>
       <debates>
         <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
@@ -60,7 +60,7 @@ describe Debates do
     @debates.increment_minor_count
     @debates.add_speech(nil, "9:00", "url", Hpricot("<p>And a bit more</p>"))
 
-    expect(@debates.output_builder(Builder::XmlMarkup.new(:indent => 2))).to eq <<~EOF
+    expect(@debates.output_builder(Builder::XmlMarkup.new(indent: 2))).to eq <<~EOF
       <?xml version="1.0" encoding="UTF-8"?>
       <debates>
         <speech approximate_duration="0" approximate_wordcount="8" id="uk.org.publicwhip/debate/2000-01-01.1.1" nospeaker="true" talktype="speech" time="9:00" url="url">
@@ -72,10 +72,10 @@ describe Debates do
   it "always creates a new speech after a heading" do
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
     @debates.increment_minor_count
-    @debates.add_heading("title", "subtitle", "url", [{ :id => "Z12345", :title => 'A bill to support mongeese', :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" }])
+    @debates.add_heading("title", "subtitle", "url", [{ id: "Z12345", title: 'A bill to support mongeese', url: "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" }])
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>And a bit more</p>"))
 
-    expect(@debates.output_builder(Builder::XmlMarkup.new(:indent => 2))).to eq <<~EOF
+    expect(@debates.output_builder(Builder::XmlMarkup.new(indent: 2))).to eq <<~EOF
       <?xml version="1.0" encoding="UTF-8"?>
       <debates>
         <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
@@ -94,10 +94,10 @@ describe Debates do
   end
 
   it "creates a new speech for a procedural after a heading" do
-    @debates.add_heading("title", "subtitle", "url", [{ :id => "Z12345", :title => 'A bill to support mongeese', :url => "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" }])
+    @debates.add_heading("title", "subtitle", "url", [{ id: "Z12345", title: 'A bill to support mongeese', url: "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" }])
     @debates.add_speech(nil, "9:00", "url", Hpricot("<p>This is a speech</p>"))
 
-    expect(@debates.output_builder(Builder::XmlMarkup.new(:indent => 2))).to eq <<~EOF
+    expect(@debates.output_builder(Builder::XmlMarkup.new(indent: 2))).to eq <<~EOF
       <?xml version="1.0" encoding="UTF-8"?>
       <debates>
         <major-heading id="uk.org.publicwhip/debate/2000-01-01.1.1" url="url">
@@ -118,7 +118,7 @@ describe Debates do
     @debates.increment_minor_count
     @debates.add_speech(nil, "9:00", "url", Hpricot("<p>And a bit more</p>"))
 
-    expect(@debates.output_builder(Builder::XmlMarkup.new(:indent => 2))).to eq <<~EOF
+    expect(@debates.output_builder(Builder::XmlMarkup.new(indent: 2))).to eq <<~EOF
       <?xml version="1.0" encoding="UTF-8"?>
       <debates>
         <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">
@@ -136,7 +136,7 @@ describe Debates do
     @debates.increment_minor_count
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>And a bit more</p>"), false, true)
 
-    expect(@debates.output_builder(Builder::XmlMarkup.new(:indent => 2))).to eq <<~EOF
+    expect(@debates.output_builder(Builder::XmlMarkup.new(indent: 2))).to eq <<~EOF
       <?xml version="1.0" encoding="UTF-8"?>
       <debates>
         <speech approximate_duration="0" approximate_wordcount="4" id="uk.org.publicwhip/debate/2000-01-01.1.1" speakerid="101" speakername="james" talktype="speech" time="9:00" url="url">

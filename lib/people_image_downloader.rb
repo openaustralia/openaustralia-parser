@@ -45,7 +45,7 @@ class PeopleImageDownloader
 
       if name
         # Small HACK - removing title of name
-        name = Name.new(:first => name.first, :middle => name.middle, :last => name.last, :post_title => name.post_title)
+        name = Name.new(first: name.first, middle: name.middle, last: name.last, post_title: name.post_title)
         person = people.find_person_by_name_and_birthday(name, birthday)
         if person
           image.resize_to_fit(SMALL_THUMBNAIL_WIDTH, SMALL_THUMBNAIL_HEIGHT).write(small_image_filename)
@@ -77,10 +77,10 @@ class PeopleImageDownloader
     # http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Dataset:allmps%20John%20Smith
     # Find all the unique variants of the name without any of the titles
     name_variants = person.all_names.map do |n|
-      Name.new(:first => n.first, :middle => n.middle, :last => n.last).full_name
+      Name.new(first: n.first, middle: n.middle, last: n.last).full_name
     end.uniq
     name_variants_no_middle_name = person.all_names.map do |n|
-      Name.new(:first => n.first, :last => n.last).full_name
+      Name.new(first: n.first, last: n.last).full_name
     end.uniq
     # Check each variant of a person's name and return the biography page for the first one that exists
     matching_name = name_variants.find { |n| biography_page_for_person_with_name(n) }

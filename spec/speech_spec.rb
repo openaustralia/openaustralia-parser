@@ -9,8 +9,8 @@ require 'count'
 require 'builder_alpha_attributes'
 
 describe Speech do
-  let!(:person) { Person.new(:name => Name.new(:first => "John", :last => "Smith"), :count => 1) }
-  let!(:member) { Period.new(:person => person, :house => House.representatives, :count => 1) }
+  let!(:person) { Person.new(name: Name.new(first: "John", last: "Smith"), count: 1) }
+  let!(:member) { Period.new(person: person, house: House.representatives, count: 1) }
 
   before :each do
     # TODO: Fix duplication of house both in speaker and initialiser for Speech

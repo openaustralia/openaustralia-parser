@@ -51,11 +51,11 @@ class Person
   end
 
   def add_period(params)
-    @periods << Period.new(params.merge(:person => self))
+    @periods << Period.new(params.merge(person: self))
   end
 
   def add_minister_position(params)
-    @minister_positions << MinisterPosition.new(params.merge(:person => self))
+    @minister_positions << MinisterPosition.new(params.merge(person: self))
   end
 
   def ==(other)

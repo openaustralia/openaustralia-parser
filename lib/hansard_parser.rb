@@ -38,8 +38,8 @@ class HansardParser
     # Only log error messages or above to standard output
     o1.level = Log4r::ERROR
     @logger.add(o1)
-    @logger.add(Log4r::FileOutputter.new('foo', :filename => @conf.log_path, :trunc => false,
-                                                :formatter => Log4r::PatternFormatter.new(:pattern => "[%l] %d :: %M")))
+    @logger.add(Log4r::FileOutputter.new('foo', filename: @conf.log_path, trunc: false,
+                                                formatter: Log4r::PatternFormatter.new(pattern: "[%l] %d :: %M")))
 
     @rewriter = HansardRewriter.new(@logger)
   end
@@ -58,7 +58,7 @@ class HansardParser
     if tag && tag.inner_html =~ /^Unable to find document/
       nil
     else
-      link = page.link_with(:text => "View/Save XML")
+      link = page.link_with(text: "View/Save XML")
       if link.nil?
         @logger.warn "#{date} #{house}: Link to XML download is missing"
         nil

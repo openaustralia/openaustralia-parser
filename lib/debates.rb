@@ -129,7 +129,7 @@ class Debates
 
   def output(xml_filename)
     xml = File.open(xml_filename, 'w')
-    x = Builder::XmlMarkup.new(:target => xml, :indent => 1)
+    x = Builder::XmlMarkup.new(target: xml, indent: 1)
     output_builder(x)
 
     xml.close

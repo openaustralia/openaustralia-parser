@@ -98,7 +98,7 @@ class HansardDay
           id = debate.at("/debateinfo").children_of_type('id.no')[0].inner_text
           title = debate.at("> debateinfo > title").inner_text
           url = bill_url(id)
-          results << { :id => id, :title => title, :url => url }
+          results << { id: id, title: title, url: url }
         end
         debate.search("> debateinfo > cognate").each do |congnate|
           if congnate.at(:type).inner_text.downcase == 'bills'
@@ -107,7 +107,7 @@ class HansardDay
               id = id_elem.inner_text
               title = congnate.at(:title).inner_text
               url = bill_url(id)
-              results << { :id => id, :title => title, :url => url }
+              results << { id: id, title: title, url: url }
             end
           end
         end
@@ -119,7 +119,7 @@ class HansardDay
             id = strip_tags(a['href'].strip)
             title = strip_tags(a.inner_text.strip)
             url = bill_url(id)
-            results << { :id => id, :title => title, :url => url }
+            results << { id: id, title: title, url: url }
           end
         end
       else

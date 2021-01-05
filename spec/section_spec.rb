@@ -8,8 +8,8 @@ require 'count'
 require 'builder_alpha_attributes'
 
 describe Section do
-  let!(:person) { Person.new(:name => Name.new(:first => "John", :last => "Smith"), :count => 1) }
-  let!(:member) { Period.new(:person => person, :house => House.representatives, :count => 1) }
+  let!(:person) { Person.new(name: Name.new(first: "John", last: "Smith"), count: 1) }
+  let!(:member) { Period.new(person: person, house: House.representatives, count: 1) }
 
   describe "#to_time" do
     describe "with time set" do
