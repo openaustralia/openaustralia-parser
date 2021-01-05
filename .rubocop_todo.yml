@@ -522,16 +522,6 @@ Style/StringConcatenation:
     - 'spec/speech_spec.rb'
     - 'wikipedia.rb'
 
-# Offense count: 10
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiteralsInInterpolation:
-  Exclude:
-    - 'lib/hansard_day.rb'
-    - 'lib/hansard_parser.rb'
-    - 'xml_schemas/save_all_xml_files.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: MinSize.
