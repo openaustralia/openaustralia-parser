@@ -197,7 +197,7 @@ class HansardDay
         unless question
           questions = []
           f = e
-          while f && (f.name == "question" || f.name == "answer") do
+          while f && (f.name == "question" || f.name == "answer")
             questions = questions + f.map_child_node { |c| HansardSpeech.new(c, title, subtitle, bills, time(e), self, @logger) }
             f = f.next_sibling
           end
@@ -210,7 +210,7 @@ class HansardDay
         unless procedural
           procedurals = []
           f = e
-          while f && procedural_tags.include?(f.name) do
+          while f && procedural_tags.include?(f.name)
             procedurals << HansardSpeech.new(f, title, subtitle, bills, time(f), self, @logger)
             f = f.next_sibling
           end

@@ -522,12 +522,6 @@ Style/StringConcatenation:
     - 'spec/speech_spec.rb'
     - 'wikipedia.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/WhileUntilDo:
-  Exclude:
-    - 'lib/hansard_day.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 Style/WhileUntilModifier:
