@@ -50,7 +50,7 @@ def extract_divisions_for_postcode(agent, postcode)
   divisions = extract_divisions_from_page(page)
 
   if other_pages?(page)
-    begin
+    loop do
       page_number += 1
       puts "  Page #{page_number}..."
       form = page.form_with(:name => "aspnetForm")
@@ -59,7 +59,8 @@ def extract_divisions_for_postcode(agent, postcode)
       page = form.submit
       new_divisions = extract_divisions_from_page(page)
       divisions += new_divisions
-    end until new_divisions.empty?
+      break if new_divisions.empty?
+    end
   end
   # Remove duplicates and sort
   divisions.uniq.sort
