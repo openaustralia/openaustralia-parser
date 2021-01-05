@@ -196,13 +196,7 @@ class ProgressBar
     @format_arguments = %i[title percentage bar stat_for_file_transfer]
   end
 
-  def format=(format)
-    @format = format
-  end
-
-  def format_arguments=(arguments)
-    @format_arguments = arguments
-  end
+  attr_writer :format, :format_arguments
 
   def halt
     @finished_p = true
