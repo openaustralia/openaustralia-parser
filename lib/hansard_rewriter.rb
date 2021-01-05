@@ -311,15 +311,15 @@ EOF
           elsif p.inner_text.match(/Bill returned from the Senate with .*amendments?/i)
             logger.warn "    Found a bill with amendments"
 
-            if text_node.nil?
-              if speech_node.nil?
-                search_node = new_xml
-              else
-                search_node = speech_node
-              end
-            else
-              search_node = text_node
-            end
+            search_node = if text_node.nil?
+                            if speech_node.nil?
+                              new_xml
+                            else
+                              speech_node
+                            end
+                          else
+                            text_node
+                          end
 
             search_node.append <<~EOF
               <amendments>

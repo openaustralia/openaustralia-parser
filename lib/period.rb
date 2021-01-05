@@ -36,11 +36,11 @@ class MinisterPosition < PeriodBase
 
   def initialize(params)
     @position = params.delete(:position)
-    if params[:count]
-      @minister_count = params.delete(:count)
-    else
-      @minister_count = @@next_minister_count
-    end
+    @minister_count = if params[:count]
+                        params.delete(:count)
+                      else
+                        @@next_minister_count
+                      end
     @@next_minister_count = @@next_minister_count + 1
     super
   end

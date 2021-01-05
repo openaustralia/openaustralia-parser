@@ -99,11 +99,11 @@ class PeopleCSVReader
     data.each do |line|
       name, from_date, to_date, position = line
       from_date = parse_date(from_date)
-      if to_date == "" || to_date.nil?
-        to_date = DateWithFuture.future
-      else
-        to_date = parse_date(to_date)
-      end
+      to_date = if to_date == "" || to_date.nil?
+                  DateWithFuture.future
+                else
+                  parse_date(to_date)
+                end
       n = Name.title_first_last(name)
       person = people.find_person_by_name_current_on_date(n, from_date) if n
       raise "Can't find #{name} for date #{from_date}" if person.nil?

@@ -34,11 +34,11 @@ def read_in_ranges(p, filename_prefix, people)
   data.each_index do |i|
     start_page, last_name, first_name, date_text = data[i]
     start_page = start_page.to_i
-    if i + 1 < data.size
-      end_page = data[i + 1][0].to_i - 1
-    else
-      end_page = 'end'
-    end
+    end_page = if i + 1 < data.size
+                 data[i + 1][0].to_i - 1
+               else
+                 'end'
+               end
     # Ignore page ranges marked as blank
     if last_name.downcase != "** blank page **"
       name = Name.last_title_first(last_name + " " + first_name)

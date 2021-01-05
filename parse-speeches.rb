@@ -62,11 +62,11 @@ end
 
 from_date = parse_date(ARGV[0])
 
-if ARGV.size == 1
-  to_date = from_date
-else
-  to_date = parse_date(ARGV[1])
-end
+to_date = if ARGV.size == 1
+            from_date
+          else
+            parse_date(ARGV[1])
+          end
 
 conf = Configuration.new
 
@@ -116,11 +116,11 @@ end
 # Kind of helpful to start at the end date and go backwards when using the "--proof" option. So, always going to do this now.
 date = to_date
 while date >= from_date
-  if options[:proof]
-    parse = labmda { |a, b, c| parser.parse_date_house_only_in_proof a, b, c }
-  else
-    parse = lambda { |a, b, c| parser.parse_date_house a, b, c }
-  end
+  parse = if options[:proof]
+            labmda { |a, b, c| parser.parse_date_house_only_in_proof a, b, c }
+          else
+            lambda { |a, b, c| parser.parse_date_house a, b, c }
+          end
   parse_with_retry options[:interactive], parse, date, "#{conf.xml_path}/scrapedxml/representatives_debates/#{date}.xml", House.representatives
   progress.inc
 

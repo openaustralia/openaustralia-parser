@@ -33,11 +33,11 @@ class HansardSpeech
     # If there are multiple <name> tags prefer the one with the attribute role='display'
     talkername_tag1 = @content.at('name[@role=metadata]')
     # Only use the 'metadata' if it has brackets in it
-    if talkername_tag1 && talkername_tag1.inner_html =~ /\(.*\)/
-      talkername_tag = talkername_tag1
-    else
-      talkername_tag = @content.at('name[@role=display]') || @content.at('name')
-    end
+    talkername_tag = if talkername_tag1 && talkername_tag1.inner_html =~ /\(.*\)/
+                       talkername_tag1
+                     else
+                       @content.at('name[@role=display]') || @content.at('name')
+                     end
     talkername_tag ? talkername_tag.inner_html : nil
   end
 
@@ -92,11 +92,11 @@ class HansardSpeech
 
       # Workaround for badly marked up content. If a bold item is surrounded in brackets assume it is a name and remove it
       # Alternatively if the bold item is a generic name, remove it as well
-      if e.inner_html =~ /^\(.*\)$/ || generic_speaker?(e.inner_html)
-        text = ''
-      else
-        text = '<b>' + text + '</b>'
-      end
+      text = if e.inner_html =~ /^\(.*\)$/ || generic_speaker?(e.inner_html)
+               ''
+             else
+               '<b>' + text + '</b>'
+             end
     end
 
     if attributes_keys.delete('font-variant')
@@ -129,22 +129,18 @@ class HansardSpeech
   def self.clean_content_para_content(e)
     t = ""
     (e.children || []).each do |c|
-      if c.is_a?(Hpricot::Text)
-        t << strip_leading_dash(c.to_s)
-      else
-        t << clean_content_any(c)
-      end
+      t << if c.is_a?(Hpricot::Text)
+             strip_leading_dash(c.to_s)
+           else
+             clean_content_any(c)
+           end
     end
     t
   end
 
   # Pass a <para>Some text</para> block. Returns cleaned "<p>Some text</p>"
   def self.clean_content_para(e, override_type = nil)
-    if override_type
-      type = override_type
-    else
-      type = ""
-    end
+    type = override_type || ""
 
     case e.attributes['class']
     when 'italic'

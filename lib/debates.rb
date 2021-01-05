@@ -119,11 +119,11 @@ class Debates
       end
 
       # Calculate the duration if a next section is found, otherwise, stop
-      if next_section
-        section.duration = next_section.to_time - section.to_time
-      else
-        section.duration = 0
-      end
+      section.duration = if next_section
+                           next_section.to_time - section.to_time
+                         else
+                           0
+                         end
     end
   end
 

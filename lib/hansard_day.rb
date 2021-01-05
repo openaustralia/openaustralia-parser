@@ -146,11 +146,11 @@ class HansardDay
         front = subtitle(debate.parent).strip()
       else
         possible_firstdebates = debate.parent.search("(subdebate.1)")
-        if possible_firstdebates.length != 1
-          front = title(debate).strip()
-        else
-          front = subtitle(possible_firstdebates[0]).strip()
-        end
+        front = if possible_firstdebates.length != 1
+                  title(debate).strip()
+                else
+                  subtitle(possible_firstdebates[0]).strip()
+                end
       end
       raise "Front title is to short! '#{front}' #{front.length}" if front.length == 0
 
