@@ -266,7 +266,7 @@ class Name
   end
 
   def self.extract_title_at_start(names)
-    titles = Array.new
+    titles = []
     while (title = Name.title(names))
       titles << title
     end

@@ -109,7 +109,7 @@ class People < Array
     matches = find_members_by_name_current_on_date(name, date, house)
     # If multiple matches, try to refine with person's initials
     if matches.size > 1
-      refined_matches = Array.new
+      refined_matches = []
       matches.each do |m|
         m.person.all_names.each do |n|
           if n.real_initials[0..2] == name.real_initials[0..2]

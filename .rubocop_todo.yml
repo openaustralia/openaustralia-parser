@@ -207,13 +207,6 @@ Style/ColonMethodCall:
 Style/Documentation:
   Enabled: false
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/EmptyLiteral:
-  Exclude:
-    - 'lib/name.rb'
-    - 'lib/people.rb'
-
 # Offense count: 10
 # Cop supports --auto-correct.
 Style/Encoding:
