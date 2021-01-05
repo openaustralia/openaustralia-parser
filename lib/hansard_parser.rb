@@ -41,7 +41,7 @@ class HansardParser
     o1.level = Log4r::ERROR
     @logger.add(o1)
     @logger.add(Log4r::FileOutputter.new('foo', :filename => @conf.log_path, :trunc => false,
-      :formatter => Log4r::PatternFormatter.new(:pattern => "[%l] %d :: %M")))
+                                                :formatter => Log4r::PatternFormatter.new(:pattern => "[%l] %d :: %M")))
 
     @rewriter = HansardRewriter.new(@logger)
   end

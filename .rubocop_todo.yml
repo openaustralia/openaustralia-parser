@@ -97,24 +97,6 @@ Layout/FirstArgumentIndentation:
 Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
 
-# Offense count: 35
-# Cop supports --auto-correct.
-# Configuration parameters: AllowMultipleStyles, EnforcedHashRocketStyle, EnforcedColonStyle, EnforcedLastArgumentHashStyle.
-# SupportedHashRocketStyles: key, separator, table
-# SupportedColonStyles: key, separator, table
-# SupportedLastArgumentHashStyles: always_inspect, always_ignore, ignore_implicit, ignore_explicit
-Layout/HashAlignment:
-  Exclude:
-    - 'lib/division.rb'
-    - 'lib/hansard_parser.rb'
-    - 'lib/people_csv_reader.rb'
-    - 'lib/people_xml_writer.rb'
-    - 'lib/people_yaml_writer.rb'
-    - 'spec/people_spec.rb'
-    - 'test/test_people_csv_reader.rb'
-    - 'test/test_period.rb'
-    - 'test/test_person.rb'
-
 # Offense count: 26
 # Cop supports --auto-correct.
 Layout/HeredocIndentation:

@@ -7,14 +7,14 @@ class PeopleYamlWriter
       a["birthday"] = person.birthday unless person.birthday.nil?
       representative = person.house_periods.map do |p|
         b = {"from" => {"date" => p.from_date, "why" => p.from_why.to_s},
-          "division" => p.division.to_s, "state" => p.state.to_s, "party" => p.party, "id" => p.count}
+             "division" => p.division.to_s, "state" => p.state.to_s, "party" => p.party, "id" => p.count}
         b["to"] = {"date" => p.to_date, "why" => p.to_why.to_s} unless p.current?
         b
       end
       a["representative"] = representative unless representative.empty?
       senator = person.senate_periods.map do |p|
         b = {"from" => {"date" => p.from_date, "why" => p.from_why.to_s},
-          "state" => p.state.to_s, "party" => p.party, "id" => p.count}
+             "state" => p.state.to_s, "party" => p.party, "id" => p.count}
         b["to"] = {"date" => p.to_date, "why" => p.to_why.to_s} unless p.current?
         b
       end

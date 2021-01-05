@@ -36,8 +36,8 @@ class PeopleXMLWriter
           # TODO: Add "dept" and "source"
           x.ministerofficegroup do
             x.moffice(:id => p.id, :name => person.name.full_name,
-              :matchid => person.periods.first.id, :position => p.position,
-              :fromdate => p.from_date, :todate => p.to_date, :dept => "", :source => "")
+                      :matchid => person.periods.first.id, :position => p.position,
+                      :fromdate => p.from_date, :todate => p.to_date, :dept => "", :source => "")
           end
         end
       end
@@ -84,9 +84,9 @@ class PeopleXMLWriter
           from_why = limit_from_why(period.from_why)
           to_why = limit_to_why(period.to_why)
           x.member(:id => period.id,
-            :house => "representatives", :title => period.person.name.title, :firstname => period.person.name.first,
-            :lastname => period.person.name.last, :division => period.division, :party => period.party,
-            :fromdate => period.from_date, :todate => period.to_date, :fromwhy => from_why, :towhy => to_why)
+                   :house => "representatives", :title => period.person.name.title, :firstname => period.person.name.first,
+                   :lastname => period.person.name.last, :division => period.division, :party => period.party,
+                   :fromdate => period.from_date, :todate => period.to_date, :fromwhy => from_why, :towhy => to_why)
         end
       end
     end
@@ -105,9 +105,9 @@ class PeopleXMLWriter
           from_why = limit_from_why(period.from_why)
           to_why = limit_to_why(period.to_why)
           x.member(:id => period.id,
-            :house => "senate", :title => period.person.name.title, :firstname => period.person.name.first,
-            :lastname => period.person.name.last, :division => period.state, :party => period.party,
-            :fromdate => period.from_date, :todate => period.to_date, :fromwhy => from_why, :towhy => to_why)
+                   :house => "senate", :title => period.person.name.title, :firstname => period.person.name.first,
+                   :lastname => period.person.name.last, :division => period.state, :party => period.party,
+                   :fromdate => period.from_date, :todate => period.to_date, :fromwhy => from_why, :towhy => to_why)
         end
       end
     end

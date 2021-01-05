@@ -76,7 +76,7 @@ class PeopleCSVReader
         person = matches.first
       end
       person.add_period(:house => house, :division => division, :state => state, :party => party,
-          :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason, :count => member_count.to_i)
+                        :from_date => start_date, :to_date => end_date, :from_why => start_reason, :to_why => end_reason, :count => member_count.to_i)
     end
     
     people

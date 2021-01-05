@@ -17,7 +17,7 @@ class Division < Section
         end
       end
       count_attributes = {:ayes => @yes.size, :noes => @no.size,
-        :tellerayes => @yes_tellers.size, :tellernoes => @no_tellers.size}
+                          :tellerayes => @yes_tellers.size, :tellernoes => @no_tellers.size}
       count_attributes[:pairs] = @pairs.size if @pairs.size > 0
       x.divisioncount(count_attributes)
       output_vote_list(x, @yes, @yes_tellers, "aye")
