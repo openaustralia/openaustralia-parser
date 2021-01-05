@@ -207,12 +207,6 @@ Style/ColonMethodCall:
 Style/Documentation:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/EvenOdd:
-  Exclude:
-    - 'lib/hansard_division.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Style/ExplicitBlockArgument:
