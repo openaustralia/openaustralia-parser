@@ -29,15 +29,6 @@ Lint/MissingSuper:
   Exclude:
     - 'lib/people.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-Lint/RedundantRequireStatement:
-  Exclude:
-    - 'lib/hansard_division.rb'
-    - 'lib/name.rb'
-    - 'lib/people_csv_reader.rb'
-    - 'parse-members.rb'
-
 # Offense count: 2
 Lint/RescueException:
   Exclude:

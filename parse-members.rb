@@ -4,7 +4,6 @@ $:.unshift "#{File.dirname(__FILE__)}/lib"
 
 require 'configuration'
 require 'people'
-require 'enumerator'
 require 'optparse'
 
 options = {}

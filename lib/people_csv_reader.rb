@@ -1,8 +1,6 @@
 require 'csv'
 require 'ostruct'
 require 'date_with_future'
-require 'enumerator'
-
 require 'people'
 require 'person'
 require 'name'

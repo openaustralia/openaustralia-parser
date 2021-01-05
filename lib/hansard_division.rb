@@ -1,7 +1,5 @@
 # encoding: utf-8
 
-require 'enumerator'
-
 class HansardDivision
   attr_reader :title, :subtitle, :bills
 
