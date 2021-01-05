@@ -55,9 +55,7 @@ class Name
       if initials(names[0])
         # Allow several initials separated by spaces
         initials = ""
-        while names.size >= 1 && initials(names[0])
-          initials << initials(names.shift)
-        end
+        initials << initials(names.shift) while names.size >= 1 && initials(names[0])
       else
         first = names.shift
       end

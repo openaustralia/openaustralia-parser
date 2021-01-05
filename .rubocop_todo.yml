@@ -522,12 +522,6 @@ Style/StringConcatenation:
     - 'spec/speech_spec.rb'
     - 'wikipedia.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/WhileUntilModifier:
-  Exclude:
-    - 'lib/name.rb'
-
 # Offense count: 22
 # Cop supports --auto-correct.
 # Configuration parameters: WordRegex.
