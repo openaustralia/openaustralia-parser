@@ -2,7 +2,7 @@ require 'builder_alpha_attributes'
 require 'configuration'
 
 class PeopleXMLWriter
-  def PeopleXMLWriter.write(people, people_filename, members_filename, senators_filename, ministers_filename, divisions_filename)
+  def self.write(people, people_filename, members_filename, senators_filename, ministers_filename, divisions_filename)
     conf = Configuration.new
 
     write_people(people, people_filename)
@@ -23,7 +23,7 @@ class PeopleXMLWriter
     end
   end
 
-  def PeopleXMLWriter.write_ministers(people, filename)
+  def self.write_ministers(people, filename)
     conf = Configuration.new
 
     xml = File.open(filename, 'w')
@@ -63,15 +63,15 @@ class PeopleXMLWriter
   # of mysql that we're using now does error. So, to maintain compatibility
   # strip out "bad" values.
   # TODO: Update the openaustralia.org.au web app to handle new enum values
-  def PeopleXMLWriter.limit_from_why(from_why)
+  def self.limit_from_why(from_why)
     VALID_FROM_WHY.include?(from_why) ? from_why : "unknown"
   end
 
-  def PeopleXMLWriter.limit_to_why(to_why)
+  def self.limit_to_why(to_why)
     VALID_TO_WHY.include?(to_why) ? to_why : "unknown"
   end
 
-  def PeopleXMLWriter.write_members(people, filename)
+  def self.write_members(people, filename)
     conf = Configuration.new
 
     xml = File.open(filename, 'w')
@@ -92,7 +92,7 @@ class PeopleXMLWriter
     xml.close
   end
 
-  def PeopleXMLWriter.write_senators(people, filename)
+  def self.write_senators(people, filename)
     conf = Configuration.new
 
     xml = File.open(filename, 'w')
@@ -113,7 +113,7 @@ class PeopleXMLWriter
     xml.close
   end
 
-  def PeopleXMLWriter.write_people(people, filename)
+  def self.write_people(people, filename)
     conf = Configuration.new
 
     xml = File.open(filename, 'w')

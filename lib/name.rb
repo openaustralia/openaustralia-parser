@@ -18,7 +18,7 @@ class Name
     raise "Invalid keys #{invalid_keys} used" unless invalid_keys.empty?
   end
 
-  def Name.remove_text_in_brackets(text)
+  def self.remove_text_in_brackets(text)
     open = text.index('(')
     if open
       close = text.index(')', open)
@@ -31,7 +31,7 @@ class Name
     text.squeeze(' ')
   end
 
-  def Name.last_title_first(text)
+  def self.last_title_first(text)
     # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
     text = text.unicode_normalize(:nfkc)
     # Do the following before the split so we can handle things like "(foo bar)"
@@ -72,13 +72,13 @@ class Name
   end
 
   # Extract a post title from the end if one is available
-  def Name.post_title(names)
+  def self.post_title(names)
     valid_post_titles = ["AM", "SC", "AO", "MBE", "QC", "OBE", "KSJ", "JP", "MP", "AC", "RFD", "OAM", "MC", "CSC"]
     names.pop if valid_post_titles.include?(names.last)
   end
 
   # Returns initials if the name could be a set of initials
-  def Name.initials(name)
+  def self.initials(name)
     # If only one or two letters assume that these are initials
     # HACK: Added specific handling for initials DJC, DGH
     if initials_with_fullstops(name)
@@ -96,7 +96,7 @@ class Name
   end
 
   # Returns true if the name could be a set of initials with full stops in them (e.g. "A.B.")
-  def Name.initials_with_fullstops(name)
+  def self.initials_with_fullstops(name)
     # Heuristic: If word has any fullstops in it we'll assume that these are initials
     # This allows a degree of flexibility, such as allowing "A.B.", "A.B..", "A.B.C", etc...
     if name.include?('.')
@@ -104,7 +104,7 @@ class Name
     end
   end
 
-  def Name.title_first_last(text)
+  def self.title_first_last(text)
     # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
     text = text.unicode_normalize(:nfkc)
     names = text.delete(',').split(' ')
@@ -265,7 +265,7 @@ class Name
       @middle == other.middle && @initials == other.initials && @last == other.last && @post_title == other.post_title
   end
 
-  def Name.extract_title_at_start(names)
+  def self.extract_title_at_start(names)
     titles = Array.new
     while (title = Name.title(names))
       titles << title
@@ -273,7 +273,7 @@ class Name
     titles.join(' ')
   end
 
-  def Name.extract_post_title_at_end(names)
+  def self.extract_post_title_at_end(names)
     post_titles = []
     while (post_title = Name.post_title(names))
       post_titles.unshift(post_title)
@@ -281,12 +281,12 @@ class Name
     post_titles.join(' ')
   end
 
-  def Name.matches_hon?(name)
+  def self.matches_hon?(name)
     name.downcase == "hon." || name.downcase == "hon" || name.downcase == "honourable" || name.downcase == "honourable."
   end
 
   # Extract a title at the beginning of the list of names if available and shift
-  def Name.title(names)
+  def self.title(names)
     if names.size >= 3 && names[0].downcase == "the" && names[1].downcase == "rt" && matches_hon?(names[2])
       names.shift
       names.shift
@@ -309,7 +309,7 @@ class Name
   end
 
   # Capitalise a name using special rules
-  def Name.capitalize_name(name)
+  def self.capitalize_name(name)
     # Simple capitlisation
     name = name.capitalize
     # Replace a unicode character
@@ -325,7 +325,7 @@ class Name
     name
   end
 
-  def Name.capitalize_each_name(name)
+  def self.capitalize_each_name(name)
     name.split(' ').map { |t| Name.capitalize_name(t) }.join(' ')
   end
 end

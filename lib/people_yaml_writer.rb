@@ -1,5 +1,5 @@
 class PeopleYamlWriter
-  def PeopleYamlWriter.write(people, filename = "#{File.dirname(__FILE__)}/../data/people.yml")
+  def self.write(people, filename = "#{File.dirname(__FILE__)}/../data/people.yml")
     yaml_people = people.map do |person|
       # @minister_positions = []
       a = { "id" => person.person_count, "name" => person.name.full_name }

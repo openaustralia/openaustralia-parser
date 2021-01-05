@@ -49,7 +49,7 @@ class HansardSpeech
 
   public
 
-  def HansardSpeech.strip_leading_dash(text)
+  def self.strip_leading_dash(text)
     # Unicode Character 'Non-breaking hyphen' (U+2011)
     nbhyphen = [0x2011].pack('U')
     nbsp = [160].pack('U')
@@ -68,7 +68,7 @@ class HansardSpeech
     end
   end
 
-  def HansardSpeech.clean_content_inline(e)
+  def self.clean_content_inline(e)
     text = strip_leading_dash(e.inner_html)
 
     attributes_keys = e.attributes.to_hash.keys
@@ -120,13 +120,13 @@ class HansardSpeech
     text
   end
 
-  def HansardSpeech.clean_content_graphic(e)
+  def self.clean_content_graphic(e)
     # TODO: Probably the path needs to be different depending on whether Reps or Senate
     '<img src="http://parlinfoweb.aph.gov.au/parlinfo/Repository/Chamber/HANSARDR/' + e.attributes['href'] + '"/>'
   end
 
   # Pass a <para>Some text</para> block. Returns cleaned "Some text"
-  def HansardSpeech.clean_content_para_content(e)
+  def self.clean_content_para_content(e)
     t = ""
     (e.children || []).each do |c|
       if c.is_a?(Hpricot::Text)
@@ -139,7 +139,7 @@ class HansardSpeech
   end
 
   # Pass a <para>Some text</para> block. Returns cleaned "<p>Some text</p>"
-  def HansardSpeech.clean_content_para(e, override_type = nil)
+  def self.clean_content_para(e, override_type = nil)
     if override_type
       type = override_type
     else
@@ -165,7 +165,7 @@ class HansardSpeech
     end
   end
 
-  def HansardSpeech.clean_content_item(e)
+  def self.clean_content_item(e)
     d = ""
     e.each_child_node do |f|
       case f.name
@@ -186,7 +186,7 @@ class HansardSpeech
     end
   end
 
-  def HansardSpeech.clean_content_list(e)
+  def self.clean_content_list(e)
     # We figure out whether to generate a <dl> or <ul> based on whether the child tags all have a 'label' attribute or not
     label = e.at('> item').has_attribute?('label') if e.at('> item')
     # Check that all the children are consistent
@@ -203,7 +203,7 @@ class HansardSpeech
     end
   end
 
-  def HansardSpeech.clean_content_entry(e, override_type = nil)
+  def self.clean_content_entry(e, override_type = nil)
     attributes = 'valign="top"'
     if e.attributes['colspan'] && e.attributes['colspan'] != ""
       attributes << ' colspan="' + e.attributes['colspan'] + '"'
@@ -211,12 +211,12 @@ class HansardSpeech
     '<td ' + attributes + '>' + clean_content_recurse(e, override_type) + '</td>'
   end
 
-  def HansardSpeech.clean_content_table(e, override_type = nil)
+  def self.clean_content_table(e, override_type = nil)
     # Not sure if I really should put border="0" here. Hmmm...
     '<table border="0">' + clean_content_recurse(e, override_type) + '</table>'
   end
 
-  def HansardSpeech.clean_content_motion(e)
+  def self.clean_content_motion(e)
     # Hmmm. what if there are two para's below? will we get the wrong formatting?
     t = '<p pwmotiontext="moved">'
     e.each_child_node do |e|
@@ -235,7 +235,7 @@ class HansardSpeech
     t
   end
 
-  def HansardSpeech.clean_content_any(e, override_type = nil)
+  def self.clean_content_any(e, override_type = nil)
     case e.name
     when 'motion'
       clean_content_motion(e)
@@ -276,7 +276,7 @@ class HansardSpeech
     end
   end
 
-  def HansardSpeech.clean_content_recurse(e, override_type = nil)
+  def self.clean_content_recurse(e, override_type = nil)
     t = ""
     e.each_child_node do |e|
       t << clean_content_any(e, override_type)
@@ -293,7 +293,7 @@ class HansardSpeech
     str.gsub(/<\/?[^>]*>/, "")
   end
 
-  def HansardSpeech.generic_speaker?(speakername)
+  def self.generic_speaker?(speakername)
     speakername =~ /^(an? )?(honourable|opposition|government) (member|senator)s?$/i
   end
 

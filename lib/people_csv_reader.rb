@@ -7,13 +7,13 @@ require 'name'
 
 class PeopleCSVReader
   # Ignores comment lines starting with '#'
-  def PeopleCSVReader.read_raw_csv(filename)
+  def self.read_raw_csv(filename)
     data = CSV.readlines(filename)
     data.delete_if { |line| line[0] && line[0][0..0] == '#' }
     data
   end
 
-  def PeopleCSVReader.read_people(filename)
+  def self.read_people(filename)
     data = read_raw_csv(filename)
     data.shift
     data.shift
@@ -40,7 +40,7 @@ class PeopleCSVReader
     people
   end
 
-  def PeopleCSVReader.read_members_csv(people, filename, house)
+  def self.read_members_csv(people, filename, house)
     data = read_raw_csv(filename)
     # Remove the first two elements
     data.shift
@@ -82,16 +82,16 @@ class PeopleCSVReader
     people
   end
 
-  def PeopleCSVReader.read_members(people_filename = "#{File.dirname(__FILE__)}/../data/people.csv",
-                                   representatives_filename = "#{File.dirname(__FILE__)}/../data/representatives.csv",
-                                   senators_filename = "#{File.dirname(__FILE__)}/../data/senators.csv")
+  def self.read_members(people_filename = "#{File.dirname(__FILE__)}/../data/people.csv",
+                        representatives_filename = "#{File.dirname(__FILE__)}/../data/representatives.csv",
+                        senators_filename = "#{File.dirname(__FILE__)}/../data/senators.csv")
     people = read_people(people_filename)
     read_members_csv(people, representatives_filename, House.representatives)
     read_members_csv(people, senators_filename, House.senate)
   end
 
   # Attaches ministerial information to people
-  def PeopleCSVReader.read_ministers(people, filename)
+  def self.read_ministers(people, filename)
     data = CSV.readlines(filename)
     # Remove the first two rows
     data.shift
@@ -112,13 +112,13 @@ class PeopleCSVReader
     end
   end
 
-  def PeopleCSVReader.read_all_ministers(people, ministers_filename = "#{File.dirname(__FILE__)}/../data/ministers.csv",
-                                         shadow_ministers_filename = "#{File.dirname(__FILE__)}/../data/shadow-ministers.csv")
+  def self.read_all_ministers(people, ministers_filename = "#{File.dirname(__FILE__)}/../data/ministers.csv",
+                              shadow_ministers_filename = "#{File.dirname(__FILE__)}/../data/shadow-ministers.csv")
     read_ministers(people, ministers_filename)
     read_ministers(people, shadow_ministers_filename)
   end
 
-  def PeopleCSVReader.parse_party(party)
+  def self.parse_party(party)
     case party
     when "LIB"
       "Liberal Party"
@@ -181,7 +181,7 @@ class PeopleCSVReader
   end
 
   # text is in day.month.year form (all numbers)
-  def PeopleCSVReader.parse_date(text)
+  def self.parse_date(text)
     m = text.match(/([0-9]+).([0-9]+).([0-9]+)/)
     day = m[1].to_i
     month = m[2].to_i
@@ -189,7 +189,7 @@ class PeopleCSVReader
     Date.new(year, month, day)
   end
 
-  def PeopleCSVReader.parse_end_date(text)
+  def self.parse_end_date(text)
     # If no end_date is specified then the member is currently in parliament with a stupid end date
     if text == " " || text.nil?
       DateWithFuture.future
@@ -198,7 +198,7 @@ class PeopleCSVReader
     end
   end
 
-  def PeopleCSVReader.parse_start_reason(text)
+  def self.parse_start_reason(text)
     # If no start_reason is specified this means a general election
     if text == "" || text.nil?
       "general_election"

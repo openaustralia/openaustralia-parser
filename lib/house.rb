@@ -5,11 +5,11 @@ class House
   REPRESENTATIVES = "representatives"
   SENATE = "senate"
 
-  def House.senate
+  def self.senate
     House.new(SENATE)
   end
 
-  def House.representatives
+  def self.representatives
     House.new(REPRESENTATIVES)
   end
 

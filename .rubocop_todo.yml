@@ -202,19 +202,6 @@ Style/BlockDelimiters:
     - 'lib/progressbar.rb'
     - 'spec/hansard_day_spec.rb'
 
-# Offense count: 47
-# Cop supports --auto-correct.
-Style/ClassMethods:
-  Exclude:
-    - 'lib/date_with_future.rb'
-    - 'lib/hansard_speech.rb'
-    - 'lib/house.rb'
-    - 'lib/name.rb'
-    - 'lib/people_csv_reader.rb'
-    - 'lib/people_xml_writer.rb'
-    - 'lib/people_yaml_writer.rb'
-    - 'lib/period.rb'
-
 # Offense count: 8
 Style/ClassVars:
   Exclude:

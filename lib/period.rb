@@ -24,7 +24,7 @@ end
 class MinisterPosition < PeriodBase
   attr_accessor :position, :minister_count
 
-  def MinisterPosition.reset_id_counter
+  def self.reset_id_counter
     @@next_minister_count = 1
   end
 
