@@ -260,9 +260,9 @@ class Name
       (!has_post_title?      || !name.has_post_title?      || @post_title == name.post_title)
   end
 
-  def ==(name)
-    @title == name.title && @first == name.first &&
-      @middle == name.middle && @initials == name.initials && @last == name.last && @post_title == name.post_title
+  def ==(other)
+    @title == other.title && @first == other.first &&
+      @middle == other.middle && @initials == other.initials && @last == other.last && @post_title == other.post_title
   end
 
   def Name.extract_title_at_start(names)

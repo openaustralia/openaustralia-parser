@@ -58,7 +58,7 @@ class Person
     @minister_positions << MinisterPosition.new(params.merge(:person => self))
   end
 
-  def ==(p)
-    id == p.id && periods == p.periods
+  def ==(other)
+    id == other.id && periods == other.periods
   end
 end

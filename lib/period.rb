@@ -99,8 +99,8 @@ class Period < PeriodBase
     senator? && @party == "DPRES"
   end
 
-  def ==(p)
-    p.kind_of?(Period) && id == p.id && from_date == p.from_date && to_date == p.to_date &&
-      from_why == p.from_why && to_why == p.to_why && division == p.division && state == p.state && party == p.party && house == p.house
+  def ==(other)
+    other.kind_of?(Period) && id == other.id && from_date == other.from_date && to_date == other.to_date &&
+      from_why == other.from_why && to_why == other.to_why && division == other.division && state == other.state && party == other.party && house == other.house
   end
 end

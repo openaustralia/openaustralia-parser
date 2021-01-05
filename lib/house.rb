@@ -31,7 +31,7 @@ class House
     name
   end
 
-  def ==(a)
-    name == a.name
+  def ==(other)
+    name == other.name
   end
 end

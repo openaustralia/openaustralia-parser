@@ -99,15 +99,6 @@ Naming/AccessorMethodName:
   Exclude:
     - 'lib/progressbar.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-Naming/BinaryOperatorParameterName:
-  Exclude:
-    - 'lib/house.rb'
-    - 'lib/name.rb'
-    - 'lib/period.rb'
-    - 'lib/person.rb'
-
 # Offense count: 27
 # Configuration parameters: ForbiddenDelimiters.
 # ForbiddenDelimiters: (?-mix:(^|\s)(EO[A-Z]{1}|END)(\s|$))
