@@ -400,15 +400,6 @@ Style/SelfAssignment:
     - 'parse-speeches.rb'
     - 'regression-test/regression_test_parse_speeches.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: AllowAsExpressionSeparator.
-Style/Semicolon:
-  Exclude:
-    - 'lib/progressbar.rb'
-    - 'lib/speech.rb'
-    - 'spec/hansard_day_spec.rb'
-
 # Offense count: 109
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.

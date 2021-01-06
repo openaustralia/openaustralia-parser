@@ -91,7 +91,7 @@ class ProgressBar
     sec = t % 60
     min  = (t / 60) % 60
     hour = t / 3600
-    format("%02d:%02d:%02d", hour, min, sec);
+    format("%02d:%02d:%02d", hour, min, sec)
   end
 
   # ETA stands for Estimated Time of Arrival.
@@ -100,7 +100,7 @@ class ProgressBar
       "ETA:  --:--:--"
     else
       elapsed = Time.now - @start_time
-      eta = elapsed * @total / @current - elapsed;
+      eta = elapsed * @total / @current - elapsed
       format("ETA:  %s", format_time(eta))
     end
   end
