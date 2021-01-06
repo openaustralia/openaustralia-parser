@@ -58,23 +58,6 @@ Naming/AccessorMethodName:
 Naming/MethodName:
   EnforcedStyle: snake_case
 
-# Offense count: 26
-# Configuration parameters: MinNameLength, AllowNamesEndingInNumbers, AllowedNames, ForbiddenNames.
-# AllowedNames: at, by, db, id, in, io, ip, of, on, os, pp, to
-Naming/MethodParameterName:
-  Exclude:
-    - 'lib/debates.rb'
-    - 'lib/division.rb'
-    - 'lib/hansard_speech.rb'
-    - 'lib/heading.rb'
-    - 'lib/house.rb'
-    - 'lib/period.rb'
-    - 'lib/person.rb'
-    - 'lib/progressbar.rb'
-    - 'lib/speech.rb'
-    - 'postcodes.rb'
-    - 'register-split.rb'
-
 # Offense count: 8
 Style/ClassVars:
   Exclude:

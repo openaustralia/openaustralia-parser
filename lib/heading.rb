@@ -20,20 +20,20 @@ class HeadingBase
 end
 
 class MajorHeading < HeadingBase
-  def output(x)
-    x.tag!("major-heading", id: id, url: @url) { x << @title }
+  def output(builder)
+    builder.tag!("major-heading", id: id, url: @url) { builder << @title }
   end
 end
 
 class MinorHeading < HeadingBase
-  def output(x)
+  def output(builder)
     parameters = { id: id, url: @url }
-    x.tag!("minor-heading", parameters) { x << @title }
+    builder.tag!("minor-heading", parameters) { builder << @title }
     return unless @bills && !@bills.empty?
 
-    x.bills do
+    builder.bills do
       @bills.each do |bill|
-        x.bill({ id: bill[:id], url: bill[:url] }, bill[:title])
+        builder.bill({ id: bill[:id], url: bill[:url] }, bill[:title])
       end
     end
   end

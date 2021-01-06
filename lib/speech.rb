@@ -17,7 +17,7 @@ class Speech < Section
     super(time, url, count, date, house, logger)
   end
 
-  def output(x)
+  def output(builder)
     time = @time.nil? ? "unknown" : @time
     if @logger && @content.inner_text.strip == ""
       if @speaker.nil?
@@ -27,10 +27,10 @@ class Speech < Section
       end
     end
     speaker_attributes = @speaker ? { speakername: @speaker.name.full_name, speakerid: @speaker.id } : { nospeaker: "true" }
-    x.speech(speaker_attributes.merge({
-                                        time: time, url: quoted_url, id: id, talktype: talk_type,
-                                        approximate_duration: @duration.to_i, approximate_wordcount: words
-                                      })) { x << @content.to_s }
+    builder.speech(
+      speaker_attributes.merge({ time: time, url: quoted_url, id: id, talktype: talk_type,
+                                 approximate_duration: @duration.to_i, approximate_wordcount: words })
+    ) { builder << @content.to_s }
   end
 
   def append_to_content(content)

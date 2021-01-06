@@ -72,31 +72,31 @@ class HansardSpeech
     end
   end
 
-  def self.clean_content_inline(e)
-    text = strip_leading_dash(e.inner_html)
+  def self.clean_content_inline(node)
+    text = strip_leading_dash(node.inner_html)
 
-    attributes_keys = e.attributes.to_hash.keys
+    attributes_keys = node.attributes.to_hash.keys
     # Always ignore font-size
     attributes_keys.delete("font-size")
 
     if attributes_keys.delete("ref")
       # We're going to assume these links always point to Bills.
-      link = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{e.attributes['ref']}"
+      link = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{node.attributes['ref']}"
       text = "<a href=\"#{link}\">#{text}</a>"
     end
 
     if attributes_keys.delete("font-style")
-      raise "Unexpected font-style value #{e.attributes['font-style']}" unless e.attributes["font-style"] == "italic"
+      raise "Unexpected font-style value #{node.attributes['font-style']}" unless node.attributes["font-style"] == "italic"
 
       text = "<i>#{text}</i>"
     end
 
     if attributes_keys.delete("font-weight")
-      raise "Unexpected font-weight value #{e.attributes['font-weight']}" unless e.attributes["font-weight"] == "bold"
+      raise "Unexpected font-weight value #{e.attributes['font-weight']}" unless node.attributes["font-weight"] == "bold"
 
       # Workaround for badly marked up content. If a bold item is surrounded in brackets assume it is a name and remove it
       # Alternatively if the bold item is a generic name, remove it as well
-      text = if e.inner_html =~ /^\(.*\)$/ || generic_speaker?(e.inner_html)
+      text = if node.inner_html =~ /^\(.*\)$/ || generic_speaker?(node.inner_html)
                ""
              else
                "<b>#{text}</b>"
@@ -104,33 +104,33 @@ class HansardSpeech
     end
 
     if attributes_keys.delete("font-variant")
-      case e.attributes["font-variant"]
+      case node.attributes["font-variant"]
       when "superscript"
         text = "<sup>#{text}</sup>"
       when "subscript"
         text = "<sub>#{text}</sub>"
       else
-        raise "Unexpected font-variant value #{e.attributes['font-variant']}"
+        raise "Unexpected font-variant value #{node.attributes['font-variant']}"
       end
     end
 
     raise "Unexpected attributes #{attributes_keys.join(', ')}" unless attributes_keys.empty?
 
     # Handle inlines for motionnospeech in a special way
-    text = "<p>#{text}</p>" if e.parent.name == "motionnospeech"
+    text = "<p>#{text}</p>" if node.parent.name == "motionnospeech"
 
     text
   end
 
-  def self.clean_content_graphic(e)
+  def self.clean_content_graphic(node)
     # TODO: Probably the path needs to be different depending on whether Reps or Senate
-    "<img src=\"http://parlinfoweb.aph.gov.au/parlinfo/Repository/Chamber/HANSARDR/#{e.attributes['href']}\"/>"
+    "<img src=\"http://parlinfoweb.aph.gov.au/parlinfo/Repository/Chamber/HANSARDR/#{node.attributes['href']}\"/>"
   end
 
   # Pass a <para>Some text</para> block. Returns cleaned "Some text"
-  def self.clean_content_para_content(e)
+  def self.clean_content_para_content(node)
     t = +""
-    (e.children || []).each do |c|
+    (node.children || []).each do |c|
       t << if c.is_a?(Hpricot::Text)
              strip_leading_dash(c.to_s)
            else
@@ -141,10 +141,10 @@ class HansardSpeech
   end
 
   # Pass a <para>Some text</para> block. Returns cleaned "<p>Some text</p>"
-  def self.clean_content_para(e, override_type = nil)
+  def self.clean_content_para(node, override_type = nil)
     type = override_type || ""
 
-    case e.attributes["class"]
+    case node.attributes["class"]
     when "italic"
       type = "italic"
     when "bold"
@@ -153,19 +153,19 @@ class HansardSpeech
 
     case type
     when ""
-      "<p>#{clean_content_para_content(e)}</p>"
+      "<p>#{clean_content_para_content(node)}</p>"
     when "italic"
-      "<p class=\"#{type}\">#{clean_content_para_content(e)}</p>"
+      "<p class=\"#{type}\">#{clean_content_para_content(node)}</p>"
     when "bold"
-      "<b><p>#{clean_content_para_content(e)}</p></b>"
+      "<b><p>#{clean_content_para_content(node)}</p></b>"
     else
       raise "Unexpected type value #{type}"
     end
   end
 
-  def self.clean_content_item(e)
+  def self.clean_content_item(node)
     d = +""
-    e.each_child_node do |f|
+    node.each_child_node do |f|
       case f.name
       when "para"
         d << clean_content_para_content(f)
@@ -177,43 +177,43 @@ class HansardSpeech
         raise "Unexpected tag #{f.name}"
       end
     end
-    if e.has_attribute?("label")
-      "<dt>#{e.attributes['label']}</dt><dd>#{d}</dd>"
+    if node.has_attribute?("label")
+      "<dt>#{node.attributes['label']}</dt><dd>#{d}</dd>"
     else
       "<li>#{d}</li>"
     end
   end
 
-  def self.clean_content_list(e)
+  def self.clean_content_list(node)
     # We figure out whether to generate a <dl> or <ul> based on whether the child tags all have a 'label' attribute or not
-    label = e.at("> item").has_attribute?("label") if e.at("> item")
+    label = node.at("> item").has_attribute?("label") if node.at("> item")
     # Check that all the children are consistent
-    e.search("> item").each do |c|
+    node.search("> item").each do |c|
       raise "Children of <list> are using the 'label' attribute inconsistently" if c.has_attribute?("label") != label
     end
 
     if label
-      "<dl>#{clean_content_recurse(e)}</dl>"
+      "<dl>#{clean_content_recurse(node)}</dl>"
     else
-      "<ul>#{clean_content_recurse(e)}</ul>"
+      "<ul>#{clean_content_recurse(node)}</ul>"
     end
   end
 
-  def self.clean_content_entry(e, override_type = nil)
+  def self.clean_content_entry(node, override_type = nil)
     attributes = 'valign="top"'
-    attributes << " colspan=\"#{e.attributes['colspan']}\"" if e.attributes["colspan"] && e.attributes["colspan"] != ""
-    "<td #{attributes}>#{clean_content_recurse(e, override_type)}</td>"
+    attributes << " colspan=\"#{node.attributes['colspan']}\"" if node.attributes["colspan"] && node.attributes["colspan"] != ""
+    "<td #{attributes}>#{clean_content_recurse(node, override_type)}</td>"
   end
 
-  def self.clean_content_table(e, override_type = nil)
+  def self.clean_content_table(node, override_type = nil)
     # Not sure if I really should put border="0" here. Hmmm...
-    "<table border=\"0\">#{clean_content_recurse(e, override_type)}</table>"
+    "<table border=\"0\">#{clean_content_recurse(node, override_type)}</table>"
   end
 
-  def self.clean_content_motion(e)
+  def self.clean_content_motion(node)
     # Hmmm. what if there are two para's below? will we get the wrong formatting?
     t = +'<p pwmotiontext="moved">'
-    e.each_child_node do |f|
+    node.each_child_node do |f|
       case f.name
       when "para"
         t << clean_content_para_content(f)
@@ -229,34 +229,34 @@ class HansardSpeech
     t
   end
 
-  def self.clean_content_any(e, override_type = nil)
-    case e.name
+  def self.clean_content_any(node, override_type = nil)
+    case node.name
     when "motion"
-      clean_content_motion(e)
+      clean_content_motion(node)
     when "amendment", "quote"
-      clean_content_recurse(e, "italic")
+      clean_content_recurse(node, "italic")
     when "talk.start", "amendments", "motionnospeech", "interjection", "continue", "answer", "question"
-      clean_content_recurse(e)
+      clean_content_recurse(node)
     when "tgroup", "thead", "tbody"
-      clean_content_recurse(e, override_type)
+      clean_content_recurse(node, override_type)
     when "para"
-      clean_content_para(e, override_type)
+      clean_content_para(node, override_type)
     when "list"
-      clean_content_list(e)
+      clean_content_list(node)
     when "table"
-      clean_content_table(e, override_type)
+      clean_content_table(node, override_type)
     when "inline"
-      clean_content_inline(e)
+      clean_content_inline(node)
     when "interrupt"
-      "<b>#{clean_content_recurse(e)}</b>"
+      "<b>#{clean_content_recurse(node)}</b>"
     when "row"
-      "<tr>#{clean_content_recurse(e, override_type)}</tr>"
+      "<tr>#{clean_content_recurse(node, override_type)}</tr>"
     when "entry"
-      clean_content_entry(e, override_type)
+      clean_content_entry(node, override_type)
     when "item"
-      clean_content_item(e)
+      clean_content_item(node)
     when "graphic"
-      clean_content_graphic(e)
+      clean_content_graphic(node)
     when "talker", "name", "electorate", "role", "time.stamp", "tggroup", "separator", "colspec"
       ""
     when "talk.text", "debate.text", "subdebate.text"
@@ -266,13 +266,13 @@ class HansardSpeech
       puts "Came across an <Error> tag in the XML. That's probably not good. Skipping it."
       ""
     else
-      raise "Unexpected tag #{e.name}"
+      raise "Unexpected tag #{node.name}"
     end
   end
 
-  def self.clean_content_recurse(e, override_type = nil)
+  def self.clean_content_recurse(node, override_type = nil)
     t = +""
-    e.each_child_node do |f|
+    node.each_child_node do |f|
       t << clean_content_any(f, override_type)
     end
     t

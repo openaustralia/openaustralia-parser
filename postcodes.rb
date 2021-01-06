@@ -24,8 +24,8 @@ end.parse!
 
 conf = Configuration.new unless options[:test]
 
-def quote_string(s)
-  s.gsub(/\\/, '\&\&').gsub(/'/, "''") # ' (for ruby-mode)
+def quote_string(text)
+  text.gsub(/\\/, '\&\&').gsub(/'/, "''") # ' (for ruby-mode)
 end
 
 data = CSV.readlines("data/postcodes.csv")

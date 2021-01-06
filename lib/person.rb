@@ -31,8 +31,8 @@ class Person
     [name] + alternate_names
   end
 
-  def name_matches?(a)
-    all_names.any? { |n| n.matches?(a) }
+  def name_matches?(name)
+    all_names.any? { |n| n.matches?(name) }
   end
 
   # Does this person have current senate/house of representatives positions on the given date

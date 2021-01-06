@@ -24,7 +24,7 @@ people = PeopleCSVReader.read_members
 conf = Configuration.new
 PageRange = Struct.new(:filename, :start, :end)
 
-def read_in_ranges(p, filename_prefix, people)
+def read_in_ranges(ranges, filename_prefix, people)
   pdf_filename = "data/register_of_interests/#{filename_prefix}.pdf"
   split_filename = "data/register_of_interests/#{filename_prefix}.split"
 
@@ -54,8 +54,8 @@ def read_in_ranges(p, filename_prefix, people)
     end
     raise "Couldn't find #{name.full_name}" if person.nil?
 
-    p[person] ||= []
-    p[person] << PageRange.new(pdf_filename, start_page, end_page)
+    ranges[person] ||= []
+    ranges[person] << PageRange.new(pdf_filename, start_page, end_page)
   end
 end
 

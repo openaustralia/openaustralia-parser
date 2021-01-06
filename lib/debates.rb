@@ -73,10 +73,10 @@ class Debates
     @items.last.append_to_content(content)
   end
 
-  def add_division(yes, no, yes_tellers, no_tellers, pairs, time, url, bills)
+  def add_division(yes_members, no_members, yes_tellers, no_tellers, pairs, time, url, bills)
     add_heading_for_real
 
-    @items << Division.new(yes, no, yes_tellers, no_tellers, pairs, time, url, bills, @count.clone, @division_count, @date, @house, @logger)
+    @items << Division.new(yes_members, no_members, yes_tellers, no_tellers, pairs, time, url, bills, @count.clone, @division_count, @date, @house, @logger)
     increment_division_count
   end
 
@@ -84,10 +84,10 @@ class Debates
     @items.last.speaker if @items.last.respond_to?(:speaker)
   end
 
-  def output_builder(x)
-    x.instruct!
-    x.debates do
-      @items.each { |i| i.output(x) }
+  def output_builder(builder)
+    builder.instruct!
+    builder.debates do
+      @items.each { |i| i.output(builder) }
     end
   end
 

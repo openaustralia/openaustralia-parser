@@ -84,8 +84,8 @@ class ProgressBar
     convert_bytes(@current)
   end
 
-  def format_time(t)
-    t = t.to_i
+  def format_time(time)
+    t = time.to_i
     sec = t % 60
     min  = (t / 60) % 60
     hour = t / 3600
