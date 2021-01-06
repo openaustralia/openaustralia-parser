@@ -5,3 +5,9 @@ inherit_from: .rubocop_todo.yml
 Style/StringLiterals:
   EnforcedStyle: double_quotes
   ConsistentQuotesInMultiline: true
+
+# This one I disagree with. Putting seperators in large numbers makes sense
+# in some circumstances but in others (an example id in a database table)
+# it's just nonsensical. Also, I think this one might also be a bit US centric.
+Style/NumericLiterals:
+  Enabled: false

@@ -238,12 +238,6 @@ Style/Not:
     - 'lib/name.rb'
     - 'lib/people_csv_reader.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: Strict.
-Style/NumericLiterals:
-  MinDigits: 7
-
 # Offense count: 2
 # Configuration parameters: AllowedMethods.
 # AllowedMethods: respond_to_missing?
