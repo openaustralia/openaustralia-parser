@@ -179,7 +179,7 @@ class Name
     t += "#{title} " if has_title?
     t += "#{first} " if has_first?
     t += "#{middle} " if has_middle?
-    t += "#{last}"
+    t += last.to_s
     t += ", #{post_title}" if has_post_title?
     t
   end

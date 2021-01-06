@@ -131,7 +131,7 @@ class HansardParser
         # still create a file but leave it empty. This allows to
         # cache that fact without having to rerequest things from the aph
         # site
-        f.write("#{xml}") if xml
+        f.write(xml.to_s) if xml
       end
     end
     if xml
@@ -141,7 +141,7 @@ class HansardParser
         new_xml = @rewriter.rewrite_xml Hpricot.XML(xml)
 
         # Save the rewritten XML data
-        File.open(rewritexml_filename(date, house), "w") { |f| f.write("#{new_xml}") }
+        File.open(rewritexml_filename(date, house), "w") { |f| f.write(new_xml.to_s) }
 
         # Process the day
         HansardDay.new(new_xml, @logger)

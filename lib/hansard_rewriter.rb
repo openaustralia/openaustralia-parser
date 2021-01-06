@@ -397,21 +397,21 @@ XML
       # Things to pass through un-molested
       when "debateinfo"
         logger.warn "\nDebate #{f.at('title').inner_text}"
-        debate_new_children.append "#{f}"
+        debate_new_children.append f.to_s
 
       when "subdebate.text"
         if f.at("a") && (f.at("a")["type"] == "Bill")
           logger.warn "\nSubdebate.text #{f.at('body').inner_text}"
-          debate_new_children.append "#{f}"
+          debate_new_children.append f.to_s
         end
 
       when "subdebateinfo"
         logger.warn "  Subdebate.#{level} \"#{f.at('title').inner_text}\" @ #{f.at('(page.no)').inner_text}"
-        debate_new_children.append "#{f}"
+        debate_new_children.append f.to_s
 
       # Things we have to process recursively
       when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
-        debate_new_children.append "#{rewrite_debate(f, level + 1)}"
+        debate_new_children.append rewrite_debate(f, level + 1).to_s
 
       # The actual transcript of the proceedings we are going to process
       when "question", "answer", "speech"
@@ -419,12 +419,12 @@ XML
           # We're interested in the talk.text node but have to find it manually due to a bug
           # with Hpricot xpath meaning nodes with a dot '.' in the name are not found.
           talk = f.child_nodes.detect { |node| node.name == "talk.text" }
-          debate_new_children.append "#{process_textnode(talk)}" if talk
+          debate_new_children.append process_textnode(talk).to_s if talk
         end
 
       # Divisions are actually still the same format, so we just append them.
       when "division"
-        debate_new_children.append "#{f}"
+        debate_new_children.append f.to_s
 
       # Things we are delibaretly removing
       when "continue", "interjection", "talk", "debate.text"
@@ -435,7 +435,7 @@ XML
       end
     end
 
-    debate.inner_html = "#{debate_new_children}"
+    debate.inner_html = debate_new_children.to_s
     debate
   end
 

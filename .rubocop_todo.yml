@@ -332,14 +332,6 @@ Style/RedundantBegin:
   Exclude:
     - 'parse-speeches.rb'
 
-# Offense count: 10
-# Cop supports --auto-correct.
-Style/RedundantInterpolation:
-  Exclude:
-    - 'lib/hansard_parser.rb'
-    - 'lib/hansard_rewriter.rb'
-    - 'lib/name.rb'
-
 # Offense count: 109
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
