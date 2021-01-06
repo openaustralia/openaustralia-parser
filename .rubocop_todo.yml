@@ -353,22 +353,6 @@ Style/RedundantSelfAssignment:
   Exclude:
     - 'lib/people_image_downloader.rb'
 
-# Offense count: 14
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, AllowInnerSlashes.
-# SupportedStyles: slashes, percent_r, mixed
-Style/RegexpLiteral:
-  Exclude:
-    - 'lib/extract_wikipedia_links.rb'
-    - 'lib/hansard_day.rb'
-    - 'lib/hansard_parser.rb'
-    - 'lib/hansard_rewriter.rb'
-    - 'lib/hansard_speech.rb'
-    - 'lib/people_image_downloader.rb'
-    - 'lib/speech.rb'
-    - 'parse-member-links.rb'
-    - 'spec/hansard_rewriter_spec.rb'
-
 # Offense count: 109
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.

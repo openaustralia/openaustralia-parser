@@ -129,7 +129,7 @@ class PeopleImageDownloader
 
   def strip_tags(doc)
     str = doc.to_s
-    str.gsub(/<\/?[^>]*>/, "")
+    str.gsub(%r{</?[^>]*>}, "")
   end
 
   def extract_birthday(page)

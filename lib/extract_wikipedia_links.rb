@@ -21,7 +21,7 @@ end
 
 # Check that there is an OpenAustralia link on the Wikipedia page. If not, display a warning
 def check_wikipedia_page(url, agent)
-  if url =~ /^http:\/\/en.wikipedia.org\/wiki\/(.*)$/
+  if url =~ %r{^http://en.wikipedia.org/wiki/(.*)$}
     title = $LAST_MATCH_INFO[1]
     edit_url = "http://en.wikipedia.org/w/index.php?title=#{title}&action=edit"
     text = agent.get(edit_url).parser.to_s
@@ -38,7 +38,7 @@ def extract_links_from_wikipedia(doc, people, links)
       name = Name.title_first_last(link.inner_html)
       person = people.find_person_by_name(name)
       if person
-        if link.get_attribute("href").match(/^\/wiki\/(.*)$/)
+        if link.get_attribute("href").match(%r{^/wiki/(.*)$})
           title = $LAST_MATCH_INFO[1]
         else
           raise "Unexpected link format"

@@ -77,7 +77,7 @@ class HansardParser
     if text
       # Horribe hack to fix some stupid wrapping
       text = text.gsub(/\r/, "")
-      text = text.gsub(/<\/span>[^<]*<span style="&#xD;&#xA;    font-size:9.5pt;&#xD;&#xA;  ">/m, "")
+      text = text.gsub(%r{</span>[^<]*<span style="&#xD;&#xA;    font-size:9.5pt;&#xD;&#xA;  ">}m, "")
 
       # Now check whether there is a patch for that day and if so apply it
       patch_file_path = "#{File.dirname(__FILE__)}/../data/patches/#{house}.#{date}.xml.patch"

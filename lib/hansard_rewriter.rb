@@ -29,9 +29,9 @@ class HansardRewriter
   end
 
   def restore_tags(text)
-    text = text.gsub(/\{italic\}\s*\{\/italic\}/, "")
+    text = text.gsub(%r{\{italic\}\s*\{/italic\}}, "")
     text = text.gsub(/\{italic\}/, "<inline font-style='italic'>")
-    text = text.gsub(/\{\/italic\}/, "</inline>")
+    text = text.gsub(%r{\{/italic\}}, "</inline>")
     return text
   end
 
@@ -84,7 +84,7 @@ class HansardRewriter
         logger.info "Doing rewrite #{text}"
         logger.info "Before: #{p}"
         p.inner_html = p.inner_html.gsub(
-          /<span class="HPS-Normal">.*<span class="HPS-([^"]*)">(The (([^S]*SPEAKER)|([^R]*RESIDENT))):<\/span>  (.*)<\/span>/m,
+          %r{<span class="HPS-Normal">.*<span class="HPS-([^"]*)">(The (([^S]*SPEAKER)|([^R]*RESIDENT))):</span>  (.*)</span>}m,
           <<XML
       <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
         <span class="HPS-Normal">
@@ -158,7 +158,7 @@ XML
             ripped_out_time = time.first.inner_html
           else
             # We've got a badly formed date, let's try something else
-            fallback = p.inner_html.match(/(\d+):*<span class="HPS-Time">:*(\d\d)<\/span>/mi)
+            fallback = p.inner_html.match(%r{(\d+):*<span class="HPS-Time">:*(\d\d)</span>}mi)
             ripped_out_time = "#{fallback[1]}:#{fallback[2]}" if fallback
           end
           time.remove

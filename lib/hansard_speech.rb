@@ -278,7 +278,7 @@ class HansardSpeech
 
   def strip_tags(doc)
     str = doc.to_s
-    str.gsub(/<\/?[^>]*>/, "")
+    str.gsub(%r{</?[^>]*>}, "")
   end
 
   def self.generic_speaker?(speakername)

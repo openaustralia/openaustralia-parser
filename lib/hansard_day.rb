@@ -67,7 +67,7 @@ class HansardDay
 
   # Strip any HTML/XML tags from the given text and remove new-line characters
   def strip_tags(text)
-    text.gsub(/<\/?[^>]*>/, "").gsub("\r", "").gsub("\n", "")
+    text.gsub(%r{</?[^>]*>}, "").gsub("\r", "").gsub("\n", "")
   end
 
   # Search for the title tag and return its value, stripping out any HTML tags

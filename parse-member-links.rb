@@ -61,7 +61,7 @@ x.consinfos do
   url = "#{conf.election_web_root}/results/senate/"
   doc = Hpricot(open(url))
   (doc / :a).each do |a|
-    if /results\/senate\/(\w+)\.htm/.match(a["href"])
+    if %r{results/senate/(\w+)\.htm}.match(a["href"])
       href = abc_root + a["href"]
       name = a.inner_text
       x.consinfo(canonical: name, abc_election_results_2007: href)

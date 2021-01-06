@@ -11,7 +11,7 @@ describe HansardRewriter do
 
     it "should correctly rewrite the date to the time.stamp tag" do
       # hpricot can't handle xpaths with periods in them, so just use regex
-      expect(rewritten_xml.at("talker").inner_html).to match(/<time\.stamp>10:01<\/time\.stamp>/)
+      expect(rewritten_xml.at("talker").inner_html).to match(%r{<time\.stamp>10:01</time\.stamp>})
     end
   end
 
@@ -22,7 +22,7 @@ describe HansardRewriter do
 
     it "should correctly rewrite the date to the time.stamp tag" do
       # hpricot can't handle xpaths with periods in them, so just use regex
-      expect(rewritten_xml.at("talker").inner_html).to match(/<time\.stamp>14:08<\/time\.stamp>/)
+      expect(rewritten_xml.at("talker").inner_html).to match(%r{<time\.stamp>14:08</time\.stamp>})
     end
   end
 end
