@@ -153,16 +153,16 @@ class Name
   def real_initials
     # If only one or two letters assume that these are initials
     # HACK: Added specific handling for initials DJC, DGH
-    if (not @initials.nil?) && !@initials.empty?
+    if !@initials.nil? && !@initials.empty?
       @initials
-    elsif not @first.nil?
+    elsif !@first.nil?
       if @first.upcase == @first
         @first
       elsif (@first != "Ed" && @first.size <= 2) || @first == "DJC" || @first == "DGH"
         @first
       else
         p_initials = first_initial
-        p_initials = "#{p_initials}#{@middle.split(' ').map { |n| n[0..0] }.join}" if not @middle.nil?
+        p_initials = "#{p_initials}#{@middle.split(' ').map { |n| n[0..0] }.join}" if !@middle.nil?
         p_initials
       end
     end

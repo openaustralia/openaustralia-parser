@@ -317,7 +317,7 @@ class HansardParser
     # It could be anyone of a number of poeple. So, if it is that, just ignore it.
     # Annoyingly, "1000" keeps getting used as well to mean the same thing. This is clearly a mistake, so
     # we'll ignore it in the same way
-    aph_id = speech.aph_id.upcase if not speech.aph_id.nil?
+    aph_id = speech.aph_id.upcase if !speech.aph_id.nil?
     if aph_id && aph_id != "10000" && aph_id != "1000"
       person = @people.find_person_by_aph_id(aph_id)
       if person

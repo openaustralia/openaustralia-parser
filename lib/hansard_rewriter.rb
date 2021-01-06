@@ -117,7 +117,7 @@ XML
       para_text = p.inner_text.strip
       italic_text = ""
       p.search("//span").each do |t|
-        if (not t.attributes["style"].nil?) && t.attributes["style"].match(/italic/)
+        if !t.attributes["style"].nil? && t.attributes["style"].match(/italic/)
           italic_text = "#{italic_text}#{t.inner_text}"
           t.inner_html = "{italic}#{t.inner_html}{/italic}"
         end
@@ -129,11 +129,11 @@ XML
       # (There are also '<a href' records which point to bills rather then
       # people.)
       ahref = p.search("//a")[0] if !p.search("//a").empty?
-      if (not ahref.nil?) && ahref.attributes["type"].nil?
+      if !ahref.nil? && ahref.attributes["type"].nil?
         logger.warn "    Found a link without type!? #{ahref}"
         next
       end
-      if (not ahref.nil?) && ahref.attributes["type"].match(/^Member|Office/)
+      if !ahref.nil? && ahref.attributes["type"].match(/^Member|Office/)
 
         # Is this start of a speech? We can tell by the fact it has spans
         # with the HPS-Time class.
@@ -263,7 +263,7 @@ XML
           text_node = speech_node.search(type)[-1]
         end
 
-      elsif (not ahref.nil?) && ahref.attributes["type"].match(/^Bill/)
+      elsif !ahref.nil? && ahref.attributes["type"].match(/^Bill/)
         # Bills don't have speeches, just dump the paragraphs into the subdebate.
         speech_node = new_xml
         text_node = new_xml
@@ -285,7 +285,7 @@ XML
 
         when "HPS-Normal"
 
-          if not amendment_node.nil?
+          if !amendment_node.nil?
             logger.warn "      Found paragraph in an amendment"
 
             amendment_node.append <<~XML
@@ -346,7 +346,7 @@ XML
           end
 
         when "HPS-Small", "HPS-NormalWeb"
-          if not amendment_node.nil?
+          if !amendment_node.nil?
             logger.warn "      Found amendment"
             amendment_node.append <<~XML
               <amendment>#{restore_tags(text)}</amendment>
@@ -415,7 +415,7 @@ XML
 
       # The actual transcript of the proceedings we are going to process
       when "question", "answer", "speech"
-        if not subdebate_found
+        if !subdebate_found
           # We're interested in the talk.text node but have to find it manually due to a bug
           # with Hpricot xpath meaning nodes with a dot '.' in the name are not found.
           talk = f.child_nodes.detect { |node| node.name == "talk.text" }
