@@ -326,12 +326,6 @@ Style/PreferredHashMethods:
     - 'lib/extract_wikipedia_links.rb'
     - 'lib/people.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/RedundantBegin:
-  Exclude:
-    - 'parse-speeches.rb'
-
 # Offense count: 109
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.

@@ -86,30 +86,28 @@ parser = HansardParser.new(people)
 progress = ProgressBar.new("parse-speeches", ((to_date - from_date + 1) * 2).to_i)
 
 def parse_with_retry(interactive, parse, date, path, house)
-  begin
-    parse.call date, path, house
-  rescue StandardError => e
-    puts "ERROR While processing #{house} #{date}:"
-    raise unless interactive
+  parse.call date, path, house
+rescue StandardError => e
+  puts "ERROR While processing #{house} #{date}:"
+  raise unless interactive
 
-    puts e.message
-    puts e.backtrace.join("\n\t")
-    loop do
-      print "Retry / Patch / Continue / Quit? "
-      choice = STDIN.gets.upcase[0..0]
-      case choice
-      when "P"
-        system "#{File.dirname(__FILE__)}/create_patch.rb #{house} #{date}"
-        parse_with_retry interactive, parse, date, path, house
-        break
-      when "R"
-        parse_with_retry interactive, parse, date, path, house
-        break
-      when "C"
-        break
-      when "Q"
-        raise
-      end
+  puts e.message
+  puts e.backtrace.join("\n\t")
+  loop do
+    print "Retry / Patch / Continue / Quit? "
+    choice = STDIN.gets.upcase[0..0]
+    case choice
+    when "P"
+      system "#{File.dirname(__FILE__)}/create_patch.rb #{house} #{date}"
+      parse_with_retry interactive, parse, date, path, house
+      break
+    when "R"
+      parse_with_retry interactive, parse, date, path, house
+      break
+    when "C"
+      break
+    when "Q"
+      raise
     end
   end
 end
