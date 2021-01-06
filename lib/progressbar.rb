@@ -50,7 +50,7 @@ class ProgressBar
   end
 
   def fmt_stat
-    if @finished_p then elapsed else eta end
+    @finished_p ? elapsed : eta
   end
 
   def fmt_stat_for_file_transfer
@@ -111,7 +111,7 @@ class ProgressBar
   end
 
   def eol
-    if @finished_p then "\n" else "\r" end
+    @finished_p ? "\n" : "\r"
   end
 
   def do_percentage
@@ -130,7 +130,7 @@ class ProgressBar
       data = [0, 0, 0, 0].pack("SSSS")
       if @out.ioctl(tiocgwinsz, data) >= 0 then
         _rows, cols, _xpixels, _ypixels = data.unpack("SSSS")
-        if cols >= 0 then cols else default_width end
+        cols >= 0 ? cols : default_width
       else
         default_width
       end
@@ -152,7 +152,7 @@ class ProgressBar
       @out.flush
     elsif line.length >= width
       @terminal_width = [@terminal_width - (line.length - width + 1), 0].max
-      if @terminal_width == 0 then @out.print(line + eol) else show end
+      @terminal_width == 0 ? @out.print(line + eol) : show
     else # line.length < width - 1
       @terminal_width += width - line.length + 1
       show

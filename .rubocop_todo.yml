@@ -266,13 +266,6 @@ Style/NumericPredicate:
     - 'parse-speeches.rb'
     - 'regression-test/regression_test_parse_speeches.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: AlwaysCorrectToMultiline.
-Style/OneLineConditional:
-  Exclude:
-    - 'lib/progressbar.rb'
-
 # Offense count: 2
 # Configuration parameters: AllowedMethods.
 # AllowedMethods: respond_to_missing?
