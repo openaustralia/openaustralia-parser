@@ -47,12 +47,6 @@ Metrics/ParameterLists:
 Metrics/PerceivedComplexity:
   Max: 48
 
-# Offense count: 7
-# Configuration parameters: IgnoredPatterns.
-# SupportedStyles: snake_case, camelCase
-Naming/MethodName:
-  EnforcedStyle: snake_case
-
 # Offense count: 8
 Style/ClassVars:
   Exclude:
