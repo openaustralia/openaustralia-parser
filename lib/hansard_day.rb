@@ -240,6 +240,7 @@ class HansardDay
     hansard.each_child_node do |e|
       case e.name
       when "session.header"
+        # Do nothing
       when "chamber.xscript", "maincomm.xscript", "fedchamb.xscript"
         e.each_child_node do |e|
           case e.name
@@ -255,6 +256,7 @@ class HansardDay
         e.each_child_node do |e|
           case e.name
           when "debate"
+            # Do nothing
           else
             raise "Unexpected tag #{e.name}"
           end
