@@ -60,7 +60,7 @@ class Debates
     @division_count += 1
   end
 
-  def add_speech(speaker, time, url, content, interjection = false, continuation = false)
+  def add_speech(speaker, time, url, content, interjection: false, continuation: false)
     add_heading_for_real
 
     # Only add new speech if the speaker has changed

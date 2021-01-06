@@ -146,13 +146,6 @@ Style/MissingRespondToMissing:
     - 'lib/configuration.rb'
     - 'spec/hansard_day_spec.rb'
 
-# Offense count: 2
-# Configuration parameters: AllowedMethods.
-# AllowedMethods: respond_to_missing?
-Style/OptionalBooleanParameter:
-  Exclude:
-    - 'lib/debates.rb'
-
 # Offense count: 109
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
