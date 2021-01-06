@@ -178,12 +178,6 @@ Style/MissingRespondToMissing:
     - 'spec/hansard_day_spec.rb'
 
 # Offense count: 2
-# Cop supports --auto-correct.
-Style/MultilineIfThen:
-  Exclude:
-    - 'lib/progressbar.rb'
-
-# Offense count: 2
 # Configuration parameters: AllowedMethods.
 # AllowedMethods: respond_to_missing?
 Style/OptionalBooleanParameter:

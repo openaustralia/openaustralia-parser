@@ -54,7 +54,7 @@ class ProgressBar
   end
 
   def fmt_stat_for_file_transfer
-    if @finished_p then
+    if @finished_p
       format("%s %s %s", bytes, transfer_rate, elapsed)
     else
       format("%s %s %s", bytes, transfer_rate, eta)
@@ -128,7 +128,7 @@ class ProgressBar
     begin
       tiocgwinsz = 0x5413
       data = [0, 0, 0, 0].pack("SSSS")
-      if @out.ioctl(tiocgwinsz, data) >= 0 then
+      if @out.ioctl(tiocgwinsz, data) >= 0
         _rows, cols, _xpixels, _ypixels = data.unpack("SSSS")
         cols >= 0 ? cols : default_width
       else
