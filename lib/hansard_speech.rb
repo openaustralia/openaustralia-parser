@@ -6,7 +6,7 @@ require "name"
 class HansardSpeech
   attr_reader :logger, :title, :subtitle, :bills, :time, :day, :interjection, :continuation
 
-  def initialize(content, title, subtitle, bills, time, day, logger = nil)
+  def initialize(content:, title:, subtitle:, bills:, time:, day:, logger: nil)
     @content = content
     @title = title
     @subtitle = subtitle

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class HeadingBase
-  def initialize(title, count, url, bills, date, house)
+  def initialize(title:, count:, url:, bills:, date:, house:)
     @title = title
     @count = count
     @url = url

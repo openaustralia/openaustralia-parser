@@ -3,7 +3,7 @@
 require "builder_alpha_attributes"
 
 class PeopleXMLWriter
-  def self.write(people, people_filename, members_filename, senators_filename, ministers_filename, divisions_filename)
+  def self.write(people:, people_filename:, members_filename:, senators_filename:, ministers_filename:, divisions_filename:)
     write_people(people, people_filename)
     write_members(people, members_filename)
     write_senators(people, senators_filename)

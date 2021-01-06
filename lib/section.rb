@@ -4,7 +4,7 @@
 class Section
   attr_accessor :time, :url
 
-  def initialize(time, url, count, date, house, logger = nil)
+  def initialize(time:, url:, count:, date:, house:, logger: nil)
     @time = time
     @url = url
     @count = count

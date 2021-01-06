@@ -17,3 +17,8 @@ Style/ClassVars:
   Exclude:
     - 'lib/configuration.rb'
     - 'lib/period.rb'
+
+# We're use some methods with a large number of parameters. At least make
+# it bearable by using keyword arguments
+Metrics/ParameterLists:
+  CountKeywordArgs: false

@@ -3,7 +3,7 @@
 require "section"
 
 class Division < Section
-  def initialize(yes_members, no_members, yes_tellers, no_tellers, pairs, time, url, bills, count, division_count, date, house, logger = nil)
+  def initialize(yes_members:, no_members:, yes_tellers:, no_tellers:, pairs:, time:, url:, bills:, count:, division_count:, date:, house:, logger: nil)
     @yes = yes_members
     @no = no_members
     @yes_tellers = yes_tellers
@@ -11,7 +11,7 @@ class Division < Section
     @pairs = pairs
     @division_count = division_count
     @bills = bills
-    super(time, url, count, date, house, logger)
+    super(time: time, url: url, count: count, date: date, house: house, logger: logger)
   end
 
   def output(builder)

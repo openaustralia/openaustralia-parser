@@ -9,12 +9,12 @@ class Speech < Section
                 :word_count_for_continuations
   attr_reader :duration
 
-  def initialize(speaker, time, url, count, date, house, logger = nil)
+  def initialize(speaker:, time:, url:, count:, date:, house:, logger: nil)
     @speaker = speaker
     @content = Hpricot::Elements.new
     @duration = 0
     @word_count_for_continuations = 0
-    super(time, url, count, date, house, logger)
+    super(time: time, url: url, count: count, date: date, house: house, logger: logger)
   end
 
   def output(builder)

@@ -16,7 +16,7 @@ describe Speech do
 
   before :each do
     # TODO: Fix duplication of house both in speaker and initialiser for Speech
-    @speech = Speech.new(member, "05:00:00", "http://foo.co.uk/", Count.new(3, 1), Date.new(2006, 1, 1), House.representatives)
+    @speech = Speech.new(speaker: member, time: "05:00:00", url: "http://foo.co.uk/", count: Count.new(3, 1), date: Date.new(2006, 1, 1), house: House.representatives)
   end
 
   it "outputs a simple speech" do
@@ -40,14 +40,14 @@ describe Speech do
 
   describe "#adjournment" do
     describe "with content with no adjournment" do
-      subject { Speech.new(member, "05:00:00", "<p> some content</p>", Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
+      subject { Speech.new(speaker: member, time: "05:00:00", url: "<p> some content</p>", count: Count.new(3, 1), date: Date.new(2006, 1, 1), house: House.representatives) }
 
       it { expect(subject.adjournment).to be_nil }
     end
 
     describe "with content with an adjournment" do
       let!(:content) { Hpricot("<p> some content\n\nadjourned at 19:31</p>") }
-      subject { Speech.new(member, "09:00:00", "url", Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
+      subject { Speech.new(speaker: member, time: "09:00:00", url: "url", count: Count.new(3, 1), date: Date.new(2006, 1, 1), house: House.representatives) }
       before do
         subject.append_to_content(content)
       end
@@ -58,14 +58,14 @@ describe Speech do
 
   describe "#duration=" do
     describe "with a duration less than zero" do
-      subject { Speech.new(member, "09:00:00", "url", Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
+      subject { Speech.new(speaker: member, time: "09:00:00", url: "url", count: Count.new(3, 1), date: Date.new(2006, 1, 1), house: House.representatives) }
       before { subject.duration = -1000 }
       it { expect(subject.duration).to be_zero }
     end
 
     describe "with a duration that is more than 10 minutes out from an estimate of " \
              "duration made by taking the word count / 120 (average words per minute people speak at) * 60" do
-      subject { Speech.new(member, "09:00:00", "url", Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
+      subject { Speech.new(speaker: member, time: "09:00:00", url: "url", count: Count.new(3, 1), date: Date.new(2006, 1, 1), house: House.representatives) }
       let!(:minutes_by_wordcount) { 12 }
       let!(:html) { (120 * minutes_by_wordcount).times.map { "<i>word</i>" }.join(" ") }
       before do
@@ -78,7 +78,7 @@ describe Speech do
 
   describe "#words" do
     let!(:content) { Hpricot("<p> some content\n\n<span>another word. New sentence.</span> </p>") }
-    subject { Speech.new(member, "09:00:00", "url", Count.new(3, 1), Date.new(2006, 1, 1), House.representatives) }
+    subject { Speech.new(speaker: member, time: "09:00:00", url: "url", count: Count.new(3, 1), date: Date.new(2006, 1, 1), house: House.representatives) }
     before do
       subject.append_to_content(content)
     end

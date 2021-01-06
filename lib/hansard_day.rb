@@ -183,7 +183,7 @@ class HansardDay
         question = false
         procedural = false
       when "speech", "talk"
-        p << e.map_child_node { |c| HansardSpeech.new(c, title, subtitle, bills, time(e), self, @logger) }
+        p << e.map_child_node { |c| HansardSpeech.new(content: c, title: title, subtitle: subtitle, bills: bills, time: time(e), day: self, logger: @logger) }
         question = false
         procedural = false
       when "division"
@@ -202,7 +202,7 @@ class HansardDay
           questions = []
           f = e
           while f && (f.name == "question" || f.name == "answer")
-            questions += f.map_child_node { |c| HansardSpeech.new(c, title, subtitle, bills, time(e), self, @logger) }
+            questions += f.map_child_node { |c| HansardSpeech.new(content: c, title: title, subtitle: subtitle, bills: bills, time: time(e), day: self, logger: @logger) }
             f = f.next_sibling
           end
           p << questions
@@ -215,7 +215,7 @@ class HansardDay
           procedurals = []
           f = e
           while f && procedural_tags.include?(f.name)
-            procedurals << HansardSpeech.new(f, title, subtitle, bills, time(f), self, @logger)
+            procedurals << HansardSpeech.new(content: f, title: title, subtitle: subtitle, bills: bills, time: time(f), day: self, logger: @logger)
             f = f.next_sibling
           end
           p << procedurals

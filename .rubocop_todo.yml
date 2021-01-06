@@ -37,11 +37,6 @@ Metrics/CyclomaticComplexity:
 Metrics/MethodLength:
   Max: 217
 
-# Offense count: 8
-# Configuration parameters: CountKeywordArgs, MaxOptionalParameters.
-Metrics/ParameterLists:
-  Max: 13
-
 # Offense count: 27
 # Configuration parameters: IgnoredMethods.
 Metrics/PerceivedComplexity:
@@ -62,4 +57,4 @@ Style/MissingRespondToMissing:
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
 Layout/LineLength:
-  Max: 332
+  Max: 423

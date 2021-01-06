@@ -26,11 +26,11 @@ class Debates
   def add_heading(newtitle, newsubtitle, url, bills)
     # Only add headings if they have changed
     if newtitle != @title
-      @latest_major_heading = MajorHeading.new(newtitle, @count.clone, url, bills, @date, @house)
+      @latest_major_heading = MajorHeading.new(title: newtitle, count: @count.clone, url: url, bills: bills, date: @date, house: @house)
       @count.increment_minor
     end
     if newtitle != @title || newsubtitle != @subtitle
-      @latest_minor_heading = MinorHeading.new(newsubtitle, @count.clone, url, bills, @date, @house)
+      @latest_minor_heading = MinorHeading.new(title: newsubtitle, count: @count.clone, url: url, bills: bills, date: @date, house: @house)
       @count.increment_minor
     end
     @title = newtitle
@@ -65,7 +65,7 @@ class Debates
 
     # Only add new speech if the speaker has changed
     if !@items.last.is_a?(Speech) || speaker != last_speaker
-      speech = Speech.new(speaker, time, url, @count.clone, @date, @house, @logger)
+      speech = Speech.new(speaker: speaker, time: time, url: url, count: @count.clone, date: @date, house: @house, logger: @logger)
       speech.interjection = interjection
       speech.continuation = continuation
       @items << speech
@@ -73,10 +73,10 @@ class Debates
     @items.last.append_to_content(content)
   end
 
-  def add_division(yes_members, no_members, yes_tellers, no_tellers, pairs, time, url, bills)
+  def add_division(yes_members:, no_members:, yes_tellers:, no_tellers:, pairs:, time:, url:, bills:)
     add_heading_for_real
 
-    @items << Division.new(yes_members, no_members, yes_tellers, no_tellers, pairs, time, url, bills, @count.clone, @division_count, @date, @house, @logger)
+    @items << Division.new(yes_members: yes_members, no_members: no_members, yes_tellers: yes_tellers, no_tellers: no_tellers, pairs: pairs, time: time, url: url, bills: bills, count: @count.clone, division_count: @division_count, date: @date, house: @house, logger: @logger)
     increment_division_count
   end
 

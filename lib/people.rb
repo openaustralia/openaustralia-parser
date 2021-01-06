@@ -171,7 +171,7 @@ class People < Array
 
   # Facade for readers and writers
   def write_xml(people_filename, members_filename, senators_filename, ministers_filename, divisions_filename)
-    PeopleXMLWriter.write(self, people_filename, members_filename, senators_filename, ministers_filename, divisions_filename)
+    PeopleXMLWriter.write(people: self, people_filename: people_filename, members_filename: members_filename, senators_filename: senators_filename, ministers_filename: ministers_filename, divisions_filename: divisions_filename)
   end
 
   def download_images(small_image_dir, large_image_dir)

@@ -24,18 +24,18 @@ describe Division do
     henry_member = Period.new(person: henry_person, house: House.representatives, count: 3)
 
     # John and Joe vote yes and Henry votes no. John and Henry are tellers
-    @division1 = Division.new([john_member, joe_member], [henry_member], [john_member], [henry_member],
-                              [], "10:11:00", "http://foo/link", [{ id: "Z12345", title: "A bill to support mongeese", url: "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" }], Count.new(10, 2), 15, Date.new(2008, 2, 1), House.representatives)
+    @division1 = Division.new(yes_members: [john_member, joe_member], no_members: [henry_member], yes_tellers: [john_member], no_tellers: [henry_member],
+                              pairs: [], time: "10:11:00", url: "http://foo/link", bills: [{ id: "Z12345", title: "A bill to support mongeese", url: "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" }], count: Count.new(10, 2), division_count: 15, date: Date.new(2008, 2, 1), house: House.representatives)
 
     john_member2 = Period.new(person: john_person, house: House.senate, count: 1)
     joe_member2 = Period.new(person: joe_person, house: House.senate, count: 2)
     henry_member2 = Period.new(person: henry_person, house: House.senate, count: 3)
     jack_member2 = Period.new(person: jack_person, house: House.senate, count: 4)
 
-    @division2 = Division.new([john_member2], [], [], [], [], "9:10:00", "http://foo/link", [{ id: "Z12345", title: "A bill to support mongeese", url: "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" }], Count.new(1, 2), 3, Date.new(2008, 2, 1), House.senate)
+    @division2 = Division.new(yes_members: [john_member2], no_members: [], yes_tellers: [], no_tellers: [], pairs: [], time: "9:10:00", url: "http://foo/link", bills: [{ id: "Z12345", title: "A bill to support mongeese", url: "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" }], count: Count.new(1, 2), division_count: 3, date: Date.new(2008, 2, 1), house: House.senate)
 
-    @division3 = Division.new([], [], [], [], [[john_member2, joe_member2], [henry_member2, jack_member2]],
-                              "9:10:00", "http://foo/link", [{ id: "Z12345", title: "A bill to support mongeese", url: "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" }], Count.new(1, 2), 3, Date.new(2008, 2, 1), House.senate)
+    @division3 = Division.new(yes_members: [], no_members: [], yes_tellers: [], no_tellers: [], pairs: [[john_member2, joe_member2], [henry_member2, jack_member2]],
+                              time: "9:10:00", url: "http://foo/link", bills: [{ id: "Z12345", title: "A bill to support mongeese", url: "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" }], count: Count.new(1, 2), division_count: 3, date: Date.new(2008, 2, 1), house: House.senate)
   end
 
   it "has the id in the correct form" do
