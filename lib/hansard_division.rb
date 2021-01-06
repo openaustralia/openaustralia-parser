@@ -85,6 +85,14 @@ class HansardDivision
     end
   end
 
+  def self.name(text)
+    text =~ /^(.*)\*$/ ? $~[1].strip : text
+  end
+
+  def self.teller?(text)
+    text =~ /^(.*)\*$/
+  end
+
   private
 
   def add_speaker?(to_vote)
@@ -102,13 +110,5 @@ class HansardDivision
 
   def raw_no
     @content.search("(division.data) > noes > names > name").map(&:inner_html)
-  end
-
-  def self.name(text)
-    text =~ /^(.*)\*$/ ? $~[1].strip : text
-  end
-
-  def self.teller?(text)
-    text =~ /^(.*)\*$/
   end
 end
