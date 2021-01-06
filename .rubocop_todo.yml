@@ -420,13 +420,6 @@ Style/SlicingWithRange:
     - 'lib/people_image_downloader.rb'
     - 'regression-test/regression_test_parse_speeches.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: AllowModifier.
-Style/SoleNestedConditional:
-  Exclude:
-    - 'lib/hansard_rewriter.rb'
-
 # Offense count: 109
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.

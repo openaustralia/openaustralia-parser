@@ -20,9 +20,7 @@ class HansardRewriter
     text = text.strip
 
     # Remove any trailing colons if it's a name
-    if name
-      text = text[0..text.length - 2] if text.match(/:$/)
-    end
+    text = text[0..text.length - 2] if name && text.match(/:$/)
 
     # Clean up multiple white space in a row.
     text = text.gsub(/\s\s+/m, " ")
