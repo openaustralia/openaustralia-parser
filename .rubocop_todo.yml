@@ -129,14 +129,6 @@ Style/ClassVars:
     - 'lib/people_image_downloader.rb'
     - 'lib/period.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/ColonMethodCall:
-  Exclude:
-    - 'lib/configuration.rb'
-    - 'lib/hansard_parser.rb'
-    - 'spec/patch_spec.rb'
-
 # Offense count: 30
 Style/Documentation:
   Enabled: false

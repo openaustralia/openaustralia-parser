@@ -83,7 +83,7 @@ class HansardParser
       patch_file_path = "#{File.dirname(__FILE__)}/../data/patches/#{house}.#{date}.xml.patch"
       if File.exist?(patch_file_path)
         begin
-          Patch::patch(text, File.read(patch_file_path))
+          Patch.patch(text, File.read(patch_file_path))
         rescue StandardError
           # Reraising error so that we can include a little more info
           raise "#{date} #{house}: Patch failed"

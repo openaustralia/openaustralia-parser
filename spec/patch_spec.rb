@@ -28,7 +28,7 @@ describe Patch do
   end
 
   it "can patch a string with a unified diff and return a new string" do
-    expect(Patch::patch(@original, @patch)).to eq <<~RESULT
+    expect(Patch.patch(@original, @patch)).to eq <<~RESULT
       Mary had a little lamb
       whose fleece was white as snow.
       And everywhere that Mary went the lamb was sure to go.
