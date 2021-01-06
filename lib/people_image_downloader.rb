@@ -100,11 +100,9 @@ class PeopleImageDownloader
 
   def extract_name(page)
     title = strip_tags(extract_metadata_tags(page)["Title"])
-    if title =~ /^(Biography for )?(.*)$/
-      Name.last_title_first($LAST_MATCH_INFO[2])
-    else
-      raise "Unexpected form for title of biography page: #{title}"
-    end
+    raise "Unexpected form for title of biography page: #{title}" unless title =~ /^(Biography for )?(.*)$/
+
+    Name.last_title_first($LAST_MATCH_INFO[2])
   end
 
   # Returns an array of values for the metadata
@@ -156,15 +154,15 @@ class PeopleImageDownloader
 
   def extract_image(page)
     img_tag = page.search("div.box").search("img").first
-    if img_tag
-      relative_image_url = img_tag.attributes["src"]
-      # begin
-      # puts "About to lookup image #{relative_image_url}..."
-      res = @agent.get(relative_image_url)
-      Magick::Image.from_blob(res.body)[0]
-      # rescue RuntimeError, Magick::ImageMagickError, Mechanize::ResponseCodeError
-      #  return nil
-      # end
-    end
+    return unless img_tag
+
+    relative_image_url = img_tag.attributes["src"]
+    # begin
+    # puts "About to lookup image #{relative_image_url}..."
+    res = @agent.get(relative_image_url)
+    Magick::Image.from_blob(res.body)[0]
+    # rescue RuntimeError, Magick::ImageMagickError, Mechanize::ResponseCodeError
+    #  return nil
+    # end
   end
 end

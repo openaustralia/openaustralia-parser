@@ -123,23 +123,6 @@ Style/Documentation:
 Style/FormatStringToken:
   EnforcedStyle: unannotated
 
-# Offense count: 17
-# Configuration parameters: MinBodyLength.
-Style/GuardClause:
-  Exclude:
-    - 'lib/debates.rb'
-    - 'lib/extract_wikipedia_links.rb'
-    - 'lib/hansard_division.rb'
-    - 'lib/hansard_parser.rb'
-    - 'lib/hansard_speech.rb'
-    - 'lib/heading.rb'
-    - 'lib/name.rb'
-    - 'lib/people.rb'
-    - 'lib/people_csv_reader.rb'
-    - 'lib/people_image_downloader.rb'
-    - 'regression-test/regression_test_parse_members.rb'
-    - 'xml_schemas/save_all_xml_files.rb'
-
 # Offense count: 2
 Style/MissingRespondToMissing:
   Exclude:

@@ -29,11 +29,11 @@ class MinorHeading < HeadingBase
   def output(x)
     parameters = { id: id, url: @url }
     x.tag!("minor-heading", parameters) { x << @title }
-    if @bills && !@bills.empty?
-      x.bills do
-        @bills.each do |bill|
-          x.bill({ id: bill[:id], url: bill[:url] }, bill[:title])
-        end
+    return unless @bills && !@bills.empty?
+
+    x.bills do
+      @bills.each do |bill|
+        x.bill({ id: bill[:id], url: bill[:url] }, bill[:title])
       end
     end
   end

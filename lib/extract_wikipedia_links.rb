@@ -39,11 +39,9 @@ def extract_links_from_wikipedia(doc, people, links)
     name = Name.title_first_last(link.inner_html)
     person = people.find_person_by_name(name)
     if person
-      if link.get_attribute("href").match(%r{^/wiki/(.*)$})
-        title = $LAST_MATCH_INFO[1]
-      else
-        raise "Unexpected link format"
-      end
+      raise "Unexpected link format" unless link.get_attribute("href").match(%r{^/wiki/(.*)$})
+
+      title = $LAST_MATCH_INFO[1]
       url = "http://en.wikipedia.org/wiki/#{title}"
       if links.key?(person.id) && links[person.id] != url
         puts "WARNING: URL for #{name.full_name} has multiple different values"

@@ -62,15 +62,13 @@ class PeopleCSVReader
       raise "Division is undefined for #{name.full_name}" if house.representatives? && division.nil?
 
       matches = people.find_people_by_name(name)
-      if matches.empty?
-        raise "Couldn't find person #{name.full_name}"
-      elsif matches.size > 1
+      raise "Couldn't find person #{name.full_name}" if matches.empty?
+
+      if matches.size > 1
+        raise "More than one match for name #{name.full_name} found" unless person_count
+
         # In a situation where several people match we use the "person count" field to disambiguate
-        if person_count
-          person = people.find_person_by_count(person_count.to_i)
-        else
-          raise "More than one match for name #{name.full_name} found"
-        end
+        person = people.find_person_by_count(person_count.to_i)
       else
         person = matches.first
       end

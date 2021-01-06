@@ -74,23 +74,23 @@ class HansardParser
   # Returns nil if it doesn't exist
   def hansard_xml_source_data_on_date(date, house)
     text = unpatched_hansard_xml_source_data_on_date(date, house)
-    if text
-      # Horribe hack to fix some stupid wrapping
-      text = text.gsub(/\r/, "")
-      text = text.gsub(%r{</span>[^<]*<span style="&#xD;&#xA;    font-size:9.5pt;&#xD;&#xA;  ">}m, "")
+    return unless text
 
-      # Now check whether there is a patch for that day and if so apply it
-      patch_file_path = "#{File.dirname(__FILE__)}/../data/patches/#{house}.#{date}.xml.patch"
-      if File.exist?(patch_file_path)
-        begin
-          Patch.patch(text, File.read(patch_file_path))
-        rescue StandardError
-          # Reraising error so that we can include a little more info
-          raise "#{date} #{house}: Patch failed"
-        end
-      else
-        text
+    # Horribe hack to fix some stupid wrapping
+    text = text.gsub(/\r/, "")
+    text = text.gsub(%r{</span>[^<]*<span style="&#xD;&#xA;    font-size:9.5pt;&#xD;&#xA;  ">}m, "")
+
+    # Now check whether there is a patch for that day and if so apply it
+    patch_file_path = "#{File.dirname(__FILE__)}/../data/patches/#{house}.#{date}.xml.patch"
+    if File.exist?(patch_file_path)
+      begin
+        Patch.patch(text, File.read(patch_file_path))
+      rescue StandardError
+        # Reraising error so that we can include a little more info
+        raise "#{date} #{house}: Patch failed"
       end
+    else
+      text
     end
   end
 
@@ -134,32 +134,32 @@ class HansardParser
         f.write(xml.to_s) if xml
       end
     end
-    if xml
-      # APH changed their XML format on the 10th of May 2011
-      if date >= Date.new(2011, 5, 10)
-        # Rewrite the XML data back to a sane format
-        new_xml = @rewriter.rewrite_xml Hpricot.XML(xml)
+    return unless xml
 
-        # Save the rewritten XML data
-        File.open(rewritexml_filename(date, house), "w") { |f| f.write(new_xml.to_s) }
+    # APH changed their XML format on the 10th of May 2011
+    if date >= Date.new(2011, 5, 10)
+      # Rewrite the XML data back to a sane format
+      new_xml = @rewriter.rewrite_xml Hpricot.XML(xml)
 
-        # Process the day
-        HansardDay.new(new_xml, @logger)
-      else
-        HansardDay.new(Hpricot.XML(xml), @logger)
-      end
+      # Save the rewritten XML data
+      File.open(rewritexml_filename(date, house), "w") { |f| f.write(new_xml.to_s) }
+
+      # Process the day
+      HansardDay.new(new_xml, @logger)
+    else
+      HansardDay.new(Hpricot.XML(xml), @logger)
     end
   end
 
   # Parse but only if there is a page that is at "proof" stage
   def parse_date_house_only_in_proof(date, xml_filename, house)
     day = hansard_day_on_date(date, house)
-    if day&.in_proof?
-      logger.info "Deleting cached origxml file for #{date} because that date is in proof stage."
-      FileUtils.rm_f(origxml_filename(date, house))
-      logger.info "Redownloading pages on #{date}..."
-      parse_date_house(date, xml_filename, house)
-    end
+    return unless day&.in_proof?
+
+    logger.info "Deleting cached origxml file for #{date} because that date is in proof stage."
+    FileUtils.rm_f(origxml_filename(date, house))
+    logger.info "Redownloading pages on #{date}..."
+    parse_date_house(date, xml_filename, house)
   end
 
   def parse_date_house(date, xml_filename, house)
@@ -318,16 +318,16 @@ class HansardParser
     # Annoyingly, "1000" keeps getting used as well to mean the same thing. This is clearly a mistake, so
     # we'll ignore it in the same way
     aph_id = speech.aph_id.upcase unless speech.aph_id.nil?
-    if aph_id && aph_id != "10000" && aph_id != "1000"
-      person = @people.find_person_by_aph_id(aph_id)
-      if person
-        period = person.position_current_on_date(date, house)
-        logger.error "#{date} #{house}: Found person (#{person.name.full_name}) but not both in the right period and house. Strange..." if period.nil?
-        period
-      else
-        logger.error "#{date} #{house}: Can't figure out which person the aph id #{speech.aph_id} belongs to"
-        nil
-      end
+    return unless aph_id && aph_id != "10000" && aph_id != "1000"
+
+    person = @people.find_person_by_aph_id(aph_id)
+    if person
+      period = person.position_current_on_date(date, house)
+      logger.error "#{date} #{house}: Found person (#{person.name.full_name}) but not both in the right period and house. Strange..." if period.nil?
+      period
+    else
+      logger.error "#{date} #{house}: Can't figure out which person the aph id #{speech.aph_id} belongs to"
+      nil
     end
   end
 

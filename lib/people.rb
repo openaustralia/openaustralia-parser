@@ -138,11 +138,9 @@ class People < Array
           end
         end
       end
-      if refined_matches.size == 1
-        refined_matches[0]
-      else
-        raise "More than one match for name #{name.full_name} #{name.real_initials} found in #{house.name}"
-      end
+      raise "More than one match for name #{name.full_name} #{name.real_initials} found in #{house.name}" unless refined_matches.size == 1
+
+      refined_matches[0]
     elsif matches.size == 1
       matches[0]
     end

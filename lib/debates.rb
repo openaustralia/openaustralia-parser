@@ -42,10 +42,10 @@ class Debates
       @items << @latest_major_heading
       @latest_major_heading = nil
     end
-    if @latest_minor_heading
-      @items << @latest_minor_heading
-      @latest_minor_heading = nil
-    end
+    return unless @latest_minor_heading
+
+    @items << @latest_minor_heading
+    @latest_minor_heading = nil
   end
 
   def increment_minor_count

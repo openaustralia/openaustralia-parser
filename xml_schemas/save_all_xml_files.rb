@@ -23,13 +23,13 @@ def write_hansard_xml_source_data_on_date(date, house)
   parser = HansardParser.new(nil)
 
   text = parser.hansard_xml_source_data_on_date(date, house)
-  if text
-    # Figure out which version of the schema this file is using and save it into a directory based on that
-    version = Hpricot.XML(text).at("hansard").attributes["version"]
-    raise "Unrecognised schema version #{version}" if version != "2.0" && version != "2.1"
+  return unless text
 
-    write_tidied_xml(text, "source/#{version}/#{date}-#{house.representatives? ? 'reps' : 'senate'}.xml")
-  end
+  # Figure out which version of the schema this file is using and save it into a directory based on that
+  version = Hpricot.XML(text).at("hansard").attributes["version"]
+  raise "Unrecognised schema version #{version}" if version != "2.0" && version != "2.1"
+
+  write_tidied_xml(text, "source/#{version}/#{date}-#{house.representatives? ? 'reps' : 'senate'}.xml")
 end
 
 (from..to).each do |date|
