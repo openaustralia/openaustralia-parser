@@ -135,7 +135,7 @@ class Name
   end
 
   def first_initial
-    if has_first_initial?
+    if first_initial?
       @initials[0..0]
     else
       @first[0..0]
@@ -143,7 +143,7 @@ class Name
   end
 
   def middle_initials
-    if has_middle_initials?
+    if middle_initials?
       @initials[1..]
     else
       @middle.split(" ").map { |n| n[0..0] }.join
@@ -169,53 +169,53 @@ class Name
   end
 
   def informal_name
-    raise "No last name" unless has_last?
+    raise "No last name" unless last?
 
     "#{@first} #{@last}"
   end
 
   def full_name
     t = ""
-    t += "#{title} " if has_title?
-    t += "#{first} " if has_first?
-    t += "#{middle} " if has_middle?
+    t += "#{title} " if title?
+    t += "#{first} " if first?
+    t += "#{middle} " if middle?
     t += last.to_s
-    t += ", #{post_title}" if has_post_title?
+    t += ", #{post_title}" if post_title?
     t
   end
 
-  def has_title?
+  def title?
     @title != ""
   end
 
-  def has_first?
+  def first?
     @first != ""
   end
 
-  def has_middle?
+  def middle?
     @middle != ""
   end
 
-  def has_first_initial?
+  def first_initial?
     !@initials.empty?
   end
 
-  def has_middle_initials?
+  def middle_initials?
     @initials.size > 1
   end
 
-  def has_last?
+  def last?
     @last != ""
   end
 
-  def has_post_title?
+  def post_title?
     @post_title != ""
   end
 
   def first_matches?(name)
-    if !has_first? || !name.has_first?
+    if !first? || !name.first?
       # Check here if one name has initials and no first name and the other has a first name
-      if (has_first_initial? && name.has_first?) || (has_first? && name.has_first_initial?)
+      if (first_initial? && name.first?) || (first? && name.first_initial?)
         first_initial == name.first_initial
       else
         true
@@ -228,8 +228,8 @@ class Name
   end
 
   def middle_matches?(name)
-    if !has_middle? || !name.has_middle?
-      if (has_middle_initials? && name.has_middle?) || (has_middle? && name.has_middle_initials?)
+    if !middle? || !name.middle?
+      if (middle_initials? && name.middle?) || (middle? && name.middle_initials?)
         middle_initials == name.middle_initials[0..middle_initials.length - 1]
       else
         true
@@ -243,13 +243,13 @@ class Name
   # that exist in both names have to match
   def matches?(name)
     # Both names need to have a last name to match
-    return false unless has_last? && name.has_last?
+    return false unless last? && name.last?
 
-    (!has_title? || !name.has_title? || @title == name.title) &&
+    (!title? || !name.title? || @title == name.title) &&
       first_matches?(name) &&
       middle_matches?(name) &&
-      (!has_last?            || !name.has_last?            || @last       == name.last) &&
-      (!has_post_title?      || !name.has_post_title?      || @post_title == name.post_title)
+      (!last?       || !name.last?       || @last       == name.last) &&
+      (!post_title? || !name.post_title? || @post_title == name.post_title)
   end
 
   def ==(other)
