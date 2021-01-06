@@ -117,12 +117,6 @@ Style/ClassVars:
 Style/Documentation:
   Enabled: false
 
-# Offense count: 13
-# Configuration parameters: MaxUnannotatedPlaceholdersAllowed.
-# SupportedStyles: annotated, template, unannotated
-Style/FormatStringToken:
-  EnforcedStyle: unannotated
-
 # Offense count: 2
 Style/MissingRespondToMissing:
   Exclude:

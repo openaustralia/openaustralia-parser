@@ -38,9 +38,9 @@ class ProgressBar
 
   def fmt_bar
     bar_width = do_percentage * @terminal_width / 100
-    format("|%s%s|",
-           @bar_mark * bar_width,
-           " " * (@terminal_width - bar_width))
+    format("|%<bar>s%<space>s|",
+           bar: @bar_mark * bar_width,
+           space: " " * (@terminal_width - bar_width))
   end
 
   def fmt_percentage
@@ -53,9 +53,9 @@ class ProgressBar
 
   def fmt_stat_for_file_transfer
     if @finished_p
-      format("%s %s %s", bytes, transfer_rate, elapsed)
+      format("%<bytes>s %<transfer_rate>s %<elapsed>s", bytes: bytes, transfer_rate: transfer_rate, elapsed: elapsed)
     else
-      format("%s %s %s", bytes, transfer_rate, eta)
+      format("%<bytes>s %<transfer_rate>s %<eta>s", bytes: bytes, transfer_rate: transfer_rate, eta: eta)
     end
   end
 
@@ -89,7 +89,7 @@ class ProgressBar
     sec = t % 60
     min  = (t / 60) % 60
     hour = t / 3600
-    format("%02d:%02d:%02d", hour, min, sec)
+    format("%<hour>02d:%<min>02d:%<sec>02d", hour: hour, min: min, sec: sec)
   end
 
   # ETA stands for Estimated Time of Arrival.
