@@ -183,15 +183,6 @@ Style/MultilineIfThen:
   Exclude:
     - 'lib/progressbar.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-Style/MultipleComparison:
-  Exclude:
-    - 'lib/hansard_day.rb'
-    - 'lib/house.rb'
-    - 'lib/name.rb'
-    - 'lib/people_csv_reader.rb'
-
 # Offense count: 2
 # Configuration parameters: AllowedMethods.
 # AllowedMethods: respond_to_missing?

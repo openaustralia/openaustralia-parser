@@ -53,9 +53,9 @@ class PeopleCSVReader
       end_date = parse_end_date(end_date)
       start_reason = parse_start_reason(start_reason)
       valid_states = %w[NSW Tasmania WA Queensland Victoria SA NT ACT]
-      state = "Tasmania" if state == "Tas." || state == "Tas"
-      state = "Victoria" if state == "Vic." || state == "Vic"
-      state = "Queensland" if state == "Qld" || state == "QLD"
+      state = "Tasmania" if ["Tas.", "Tas"].include?(state)
+      state = "Victoria" if ["Vic.", "Vic"].include?(state)
+      state = "Queensland" if %w[Qld QLD].include?(state)
       raise "State #{state} is not a valid. Allowed values are #{valid_states.join(', ')}" unless valid_states.member?(state)
 
       name = Name.title_first_last(name_text)

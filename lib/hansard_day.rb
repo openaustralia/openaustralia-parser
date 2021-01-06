@@ -58,7 +58,7 @@ class HansardDay
 
   def in_proof?
     proof = @page.at("proof").inner_html
-    @logger.error "#{date} #{house}: Unexpected value '#{proof}' inside tag <proof>" unless proof == "1" || proof == "0"
+    @logger.error "#{date} #{house}: Unexpected value '#{proof}' inside tag <proof>" unless %w[1 0].include?(proof)
     proof == "1"
   end
 
