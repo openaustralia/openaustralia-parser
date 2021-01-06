@@ -121,7 +121,7 @@ dates[skip..].each do |date|
   hours_left = (minutes_left / 60).to_i
   minutes_left -= 60 * hours_left
 
-  if hours_left > 0
+  if hours_left.positive?
     puts "Estimated time left to completion: #{hours_left} hours #{minutes_left} mins"
   else
     puts "Estimated time left to completion: #{minutes_left} mins #{seconds_left} secs"

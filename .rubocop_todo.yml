@@ -244,28 +244,6 @@ Style/Not:
 Style/NumericLiterals:
   MinDigits: 7
 
-# Offense count: 35
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IgnoredMethods.
-# SupportedStyles: predicate, comparison
-Style/NumericPredicate:
-  Exclude:
-    - 'spec/**/*'
-    - 'import-comments.rb'
-    - 'lib/division.rb'
-    - 'lib/hansard_day.rb'
-    - 'lib/hansard_parser.rb'
-    - 'lib/hansard_rewriter.rb'
-    - 'lib/name.rb'
-    - 'lib/people.rb'
-    - 'lib/people_csv_reader.rb'
-    - 'lib/people_image_downloader.rb'
-    - 'lib/progressbar.rb'
-    - 'lib/speech.rb'
-    - 'parse-members.rb'
-    - 'parse-speeches.rb'
-    - 'regression-test/regression_test_parse_speeches.rb'
-
 # Offense count: 2
 # Configuration parameters: AllowedMethods.
 # AllowedMethods: respond_to_missing?

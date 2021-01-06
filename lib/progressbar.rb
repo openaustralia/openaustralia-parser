@@ -96,7 +96,7 @@ class ProgressBar
 
   # ETA stands for Estimated Time of Arrival.
   def eta
-    if @current == 0
+    if @current.zero?
       "ETA:  --:--:--"
     else
       elapsed = Time.now - @start_time
@@ -152,7 +152,7 @@ class ProgressBar
       @out.flush
     elsif line.length >= width
       @terminal_width = [@terminal_width - (line.length - width + 1), 0].max
-      @terminal_width == 0 ? @out.print(line + eol) : show
+      @terminal_width.zero? ? @out.print(line + eol) : show
     else # line.length < width - 1
       @terminal_width += width - line.length + 1
       show
@@ -213,7 +213,7 @@ class ProgressBar
   end
 
   def set(count)
-    raise "invalid count: #{count} (total: #{@total})" if count < 0 || count > @total
+    raise "invalid count: #{count} (total: #{@total})" if count.negative? || count > @total
 
     @current = count
     show_if_needed
