@@ -42,7 +42,10 @@ describe HansardDay do
         x.debate do
           x.debateinfo { x.title 2 }
           x.subdebate_1 do
-            x.subdebateinfo { x.title 3; x.title 14 }
+            x.subdebateinfo do
+              x.title 3
+              x.title 14
+            end
             x.speech
           end
         end

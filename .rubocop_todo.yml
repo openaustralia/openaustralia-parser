@@ -347,12 +347,6 @@ Style/RedundantReturn:
   Exclude:
     - 'lib/hansard_rewriter.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/RedundantSelfAssignment:
-  Exclude:
-    - 'lib/people_image_downloader.rb'
-
 # Offense count: 109
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
