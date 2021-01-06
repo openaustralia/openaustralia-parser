@@ -14,7 +14,7 @@
 class ProgressBar
   VERSION = "0.9"
 
-  def initialize(title, total, out = STDERR)
+  def initialize(title, total, out = $stderr)
     @title = title
     @total = total
     @out = out

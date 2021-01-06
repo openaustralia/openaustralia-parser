@@ -95,7 +95,7 @@ rescue StandardError => e
   puts e.backtrace.join("\n\t")
   loop do
     print "Retry / Patch / Continue / Quit? "
-    choice = STDIN.gets.upcase[0..0]
+    choice = $stdin.gets.upcase[0..0]
     case choice
     when "P"
       system "#{File.dirname(__FILE__)}/create_patch.rb #{house} #{date}"

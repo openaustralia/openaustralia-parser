@@ -147,13 +147,6 @@ Style/Documentation:
 Style/FormatStringToken:
   EnforcedStyle: unannotated
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/GlobalStdStream:
-  Exclude:
-    - 'lib/progressbar.rb'
-    - 'parse-speeches.rb'
-
 # Offense count: 17
 # Configuration parameters: MinBodyLength.
 Style/GuardClause:
