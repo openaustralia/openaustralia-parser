@@ -47,13 +47,6 @@ Metrics/ParameterLists:
 Metrics/PerceivedComplexity:
   Max: 48
 
-# Offense count: 8
-Style/ClassVars:
-  Exclude:
-    - 'lib/configuration.rb'
-    - 'lib/people_image_downloader.rb'
-    - 'lib/period.rb'
-
 # Offense count: 30
 Style/Documentation:
   Enabled: false

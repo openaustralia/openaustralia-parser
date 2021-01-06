@@ -11,3 +11,9 @@ Style/StringLiterals:
 # it's just nonsensical. Also, I think this one might also be a bit US centric.
 Style/NumericLiterals:
   Enabled: false
+
+# TODO: Don't have the patience to fix this one just yet
+Style/ClassVars:
+  Exclude:
+    - 'lib/configuration.rb'
+    - 'lib/period.rb'
