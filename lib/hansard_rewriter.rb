@@ -23,16 +23,13 @@ class HansardRewriter
     text = text[0..text.length - 2] if name && text.match(/:$/)
 
     # Clean up multiple white space in a row.
-    text = text.gsub(/\s\s+/m, " ")
-
-    return text
+    text.gsub(/\s\s+/m, " ")
   end
 
   def restore_tags(text)
     text = text.gsub(%r{\{italic\}\s*\{/italic\}}, "")
     text = text.gsub(/\{italic\}/, "<inline font-style='italic'>")
-    text = text.gsub(%r{\{/italic\}}, "</inline>")
-    return text
+    text.gsub(%r{\{/italic\}}, "</inline>")
   end
 
   def lookup_aph_id(aph_id, name)
@@ -47,7 +44,7 @@ class HansardRewriter
         logger.warn "    WARNING: Trying to lookup aph id via role_map #{name} but it wasn't found"
       end
     end
-    return aph_id
+    aph_id
   end
 
   # This function is the core of the new parser.  It takes the raw
@@ -372,7 +369,7 @@ XML
       end
     end
     input_text_node.search("*").remove
-    return new_xml
+    new_xml
   end
 
   def rewrite_debate(debate, level)
@@ -439,7 +436,7 @@ XML
     end
 
     debate.inner_html = "#{debate_new_children}"
-    return debate
+    debate
   end
 
   def rewrite_xml(hansard)
@@ -450,6 +447,6 @@ XML
     hansard.search("//debate").each do |d|
       rewrite_debate(d, 0)
     end
-    return hansard
+    hansard
   end
 end
