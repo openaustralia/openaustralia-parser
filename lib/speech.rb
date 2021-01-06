@@ -1,20 +1,23 @@
-require 'hpricot'
-require 'htmlentities'
-require 'section'
+# frozen_string_literal: true
+
+require "hpricot"
+require "htmlentities"
+require "section"
 
 class Speech < Section
-  attr_accessor :speaker, :content, :interjection, :continuation, :duration,
-    :word_count_for_continuations
+  attr_accessor :speaker, :content, :interjection, :continuation,
+                :word_count_for_continuations
+  attr_reader :duration
 
-  def initialize(speaker, time, url, count, date, house, logger = nil)
+  def initialize(speaker:, time:, url:, count:, date:, house:, logger: nil)
     @speaker = speaker
     @content = Hpricot::Elements.new
     @duration = 0
     @word_count_for_continuations = 0
-    super(time, url, count, date, house, logger)
+    super(time: time, url: url, count: count, date: date, house: house, logger: logger)
   end
 
-  def output(x)
+  def output(builder)
     time = @time.nil? ? "unknown" : @time
     if @logger && @content.inner_text.strip == ""
       if @speaker.nil?
@@ -23,11 +26,16 @@ class Speech < Section
         @logger.error "#{@date} #{@house}: Empty speech by #{@speaker.person.name.full_name}"
       end
     end
-    speaker_attributes = @speaker ? {:speakername => @speaker.name.full_name, :speakerid => @speaker.id} : {:nospeaker => "true"}
-    x.speech(speaker_attributes.merge({
-      :time => time, :url => quoted_url, :id => id, :talktype => talk_type,
-      :approximate_duration => @duration.to_i, :approximate_wordcount => words
-    })) { x << @content.to_s }
+    speaker_attributes = if @speaker
+                           { speakername: @speaker.name.full_name,
+                             speakerid: @speaker.id }
+                         else
+                           { nospeaker: "true" }
+                         end
+    builder.speech(
+      speaker_attributes.merge({ time: time, url: quoted_url, id: id, talktype: talk_type,
+                                 approximate_duration: @duration.to_i, approximate_wordcount: words })
+    ) { builder << @content.to_s }
   end
 
   def append_to_content(content)
@@ -39,8 +47,8 @@ class Speech < Section
       text.swap(coder.encode(text, :basic))
     end
     # Append to stored content
-    if content.kind_of?(Array)
-      @content = @content + content
+    if content.is_a?(Array)
+      @content += content
     else
       @content << content
     end
@@ -48,26 +56,22 @@ class Speech < Section
 
   def talk_type
     if @interjection
-      'interjection'
+      "interjection"
     elsif @continuation
-      'continuation'
+      "continuation"
     else
-      'speech'
+      "speech"
     end
   end
 
   def duration=(duration_estimate)
     # Cleanup up durations less than zero
-    if (duration_estimate < 0)
-      duration_estimate = 0
-    end
+    duration_estimate = 0 if duration_estimate.negative?
     if !interjection && !continuation
       # If the duration seems to be off the word count estimate by more than 10
       # minutes, fallback to the wordcount estimate
-      duration_from_wordcount = ((words + word_count_for_continuations) / 120).round * 60;
-      if (duration_estimate - duration_from_wordcount).abs > 600
-        duration_estimate = duration_from_wordcount
-      end
+      duration_from_wordcount = ((words + word_count_for_continuations) / 120).round * 60
+      duration_estimate = duration_from_wordcount if (duration_estimate - duration_from_wordcount).abs > 600
     end
     @duration = duration_estimate
   end
@@ -82,8 +86,7 @@ class Speech < Section
   def words
     # Add newlines between p tags so the last and first words of paragraphs are
     # split properly
-    html = @content.inner_html.gsub(/<\/p>/, "</p>\n")
+    html = @content.inner_html.gsub(%r{</p>}, "</p>\n")
     Hpricot(html).inner_text.split.count
   end
-
 end

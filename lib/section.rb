@@ -1,14 +1,21 @@
+# frozen_string_literal: true
+
 # Currently a section can be either a speech or a division
 class Section
   attr_accessor :time, :url
 
-  def initialize(time, url, count, date, house, logger = nil)
-    @time, @url, @count, @date, @house, @logger = time, url, count, date, house, logger
+  def initialize(time:, url:, count:, date:, house:, logger: nil)
+    @time = time
+    @url = url
+    @count = count
+    @date = date
+    @house = house
+    @logger = logger
   end
 
   # Quoting of url's is required to be nice and standards compliant
   def quoted_url
-    @url.gsub('&', '&amp;')
+    @url.gsub("&", "&amp;")
   end
 
   def id
@@ -19,8 +26,8 @@ class Section
     end
   end
 
-  def to_time(alternate_time=nil)
-    time = (alternate_time || @time).split(':').map(&:to_i)
+  def to_time(alternate_time = nil)
+    time = (alternate_time || @time).split(":").map(&:to_i)
     hour = time[0]
     minutes = time[1]
     # puts "Time.local(#{@date.year}, #{@date.month}, #{@date.day}, #{hour}, #{minutes})"

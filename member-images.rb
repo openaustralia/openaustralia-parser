@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-$:.unshift "#{File.dirname(__FILE__)}/lib"
+$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'configuration'
-require 'people'
+require "configuration"
+require "people"
 
 conf = Configuration.new
 

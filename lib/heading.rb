@@ -1,8 +1,15 @@
+# frozen_string_literal: true
+
 class HeadingBase
-  def initialize(title, count, url, bills, date, house)
-    @title, @count, @url, @bills, @date, @house = title, count, url, bills, date, house
+  def initialize(title:, count:, url:, bills:, date:, house:)
+    @title = title
+    @count = count
+    @url = url
+    @bills = bills
+    @date = date
+    @house = house
   end
-  
+
   def id
     if @house.representatives?
       "uk.org.publicwhip/debate/#{@date}.#{@count}"
@@ -13,20 +20,20 @@ class HeadingBase
 end
 
 class MajorHeading < HeadingBase
-  def output(x)
-    x.tag!("major-heading", :id => id, :url => @url) { x << @title }
+  def output(builder)
+    builder.tag!("major-heading", id: id, url: @url) { builder << @title }
   end
 end
 
 class MinorHeading < HeadingBase
-  def output(x)
-    parameters = {:id => id, :url => @url}
-    x.tag!("minor-heading", parameters) { x << @title }
-    if @bills && !@bills.empty?
-      x.bills do
-        @bills.each do |bill|
-          x.bill({:id => bill[:id], :url => bill[:url]}, bill[:title])
-        end
+  def output(builder)
+    parameters = { id: id, url: @url }
+    builder.tag!("minor-heading", parameters) { builder << @title }
+    return unless @bills && !@bills.empty?
+
+    builder.bills do
+      @bills.each do |bill|
+        builder.bill({ id: bill[:id], url: bill[:url] }, bill[:title])
       end
     end
   end

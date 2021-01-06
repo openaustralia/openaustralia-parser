@@ -1,6 +1,4 @@
-# encoding: utf-8
-
-require 'enumerator'
+# frozen_string_literal: true
 
 # Handle all our silly name parsing needs
 class Name
@@ -8,79 +6,75 @@ class Name
 
   def initialize(params)
     # First normalize the unicode.
-    params.map {|key, value| [key, (value.unicode_normalize(:nfkc) if value)]}
+    params.map { |key, value| [key, value&.unicode_normalize(:nfkc)] }
 
     @title = params[:title] || ""
     @first = (Name.capitalize_name(params[:first]) if params[:first]) || ""
     @middle = (Name.capitalize_each_name(params[:middle]) if params[:middle]) || ""
-    @initials = (params[:initials].upcase if params[:initials]) || ""
-    @post_title = (params[:post_title].upcase if params[:post_title]) || ""
+    @initials = params[:initials]&.upcase || ""
+    @post_title = params[:post_title]&.upcase || ""
     @last = (Name.capitalize_each_name(params[:last]) if params[:last]) || ""
-    invalid_keys = params.keys - [:title, :first, :middle, :initials, :last, :post_title]
+    invalid_keys = params.keys - %i[title first middle initials last post_title]
     raise "Invalid keys #{invalid_keys} used" unless invalid_keys.empty?
   end
 
-  def Name.remove_text_in_brackets(text)
-    open = text.index('(')
+  def self.remove_text_in_brackets(text)
+    open = text.index("(")
     if open
-      close = text.index(')', open)
-      if close
-        text = text[0..open-1] + text[close+1..-1]
-      end
+      close = text.index(")", open)
+      text = text[0..open - 1] + text[close + 1..] if close
     end
 
     # Remove extra spaces
-    text.squeeze(' ')
+    text.squeeze(" ")
   end
 
-  def Name.last_title_first(text)
+  def self.last_title_first(text)
     # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
     text = text.unicode_normalize(:nfkc)
     # Do the following before the split so we can handle things like "(foo bar)"
     text = remove_text_in_brackets(text)
-    names = text.delete(',').split(' ')
+    names = text.delete(",").split(" ")
     # Hack to deal with a specific person who has two last names that aren't hyphenated
     if names.size >= 2 && names[0].downcase == "stott" && names[1].downcase == "despoja" ||
        names.size >= 2 && names[0].downcase == "van" && names[1].downcase == "manen" ||
        names.size >= 2 && names[0].downcase == "di" && names[1].downcase == "natale"
-      last = names[0..1].join(' ')
+      last = names[0..1].join(" ")
       names.shift
       names.shift
     # Check for hyphenated last names
-    elsif names[1] == '-'
+    elsif names[1] == "-"
       last = names.shift(3).join
     else
       last = names.shift
     end
     title = Name.extract_title_at_start(names)
     # Check for hypenated first name
-    if names[1] == '-'
+    if names[1] == "-"
       first = names.shift(3).join
     elsif names.size >= 1
       # First name could be in the form of initials. So, check for this
       if initials(names[0])
         # Allow several initials separated by spaces
-        initials = ""
-        while names.size >= 1 && initials(names[0])
-          initials << initials(names.shift)
-        end
+        initials = +""
+        initials << initials(names.shift) while names.size >= 1 && initials(names[0])
       else
         first = names.shift
       end
     end
     post_title = extract_post_title_at_end(names)
-    middle = names[0..-1].join(' ')
-    Name.new(:title => title, :initials => initials, :last => last, :first => first, :middle => middle, :post_title => post_title)
+    middle = names[0..].join(" ")
+    Name.new(title: title, initials: initials, last: last, first: first, middle: middle, post_title: post_title)
   end
 
   # Extract a post title from the end if one is available
-  def Name.post_title(names)
-    valid_post_titles = ["AM", "SC", "AO", "MBE", "QC", "OBE", "KSJ", "JP", "MP", "AC", "RFD", "OAM", "MC", "CSC"]
+  def self.post_title(names)
+    valid_post_titles = %w[AM SC AO MBE QC OBE KSJ JP MP AC RFD OAM MC CSC]
     names.pop if valid_post_titles.include?(names.last)
   end
 
   # Returns initials if the name could be a set of initials
-  def Name.initials(name)
+  def self.initials(name)
     # If only one or two letters assume that these are initials
     # HACK: Added specific handling for initials DJC, DGH
     if initials_with_fullstops(name)
@@ -98,18 +92,16 @@ class Name
   end
 
   # Returns true if the name could be a set of initials with full stops in them (e.g. "A.B.")
-  def Name.initials_with_fullstops(name)
+  def self.initials_with_fullstops(name)
     # Heuristic: If word has any fullstops in it we'll assume that these are initials
     # This allows a degree of flexibility, such as allowing "A.B.", "A.B..", "A.B.C", etc...
-    if name.include?('.')
-      name.delete('.')
-    end
+    name.delete(".") if name.include?(".")
   end
 
-  def Name.title_first_last(text)
+  def self.title_first_last(text)
     # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
     text = text.unicode_normalize(:nfkc)
-    names = text.delete(',').split(' ')
+    names = text.delete(",").split(" ")
     title = Name.extract_title_at_start(names)
     if names.size == 1
       last = names[0]
@@ -117,7 +109,7 @@ class Name
     elsif names.size == 2 && names[0].downcase == "stott" && names[1].downcase == "despoja" ||
           names.size == 2 && names[0].downcase == "van" && names[1].downcase == "manen" ||
           names.size >= 2 && names[0].downcase == "di" && names[1].downcase == "natale"
-      last = names[0..1].join(' ')
+      last = names[0..1].join(" ")
       names.shift
       names.shift
     elsif names.size >= 2
@@ -131,19 +123,19 @@ class Name
       if names.size >= 2 && names[-2].downcase == "stott" && names[-1].downcase == "despoja" ||
          names.size >= 2 && names[-2].downcase == "van" && names[-1].downcase == "manen" ||
          names.size >= 2 && names[0].downcase == "di" && names[1].downcase == "natale"
-        last = names[-2..-1].join(' ')
+        last = names[-2..].join(" ")
         names.pop
       else
         last = names[-1]
       end
       names.pop
-      middle = names[0..-1].join(' ')
+      middle = names[0..].join(" ")
     end
-    Name.new(:title => title, :last => last, :first => first, :middle => middle, :initials => initials, :post_title => post_title)
+    Name.new(title: title, last: last, first: first, middle: middle, initials: initials, post_title: post_title)
   end
 
   def first_initial
-    if has_first_initial?
+    if first_initial?
       @initials[0..0]
     else
       @first[0..0]
@@ -151,80 +143,79 @@ class Name
   end
 
   def middle_initials
-    if has_middle_initials?
-      @initials[1..-1]
+    if middle_initials?
+      @initials[1..]
     else
-      @middle.split(' ').map{|n| n[0..0]}.join
+      @middle.split(" ").map { |n| n[0..0] }.join
     end
   end
 
   def real_initials
     # If only one or two letters assume that these are initials
     # HACK: Added specific handling for initials DJC, DGH
-    if not @initials.nil? and @initials.length > 0
+    if !@initials.nil? && !@initials.empty?
       @initials
-    elsif not @first.nil?
+    elsif !@first.nil?
       if @first.upcase == @first
         @first
       elsif (@first != "Ed" && @first.size <= 2) || @first == "DJC" || @first == "DGH"
         @first
       else
         p_initials = first_initial
-        if not @middle.nil?
-          p_initials = "#{p_initials}#{@middle.split(' ').map{|n| n[0..0]}.join}"
-        end
+        p_initials = "#{p_initials}#{@middle.split(' ').map { |n| n[0..0] }.join}" unless @middle.nil?
         p_initials
       end
     end
   end
 
   def informal_name
-    raise "No last name" unless has_last?
+    raise "No last name" unless last?
+
     "#{@first} #{@last}"
   end
 
   def full_name
     t = ""
-    t = t + "#{title} " if has_title?
-    t = t + "#{first} " if has_first?
-    t = t + "#{middle} " if has_middle?
-    t = t + "#{last}"
-    t = t + ", #{post_title}" if has_post_title?
+    t += "#{title} " if title?
+    t += "#{first} " if first?
+    t += "#{middle} " if middle?
+    t += last.to_s
+    t += ", #{post_title}" if post_title?
     t
   end
 
-  def has_title?
+  def title?
     @title != ""
   end
 
-  def has_first?
+  def first?
     @first != ""
   end
 
-  def has_middle?
+  def middle?
     @middle != ""
   end
 
-  def has_first_initial?
-    @initials.size > 0
+  def first_initial?
+    !@initials.empty?
   end
 
-  def has_middle_initials?
+  def middle_initials?
     @initials.size > 1
   end
 
-  def has_last?
+  def last?
     @last != ""
   end
 
-  def has_post_title?
+  def post_title?
     @post_title != ""
   end
 
   def first_matches?(name)
-    if !has_first? || !name.has_first?
+    if !first? || !name.first?
       # Check here if one name has initials and no first name and the other has a first name
-      if (has_first_initial? && name.has_first?) || (has_first? && name.has_first_initial?)
+      if (first_initial? && name.first?) || (first? && name.first_initial?)
         first_initial == name.first_initial
       else
         true
@@ -237,9 +228,9 @@ class Name
   end
 
   def middle_matches?(name)
-    if !has_middle? || !name.has_middle?
-      if (has_middle_initials? && name.has_middle?) || (has_middle? && name.has_middle_initials?)
-        middle_initials == name.middle_initials[0..middle_initials.length-1]
+    if !middle? || !name.middle?
+      if (middle_initials? && name.middle?) || (middle? && name.middle_initials?)
+        middle_initials == name.middle_initials[0..middle_initials.length - 1]
       else
         true
       end
@@ -252,44 +243,42 @@ class Name
   # that exist in both names have to match
   def matches?(name)
     # Both names need to have a last name to match
-    return false unless has_last? && name.has_last?
+    return false unless last? && name.last?
 
-    (!has_title?           || !name.has_title?           || @title      == name.title) &&
-    first_matches?(name) &&
-    middle_matches?(name) &&
-    (!has_last?            || !name.has_last?            || @last       == name.last) &&
-    (!has_post_title?      || !name.has_post_title?      || @post_title == name.post_title)
+    (!title? || !name.title? || @title == name.title) &&
+      first_matches?(name) &&
+      middle_matches?(name) &&
+      (!last?       || !name.last?       || @last       == name.last) &&
+      (!post_title? || !name.post_title? || @post_title == name.post_title)
   end
 
-  def ==(name)
-    @title == name.title && @first == name.first &&
-      @middle == name.middle && @initials == name.initials && @last == name.last && @post_title == name.post_title
+  def ==(other)
+    @title == other.title && @first == other.first &&
+      @middle == other.middle && @initials == other.initials && @last == other.last && @post_title == other.post_title
   end
 
-  private
-
-  def Name.extract_title_at_start(names)
-    titles = Array.new
-    while title = Name.title(names)
+  def self.extract_title_at_start(names)
+    titles = []
+    while (title = Name.title(names))
       titles << title
     end
-    titles.join(' ')
+    titles.join(" ")
   end
 
-  def Name.extract_post_title_at_end(names)
+  def self.extract_post_title_at_end(names)
     post_titles = []
-    while post_title = Name.post_title(names)
+    while (post_title = Name.post_title(names))
       post_titles.unshift(post_title)
     end
-    post_titles.join(' ')
+    post_titles.join(" ")
   end
 
-  def Name.matches_hon?(name)
+  def self.matches_hon?(name)
     name.downcase == "hon." || name.downcase == "hon" || name.downcase == "honourable" || name.downcase == "honourable."
   end
 
   # Extract a title at the beginning of the list of names if available and shift
-  def Name.title(names)
+  def self.title(names)
     if names.size >= 3 && names[0].downcase == "the" && names[1].downcase == "rt" && matches_hon?(names[2])
       names.shift
       names.shift
@@ -300,11 +289,11 @@ class Name
       names.shift
       "the Hon."
     elsif names.size >= 1 && matches_hon?(names[0])
-        names.shift
-        "Hon."
+      names.shift
+      "Hon."
     elsif names.size >= 1
       title = names[0]
-      if title == "Dr" || title == "Dr." || title == "Mr" || title == "Mrs" || title == "Ms" || title == "Miss" || title == "Senator" || title == "Sen" || title == "Lady"
+      if ["Dr", "Dr.", "Mr", "Mrs", "Ms", "Miss", "Senator", "Sen", "Lady"].include?(title)
         names.shift
         title
       end
@@ -312,23 +301,21 @@ class Name
   end
 
   # Capitalise a name using special rules
-  def Name.capitalize_name(name)
+  def self.capitalize_name(name)
     # Simple capitlisation
     name = name.capitalize
     # Replace a unicode character
     name = name.capitalize.gsub("\342\200\231", "'")
     # Exceptions to capitalisation rule
-    if name[0..1] == "O'" || name[0..1] == "Mc" || name[0..1] == "D'"
-      name = name[0..1] + name[2..-1].capitalize
-    end
+    name = name[0..1] + name[2..].capitalize if name[0..1] == "O'" || name[0..1] == "Mc" || name[0..1] == "D'"
     # If name is hyphenated capitalise each side on its own
     # TODO: Fix 'activesupport' gem so that multibyte chars properly pass through include?
     # Cast to normal string for include? necessary because of bug in activesupport multibyte chars
-    name = name.split('-').map{|n| capitalize_name(n)}.join('-') if name.to_s.include?('-')
+    name = name.split("-").map { |n| capitalize_name(n) }.join("-") if name.to_s.include?("-")
     name
   end
 
-  def Name.capitalize_each_name(name)
-    name.split(' ').map{|t| Name.capitalize_name(t)}.join(' ')
+  def self.capitalize_each_name(name)
+    name.split(" ").map { |t| Name.capitalize_name(t) }.join(" ")
   end
 end

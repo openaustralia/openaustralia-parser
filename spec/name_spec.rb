@@ -1,11 +1,13 @@
-$:.unshift "#{File.dirname(__FILE__)}/../lib"
+# frozen_string_literal: true
+
+$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require "test/unit"
 
 require "name"
 
 describe Name do
-  describe '.initials' do
+  describe ".initials" do
     it "returns the string with stops deleted if it includes a fullstop" do
       expect(Name.initials("X.S")).to eq "XS"
       expect(Name.initials("X.S.")).to eq "XS"
@@ -53,7 +55,7 @@ describe Name do
     end
   end
 
-  describe '.last_title_first' do
+  describe ".last_title_first" do
     it "correctly handles a title and a middle name" do
       name = Name.last_title_first("MARTIN, Dr. Fiona Barbouttis")
       expect(name.title).to eq "Dr."
@@ -62,63 +64,63 @@ describe Name do
       expect(name.last).to eq "Martin"
     end
 
-    it 'parses names with no middle names' do
+    it "parses names with no middle names" do
       name = Name.last_title_first("  ALY  ,   Anne  ")
-      expect(name.first).to eq 'Anne'
+      expect(name.first).to eq "Anne"
       expect(name.middle).to eq ""
-      expect(name.last).to eq 'Aly'
+      expect(name.last).to eq "Aly"
     end
 
-    it 'parses names with middle names' do
+    it "parses names with middle names" do
       name = Name.last_title_first("  BAKER  ,   Mark     Horden  ")
-      expect(name.first).to eq 'Mark'
-      expect(name.middle).to eq 'Horden'
-      expect(name.last).to eq 'Baker'
+      expect(name.first).to eq "Mark"
+      expect(name.middle).to eq "Horden"
+      expect(name.last).to eq "Baker"
     end
 
-    it 'parses names with titles' do
+    it "parses names with titles" do
       name = Name.last_title_first("  BACK  , Dr   Christopher     John  ")
       expect(name.title).to eq "Dr"
-      expect(name.first).to eq 'Christopher'
-      expect(name.middle).to eq 'John'
-      expect(name.last).to eq 'Back'
+      expect(name.first).to eq "Christopher"
+      expect(name.middle).to eq "John"
+      expect(name.last).to eq "Back"
     end
 
-    it 'parses names with titles and brackets' do
+    it "parses names with titles and brackets" do
       name = Name.last_title_first("  BAILEY  , the Hon. Frances (  Fran  )   Esther  ")
-      expect(name.title).to eq 'the Hon.'
-      expect(name.first).to eq 'Frances'
-      expect(name.middle).to eq 'Esther'
-      expect(name.last).to eq 'Bailey'
+      expect(name.title).to eq "the Hon."
+      expect(name.first).to eq "Frances"
+      expect(name.middle).to eq "Esther"
+      expect(name.last).to eq "Bailey"
     end
 
-    it 'parses non-hypenated first names' do
+    it "parses non-hypenated first names" do
       name = Name.last_title_first("  BROWN  ,   Robert   (Bob)   James  ")
-      expect(name.first).to eq 'Robert'
-      expect(name.middle).to eq 'James'
-      expect(name.last).to eq 'Brown'
+      expect(name.first).to eq "Robert"
+      expect(name.middle).to eq "James"
+      expect(name.last).to eq "Brown"
     end
 
-    it 'parses hyphenated first names' do
+    it "parses hyphenated first names" do
       name = Name.last_title_first("  KELLY  , the Hon.   De  -  Anne     Margaret  ")
       expect(name.title).to eq "the Hon."
-      expect(name.first).to eq 'De-Anne'
-      expect(name.middle).to eq 'Margaret'
-      expect(name.last).to eq 'Kelly'
+      expect(name.first).to eq "De-Anne"
+      expect(name.middle).to eq "Margaret"
+      expect(name.last).to eq "Kelly"
     end
 
-    it 'parses hyphenated last names' do
+    it "parses hyphenated last names" do
       name = Name.last_title_first("  HANSON  -  YOUNG  ,   Sarah   Coral")
-      expect(name.first).to eq 'Sarah'
-      expect(name.middle).to eq 'Coral'
-      expect(name.last).to eq 'Hanson-Young'
+      expect(name.first).to eq "Sarah"
+      expect(name.middle).to eq "Coral"
+      expect(name.last).to eq "Hanson-Young"
     end
 
-    it 'parses hyphenated last names' do
+    it "parses hyphenated last names" do
       name = Name.last_title_first("  KAKOSCHKE  -  MOORE  ,   Skye  ")
-      expect(name.first).to eq 'Skye'
+      expect(name.first).to eq "Skye"
       expect(name.middle).to eq ""
-      expect(name.last).to eq 'Kakoschke-Moore'
+      expect(name.last).to eq "Kakoschke-Moore"
     end
   end
 end

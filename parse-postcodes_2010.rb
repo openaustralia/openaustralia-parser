@@ -1,13 +1,11 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-$:.unshift "#{File.dirname(__FILE__)}/lib"
+$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'rubygems'
-require 'mechanize'
-require 'configuration'
-require 'people'
-
-conf = Configuration.new
+require "rubygems"
+require "mechanize"
+require "people"
 
 agent = Mechanize.new
 
@@ -16,12 +14,13 @@ data = CSV.readlines("data/pc-full_20100629.csv")
 # Ignore header
 data.shift
 
-valid_postcodes = data.map {|row| row.first}.uniq.sort
+valid_postcodes = data.map(&:first).uniq.sort
 
 def extract_divisions_from_page(page)
-  divisions = page.search('div/table/tr/td[4]').map {|t| t.inner_text}
-  redistributed_divisions = page.search('div/table/tr/td[5]').map {|t| t.inner_text}
+  divisions = page.search("div/table/tr/td[4]").map(&:inner_text)
+  redistributed_divisions = page.search("div/table/tr/td[5]").map(&:inner_text)
   raise "expected same number of divisions as redistributed divisions" unless divisions.size == redistributed_divisions.size
+
   combined = []
   divisions.each_index do |i|
     v1 = divisions[i]
@@ -38,7 +37,7 @@ def extract_divisions_from_page(page)
 end
 
 def other_pages?(page)
-  page.at('table table')
+  page.at("table table")
 end
 
 def extract_divisions_for_postcode(agent, postcode)
@@ -49,16 +48,17 @@ def extract_divisions_for_postcode(agent, postcode)
   divisions = extract_divisions_from_page(page)
 
   if other_pages?(page)
-    begin
+    loop do
       page_number += 1
       puts "  Page #{page_number}..."
-      form = page.form_with(:name => "aspnetForm")
-      form["__EVENTTARGET"] = 'ctl00$ContentPlaceHolderBody$gridViewLocalities'
+      form = page.form_with(name: "aspnetForm")
+      form["__EVENTTARGET"] = "ctl00$ContentPlaceHolderBody$gridViewLocalities"
       form["__EVENTARGUMENT"] = "Page$#{page_number}"
       page = form.submit
       new_divisions = extract_divisions_from_page(page)
       divisions += new_divisions
-    end until new_divisions.empty?
+      break if new_divisions.empty?
+    end
   end
   # Remove duplicates and sort
   divisions.uniq.sort
@@ -75,7 +75,7 @@ valid_postcodes.each do |postcode|
   if divisions.empty?
     puts "  * No divisions *"
   else
-    puts "  " + divisions.join(", ")
+    puts "  #{divisions.join(', ')}"
     divisions.each do |division|
       file.puts "#{postcode},#{division}"
     end

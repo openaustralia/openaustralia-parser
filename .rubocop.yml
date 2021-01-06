@@ -1,0 +1,24 @@
+inherit_from: .rubocop_todo.yml
+
+# We prefer double quotes here and it we're making liberal use of multi-line
+# strings so it makes sense to enforce those to be consistent too
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+  ConsistentQuotesInMultiline: true
+
+# This one I disagree with. Putting seperators in large numbers makes sense
+# in some circumstances but in others (an example id in a database table)
+# it's just nonsensical. Also, I think this one might also be a bit US centric.
+Style/NumericLiterals:
+  Enabled: false
+
+# TODO: Don't have the patience to fix this one just yet
+Style/ClassVars:
+  Exclude:
+    - 'lib/configuration.rb'
+    - 'lib/period.rb'
+
+# We're use some methods with a large number of parameters. At least make
+# it bearable by using keyword arguments
+Metrics/ParameterLists:
+  CountKeywordArgs: false

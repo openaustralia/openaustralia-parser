@@ -1,10 +1,11 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
 
-$:.unshift "#{File.dirname(__FILE__)}/lib"
+$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'configuration'
-require 'mysql'
-require 'csv'
+require "configuration"
+require "mysql"
+require "csv"
 
 conf = Configuration.new
 
@@ -15,7 +16,7 @@ data.each do |row|
   comment_id, user_id, visible, modflagged, posted, hdate, comment_body, hansard_body = row
   quoted = hansard_body.gsub('"', '\"')
   res = db.query("select epobject.epobject_id from epobject, hansard where hansard.hdate=\"#{hdate}\" and epobject.body LIKE \"#{quoted}%\" and epobject.epobject_id = hansard.epobject_id")
-  if res.num_rows == 0
+  if res.num_rows.zero?
     puts "ERROR: No match for text: #{hansard_body} in comment_id: #{comment_id}"
   elsif res.num_rows > 1
     puts "ERROR: More than one match for text: #{hansard_body} in comment_id: #{comment_id}"

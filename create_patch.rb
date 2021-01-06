@@ -1,18 +1,20 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 # Create a patch easily for a particular date
 
-$:.unshift "#{File.dirname(__FILE__)}/lib"
+$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
-require 'optparse'
-require 'date'
-require 'fileutils'
-require 'people_csv_reader'
-require 'hansard_parser'
+require "optparse"
+require "date"
+require "fileutils"
+require "people_csv_reader"
+require "hansard_parser"
 
 OptionParser.new do |opts|
-  opts.banner = <<EOF
-Usage: create-patch.rb <reps|senate> <year.month.day>
-EOF
+  opts.banner = <<~USAGE
+    Usage: create-patch.rb <reps|senate> <year.month.day>
+  USAGE
 end.parse!
 
 if ARGV.size != 2
@@ -20,9 +22,10 @@ if ARGV.size != 2
   exit
 end
 
-if ARGV[0] == "reps" || ARGV[0] == "representatives"
+case ARGV[0]
+when "reps", "representatives"
   house = House.representatives
-elsif ARGV[0] == "senate"
+when "senate"
   house = House.senate
 else
   puts "Expected 'reps' or 'senate' for first parameter"
@@ -43,8 +46,8 @@ patch_file_path = "#{File.dirname(__FILE__)}/data/patches/#{house}.#{date}.xml.p
 # be bothered to work it out right now so I'm just doing the below instead
 # File.open("original.xml", "w") {|f| f << parser.unpatched_hansard_xml_source_data_on_date(date, house)}
 # File.open("patched.xml", "w") {|f| f << parser.hansard_xml_source_data_on_date(date, house)}
-File.open("original.xml", "w") {|f| f << parser.hansard_xml_source_data_on_date(date, house)}
-FileUtils.cp 'original.xml', 'patched.xml'
+File.open("original.xml", "w") { |f| f << parser.hansard_xml_source_data_on_date(date, house) }
+FileUtils.cp "original.xml", "patched.xml"
 
 $stdout.puts "Edit patched.xml to your liking, then:"
 $stdout.puts "diff -u original.xml patched.xml \>\> #{patch_file_path}"

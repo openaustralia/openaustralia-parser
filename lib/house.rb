@@ -1,36 +1,39 @@
+# frozen_string_literal: true
+
 # Very dumb class for representing whether something is in the House of Representatives or the Senate
 class House
   attr_reader :name
-  
+
   REPRESENTATIVES = "representatives"
   SENATE = "senate"
-  
-  def House.senate
+
+  def self.senate
     House.new(SENATE)
   end
-  
-  def House.representatives
+
+  def self.representatives
     House.new(REPRESENTATIVES)
   end
-  
+
   def initialize(name)
-    raise "Name of house must '#{REPRESENTATIVES}' or '#{SENATE}'" unless name == REPRESENTATIVES || name == SENATE
-    @name = name    
+    raise "Name of house must '#{REPRESENTATIVES}' or '#{SENATE}'" unless [REPRESENTATIVES, SENATE].include?(name)
+
+    @name = name
   end
-  
+
   def representatives?
     name == REPRESENTATIVES
   end
-  
+
   def senate?
     name == SENATE
   end
-  
+
   def to_s
     name
   end
-  
-  def ==(a)
-    name == a.name
+
+  def ==(other)
+    name == other.name
   end
 end
