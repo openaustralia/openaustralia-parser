@@ -203,18 +203,6 @@ Style/MutableConstant:
     - 'lib/people_xml_writer.rb'
     - 'lib/progressbar.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: both, prefix, postfix
-Style/NegatedIf:
-  Exclude:
-    - 'lib/configuration.rb'
-    - 'lib/debates.rb'
-    - 'lib/hansard_parser.rb'
-    - 'lib/hansard_rewriter.rb'
-    - 'lib/name.rb'
-
 # Offense count: 2
 # Configuration parameters: AllowedMethods.
 # AllowedMethods: respond_to_missing?

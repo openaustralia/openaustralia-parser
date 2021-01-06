@@ -128,7 +128,7 @@ XML
       # record with a class that starts with "Member".
       # (There are also '<a href' records which point to bills rather then
       # people.)
-      ahref = p.search("//a")[0] if !p.search("//a").empty?
+      ahref = p.search("//a")[0] unless p.search("//a").empty?
       if !ahref.nil? && ahref.attributes["type"].nil?
         logger.warn "    Found a link without type!? #{ahref}"
         next
@@ -226,7 +226,7 @@ XML
           # Sometimes we get a second span with the same HPS-Type which just
           # contains someone name. Remove it.
           extra_spans = p.search("span > span[@class=HPS-#{ahref.attributes['type']}]")
-          if !extra_spans.empty?
+          unless extra_spans.empty?
             logger.warn "    Removing excess spans #{extra_spans.length}, removing the following text '#{extra_spans.inner_text}'"
             extra_spans.remove
 
@@ -243,7 +243,7 @@ XML
 
           # Clean up the text a little
           text = santize(p.inner_text, false)
-          if !extra_spans.empty?
+          unless extra_spans.empty?
             # Left over from removing the extra spans
             text = text.gsub(/^\(\s*\): /, "")
           end
@@ -382,7 +382,7 @@ XML
         f.child_nodes.each do |e|
           case e.name
           when "debate.text", "subdebate.text"
-            subdebate_found = true if !e.inner_text.strip.empty?
+            subdebate_found = true unless e.inner_text.strip.empty?
           end
         end
       end
@@ -415,7 +415,7 @@ XML
 
       # The actual transcript of the proceedings we are going to process
       when "question", "answer", "speech"
-        if !subdebate_found
+        unless subdebate_found
           # We're interested in the talk.text node but have to find it manually due to a bug
           # with Hpricot xpath meaning nodes with a dot '.' in the name are not found.
           talk = f.child_nodes.detect { |node| node.name == "talk.text" }

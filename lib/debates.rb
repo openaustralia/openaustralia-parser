@@ -95,7 +95,7 @@ class Debates
     @items.each_with_index do |section, index|
       next unless section.is_a?(Speech)
 
-      if !section.time
+      unless section.time
         section.duration = 0
         next
       end

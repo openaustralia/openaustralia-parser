@@ -162,7 +162,7 @@ class Name
         @first
       else
         p_initials = first_initial
-        p_initials = "#{p_initials}#{@middle.split(' ').map { |n| n[0..0] }.join}" if !@middle.nil?
+        p_initials = "#{p_initials}#{@middle.split(' ').map { |n| n[0..0] }.join}" unless @middle.nil?
         p_initials
       end
     end
