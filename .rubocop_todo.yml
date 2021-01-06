@@ -15,7 +15,7 @@ Metrics/AbcSize:
 # Configuration parameters: CountComments, CountAsOne, ExcludedMethods, IgnoredMethods.
 # IgnoredMethods: refine
 Metrics/BlockLength:
-  Max: 205
+  Max: 207
 
 # Offense count: 12
 # Configuration parameters: CountBlocks.
@@ -52,9 +52,5 @@ Style/MissingRespondToMissing:
     - 'lib/configuration.rb'
     - 'spec/hansard_day_spec.rb'
 
-# Offense count: 109
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
-# URISchemes: http, https
 Layout/LineLength:
-  Max: 423
+  Max: 357

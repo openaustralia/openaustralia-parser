@@ -108,7 +108,8 @@ class TestName < Test::Unit::TestCase
     # assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.last_title_first("Smith, Mr John"))
     # Now check similar names with unicode
     nbsp = [160].pack("U")
-    assert_equal(Name.new(title: "Mr", first: "John", last: "Smith"), Name.title_first_last("Mr#{nbsp}John#{nbsp}Smith"))
+    assert_equal(Name.new(title: "Mr", first: "John", last: "Smith"),
+                 Name.title_first_last("Mr#{nbsp}John#{nbsp}Smith"))
     # assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.last_title_first("Smith,#{nbsp}Mr#{nbsp}John"))
   end
 
@@ -276,7 +277,8 @@ class TestName < Test::Unit::TestCase
   end
 
   def test_lady_bjelke_petersen
-    assert_equal(Name.new(last: "Bjelke-Petersen", title: "Lady"), Name.last_title_first("BJELKE-PETERSEN, Lady (Florence Isabel)"))
+    assert_equal(Name.new(last: "Bjelke-Petersen", title: "Lady"),
+                 Name.last_title_first("BJELKE-PETERSEN, Lady (Florence Isabel)"))
   end
 
   def test_initials_with_fullstops

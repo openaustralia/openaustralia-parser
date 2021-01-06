@@ -26,7 +26,9 @@ describe HansardSpeech, "should recognise who's talking" do
   end
 
   it "in a motionnospeech block" do
-    speech = HansardSpeech.new(content: Hpricot.XML("<motionnospeech><name>Mr BILLSON</name></motionnospeech>").at("motionnospeech"), title: "", subtitle: "", bills: "", time: "", day: nil)
+    speech = HansardSpeech.new(
+      content: Hpricot.XML("<motionnospeech><name>Mr BILLSON</name></motionnospeech>").at("motionnospeech"), title: "", subtitle: "", bills: "", time: "", day: nil
+    )
     expect(speech.speakername).to eq "Mr BILLSON"
     expect(speech.aph_id).to be_nil
     expect(speech.interjection).to be false
@@ -82,7 +84,8 @@ describe HansardSpeech, "should recognise who's talking" do
   end
 
   it "should recognise generic speakers interjecting" do
-    speech = HansardSpeech.new(content: Hpricot.XML('<para class="italic">Honourable members interjecting—</para>'), title: "", subtitle: "", bills: "", time: "", day: nil)
+    speech = HansardSpeech.new(content: Hpricot.XML('<para class="italic">Honourable members interjecting—</para>'),
+                               title: "", subtitle: "", bills: "", time: "", day: nil)
     expect(speech.speakername).to eq "Honourable members"
   end
 end
@@ -93,7 +96,8 @@ describe HansardSpeech, "should clean content" do
     expected = "<p>Some text</p>"
     expect(HansardSpeech.clean_content_para(Hpricot.XML(content).at("para"))).to eq expected
 
-    speech = HansardSpeech.new(content: Hpricot.XML(content).at("para"), title: "", subtitle: "", bills: "", time: "", day: nil)
+    speech = HansardSpeech.new(content: Hpricot.XML(content).at("para"), title: "", subtitle: "", bills: "", time: "",
+                               day: nil)
     expect(speech.clean_content.to_s).to eq expected
   end
 
@@ -106,7 +110,8 @@ describe HansardSpeech, "should clean content" do
   it "in a motion block" do
     content = '<motion><para><inline font-size="9pt">Some intro</inline></para><list type="loweralpha"><item label="(a)"><para>Point a</para></item><item label="(b)"><para>Point b</para></item></list></motion>'
     expected_result = '<p pwmotiontext="moved">Some intro<dl><dt>(a)</dt><dd>Point a</dd><dt>(b)</dt><dd>Point b</dd></dl></p>'
-    expect(HansardSpeech.new(content: Hpricot.XML(content).at("motion"), title: "", subtitle: "", bills: "", time: "", day: nil).clean_content.to_s).to eq expected_result
+    expect(HansardSpeech.new(content: Hpricot.XML(content).at("motion"), title: "", subtitle: "", bills: "", time: "",
+                             day: nil).clean_content.to_s).to eq expected_result
   end
 
   # Split the following into separate tests
@@ -207,12 +212,14 @@ describe HansardSpeech, "should clean content" do
   it "marks motions so they can be understood by the public whip application" do
     content = "<motion><para>That yellow is very happy colour</para></motion>"
     expected = '<p pwmotiontext="moved">That yellow is very happy colour</p>'
-    expect(HansardSpeech.new(content: Hpricot.XML(content).at("motion"), title: "", subtitle: "", bills: "", time: "", day: nil).clean_content.to_s).to eq expected
+    expect(HansardSpeech.new(content: Hpricot.XML(content).at("motion"), title: "", subtitle: "", bills: "", time: "",
+                             day: nil).clean_content.to_s).to eq expected
   end
 
   it "wraps inlines in motionnospeech in <p> tags" do
     content = "<motionnospeech><inline>—I move:</inline><motion><para>That the member be no longer heard.</para></motion><para>Question put.</para></motionnospeech>"
     expected = '<p>I move:</p><p pwmotiontext="moved">That the member be no longer heard.</p><p>Question put.</p>'
-    expect(HansardSpeech.new(content: Hpricot.XML(content).at("motionnospeech"), title: "", subtitle: "", bills: "", time: "", day: nil).clean_content.to_s).to eq expected
+    expect(HansardSpeech.new(content: Hpricot.XML(content).at("motionnospeech"), title: "", subtitle: "", bills: "",
+                             time: "", day: nil).clean_content.to_s).to eq expected
   end
 end

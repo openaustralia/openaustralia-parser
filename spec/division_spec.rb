@@ -32,7 +32,8 @@ describe Division do
     henry_member2 = Period.new(person: henry_person, house: House.senate, count: 3)
     jack_member2 = Period.new(person: jack_person, house: House.senate, count: 4)
 
-    @division2 = Division.new(yes_members: [john_member2], no_members: [], yes_tellers: [], no_tellers: [], pairs: [], time: "9:10:00", url: "http://foo/link", bills: [{ id: "Z12345", title: "A bill to support mongeese", url: "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" }], count: Count.new(1, 2), division_count: 3, date: Date.new(2008, 2, 1), house: House.senate)
+    @division2 = Division.new(yes_members: [john_member2], no_members: [], yes_tellers: [], no_tellers: [], pairs: [],
+                              time: "9:10:00", url: "http://foo/link", bills: [{ id: "Z12345", title: "A bill to support mongeese", url: "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" }], count: Count.new(1, 2), division_count: 3, date: Date.new(2008, 2, 1), house: House.senate)
 
     @division3 = Division.new(yes_members: [], no_members: [], yes_tellers: [], no_tellers: [], pairs: [[john_member2, joe_member2], [henry_member2, jack_member2]],
                               time: "9:10:00", url: "http://foo/link", bills: [{ id: "Z12345", title: "A bill to support mongeese", url: "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" }], count: Count.new(1, 2), division_count: 3, date: Date.new(2008, 2, 1), house: House.senate)

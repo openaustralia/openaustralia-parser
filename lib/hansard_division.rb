@@ -83,7 +83,8 @@ class HansardDivision
                             @content.at("(division.header)").inner_text
                           end
 
-    raise("Speaker not found") unless header_speaker_text.gsub("\342\200\224", "&#x2014;") =~ /[Speaker|President]&#x2014;(.*)\)/
+    raise("Speaker not found") unless header_speaker_text.gsub("\342\200\224",
+                                                               "&#x2014;") =~ /[Speaker|President]&#x2014;(.*)\)/
 
     speaker_name = Name.title_first_last($LAST_MATCH_INFO[1])
     "#{speaker_name.last}, " + (speaker_name.initials.empty? ? speaker_name.first : speaker_name.initials)

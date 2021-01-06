@@ -48,7 +48,8 @@ OptionParser.new do |opts|
   opts.on("--interactive", "Upon error, allow the user to patch interactively") do |l|
     options[:interactive] = l
   end
-  opts.on("--proof", "Only parse dates that are at proof stage. Will redownload and populate html cache for those dates.") do |l|
+  opts.on("--proof",
+          "Only parse dates that are at proof stage. Will redownload and populate html cache for those dates.") do |l|
     options[:proof] = l
   end
   opts.on("--force", "On loading data into database delete records that are not in the XML") do |l|
@@ -120,10 +121,12 @@ while date >= from_date
           else
             ->(a, b, c) { parser.parse_date_house a, b, c }
           end
-  parse_with_retry options[:interactive], parse, date, "#{conf.xml_path}/scrapedxml/representatives_debates/#{date}.xml", House.representatives
+  parse_with_retry options[:interactive], parse, date,
+                   "#{conf.xml_path}/scrapedxml/representatives_debates/#{date}.xml", House.representatives
   progress.inc
 
-  parse_with_retry options[:interactive], parse, date, "#{conf.xml_path}/scrapedxml/senate_debates/#{date}.xml", House.senate
+  parse_with_retry options[:interactive], parse, date, "#{conf.xml_path}/scrapedxml/senate_debates/#{date}.xml",
+                   House.senate
   progress.inc
   date -= 1
 end

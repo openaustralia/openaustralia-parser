@@ -15,7 +15,8 @@ class Division < Section
   end
 
   def output(builder)
-    division_attributes = { id: id, nospeaker: "true", divdate: @date, divnumber: @division_count, time: @time, url: quoted_url }
+    division_attributes = { id: id, nospeaker: "true", divdate: @date, divnumber: @division_count, time: @time,
+                            url: quoted_url }
     builder.division(division_attributes) do
       if @bills && !@bills.empty?
         builder.bills do

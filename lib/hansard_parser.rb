@@ -180,7 +180,10 @@ class HansardParser
           debates.add_heading(page.title, page.subtitle, page.permanent_url, nil)
           # Do nothing
         when Array
-          debates.add_heading(page.first.title, page.first.subtitle, day.permanent_url, page.first.bills) unless page.empty?
+          unless page.empty?
+            debates.add_heading(page.first.title, page.first.subtitle, day.permanent_url,
+                                page.first.bills)
+          end
           speaker = nil
           page.each do |speech|
             if speech
@@ -245,7 +248,8 @@ class HansardParser
               member
             end.compact
           end.compact
-          debates.add_division(yes_members: yes, no_members: no, yes_tellers: yes_tellers, no_tellers: no_tellers, pairs: pairs, time: page.time, url: page.permanent_url, bills: page.bills)
+          debates.add_division(yes_members: yes, no_members: no, yes_tellers: yes_tellers, no_tellers: no_tellers,
+                               pairs: pairs, time: page.time, url: page.permanent_url, bills: page.bills)
         end
         # This ensures that every sub day page has a different major count which limits the impact
         # of when we start supporting things like written questions, procedurial text, etc..
@@ -339,7 +343,8 @@ class HansardParser
       unless HansardSpeech.generic_speaker?(speech.speakername)
         # It is so common that the problem with "The Temporary Chairman" occurs (where there real name is not included)
         # that we're going to downgrade this to a warning so that it doesn't drown out other problems
-        if ["The ACTING DEPUTY PRESIDENT", "The TEMPORARY CHAIRMAN", "TEMPORARY CHAIRMAN, The", "The ACTING SPEAKER", "The Clerk", "The ACTING PRESIDENT", "DEPUTY SPEAKER, The", "DEPUTY CHAIR"].include?(speech.speakername)
+        if ["The ACTING DEPUTY PRESIDENT", "The TEMPORARY CHAIRMAN", "TEMPORARY CHAIRMAN, The", "The ACTING SPEAKER",
+            "The Clerk", "The ACTING PRESIDENT", "DEPUTY SPEAKER, The", "DEPUTY CHAIR"].include?(speech.speakername)
           logger.warn "#{date} #{house} #{speech.aph_id}: Unknown speaker #{speech.speakername}"
         else
           logger.error "#{date} #{house} #{speech.aph_id}: Unknown speaker #{speech.speakername}"

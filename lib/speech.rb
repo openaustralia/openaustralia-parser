@@ -26,7 +26,12 @@ class Speech < Section
         @logger.error "#{@date} #{@house}: Empty speech by #{@speaker.person.name.full_name}"
       end
     end
-    speaker_attributes = @speaker ? { speakername: @speaker.name.full_name, speakerid: @speaker.id } : { nospeaker: "true" }
+    speaker_attributes = if @speaker
+                           { speakername: @speaker.name.full_name,
+                             speakerid: @speaker.id }
+                         else
+                           { nospeaker: "true" }
+                         end
     builder.speech(
       speaker_attributes.merge({ time: time, url: quoted_url, id: id, talktype: talk_type,
                                  approximate_duration: @duration.to_i, approximate_wordcount: words })

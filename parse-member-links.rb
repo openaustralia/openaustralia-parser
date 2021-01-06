@@ -26,7 +26,9 @@ xml = File.open("#{conf.members_xml_path}/websites.xml", "w")
 x = Builder::XmlMarkup.new(target: xml, indent: 1)
 x.instruct!
 x.peopleinfo do
-  morph_result = agent.get(url: "https://api.morph.io/openaustralia/aus_mp_contact_details/data.json?query=select%20*%20from%20%60data%60", headers: { "x-api-key" => conf.morph_api_key }).body
+  morph_result = agent.get(
+    url: "https://api.morph.io/openaustralia/aus_mp_contact_details/data.json?query=select%20*%20from%20%60data%60", headers: { "x-api-key" => conf.morph_api_key }
+  ).body
   JSON.parse(morph_result).each do |person|
     p = people.find_person_by_aph_id(person["aph_id"].upcase)
     params = { id: p.id, mp_contact_form: person["contact_page"], aph_url: person["profile_page"] }
@@ -81,7 +83,8 @@ x.consinfos do
     x.consinfo("canonical" => name, "abc_election_results_2010" => href)
   end
   # Senate
-  [%w[nsw NSW], %w[vic Victoria], %w[qld Queensland], %w[wa WA], %w[sa SA], %w[tas Tasmania], %w[act ACT], %w[nt NT]].each do |name, canonical|
+  [%w[nsw NSW], %w[vic Victoria], %w[qld Queensland], %w[wa WA], %w[sa SA], %w[tas Tasmania], %w[act ACT],
+   %w[nt NT]].each do |name, canonical|
     href = "http://www.abc.net.au/elections/federal/2010/guide/s#{name}-results.htm"
     x.consinfo("canonical" => canonical, "abc_election_results_2010" => href)
   end
@@ -98,7 +101,8 @@ x.consinfos do
     x.consinfo("canonical" => name, "abc_election_results_2013" => href)
   end
   # Senate
-  [%w[nsw NSW], %w[vic Victoria], %w[qld Queensland], %w[wa WA], %w[sa SA], %w[tas Tasmania], %w[act ACT], %w[nt NT]].each do |name, canonical|
+  [%w[nsw NSW], %w[vic Victoria], %w[qld Queensland], %w[wa WA], %w[sa SA], %w[tas Tasmania], %w[act ACT],
+   %w[nt NT]].each do |name, canonical|
     href = "https://www.abc.net.au/news/federal-election-2013/results/senate/#{name}/"
     x.consinfo("canonical" => canonical, "abc_election_results_2013" => href)
   end

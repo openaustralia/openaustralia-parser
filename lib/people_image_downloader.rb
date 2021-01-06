@@ -65,7 +65,8 @@ class PeopleImageDownloader
 
   # Returns nil if page can't be found
   def biography_page_for_person_with_name(text)
-    url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Dataset:allmps%20#{text.gsub(' ', '%20')}"
+    url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Dataset:allmps%20#{text.gsub(' ',
+                                                                                                             '%20')}"
     page = @agent.get(url)
     # Check if the returned page is a valid one. If not just ignore it
     tag1 = page.at("div#content")
@@ -88,7 +89,11 @@ class PeopleImageDownloader
     end.uniq
     # Check each variant of a person's name and return the biography page for the first one that exists
     matching_name = name_variants.find { |n| biography_page_for_person_with_name(n) }
-    matching_name = name_variants_no_middle_name.find { |n| biography_page_for_person_with_name(n) } if matching_name.nil?
+    if matching_name.nil?
+      matching_name = name_variants_no_middle_name.find do |n|
+        biography_page_for_person_with_name(n)
+      end
+    end
     page = biography_page_for_person_with_name(matching_name) if matching_name
     if page.nil?
       puts "WARNING: No biography page found for #{name_variants.join(' or ')}"

@@ -183,7 +183,10 @@ class HansardDay
         question = false
         procedural = false
       when "speech", "talk"
-        p << e.map_child_node { |c| HansardSpeech.new(content: c, title: title, subtitle: subtitle, bills: bills, time: time(e), day: self, logger: @logger) }
+        p << e.map_child_node do |c|
+          HansardSpeech.new(content: c, title: title, subtitle: subtitle, bills: bills, time: time(e), day: self,
+                            logger: @logger)
+        end
         question = false
         procedural = false
       when "division"
@@ -202,7 +205,10 @@ class HansardDay
           questions = []
           f = e
           while f && (f.name == "question" || f.name == "answer")
-            questions += f.map_child_node { |c| HansardSpeech.new(content: c, title: title, subtitle: subtitle, bills: bills, time: time(e), day: self, logger: @logger) }
+            questions += f.map_child_node do |c|
+              HansardSpeech.new(content: c, title: title, subtitle: subtitle, bills: bills, time: time(e), day: self,
+                                logger: @logger)
+            end
             f = f.next_sibling
           end
           p << questions
@@ -210,12 +216,14 @@ class HansardDay
         question = true
         procedural = false
       when "motionnospeech", "para", "motion", "interjection", "quote", "list", "interrupt", "amendments", "table", "separator", "continue"
-        procedural_tags = %w[motionnospeech para motion interjection quote list interrupt amendments table separator continue]
+        procedural_tags = %w[motionnospeech para motion interjection quote list interrupt amendments table separator
+                             continue]
         unless procedural
           procedurals = []
           f = e
           while f && procedural_tags.include?(f.name)
-            procedurals << HansardSpeech.new(content: f, title: title, subtitle: subtitle, bills: bills, time: time(f), day: self, logger: @logger)
+            procedurals << HansardSpeech.new(content: f, title: title, subtitle: subtitle, bills: bills,
+                                             time: time(f), day: self, logger: @logger)
             f = f.next_sibling
           end
           p << procedurals

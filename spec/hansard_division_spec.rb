@@ -143,8 +143,12 @@ describe HansardDivision do
         </division.result>
       </division>')
     end
-    let(:old_tied_division) { HansardDivision.new(old_tied_division_xml, "", "", "", double(HansardDay, add_speaker_to_tied_votes?: true)) }
-    let(:new_tied_division) { HansardDivision.new(new_tied_division_xml, "", "", "", double(HansardDay, add_speaker_to_tied_votes?: true)) }
+    let(:old_tied_division) do
+      HansardDivision.new(old_tied_division_xml, "", "", "", double(HansardDay, add_speaker_to_tied_votes?: true))
+    end
+    let(:new_tied_division) do
+      HansardDivision.new(new_tied_division_xml, "", "", "", double(HansardDay, add_speaker_to_tied_votes?: true))
+    end
 
     it "should include the speaker's casting vote in the event of a tie" do
       expect(old_tied_division.no).to eq ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Jenkins, Harry"]
@@ -167,8 +171,12 @@ describe HansardDivision do
     end
 
     it "should not include speaker's vote when told not to by HansardDay (e.g. for Senate divisions)" do
-      expect(HansardDivision.new(old_tied_division_xml, "", "", "", double(HansardDay, add_speaker_to_tied_votes?: false)).no).to eq ["Smith, John", "Doe, Jane", "Quitecontrary, Mary"]
-      expect(HansardDivision.new(new_tied_division_xml, "", "", "", double(HansardDay, add_speaker_to_tied_votes?: false)).no).to eq ["Smith, John", "Doe, Jane", "Quitecontrary, Mary"]
+      expect(HansardDivision.new(old_tied_division_xml, "", "", "",
+                                 double(HansardDay, add_speaker_to_tied_votes?: false)).no).to eq ["Smith, John",
+                                                                                                   "Doe, Jane", "Quitecontrary, Mary"]
+      expect(HansardDivision.new(new_tied_division_xml, "", "", "",
+                                 double(HansardDay, add_speaker_to_tied_votes?: false)).no).to eq ["Smith, John",
+                                                                                                   "Doe, Jane", "Quitecontrary, Mary"]
     end
   end
 end

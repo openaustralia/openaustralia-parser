@@ -74,7 +74,8 @@ describe Debates do
   it "always creates a new speech after a heading" do
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
     @debates.increment_minor_count
-    @debates.add_heading("title", "subtitle", "url", [{ id: "Z12345", title: "A bill to support mongeese", url: "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" }])
+    @debates.add_heading("title", "subtitle", "url",
+                         [{ id: "Z12345", title: "A bill to support mongeese", url: "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" }])
     @debates.add_speech(@james, "9:00", "url", Hpricot("<p>And a bit more</p>"))
 
     expect(@debates.output_builder(Builder::XmlMarkup.new(indent: 2))).to eq <<~XML
@@ -96,7 +97,8 @@ describe Debates do
   end
 
   it "creates a new speech for a procedural after a heading" do
-    @debates.add_heading("title", "subtitle", "url", [{ id: "Z12345", title: "A bill to support mongeese", url: "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" }])
+    @debates.add_heading("title", "subtitle", "url",
+                         [{ id: "Z12345", title: "A bill to support mongeese", url: "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" }])
     @debates.add_speech(nil, "9:00", "url", Hpricot("<p>This is a speech</p>"))
 
     expect(@debates.output_builder(Builder::XmlMarkup.new(indent: 2))).to eq <<~XML
