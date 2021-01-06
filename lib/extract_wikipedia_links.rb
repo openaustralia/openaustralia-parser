@@ -34,24 +34,24 @@ end
 def extract_links_from_wikipedia(doc, people, links)
   doc.search("//table").first.search("tr").each do |row|
     link = row.search("td a")[0]
-    if link
-      name = Name.title_first_last(link.inner_html)
-      person = people.find_person_by_name(name)
-      if person
-        if link.get_attribute("href").match(%r{^/wiki/(.*)$})
-          title = $LAST_MATCH_INFO[1]
-        else
-          raise "Unexpected link format"
-        end
-        url = "http://en.wikipedia.org/wiki/#{title}"
-        if links.key?(person.id) && links[person.id] != url
-          puts "WARNING: URL for #{name.full_name} has multiple different values"
-        else
-          links[person.id] = url
-        end
+    next unless link
+
+    name = Name.title_first_last(link.inner_html)
+    person = people.find_person_by_name(name)
+    if person
+      if link.get_attribute("href").match(%r{^/wiki/(.*)$})
+        title = $LAST_MATCH_INFO[1]
       else
-        puts "WARNING: Could not find person with name #{name.full_name}"
+        raise "Unexpected link format"
       end
+      url = "http://en.wikipedia.org/wiki/#{title}"
+      if links.key?(person.id) && links[person.id] != url
+        puts "WARNING: URL for #{name.full_name} has multiple different values"
+      else
+        links[person.id] = url
+      end
+    else
+      puts "WARNING: Could not find person with name #{name.full_name}"
     end
   end
   links

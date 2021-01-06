@@ -215,20 +215,6 @@ Style/NegatedIf:
     - 'lib/hansard_rewriter.rb'
     - 'lib/name.rb'
 
-# Offense count: 12
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, MinBodyLength.
-# SupportedStyles: skip_modifier_ifs, always
-Style/Next:
-  Exclude:
-    - 'lib/extract_wikipedia_links.rb'
-    - 'lib/hansard_day.rb'
-    - 'lib/hansard_parser.rb'
-    - 'lib/hansard_rewriter.rb'
-    - 'lib/people.rb'
-    - 'parse-member-links.rb'
-    - 'register-split.rb'
-
 # Offense count: 2
 # Configuration parameters: AllowedMethods.
 # AllowedMethods: respond_to_missing?

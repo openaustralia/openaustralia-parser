@@ -104,15 +104,16 @@ class HansardDay
           results << { id: id, title: title, url: url }
         end
         debate.search("> debateinfo > cognate").each do |congnate|
-          if congnate.at(:type).inner_text.downcase == "bills"
-            id_elem = congnate.at(:cognateinfo).children_of_type("id.no")[0]
-            if id_elem # some old Hansard duplicates <cognateinfo> with <id.no> missing
-              id = id_elem.inner_text
-              title = congnate.at(:title).inner_text
-              url = bill_url(id)
-              results << { id: id, title: title, url: url }
-            end
-          end
+          next if congnate.at(:type).inner_text.downcase != "bills"
+
+          id_elem = congnate.at(:cognateinfo).children_of_type("id.no")[0]
+          # some old Hansard duplicates <cognateinfo> with <id.no> missing
+          next unless id_elem
+
+          id = id_elem.inner_text
+          title = congnate.at(:title).inner_text
+          url = bill_url(id)
+          results << { id: id, title: title, url: url }
         end
       end
     when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"

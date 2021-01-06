@@ -42,20 +42,20 @@ def read_in_ranges(p, filename_prefix, people)
                  "end"
                end
     # Ignore page ranges marked as blank
-    if last_name.downcase != "** blank page **"
-      name = Name.last_title_first("#{last_name} #{first_name}")
-      # member = people.find_member_by_name_current_on_date(name, date, house)
-      if date_text
-        date = Date.parse(date_text)
-        person = people.find_person_by_name_current_on_date(name, date)
-      else
-        person = people.find_person_by_name(name)
-      end
-      raise "Couldn't find #{name.full_name}" if person.nil?
+    next if last_name.downcase == "** blank page **"
 
-      p[person] ||= []
-      p[person] << PageRange.new(pdf_filename, start_page, end_page)
+    name = Name.last_title_first("#{last_name} #{first_name}")
+    # member = people.find_member_by_name_current_on_date(name, date, house)
+    if date_text
+      date = Date.parse(date_text)
+      person = people.find_person_by_name_current_on_date(name, date)
+    else
+      person = people.find_person_by_name(name)
     end
+    raise "Couldn't find #{name.full_name}" if person.nil?
+
+    p[person] ||= []
+    p[person] << PageRange.new(pdf_filename, start_page, end_page)
   end
 end
 

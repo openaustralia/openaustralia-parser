@@ -77,22 +77,22 @@ class HansardRewriter
     #      </p>
     input_text_node.search("//body/p").each do |p|
       text = p.inner_text.strip
-      if text.match(/^The (([^S]*SPEAKER)|([^R]*RESIDENT)):  /)
-        logger.info "Doing rewrite #{text}"
-        logger.info "Before: #{p}"
-        p.inner_html = p.inner_html.gsub(
-          %r{<span class="HPS-Normal">.*<span class="HPS-([^"]*)">(The (([^S]*SPEAKER)|([^R]*RESIDENT))):</span>  (.*)</span>}m,
-          <<XML
-      <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
-        <span class="HPS-Normal">
-          <a href="10000" type="\\1">
-            <span class="HPS-\\1">\\2:</span>
-          </a>  \\6</span>
-      </p>
+      next unless text.match(/^The (([^S]*SPEAKER)|([^R]*RESIDENT)):  /)
+
+      logger.info "Doing rewrite #{text}"
+      logger.info "Before: #{p}"
+      p.inner_html = p.inner_html.gsub(
+        %r{<span class="HPS-Normal">.*<span class="HPS-([^"]*)">(The (([^S]*SPEAKER)|([^R]*RESIDENT))):</span>  (.*)</span>}m,
+        <<XML
+    <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
+      <span class="HPS-Normal">
+        <a href="10000" type="\\1">
+          <span class="HPS-\\1">\\2:</span>
+        </a>  \\6</span>
+    </p>
 XML
-        )
-        logger.info "After: #{p}"
-      end
+      )
+      logger.info "After: #{p}"
     end
     #--------------------------------------------------------------------------
 
