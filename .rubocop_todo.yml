@@ -300,13 +300,6 @@ Style/ParallelAssignment:
     - 'lib/people_image_downloader.rb'
     - 'lib/section.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: AllowSafeAssignment, AllowInMultilineConditions.
-Style/ParenthesesAroundCondition:
-  Exclude:
-    - 'lib/speech.rb'
-
 # Offense count: 109
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
