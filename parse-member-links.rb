@@ -55,7 +55,7 @@ x.consinfos do
     href = "#{abc_root}#{href}"
     name = td.at("a").inner_text
     name = name.gsub(/\*/, "").strip
-    x.consinfo(canonical: name, abc_election_results_2007: href)
+    x.consinfo("canonical" => name, "abc_election_results_2007" => href)
   end
   # Senate
   url = "#{conf.election_web_root}/results/senate/"
@@ -65,7 +65,7 @@ x.consinfos do
 
     href = abc_root + a["href"]
     name = a.inner_text
-    x.consinfo(canonical: name, abc_election_results_2007: href)
+    x.consinfo("canonical" => name, "abc_election_results_2007" => href)
   end
 
   puts "Election results 2010 (from the abc.net.au) ..."
@@ -78,12 +78,12 @@ x.consinfos do
     href = "#{abc_2010_root}/#{href}"
     name = td.at("a").inner_text
     name = name.gsub(/\*/, "").strip
-    x.consinfo(canonical: name, abc_election_results_2010: href)
+    x.consinfo("canonical" => name, "abc_election_results_2010" => href)
   end
   # Senate
   [%w[nsw NSW], %w[vic Victoria], %w[qld Queensland], %w[wa WA], %w[sa SA], %w[tas Tasmania], %w[act ACT], %w[nt NT]].each do |name, canonical|
     href = "http://www.abc.net.au/elections/federal/2010/guide/s#{name}-results.htm"
-    x.consinfo(canonical: canonical, abc_election_results_2010: href)
+    x.consinfo("canonical" => canonical, "abc_election_results_2010" => href)
   end
 
   puts "Election results 2013 (from the abc.net.au)..."
@@ -95,12 +95,12 @@ x.consinfos do
     href = span.parent["href"]
     href = "#{abc_root}#{href}"
     name = span.inner_text
-    x.consinfo(canonical: name, abc_election_results_2013: href)
+    x.consinfo("canonical" => name, "abc_election_results_2013" => href)
   end
   # Senate
   [%w[nsw NSW], %w[vic Victoria], %w[qld Queensland], %w[wa WA], %w[sa SA], %w[tas Tasmania], %w[act ACT], %w[nt NT]].each do |name, canonical|
     href = "https://www.abc.net.au/news/federal-election-2013/results/senate/#{name}/"
-    x.consinfo(canonical: canonical, abc_election_results_2013: href)
+    x.consinfo("canonical" => canonical, "abc_election_results_2013" => href)
   end
 end
 xml.close
