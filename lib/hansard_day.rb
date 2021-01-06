@@ -27,7 +27,7 @@ end
 class HansardDay
   # On 2011-02-22 there was a tied vote and the speaker didn't need to cast a deciding
   # vote because an absolute majority was required
-  ALLOW_TIED_VOTE_DATES = [Date.new(2011, 2, 22)]
+  ALLOW_TIED_VOTE_DATES = [Date.new(2011, 2, 22)].freeze
 
   def initialize(page, logger = nil)
     @page = page

@@ -192,17 +192,6 @@ Style/MultipleComparison:
     - 'lib/name.rb'
     - 'lib/people_csv_reader.rb'
 
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: literals, strict
-Style/MutableConstant:
-  Exclude:
-    - 'lib/hansard_day.rb'
-    - 'lib/house.rb'
-    - 'lib/people_xml_writer.rb'
-    - 'lib/progressbar.rb'
-
 # Offense count: 2
 # Configuration parameters: AllowedMethods.
 # AllowedMethods: respond_to_missing?
