@@ -9,7 +9,7 @@ require "hansard_speech"
 require "date"
 
 # Use this for sections of the Hansard that we're not currently supporting. Allows us to track
-#  title and subtitle.
+# title and subtitle.
 class HansardUnsupported
   attr_reader :title, :subtitle
 

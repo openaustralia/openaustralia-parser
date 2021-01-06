@@ -171,7 +171,7 @@ XML
 
           # Extract the text
           text = santize(p.inner_text, false)
-          # Remove the leftover (—) from electorate stuff
+          # Remove the leftover brackets from electorate stuff
           text = text.gsub(/^\([^)]*\) /, "")
           # Left over from removing the HPS-Time
           text = text.gsub(/^\([^)]*\): /, "")

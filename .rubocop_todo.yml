@@ -99,13 +99,6 @@ Security/Open:
   Exclude:
     - 'parse-member-links.rb'
 
-# Offense count: 2
-# Configuration parameters: AllowedChars.
-Style/AsciiComments:
-  Exclude:
-    - 'lib/hansard_day.rb'
-    - 'lib/hansard_rewriter.rb'
-
 # Offense count: 8
 Style/ClassVars:
   Exclude:
