@@ -5,6 +5,7 @@ require "house"
 
 class People < Array
   def initialize
+    super
     # A hash from lastname to all people that have the lastname (used for speeding up name lookup)
     @last_names = {}
   end
