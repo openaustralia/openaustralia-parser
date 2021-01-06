@@ -154,7 +154,7 @@ class HansardParser
   # Parse but only if there is a page that is at "proof" stage
   def parse_date_house_only_in_proof(date, xml_filename, house)
     day = hansard_day_on_date(date, house)
-    if day && day.in_proof?
+    if day&.in_proof?
       logger.info "Deleting cached origxml file for #{date} because that date is in proof stage."
       FileUtils.rm_f(origxml_filename(date, house))
       logger.info "Redownloading pages on #{date}..."

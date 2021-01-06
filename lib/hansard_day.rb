@@ -163,7 +163,7 @@ class HansardDay
   def time(debate)
     # HACK: Hmmm.. check this out more
     tag = debate.at("//(time.stamp)")
-    tag.inner_html if tag
+    tag&.inner_html
   end
 
   def pages_from_debate(debate)

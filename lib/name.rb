@@ -6,13 +6,13 @@ class Name
 
   def initialize(params)
     # First normalize the unicode.
-    params.map { |key, value| [key, (value.unicode_normalize(:nfkc) if value)] }
+    params.map { |key, value| [key, value&.unicode_normalize(:nfkc)] }
 
     @title = params[:title] || ""
     @first = (Name.capitalize_name(params[:first]) if params[:first]) || ""
     @middle = (Name.capitalize_each_name(params[:middle]) if params[:middle]) || ""
-    @initials = (params[:initials].upcase if params[:initials]) || ""
-    @post_title = (params[:post_title].upcase if params[:post_title]) || ""
+    @initials = params[:initials]&.upcase || ""
+    @post_title = params[:post_title]&.upcase || ""
     @last = (Name.capitalize_each_name(params[:last]) if params[:last]) || ""
     invalid_keys = params.keys - %i[title first middle initials last post_title]
     raise "Invalid keys #{invalid_keys} used" unless invalid_keys.empty?
