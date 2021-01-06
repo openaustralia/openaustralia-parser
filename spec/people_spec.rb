@@ -24,7 +24,7 @@ describe People do
   end
 
   it "can list all the electoral divisions for all the members" do
-    expect(@people.divisions).to eq %w{A B C}
+    expect(@people.divisions).to eq %w[A B C]
   end
 
   it "knows who the speaker is" do

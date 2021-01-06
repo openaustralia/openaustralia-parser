@@ -208,7 +208,7 @@ class HansardDay
         question = true
         procedural = false
       when "motionnospeech", "para", "motion", "interjection", "quote", "list", "interrupt", "amendments", "table", "separator", "continue"
-        procedural_tags = %w{motionnospeech para motion interjection quote list interrupt amendments table separator continue}
+        procedural_tags = %w[motionnospeech para motion interjection quote list interrupt amendments table separator continue]
         unless procedural
           procedurals = []
           f = e

@@ -13,11 +13,11 @@ module Builder
 
       order.each do |k|
         v = attrs[k]
-        @target << %{ #{k}="#{_attr_value(v)}"} if v # " WART
+        @target << %( #{k}="#{_attr_value(v)}") if v # " WART
       end
       sorted_attrs = attrs.sort { |a, b| a.first.to_s <=> b.first.to_s }
       sorted_attrs.each do |k, v|
-        @target << %{ #{k}="#{_attr_value(v)}"} unless order.member?(k) # " WART
+        @target << %( #{k}="#{_attr_value(v)}") unless order.member?(k) # " WART
       end
     end
   end

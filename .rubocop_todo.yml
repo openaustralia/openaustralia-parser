@@ -307,15 +307,6 @@ Style/ParenthesesAroundCondition:
   Exclude:
     - 'lib/speech.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: PreferredDelimiters.
-Style/PercentLiteralDelimiters:
-  Exclude:
-    - 'lib/builder_alpha_attributes.rb'
-    - 'lib/hansard_day.rb'
-    - 'spec/people_spec.rb'
-
 # Offense count: 109
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
