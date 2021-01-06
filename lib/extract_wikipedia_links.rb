@@ -44,7 +44,7 @@ def extract_links_from_wikipedia(doc, people, links)
           raise "Unexpected link format"
         end
         url = "http://en.wikipedia.org/wiki/#{title}"
-        if links.has_key?(person.id) && links[person.id] != url
+        if links.key?(person.id) && links[person.id] != url
           puts "WARNING: URL for #{name.full_name} has multiple different values"
         else
           links[person.id] = url

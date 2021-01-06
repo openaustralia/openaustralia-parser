@@ -15,7 +15,7 @@ class People < Array
   # Override method to populate @last_names
   def <<(person)
     person.all_names.each do |name|
-      @last_names[name.last] = [] unless @last_names.has_key?(name.last)
+      @last_names[name.last] = [] unless @last_names.key?(name.last)
       @last_names[name.last] << person unless @last_names[name.last].include?(person)
     end
     super

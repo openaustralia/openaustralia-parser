@@ -42,7 +42,7 @@ class Configuration
   # Ruby magic
   def method_missing(method_id)
     name = method_id.id2name
-    if @@conf.has_key?(name)
+    if @@conf.key?(name)
       @@conf[name]
     else
       super

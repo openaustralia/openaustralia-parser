@@ -316,16 +316,6 @@ Style/PercentLiteralDelimiters:
     - 'lib/hansard_day.rb'
     - 'spec/people_spec.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: short, verbose
-Style/PreferredHashMethods:
-  Exclude:
-    - 'lib/configuration.rb'
-    - 'lib/extract_wikipedia_links.rb'
-    - 'lib/people.rb'
-
 # Offense count: 109
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
