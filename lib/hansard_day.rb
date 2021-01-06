@@ -38,19 +38,17 @@ class HansardDay
 
   def house
     # Cache value
-    unless @house
-      @house = case @page.at("chamber").inner_text.downcase
+    @house ||= case @page.at("chamber").inner_text.downcase
                when "senate" then House.senate
                when "reps", "house of reps" then House.representatives
                else raise "Unexpected value for contents '#{@page.at('chamber').inner_text}' of <chamber> tag"
                end
-    end
     @house
   end
 
   def date
     # Cache value
-    @date = Date.parse(@page.at("date").inner_html) unless @date
+    @date ||= Date.parse(@page.at("date").inner_html)
     @date
   end
 
