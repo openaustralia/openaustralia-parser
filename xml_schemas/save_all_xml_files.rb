@@ -3,7 +3,7 @@
 
 # Saves source XML data into the directory "source". This is used to test the grammar aph-xml.rnc against
 
-$:.unshift "#{File.dirname(__FILE__)}/../lib"
+$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require "hansard_parser"
 

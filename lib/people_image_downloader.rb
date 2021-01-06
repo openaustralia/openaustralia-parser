@@ -99,7 +99,7 @@ class PeopleImageDownloader
   def extract_name(page)
     title = strip_tags(extract_metadata_tags(page)["Title"])
     if title =~ /^(Biography for )?(.*)$/
-      Name.last_title_first($~[2])
+      Name.last_title_first($LAST_MATCH_INFO[2])
     else
       raise "Unexpected form for title of biography page: #{title}"
     end

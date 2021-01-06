@@ -7,14 +7,14 @@
 # In other words, this is only useful for checking that any refactoring has not caused a regression in behaviour.
 #
 
-$:.unshift "#{File.dirname(__FILE__)}/../lib"
+$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require "configuration"
 require "people"
 
 def compare_xml(test_file, ref_file)
   system("diff #{test_file} #{ref_file}")
-  if $? != 0
+  if $CHILD_STATUS != 0
     # test = "regression_failed_test.xml"
     # ref = "regression_failed_ref.xml"
     # system("tidy -xml -o #{test} #{test_file}")

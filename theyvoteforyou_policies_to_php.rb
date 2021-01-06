@@ -5,7 +5,7 @@
 # Outputs PHP for the web app to display the latest policies from They Vote For You
 # Put the resulting code here https://github.com/openaustralia/twfy/blob/22ee1bb460554a6db5428f269e779e57997b1225/www/includes/easyparliament/page.php#L1632-L1664
 # No longer needed once we fix https://github.com/openaustralia/openaustralia/issues/545
-$:.unshift "#{File.dirname(__FILE__)}/lib"
+$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 require "open-uri"
 require "json"
 require "configuration"

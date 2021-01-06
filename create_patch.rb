@@ -3,7 +3,7 @@
 
 # Create a patch easily for a particular date
 
-$:.unshift "#{File.dirname(__FILE__)}/lib"
+$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
 require "optparse"
 require "date"

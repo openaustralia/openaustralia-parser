@@ -16,7 +16,7 @@ module Patch
     patch.flush
 
     system("patch --quiet #{original.path} < #{patch.path}")
-    raise "Patch failed" unless $? == 0
+    raise "Patch failed" unless $CHILD_STATUS == 0
 
     original.open.readlines.join
   end
