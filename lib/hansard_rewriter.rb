@@ -161,7 +161,7 @@ EOF
           else
             # We've got a badly formed date, let's try something else
             fallback = p.inner_html.match(/(\d+):*<span class="HPS-Time">:*(\d\d)<\/span>/mi)
-            ripped_out_time = fallback[1] + ":" + fallback[2] if fallback
+            ripped_out_time = "#{fallback[1]}:#{fallback[2]}" if fallback
           end
           time.remove
 

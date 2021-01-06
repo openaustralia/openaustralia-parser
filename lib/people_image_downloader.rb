@@ -61,7 +61,7 @@ class PeopleImageDownloader
 
   # Returns nil if page can't be found
   def biography_page_for_person_with_name(text)
-    url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Dataset:allmps%20" + text.gsub(" ", "%20")
+    url = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Dataset:allmps%20#{text.gsub(' ', '%20')}"
     page = @agent.get(url)
     # Check if the returned page is a valid one. If not just ignore it
     tag1 = page.at("div#content")

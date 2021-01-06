@@ -171,7 +171,7 @@ xml.close
 puts "Register of interests from APH..."
 
 base_url = "http://www.aph.gov.au/Parliamentary_Business/Committees/House_of_Representatives_Committees"
-page = agent.get(base_url + "?url=pmi/declarations.htm")
+page = agent.get("#{base_url}?url=pmi/declarations.htm")
 
 representatives_data = page.search("ul.links")[2].search(:li).map do |li|
   # A bit of wrangling to replace double spaces and things
@@ -217,4 +217,4 @@ x.peopleinfo do
 end
 xml.close
 
-system(conf.web_root + "/twfy/scripts/mpinfoin.pl links")
+system("#{conf.web_root}/twfy/scripts/mpinfoin.pl links")

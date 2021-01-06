@@ -41,7 +41,7 @@ def read_in_ranges(p, filename_prefix, people)
                end
     # Ignore page ranges marked as blank
     if last_name.downcase != "** blank page **"
-      name = Name.last_title_first(last_name + " " + first_name)
+      name = Name.last_title_first("#{last_name} #{first_name}")
       # member = people.find_member_by_name_current_on_date(name, date, house)
       if date_text
         date = Date.parse(date_text)

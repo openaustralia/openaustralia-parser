@@ -56,7 +56,7 @@ Lint/UselessAssignment:
 # Offense count: 56
 # Configuration parameters: IgnoredMethods, CountRepeatedAttributes.
 Metrics/AbcSize:
-  Max: 226
+  Max: 227
 
 # Offense count: 28
 # Configuration parameters: CountComments, CountAsOne, ExcludedMethods, IgnoredMethods.
@@ -507,24 +507,9 @@ Style/SoleNestedConditional:
 Style/SpecialGlobalVars:
   EnforcedStyle: use_perl_names
 
-# Offense count: 29
-# Cop supports --auto-correct.
-Style/StringConcatenation:
-  Exclude:
-    - 'lib/hansard_day.rb'
-    - 'lib/hansard_rewriter.rb'
-    - 'lib/hansard_speech.rb'
-    - 'lib/people_image_downloader.rb'
-    - 'lib/progressbar.rb'
-    - 'parse-member-links.rb'
-    - 'parse-postcodes_2010.rb'
-    - 'register-split.rb'
-    - 'spec/speech_spec.rb'
-    - 'wikipedia.rb'
-
 # Offense count: 109
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
 # URISchemes: http, https
 Layout/LineLength:
-  Max: 321
+  Max: 332

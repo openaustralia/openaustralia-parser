@@ -37,4 +37,4 @@ links.each { |link| check_wikipedia_page(link[1], agent) }
 puts "Wikipedia links for Senators..."
 write_links(extract_all_senator_wikipedia_links(people, agent), "#{conf.members_xml_path}/wikipedia-lords.xml")
 
-system(conf.web_root + "/twfy/scripts/mpinfoin.pl links")
+system("#{conf.web_root}/twfy/scripts/mpinfoin.pl links")

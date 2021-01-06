@@ -60,7 +60,7 @@ class ProgressBar
   end
 
   def fmt_title
-    @title[0, (@title_width - 1)] + ":"
+    "#{@title[0, (@title_width - 1)]}:"
   end
 
   def convert_bytes(bytes)

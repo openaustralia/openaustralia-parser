@@ -74,13 +74,13 @@ class HansardSpeech
     if attributes_keys.delete("ref")
       # We're going to assume these links always point to Bills.
       link = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{e.attributes['ref']}"
-      text = '<a href="' + link + '">' + text + "</a>"
+      text = "<a href=\"#{link}\">#{text}</a>"
     end
 
     if attributes_keys.delete("font-style")
       raise "Unexpected font-style value #{e.attributes['font-style']}" unless e.attributes["font-style"] == "italic"
 
-      text = "<i>" + text + "</i>"
+      text = "<i>#{text}</i>"
     end
 
     if attributes_keys.delete("font-weight")
@@ -91,16 +91,16 @@ class HansardSpeech
       text = if e.inner_html =~ /^\(.*\)$/ || generic_speaker?(e.inner_html)
                ""
              else
-               "<b>" + text + "</b>"
+               "<b>#{text}</b>"
              end
     end
 
     if attributes_keys.delete("font-variant")
       case e.attributes["font-variant"]
       when "superscript"
-        text = "<sup>" + text + "</sup>"
+        text = "<sup>#{text}</sup>"
       when "subscript"
-        text = "<sub>" + text + "</sub>"
+        text = "<sub>#{text}</sub>"
       else
         raise "Unexpected font-variant value #{e.attributes['font-variant']}"
       end
@@ -109,14 +109,14 @@ class HansardSpeech
     raise "Unexpected attributes #{attributes_keys.join(', ')}" unless attributes_keys.empty?
 
     # Handle inlines for motionnospeech in a special way
-    text = "<p>" + text + "</p>" if e.parent.name == "motionnospeech"
+    text = "<p>#{text}</p>" if e.parent.name == "motionnospeech"
 
     text
   end
 
   def self.clean_content_graphic(e)
     # TODO: Probably the path needs to be different depending on whether Reps or Senate
-    '<img src="http://parlinfoweb.aph.gov.au/parlinfo/Repository/Chamber/HANSARDR/' + e.attributes["href"] + '"/>'
+    "<img src=\"http://parlinfoweb.aph.gov.au/parlinfo/Repository/Chamber/HANSARDR/#{e.attributes['href']}\"/>"
   end
 
   # Pass a <para>Some text</para> block. Returns cleaned "Some text"
@@ -145,11 +145,11 @@ class HansardSpeech
 
     case type
     when ""
-      "<p>" + clean_content_para_content(e) + "</p>"
+      "<p>#{clean_content_para_content(e)}</p>"
     when "italic"
-      '<p class="' + type + '">' + clean_content_para_content(e) + "</p>"
+      "<p class=\"#{type}\">#{clean_content_para_content(e)}</p>"
     when "bold"
-      "<b><p>" + clean_content_para_content(e) + "</p></b>"
+      "<b><p>#{clean_content_para_content(e)}</p></b>"
     else
       raise "Unexpected type value #{type}"
     end
@@ -170,9 +170,9 @@ class HansardSpeech
       end
     end
     if e.has_attribute?("label")
-      "<dt>" + e.attributes["label"] + "</dt><dd>" + d + "</dd>"
+      "<dt>#{e.attributes['label']}</dt><dd>#{d}</dd>"
     else
-      "<li>" + d + "</li>"
+      "<li>#{d}</li>"
     end
   end
 
@@ -185,21 +185,21 @@ class HansardSpeech
     end
 
     if label
-      "<dl>" + clean_content_recurse(e) + "</dl>"
+      "<dl>#{clean_content_recurse(e)}</dl>"
     else
-      "<ul>" + clean_content_recurse(e) + "</ul>"
+      "<ul>#{clean_content_recurse(e)}</ul>"
     end
   end
 
   def self.clean_content_entry(e, override_type = nil)
     attributes = 'valign="top"'
-    attributes << ' colspan="' + e.attributes["colspan"] + '"' if e.attributes["colspan"] && e.attributes["colspan"] != ""
-    "<td " + attributes + ">" + clean_content_recurse(e, override_type) + "</td>"
+    attributes << " colspan=\"#{e.attributes['colspan']}\"" if e.attributes["colspan"] && e.attributes["colspan"] != ""
+    "<td #{attributes}>#{clean_content_recurse(e, override_type)}</td>"
   end
 
   def self.clean_content_table(e, override_type = nil)
     # Not sure if I really should put border="0" here. Hmmm...
-    '<table border="0">' + clean_content_recurse(e, override_type) + "</table>"
+    "<table border=\"0\">#{clean_content_recurse(e, override_type)}</table>"
   end
 
   def self.clean_content_motion(e)
@@ -240,9 +240,9 @@ class HansardSpeech
     when "inline"
       clean_content_inline(e)
     when "interrupt"
-      "<b>" + clean_content_recurse(e) + "</b>"
+      "<b>#{clean_content_recurse(e)}</b>"
     when "row"
-      "<tr>" + clean_content_recurse(e, override_type) + "</tr>"
+      "<tr>#{clean_content_recurse(e, override_type)}</tr>"
     when "entry"
       clean_content_entry(e, override_type)
     when "item"

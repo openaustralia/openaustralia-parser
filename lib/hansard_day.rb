@@ -152,7 +152,7 @@ class HansardDay
       end
       raise "Front title is to short! '#{front}' #{front.length}" if front.empty?
 
-      (front + "; " + title_tag_value(debate)).strip
+      "#{front}; #{title_tag_value(debate)}".strip
     else
       raise "Unexpected tag #{debate.name}"
     end

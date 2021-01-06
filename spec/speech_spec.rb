@@ -33,7 +33,7 @@ describe Speech do
     expect(coder.encode("Q&A#{nbsp}—", :basic)).to eq "Q&amp;A#{nbsp}—"
 
     @speech.append_to_content(doc)
-    expect(@speech.output(Builder::XmlMarkup.new)).to eq '<speech approximate_duration="0" approximate_wordcount="1" id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" talktype="speech" time="05:00:00" url="http://foo.co.uk/"><p>Q&amp;A' + nbsp + "—</p></speech>"
+    expect(@speech.output(Builder::XmlMarkup.new)).to eq "<speech approximate_duration=\"0\" approximate_wordcount=\"1\" id=\"uk.org.publicwhip/debate/2006-01-01.3.1\" speakerid=\"uk.org.publicwhip/member/1\" speakername=\"John Smith\" talktype=\"speech\" time=\"05:00:00\" url=\"http://foo.co.uk/\"><p>Q&amp;A#{nbsp}—</p></speech>"
   end
 
   describe "#adjournment" do

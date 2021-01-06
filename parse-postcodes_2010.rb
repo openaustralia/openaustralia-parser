@@ -77,7 +77,7 @@ valid_postcodes.each do |postcode|
   if divisions.empty?
     puts "  * No divisions *"
   else
-    puts "  " + divisions.join(", ")
+    puts "  #{divisions.join(', ')}"
     divisions.each do |division|
       file.puts "#{postcode},#{division}"
     end
