@@ -205,16 +205,16 @@ class HansardSpeech
   def self.clean_content_motion(e)
     # Hmmm. what if there are two para's below? will we get the wrong formatting?
     t = '<p pwmotiontext="moved">'
-    e.each_child_node do |e|
-      case e.name
+    e.each_child_node do |f|
+      case f.name
       when "para"
-        t << clean_content_para_content(e)
+        t << clean_content_para_content(f)
       when "list"
-        t << clean_content_list(e)
+        t << clean_content_list(f)
       when "table"
-        t << clean_content_table(e)
+        t << clean_content_table(f)
       else
-        raise "Unexpected tag #{e.name}"
+        raise "Unexpected tag #{f.name}"
       end
     end
     t << "</p>"
@@ -264,8 +264,8 @@ class HansardSpeech
 
   def self.clean_content_recurse(e, override_type = nil)
     t = ""
-    e.each_child_node do |e|
-      t << clean_content_any(e, override_type)
+    e.each_child_node do |f|
+      t << clean_content_any(f, override_type)
     end
     t
   end

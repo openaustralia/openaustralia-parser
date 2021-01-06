@@ -242,23 +242,23 @@ class HansardDay
       when "session.header"
         # Do nothing
       when "chamber.xscript", "maincomm.xscript", "fedchamb.xscript"
-        e.each_child_node do |e|
-          case e.name
+        e.each_child_node do |f|
+          case f.name
           when "business.start", "adjournment", "interrupt", "interjection"
             p << nil
           when "debate", "petition.group"
-            p = p + pages_from_debate(e)
+            p = p + pages_from_debate(f)
           else
-            raise "Unexpected tag #{e.name}"
+            raise "Unexpected tag #{f.name}"
           end
         end
       when "answers.to.questions"
-        e.each_child_node do |e|
-          case e.name
+        e.each_child_node do |f|
+          case f.name
           when "debate"
             # Do nothing
           else
-            raise "Unexpected tag #{e.name}"
+            raise "Unexpected tag #{f.name}"
           end
         end
       else
