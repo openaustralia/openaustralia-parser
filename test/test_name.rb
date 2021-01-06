@@ -191,7 +191,6 @@ class TestName < Test::Unit::TestCase
   # that exist in both names
   def test_matches
     dr_john_smith = Name.new(title: "Dr", first: "John", last: "Smith")
-    john_smith = Name.new(first: "John", last: "Smith")
     peter_smith = Name.new(first: "Peter", last: "Smith")
     smith = Name.new(last: "Smith")
     dr_john = Name.new(title: "Dr", first: "John")

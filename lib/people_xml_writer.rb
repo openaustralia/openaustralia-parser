@@ -1,10 +1,7 @@
 require "builder_alpha_attributes"
-require "configuration"
 
 class PeopleXMLWriter
   def self.write(people, people_filename, members_filename, senators_filename, ministers_filename, divisions_filename)
-    conf = Configuration.new
-
     write_people(people, people_filename)
     write_members(people, members_filename)
     write_senators(people, senators_filename)
@@ -24,8 +21,6 @@ class PeopleXMLWriter
   end
 
   def self.write_ministers(people, filename)
-    conf = Configuration.new
-
     xml = File.open(filename, "w")
     x = Builder::XmlMarkup.new(target: xml, indent: 1)
     x.instruct!
@@ -72,8 +67,6 @@ class PeopleXMLWriter
   end
 
   def self.write_members(people, filename)
-    conf = Configuration.new
-
     xml = File.open(filename, "w")
     x = Builder::XmlMarkup.new(target: xml, indent: 1)
     x.instruct!
@@ -93,8 +86,6 @@ class PeopleXMLWriter
   end
 
   def self.write_senators(people, filename)
-    conf = Configuration.new
-
     xml = File.open(filename, "w")
     x = Builder::XmlMarkup.new(target: xml, indent: 1)
     x.instruct!
@@ -114,8 +105,6 @@ class PeopleXMLWriter
   end
 
   def self.write_people(people, filename)
-    conf = Configuration.new
-
     xml = File.open(filename, "w")
     x = Builder::XmlMarkup.new(target: xml, indent: 1)
     x.instruct!

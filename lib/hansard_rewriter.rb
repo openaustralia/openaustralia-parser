@@ -103,8 +103,6 @@ EOF
     text_node = nil
     amendment_node = nil
 
-    role_map = {}
-
     new_xml = Hpricot.XML("")
     input_text_node.search("/body/p").each do |p|
       # Skip empty nodes

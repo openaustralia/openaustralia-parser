@@ -4,10 +4,7 @@ $:.unshift "#{File.dirname(__FILE__)}/lib"
 
 require "rubygems"
 require "mechanize"
-require "configuration"
 require "people"
-
-conf = Configuration.new
 
 agent = Mechanize.new
 

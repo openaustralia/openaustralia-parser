@@ -28,7 +28,6 @@ conf = Configuration.new
 system("mkdir -p #{conf.members_xml_path}")
 
 puts "Reading CSV data..."
-data_path = "#{File.dirname(__FILE__)}/../data"
 people = PeopleCSVReader.read_members
 PeopleCSVReader.read_all_ministers(people)
 puts "Writing XML..."

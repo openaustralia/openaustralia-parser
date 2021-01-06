@@ -22,7 +22,7 @@ end
 conf = Configuration.new
 
 puts "Reading member data..."
-people = people = PeopleCSVReader.read_members
+people = PeopleCSVReader.read_members
 
 agent = Mechanize.new
 
