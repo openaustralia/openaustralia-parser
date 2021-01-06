@@ -47,11 +47,6 @@ Metrics/ParameterLists:
 Metrics/PerceivedComplexity:
   Max: 48
 
-# Offense count: 1
-Naming/AccessorMethodName:
-  Exclude:
-    - 'lib/progressbar.rb'
-
 # Offense count: 7
 # Configuration parameters: IgnoredPatterns.
 # SupportedStyles: snake_case, camelCase

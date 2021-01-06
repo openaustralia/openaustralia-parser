@@ -120,7 +120,7 @@ class ProgressBar
     end
   end
 
-  def get_width
+  def width
     # FIXME: I don't know how portable it is.
     default_width = 80
     begin
@@ -144,15 +144,15 @@ class ProgressBar
     end
     line = format(@format, *arguments)
 
-    width = get_width
-    if line.length == width - 1
+    w = width
+    if line.length == w - 1
       @out.print(line + eol)
       @out.flush
-    elsif line.length >= width
-      @terminal_width = [@terminal_width - (line.length - width + 1), 0].max
+    elsif line.length >= w
+      @terminal_width = [@terminal_width - (line.length - w + 1), 0].max
       @terminal_width.zero? ? @out.print(line + eol) : show
-    else # line.length < width - 1
-      @terminal_width += width - line.length + 1
+    else # line.length < w - 1
+      @terminal_width += w - line.length + 1
       show
     end
     @previous_time = Time.now
@@ -178,7 +178,7 @@ class ProgressBar
 
   def clear
     @out.print "\r"
-    @out.print(" " * (get_width - 1))
+    @out.print(" " * (width - 1))
     @out.print "\r"
   end
 
