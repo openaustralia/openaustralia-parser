@@ -84,7 +84,7 @@ class HansardParser
       if File.exist?(patch_file_path)
         begin
           Patch::patch(text, File.read(patch_file_path))
-        rescue
+        rescue StandardError
           # Reraising error so that we can include a little more info
           raise "#{date} #{house}: Patch failed"
         end
