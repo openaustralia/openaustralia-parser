@@ -43,7 +43,7 @@ class MinisterPosition < PeriodBase
                       else
                         @@next_minister_count
                       end
-    @@next_minister_count = @@next_minister_count + 1
+    @@next_minister_count += 1
     super
   end
 end

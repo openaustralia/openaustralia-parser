@@ -176,11 +176,11 @@ class Name
 
   def full_name
     t = ""
-    t = t + "#{title} " if has_title?
-    t = t + "#{first} " if has_first?
-    t = t + "#{middle} " if has_middle?
-    t = t + "#{last}"
-    t = t + ", #{post_title}" if has_post_title?
+    t += "#{title} " if has_title?
+    t += "#{first} " if has_first?
+    t += "#{middle} " if has_middle?
+    t += "#{last}"
+    t += ", #{post_title}" if has_post_title?
     t
   end
 

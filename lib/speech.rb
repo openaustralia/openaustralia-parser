@@ -43,7 +43,7 @@ class Speech < Section
     end
     # Append to stored content
     if content.is_a?(Array)
-      @content = @content + content
+      @content += content
     else
       @content << content
     end

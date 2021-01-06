@@ -200,7 +200,7 @@ class HansardDay
           questions = []
           f = e
           while f && (f.name == "question" || f.name == "answer")
-            questions = questions + f.map_child_node { |c| HansardSpeech.new(c, title, subtitle, bills, time(e), self, @logger) }
+            questions += f.map_child_node { |c| HansardSpeech.new(c, title, subtitle, bills, time(e), self, @logger) }
             f = f.next_sibling
           end
           p << questions
@@ -221,7 +221,7 @@ class HansardDay
         question = false
         procedural = true
       when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
-        p = p + pages_from_debate(e)
+        p += pages_from_debate(e)
         question = false
         procedural = false
       else
@@ -249,7 +249,7 @@ class HansardDay
           when "business.start", "adjournment", "interrupt", "interjection"
             p << nil
           when "debate", "petition.group"
-            p = p + pages_from_debate(f)
+            p += pages_from_debate(f)
           else
             raise "Unexpected tag #{f.name}"
           end

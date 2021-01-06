@@ -387,19 +387,6 @@ Style/SafeNavigation:
     - 'lib/hansard_parser.rb'
     - 'lib/name.rb'
 
-# Offense count: 17
-# Cop supports --auto-correct.
-Style/SelfAssignment:
-  Exclude:
-    - 'lib/count.rb'
-    - 'lib/debates.rb'
-    - 'lib/hansard_day.rb'
-    - 'lib/name.rb'
-    - 'lib/period.rb'
-    - 'lib/speech.rb'
-    - 'parse-speeches.rb'
-    - 'regression-test/regression_test_parse_speeches.rb'
-
 # Offense count: 109
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.

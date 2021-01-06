@@ -8,11 +8,11 @@ class Count
   end
 
   def increment_minor
-    @minor = @minor + 1
+    @minor += 1
   end
 
   def increment_major
-    @major = @major + 1
+    @major += 1
     @minor = 1
   end
 

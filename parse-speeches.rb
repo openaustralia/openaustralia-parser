@@ -127,7 +127,7 @@ while date >= from_date
 
   parse_with_retry options[:interactive], parse, date, "#{conf.xml_path}/scrapedxml/senate_debates/#{date}.xml", House.senate
   progress.inc
-  date = date - 1
+  date -= 1
 end
 
 progress.finish

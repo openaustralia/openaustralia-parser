@@ -55,7 +55,7 @@ class Debates
   end
 
   def increment_division_count
-    @division_count = @division_count + 1
+    @division_count += 1
   end
 
   def add_speech(speaker, time, url, content, interjection = false, continuation = false)
