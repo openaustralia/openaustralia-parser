@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 # Create a patch easily for a particular date
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"

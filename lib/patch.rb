@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Patch a string using another string. Just a wrapper around the diff command
 
 require "tempfile"

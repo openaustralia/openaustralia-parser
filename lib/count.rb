@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Count
   attr_reader :minor, :major
 

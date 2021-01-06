@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 ###################
 # Outputs PHP for the web app to display the latest policies from They Vote For You
 # Put the resulting code here https://github.com/openaustralia/twfy/blob/22ee1bb460554a6db5428f269e779e57997b1225/www/includes/easyparliament/page.php#L1632-L1664

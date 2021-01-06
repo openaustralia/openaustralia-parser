@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 #
 # This splits and combines several large pdfs containing the Register of Members' Interests into one pdf per Senator/Member
 #

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 $:.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require "test/unit"
@@ -8,7 +10,7 @@ describe PeopleXMLWriter do
   it "writes out xml file of electoral divisions" do
     people = double("People", divisions: %w[Blah Foo])
 
-    result = ""
+    result = +""
     # So confusing: This is divisions as in electoral divisions rather than voting divisions
     PeopleXMLWriter.write_divisions(people, result)
     expect(result).to eq <<~XML

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PeriodBase
   attr_accessor :from_date, :to_date, :person
 

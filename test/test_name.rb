@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # !/usr/bin/env ruby
 
 $:.unshift "#{File.dirname(__FILE__)}/../lib"

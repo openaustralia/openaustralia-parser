@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "csv"
 require "ostruct"
 require "date_with_future"

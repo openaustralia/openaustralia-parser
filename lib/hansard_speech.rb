@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "hpricot_additions"
 require "name"
 
@@ -121,7 +123,7 @@ class HansardSpeech
 
   # Pass a <para>Some text</para> block. Returns cleaned "Some text"
   def self.clean_content_para_content(e)
-    t = ""
+    t = +""
     (e.children || []).each do |c|
       t << if c.is_a?(Hpricot::Text)
              strip_leading_dash(c.to_s)
@@ -156,7 +158,7 @@ class HansardSpeech
   end
 
   def self.clean_content_item(e)
-    d = ""
+    d = +""
     e.each_child_node do |f|
       case f.name
       when "para"
@@ -204,7 +206,7 @@ class HansardSpeech
 
   def self.clean_content_motion(e)
     # Hmmm. what if there are two para's below? will we get the wrong formatting?
-    t = '<p pwmotiontext="moved">'
+    t = +'<p pwmotiontext="moved">'
     e.each_child_node do |f|
       case f.name
       when "para"
@@ -263,7 +265,7 @@ class HansardSpeech
   end
 
   def self.clean_content_recurse(e, override_type = nil)
-    t = ""
+    t = +""
     e.each_child_node do |f|
       t << clean_content_any(f, override_type)
     end

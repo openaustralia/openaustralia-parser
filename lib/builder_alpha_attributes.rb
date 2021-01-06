@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # XML Builder with a patch to sort the attributes so that they are in alphabetical order.
 # This makes it easier to do simple diffs between XML files
 

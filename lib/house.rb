@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Very dumb class for representing whether something is in the House of Representatives or the Senate
 class House
   attr_reader :name

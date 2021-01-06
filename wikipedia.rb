@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 # Figures out the URLs for the Wikipedia biography pages of Representatives and Senators
 
 $:.unshift "#{File.dirname(__FILE__)}/lib"

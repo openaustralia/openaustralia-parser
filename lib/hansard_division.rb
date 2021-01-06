@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class HansardDivision
   attr_reader :title, :subtitle, :bills
 

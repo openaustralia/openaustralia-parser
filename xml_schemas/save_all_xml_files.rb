@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 # Saves source XML data into the directory "source". This is used to test the grammar aph-xml.rnc against
 
 $:.unshift "#{File.dirname(__FILE__)}/../lib"

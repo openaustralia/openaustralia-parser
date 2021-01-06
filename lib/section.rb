@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Currently a section can be either a speech or a division
 class Section
   attr_accessor :time, :url

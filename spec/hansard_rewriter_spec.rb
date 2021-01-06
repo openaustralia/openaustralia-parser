@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "hansard_rewriter"
 require "log4r"
 

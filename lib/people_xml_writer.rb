@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "builder_alpha_attributes"
 
 class PeopleXMLWriter

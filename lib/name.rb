@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Handle all our silly name parsing needs
 class Name
   attr_reader :title, :first, :middle, :initials, :last, :post_title
@@ -54,7 +56,7 @@ class Name
       # First name could be in the form of initials. So, check for this
       if initials(names[0])
         # Allow several initials separated by spaces
-        initials = ""
+        initials = +""
         initials << initials(names.shift) while names.size >= 1 && initials(names[0])
       else
         first = names.shift

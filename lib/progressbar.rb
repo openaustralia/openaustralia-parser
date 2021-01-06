@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 #
 # Ruby/ProgressBar - a text progress bar library
 #

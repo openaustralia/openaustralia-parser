@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PeopleYamlWriter
   def self.write(people, filename = "#{File.dirname(__FILE__)}/../data/people.yml")
     yaml_people = people.map do |person|
