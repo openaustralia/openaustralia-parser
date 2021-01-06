@@ -94,11 +94,6 @@ Naming/VariableNumber:
   Exclude:
     - 'parse-member-links.rb'
 
-# Offense count: 4
-Security/Open:
-  Exclude:
-    - 'parse-member-links.rb'
-
 # Offense count: 8
 Style/ClassVars:
   Exclude:

@@ -49,7 +49,7 @@ x.consinfos do
 
   # Representatives
   url = "#{conf.election_web_root}/results/electorateindex.htm"
-  doc = Hpricot(open(url))
+  doc = Hpricot(URI.parse(url).open)
   (doc / "td.electorate").each do |td|
     href = td.at("a")["href"]
     href = "#{abc_root}#{href}"
@@ -59,7 +59,7 @@ x.consinfos do
   end
   # Senate
   url = "#{conf.election_web_root}/results/senate/"
-  doc = Hpricot(open(url))
+  doc = Hpricot(URI.parse(url).open)
   (doc / :a).each do |a|
     next unless %r{results/senate/(\w+)\.htm}.match(a["href"])
 
@@ -72,7 +72,7 @@ x.consinfos do
   # Representatives
   abc_2010_root = "https://www.abc.net.au/elections/federal/2010/guide"
   url = "#{abc_2010_root}/electorateresults.htm"
-  doc = Hpricot(open(url))
+  doc = Hpricot(URI.parse(url).open)
   (doc / "td.electorate").each do |td|
     href = td.at("a")["href"]
     href = "#{abc_2010_root}/#{href}"
@@ -90,7 +90,7 @@ x.consinfos do
   # Representatives
   abc_root = "https://www.abc.net.au"
   url = "#{abc_root}/news/federal-election-2013/results/electorates/"
-  doc = Hpricot(open(url))
+  doc = Hpricot(URI.parse(url).open)
   (doc / "span.electorate").each do |span|
     href = span.parent["href"]
     href = "#{abc_root}#{href}"
