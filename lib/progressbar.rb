@@ -132,7 +132,7 @@ class ProgressBar
       else
         default_width
       end
-    rescue Exception
+    rescue StandardError
       default_width
     end
   end

@@ -87,7 +87,7 @@ progress = ProgressBar.new("parse-speeches", ((to_date - from_date + 1) * 2).to_
 def parse_with_retry(interactive, parse, date, path, house)
   begin
     parse.call date, path, house
-  rescue Exception => e
+  rescue StandardError => e
     puts "ERROR While processing #{house} #{date}:"
     raise unless interactive
 
