@@ -85,14 +85,14 @@ class HansardRewriter
         logger.info "Before: #{p}"
         p.inner_html = p.inner_html.gsub(
           /<span class="HPS-Normal">.*<span class="HPS-([^"]*)">(The (([^S]*SPEAKER)|([^R]*RESIDENT))):<\/span>  (.*)<\/span>/m,
-          <<EOF
+          <<XML
       <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
         <span class="HPS-Normal">
           <a href="10000" type="\\1">
             <span class="HPS-\\1">\\2:</span>
           </a>  \\6</span>
       </p>
-EOF
+XML
         )
         logger.info "After: #{p}"
       end
@@ -181,7 +181,7 @@ EOF
 
           logger.warn "    Found new speech by #{name}"
 
-          new_node = <<~EOF
+          new_node = <<~XML
             <speech>
               <talker>
                 <time.stamp>#{ripped_out_time}</time.stamp>
@@ -191,7 +191,7 @@ EOF
               </talker>
               <para>#{restore_tags(text)}</para>
             </speech>
-          EOF
+          XML
           new_xml.append new_node
           speech_node = new_xml.search("speech")[-1]
           text_node = speech_node
@@ -253,7 +253,7 @@ EOF
 
           logger.warn "    Found new #{type} by #{name}"
 
-          new_node = <<~EOF
+          new_node = <<~XML
             <#{type}>
               <talker>
                 <name role="metadata">#{name}</name>
@@ -261,7 +261,7 @@ EOF
               </talker>
               <para>#{restore_tags(text)}</para>
             </#{type}>
-          EOF
+          XML
           speech_node.append(new_node)
           text_node = speech_node.search(type)[-1]
         end
@@ -291,9 +291,9 @@ EOF
           if not amendment_node.nil?
             logger.warn "      Found paragraph in an amendment"
 
-            amendment_node.append <<~EOF
+            amendment_node.append <<~XML
               <para>#{restore_tags(text)}</para>
-            EOF
+            XML
 
           # We special case bill's returned from the senate with amendments
           elsif p.inner_text.match(/Bill returned from the Senate with .*amendments?/i)
@@ -309,11 +309,11 @@ EOF
                             text_node
                           end
 
-            search_node.append <<~EOF
+            search_node.append <<~XML
               <amendments>
                 <para>#{restore_tags(text)}</para>
               </amendments>
-            EOF
+            XML
             amendment_node = search_node.search("amendments")[-1]
 
             speech_node = nil
@@ -326,15 +326,15 @@ EOF
                 !p.search("span[@class=HPS-MemberInterjecting]").empty? ||
                 member_iinterjecting
             logger.warn "    Found new /italics/ paragraph"
-            text_node.append <<~EOF
+            text_node.append <<~XML
               <para class="italic">#{restore_tags(text)}</para>
-            EOF
+            XML
 
           else
             logger.warn "    Found new paragraph"
-            text_node.append <<~EOF
+            text_node.append <<~XML
               <para>#{restore_tags(text)}</para>
-            EOF
+            XML
           end
 
         when "HPS-Bullet", "HPS-SmallBullet"
@@ -343,24 +343,24 @@ EOF
             logger.warn "    Ignoring bullet node as text_node was null\n#{p}"
           else
             logger.warn "    Found new bullet point"
-            text_node.append <<~EOF
+            text_node.append <<~XML
               <list>#{restore_tags(text)}</list>
-            EOF
+            XML
           end
 
         when "HPS-Small", "HPS-NormalWeb"
           if not amendment_node.nil?
             logger.warn "      Found amendment"
-            amendment_node.append <<~EOF
+            amendment_node.append <<~XML
               <amendment>#{restore_tags(text)}</amendment>
-            EOF
+            XML
           elsif text_node.nil?
             logger.warn "    Ignoring quote node as text_node was null\n#{p}"
           else
             logger.warn "    Found new quote"
-            text_node.append <<~EOF
+            text_node.append <<~XML
               <quote><para class="block">#{restore_tags(text)}</para></quote>
-            EOF
+            XML
           end
 
         # Things we are delibaretly ignoring

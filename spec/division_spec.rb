@@ -44,7 +44,7 @@ describe Division do
   it "can output xml in the expected form" do
     # Default builder will return value as string
     x = Builder::XmlMarkup.new(indent: 2)
-    expect(@division1.output(x)).to eq <<~EOF
+    expect(@division1.output(x)).to eq <<~XML
       <division divdate="2008-02-01" divnumber="15" id="uk.org.publicwhip/debate/2008-02-01.10.2" nospeaker="true" time="10:11:00" url="http://foo/link">
         <bills>
           <bill id="Z12345" url="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345">A bill to support mongeese</bill>
@@ -58,12 +58,12 @@ describe Division do
           <member id="uk.org.publicwhip/member/3" teller="yes" vote="no">Henry Smith</member>
         </memberlist>
       </division>
-    EOF
+    XML
   end
 
   it "can output the slightly different form of the xml for the senate" do
     x = Builder::XmlMarkup.new(indent: 2)
-    expect(@division2.output(x)).to eq <<~EOF
+    expect(@division2.output(x)).to eq <<~XML
       <division divdate="2008-02-01" divnumber="3" id="uk.org.publicwhip/lords/2008-02-01.1.2" nospeaker="true" time="9:10:00" url="http://foo/link">
         <bills>
           <bill id="Z12345" url="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345">A bill to support mongeese</bill>
@@ -75,12 +75,12 @@ describe Division do
         <memberlist vote="no">
         </memberlist>
       </division>
-    EOF
+    XML
   end
 
   it "should output voting pairs" do
     x = Builder::XmlMarkup.new(indent: 2)
-    expect(@division3.output(x)).to eq <<~EOF
+    expect(@division3.output(x)).to eq <<~XML
       <division divdate="2008-02-01" divnumber="3" id="uk.org.publicwhip/lords/2008-02-01.1.2" nospeaker="true" time="9:10:00" url="http://foo/link">
         <bills>
           <bill id="Z12345" url="http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345">A bill to support mongeese</bill>
@@ -101,6 +101,6 @@ describe Division do
           </pair>
         </pairs>
       </division>
-    EOF
+    XML
   end
 end

@@ -36,11 +36,11 @@ end
 options = { load_database: true, proof: false, force: false, interactive: false }
 
 OptionParser.new do |opts|
-  opts.banner = <<~EOF
+  opts.banner = <<~USAGE
     Usage: parse-speeches.rb [options] <from-date> [<to-date>]
         formatting of date:
           year.month.day or today or yesterday
-  EOF
+  USAGE
   opts.on("--no-load", "Just generate XML and don't load up database") do |l|
     options[:load_database] = l
   end

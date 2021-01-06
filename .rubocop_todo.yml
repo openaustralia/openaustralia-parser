@@ -52,19 +52,6 @@ Naming/AccessorMethodName:
   Exclude:
     - 'lib/progressbar.rb'
 
-# Offense count: 27
-# Configuration parameters: ForbiddenDelimiters.
-# ForbiddenDelimiters: (?-mix:(^|\s)(EO[A-Z]{1}|END)(\s|$))
-Naming/HeredocDelimiterNaming:
-  Exclude:
-    - 'create_patch.rb'
-    - 'lib/hansard_rewriter.rb'
-    - 'parse-speeches.rb'
-    - 'spec/debates_spec.rb'
-    - 'spec/division_spec.rb'
-    - 'spec/patch_spec.rb'
-    - 'spec/people_xml_writer_spec.rb'
-
 # Offense count: 7
 # Configuration parameters: IgnoredPatterns.
 # SupportedStyles: snake_case, camelCase

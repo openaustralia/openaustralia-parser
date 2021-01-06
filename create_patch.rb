@@ -10,9 +10,9 @@ require "people_csv_reader"
 require "hansard_parser"
 
 OptionParser.new do |opts|
-  opts.banner = <<~EOF
+  opts.banner = <<~USAGE
     Usage: create-patch.rb <reps|senate> <year.month.day>
-  EOF
+  USAGE
 end.parse!
 
 if ARGV.size != 2

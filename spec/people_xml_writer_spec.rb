@@ -11,7 +11,7 @@ describe PeopleXMLWriter do
     result = ""
     # So confusing: This is divisions as in electoral divisions rather than voting divisions
     PeopleXMLWriter.write_divisions(people, result)
-    expect(result).to eq <<~EOF
+    expect(result).to eq <<~XML
       <divisions>
         <division fromdate="1000-01-01" id="uk.org.publicwhip/cons/1" todate="9999-12-31">
           <name text="Blah"/>
@@ -20,6 +20,6 @@ describe PeopleXMLWriter do
           <name text="Foo"/>
         </division>
       </divisions>
-    EOF
+    XML
   end
 end
