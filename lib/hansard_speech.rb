@@ -60,7 +60,7 @@ class HansardSpeech
     # Also remove first non-breaking space (Really should remove them all but we're doing it this way for compatibility
     # with the previous parser
     elsif t[0] == nbsp
-      t[1..-1]
+      t[1..]
     else
       t
     end

@@ -143,7 +143,7 @@ class PeopleImageDownloader
 
     born = page.parser.to_s.match("Born\\s\\d\\d?\\.\\d\\d?\\.\\d\\d(\\d\\d)?")
     if born && !born.to_s.empty?
-      born_text = born.to_s[5..-1]
+      born_text = born.to_s[5..]
       born_text = born_text.insert(-3, "19") if born_text.match("\\.\\d\\d$") # change 9.1.42 to 9.1.1942
       birthday = Date.strptime(born_text, "%d.%m.%Y")
     else

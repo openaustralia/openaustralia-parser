@@ -27,7 +27,7 @@ class PeopleCSVReader
 
       # You can specify multiple alternate names by filling out the next columns
       alternate_names = []
-      line[4..-1].each do |t|
+      line[4..].each do |t|
         alternate_names << Name.title_first_last(t) if (not t.nil?) && !t.empty?
       end
       people << Person.new(

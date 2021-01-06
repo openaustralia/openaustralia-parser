@@ -22,7 +22,7 @@ class Name
     open = text.index("(")
     if open
       close = text.index(")", open)
-      text = text[0..open - 1] + text[close + 1..-1] if close
+      text = text[0..open - 1] + text[close + 1..] if close
     end
 
     # Remove extra spaces
@@ -63,7 +63,7 @@ class Name
       end
     end
     post_title = extract_post_title_at_end(names)
-    middle = names[0..-1].join(" ")
+    middle = names[0..].join(" ")
     Name.new(title: title, initials: initials, last: last, first: first, middle: middle, post_title: post_title)
   end
 
@@ -123,13 +123,13 @@ class Name
       if names.size >= 2 && names[-2].downcase == "stott" && names[-1].downcase == "despoja" ||
          names.size >= 2 && names[-2].downcase == "van" && names[-1].downcase == "manen" ||
          names.size >= 2 && names[0].downcase == "di" && names[1].downcase == "natale"
-        last = names[-2..-1].join(" ")
+        last = names[-2..].join(" ")
         names.pop
       else
         last = names[-1]
       end
       names.pop
-      middle = names[0..-1].join(" ")
+      middle = names[0..].join(" ")
     end
     Name.new(title: title, last: last, first: first, middle: middle, initials: initials, post_title: post_title)
   end
@@ -144,7 +144,7 @@ class Name
 
   def middle_initials
     if has_middle_initials?
-      @initials[1..-1]
+      @initials[1..]
     else
       @middle.split(" ").map { |n| n[0..0] }.join
     end
@@ -307,7 +307,7 @@ class Name
     # Replace a unicode character
     name = name.capitalize.gsub("\342\200\231", "'")
     # Exceptions to capitalisation rule
-    name = name[0..1] + name[2..-1].capitalize if name[0..1] == "O'" || name[0..1] == "Mc" || name[0..1] == "D'"
+    name = name[0..1] + name[2..].capitalize if name[0..1] == "O'" || name[0..1] == "Mc" || name[0..1] == "D'"
     # If name is hyphenated capitalise each side on its own
     # TODO: Fix 'activesupport' gem so that multibyte chars properly pass through include?
     # Cast to normal string for include? necessary because of bug in activesupport multibyte chars

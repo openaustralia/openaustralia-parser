@@ -109,7 +109,7 @@ skip_dates.each { |date| dates.delete(date) }
 
 count = skip
 time0 = Time.new
-dates[skip..-1].each do |date|
+dates[skip..].each do |date|
   test_date(date, conf, parser, count)
   count = count + 1
   puts "Regression test progress: Done #{count}/#{dates.size}"
