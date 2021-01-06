@@ -2,7 +2,12 @@
 
 class HeadingBase
   def initialize(title, count, url, bills, date, house)
-    @title, @count, @url, @bills, @date, @house = title, count, url, bills, date, house
+    @title = title
+    @count = count
+    @url = url
+    @bills = bills
+    @date = date
+    @house = house
   end
 
   def id

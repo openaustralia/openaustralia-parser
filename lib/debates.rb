@@ -11,7 +11,9 @@ class Debates
   attr_reader :items
 
   def initialize(date, house, logger = nil)
-    @date, @house, @logger = date, house, logger
+    @date = date
+    @house = house
+    @logger = logger
     @title = ""
     @subtitle = ""
     @items = []

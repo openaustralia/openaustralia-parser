@@ -4,7 +4,13 @@ require "section"
 
 class Division < Section
   def initialize(yes, no, yes_tellers, no_tellers, pairs, time, url, bills, count, division_count, date, house, logger = nil)
-    @yes, @no, @yes_tellers, @no_tellers, @pairs, @division_count, @bills = yes, no, yes_tellers, no_tellers, pairs, division_count, bills
+    @yes = yes
+    @no = no
+    @yes_tellers = yes_tellers
+    @no_tellers = no_tellers
+    @pairs = pairs
+    @division_count = division_count
+    @bills = bills
     super(time, url, count, date, house, logger)
   end
 

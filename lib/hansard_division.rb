@@ -4,7 +4,11 @@ class HansardDivision
   attr_reader :title, :subtitle, :bills
 
   def initialize(content, title, subtitle, bills, day)
-    @content, @title, @subtitle, @bills, @day = content, title, subtitle, bills, day
+    @content = content
+    @title = title
+    @subtitle = subtitle
+    @bills = bills
+    @day = day
   end
 
   def permanent_url

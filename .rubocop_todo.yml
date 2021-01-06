@@ -286,20 +286,6 @@ Style/OrAssignment:
   Exclude:
     - 'lib/hansard_day.rb'
 
-# Offense count: 10
-# Cop supports --auto-correct.
-Style/ParallelAssignment:
-  Exclude:
-    - 'lib/count.rb'
-    - 'lib/debates.rb'
-    - 'lib/division.rb'
-    - 'lib/hansard_day.rb'
-    - 'lib/hansard_division.rb'
-    - 'lib/hansard_speech.rb'
-    - 'lib/heading.rb'
-    - 'lib/people_image_downloader.rb'
-    - 'lib/section.rb'
-
 # Offense count: 109
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.

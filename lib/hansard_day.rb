@@ -14,7 +14,9 @@ class HansardUnsupported
   attr_reader :title, :subtitle
 
   def initialize(title, subtitle, day)
-    @title, @subtitle, @day = title, subtitle, day
+    @title = title
+    @subtitle = subtitle
+    @day = day
   end
 
   def permanent_url
@@ -28,7 +30,8 @@ class HansardDay
   ALLOW_TIED_VOTE_DATES = [Date.new(2011, 2, 22)]
 
   def initialize(page, logger = nil)
-    @page, @logger = page, logger
+    @page = page
+    @logger = logger
     @house = nil
     @role_map = {}
   end

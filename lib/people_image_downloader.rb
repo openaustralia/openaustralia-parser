@@ -38,7 +38,9 @@ class PeopleImageDownloader
       page = person_bio_page(person)
       next unless page
 
-      name, birthday, image = extract_name(page), extract_birthday(page), extract_image(page)
+      name = extract_name(page)
+      birthday = extract_birthday(page)
+      image = extract_image(page)
 
       if image.nil?
         puts "WARNING: Can't find photo for #{name.full_name}"

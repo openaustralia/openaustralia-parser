@@ -7,7 +7,13 @@ class HansardSpeech
   attr_reader :logger, :title, :subtitle, :bills, :time, :day, :interjection, :continuation
 
   def initialize(content, title, subtitle, bills, time, day, logger = nil)
-    @content, @title, @subtitle, @bills, @time, @day, @logger = content, title, subtitle, bills, time, day, logger
+    @content = content
+    @title = title
+    @subtitle = subtitle
+    @bills = bills
+    @time = time
+    @day = day
+    @logger = logger
     @interjection = name?("interjection")
     @continuation = name?("continue")
   end

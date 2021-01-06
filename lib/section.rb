@@ -5,7 +5,12 @@ class Section
   attr_accessor :time, :url
 
   def initialize(time, url, count, date, house, logger = nil)
-    @time, @url, @count, @date, @house, @logger = time, url, count, date, house, logger
+    @time = time
+    @url = url
+    @count = count
+    @date = date
+    @house = house
+    @logger = logger
   end
 
   # Quoting of url's is required to be nice and standards compliant

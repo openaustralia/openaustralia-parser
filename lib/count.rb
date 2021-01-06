@@ -4,7 +4,8 @@ class Count
   attr_reader :minor, :major
 
   def initialize(major = 1, minor = 1)
-    @major, @minor = major, minor
+    @major = major
+    @minor = minor
   end
 
   def increment_minor
