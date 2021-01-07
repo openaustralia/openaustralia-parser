@@ -27,7 +27,7 @@ x = Builder::XmlMarkup.new(target: xml, indent: 1)
 x.instruct!
 x.peopleinfo do
   morph_result = agent.get(
-    "https://api.morph.io/openaustralia/aus_mp_contact_details/data.json", {query: 'select * from "data"'}, nil, "x-api-key" => conf.morph_api_key
+    "https://api.morph.io/openaustralia/aus_mp_contact_details/data.json", { query: 'select * from "data"' }, nil, "x-api-key" => conf.morph_api_key
   ).body
   JSON.parse(morph_result).each do |person|
     p = people.find_person_by_aph_id(person["aph_id"].upcase)
@@ -115,7 +115,7 @@ x.consinfos do
 
   doc.search(".ert-results a").each do |a|
     href = doc.uri + a["href"]
-    name = a.at("h2").inner_text.gsub(/[^a-z]/i, '')
+    name = a.at("h2").inner_text.gsub(/[^a-z]/i, "")
     x.consinfo("canonical" => name, "abc_election_results_2016" => href)
   end
   # Senate
@@ -139,7 +139,7 @@ x.consinfos do
   end
   # Senate
   [%w[nsw NSW], %w[vic Victoria], %w[qld Queensland], %w[wa WA], %w[sa SA], %w[tas Tasmania], %w[act ACT],
-   %w[nt NT]].each do |name, canonical|
+   %w[nt NT]].each do |_name, canonical|
     # No seperate url for each state results... So...
     href = "https://www.abc.net.au/news/elections/federal/2019/results/senate"
     x.consinfo("canonical" => canonical, "abc_election_results_2019" => href)
@@ -229,17 +229,17 @@ representatives_data = page.search("ul.links")[2].search(:li).map do |li|
 end
 
 senate_data = []
-base_url = 'https://www.aph.gov.au/Parliamentary_Business/Committees/Senate/Senators_Interests/Register46thparl'
+base_url = "https://www.aph.gov.au/Parliamentary_Business/Committees/Senate/Senators_Interests/Register46thparl"
 page = agent.get(base_url)
 
-senate_data = page.at('#main_0_content_0_divContent').search('tr').map do |ul|
-  senator = people.find_person_by_name(Name.last_title_first(ul.at(:a).inner_text.split(' - ').first))
+senate_data = page.at("#main_0_content_0_divContent").search("tr").map do |ul|
+  senator = people.find_person_by_name(Name.last_title_first(ul.at(:a).inner_text.split(" - ").first))
   raise if senator.nil?
 
   url = page.uri + ul.at(:a).attr(:href)
-  last_updated = Date.parse(ul.at(:em).inner_text.split(' Last updated ').last)
+  last_updated = Date.parse(ul.at(:em).inner_text.split(" Last updated ").last)
 
-  {:id => senator.id, :aph_interests_url => url, :aph_interests_last_updated => last_updated}
+  { id: senator.id, aph_interests_url: url, aph_interests_last_updated: last_updated }
 end
 
 xml = File.open("#{conf.members_xml_path}/links-register-of-interests.xml", "w")
