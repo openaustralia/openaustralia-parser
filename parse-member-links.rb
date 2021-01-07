@@ -106,6 +106,24 @@ x.consinfos do
     href = "https://www.abc.net.au/news/federal-election-2013/results/senate/#{name}/"
     x.consinfo("canonical" => canonical, "abc_election_results_2013" => href)
   end
+
+  puts "Election results 2016 (from the abc.net.au)..."
+  # Representatives
+  abc_root = "https://www.abc.net.au"
+  url = "#{abc_root}/news/federal-election-2016/results/list/"
+  doc = agent.get(url)
+
+  doc.search(".ert-results a").each do |a|
+    href = doc.uri + a["href"]
+    name = a.at("h2").inner_text.gsub(/[^a-z]/i, '')
+    x.consinfo("canonical" => name, "abc_election_results_2016" => href)
+  end
+  # Senate
+  [%w[nsw NSW], %w[vic Victoria], %w[qld Queensland], %w[wa WA], %w[sa SA], %w[tas Tasmania], %w[act ACT],
+   %w[nt NT]].each do |name, canonical|
+    href = "https://www.abc.net.au/news/federal-election-2016/results/senate/#s#{name}"
+    x.consinfo("canonical" => canonical, "abc_election_results_2016" => href)
+  end
 end
 xml.close
 
