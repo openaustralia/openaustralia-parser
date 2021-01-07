@@ -135,7 +135,7 @@ progress.finish
 
 # And load up the database
 if options[:load_database]
-  command_options = " --from=#{from_date} --to=#{to_date}"
+  command_options = +" --from=#{from_date} --to=#{to_date}"
   command_options << " --debates"
   command_options << " --lordsdebates"
   command_options << " --force" if options[:force]
