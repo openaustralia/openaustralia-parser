@@ -117,7 +117,9 @@ class HansardDay
         end
       end
     when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
-      if !debate.get_elements_by_tag_name("subdebate.text").empty?
+      if debate.get_elements_by_tag_name("subdebate.text").empty?
+        results = bills(debate.parent)
+      else
         unless debate.get_elements_by_tag_name("subdebate.text")[0].get_elements_by_tag_name("a").empty?
           debate.get_elements_by_tag_name("subdebate.text")[0].get_elements_by_tag_name("a").each do |a|
             id = strip_tags(a["href"].strip)
@@ -126,8 +128,6 @@ class HansardDay
             results << { id: id, title: title, url: url }
           end
         end
-      else
-        results = bills(debate.parent)
       end
     else
       raise "Unexpected tag #{debate.name}"
@@ -148,10 +148,10 @@ class HansardDay
         front = subtitle(debate.parent).strip
       else
         possible_firstdebates = debate.parent.search("(subdebate.1)")
-        front = if possible_firstdebates.length != 1
-                  title(debate).strip
-                else
+        front = if possible_firstdebates.length == 1
                   subtitle(possible_firstdebates[0]).strip
+                else
+                  title(debate).strip
                 end
       end
       raise "Front title is to short! '#{front}' #{front.length}" if front.empty?

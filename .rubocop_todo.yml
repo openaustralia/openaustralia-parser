@@ -61,12 +61,6 @@ Style/MissingRespondToMissing:
     - 'lib/configuration.rb'
     - 'spec/hansard_day_spec.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/NegatedIfElseCondition:
-  Exclude:
-    - 'lib/hansard_day.rb'
-
 # Offense count: 5
 # Cop supports --auto-correct.
 # Configuration parameters: Methods.
