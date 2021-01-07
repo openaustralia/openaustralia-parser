@@ -164,9 +164,9 @@ class Hansard < ActiveRecord::Base
 	# For example, if this is a section, it returns all the subsections
 	def speeches
 		if section?
-			Hansard.find_all_by_section_id_and_htype(epobject_id, 11)
+			Hansard.where(section_id: epobject_id, htype: 11)
 		elsif subsection?
-			Hansard.find_all_by_subsection_id(epobject_id)
+			Hansard.where(subsection_id: epobject_id)
 		elsif speech? || procedural?
 			return []
 		else
