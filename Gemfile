@@ -23,6 +23,8 @@ gem "activerecord"
 
 group :development do
   gem "rubocop", "~> 1.7", require: false
+  gem "rubocop-rake"
+  gem "rubocop-rspec"
 end
 
 group :test do
