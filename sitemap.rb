@@ -2,30 +2,31 @@
 # Generate sitemap.xml for quick and easy search engine updating
 # This script is run as part of twfy/scripts/morningupdate
 
+$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
+
 require 'rubygems'
 require 'active_record'
 require 'enumerator'
-require "../../rblib/config"
 require 'builder'
 require 'zlib'
 require 'json'
 require 'yaml'
 require 'net/http'
+require "configuration"
 
-# Load database information from the mysociety configuration
-MySociety::Config.set_file("../conf/general")
+conf = Configuration.new
 
 # Establish the connection to the database
 ActiveRecord::Base.establish_connection(
-	:adapter  => "mysql",
-	:host     => MySociety::Config.get('DB_HOST'),
-	:username => MySociety::Config.get('DB_USER'),
-	:password => MySociety::Config.get('DB_PASSWORD'),
-	:database => MySociety::Config.get('DB_NAME')
+	:adapter  => "mysql2",
+	:host     => conf.database_host,
+	:username => conf.database_user,
+	:password => conf.database_password,
+	:database => conf.database_name
 )
 
 class Member < ActiveRecord::Base
-	set_table_name "member"
+	self.table_name = "member"
 
 	def full_name
 		"#{first_name} #{last_name}"
@@ -78,8 +79,8 @@ class Comment < ActiveRecord::Base
 end
 
 class Hansard < ActiveRecord::Base
-	set_table_name "hansard"
-	set_primary_key "epobject_id"
+	self.table_name = "hansard"
+	self.primary_key = "epobject_id"
 
 	has_many :comments, :foreign_key => "epobject_id"
 

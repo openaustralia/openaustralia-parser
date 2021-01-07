@@ -18,6 +18,9 @@ gem "rmagick"
 
 gem "mysql2"
 
+# For sitemap generation
+gem "activerecord"
+
 group :development do
   gem "rubocop", "~> 1.7", require: false
 end
