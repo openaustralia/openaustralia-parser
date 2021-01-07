@@ -27,7 +27,7 @@ x = Builder::XmlMarkup.new(target: xml, indent: 1)
 x.instruct!
 x.peopleinfo do
   morph_result = agent.get(
-    url: "https://api.morph.io/openaustralia/aus_mp_contact_details/data.json?query=select%20*%20from%20%60data%60", headers: { "x-api-key" => conf.morph_api_key }
+    "https://api.morph.io/openaustralia/aus_mp_contact_details/data.json", {query: 'select * from "data"'}, nil, "x-api-key" => conf.morph_api_key
   ).body
   JSON.parse(morph_result).each do |person|
     p = people.find_person_by_aph_id(person["aph_id"].upcase)
