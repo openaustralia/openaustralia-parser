@@ -15,12 +15,6 @@ Lint/DuplicateBranch:
     - 'lib/hansard_speech.rb'
     - 'lib/name.rb'
 
-# Offense count: 4
-# Cop supports --auto-correct.
-Lint/DuplicateRegexpCharacterClassElement:
-  Exclude:
-    - 'lib/hansard_division.rb'
-
 # Offense count: 54
 # Configuration parameters: IgnoredMethods, CountRepeatedAttributes.
 Metrics/AbcSize:
