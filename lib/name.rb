@@ -84,9 +84,7 @@ class Name
     elsif name == "DAVID"
       nil
     # HACK: unless it is "-", which could be part of a hyphenated name in specific case
-    elsif (name.upcase == name) && name != "-"
-      name
-    elsif (name != "Ed" && name != "Jo" && name != "-" && name.size <= 2) || name == "DJC" || name == "DGH"
+    elsif ((name.upcase == name) && name != "-") || (name != "Ed" && name != "Jo" && name != "-" && name.size <= 2) || name == "DJC" || name == "DGH"
       name
     end
   end
@@ -156,9 +154,7 @@ class Name
     if !@initials.nil? && !@initials.empty?
       @initials
     elsif !@first.nil?
-      if @first.upcase == @first
-        @first
-      elsif (@first != "Ed" && @first.size <= 2) || @first == "DJC" || @first == "DGH"
+      if @first.upcase == @first || (@first != "Ed" && @first.size <= 2) || @first == "DJC" || @first == "DGH"
         @first
       else
         p_initials = first_initial

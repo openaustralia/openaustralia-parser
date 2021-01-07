@@ -257,9 +257,7 @@ class HansardSpeech
       clean_content_item(node)
     when "graphic"
       clean_content_graphic(node)
-    when "talker", "name", "electorate", "role", "time.stamp", "tggroup", "separator", "colspec"
-      ""
-    when "talk.text", "debate.text", "subdebate.text"
+    when "talker", "name", "electorate", "role", "time.stamp", "tggroup", "separator", "colspec", "talk.text", "debate.text", "subdebate.text"
       ""
     when "Error"
       # Should use @logger.warn here but can't because I don't have access to the logger object. Ho hum.

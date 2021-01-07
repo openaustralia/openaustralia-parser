@@ -205,20 +205,14 @@ XML
           # Class will be either "MemberContinuation" or
           # "MemberInterjecting" - strip off the "Member" part.
           case ahref.attributes["type"]
-          when "MemberContinuation", "MemberContinuation1"
+          when "MemberContinuation", "MemberContinuation1", "OfficeContinuation", "OfficeContinuation1", "MemberSpeech", "MemberSpeech1"
             type = "continue"
-          when "MemberInterjecting", "MemberInterjecting1"
-            type = "interjection"
-          when "OfficeContinuation", "OfficeContinuation1"
-            type = "continue"
-          when "OfficeInterjecting", "OfficeInterjecting1"
+          when "MemberInterjecting", "MemberInterjecting1", "OfficeInterjecting", "OfficeInterjecting1"
             type = "interjection"
           when "MemberQuestion", "MemberQuestion1"
             type = "question"
           when "MemberAnswer", "MemberAnswer1"
             type = "answer"
-          when "MemberSpeech", "MemberSpeech1"
-            type = "continue"
           else
             raise "Assertion failed! Unknown type #{ahref.attributes['type']}"
           end
