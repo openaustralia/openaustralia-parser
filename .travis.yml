@@ -1,10 +1,7 @@
 dist: xenial
 language: ruby
 rvm: 2.7.2
-jobs:
-  include:
-    - stage: test
-      script: bundle exec rake
-      name: Run code tests
-    - script: bundle exec ./postcodes.rb --test
-      name: Test postcodes.csv
+script:
+  - bundle exec rake
+  - bundle exec ./postcodes.rb --test
+  - bundle exec rubocop
