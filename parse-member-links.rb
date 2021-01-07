@@ -124,6 +124,26 @@ x.consinfos do
     href = "https://www.abc.net.au/news/federal-election-2016/results/senate/#s#{name}"
     x.consinfo("canonical" => canonical, "abc_election_results_2016" => href)
   end
+
+  puts "Election results 2019 (from the abc.net.au)..."
+  # Representatives
+  abc_root = "https://www.abc.net.au"
+  url = "#{abc_root}/news/elections/federal/2019/results/list"
+  doc = agent.get(url)
+
+  # What an absolutely ridiculous selector
+  doc.search("article div div div div div div div h2").each do |h2|
+    name = h2.inner_text.strip
+    href = "https://www.abc.net.au/news/elections/federal/2019/guide/#{name[0..3].downcase}"
+    x.consinfo("canonical" => name, "abc_election_results_2019" => href)
+  end
+  # Senate
+  [%w[nsw NSW], %w[vic Victoria], %w[qld Queensland], %w[wa WA], %w[sa SA], %w[tas Tasmania], %w[act ACT],
+   %w[nt NT]].each do |name, canonical|
+    # No seperate url for each state results... So...
+    href = "https://www.abc.net.au/news/elections/federal/2019/results/senate"
+    x.consinfo("canonical" => canonical, "abc_election_results_2019" => href)
+  end
 end
 xml.close
 
