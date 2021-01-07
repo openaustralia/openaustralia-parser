@@ -34,7 +34,7 @@ class Name
     text = text.unicode_normalize(:nfkc)
     # Do the following before the split so we can handle things like "(foo bar)"
     text = remove_text_in_brackets(text)
-    names = text.delete(",").split(" ")
+    names = text.delete(",").split
     # Hack to deal with a specific person who has two last names that aren't hyphenated
     if names.size >= 2 && names[0].downcase == "stott" && names[1].downcase == "despoja" ||
        names.size >= 2 && names[0].downcase == "van" && names[1].downcase == "manen" ||
@@ -101,7 +101,7 @@ class Name
   def self.title_first_last(text)
     # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
     text = text.unicode_normalize(:nfkc)
-    names = text.delete(",").split(" ")
+    names = text.delete(",").split
     title = Name.extract_title_at_start(names)
     if names.size == 1
       last = names[0]
@@ -146,7 +146,7 @@ class Name
     if middle_initials?
       @initials[1..]
     else
-      @middle.split(" ").map { |n| n[0..0] }.join
+      @middle.split.map { |n| n[0..0] }.join
     end
   end
 
@@ -162,7 +162,7 @@ class Name
         @first
       else
         p_initials = first_initial
-        p_initials = "#{p_initials}#{@middle.split(' ').map { |n| n[0..0] }.join}" unless @middle.nil?
+        p_initials = "#{p_initials}#{@middle.split.map { |n| n[0..0] }.join}" unless @middle.nil?
         p_initials
       end
     end
@@ -316,6 +316,6 @@ class Name
   end
 
   def self.capitalize_each_name(name)
-    name.split(" ").map { |t| Name.capitalize_name(t) }.join(" ")
+    name.split.map { |t| Name.capitalize_name(t) }.join(" ")
   end
 end

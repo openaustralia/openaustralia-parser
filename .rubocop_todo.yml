@@ -61,13 +61,6 @@ Style/MissingRespondToMissing:
     - 'lib/configuration.rb'
     - 'spec/hansard_day_spec.rb'
 
-# Offense count: 5
-# Cop supports --auto-correct.
-# Configuration parameters: Methods.
-Style/RedundantArgument:
-  Exclude:
-    - 'lib/name.rb'
-
 # Offense count: 82
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, AllowHeredoc, AllowURI, URISchemes, IgnoreCopDirectives, IgnoredPatterns.
