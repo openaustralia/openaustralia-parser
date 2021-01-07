@@ -33,12 +33,12 @@ class Member < ActiveRecord::Base
 	end
 
 	def Member.find_all_person_ids
-		Member.find(:all, :group => "person_id").map{|m| m.person_id}
+		Member.group("person_id").map{|m| m.person_id}
 	end
 
 	# Find the most recent member for the given person_id
 	def Member.find_most_recent_by_person_id(person_id)
-		Member.find_all_by_person_id(person_id, :order => "entered_house DESC", :limit => 1).first
+		Member.where(person_id: person_id).order("entered_house DESC").first
 	end
 
 	# Returns the unique url for this member.
@@ -66,7 +66,7 @@ end
 class Comment < ActiveRecord::Base
 	# The most recently added comment
 	def Comment.most_recent
-		Comment.find(:all, :order => "posted DESC", :limit => 1).first
+		Comment.order("posted DESC").first
 	end
 
 	def Comment.last_modified
@@ -86,7 +86,7 @@ class Hansard < ActiveRecord::Base
 
 	# Return all dates for which there are speeches on that day in the given house
 	def Hansard.find_all_dates_for_house(house)
-		find_all_by_major(house_to_major(house), :group => 'hdate').map {|h| h.hdate}
+		where(major: house_to_major(house)).group("hdate").map {|h| h.hdate}
 	end
 
 	def Hansard.house_to_major(house)
@@ -100,15 +100,15 @@ class Hansard < ActiveRecord::Base
 	end
 
 	def Hansard.most_recent_in_house(house)
-		find_all_by_major(house_to_major(house), :order => "hdate DESC, htime DESC", :limit => 1).first
+		where(major: house_to_major(house)).order("hdate DESC, htime DESC").first
 	end
 
 	def Hansard.most_recent
-		find(:all, :order => "hdate DESC, htime DESC", :limit => 1).first
+		order("hdate DESC, htime DESC").first
 	end
 
 	def Hansard.find_all_sections_by_date_and_house(date, house)
-		find_all_by_major_and_hdate_and_htype(house_to_major(house), date, 10)
+		where(major: house_to_major(house), hdate: date, htype: 10)
 	end
 
 	def Hansard.last_modified
