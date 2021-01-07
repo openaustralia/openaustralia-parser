@@ -215,7 +215,7 @@ class News
 	def News.find_all
 		news = []
 		MySociety::Config.fork_php do |child|
-		    child.print('<?php require "../www/docs/news/editme.php"; foreach ($all_news as $k => $v) { print $v[0]."\n"; print $v[2]."\n"; } ?>')
+		    child.print('<?php require "../twfy/www/docs/news/editme.php"; foreach ($all_news as $k => $v) { print $v[0]."\n"; print $v[2]."\n"; } ?>')
 		    child.close_write()
 		    child.readlines().map{|l| l.strip}.each_slice(2) do |title,date|
 				news << News.new(title, date)
