@@ -7,7 +7,7 @@ require "people"
 require "hansard_parser"
 require "configuration"
 require "optparse"
-require "progressbar"
+require "ruby-progressbar"
 
 def parse_date(text)
   today = Date.today
@@ -84,7 +84,7 @@ people = PeopleCSVReader.read_members
 
 parser = HansardParser.new(people)
 
-progress = ProgressBar.new("parse-speeches", ((to_date - from_date + 1) * 2).to_i)
+progress = ProgressBar.create(title: "parse-speeches", total: ((to_date - from_date + 1) * 2).to_i, format: "%t %e: |%B|")
 
 def parse_with_retry(interactive, parse, date, path, house)
   parse.call date, path, house
@@ -123,11 +123,11 @@ while date >= from_date
           end
   parse_with_retry options[:interactive], parse, date,
                    "#{conf.xml_path}/scrapedxml/representatives_debates/#{date}.xml", House.representatives
-  progress.inc
+  progress.increment
 
   parse_with_retry options[:interactive], parse, date, "#{conf.xml_path}/scrapedxml/senate_debates/#{date}.xml",
                    House.senate
-  progress.inc
+  progress.increment
   date -= 1
 end
 

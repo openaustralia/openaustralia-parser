@@ -114,6 +114,7 @@ DEPENDENCIES
   rubocop (~> 1.7)
   rubocop-rake
   rubocop-rspec
+  ruby-progressbar
   test-unit
 
 BUNDLED WITH
