@@ -2,6 +2,7 @@
 
 require "hpricot_additions"
 require "name"
+require "English"
 
 class HansardSpeech
   attr_reader :logger, :title, :subtitle, :bills, :time, :day, :interjection, :continuation

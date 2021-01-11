@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "English"
+
 class HansardDivision
   attr_reader :title, :subtitle, :bills
 

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "English"
+
 def extract_all_representative_wikipedia_links(people, agent)
   links = {}
   # ["1980", "1983", "1984", "1987", "1990", "1993", "1996", "1998", "2001", "2004", "2007", "2010"].each_cons(2) do |pair|

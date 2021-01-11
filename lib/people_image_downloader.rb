@@ -6,6 +6,7 @@ require "mechanize"
 require "configuration"
 require "name"
 require "hpricot"
+require "English"
 
 # TODO: Rename class
 class PeopleImageDownloader

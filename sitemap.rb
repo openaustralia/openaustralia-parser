@@ -14,6 +14,7 @@ require "json"
 require "yaml"
 require "net/http"
 require "configuration"
+require "English"
 
 conf = Configuration.new
 
