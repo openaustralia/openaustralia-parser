@@ -7,21 +7,24 @@ require "configuration"
 require "people"
 require "optparse"
 
-options = {}
+# Defaults
+options = { load_database: true }
 
 OptionParser.new do |opts|
   opts.banner = "Usage: parse-members.rb [--test]"
 
-  opts.on("--test", "Run in test mode (no DB updates)") do |test|
-    options[:test] = test
+  # This is useful when just testing whether the members data is well-formed
+  # We do this as part of the tests on travis
+  opts.on("--no-load", "Just generate XML and don't load up database") do |l|
+    options[:load_database] = l
   end
 end.parse!
 
-if options[:test]
+if options[:load_database]
+  conf = Configuration.new
+else
   config = {}
   conf = Configuration.new config
-else
-  conf = Configuration.new
 end
 
 FileUtils.mkdir_p conf.members_xml_path
@@ -70,10 +73,10 @@ puts "Writing XML..."
 people.write_xml("#{conf.members_xml_path}/people.xml", "#{conf.members_xml_path}/representatives.xml", "#{conf.members_xml_path}/senators.xml",
                  "#{conf.members_xml_path}/ministers.xml", "#{conf.members_xml_path}/divisions.xml")
 
-if options[:test]
-  puts "Created xml files in #{conf.members_xml_path}"
-else
+if options[:load_database]
   # And load up the database
   # Starts with 'perl' to be friendly with Windows
   system("perl #{conf.web_root}/twfy/scripts/xml2db.pl --members --all --force")
+else
+  puts "Created xml files in #{conf.members_xml_path}"
 end
