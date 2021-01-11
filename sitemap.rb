@@ -329,7 +329,7 @@ class Sitemap
     url = SitemapUrl.new(loc, options)
     # Now build up the bit of XML that we're going to add (as a string)
     t = +"<url>"
-    t << "<loc>http://#{@domain}#{url.loc}</loc>"
+    t << "<loc>https://#{@domain}#{url.loc}</loc>"
     t << "<changefreq>#{url.changefreq}</changefreq>" if url.changefreq
     t << "<lastmod>#{Sitemap.w3c_date(url.lastmod)}</lastmod>" if url.lastmod
     t << "</url>"
@@ -365,11 +365,11 @@ class Sitemap
   end
 
   def sitemap_index_url
-    "http://#{@domain}#{@web_path}sitemap.xml"
+    "https://#{@domain}#{@web_path}sitemap.xml"
   end
 
   def sitemap_url
-    "http://#{@domain}#{@web_path}sitemaps/sitemap#{@index + 1}.xml.gz"
+    "https://#{@domain}#{@web_path}sitemaps/sitemap#{@index + 1}.xml.gz"
   end
 
   def sitemap_path
