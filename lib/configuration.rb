@@ -25,13 +25,13 @@ class Configuration
   end
 
   def initialize(conf = nil)
-    if @@conf.nil?
-      puts "Loading config from: #{File.dirname(__FILE__)}/../configuration.yml"
-      # Load the configuration from the config file
-      @@conf = YAML.safe_load(File.open("#{File.dirname(__FILE__)}/../configuration.yml"))
-      @@conf ||= {}
-    end
     if conf.nil?
+      if @@conf.nil?
+        puts "Loading config from: #{File.dirname(__FILE__)}/../configuration.yml"
+        # Load the configuration from the config file
+        @@conf = YAML.safe_load(File.open("#{File.dirname(__FILE__)}/../configuration.yml"))
+        @@conf ||= {}
+      end
       load_mysociety_config
     else
       @@conf ||= conf
