@@ -16,7 +16,7 @@ require "optparse"
 options = { load_database: true }
 
 OptionParser.new do |opts|
-  opts.banner = "Usage: postcodes.rb [--test]"
+  opts.banner = "Usage: postcodes.rb [--no-load]"
 
   opts.on("--no-load", "Just generate XML and don't load up database") do |l|
     options[:load_database] = l

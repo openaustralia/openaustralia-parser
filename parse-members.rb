@@ -11,7 +11,7 @@ require "optparse"
 options = { load_database: true }
 
 OptionParser.new do |opts|
-  opts.banner = "Usage: parse-members.rb [--test]"
+  opts.banner = "Usage: parse-members.rb [--no-load]"
 
   # This is useful when just testing whether the members data is well-formed
   # We do this as part of the tests on travis
