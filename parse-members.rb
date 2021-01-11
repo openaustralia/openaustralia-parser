@@ -20,12 +20,8 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-if options[:load_database]
-  conf = Configuration.new
-else
-  config = {}
-  conf = Configuration.new config
-end
+# TODO: Fix this obscure parameter option for configuration
+conf = Configuration.new(({} if options[:load_database]))
 
 FileUtils.mkdir_p conf.members_xml_path
 
