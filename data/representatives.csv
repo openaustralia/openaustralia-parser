@@ -612,7 +612,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 614,,Deborah O'Neill,Robertson,NSW,21.8.2010,,7.9.2013,defeated,ALP
 615,,Alan Tudge,Aston,Vic,21.8.2010,,,still_in_office,LIB
 616,,Ed Husic,Chifley,NSW,21.8.2010,,,still_in_office,ALP
-617,,Craig Kelly,Hughes,NSW,21.8.2010,,,still_in_office,LIB
+617,,Craig Kelly,Hughes,NSW,21.8.2010,,23.2.2021,changed_party,LIB
 618,,Michelle Rowland,Greenway,NSW,21.8.2010,,,still_in_office,ALP
 619,,Laurie Donald Thomas Ferguson,Werriwa,NSW,21.8.2010,,9.5.2016,resigned,ALP
 620,,John Paul Murphy,Reid,NSW,21.8.2010,,7.9.2013,defeated,ALP
@@ -773,3 +773,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 772,,David Philip Benedict Smith,Bean,ACT,18.05.2019,,,still_in_office,ALP
 773,,Kristy McBain,Eden-Monaro,NSW,4.7.2020,by_election,,still_in_office,ALP
 774,,Garth Hamilton,Groom,QLD,3.12.2020,by_election,,still_in_office,LNP
+775,,Craig Kelly,Hughes,NSW,23.2.2021,changed_party,,still_in_office,IND
