@@ -123,7 +123,7 @@ describe HansardRewriter do
     let!(:rewriter) { HansardRewriter.new(Log4r::Logger.new("TestHansardParser")) }
 
     it "shouldn't fail" do
-      rewriter.process_textnode(Hpricot.XML(bad_xml))
+      rewriter.process_textnode(bad_xml)
     end
   end
 end

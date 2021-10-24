@@ -52,7 +52,16 @@ class HansardRewriter
   # There are a lot of hard coded heuristic that depend on the unstructured
   # HTML stay a certain way - I've tried to put asserts where things might go
   # wrong rather then produce crappy output.
+  #
+  # Takes a string as input and returns a string. We're doing this so that
+  # each function can be independently migrated from using Hpricot to
+  # Nokogiri without impacting other functions. However, it has a significant
+  # performance impact so it needs to only be a temporary measure
   def process_textnode(input_text_node)
+    raise "Expecting string in process_textnode" unless input_text_node.is_a?(String)
+
+    input_text_node = Hpricot.XML(input_text_node).children.first
+
     # Do some pre-work on the body tag to make it easier to work with.
     #--------------------------------------------------------------------------
     # To make things a little simpler we have to rework top level <a href> tags
@@ -363,7 +372,7 @@ XML
       end
     end
     input_text_node.search("*").remove
-    new_xml
+    new_xml.to_s
   end
 
   def rewrite_debate(debate, level)
@@ -413,7 +422,7 @@ XML
           # We're interested in the talk.text node but have to find it manually due to a bug
           # with Hpricot xpath meaning nodes with a dot '.' in the name are not found.
           talk = f.child_nodes.detect { |node| node.name == "talk.text" }
-          debate_new_children.append process_textnode(talk).to_s if talk
+          debate_new_children.append process_textnode(talk.to_s) if talk
         end
 
       # Divisions are actually still the same format, so we just append them.
