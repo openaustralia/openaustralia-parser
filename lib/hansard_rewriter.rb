@@ -62,13 +62,12 @@ class HansardRewriter
 
     input_text_node = Hpricot.XML(input_text_node).children.first
 
-    # Do some pre-work on the body tag to make it easier to work with.
-    #--------------------------------------------------------------------------
-    # To make things a little simpler we have to rework top level <a href> tags
-    input_text_node.search("//body/a").each do |p|
-      input_text_node.at("body").insert_after(Hpricot.XML("<p>#{p}</p>"), p)
+    if input_text_node.search("//body/a")
+      # This is probably an indication that something was done wrong in the
+      # XML formatting and this is a truly nasty way to work around it
+      logger.warn "Removing top level a tag (and contents) because it shouldn't be there"
+      input_text_node.search("//body/a").remove
     end
-    input_text_node.search("//body/a").remove
 
     # Many speaker interjections/continuates are not properly marked with
     # <a href> links, we rework them so we don't have the special case below.
