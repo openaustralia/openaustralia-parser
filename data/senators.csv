@@ -357,11 +357,11 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 870,,Lucy Gichuhi,,SA,3.5.2017,changed_party,2.2.2018,changed_party,IND
 871,,Gavin Mark Marshall,,Vic.,9.5.2016,changed_party,1.7.2019,defeated,ALP
 872,,Sue Lines,,WA,30.9.2016,changed_party,,still_in_office,DPRES
-873,,Slade Brockman,,WA,16.8.2017,section_15,,still_in_office,LIB
+873,,Slade Brockman,,WA,16.8.2017,section_15,18.10.2021,changed_party,LIB
 874,,Jordon Steele-John,,WA,10.11.2017,recount,,still_in_office,GRN
 875,,Andrew Bartlett,,Qld,10.11.2017,recount,27.8.2018,resigned,GRN
 876,,Fraser Anning,,Qld,10.11.2017,recount,15.1.2018,changed_party,PHON
-877,,Scott Ryan,,Victoria,13.11.2017,,,still_in_office,PRES
+877,,Scott Ryan,,Victoria,13.11.2017,,13.10.2021,resigned,PRES
 878,,Steve Martin,,Tasmania,9.2.2018,high_court,1.7.2019,defeated,IND
 # Ordering here has gotten a little out of synch as the choosing of,,,,,,,,,
 # 888 for Rex Patrick was a mistake and we'll just have to fill in the gaps,,,,,,,,,
@@ -413,3 +413,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 926,,Ben Small,,WA,25.11.2020,section_15,,still_in_office,LIB
 927,,Dorinda Cox,,WA,14.9.2021,section_15,,still_in_office,GRN
 928,,Karen Grogan,,SA,21.9.2021,section_15,,still_in_office,ALP
+929,,Slade Brockman,,WA,18.10.2021,changed_party,,still_in_office,PRES
