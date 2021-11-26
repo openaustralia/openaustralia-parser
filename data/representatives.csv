@@ -675,7 +675,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 677,,Clive Frederick Palmer,Fairfax,Qld,07.09.2013,,9.5.2016,retired,PUP
 678,,Terri Butler,Griffith,QLD,8.2.2014,by_election,,still_in_office,ALP
 679,,Bronwyn Kathleen Bishop,Mackellar,NSW,02.08.2015,changed_party,9.5.2016,retired,LIB
-680,,Anthony David Hawthorn Smith,Casey,Vic.,10.08.2015,changed_party,,still_in_office,SPK
+680,,Anthony David Hawthorn Smith,Casey,Vic.,10.08.2015,changed_party,23.11.2021,changed_party,SPK
 681,,Andrew Hastie,Canning,WA,19.9.2015,by_election,,still_in_office,LIB
 682,,Trent Zimmerman,North Sydney,NSW,5.12.2015,by_election,,still_in_office,LIB
 # New members elected in 2016 Federal election,,,,,,,,,
@@ -718,7 +718,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 719,,Josh Wilson,Fremantle,WA,2.7.2016,,10.5.2018,resigned,ALP
 720,,Tim Wilson,Goldstein,Vic.,2.7.2016,,,still_in_office,LIB
 721,,Anne Stanley,Werriwa,NSW,2.7.2016,,,still_in_office,ALP
-722,,Andrew Wallace,Fisher,QLD,2.7.2016,,,still_in_office,LIB
+722,,Andrew Wallace,Fisher,QLD,2.7.2016,,23.11.2021,changed_party,LIB
 723,,Andrew Leigh,Fenner,ACT,2.7.2016,,,still_in_office,ALP
 724,,Stephen Jones,Whitlam,NSW,2.7.2016,,,still_in_office,ALP
 725,,Mark Maclean Coulton,Parkes,NSW,30.8.2016,changed_party,,still_in_office,CWM
@@ -774,3 +774,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 773,,Kristy McBain,Eden-Monaro,NSW,4.7.2020,by_election,,still_in_office,ALP
 774,,Garth Hamilton,Groom,QLD,3.12.2020,by_election,,still_in_office,LNP
 775,,Craig Kelly,Hughes,NSW,23.2.2021,changed_party,,still_in_office,IND
+776,,Anthony David Hawthorn Smith,Casey,Vic,23.11.2021,changed_party,,still_in_office,LIB
+777,,Andrew Wallace,Fisher,QLD,23.11.2021,changed_party,,still_in_office,SPK
