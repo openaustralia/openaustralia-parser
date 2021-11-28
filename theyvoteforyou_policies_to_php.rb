@@ -21,5 +21,5 @@ policies = JSON.parse(open("https://theyvoteforyou.org.au/api/v1/policies.json?k
 policies.each do |policy|
   next if policy["provisional"]
 
-  puts "$got_dream |= display_dream_comparison($extra_info, $member, #{policy['id']}, \"#{policy['name']}\", false, \"\");"
+  puts "$got_dream |= display_dream_comparison($extra_info, $member, #{policy['id']}, \"#{policy['name'].gsub('"', '\"')}\", false, \"\");"
 end
