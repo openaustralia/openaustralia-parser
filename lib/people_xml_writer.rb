@@ -29,11 +29,18 @@ class PeopleXMLWriter
     x.ministers do
       people.each do |person|
         person.minister_positions.each do |p|
-          # TODO: Add "dept" and "source"
           x.ministerofficegroup do
-            x.moffice(id: p.id, name: person.name.full_name,
-                      matchid: person.periods.first.id, position: p.position,
-                      fromdate: p.from_date, todate: p.to_date, dept: "", source: "")
+            x.moffice(
+              id: p.id,
+              name: person.name.full_name,
+              matchid: person.periods.first.id,
+              position: p.position,
+              fromdate: p.from_date,
+              todate: p.to_date,
+              # TODO: Add "dept" and "source"
+              dept: "",
+              source: ""
+            )
           end
         end
       end
