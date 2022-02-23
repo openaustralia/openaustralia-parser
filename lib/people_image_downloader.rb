@@ -53,8 +53,10 @@ class PeopleImageDownloader
         name = Name.new(first: name.first, middle: name.middle, last: name.last, post_title: name.post_title)
         person = people.find_person_by_name_and_birthday(name, birthday)
         if person
-          image.resize_to_fit(SMALL_THUMBNAIL_WIDTH, SMALL_THUMBNAIL_HEIGHT).write(small_image_filename)
-          image.resize_to_fit(SMALL_THUMBNAIL_WIDTH * 2, SMALL_THUMBNAIL_HEIGHT * 2).write(large_image_filename)
+          # By using resize_to_fill rather than resize_to_fit we can ensure that the final images
+          # will be exactly the same dimensions
+          image.resize_to_fill(SMALL_THUMBNAIL_WIDTH, SMALL_THUMBNAIL_HEIGHT).write(small_image_filename)
+          image.resize_to_fill(SMALL_THUMBNAIL_WIDTH * 2, SMALL_THUMBNAIL_HEIGHT * 2).write(large_image_filename)
         else
           puts "WARNING: Skipping photo for #{name.full_name} because they don't exist in the list of people"
         end
