@@ -22,6 +22,9 @@ gem "ruby-progressbar"
 # For sitemap generation
 gem "activerecord"
 
+# for abs excel files
+gem "down"
+
 group :development do
   gem "rubocop", "~> 1.7", require: false
   gem "rubocop-rake"

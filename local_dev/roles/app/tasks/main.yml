@@ -1,0 +1,19 @@
+---
+- name: Ensure ufw firewall is disabled, as this is a dev machine
+  become_user: 'root'
+  ansible.builtin.ufw:
+    state: 'disabled'
+
+- name: Install packages that are useful for development
+  become_user: 'root'
+  ansible.builtin.apt:
+    name:
+      - 'unzip'
+      - 'jq'
+      - 'curl'
+      - 'dos2unix'
+      - 'libsqlite3-dev'
+      - 'libmysqlclient-dev'
+      - 'tidy'
+      - 'libmagickwand-dev'
+    state: 'latest'

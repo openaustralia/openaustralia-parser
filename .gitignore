@@ -14,3 +14,6 @@ data/register_of_interests/representatives/*.pdf
 .*.sw?
 configuration.yml
 xml_output/*.xml
+abs_files/
+.vagrant/
+.idea/
