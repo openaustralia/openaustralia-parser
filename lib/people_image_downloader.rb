@@ -95,10 +95,12 @@ class PeopleImageDownloader
     # Each person can be looked up with a query like this:
     # http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Dataset:allmps%20John%20Smith
     # Find all the unique variants of the name without any of the titles
-    name_variants = person.all_names.map do |n|
+    # Reverse the order of the variants so we check the alternate names first (the ones that are more long
+    # winded and so more likely to be a unique match)
+    name_variants = person.all_names.reverse.map do |n|
       Name.new(first: n.first, middle: n.middle, last: n.last).full_name
     end.uniq
-    name_variants_no_middle_name = person.all_names.map do |n|
+    name_variants_no_middle_name = person.all_names.reverse.map do |n|
       Name.new(first: n.first, last: n.last).full_name
     end.uniq
     # Check each variant of a person's name and return the biography page for the first one that exists
