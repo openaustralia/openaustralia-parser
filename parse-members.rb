@@ -39,7 +39,10 @@ divisions = members.map(&:division).uniq.sort
 old_divisions = ["Angas", "Balaclava", "Bonython", "Burke", "Corinella", "Darling", "Darling Downs", "Diamond Valley",
                  "Dundas", "Evans", "Gwydir", "Hawker", "Henty", "Namadgi", "Northern Territory", "Phillip", "Riverina-Darling", "St George",
                  "Streeton", "Wilmot", "Kalgoorlie", "Lowe", "Prospect", "Charlton", "Fraser", "Throsby",
-                 "Batman", "Denison", "McMillan", "Melbourne Ports", "Murray", "Port Adelaide", "Wakefield"]
+                 "Batman", "Denison", "McMillan", "Melbourne Ports", "Murray", "Port Adelaide", "Wakefield",
+                 # Stirling was abolished for the 2022 Federal election
+                 # See https://www.aec.gov.au/Electorates/Redistributions/2021/wa/announce-names-boundaries.htm
+                 "Stirling"]
 
 divisions.each do |division|
   # puts "Checking division #{division}..."
