@@ -1,6 +1,6 @@
 member count,person count,name,Division,State/Territory,Date of election,Type of election,Date ceased to be a Member,reason,Most recent party
 
-1,,Eric Abetz,,Tas.,22.2.1994,section_15,,still_in_office,LIB
+1,,Eric Abetz,,Tas.,22.2.1994,section_15,21.5.2022,defeated,LIB
 2,,Judith Anne Adams,,WA,1.7.2005,,31.03.2012,died,LIB
 4,,Richard Kenneth Robert Alston,,Vic.,7.5.1986,section_15,10.2.2004,resigned,LIB
 5,,Brian Roper Archer,,Tas.,13.12.1975,,31.1.1994,resigned,LIB
@@ -37,7 +37,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 275,,Paul Henry Calvert,,Tas.,19.08.2002,changed_party,14.08.2007,changed_party,PRES
 276,,Paul Henry Calvert,,Tas.,15.08.2007,changed_party,29.8.2007,resigned,LIB
 35,,Ian Gordon Campbell,,WA,16.5.1990,section_15,31.5.2007,resigned,LIB
-36,,Kim John Carr,,Vic.,28.4.1993,section_15,,still_in_office,ALP
+36,,Kim John Carr,,Vic.,28.4.1993,section_15,21.5.2022,retired,ALP
 37,,John Leslie Carrick,,NSW,1.7.1971,,5.6.1987,retired,LIB
 38,,James Luke Cavanagh,,SA,1.7.1962,,30.6.1981,retired,ALP
 39,,Christabel Marguerite Alain Chamarette,,WA,12.3.1992,section_15,30.6.1996,defeated,GWA
@@ -84,7 +84,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 79,,Jeannie Margaret Ferris,,SA,1.7.1996 ,,12.7.1996 ,resigned; ,LIB
 80,,Jeannie Margaret Ferris,,SA,24.7.1996 ,section_15,2.4.2007 ,died,LIB
 81,,Steve Fielding,,Vic.,1.7.2005 ,,30.6.2011,defeated,FFP
-82,,Concetta Anna Fierravanti-Wells,,NSW,5.5.2005 ,section_15,,still_in_office,LIB
+82,,Concetta Anna Fierravanti-Wells,,NSW,5.5.2005 ,section_15,21.5.2022,retired,LIB
 83,,Mitchell Peter Fifield,,Vic.,31.3.2004 ,section_15,11.9.2019,resigned,LIB
 84,,Mary Jo Fisher,,SA,6.6.2007,section_15,14.8.2012,resigned,LIB
 85,,Dominic John Foreman,,SA,1.7.1981 ,,15.9.1997 ,resigned,ALP
@@ -307,7 +307,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 308,,Sam Dastyari,,NSW,21.8.2013,section_15,25.1.2018,resigned,ALP
 309,,Nova Peris,,NT,07.9.2013,,9.5.2016,retired,ALP
 310,,Mehmet Tillem,,Victoria,21.8.2013,section_15,30.6.2014,retired,ALP
-311,,Zed Seselja,,ACT,07.9.2013,,,still_in_office,LIB
+311,,Zed Seselja,,ACT,07.9.2013,,21.5.2022,defeated,LIB
 312,,Deborah O'Neill,,NSW,13.11.2013,section_15,,still_in_office,ALP
 313,,Barry O'Sullivan,,QLD,11.2.2014,section_15,1.7.2019,retired,NP
 826,,Joe Bullock,,WA,1.7.2014,,13.4.2016,resigned,ALP
@@ -368,17 +368,17 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 # until we get past 888 again and then things will be simpler once more,,,,,,,,,
 879,,Fraser Anning,,Qld,15.1.2018,changed_party,4.6.2018,changed_party,IND
 880,,Richard Mansell Colbeck,,Tasmania,9.2.2018,high_court,,still_in_office,LIB
-881,,Kristina Keneally,,NSW,14.2.2018,section_15,,still_in_office,ALP
+881,,Kristina Keneally,,NSW,14.2.2018,section_15,13.4.2022,resigned,ALP
 882,,Fraser Anning,,Qld,4.6.2018,changed_party,25.10.2018,changed_party,KAP
 883,,Mehreen Faruqi,,NSW,18.8.2018,section_15,,still_in_office,GRN
-884,,Larissa Waters,,Queensland,`6.9.2018,section_15,,still_in_office,GRN
+884,,Larissa Waters,,Queensland,6.9.2018,section_15,,still_in_office,GRN
 888,,Rex Patrick,,SA,14.11.2017,section_15,10.4.2018,changed_party,NXT
 889,,Jim Molan,,NSW,22.12.2017,,1.7.2019,defeated,LIB
-890,,Amanda Stoker,,Qld,21.3.2018,section_15,,still_in_office,LIB
+890,,Amanda Stoker,,Qld,21.3.2018,section_15,21.5.2022,defeated,LIB
 891,,Tim Storer,,SA,16.2.2018,,26.2.2018,changed_party,NXT
 892,,Tim Storer,,SA,26.2.2018,changed_party,1.7.2019,defeated,IND
 893,,David Smith,,ACT,23.5.2018,,11.4.2019,resigned,ALP
-894,,Stirling Griff,,SA,10.4.2018,changed_party,,still_in_office,CA
+894,,Stirling Griff,,SA,10.4.2018,changed_party,21.5.2022,defeated,CA
 895,,Rex Patrick,,SA,10.4.2018,changed_party,10.8.2020,changed_party,CA
 896,,Fraser Anning,,Qld,25.10.2018,changed_party,1.7.2019,defeated,IND
 897,,Brian Burston,,NSW,18.6.2018,changed_party,1.7.2019,defeated,UAP
@@ -396,7 +396,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 909,,Hollie Hughes,,NSW,1.7.2019,,,still_in_office,LIB
 910,,Jacqui Lambie,,Tasmania,1.7.2019,,,still_in_office,JLN
 911,,Susan McDonald,,Qld,1.7.2019,,,still_in_office,NP
-912,,Sam McMahon,,NT,1.7.2019,,,still_in_office,CLP
+912,,Sam McMahon,,NT,1.7.2019,,21.5.2022,defeated,CLP
 913,,Matt O'Sullivan,,WA,1.7.2019,,,still_in_office,LIB
 914,,Gerard Rennick,,Qld,1.7.2019,,,still_in_office,LIB
 915,,Malcolm Roberts,,Qld,1.7.2019,,,still_in_office,PHON
@@ -408,10 +408,23 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 921,,Sarah Henderson,,Vic,11.9.2019,section_15,,still_in_office,LIB
 922,,Jim Molan,,NSW,11.11.2019,section_15,,still_in_office,LIB
 923,,Andrew McLachlan,,SA,6.2.2020,section_15,,still_in_office,LIB
-924,,Rex Patrick,,SA,10.8.2020,changed_party,,still_in_office,IND
+924,,Rex Patrick,,SA,10.8.2020,changed_party,21.5.2022,defeated,IND
 925,,Lidia Thorpe,,Vic,4.9.2020,section_15,,still_in_office,GRN
-926,,Ben Small,,WA,25.11.2020,section_15,,still_in_office,LIB
+926,,Ben Small,,WA,25.11.2020,section_15,21.5.2022,defeated,LIB
 927,,Dorinda Cox,,WA,14.9.2021,section_15,,still_in_office,GRN
 928,,Karen Grogan,,SA,21.9.2021,section_15,,still_in_office,ALP
 929,,Slade Brockman,,WA,18.10.2021,changed_party,,still_in_office,PRES
-930,,Greg Mirabella,,Vic,2.12.2021,section_15,,still_in_office,LIB
+930,,Greg Mirabella,,Vic,2.12.2021,section_15,21.5.2022,defeated,LIB
+# Election 21.5.2022,,,,,,,,,
+931,,Penny Allman-Payne,,Qld,21.5.2022,,,still_in_office,GRN
+932,,Ralph Babet,,Vic,21.5.2022,,,still_in_office,UAP
+933,,Ross Cadell,,NSW,21.5.2022,,,still_in_office,NP
+934,,Kerrynne Liddle,,SA,21.5.2022,,,still_in_office,LIB
+935,,Jacinta Nampijinpa Price,,NT,21.5.2022,,,still_in_office,CLP
+936,,Fatima Payman,,WA,21.5.2022,,,still_in_office,ALP
+937,,Barbara Pocock,,SA,21.5.2022,,,still_in_office,GRN
+938,,David Pocock,,ACT,21.5.2022,,,still_in_office,IND
+939,,David Shoebridge,,NSW,21.5.2022,,,still_in_office,GRN
+940,,Jana Stewart,,Vic,21.5.2022,,,still_in_office,ALP
+941,,Tammy Tyrrell,,Tas,21.5.2022,,,still_in_office,JLN
+942,,Linda White,,Vic,21.5.2022,,,still_in_office,ALP
