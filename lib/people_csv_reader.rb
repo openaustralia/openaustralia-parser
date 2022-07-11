@@ -30,10 +30,15 @@ class PeopleCSVReader
       line[4..].each do |t|
         alternate_names << Name.title_first_last(t) if !t.nil? && !t.empty?
       end
+      begin
+        parsed_birthday = (birthday ? Date.strptime(birthday) : nil)
+      rescue Date::Error
+        raise "Birthday #{birthday} not valid for #{name_text}"
+      end
       people << Person.new(
         name: name, alternate_names: alternate_names,
         count: person_count.to_i,
-        birthday: (birthday ? Date.strptime(birthday) : nil),
+        birthday: parsed_birthday,
         aph_id: aph_id
       )
     end
