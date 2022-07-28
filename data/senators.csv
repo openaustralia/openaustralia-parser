@@ -356,7 +356,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 869,,Lucy Gichuhi,,SA,19.4.2017,declared_elected,3.5.2017,changed_party,FFP
 870,,Lucy Gichuhi,,SA,3.5.2017,changed_party,2.2.2018,changed_party,IND
 871,,Gavin Mark Marshall,,Vic.,9.5.2016,changed_party,1.7.2019,defeated,ALP
-872,,Sue Lines,,WA,30.9.2016,changed_party,,still_in_office,DPRES
+872,,Sue Lines,,WA,30.9.2016,changed_party,26.7.2022,changed_party,DPRES
 873,,Slade Brockman,,WA,16.8.2017,section_15,18.10.2021,changed_party,LIB
 874,,Jordon Steele-John,,WA,10.11.2017,recount,,still_in_office,GRN
 875,,Andrew Bartlett,,Qld,10.11.2017,recount,27.8.2018,resigned,GRN
@@ -407,13 +407,13 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 920,,Jess Walsh,,Vic,1.7.2019,,,still_in_office,ALP
 921,,Sarah Henderson,,Vic,11.9.2019,section_15,,still_in_office,LIB
 922,,Jim Molan,,NSW,11.11.2019,section_15,,still_in_office,LIB
-923,,Andrew McLachlan,,SA,6.2.2020,section_15,,still_in_office,LIB
+923,,Andrew McLachlan,,SA,6.2.2020,section_15,26.7.2022,changed_party,LIB
 924,,Rex Patrick,,SA,10.8.2020,changed_party,21.5.2022,defeated,IND
 925,,Lidia Thorpe,,Vic,4.9.2020,section_15,,still_in_office,GRN
 926,,Ben Small,,WA,25.11.2020,section_15,21.5.2022,defeated,LIB
 927,,Dorinda Cox,,WA,14.9.2021,section_15,,still_in_office,GRN
 928,,Karen Grogan,,SA,21.9.2021,section_15,,still_in_office,ALP
-929,,Slade Brockman,,WA,18.10.2021,changed_party,,still_in_office,PRES
+929,,Slade Brockman,,WA,18.10.2021,changed_party,26.7.2022,changed_party,PRES
 930,,Greg Mirabella,,Vic,2.12.2021,section_15,21.5.2022,defeated,LIB
 # Election 21.5.2022,,,,,,,,,
 931,,Penny Allman-Payne,,Qld,21.5.2022,,,still_in_office,GRN
@@ -428,3 +428,6 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 940,,Jana Stewart,,Vic,21.5.2022,,,still_in_office,ALP
 941,,Tammy Tyrrell,,Tas,21.5.2022,,,still_in_office,JLN
 942,,Linda White,,Vic,21.5.2022,,,still_in_office,ALP
+943,,Slade Brockman,,WA,26.7.2022,changed_party,,still_in_office,LIB
+944,,Sue Lines,,WA,26.7.2022,changed_party,,still_in_office,PRES
+945,,Andrew McLachlan,,SA,26.7.2022,changed_party,,still_in_office,DPRES
