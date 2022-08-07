@@ -701,7 +701,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 702,,Luke Gosling,Solomon,NT,2.7.2016,,,still_in_office,ALP
 703,,Jason Falinski,Mackellar,NSW,2.7.2016,,21.5.2022,defeated,LIB
 704,,Chris Crewther,Dunkley,Vic,2.7.2016,,18.05.2019,defeated,LIB
-705,,Milton Dick,Oxley,Qld,2.7.2016,,,still_in_office,ALP
+705,,Milton Dick,Oxley,Qld,2.7.2016,,26.7.2022,changed_party,ALP
 706,,Trevor Evans,Brisbane,Qld,2.7.2016,,21.5.2022,defeated,LIB
 707,,Nicolle Flint,Boothby,SA,2.7.2016,,21.5.2022,retired,LIB
 708,,Andrew Gee,Calare,NSW,2.7.2016,,,still_in_office,NP
@@ -775,7 +775,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 774,,Garth Hamilton,Groom,QLD,3.12.2020,by_election,,still_in_office,LNP
 775,,Craig Kelly,Hughes,NSW,23.2.2021,changed_party,23.8.2021,changed_party,IND
 776,,Anthony David Hawthorn Smith,Casey,Vic,23.11.2021,changed_party,21.5.2022,retired,LIB
-777,,Andrew Wallace,Fisher,QLD,23.11.2021,changed_party,,still_in_office,SPK
+777,,Andrew Wallace,Fisher,QLD,23.11.2021,changed_party,26.7.2022,changed_party,SPK
 778,,Craig Kelly,Hughes,NSW,23.8.2021,changed_party,21.5.2022,defeated,UAP
 # New members elected in 2022 Federal election,,,,,,,,,
 779,,Jerome Laxale,Bennelong,NSW,21.5.2022,,,still_in_office,ALP
@@ -813,3 +813,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 811,,Zaneta Mascarenhas,Swan,WA,21.5.2022,,,still_in_office,ALP
 812,,Sam Lim,Tangney,WA,21.5.2022,,,still_in_office,ALP
 813,,Allegra Spender,Wentworth,NSW,21.5.2022,,,still_in_office,IND
+814,,Andrew Wallace,Fisher,QLD,26.7.2022,changed_party,,still_in_office,LNP
+815,,Milton Dick,Oxley,Qld,26.7.2022,changed_party,,still_in_office,SPK
