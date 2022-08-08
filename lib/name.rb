@@ -36,7 +36,8 @@ class Name
     n2 = name2.downcase
     (n1 == "stott" && n2 == "despoja") ||
       (n1 == "van" && n2 == "manen") ||
-      (n1 == "di" && n2 == "natale")
+      (n1 == "di" && n2 == "natale") ||
+      (n1 == "nampijinpa" && n2 == "price")
   end
 
   def self.last_title_first(text)
