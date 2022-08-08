@@ -106,7 +106,7 @@ class Name
     # HACK: Dealing with Stott Despoja as a special case
     elsif names.size == 2 && names[0].downcase == "stott" && names[1].downcase == "despoja" ||
           names.size == 2 && names[0].downcase == "van" && names[1].downcase == "manen" ||
-          names.size >= 2 && names[0].downcase == "di" && names[1].downcase == "natale"
+          names.size == 2 && names[0].downcase == "di" && names[1].downcase == "natale"
       last = names[0..1].join(" ")
       names.shift
       names.shift
@@ -120,7 +120,7 @@ class Name
       # HACK: Another Stott Despoja hack
       if names.size >= 2 && names[-2].downcase == "stott" && names[-1].downcase == "despoja" ||
          names.size >= 2 && names[-2].downcase == "van" && names[-1].downcase == "manen" ||
-         names.size >= 2 && names[0].downcase == "di" && names[1].downcase == "natale"
+         names.size >= 2 && names[-2].downcase == "di" && names[-1].downcase == "natale"
         last = names[-2..].join(" ")
         names.pop
       else
