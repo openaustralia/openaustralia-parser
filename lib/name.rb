@@ -29,17 +29,23 @@ class Name
     text.squeeze(" ")
   end
 
+  # Check if two names are actually one name (in other words a double-barreled name that hasn't been hyphenated)
+  # We can only handle this by having specific instances to check for
+  def self.double_barreled_name?(name1, name2)
+    n1 = name1.downcase
+    n2 = name2.downcase
+    (n1 == "stott" && n2 == "despoja") ||
+      (n1 == "van" && n2 == "manen") ||
+      (n1 == "di" && n2 == "natale")
+  end
+
   def self.last_title_first(text)
     # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
     text = text.unicode_normalize(:nfkc)
     # Do the following before the split so we can handle things like "(foo bar)"
     text = remove_text_in_brackets(text)
     names = text.delete(",").split
-    # Hack to deal with a specific person who has two last names that aren't hyphenated
-    if (names.size >= 2) &&
-       ((names[0].downcase == "stott" && names[1].downcase == "despoja") ||
-        (names[0].downcase == "van" && names[1].downcase == "manen") ||
-        (names[0].downcase == "di" && names[1].downcase == "natale"))
+    if (names.size >= 2) && double_barreled_name?(names[0], names[1])
       last = names[0..1].join(" ")
       names.shift
       names.shift
@@ -104,11 +110,7 @@ class Name
     title = Name.extract_title_at_start(names)
     if names.size == 1
       last = names[0]
-    # HACK: Dealing with Stott Despoja as a special case
-    elsif (names.size == 2) &&
-          ((names[0].downcase == "stott" && names[1].downcase == "despoja") ||
-           (names[0].downcase == "van" && names[1].downcase == "manen") ||
-           (names[0].downcase == "di" && names[1].downcase == "natale"))
+    elsif (names.size == 2) && double_barreled_name?(names[0], names[1])
       last = names[0..1].join(" ")
       names.shift
       names.shift
@@ -119,11 +121,7 @@ class Name
         first = names.shift
       end
       post_title = extract_post_title_at_end(names)
-      # HACK: Another Stott Despoja hack
-      if (names.size >= 2) &&
-         ((names[-2].downcase == "stott" && names[-1].downcase == "despoja") ||
-          (names[-2].downcase == "van" && names[-1].downcase == "manen") ||
-          (names[-2].downcase == "di" && names[-1].downcase == "natale"))
+      if (names.size >= 2) && double_barreled_name?(names[-2], names[-1])
         last = names[-2..].join(" ")
         names.pop
       else
