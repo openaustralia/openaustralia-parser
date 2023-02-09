@@ -156,7 +156,6 @@ page.search("table.documents").each do |table|
     name = tr.search("td")[1].inner_text.split(",")[0..1].join(",")
     url = page.uri + tr.at("td.format a")["href"]
     representative = people.find_person_by_name_current_on_date(Name.last_title_first(name), Date.today)
-    puts name
     raise "Couldn't find #{name}" if representative.nil?
 
     representatives_data << { id: representative.id, aph_interests_url: url }
@@ -164,17 +163,20 @@ page.search("table.documents").each do |table|
 end
 
 senate_data = []
-base_url = "https://www.aph.gov.au/Parliamentary_Business/Committees/Senate/Senators_Interests/Register46thparl"
+
+base_url = "https://www.aph.gov.au/Parliamentary_Business/Committees/Senate/Senators_Interests/Register_of_Senators_Interests"
 page = agent.get(base_url)
 
-senate_data = page.at("#main_0_content_0_divContent").search("tr").map do |ul|
-  senator = people.find_person_by_name(Name.last_title_first(ul.at(:a).inner_text.split(" - ").first))
+page.at("table#currentRegisterTable tbody").search("tr").each do |tr|
+  link = tr.at("a")
+  name = link.inner_text.strip
+  url = page.uri + link["href"]
+  last_updated = Date.parse(tr.search("td")[2].inner_text)
+
+  senator = people.find_person_by_name(Name.last_title_first(name))
   raise if senator.nil?
 
-  url = page.uri + ul.at(:a).attr(:href)
-  last_updated = Date.parse(ul.at(:em).inner_text.split(" Last updated ").last)
-
-  { id: senator.id, aph_interests_url: url, aph_interests_last_updated: last_updated }
+  senate_data << { id: senator.id, aph_interests_url: url, aph_interests_last_updated: last_updated }
 end
 
 xml = File.open("#{conf.members_xml_path}/links-register-of-interests.xml", "w")
