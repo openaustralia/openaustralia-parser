@@ -92,7 +92,7 @@ x.consinfos do
   puts "Election results 2013 (from the abc.net.au)..."
   # Representatives
   abc_root = "https://www.abc.net.au"
-  url = "#{abc_root}/news/federal-election-2013/results/electorates/"
+  url = "#{abc_root}/news/elections/federal/2013/guide/electorates"
   doc = Hpricot(URI.parse(url).open)
   (doc / "span.electorate").each do |span|
     href = span.parent["href"]
@@ -110,7 +110,7 @@ x.consinfos do
   puts "Election results 2016 (from the abc.net.au)..."
   # Representatives
   abc_root = "https://www.abc.net.au"
-  url = "#{abc_root}/news/federal-election-2016/results/list/"
+  url = "#{abc_root}/news/elections/federal/2016/guide/electorates"
   doc = agent.get(url)
 
   doc.search(".ert-results a").each do |a|
