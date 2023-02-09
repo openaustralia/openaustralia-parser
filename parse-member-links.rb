@@ -149,19 +149,18 @@ xml.close
 
 puts "Register of interests from APH..."
 
-base_url = "http://www.aph.gov.au/Parliamentary_Business/Committees/House_of_Representatives_Committees"
-page = agent.get("#{base_url}?url=pmi/declarations.htm")
+page = agent.get("https://www.aph.gov.au/Senators_and_Members/Members/Register")
+representatives_data = []
+page.search("table.documents").each do |table|
+  table.search("tbody tr").each do |tr|
+    name = tr.search("td")[1].inner_text.split(",")[0..1].join(",")
+    url = page.uri + tr.at("td.format a")["href"]
+    representative = people.find_person_by_name_current_on_date(Name.last_title_first(name), Date.today)
+    puts name
+    raise "Couldn't find #{name}" if representative.nil?
 
-representatives_data = page.search("ul.links")[2].search(:li).map do |li|
-  # A bit of wrangling to replace double spaces and things
-  name_text = li.inner_text.strip.gsub("  ", " ").split(", Member")[0]
-
-  representative = people.find_person_by_name(Name.last_title_first(name_text))
-  raise if representative.nil?
-
-  url = base_url + li.at(:a).attr(:href)
-
-  { id: representative.id, aph_interests_url: url }
+    representatives_data << { id: representative.id, aph_interests_url: url }
+  end
 end
 
 senate_data = []
