@@ -704,7 +704,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 705,,Milton Dick,Oxley,Qld,2.7.2016,,26.7.2022,changed_party,ALP
 706,,Trevor Evans,Brisbane,Qld,2.7.2016,,21.5.2022,defeated,LIB
 707,,Nicolle Flint,Boothby,SA,2.7.2016,,21.5.2022,retired,LIB
-708,,Andrew Gee,Calare,NSW,2.7.2016,,,still_in_office,NP
+708,,Andrew Gee,Calare,NSW,2.7.2016,,23.12.2022,changed_party,NP
 709,,Madeleine King,Brand,WA,2.7.2016,,,still_in_office,ALP
 710,,Julian Hill,Bruce,Vic.,2.7.2016,,,still_in_office,ALP
 711,,Pat Conroy,Shortland,NSW,2.7.2016,,,still_in_office,ALP
@@ -815,3 +815,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 813,,Allegra Spender,Wentworth,NSW,21.5.2022,,,still_in_office,IND
 814,,Andrew Wallace,Fisher,QLD,26.7.2022,changed_party,,still_in_office,LNP
 815,,Milton Dick,Oxley,Qld,26.7.2022,changed_party,,still_in_office,SPK
+816,,Andrew Gee,Calare,NSW,23.12.2022,changed_party,,still_in_office,IND
