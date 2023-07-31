@@ -610,7 +610,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 612,,Karen Andrews,McPherson,Qld,21.8.2010,,,still_in_office,LIB
 613,,Andrew Leigh,Fraser,ACT,21.8.2010,,2.7.2016,elected_elsewhere,ALP
 614,,Deborah O'Neill,Robertson,NSW,21.8.2010,,7.9.2013,defeated,ALP
-615,,Alan Tudge,Aston,Vic,21.8.2010,,,still_in_office,LIB
+615,,Alan Tudge,Aston,Vic,21.8.2010,,17.2.2023,resigned,LIB
 616,,Ed Husic,Chifley,NSW,21.8.2010,,,still_in_office,ALP
 617,,Craig Kelly,Hughes,NSW,21.8.2010,,23.2.2021,changed_party,LIB
 618,,Michelle Rowland,Greenway,NSW,21.8.2010,,,still_in_office,ALP
@@ -816,3 +816,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 814,,Andrew Wallace,Fisher,QLD,26.7.2022,changed_party,,still_in_office,LNP
 815,,Milton Dick,Oxley,Qld,26.7.2022,changed_party,,still_in_office,SPK
 816,,Andrew Gee,Calare,NSW,23.12.2022,changed_party,,still_in_office,IND
+# New member elected in 2023 Aston by-election
+817,,Mary Doyle,Aston,Vic,1.4.2023,,,still_in_office,ALP
