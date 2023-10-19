@@ -438,7 +438,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 440,,Bernard Fernando Ripoll,Oxley,Qld,3.10.1998,,9.5.2016,retired,ALP
 441,,Amanda Louise Rishworth,Kingston,SA,24.11.2007,,,still_in_office,ALP
 442,,Andrew John Robb,Goldstein,Vic.,9.10.2004,,9.5.2016,retired,LIB
-443,,Stuart Rowland Robert,Fadden,Qld,24.11.2007,,,still_in_office,LIB
+443,,Stuart Rowland Robert,Fadden,Qld,24.11.2007,,18.5.2023,resigned,LIB
 444,,Eric Laidlaw Robinson,McPherson,Qld,2.12.1972,,7.1.1981,died,LIB
 445,,Ian Louis Robinson,Cowper,NSW,30.11.1963,,1.12.1984,elected_elsewhere,NPA
 446,,Ian Louis Robinson,Page,NSW,1.12.1984,,24.3.1990,defeated,NPA
@@ -818,3 +818,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 816,,Andrew Gee,Calare,NSW,23.12.2022,changed_party,,still_in_office,IND
 # New member elected in 2023 Aston by-election
 817,,Mary Doyle,Aston,Vic,1.4.2023,,,still_in_office,ALP
+# New member elected in 2023 Fadden by-election
+818,,Cameron Caldwell,Fadden,Qld,15.7.2023,,,still_in_office,LNP
