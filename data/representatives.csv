@@ -764,7 +764,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 764,,Dave Sharma,Wentworth,NSW,18.05.2019,,21.5.2022,defeated,LIB
 # Members elected elsewhere in 2019 Federal election thanks to redistribution,,,,,,,,,
 765,,Steve Georganas,Adelaide,SA,18.05.2019,elected_elsewhere,,still_in_office,ALP
-766,,Russell Evan Broadbent,Monash,Vic,18.05.2019,elected_elsewhere,,still_in_office,LIB
+766,,Russell Evan Broadbent,Monash,Vic,18.05.2019,elected_elsewhere,14.11.2023,changed_party,LIB
 767,,Mark Christopher Butler,Hindmarsh,SA,18.05.2019,elected_elsewhere,,still_in_office,ALP
 768,,Nicholas David Champion,Spence,SA,18.05.2019,elected_elsewhere,22.02.2022,resigned,ALP
 769,,Andrew Wilkie,Clark,Tas,18.05.2019,elected_elsewhere,,still_in_office,IND
@@ -820,3 +820,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 817,,Mary Doyle,Aston,Vic,1.4.2023,,,still_in_office,ALP
 # New member elected in 2023 Fadden by-election
 818,,Cameron Caldwell,Fadden,Qld,15.7.2023,,,still_in_office,LNP
+# Member resigned to become independent
+819,,Russell Evan Broadbent,Monash,Vic,14.11.2023,changed_party,,still_in_office,IND
