@@ -334,7 +334,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 847,,Nick McKim,,Tasmania,19.8.2015,section_15,,still_in_office,GRN
 848,,Robert Simms,,SA,22.9.2015,section_15,9.5.2016,defeated,GRN
 849,,James Paterson,,Victoria,9.3.2016,section_15,,still_in_office,LIB
-850,,Patrick Dodson,,WA,28.4.2016,section_15,,still_in_office,ALP
+850,,Patrick Dodson,,WA,28.4.2016,section_15,26.1.2024,resigned,ALP
 851,,Jonathon Duniam,,Tasmania,1.7.2016,,,still_in_office,LIB
 852,,Brian Burston,,NSW,1.7.2016,changed_party,18.06.2018,changed_party,PHON
 853,,Anthony Chisholm,,QLD,1.7.2016,,,still_in_office,ALP
@@ -435,3 +435,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 947,,Maria Kovacic,,NSW,31.5.2023,section_15,,still_in_office,LIB
 948,,David Van,,Vic,19.6.2023,changed_party,,still_in_office,IND
 949,,Dave Sharma,,NSW,30.11.2023,section_15,,still_in_office,LIB
+950,,Varun Ghosh,,WA,1.2.2024,section_15,,still_in_office,ALP
