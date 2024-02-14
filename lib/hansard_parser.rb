@@ -51,6 +51,18 @@ class HansardParser
   # This is the original data without any patches applied at this end
   def unpatched_hansard_xml_source_data_on_date(date, house)
     agent = Mechanize.new
+    # As of December 2023 aph.gov.au is blocking scraping using the default user agent header for Mechanize. Unbelievable.
+    # So, we're forced to pretend to be something else. Just using a single other user agent doesn't work for more than
+    # ten or so requests. Trying to cycle through some random ones.
+    #
+    # That doesn't fix it completely either. So, we're adding a 10 second sleep between requests. Things still need to get restarted
+    agent_aliases = Mechanize::AGENT_ALIASES.keys
+    agent_aliases.delete("Mechanize")
+    agent.user_agent_alias = agent_aliases.sample
+
+    # Pause for 10 seconds before scraping this
+    puts "Pausing for 10 seconds..."
+    sleep(10)
 
     # This is the page returned by Parlinfo Search for that day
     url = "https://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;adv=yes;orderBy=_fragment_number,doc_date-rev;page=0;query=Dataset%3Ahansard#{house.representatives? ? 'r' : 's'},hansard#{house.representatives? ? 'r' : 's'}80%20Date%3A#{date.day}%2F#{date.month}%2F#{date.year};rec=0;resCount=Default"
