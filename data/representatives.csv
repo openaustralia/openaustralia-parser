@@ -822,3 +822,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 818,,Cameron Caldwell,Fadden,Qld,15.7.2023,,,still_in_office,LNP
 # Member resigned to become independent
 819,,Russell Evan Broadbent,Monash,Vic,14.11.2023,changed_party,,still_in_office,IND
+# New member elected in 2024 Dunkley by-election
+820,,Jodie Belyea,Dunkley,Vic,2.3.2024,,,still_in_office,ALP
