@@ -320,7 +320,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 833,,James McGrath,,QLD,1.7.2014,,,still_in_office,LNP
 834,,Ricky Muir,,Victoria,1.7.2014,,9.5.2016,defeated,MEP
 835,,Linda Reynolds,,WA,1.7.2014,,,still_in_office,LIB
-836,,Janet Rice,,Victoria,1.7.2014,,,still_in_office,GRN
+836,,Janet Rice,,Victoria,1.7.2014,,19.4.2024,resigned,GRN
 837,,Dio Wang,,WA,1.7.2014,,9.5.2016,defeated,PUP
 838,,Stephen Shane Parry,,Tas.,7.7.2014,changed_party,12.11.2017,resigned,PRES
 839,,Gavin Mark Marshall,,Vic.,7.7.2014,changed_party,9.5.2016,changed_party,DPRES
@@ -427,7 +427,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 939,,David Shoebridge,,NSW,21.5.2022,,,still_in_office,GRN
 940,,Jana Stewart,,Vic,21.5.2022,,,still_in_office,ALP
 941,,Tammy Tyrrell,,Tas,21.5.2022,,,still_in_office,JLN
-942,,Linda White,,Vic,21.5.2022,,,still_in_office,ALP
+942,,Linda White,,Vic,21.5.2022,,29.2.2024,died,ALP
 943,,Slade Brockman,,WA,26.7.2022,changed_party,,still_in_office,LIB
 944,,Sue Lines,,WA,26.7.2022,changed_party,,still_in_office,PRES
 945,,Andrew McLachlan,,SA,26.7.2022,changed_party,,still_in_office,DPRES
@@ -436,3 +436,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 948,,David Van,,Vic,19.6.2023,changed_party,,still_in_office,IND
 949,,Dave Sharma,,NSW,30.11.2023,section_15,,still_in_office,LIB
 950,,Varun Ghosh,,WA,1.2.2024,section_15,,still_in_office,ALP
+951,,Lisa Darmanin,,Vic,24.6.2024,section_15,,still_in_office,ALP
+952,,Steph Hodgins-May,,Vic,1.5.2024,section_15,,still_in_office,GRN
