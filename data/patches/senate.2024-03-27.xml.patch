@@ -1,0 +1,18 @@
+--- original.xml	2024-07-01 17:19:56.847627266 +1000
++++ patched.xml	2024-07-01 17:21:36.687886653 +1000
+@@ -4068,7 +4068,7 @@
+                 <name>Colbeck, R. M.</name>
+                 <name>Cox, D.</name>
+                 <name>Davey, P. M.</name>
+-                <name>Dunia, J. R.</name>
++                <name>Duniam, J. R.</name>
+                 <name>Farrell, D. E.</name>
+                 <name>Faruqi, M.</name>
+                 <name>Gallagher, K. R.</name>
+@@ -22505,4 +22505,4 @@
+       </subdebate.1>
+     </debate>
+   </chamber.xscript>
+-</hansard>
+\ No newline at end of file
++</hansard>
