@@ -398,7 +398,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 911,,Susan McDonald,,Qld,1.7.2019,,,still_in_office,NP
 912,,Sam McMahon,,NT,1.7.2019,,21.5.2022,defeated,CLP
 913,,Matt O'Sullivan,,WA,1.7.2019,,,still_in_office,LIB
-914,,Gerard Rennick,,Qld,1.7.2019,,,still_in_office,LIB
+914,,Gerard Rennick,,Qld,1.7.2019,,25.8.2024,changed_party,LIB
 915,,Malcolm Roberts,,Qld,1.7.2019,,,still_in_office,PHON
 916,,Paul Scarr,,Qld,1.7.2019,,,still_in_office,LIB
 917,,Tony Sheldon,,NSW,1.7.2019,,,still_in_office,ALP
@@ -439,3 +439,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 951,,Lisa Darmanin,,Vic,24.6.2024,section_15,,still_in_office,ALP
 952,,Steph Hodgins-May,,Vic,1.5.2024,section_15,,still_in_office,GRN
 953,,Fatima Payman,,WA,4.7.2024,changed_party,,still_in_office,IND
+954,,Gerard Rennick,,Qld,25.8.2024,changed_party,,still_in_office,IND
