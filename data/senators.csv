@@ -426,7 +426,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 938,,David Pocock,,ACT,21.5.2022,,,still_in_office,IND
 939,,David Shoebridge,,NSW,21.5.2022,,,still_in_office,GRN
 940,,Jana Stewart,,Vic,21.5.2022,,,still_in_office,ALP
-941,,Tammy Tyrrell,,Tas,21.5.2022,,,still_in_office,JLN
+941,,Tammy Tyrrell,,Tas,21.5.2022,,28.3.2024,changed_party,JLN
 942,,Linda White,,Vic,21.5.2022,,29.2.2024,died,ALP
 943,,Slade Brockman,,WA,26.7.2022,changed_party,,still_in_office,LIB
 944,,Sue Lines,,WA,26.7.2022,changed_party,,still_in_office,PRES
@@ -440,3 +440,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 952,,Steph Hodgins-May,,Vic,1.5.2024,section_15,,still_in_office,GRN
 953,,Fatima Payman,,WA,4.7.2024,changed_party,,still_in_office,IND
 954,,Gerard Rennick,,Qld,25.8.2024,changed_party,,still_in_office,IND
+955,,Tammy Tyrrell,,Tas,28.3.2024,changed_party,,still_in_office,IND
