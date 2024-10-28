@@ -398,7 +398,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 911,,Susan McDonald,,Qld,1.7.2019,,,still_in_office,NP
 912,,Sam McMahon,,NT,1.7.2019,,21.5.2022,defeated,CLP
 913,,Matt O'Sullivan,,WA,1.7.2019,,,still_in_office,LIB
-914,,Gerard Rennick,,Qld,1.7.2019,,,still_in_office,LIB
+914,,Gerard Rennick,,Qld,1.7.2019,,25.8.2024,changed_party,LIB
 915,,Malcolm Roberts,,Qld,1.7.2019,,,still_in_office,PHON
 916,,Paul Scarr,,Qld,1.7.2019,,,still_in_office,LIB
 917,,Tony Sheldon,,NSW,1.7.2019,,,still_in_office,ALP
@@ -421,12 +421,12 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 933,,Ross Cadell,,NSW,21.5.2022,,,still_in_office,NP
 934,,Kerrynne Liddle,,SA,21.5.2022,,,still_in_office,LIB
 935,,Jacinta Nampijinpa Price,,NT,21.5.2022,,,still_in_office,CLP
-936,,Fatima Payman,,WA,21.5.2022,,,still_in_office,ALP
+936,,Fatima Payman,,WA,21.5.2022,,4.7.2024,changed_party,ALP
 937,,Barbara Pocock,,SA,21.5.2022,,,still_in_office,GRN
 938,,David Pocock,,ACT,21.5.2022,,,still_in_office,IND
 939,,David Shoebridge,,NSW,21.5.2022,,,still_in_office,GRN
 940,,Jana Stewart,,Vic,21.5.2022,,,still_in_office,ALP
-941,,Tammy Tyrrell,,Tas,21.5.2022,,,still_in_office,JLN
+941,,Tammy Tyrrell,,Tas,21.5.2022,,28.3.2024,changed_party,JLN
 942,,Linda White,,Vic,21.5.2022,,29.2.2024,died,ALP
 943,,Slade Brockman,,WA,26.7.2022,changed_party,,still_in_office,LIB
 944,,Sue Lines,,WA,26.7.2022,changed_party,,still_in_office,PRES
@@ -438,3 +438,6 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 950,,Varun Ghosh,,WA,1.2.2024,section_15,,still_in_office,ALP
 951,,Lisa Darmanin,,Vic,24.6.2024,section_15,,still_in_office,ALP
 952,,Steph Hodgins-May,,Vic,1.5.2024,section_15,,still_in_office,GRN
+953,,Fatima Payman,,WA,4.7.2024,changed_party,,still_in_office,IND
+954,,Gerard Rennick,,Qld,25.8.2024,changed_party,,still_in_office,IND
+955,,Tammy Tyrrell,,Tas,28.3.2024,changed_party,,still_in_office,IND
