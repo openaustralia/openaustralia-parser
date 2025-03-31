@@ -12,7 +12,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 272,,Michael Eamon Beahan,,WA,01.02.1994,changed_party,30.6.1996,defeated,PRES
 12,,Robert John Bell,,Tas.,7.3.1990,section_15,30.6.1996,defeated,AD
 13,,Cory Bernardi,,SA,4.5.2006,section_15,7.2.2017,changed_party,LIB
-14,,Simon John Birmingham,,SA,3.5.2007,section_15,,still_in_office,LIB
+14,,Simon John Birmingham,,SA,3.5.2007,section_15,28.1.2025,resigned,LIB
 15,,Bronwyn Kathleen Bishop,,NSW,11.7.1987,,24.2.1994,resigned,LIB
 16,,Thomas Mark Bishop,,WA,1.7.1996,,30.6.2014,retired,ALP
 17,,Reginald Bishop,,SA,1.7.1962,,30.6.1981,retired,ALP
@@ -441,3 +441,4 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 953,,Fatima Payman,,WA,4.7.2024,changed_party,,still_in_office,IND
 954,,Gerard Rennick,,Qld,25.8.2024,changed_party,,still_in_office,IND
 955,,Tammy Tyrrell,,Tas,28.3.2024,changed_party,,still_in_office,IND
+956,,Leah Blyth,,SA,6.2.2025,section_15,,still_in_office,LIB
