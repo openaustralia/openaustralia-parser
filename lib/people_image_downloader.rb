@@ -27,6 +27,12 @@ class PeopleImageDownloader
 
     @conf = Configuration.new
     @agent = Mechanize.new
+
+    # We've been kindly given a special user agent to use so
+    # that our traffic isn't blocked by the application firewall
+    # of aph.gov.au.
+    # See https://mail.missiveapp.com/#search/aph.gov.au/conversations/4f0a0161-421e-4d0b-9dd1-49275353acf7/messages/bc27bcd1-2cba-5e63-64d3-a364037629a2
+    @agent.user_agent = "Mozilla/5.0+AppleWebKit/537.36+(KHTML,+like+Gecko;+compatible;+Amazonbot/0.1;++https://developer.amazon.com/support/amazonbot)+Chrome/119.0.6045.214+Safari/537.36"
   end
 
   def download(people, small_image_dir, large_image_dir, extra_large_image_dir)
