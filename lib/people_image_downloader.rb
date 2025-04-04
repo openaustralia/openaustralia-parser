@@ -52,34 +52,42 @@ class PeopleImageDownloader
         next
       end
 
-      page = person_bio_page(person)
-      next unless page
+      # If we have an aph code for the person we can much more easily get a photo for them
+      if person.aph_id
+        image = image_from_url("https://www.aph.gov.au/api/parliamentarian/#{person.aph_id}/image")
+      else
+        page = person_bio_page(person)
+        next unless page
 
-      name = extract_name(page)
-      birthday = extract_birthday(page)
-      image = extract_image(page)
+        name = extract_name(page)
+        birthday = extract_birthday(page)
+        image = extract_image(page)
 
-      if image.nil?
-        puts "WARNING: Can't find photo for #{name.full_name}"
-        next
-      end
+        if image.nil?
+          puts "WARNING: Can't find photo for #{name.full_name}"
+          next
+        end
 
-      if name
+        if name.nil?
+          puts "WARNING: Couldn't find name on page"
+          next
+        end
+
         # Small HACK - removing title of name
         name = Name.new(first: name.first, middle: name.middle, last: name.last, post_title: name.post_title)
         person = people.find_person_by_name_and_birthday(name, birthday)
-        if person
-          # By using resize_to_fill rather than resize_to_fit we can ensure that the final images
-          # will be exactly the same dimensions
-          image.resize_to_fill(SMALL_THUMBNAIL_WIDTH, SMALL_THUMBNAIL_HEIGHT).write(small_image_filename)
-          image.resize_to_fill(LARGE_THUMBNAIL_WIDTH, LARGE_THUMBNAIL_HEIGHT).write(large_image_filename)
-          image.resize_to_fill(EXTRA_LARGE_THUMBNAIL_WIDTH, EXTRA_LARGE_THUMBNAIL_HEIGHT).write(extra_large_image_filename)
-        else
+
+        if person.nil?
           puts "WARNING: Skipping photo for #{name.full_name} because they don't exist in the list of people"
+          next
         end
-      else
-        puts "WARNING: Couldn't find name on page"
       end
+
+      # By using resize_to_fill rather than resize_to_fit we can ensure that the final images
+      # will be exactly the same dimensions
+      image.resize_to_fill(SMALL_THUMBNAIL_WIDTH, SMALL_THUMBNAIL_HEIGHT).write(small_image_filename)
+      image.resize_to_fill(LARGE_THUMBNAIL_WIDTH, LARGE_THUMBNAIL_HEIGHT).write(large_image_filename)
+      image.resize_to_fill(EXTRA_LARGE_THUMBNAIL_WIDTH, EXTRA_LARGE_THUMBNAIL_HEIGHT).write(extra_large_image_filename)
     end
   end
 
@@ -186,10 +194,14 @@ class PeopleImageDownloader
     relative_image_url = img_tag.attributes["src"]
     # begin
     # puts "About to lookup image #{relative_image_url}..."
-    res = @agent.get(relative_image_url)
-    Magick::Image.from_blob(res.body)[0]
+    image_from_url(relative_image_url)
     # rescue RuntimeError, Magick::ImageMagickError, Mechanize::ResponseCodeError
     #  return nil
     # end
+  end
+
+  def image_from_url(url)
+    res = @agent.get(url)
+    Magick::Image.from_blob(res.body)[0]
   end
 end
