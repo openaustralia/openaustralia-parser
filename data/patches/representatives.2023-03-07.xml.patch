@@ -1,0 +1,18 @@
+--- original.xml	2025-04-07 16:49:52.499001669 +1000
++++ patched.xml	2025-04-07 16:52:13.274925168 +1000
+@@ -7498,7 +7498,7 @@
+                   <name>Pitt, K. J.</name>
+                   <name>Price, M. L.</name>
+                   <name>Ramsey, R. E. (Teller)</name>
+-                  <name>Roberts, S. R.</name>
++                  <name>Roberts, T. G.</name>
+                   <name>Stevens, J.</name>
+                   <name>Sukkar, M. S.</name>
+                   <name>Taylor, A. J.</name>
+@@ -11986,4 +11986,4 @@
+       </subdebate.1>
+     </debate>
+   </fedchamb.xscript>
+-</hansard>
+\ No newline at end of file
++</hansard>
