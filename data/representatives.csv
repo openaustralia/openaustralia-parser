@@ -149,7 +149,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 151,,Stephen Cairfield Dubois,St George,NSW,1.12.1984,,8.2.1993,retired,ALP
 152,,Michael John Duffy,Holt,Vic.,18.10.1980,,29.1.1996,retired,ALP
 153,,Peter Duncan,Makin,SA,1.12.1984,,2.3.1996,defeated,ALP
-154,,Peter Craig Dutton,Dickson,Qld,10.11.2001,,,still_in_office,LIB
+154,,Peter Craig Dutton,Dickson,Qld,10.11.2001,,3.5.2025,defeated,LIB
 155,,Mary Louise Easson,Lowe,NSW,13.3.1993,,2.3.1996,defeated,ALP
 156,,Graham John Edwards,Cowan,WA,3.10.1998,,17.10.2007,retired,ALP
 157,,Harold Raymond Edwards,Berowra,NSW,2.12.1972,,8.2.1993,retired,LIB
@@ -346,7 +346,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 348,,Ian Malcolm Macphee,Goldstein,Vic.,1.12.1984,,19.2.1990,retired,LIB
 349,,Michael John Maher,Lowe,NSW,13.3.1982,by_election,11.7.1987,defeated,ALP
 350,,Paul Marek,Capricornia,Qld,2.3.1996,,3.10.1998,defeated,NPA
-351,,Nola Bethwyn Marino,Forrest,WA,24.11.2007,,,still_in_office,LIB
+351,,Nola Bethwyn Marino,Forrest,WA,24.11.2007,,3.5.2025,retired,LIB
 352,,Louise Elizabeth Markus,Greenway,NSW,9.10.2004,,21.8.2010,elected_elsewhere,LIB
 353,,Richard Donald Marles,Corio,Vic,24.11.2007,,,still_in_office,ALP
 354,,Stephen Paul Martin,Cunningham,NSW,13.3.1993,,4.5.1993,changed_party,ALP
@@ -403,7 +403,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 405,,Peter Edward Nugent,Aston,Vic.,24.3.1990,,24.4.2001,died,LIB
 406,,Michelle Anne O'Byrne,Bass,Tas.,3.10.1998,,9.10.2004,defeated,ALP
 407,,Brendan Patrick O'Connor,Burke,Vic.,10.11.2001,,9.10.2004,elected_elsewhere,ALP
-408,,Brendan Patrick O'Connor,Gorton,Vic.,9.10.2004,,,still_in_office,ALP
+408,,Brendan Patrick O'Connor,Gorton,Vic.,9.10.2004,,3.5.2025,retired,ALP
 409,,Gavan Michael O'Connor,Corio,Vic.,13.3.1993,,24.11.2007,defeated,ALP
 410,,Frank Lionel O'Keefe,Paterson,NSW,25.10.1969,,26.10.1984,retired,NPA
 411,,Neil Patrick O'Keefe,Burke,Vic.,1.12.1984,,8.10.2001,retired,ALP
@@ -413,7 +413,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 415,,Melissa Parke,Fremantle,WA,24.11.2007,,9.5.2016,retired,ALP
 416,,Andrew Sharp Peacock,Kooyong,Vic.,2.4.1966,by_election,17.9.1994,resigned,LIB
 417,,Christopher John Pearce,Aston,Vic.,14.7.2001,by_election,21.8.2010,retired,LIB
-418,,Graham Douglas Perrett,Moreton,Qld,24.11.2007,,,still_in_office,ALP
+418,,Graham Douglas Perrett,Moreton,Qld,24.11.2007,,3.5.2025,retired,ALP
 419,,Tanya Joan Plibersek,Sydney,NSW,3.10.1998,,,still_in_office,ALP
 420,,Reginald Thomas Pollard,Ballarat,Vic.,23.10.1937,,10.12.1949,elected_elsewhere,ALP
 421,,Reginald Thomas Pollard,Lalor,Vic.,10.12.1949,,26.11.1966,defeated,ALP
@@ -425,7 +425,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 427,,Christopher Maurice Pyne,Sturt,SA,13.3.1993,,18.05.2019,retired,LIB
 428,,Harry Vernon Quick,Franklin,Tas.,13.3.1993,,17.10.2007,retired,IND
 429,,Brett Blair Raguse,Forde,Qld,24.11.2007,,21.8.2010,defeated,ALP
-430,,Rowan Eric Ramsey,Grey,SA,24.11.2007,,,still_in_office,LIB
+430,,Rowan Eric Ramsey,Grey,SA,24.11.2007,,3.5.2025,retired,LIB
 431,,Donald James Randall,Canning,WA,10.11.2001,,21.7.2015,died,LIB
 432,,Donald James Randall,Swan,WA,2.3.1996,,3.10.1998,defeated,LIB
 433,,Kerry Marie Rea,Bonner,Qld,24.11.2007,,21.8.2010,defeated,ALP
@@ -471,7 +471,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 473,,Roger Francis Shipton,Higgins,Vic.,13.12.1975,,19.2.1990,retired,LIB
 474,,James Robert Short,Ballarat,Vic.,13.12.1975,,18.10.1980,defeated,LIB
 475,,Leonie Marjorie Short,Ryan,Qld,17.3.2001,by_election,10.11.2001,defeated,ALP
-476,,William Richard Shorten,Maribyrnong,Vic,24.11.2007,,,still_in_office,ALP
+476,,William Richard Shorten,Maribyrnong,Vic,24.11.2007,,20.1.2025,resigned,ALP
 477,,Peter Sid Sidebottom,Braddon,Tas.,3.10.1998,,9.10.2004,defeated,ALP
 478,,Peter Sid Sidebottom,Braddon,Tas,24.11.2007,,7.9.2013,defeated,ALP
 479,,David William Simmons,Calare,NSW,5.3.1983,,29.1.1996,retired,ALP
@@ -528,7 +528,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 530,,Thomas Uren,Reid,NSW,22.11.1958,,19.2.1990,retired,ALP
 531,,Mark Anthony James Vaile,Lyne,NSW,13.3.1993,,30.7.2008,resigned,NP
 532,,Danna Sue Vale,Hughes,NSW,2.3.1996,,21.8.2010,retired,LIB
-533,,Maria Vamvakinou,Calwell,Vic.,10.11.2001,,,still_in_office,ALP
+533,,Maria Vamvakinou,Calwell,Vic.,10.11.2001,,3.5.2025,retired,ALP
 534,,Ross Xavier Vasta,Bonner,Qld,9.10.2004,,24.11.2007,defeated,LIB
 535,,Robert Ian Viner,Stirling,WA,2.12.1972,,5.3.1983,defeated,LIB
 536,,Barry Hugh Wakelin,Grey,SA,13.3.1993,,17.10.2007,retired,LIB
@@ -582,20 +582,20 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 584,,John Neil Andrew,Wakefield,SA,10.11.1998,changed_party,31.8.2004,retired,SPK
 585,,Robert Oakeshott,Lyne,NSW,6.9.2008,by_election,5.8.2013,retired,IND
 586,,Jamie Briggs,Mayo,SA,6.9.2008,by_election,2.7.2016,defeated,LIB
-587,,Paul William Fletcher,Bradfield,NSW,5.12.2009,by_election,,still_in_office,LIB
+587,,Paul William Fletcher,Bradfield,NSW,5.12.2009,by_election,3.5.2025,retired,LIB
 588,,Kelly O'Dwyer,Higgins,Vic.,5.12.2009,by_election,18.05.2019,retired,LIB
 589,,John Alexander,Bennelong,NSW,21.8.2010,,11.11.2017,resigned,LIB
 590,,George Robert Christensen,Dawson,Qld,21.8.2010,,21.5.2022,retired,NP
 591,,Andrew Wilkie,Denison,Tas,21.8.2010,,18.05.2019,elected_elsewhere,IND
 592,,Ken O'Dowd,Flynn,Qld,21.8.2010,,21.5.2022,retired,NP
-593,,Bert Van Manen,Forde,Qld,21.8.2010,,,still_in_office,LIB
+593,,Bert Van Manen,Forde,Qld,21.8.2010,,3.5.2025,defeated,LIB
 594,,Ken Wyatt,Hasluck,WA,21.8.2010,,21.5.2022,defeated,LIB
 595,,Laura Smyth,La Trobe,Vic,21.8.2010,,7.9.2013,defeated,ALP
-596,,Warren Entsch,Leichhardt,Qld,21.8.2010,,,still_in_office,LIB
+596,,Warren Entsch,Leichhardt,Qld,21.8.2010,,3.5.2025,retired,LIB
 597,,Wyatt Roy,Longman,Qld,21.8.2010,,2.7.2016,defeated,LIB
 598,,Louise Markus,Macquarie,NSW,21.8.2010,,2.7.2016,defeated,LIB
 599,,Rob Mitchell,McEwen,Vic,21.8.2010,,,still_in_office,ALP
-600,,Adam Bandt,Melbourne,Vic,21.8.2010,,,still_in_office,GRN
+600,,Adam Bandt,Melbourne,Vic,21.8.2010,,3.5.2025,defeated,GRN
 601,,Tony Crook,O'Connor,WA,21.8.2010,,5.8.2013,retired,Nats
 602,,Natasha Griggs,Solomon,NT,21.8.2010,,2.7.2016,defeated,CLP
 603,,Geoff Lyons,Bass,Tas,21.8.2010,,7.9.2013,defeated,ALP
@@ -607,7 +607,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 609,,Michael McCormack,Riverina,NSW,21.8.2010,,,still_in_office,NP
 610,,Chris Hayes,Fowler,NSW,21.8.2010,,21.5.2022,retired,ALP
 611,,Ewen Jones,Herbert,Qld,21.8.2010,,2.7.2016,defeated,LIB
-612,,Karen Andrews,McPherson,Qld,21.8.2010,,,still_in_office,LIB
+612,,Karen Andrews,McPherson,Qld,21.8.2010,,3.5.2025,retired,LIB
 613,,Andrew Leigh,Fraser,ACT,21.8.2010,,2.7.2016,elected_elsewhere,ALP
 614,,Deborah O'Neill,Robertson,NSW,21.8.2010,,7.9.2013,defeated,ALP
 615,,Alan Tudge,Aston,Vic,21.8.2010,,17.2.2023,resigned,LIB
@@ -620,7 +620,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 623,,Christopher Eyles Bowen,McMahon,NSW,21.8.2010,,,still_in_office,ALP
 624,,Scott Buchholz,Wright,Qld,21.8.2010,,,still_in_office,LIB
 625,,Jane Prentice,Ryan,QLD,21.8.2010,,18.05.2019,retired,LIB
-626,,Ross Xavier Vasta,Bonner,Qld,21.8.2010,,,still_in_office,LIB
+626,,Ross Xavier Vasta,Bonner,Qld,21.8.2010,,3.5.2025,defeated,LIB
 627,,Teresa Gambaro,Brisbane,Qld,21.8.2010,,9.5.2016,retired,LIB
 628,,Harry Alfred Jenkins,Scullin,Vic.,24.11.2011,changed_party,5.8.2013,retired,ALP
 629,,Peter Neil Slipper,Fisher,Qld,24.11.2011,changed_party,09.10.2012,changed_party,SPK
@@ -629,7 +629,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 632,,Bruce Craig Scott,Maranoa,Qld,09.10.2012,changed_party,9.5.2016,retired,CWM
 633,,Craig Robert Thomson,Dobell,NSW,29.4.2012,,7.9.2013,defeated,IND
 # New members elected in 2013 Federal election,,,,,,,,,
-634,,David Coleman,Banks,NSW,7.9.2013,,,still_in_office,LIB
+634,,David Coleman,Banks,NSW,7.9.2013,,3.5.2025,defeated,LIB
 635,,Tony Pasin,Barker,SA,7.9.2013,,,still_in_office,LIB
 636,,Nickolas Varvaris,Barton,NSW,7.9.2013,,2.7.2016,defeated,LIB
 637,,Andrew Nikolic,Bass,Tas,7.9.2013,,2.7.2016,defeated,LIB
@@ -639,7 +639,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 641,,Michelle Landry,Capricornia,QLD,7.9.2013,,,still_in_office,NP
 642,,Pat Conroy,Charlton,NSW,7.9.2013,,2.7.2016,elected_elsewhere,ALP
 643,,Sarah Henderson,Corangamite,Vic,7.9.2013,,18.05.2019,defeated,LIB
-644,,Michael Sukkar,Deakin,Vic,7.9.2013,,,still_in_office,LIB
+644,,Michael Sukkar,Deakin,Vic,7.9.2013,,3.5.2025,defeated,LIB
 645,,Karen Mcnamara,Dobell,NSW,7.9.2013,,2.7.2016,defeated,LIB
 646,,Melissa Price,Durack,WA,7.9.2013,,,still_in_office,LIB
 647,,Peter Hendy,Eden-Monaro,NSW,7.9.2013,,2.7.2016,defeated,LIB
@@ -647,7 +647,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 649,,Tim Watts,Gellibrand,Vic,7.9.2013,,,still_in_office,ALP
 650,,Ann Sudmalis,Gilmore,NSW,7.9.2013,,18.05.2019,retired,LIB
 651,,Matt Williams,Hindmarsh,SA,7.9.2013,,2.7.2016,defeated,LIB
-652,,Keith Pitt,Hinkler,QLD,7.9.2013,,,still_in_office,NP
+652,,Keith Pitt,Hinkler,QLD,7.9.2013,,19.1.2025,resigned,NP
 653,,Clare O'Neil,Hotham,Vic,7.9.2013,,,still_in_office,ALP
 654,,Angus Taylor,Hume,NSW,7.9.2013,,,still_in_office,LIB
 655,,Cathy McGowan,Indi,Vic,7.9.2013,,18.05.2019,retired,IND
@@ -655,17 +655,17 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 657,,Jason Wood,La Trobe,Vic,7.9.2013,,,still_in_office,LIB
 658,,Joanne Ryan,Lalor,Vic,7.9.2013,,,still_in_office,ALP
 659,,Fiona Scott,Lindsay,NSW,7.9.2013,,2.7.2016,defeated,LIB
-660,,David Gillespie,Lyne,NSW,7.9.2013,,,still_in_office,NP
+660,,David Gillespie,Lyne,NSW,7.9.2013,,3.5.2025,retired,NP
 661,,Eric Hutchinson,Lyons,Tas,7.9.2013,,2.7.2016,defeated,LIB
 662,,Andrew Broad,Mallee,Vic,7.9.2013,,18.05.2019,retired,NP
-663,,Ian Goodenough,Moore,WA,7.9.2013,,,still_in_office,LIB
+663,,Ian Goodenough,Moore,WA,7.9.2013,,31.12.2024,changed_party,LIB
 664,,Barnaby Joyce,New England,NSW,7.9.2013,,27.10.2017,disqualified,NP
 665,,Sharon Claydon,Newcastle,NSW,7.9.2013,,,still_in_office,ALP
 666,,Rick Wilson,O'Connor,WA,7.9.2013,,,still_in_office,LIB
 667,,Kevin Hogan,Page,NSW,7.9.2013,,,still_in_office,NP
 668,,Christian Porter,Pearce,WA,7.9.2013,,21.5.2022,retired,LIB
 669,,Alannah MacTiernan,Perth,WA,7.9.2013,,9.5.2016,retired,ALP
-670,,Luke Howarth,Petrie,QLD,7.9.2013,,,still_in_office,LIB
+670,,Luke Howarth,Petrie,QLD,7.9.2013,,3.5.2025,defeated,LIB
 671,,Jim Chalmers,Rankin,QLD,7.9.2013,,,still_in_office,ALP
 672,,Craig Laundy,Reid,NSW,7.9.2013,,18.05.2019,retired,LIB
 673,,Lucy Wicks,Robertson,NSW,7.9.2013,,21.5.2022,defeated,LIB
@@ -679,7 +679,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 681,,Andrew Hastie,Canning,WA,19.9.2015,by_election,,still_in_office,LIB
 682,,Trent Zimmerman,North Sydney,NSW,5.12.2015,by_election,21.5.2022,defeated,LIB
 # New members elected in 2016 Federal election,,,,,,,,,
-683,,Linda Burney,Barton,NSW,2.7.2016,,,still_in_office,ALP
+683,,Linda Burney,Barton,NSW,2.7.2016,,3.5.2025,retired,ALP
 684,,Ross Hart,Bass,Tas,2.7.2016,,18.05.2019,defeated,ALP
 685,,Justine Keay,Braddon,Tas,2.7.2016,,10.5.2018,resigned,ALP
 686,,Matt Keogh,Burt,WA,2.7.2016,,,still_in_office,ALP
@@ -692,7 +692,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 693,,Steve Georganas,Hindmarsh,SA,2.7.2016,,18.05.2019,elected_elsewhere,ALP
 694,,Emma Husar,Lindsay,NSW,2.7.2016,,18.05.2019,resigned,ALP
 695,,Susan Lamb,Longman,QLD,2.7.2016,,10.5.2018,resigned,ALP
-696,,Brian Mitchell,Lyons,Tas,2.7.2016,,,still_in_office,ALP
+696,,Brian Mitchell,Lyons,Tas,2.7.2016,,3.5.2025,retired,ALP
 697,,Mike Freelander,Macarthur,NSW,2.7.2016,,,still_in_office,ALP
 698,,Susan Templeman,Macquarie,NSW,2.7.2016,,,still_in_office,ALP
 699,,Rebekha Sharkie,Mayo,SA,2.7.2016,,10.4.2018,changed_party,NXT
@@ -720,8 +720,8 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 721,,Anne Stanley,Werriwa,NSW,2.7.2016,,,still_in_office,ALP
 722,,Andrew Wallace,Fisher,QLD,2.7.2016,,23.11.2021,changed_party,LIB
 723,,Andrew Leigh,Fenner,ACT,2.7.2016,,,still_in_office,ALP
-724,,Stephen Jones,Whitlam,NSW,2.7.2016,,,still_in_office,ALP
-725,,Mark Maclean Coulton,Parkes,NSW,30.8.2016,changed_party,,still_in_office,CWM
+724,,Stephen Jones,Whitlam,NSW,2.7.2016,,3.5.2025,retired,ALP
+725,,Mark Maclean Coulton,Parkes,NSW,30.8.2016,changed_party,3.5.2025,retired,NP
 726,,Robert Carl Katter,Kennedy,Qld,27.9.2011,changed_party,,still_in_office,KAP
 727,,Barnaby Joyce,New England,NSW,2.12.2017,,,still_in_office,NP
 728,,John Alexander,Bennelong,NSW,16.12.2017,by_election,21.5.2022,retired,LIB
@@ -736,8 +736,8 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 737,,Kerryn Phelps,Wentworth,NSW,05.11.2018,by_election,18.05.2019,defeated,IND
 738,,Julia Banks,Chisholm,Vic,27.11.2018,changed_party,18.05.2019,defeated,IND
 # New members elected in 2019 Federal election,,,,,,,,,
-739,,Bridget Archer,Bass,Tas,18.05.2019,,,still_in_office,LIB
-740,,Gavin Pearce,Braddon,Tas,18.05.2019,,,still_in_office,LIB
+739,,Bridget Archer,Bass,Tas,18.05.2019,,3.5.2025,defeated,LIB
+740,,Gavin Pearce,Braddon,Tas,18.05.2019,,3.5.2025,retired,LIB
 741,,Alicia Payne,Canberra,ACT,18.05.2019,,,still_in_office,ALP
 742,,Gladys Liu,Chisholm,Vic,18.05.2019,,21.5.2022,defeated,LIB
 743,,Libby Coker,Corangamite,Vic,18.05.2019,,,still_in_office,ALP
@@ -759,7 +759,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 759,,Fiona Martin,Reid,NSW,18.05.2019,,21.5.2022,defeated,LIB
 760,,Julian Simmonds,Ryan,QLD,18.05.2019,,21.5.2022,defeated,LNP
 761,,Vince Connelly,Stirling,WA,18.05.2019,,21.5.2022,retired,LIB
-762,,James Stevens,Sturt,SA,18.05.2019,,,still_in_office,LIB
+762,,James Stevens,Sturt,SA,18.05.2019,,3.5.2025,defeated,LIB
 763,,Zali Steggall,Warringah,NSW,18.05.2019,,,still_in_office,IND
 764,,Dave Sharma,Wentworth,NSW,18.05.2019,,21.5.2022,defeated,LIB
 # Members elected elsewhere in 2019 Federal election thanks to redistribution,,,,,,,,,
@@ -781,7 +781,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 779,,Jerome Laxale,Bennelong,NSW,21.5.2022,,,still_in_office,ALP
 780,,Louise Miller-Frost,Boothby,SA,21.5.2022,,,still_in_office,ALP
 781,,Henry Pike,Bowman,QLD,21.5.2022,,,still_in_office,LNP
-782,,Stephen Bates,Brisbane,QLD,21.5.2022,,,still_in_office,GRN
+782,,Stephen Bates,Brisbane,QLD,21.5.2022,,3.5.2025,defeated,GRN
 783,,Aaron Violi,Casey,Vic,21.5.2022,,,still_in_office,LIB
 784,,Carina Garland,Chisholm,Vic,21.5.2022,,,still_in_office,ALP
 785,,Alison Byrnes,Cunningham,NSW,21.5.2022,,,still_in_office,ALP
@@ -790,20 +790,20 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 788,,Zoe McKenzie,Flinders,Vic,21.5.2022,,,still_in_office,LIB
 789,,Colin Boyce,Flynn,QLD,21.5.2022,,,still_in_office,LNP
 790,,Dai Le,Fowler,NSW,21.5.2022,,,still_in_office,IND
-791,,Zoe Daniel,Goldstein,Vic,21.5.2022,,,still_in_office,IND
-792,,Max Chandler-Mather,Griffith,QLD,21.5.2022,,,still_in_office,GRN
+791,,Zoe Daniel,Goldstein,Vic,21.5.2022,,3.5.2025,defeated,IND
+792,,Max Chandler-Mather,Griffith,QLD,21.5.2022,,3.5.2025,defeated,GRN
 793,,Tania Lawrence,Hasluck,WA,21.5.2022,,,still_in_office,ALP
 794,,Sam Rae,Hawke,Vic,21.5.2022,,,still_in_office,ALP
-795,,Michelle Ananda-Rajah,Higgins,Vic,21.5.2022,,,still_in_office,ALP
+795,,Michelle Ananda-Rajah,Higgins,Vic,21.5.2022,,3.5.2025,retired,ALP
 796,,Cassandra Fernando,Holt,Vic,21.5.2022,,,still_in_office,ALP
-797,,Jenny Ware,Hughes,NSW,21.5.2022,,,still_in_office,LIB
+797,,Jenny Ware,Hughes,NSW,21.5.2022,,3.5.2025,defeated,LIB
 798,,Dan Repacholi,Hunter,NSW,21.5.2022,,,still_in_office,ALP
 799,,Monique Ryan,Kooyong,Vic,21.5.2022,,,still_in_office,IND
 800,,Marion Scrymgour,Lingiari,NT,21.5.2022,,,still_in_office,ALP
 801,,Sophie Scamps,Mackellar,NSW,21.5.2022,,,still_in_office,IND
-802,,Keith Wolahan,Menzies,Vic,21.5.2022,,,still_in_office,LIB
+802,,Keith Wolahan,Menzies,Vic,21.5.2022,,3.5.2025,defeated,LIB
 803,,Sam Birrell,Nicholls,Vic,21.5.2022,,,still_in_office,NP
-804,,Kylea Jane Tink,North Sydney,NSW,21.5.2022,,,still_in_office,IND
+804,,Kylea Jane Tink,North Sydney,NSW,21.5.2022,,3.5.2025,retired,IND
 805,,Andrew Charlton,Parramatta,NSW,21.5.2022,,,still_in_office,ALP
 806,,Tracey Roberts,Pearce,WA,21.5.2022,,,still_in_office,ALP
 807,,Sally Sitou,Reid,NSW,21.5.2022,,,still_in_office,ALP
@@ -821,8 +821,46 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 # New member elected in 2023 Fadden by-election
 818,,Cameron Caldwell,Fadden,Qld,15.7.2023,,,still_in_office,LNP
 # Member resigned to become independent
-819,,Russell Evan Broadbent,Monash,Vic,14.11.2023,changed_party,,still_in_office,IND
+819,,Russell Evan Broadbent,Monash,Vic,14.11.2023,changed_party,3.5.2025,defeated,IND
 # New member elected in 2024 Dunkley by-election
 820,,Jodie Belyea,Dunkley,Vic,2.3.2024,,,still_in_office,ALP
 # New member elected in 2024 Cook by-election
 821,,Simon Kennedy,Cook,NSW,13.04.2024,,,still_in_office,LIB
+# changed party before 2025 election
+822,,Ian Goodenough,Moore,WA,1.1.2025,changed_party,3.5.2025,defeated,IND
+# New members elected in 2025 election
+823,,Basem Abdo,Calwell,Vic,3.5.2025,,,still_in_office,ALP
+824,,Mary Aldred,Monash,Vic,3.5.2025,,,still_in_office,LIB
+825,,Ash Ambihaipahar,Barton,NSW,3.5.2025,,,still_in_office,ALP
+826,,David Batt,Hinkler,Qld,3.5.2025,,,still_in_office,LNP
+827,,Carol Berry,Whitlam,NSW,3.5.2025,,,still_in_office,ALP
+828,,Nicolette Boele,Bradfield,NSW,3.5.2025,,,still_in_office,IND
+829,,Jo Briskey,Maribyrnong,Vic,3.5.2025,,,still_in_office,ALP
+830,,Julie-Ann Campbell,Moreton,Qld,3.5.2025,,,still_in_office,ALP
+831,,Jamie Chaffey,Parkes,NSW,3.5.2025,,,still_in_office,NP
+832,,Claire Clutterham,Sturt,SA,3.5.2025,,,still_in_office,ALP
+833,,Renee Coffey,Griffith,Qld,3.5.2025,,,still_in_office,ALP
+834,,Emma Comer,Petrie,Qld,3.5.2025,,,still_in_office,ALP
+835,,Kara Cook,Bonner,Qld,3.5.2025,,,still_in_office,ALP
+836,,Trish Cook,Bullwinkel,WA,3.5.2025,,,still_in_office,ALP
+837,,Ali France,Dickson,Qld,3.5.2025,,,still_in_office,ALP
+838,,Tom French,Moore,WA,3.5.2025,,,still_in_office,ALP
+839,,Matt Gregg,Deakin,Vic,3.5.2025,,,still_in_office,ALP
+840,,Rowan Holzberger,Forde,Qld,3.5.2025,,,still_in_office,ALP
+841,,Madonna Jarrett,Brisbane,Qld,3.5.2025,,,still_in_office,ALP
+842,,Alice Jordan-Baird,Gorton,Vic,3.5.2025,,,still_in_office,ALP
+843,,David Moncrieff,Hughes,NSW,3.5.2025,,,still_in_office,ALP
+844,,Gabriel Ng,Menzies,Vic,3.5.2025,,,still_in_office,ALP
+845,,Alison Penfold,Lyne,NSW,3.5.2025,,,still_in_office,NP
+846,,Leon Rebello,McPherson,Qld,3.5.2025,,,still_in_office,LNP
+847,,Matt Smith,Leichhardt,Qld,3.5.2025,,,still_in_office,ALP
+848,,Zhi Soon,Banks,NSW,3.5.2025,,,still_in_office,ALP
+849,,Jess Teesdale,Bass,Tas,3.5.2025,,,still_in_office,ALP
+850,,Tom Venning,Grey,SA,3.5.2025,,,still_in_office,LIB
+851,,Rebecca White,Lyons,Tas,3.5.2025,,,still_in_office,ALP
+852,,Sarah Witty,Melbourne,Vic,3.5.2025,,,still_in_office,ALP
+# Senators elected to House in 2025 election
+853,,Ben Small,Forrest,WA,3.5.2025,,,still_in_office,LIB
+854,,Anne Urquhart,Braddon,Tas,3.5.2025,,,still_in_office,ALP
+# Re-elected in 2025 election
+855,,Tim Wilson,Goldstein,Vic,3.5.2025,,,still_in_office,LIB
