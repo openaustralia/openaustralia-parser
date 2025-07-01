@@ -294,7 +294,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 293,,Lee Rhiannon,,NSW,1.7.2011,,18.08.2018,resigned,GRN
 295,,Lisa Singh,,Tasmania,1.7.2011,,1.7.2019,defeated,ALP
 296,,Matt Thistlethwaite,,NSW,1.7.2011,,9.8.2013,resigned,ALP
-297,,Anne Urquhart,,Tasmania,1.7.2011,,,still_in_office,ALP
+297,,Anne Urquhart,,Tasmania,1.7.2011,,28.3.2025,resigned,ALP
 298,,Larissa Waters,,Queensland,1.7.2011,,18.7.2017,resigned,GRN
 300,,Penny Wright,,SA,1.7.2011,,10.9.2015,resigned,GRN
 301,,Arthur Sinodinos,,NSW,31.10.2011,section_15,11.11.2019,resigned,LIB
@@ -411,7 +411,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 924,,Rex Patrick,,SA,10.8.2020,changed_party,21.5.2022,defeated,IND
 925,,Lidia Thorpe,,Vic,4.9.2020,section_15,6.2.2023,changed_party,GRN
 926,,Ben Small,,WA,25.11.2020,section_15,21.5.2022,defeated,LIB
-927,,Dorinda Cox,,WA,14.9.2021,section_15,,still_in_office,GRN
+927,,Dorinda Cox,,WA,14.9.2021,section_15,2.6.2025,changed_party,GRN
 928,,Karen Grogan,,SA,21.9.2021,section_15,,still_in_office,ALP
 929,,Slade Brockman,,WA,18.10.2021,changed_party,26.7.2022,changed_party,PRES
 930,,Greg Mirabella,,Vic,2.12.2021,section_15,21.5.2022,defeated,LIB
@@ -438,7 +438,13 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 950,,Varun Ghosh,,WA,1.2.2024,section_15,,still_in_office,ALP
 951,,Lisa Darmanin,,Vic,24.6.2024,section_15,,still_in_office,ALP
 952,,Steph Hodgins-May,,Vic,1.5.2024,section_15,,still_in_office,GRN
-953,,Fatima Payman,,WA,4.7.2024,changed_party,,still_in_office,IND
-954,,Gerard Rennick,,Qld,25.8.2024,changed_party,,still_in_office,IND
+953,,Fatima Payman,,WA,4.7.2024,changed_party,9.10.2024,changed_party,IND
+954,,Gerard Rennick,,Qld,25.8.2024,changed_party,10.9.2024,changed_party,IND
 955,,Tammy Tyrrell,,Tas,28.3.2024,changed_party,,still_in_office,IND
 956,,Leah Blyth,,SA,6.2.2025,section_15,,still_in_office,LIB
+# Changed party
+957,,Dorinda Cox,,WA,2.6.2025,changed_party,,still_in_office,ALP
+958,,Fatima Payman,,WA,9.10.2024,changed_party,,still_in_office,AV
+959,,Gerard Rennick,,Qld,10.9.2024,changed_party,,still_in_office,GRPF
+# Replaced resigned senator
+960,,Josh Dolega,,Tas,27.5.2025,section_15,,still_in_office,ALP
