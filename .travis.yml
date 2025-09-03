@@ -1,8 +1,0 @@
-dist: xenial
-language: ruby
-rvm: 2.7.2
-script:
-  - bundle exec rake
-  - bundle exec ./parse-members.rb --no-load
-  - bundle exec ./postcodes.rb --no-load
-  - bundle exec rubocop
