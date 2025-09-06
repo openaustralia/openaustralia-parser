@@ -1,0 +1,16 @@
+---
+name: Update OpenAustralia
+
+on:
+  push:
+    branches:
+      - main
+      - feature/push-to-parent
+
+jobs:
+  update-parent:
+    runs-on: "ubuntu-latest"
+    steps:
+      - run: git clone https://github.com/openaustralia/openaustralia.git
+      - run: make update-openaustralia-parser
+      - run: ls -la
