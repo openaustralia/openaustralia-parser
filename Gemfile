@@ -4,7 +4,7 @@ source "http://rubygems.org"
 
 gem "rake"
 
-gem "hpricot"
+gem "nokogiri"
 gem "htmlentities"
 gem "mechanize"
 
@@ -14,7 +14,8 @@ gem "mechanize"
 gem "builder", "~> 2"
 gem "log4r"
 
-gem "rmagick"
+#TODO: get this to build
+# gem "rmagick", "~> 3.0"
 
 gem "mysql2"
 gem "ruby-progressbar"
@@ -22,11 +23,11 @@ gem "ruby-progressbar"
 # For sitemap generation
 gem "activerecord"
 
-group :development do
-  gem "rubocop", "~> 1.7", require: false
-  gem "rubocop-rake"
-  gem "rubocop-rspec"
-end
+# group :development do
+#   gem "rubocop", "~> 1.7", require: false
+#   gem "rubocop-rake"
+#   gem "rubocop-rspec"
+# end
 
 group :test do
   gem "rspec"
