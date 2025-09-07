@@ -9,6 +9,8 @@ require "person"
 require "name"
 require "count"
 require "builder_alpha_attributes"
+require "date"
+
 
 describe Speech do
   let!(:person) { Person.new(name: Name.new(first: "John", last: "Smith"), count: 1) }
