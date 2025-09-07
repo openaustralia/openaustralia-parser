@@ -7,7 +7,7 @@ require "mechanize"
 require "open-uri"
 require "name"
 require "people"
-require "hpricot"
+require "nokogiri"
 require "configuration"
 require "json"
 
@@ -51,7 +51,7 @@ x.consinfos do
 
   # Representatives
   url = "#{conf.election_web_root}/results/electorateindex.htm"
-  doc = Hpricot(URI.parse(url).open)
+  doc = Nokogiri(URI.parse(url).open)
   (doc / "td.electorate").each do |td|
     href = td.at("a")["href"]
     href = "#{abc_root}#{href}"
@@ -61,7 +61,7 @@ x.consinfos do
   end
   # Senate
   url = "#{conf.election_web_root}/results/senate/"
-  doc = Hpricot(URI.parse(url).open)
+  doc = Nokogiri(URI.parse(url).open)
   (doc / :a).each do |a|
     next unless %r{results/senate/(\w+)\.htm}.match(a["href"])
 
@@ -74,7 +74,7 @@ x.consinfos do
   # Representatives
   abc_2010_root = "https://www.abc.net.au/elections/federal/2010/guide"
   url = "#{abc_2010_root}/electorateresults.htm"
-  doc = Hpricot(URI.parse(url).open)
+  doc = Nokogiri(URI.parse(url).open)
   (doc / "td.electorate").each do |td|
     href = td.at("a")["href"]
     href = "#{abc_2010_root}/#{href}"
@@ -93,7 +93,7 @@ x.consinfos do
   # Representatives
   abc_root = "https://www.abc.net.au"
   url = "#{abc_root}/news/elections/federal/2013/guide/electorates"
-  doc = Hpricot(URI.parse(url).open)
+  doc = Nokogiri(URI.parse(url).open)
   (doc / "span.electorate").each do |span|
     href = span.parent["href"]
     href = "#{abc_root}#{href}"

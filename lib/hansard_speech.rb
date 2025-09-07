@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "hpricot_additions"
+require "additions"
 require "name"
 require "English"
 
@@ -132,7 +132,7 @@ class HansardSpeech
   def self.clean_content_para_content(node)
     t = +""
     (node.children || []).each do |c|
-      t << if c.is_a?(Hpricot::Text)
+      t << if c.is_a?(Nokogiri::Text)
              strip_leading_dash(c.to_s)
            else
              clean_content_any(c)
@@ -278,7 +278,7 @@ class HansardSpeech
   end
 
   def clean_content
-    Hpricot.XML(HansardSpeech.clean_content_any(@content))
+    Nokogiri.XML(HansardSpeech.clean_content_any(@content))
   end
 
   def strip_tags(doc)
@@ -291,6 +291,6 @@ class HansardSpeech
   end
 
   def name?(name)
-    @content.is_a?(Hpricot::Text) ? !!@content.at("/#{name}") : name == @content.name
+    @content.is_a?(Nokogiri::Text) ? !!@content.at("/#{name}") : name == @content.name
   end
 end

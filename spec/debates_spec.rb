@@ -17,7 +17,7 @@ describe Debates do
   end
 
   it "creates a speech when adding content to an empty debate" do
-    @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
+    @debates.add_speech(@james, "9:00", "url", Nokogiri("<p>This is a speech</p>"))
 
     expect(@debates.output_builder(Builder::XmlMarkup.new(indent: 2))).to eq <<~XML
       <?xml version="1.0" encoding="UTF-8"?>
@@ -29,8 +29,8 @@ describe Debates do
   end
 
   it "appends to a speech when the speaker is the same" do
-    @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
-    @debates.add_speech(@james, "9:00", "url", Hpricot("<p>And a bit more</p>"))
+    @debates.add_speech(@james, "9:00", "url", Nokogiri("<p>This is a speech</p>"))
+    @debates.add_speech(@james, "9:00", "url", Nokogiri("<p>And a bit more</p>"))
 
     expect(@debates.output_builder(Builder::XmlMarkup.new(indent: 2))).to eq <<~XML
       <?xml version="1.0" encoding="UTF-8"?>
@@ -42,9 +42,9 @@ describe Debates do
   end
 
   it "creates a new speech as an interjection when the speaker changes" do
-    @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
+    @debates.add_speech(@james, "9:00", "url", Nokogiri("<p>This is a speech</p>"))
     @debates.increment_minor_count
-    @debates.add_speech(@henry, "9:00", "url", Hpricot("<p>And a bit more</p>"), interjection: true)
+    @debates.add_speech(@henry, "9:00", "url", Nokogiri("<p>And a bit more</p>"), interjection: true)
 
     expect(@debates.output_builder(Builder::XmlMarkup.new(indent: 2))).to eq <<~XML
       <?xml version="1.0" encoding="UTF-8"?>
@@ -58,9 +58,9 @@ describe Debates do
   end
 
   it "appends to a procedural text when the previous speech is procedural" do
-    @debates.add_speech(nil, "9:00", "url", Hpricot("<p>This is a speech</p>"))
+    @debates.add_speech(nil, "9:00", "url", Nokogiri("<p>This is a speech</p>"))
     @debates.increment_minor_count
-    @debates.add_speech(nil, "9:00", "url", Hpricot("<p>And a bit more</p>"))
+    @debates.add_speech(nil, "9:00", "url", Nokogiri("<p>And a bit more</p>"))
 
     expect(@debates.output_builder(Builder::XmlMarkup.new(indent: 2))).to eq <<~XML
       <?xml version="1.0" encoding="UTF-8"?>
@@ -72,11 +72,11 @@ describe Debates do
   end
 
   it "always creates a new speech after a heading" do
-    @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
+    @debates.add_speech(@james, "9:00", "url", Nokogiri("<p>This is a speech</p>"))
     @debates.increment_minor_count
     @debates.add_heading("title", "subtitle", "url",
                          [{ id: "Z12345", title: "A bill to support mongeese", url: "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" }])
-    @debates.add_speech(@james, "9:00", "url", Hpricot("<p>And a bit more</p>"))
+    @debates.add_speech(@james, "9:00", "url", Nokogiri("<p>And a bit more</p>"))
 
     expect(@debates.output_builder(Builder::XmlMarkup.new(indent: 2))).to eq <<~XML
       <?xml version="1.0" encoding="UTF-8"?>
@@ -99,7 +99,7 @@ describe Debates do
   it "creates a new speech for a procedural after a heading" do
     @debates.add_heading("title", "subtitle", "url",
                          [{ id: "Z12345", title: "A bill to support mongeese", url: "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/Z12345" }])
-    @debates.add_speech(nil, "9:00", "url", Hpricot("<p>This is a speech</p>"))
+    @debates.add_speech(nil, "9:00", "url", Nokogiri("<p>This is a speech</p>"))
 
     expect(@debates.output_builder(Builder::XmlMarkup.new(indent: 2))).to eq <<~XML
       <?xml version="1.0" encoding="UTF-8"?>
@@ -118,9 +118,9 @@ describe Debates do
   end
 
   it "creates a new speech when adding a procedural to a speech by a person" do
-    @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
+    @debates.add_speech(@james, "9:00", "url", Nokogiri("<p>This is a speech</p>"))
     @debates.increment_minor_count
-    @debates.add_speech(nil, "9:00", "url", Hpricot("<p>And a bit more</p>"))
+    @debates.add_speech(nil, "9:00", "url", Nokogiri("<p>And a bit more</p>"))
 
     expect(@debates.output_builder(Builder::XmlMarkup.new(indent: 2))).to eq <<~XML
       <?xml version="1.0" encoding="UTF-8"?>
@@ -134,11 +134,11 @@ describe Debates do
   end
 
   it "creates a new speech as continuation when the original speaker continues" do
-    @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
+    @debates.add_speech(@james, "9:00", "url", Nokogiri("<p>This is a speech</p>"))
     @debates.increment_minor_count
-    @debates.add_speech(@henry, "9:00", "url", Hpricot("<p>And a bit more</p>"), interjection: true)
+    @debates.add_speech(@henry, "9:00", "url", Nokogiri("<p>And a bit more</p>"), interjection: true)
     @debates.increment_minor_count
-    @debates.add_speech(@james, "9:00", "url", Hpricot("<p>And a bit more</p>"), continuation: true)
+    @debates.add_speech(@james, "9:00", "url", Nokogiri("<p>And a bit more</p>"), continuation: true)
 
     expect(@debates.output_builder(Builder::XmlMarkup.new(indent: 2))).to eq <<~XML
       <?xml version="1.0" encoding="UTF-8"?>
@@ -160,8 +160,8 @@ describe Debates do
 
     describe "a speech followed by another speech by a different person" do
       before do
-        @debates.add_speech(@james, "9:00", "url", Hpricot("<p>This is a speech</p>"))
-        @debates.add_speech(@henry, "9:08", "url", Hpricot("<p>And a bit more</p>"))
+        @debates.add_speech(@james, "9:00", "url", Nokogiri("<p>This is a speech</p>"))
+        @debates.add_speech(@henry, "9:08", "url", Nokogiri("<p>And a bit more</p>"))
         @debates.calculate_speech_durations
       end
 
@@ -172,9 +172,9 @@ describe Debates do
 
     describe "a speech followed by an interjection" do
       before do
-        @debates.add_speech(@henry, "9:08", "url", Hpricot("<p>And a bit more</p>"))
-        @debates.add_speech(@james, "9:12", "url", Hpricot("<p>I interject!</p>"), interjection: true)
-        @debates.add_speech(@rebecca, "9:18", "url", Hpricot("<p>I interject!</p>"))
+        @debates.add_speech(@henry, "9:08", "url", Nokogiri("<p>And a bit more</p>"))
+        @debates.add_speech(@james, "9:12", "url", Nokogiri("<p>I interject!</p>"), interjection: true)
+        @debates.add_speech(@rebecca, "9:18", "url", Nokogiri("<p>I interject!</p>"))
         @debates.calculate_speech_durations
       end
 
@@ -185,8 +185,8 @@ describe Debates do
 
     describe "the last section with an adjournment time in the data" do
       before do
-        @debates.add_speech(@rebecca, "9:18", "url", Hpricot("<p>Some text adjourned at 9:21</p>"))
-        @debates.add_speech(@rebecca, "9:50", "url", Hpricot("<p>Post adjournment</p>"))
+        @debates.add_speech(@rebecca, "9:18", "url", Nokogiri("<p>Some text adjourned at 9:21</p>"))
+        @debates.add_speech(@rebecca, "9:50", "url", Nokogiri("<p>Post adjournment</p>"))
         @debates.calculate_speech_durations
       end
 
@@ -197,8 +197,8 @@ describe Debates do
 
     describe "an interjection" do
       before do
-        @debates.add_speech(@james, "9:00", "url", Hpricot("<p>I interject!</p>"), interjection: true)
-        @debates.add_speech(@henry, "9:08", "url", Hpricot("<p>And a bit more</p>"))
+        @debates.add_speech(@james, "9:00", "url", Nokogiri("<p>I interject!</p>"), interjection: true)
+        @debates.add_speech(@henry, "9:08", "url", Nokogiri("<p>And a bit more</p>"))
         @debates.calculate_speech_durations
       end
 
@@ -209,10 +209,10 @@ describe Debates do
 
     describe "a continuation" do
       before do
-        @debates.add_speech(@james, "9:00", "url", Hpricot("<p>I interject!</p>"))
-        @debates.add_speech(@henry, "9:04", "url", Hpricot("<p>I interject!</p>"), interjection: true)
-        @debates.add_speech(@james, "9:08", "url", Hpricot("<p>I interject!</p>"), continuation: true)
-        @debates.add_speech(@henry, "9:12", "url", Hpricot("<p>And a bit more</p>"))
+        @debates.add_speech(@james, "9:00", "url", Nokogiri("<p>I interject!</p>"))
+        @debates.add_speech(@henry, "9:04", "url", Nokogiri("<p>I interject!</p>"), interjection: true)
+        @debates.add_speech(@james, "9:08", "url", Nokogiri("<p>I interject!</p>"), continuation: true)
+        @debates.add_speech(@henry, "9:12", "url", Nokogiri("<p>And a bit more</p>"))
         @debates.calculate_speech_durations
       end
 
@@ -224,8 +224,8 @@ describe Debates do
     describe "a speech without a time (this rarely occurs but somtimes the xml is that broken)" do
       before do
         @html = "<p>This is a speech</p>" * (121 * 3) # over 10 minutes of words
-        @debates.add_speech(@james, nil, "url", Hpricot(@html))
-        @debates.add_speech(@henry, "9:08", "url", Hpricot("<p>And a bit more</p>"))
+        @debates.add_speech(@james, nil, "url", Nokogiri(@html))
+        @debates.add_speech(@henry, "9:08", "url", Nokogiri("<p>And a bit more</p>"))
         @debates.calculate_speech_durations
       end
 
@@ -237,11 +237,11 @@ describe Debates do
     describe "a speech followed by a continuation" do
       before do
         # Add a speech with only 1 minute of words
-        @debates.add_speech(@james, "9:08", "url", Hpricot("test " * 120))
+        @debates.add_speech(@james, "9:08", "url", Nokogiri("test " * 120))
         # Add an interjection
-        @debates.add_speech(@henry, "9:08", "url", Hpricot("<p>And a bit more</p>"), interjection: true)
+        @debates.add_speech(@henry, "9:08", "url", Nokogiri("<p>And a bit more</p>"), interjection: true)
         # Add a continuation with 10 minutes of words
-        @debates.add_speech(@james, "9:08", "url", Hpricot("test " * (120 * 10)), continuation: true)
+        @debates.add_speech(@james, "9:08", "url", Nokogiri("test " * (120 * 10)), continuation: true)
         @debates.calculate_speech_durations
       end
 
