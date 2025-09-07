@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require "hpricot"
+require "nokogiri"
 
-module Hpricot
+module Nokogiri
   module Traverse
     # Iterate over the children that aren't text nodes
     def each_child_node(&block)

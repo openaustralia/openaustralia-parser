@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "hpricot"
+require "nokogiri"
 require "htmlentities"
 require "section"
 
@@ -11,7 +11,7 @@ class Speech < Section
 
   def initialize(speaker:, time:, url:, count:, date:, house:, logger: nil)
     @speaker = speaker
-    @content = Hpricot::Elements.new
+    @content = Nokogiri::Elements.new
     @duration = 0
     @word_count_for_continuations = 0
     super(time: time, url: url, count: count, date: date, house: house, logger: logger)
@@ -87,6 +87,6 @@ class Speech < Section
     # Add newlines between p tags so the last and first words of paragraphs are
     # split properly
     html = @content.inner_html.gsub(%r{</p>}, "</p>\n")
-    Hpricot(html).inner_text.split.count
+    Nokogiri(html).inner_text.split.count
   end
 end

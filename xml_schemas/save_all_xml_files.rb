@@ -26,7 +26,7 @@ def write_hansard_xml_source_data_on_date(date, house)
   return unless text
 
   # Figure out which version of the schema this file is using and save it into a directory based on that
-  version = Hpricot.XML(text).at("hansard").attributes["version"]
+  version = Nokogiri.XML(text).at("hansard").attributes["version"]
   raise "Unrecognised schema version #{version}" if version != "2.0" && version != "2.1"
 
   write_tidied_xml(text, "source/#{version}/#{date}-#{house.representatives? ? 'reps' : 'senate'}.xml")

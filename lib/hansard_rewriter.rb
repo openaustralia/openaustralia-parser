@@ -2,7 +2,7 @@
 
 # vim: set ts=2 sw=2 et sts=2 ai:
 
-require "hpricot_additions"
+require "additions"
 
 class HansardRewriter
   attr_reader :logger
@@ -54,13 +54,13 @@ class HansardRewriter
   # wrong rather then produce crappy output.
   #
   # Takes a string as input and returns a string. We're doing this so that
-  # each function can be independently migrated from using Hpricot to
+  # each function can be independently migrated from using Nokogiri to
   # Nokogiri without impacting other functions. However, it has a significant
   # performance impact so it needs to only be a temporary measure
   def process_textnode(input_text_node)
     raise "Expecting string in process_textnode" unless input_text_node.is_a?(String)
 
-    input_text_node = Hpricot.XML(input_text_node).children.first
+    input_text_node = Nokogiri.XML(input_text_node).children.first
 
     if input_text_node.search("//body/a")
       # This is probably an indication that something was done wrong in the
@@ -108,7 +108,7 @@ XML
     text_node = nil
     amendment_node = nil
 
-    new_xml = Hpricot.XML("")
+    new_xml = Nokogiri.XML("")
     input_text_node.search("/body/p").each do |p|
       # Skip empty nodes
       if p.inner_text.strip.empty?
@@ -392,7 +392,7 @@ XML
 
     # We use a seperate list as we don't want the new children to appear when
     # doing the loop.
-    debate_new_children = Hpricot.XML("")
+    debate_new_children = Nokogiri.XML("")
 
     debate.child_nodes.each do |f|
       case f.name
@@ -419,7 +419,7 @@ XML
       when "question", "answer", "speech"
         unless subdebate_found
           # We're interested in the talk.text node but have to find it manually due to a bug
-          # with Hpricot xpath meaning nodes with a dot '.' in the name are not found.
+          # with Nokogiri xpath meaning nodes with a dot '.' in the name are not found.
           talk = f.child_nodes.detect { |node| node.name == "talk.text" }
           debate_new_children.append process_textnode(talk.to_s) if talk
         end
