@@ -175,11 +175,15 @@ class PeopleCSVReader
       "Centre Alliance"
     when "JLN"
       "Jacqui Lambie Network"
+    when "AV"
+      "Australia's Voice" # Senator Fatima Payman's party
+    when "GRPF"
+      "Gerard Rennick People First" # Senator Gerard Rennick's party
     when "ANTI-SOC", "SPK", "CWM", "PRES", "DPRES"
       # Do nothing
       party
     else
-      raise "Unrecognised party: '#{party}'"
+      raise "Unrecognised party: '#{party}', check mapping in people_csv_reader.rb"
     end
   end
 
