@@ -5,7 +5,7 @@ on:
       - main
 
 jobs:
-  trigger_workflow:
+  update_parent:
     runs-on: ubuntu-latest
     steps:
       - name: Send repository_dispatch event
