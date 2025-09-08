@@ -1,0 +1,23 @@
+name: Update parent repo
+on:
+  push:
+    branches:
+      - main
+      - feature/update-parent
+
+jobs:
+  trigger_workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send repository_dispatch event
+        uses: actions/github-script@v6
+        with:
+          script: |
+            await github.rest.repos.createDispatchEvent({
+              owner: 'openaustralia',
+              repo: 'openaustralia',
+              event_type: 'source_repo_updated',
+              client_payload: {
+                message: 'Changes pushed to 'openaustralia'-parser'
+              }
+            });
