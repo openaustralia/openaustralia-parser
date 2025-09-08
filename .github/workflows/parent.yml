@@ -8,15 +8,9 @@ jobs:
   update_parent:
     runs-on: ubuntu-latest
     steps:
-      - name: Send repository_dispatch event
-        uses: actions/github-script@v6
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v3
         with:
-          script: |
-            await github.rest.repos.createDispatchEvent({
-              owner: 'openaustralia',
-              repo: 'openaustralia',
-              event_type: 'source_repo_updated',
-              client_payload: {
-                message: 'Changes pushed to openaustralia-parser'
-              }
-            });
+          event-type: openaustralia-parser-updated
+          repository: openaustralia/openaustralia
+          token: ${{ secrets.OPENAUSTRALIA_ACCESS_TOKEN }}
