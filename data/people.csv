@@ -998,7 +998,8 @@ person count,aph id,name,birthday,alt name
 970,300246,Stephen Bates,,Stephen James Bates
 971,300147,Aaron Violi,,
 972,295588,Carina Garland,,Dr Carina Garland
-973,299145,Alison Byrnes,,Alison Joy Byrnes,Alison Brynes
+# Add the mispelling of Alison's name as well
+973,299145,Alison Byrnes,,Alison Joy Byrnes,Ms Alison Brynes
 974,300006,Kate Chaney,,
 975,286535,Andrew Willcox,,
 976,124514,Zoe McKenzie,,
