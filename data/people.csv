@@ -2,7 +2,7 @@ person count,aph id,name,birthday,alt name
 
 1,EZ5,Tony John Abbott,,Anthony John Abbott
 3,N26,Eric Abetz,
-# Hack to deal with one occurence of MrAdams in Hansard
+# Hack to deal with one occurrence of MrAdams in Hansard,,,,,,,,,
 4,BV5,Dick Godfrey Harry Adams,,Mradams
 5,E4Q,Judith Anne Adams,
 6,ID4,Albert Evan Adermann,
@@ -84,7 +84,7 @@ person count,aph id,name,birthday,alt name
 77,,Gordon Munro Bryant,
 78,009D2,Geoffrey Frederick Buckland,
 79,,Melville Harold Bungey,
-# Using Mr and Ms here to ensure that Ms Burke only has one match
+# Using Mr and Ms here to ensure that Ms Burke only has one match,,,,,,,,,
 80,83S,Ms Anna Elizabeth Burke,
 81,DYW,Mr Tony Stephen Burke,,Mr Anthony Stephen Burke,the Hon. Tony Stephen Burke,the Hon. Anthony Stephen Burke, Hon Anthony Stephen Burke,Hon Tony Burke,Tony Burke
 82,2F4,Bryant Robert Burns,
@@ -229,7 +229,7 @@ person count,aph id,name,birthday,alt name
 219,DYH,Michael Darrel Ferguson,
 220,5L6,Jeannie Margaret Ferris,
 221,E4R,Steve Fielding,,Steven Murray Fielding
-# Connie is a nickname for Concetta but is sometimes misused as another middle name
+# Connie is a nickname for Concetta but is sometimes misused as another middle name,,,,,,,,,
 222,E4T,Concetta Anna Fierravanti-Wells,,Concetta Connie Fierravanti-Wells
 223,CG4,Wallace Clyde Fife,
 224,D2I,Mitch Peter Fifield,,Mitchell Peter Fifield
@@ -723,20 +723,20 @@ person count,aph id,name,birthday,alt name
 713,I07,Scott Ludlam,
 714,I0T,Louise Pratt,
 715,I0Q,Scott Ryan,
-# John Williams from his biography pages looks like he has the aph_id of I0V. However, in the Hansard XML
-# for 2008 he is consistently referred to by the aph_id 00AF1. In the XML for 2009 he's referred to as I0V. So
-# the id's are not constant over time. Thanks guys.
+# John Williams from his biography pages looks like he has the aph_id of I0V. However, in the Hansard XML,,,,,,,,,
+# for 2008 he is consistently referred to by the aph_id 00AF1. In the XML for 2009 he's referred to as I0V. So,,,,,,,,,
+# the id's are not constant over time. Thanks guys.,,,,,,,,,
 716,I0V,John Williams,
 717,8IV,Nick Xenophon,,Nicholas Xenophon
-# New Representatives elected in by-election on 6.8.2008
+# New Representatives elected in by-election on 6.8.2008,,,,,,,,,
 720,IYS,Robert Oakeshott,
 721,IYU,Jamie Briggs,
-# New Senator on 11.3.2009
+# New Senator on 11.3.2009,,,,,,,,,
 722,J7Q,Christopher John Back,,Chris Back
-# New Representatives elected in by-election 5.12.2009
+# New Representatives elected in by-election 5.12.2009,,,,,,,,,
 723,L6B,Paul William Fletcher,
 724,LKU,Kelly O'Dwyer,
-# New Representatives elected in the 2010 Federal Election
+# New Representatives elected in the 2010 Federal Election,,,,,,,,,
 725,M3M,John Alexander,
 726,230485,George Robert Christensen,
 727,C2T,Andrew Wilkie,
@@ -766,27 +766,27 @@ person count,aph id,name,birthday,alt name
 751,159771,Michelle Rowland,
 752,230531,Scott Buchholz,
 753,217266,Jane Prentice,
-# Next available number is 754
-# ID changed!
+# Next available number is 754,,,,,,,,,
+# ID changed!,,,,,,,,,
 #5,E4Q,Judith Adams,,
 755,53369,Richard Di Natale,,
 756,225307,Sean Edwards,,
-# ID changed!
+# ID changed!,,,,,,,,,
 #222,E4T,Concetta Fierravanti-Wells,,
 757,204953,Alex Gallacher,,
 # ID changed!
 #350,E5D,Barnaby Joyce,,
-# ID changed!
+# ID changed!,,,,,,,,,
 #433,E5E,Anne McEwen,,
 758,207825,Bridget McKenzie,,
 759,217571,John Madigan,,
-# ID changed!
+# ID changed!,,,,,,,,,
 #458,KA5,Christine Milne,,
-# ID changed!
+# ID changed!,,,,,,,,,
 #478,E5G,Fiona Nash,,
-# ID changed!
+# ID changed!,,,,,,,,,
 #507,E5V,Stephen Parry,,
-# ID changed!
+# ID changed!,,,,,,,,,
 #515,E5X,Helen Polley,,
 760,CPR,Lee Rhiannon,,
 # ID changed!
@@ -807,7 +807,7 @@ person count,aph id,name,birthday,alt name
 780,195565,Peter Stuart Whish-Wilson,,
 781,243273,Anne Ruston,,
 782,112096,Sue Lines,,
-# New members of the reps elected Federal election 2013
+# New members of the reps elected Federal election 2013,,,,,,,,,
 783,241067,David Coleman,,
 784,240756,Tony Pasin,,
 785,250077,Nickolas Varvaris,,
