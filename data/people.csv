@@ -2,7 +2,7 @@ person count,aph id,name,birthday,alt name
 
 1,EZ5,Tony John Abbott,,Anthony John Abbott
 3,N26,Eric Abetz,
-# Hack to deal with one occurrence of MrAdams in Hansard,,,,,,,,,
+# Hack to deal with one occurrence of MrAdams in Hansard,,,
 4,BV5,Dick Godfrey Harry Adams,,Mradams
 5,E4Q,Judith Anne Adams,
 6,ID4,Albert Evan Adermann,
@@ -72,11 +72,11 @@ person count,aph id,name,birthday,alt name
 70,2K6,Mal Thomas Brough,,Malcolm Thomas Brough
 71,F49,Carol Louise Brown,
 72,OD4,John Joseph Brown,
-# TODO: Joseph Tilley Brown should be removed when possible
+# TODO: Joseph Tilley Brown should be removed when possible,,,,
 73,,Joseph Tilley Brown,
-# This is Robert Brown the former Rep
+# This is Robert Brown the former Rep,,,,
 74,,Robert James Brown,1933-12-2
-# This is Bob Brown the Senator
+# This is Bob Brown the Senator,,,,
 696,QD4,Bob James Brown,1944-12-27,Robert James Brown
 718,PD4,Neil Anthony Brown,
 75,RD4,David Gordon Cadell Brownhill,
@@ -84,7 +84,7 @@ person count,aph id,name,birthday,alt name
 77,,Gordon Munro Bryant,
 78,009D2,Geoffrey Frederick Buckland,
 79,,Melville Harold Bungey,
-# Using Mr and Ms here to ensure that Ms Burke only has one match,,,,,,,,,
+# Using Mr and Ms here to ensure that Ms Burke only has one match,,,
 80,83S,Ms Anna Elizabeth Burke,
 81,DYW,Mr Tony Stephen Burke,,Mr Anthony Stephen Burke,the Hon. Tony Stephen Burke,the Hon. Anthony Stephen Burke, Hon Anthony Stephen Burke,Hon Tony Burke,Tony Burke
 82,2F4,Bryant Robert Burns,
@@ -229,7 +229,7 @@ person count,aph id,name,birthday,alt name
 219,DYH,Michael Darrel Ferguson,
 220,5L6,Jeannie Margaret Ferris,
 221,E4R,Steve Fielding,,Steven Murray Fielding
-# Connie is a nickname for Concetta but is sometimes misused as another middle name,,,,,,,,,
+# Connie is a nickname for Concetta but is sometimes misused as another middle name,,,
 222,E4T,Concetta Anna Fierravanti-Wells,,Concetta Connie Fierravanti-Wells
 223,CG4,Wallace Clyde Fife,
 224,D2I,Mitch Peter Fifield,,Mitchell Peter Fifield
@@ -607,7 +607,7 @@ person count,aph id,name,birthday,alt name
 596,,Brendan Michael Smyth,
 597,,Billy Mackie (later Sir Billy) Snedden,
 598,HJ4,James Henry Snow,
-# Snowden is a misspelling of Snowdon
+# Snowden is a misspelling of Snowdon,,,,
 599,IJ4,Warren Edward Snowdon,,Warren Edward Snowden
 600,ZT4,Alex Michael Somlyay,,Alexander Michael Somlyay
 601,TK6,Andrew John Southcott,
@@ -710,7 +710,7 @@ person count,aph id,name,birthday,alt name
 701,,William Lawrence Morrison,
 702,0K4,Ian Bonython Cameron Wilson,
 703,IPZ,Darren Chester,
-# New Senators starting on 1 July 2008
+# New Senators starting on 1 July 2008,,,,
 704,HES,Mark Arbib,
 705,HZB,Catryna Bilyk,
 706,AI6,Doug Cameron,,Douglas Niven Cameron
@@ -723,20 +723,20 @@ person count,aph id,name,birthday,alt name
 713,I07,Scott Ludlam,
 714,I0T,Louise Pratt,
 715,I0Q,Scott Ryan,
-# John Williams from his biography pages looks like he has the aph_id of I0V. However, in the Hansard XML,,,,,,,,,
-# for 2008 he is consistently referred to by the aph_id 00AF1. In the XML for 2009 he's referred to as I0V. So,,,,,,,,,
-# the id's are not constant over time. Thanks guys.,,,,,,,,,
+# John Williams from his biography pages looks like he has the aph_id of I0V. However, in the Hansard XML,,,
+# for 2008 he is consistently referred to by the aph_id 00AF1. In the XML for 2009 he's referred to as I0V. So,,,
+# the id's are not constant over time. Thanks guys.,,,
 716,I0V,John Williams,
 717,8IV,Nick Xenophon,,Nicholas Xenophon
-# New Representatives elected in by-election on 6.8.2008,,,,,,,,,
+# New Representatives elected in by-election on 6.8.2008,,,
 720,IYS,Robert Oakeshott,
 721,IYU,Jamie Briggs,
-# New Senator on 11.3.2009,,,,,,,,,
+# New Senator on 11.3.2009,,,
 722,J7Q,Christopher John Back,,Chris Back
-# New Representatives elected in by-election 5.12.2009,,,,,,,,,
+# New Representatives elected in by-election 5.12.2009,,,
 723,L6B,Paul William Fletcher,
 724,LKU,Kelly O'Dwyer,
-# New Representatives elected in the 2010 Federal Election,,,,,,,,,
+# New Representatives elected in the 2010 Federal Election,,,
 725,M3M,John Alexander,
 726,230485,George Robert Christensen,
 727,C2T,Andrew Wilkie,
@@ -766,35 +766,35 @@ person count,aph id,name,birthday,alt name
 751,159771,Michelle Rowland,
 752,230531,Scott Buchholz,
 753,217266,Jane Prentice,
-# Next available number is 754,,,,,,,,,
-# ID changed!,,,,,,,,,
+# Next available number is 754,,,
+# ID changed!,,,
 #5,E4Q,Judith Adams,,
 755,53369,Richard Di Natale,,
 756,225307,Sean Edwards,,
-# ID changed!,,,,,,,,,
+# ID changed!,,,
 #222,E4T,Concetta Fierravanti-Wells,,
 757,204953,Alex Gallacher,,
-# ID changed!
+# ID changed!,,,,
 #350,E5D,Barnaby Joyce,,
-# ID changed!,,,,,,,,,
+# ID changed!,,,
 #433,E5E,Anne McEwen,,
 758,207825,Bridget McKenzie,,
 759,217571,John Madigan,,
-# ID changed!,,,,,,,,,
+# ID changed!,,,
 #458,KA5,Christine Milne,,
-# ID changed!,,,,,,,,,
+# ID changed!,,,
 #478,E5G,Fiona Nash,,
-# ID changed!,,,,,,,,,
+# ID changed!,,,
 #507,E5V,Stephen Parry,,
-# ID changed!,,,,,,,,,
+# ID changed!,,,
 #515,E5X,Helen Polley,,
 760,CPR,Lee Rhiannon,,
-# ID changed!
+# ID changed!,,,,
 #550,XT4,Hon Michael Ronaldson,,
-# ID changed!
+# ID changed!,,,,
 #584,E5Z,Rachel Siewert,,
 761,M0R,Lisa Singh,,
-# ID changed!
+# ID changed!,,,,
 #610,E68,Glenn Sterle,,
 762,182468,Matt Thistlethwaite,,
 763,231199,Anne Urquhart,,
@@ -807,7 +807,7 @@ person count,aph id,name,birthday,alt name
 780,195565,Peter Stuart Whish-Wilson,,
 781,243273,Anne Ruston,,
 782,112096,Sue Lines,,
-# New members of the reps elected Federal election 2013,,,,,,,,,
+# New members of the reps elected Federal election 2013,,,
 783,241067,David Coleman,,
 784,240756,Tony Pasin,,
 785,250077,Nickolas Varvaris,,
@@ -851,7 +851,7 @@ person count,aph id,name,birthday,alt name
 823,LQR,Clive Palmer,,
 824,247871,Barry O'Sullivan,,
 825,248006,Terri Butler,,
-# New Senators from the 2013 election
+# New Senators from the 2013 election,,,,
 826,243237,Joe Bullock,,
 827,245212,Matthew Canavan,,
 828,HYG,Bob Day,,
@@ -991,14 +991,14 @@ person count,aph id,name,birthday,alt name
 964,296215,Dorinda Cox,,Dorinda Rose Cox
 965,296331,Karen Grogan,,
 966,286349,Greg Mirabella,,
-# New members of the reps elected Federal election 2022
+# New members of the reps elected Federal election 2022,,,,
 967,299174,Jerome Laxale,,Jerome Alexandre Alain Laxale
 968,296272,Louise Miller-Frost,,Louise Jane Miller-Frost
 969,300120,Henry Pike,,Henry Jon Pike
 970,300246,Stephen Bates,,Stephen James Bates
 971,300147,Aaron Violi,,
 972,295588,Carina Garland,,Dr Carina Garland
-# Add the mispelling of Alison's name as well
+# Add the mispelling of Alison's name as well,,,,
 973,299145,Alison Byrnes,,Alison Joy Byrnes,Ms Alison Brynes
 974,300006,Kate Chaney,,
 975,286535,Andrew Willcox,,
@@ -1049,7 +1049,7 @@ person count,aph id,name,birthday,alt name
 1020,310860,Steph Hodgins-May,,
 1021,301128,Lisa Darmanin,,
 1022,315170,Leah Blyth,,
-# New reps from 2025 election
+# New reps from 2025 election,,,,
 1023,316915,Basem Abdo,,Basem Jamal Abdo
 1024,11788,Mary Aldred,,
 1025,315618,Ash Ambihaipahar,,Ashvini Ambihaipahar
@@ -1064,7 +1064,7 @@ person count,aph id,name,birthday,alt name
 1035,316551,Emma Comer,,
 1036,316537,Kara Cook,,
 1037,312871,Trish Cook,,Patricia Ann Cook
-# below includes a hack for member's name being formatter wierdly on APH
+# below includes a hack for member's name being formatter wierdly on APH,,,,
 1038,270198,Ali France,,Allison Anne France,Ms Ali France,Member for Dickson France. Ms Ali
 1039,316550,Tom French,,Thomas Alan French
 1040,315154,Matt Gregg,,Matthew Gregg
@@ -1081,5 +1081,5 @@ person count,aph id,name,birthday,alt name
 1051,315434,Tom Venning,,Thomas Venning
 1052,224102,Rebecca White,,Rebecca Peta White
 1053,316660,Sarah Witty,,Sarah Jane Witty
-# New senator from 2025 election
+# New senator from 2025 election,,,,
 1054,316935,Josh Dolega,,
