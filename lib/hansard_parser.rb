@@ -350,9 +350,9 @@ class HansardParser
         # that we're going to downgrade this to a warning so that it doesn't drown out other problems
         if ["The ACTING DEPUTY PRESIDENT", "The TEMPORARY CHAIRMAN", "TEMPORARY CHAIRMAN, The", "The ACTING SPEAKER",
             "The Clerk", "The ACTING PRESIDENT", "DEPUTY SPEAKER, The", "DEPUTY CHAIR"].include?(speech.speakername)
-          logger.warn "#{date} #{house} #{speech.aph_id}: Unknown speaker #{speech.speakername}"
+          logger.warn "#{date} #{house} #{speech.aph_id}: Unknown speaker \"#{speech.speakername}\""
         else
-          logger.error "#{date} #{house} #{speech.aph_id}: Unknown speaker #{speech.speakername}"
+          logger.error "#{date} #{house} #{speech.aph_id}: Unknown speaker \"#{speech.speakername}\""
         end
       end
       member = UnknownSpeaker.new(speech.speakername)
