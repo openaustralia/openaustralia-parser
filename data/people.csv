@@ -86,7 +86,7 @@ person count,aph id,name,birthday,alt name
 79,,Melville Harold Bungey,
 # Using Mr and Ms here to ensure that Ms Burke only has one match
 80,83S,Ms Anna Elizabeth Burke,
-81,DYW,Mr Tony Stephen Burke,,Mr Anthony Stephen Burke,the Hon. Tony Stephen Burke,the Hon. Anthony Stephen Burke, Hon Anthony Stephen Burke
+81,DYW,Mr Tony Stephen Burke,,Mr Anthony Stephen Burke,the Hon. Tony Stephen Burke,the Hon. Anthony Stephen Burke, Hon Anthony Stephen Burke,Hon Tony Burke,Tony Burke
 82,2F4,Bryant Robert Burns,
 83,,William George Burns,
 84,3F4,Maxwell Arthur Burr,
