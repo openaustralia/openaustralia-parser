@@ -52,7 +52,7 @@ def read_in_ranges(ranges, filename_prefix, people)
     else
       person = people.find_person_by_name(name)
     end
-    raise "Couldn't find #{name.full_name}" if person.nil?
+    raise "Couldn't find #{name.full_name} (try adding alias for for \"#{first_name} #{last_name}\")" if person.nil?
 
     ranges[person] ||= []
     ranges[person] << PageRange.new(pdf_filename, start_page, end_page)
