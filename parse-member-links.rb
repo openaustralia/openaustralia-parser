@@ -172,8 +172,9 @@ page.search("table.documents").each do |table|
   table.search("tbody tr").each do |tr|
     name = tr.search("td")[1].inner_text.split(",")[0..1].join(",")
     url = page.uri + tr.at("td.format a")["href"]
-    representative = people.find_person_by_name_current_on_date(Name.last_title_first(name), Date.today)
-    raise "Couldn't find #{name}. Try adding \"#{Name.title_first_last(name)}\" to aliases" if representative.nil?
+    parsed = Name.last_title_first(name)
+    representative = people.find_person_by_name_current_on_date(parsed, Date.today)
+    raise "Couldn't find #{name}. Try adding \"#{parsed.title} #{parsed.first} #{parsed.last}\" to aliases" if representative.nil?
 
     representatives_data << { id: representative.id, aph_interests_url: url }
   end
