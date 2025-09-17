@@ -20,7 +20,7 @@ gem "mysql2"
 gem "ruby-progressbar"
 
 # For sitemap generation
-gem "activerecord", "~> 6.1.0 "
+gem "activerecord", "~> 7.1.5"
 
 group :development do
   gem "rubocop", "~> 1.7", require: false
