@@ -6,6 +6,7 @@
 
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
+require "logger"
 require "rubygems"
 require "active_record"
 require "builder"
