@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require "builder_alpha_attributes"
+require "nokogiri"
+# require "builder_alpha_attributes" # BRW: commented out because it doesn't work in ruby3
 
 class PeopleXMLWriter
   def self.write(people:, people_filename:, members_filename:, senators_filename:, ministers_filename:, divisions_filename:)
@@ -8,7 +9,7 @@ class PeopleXMLWriter
     write_members(people, members_filename)
     write_senators(people, senators_filename)
     write_ministers(people, ministers_filename)
-    File.open(divisions_filename, "w") { |f| write_divisions(people, f) }
+    # File.open(divisions_filename, "w") { |f| write_divisions(people, f) }
   end
 
   def self.write_divisions(people, output)
@@ -24,8 +25,9 @@ class PeopleXMLWriter
 
   def self.write_ministers(people, filename)
     xml = File.open(filename, "w")
-    x = Builder::XmlMarkup.new(target: xml, indent: 1)
-    x.instruct!
+    # x = Builder::XmlMarkup.new(target: xml, indent: 1)
+    x = Nokogiri::XML::Builder.new(encoding: "UTF-8")
+    # x.instruct!
     x.ministers do
       people.each do |person|
         person.minister_positions.each do |p|
@@ -45,6 +47,7 @@ class PeopleXMLWriter
         end
       end
     end
+    xml.write(x.to_xml)
     xml.close
   end
 
@@ -77,8 +80,9 @@ class PeopleXMLWriter
 
   def self.write_members(people, filename)
     xml = File.open(filename, "w")
-    x = Builder::XmlMarkup.new(target: xml, indent: 1)
-    x.instruct!
+    # x = Builder::XmlMarkup.new(target: xml, indent: 1)
+    x = Nokogiri::XML::Builder.new(encoding: "UTF-8")
+    # x.instruct!
     x.members do
       people.each do |person|
         person.house_periods.each do |period|
@@ -91,13 +95,15 @@ class PeopleXMLWriter
         end
       end
     end
+    xml.write(x.to_xml)
     xml.close
   end
 
   def self.write_senators(people, filename)
     xml = File.open(filename, "w")
-    x = Builder::XmlMarkup.new(target: xml, indent: 1)
-    x.instruct!
+    # x = Builder::XmlMarkup.new(target: xml, indent: 1)
+    x = Nokogiri::XML::Builder.new(encoding: "UTF-8")
+    # x.instruct!
     x.members do
       people.each do |person|
         person.senate_periods.each do |period|
@@ -110,13 +116,16 @@ class PeopleXMLWriter
         end
       end
     end
+    xml.write(x.to_xml)
     xml.close
   end
 
   def self.write_people(people, filename)
     xml = File.open(filename, "w")
-    x = Builder::XmlMarkup.new(target: xml, indent: 1)
-    x.instruct!
+
+    # x = Builder::XmlMarkup.new(target: xml, indent: 1)
+    x = Nokogiri::XML::Builder.new(encoding: "UTF-8")
+    # x.instruct!
     x.people do
       people.each do |person|
         x.person(id: person.id, latestname: person.name.informal_name) do
@@ -144,6 +153,7 @@ class PeopleXMLWriter
         end
       end
     end
+    xml.write(x.to_xml)
     xml.close
   end
 end
