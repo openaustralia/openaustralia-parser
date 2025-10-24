@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
-source "http://rubygems.org"
+source "https://rubygems.org"
 
 gem "rake"
 
-gem "hpricot"
+# gem "hpricot"
+gem "csv"
 gem "htmlentities"
 gem "mechanize"
+gem "nokogiri"
 
 # Version 3 of builder outputs utf8 strings which will make the regression
 # tests fail. It would be good to check that the rest of the pipeline
@@ -14,7 +16,7 @@ gem "mechanize"
 gem "builder", "~> 2"
 gem "log4r"
 
-gem "rmagick"
+# gem "rmagick"
 
 gem "mysql2"
 gem "ruby-progressbar"
@@ -23,7 +25,7 @@ gem "ruby-progressbar"
 gem "activerecord", "~> 6.1.0 "
 
 group :development do
-  gem "rubocop", "~> 1.7", require: false
+  gem "rubocop", require: false
   gem "rubocop-rake"
   gem "rubocop-rspec"
 end
