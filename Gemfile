@@ -16,7 +16,7 @@ gem "nokogiri"
 gem "builder", "~> 2"
 gem "log4r"
 
-# gem "rmagick"
+gem "rmagick"
 
 gem "mysql2"
 gem "ruby-progressbar"

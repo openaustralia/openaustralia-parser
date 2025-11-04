@@ -59,10 +59,12 @@ GEM
     nkf (0.2.0)
     nokogiri (1.18.10-x86_64-linux-gnu)
       racc (~> 1.4)
+    observer (0.1.2)
     parallel (1.27.0)
     parser (3.3.9.0)
       ast (~> 2.4.1)
       racc
+    pkg-config (1.6.4)
     power_assert (2.0.5)
     prism (1.6.0)
     public_suffix (6.0.2)
@@ -70,6 +72,9 @@ GEM
     rainbow (3.1.1)
     rake (13.3.0)
     regexp_parser (2.11.3)
+    rmagick (6.1.4)
+      observer (~> 0.1)
+      pkg-config (~> 1.4)
     rspec (3.13.2)
       rspec-core (~> 3.13.0)
       rspec-expectations (~> 3.13.0)
@@ -130,6 +135,7 @@ DEPENDENCIES
   mysql2
   nokogiri
   rake
+  rmagick
   rspec
   rubocop
   rubocop-rake
