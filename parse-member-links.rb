@@ -183,7 +183,7 @@ end
 senate_data = []
 
 # they changed this to JSON
-response_body = Net::HTTP.get(URI.parse("https://pbs-apim-aqcdgxhvaug7f8em.z01.azurefd.net/api/queryStatements?currentPage=1&keyword=&pageSize=1000&party=&sortBy=senator&sortDirection=ascending&state="))
+response_body = Net::HTTP.get(URI.parse("https://pbs-apim-aqcdgxhvaug7f8em.z01.azurefd.net/api/queryStatements?pageSize=1000"))
 
 data = JSON.parse(response_body)
 data["statementOfRegisterableInterests"].each do |item|
