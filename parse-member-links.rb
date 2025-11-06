@@ -56,7 +56,7 @@ x.consinfos do
     href = td.at("a")["href"]
     href = "#{abc_root}#{href}"
     name = td.at("a").inner_text
-    name = name.gsub(/\*/, "").strip
+    name = name.gsub("*", "").strip
     x.consinfo("canonical" => name, "abc_election_results_2007" => href)
   end
   # Senate
@@ -79,7 +79,7 @@ x.consinfos do
     href = td.at("a")["href"]
     href = "#{abc_2010_root}/#{href}"
     name = td.at("a").inner_text
-    name = name.gsub(/\*/, "").strip
+    name = name.gsub("*", "").strip
     x.consinfo("canonical" => name, "abc_election_results_2010" => href)
   end
   # Senate
@@ -182,14 +182,14 @@ end
 
 senate_data = []
 
-base_url = "https://www.aph.gov.au/Parliamentary_Business/Committees/Senate/Senators_Interests/Register_of_Senators_Interests"
-page = agent.get(base_url)
+# they changed this to JSON
+response_body = Net::HTTP.get(URI.parse("https://pbs-apim-aqcdgxhvaug7f8em.z01.azurefd.net/api/queryStatements?currentPage=1&keyword=&pageSize=1000&party=&sortBy=senator&sortDirection=ascending&state="))
 
-page.at("table#currentRegisterTable tbody").search("tr").each do |tr|
-  link = tr.at("a")
-  name = link.inner_text.strip
-  url = page.uri + link["href"]
-  last_updated = Date.parse(tr.search("td")[2].inner_text)
+data = JSON.parse(response_body)
+data["statementOfRegisterableInterests"].each do |item|
+  name = item["name"].strip
+  url = "https://www.aph.gov.au/Parliamentary_Business/Committees/Senate/Senators_Interests/Senators_Interests_Register/298839#{item['cdapId']}"
+  last_updated = Date.parse(item["lastDateUpdated"])
 
   senator = people.find_person_by_name(Name.last_title_first(name))
   raise if senator.nil?
