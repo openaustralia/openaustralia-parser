@@ -161,6 +161,23 @@ x.consinfos do
     href = "https://www.abc.net.au/news/elections/federal/2022/results/senate"
     x.consinfo("canonical" => canonical, "abc_election_results_2022" => href)
   end
+  
+  puts "Election results 2025 (from the abc.net.au)..."
+  abc_root = "https://www.abc.net.au"
+  url = "#{abc_root}/news/elections/federal/2025/guide/electorates"
+  doc = agent.get(url)
+
+  doc.search("td.electorate a").each do |a|
+    href = doc.uri + a["href"]
+    name = a.inner_text.strip
+    x.consinfo("canonical" => name, "abc_election_results_2025" => href)
+  end
+
+  %w[NSW Victoria Queensland WA SA Tasmania ACT NT].each do |canonical|
+    # No seperate url for each state results... So...
+    href = "https://www.abc.net.au/news/elections/federal/2025/results/senate"
+    x.consinfo("canonical" => canonical, "abc_election_results_2025" => href)
+  end  
 end
 xml.close
 
