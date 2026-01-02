@@ -723,7 +723,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 724,,Stephen Jones,Whitlam,NSW,2.7.2016,,3.5.2025,retired,ALP
 725,,Mark Maclean Coulton,Parkes,NSW,30.8.2016,changed_party,3.5.2025,retired,NP
 726,,Robert Carl Katter,Kennedy,Qld,27.9.2011,changed_party,,still_in_office,KAP
-727,,Barnaby Joyce,New England,NSW,2.12.2017,,,still_in_office,NP
+727,,Barnaby Joyce,New England,NSW,2.12.2017,,27.11.2025,changed_party,NP
 728,,John Alexander,Bennelong,NSW,16.12.2017,by_election,21.5.2022,retired,LIB
 729,,Ged Kearney,Batman,Vic.,17.3.2018,by_election,18.05.2019,elected_elsewhere,ALP
 730,,Patrick Gorman,Perth,WA,28.7.2018,by_election,,still_in_office,ALP
@@ -864,3 +864,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 854,,Anne Urquhart,Braddon,Tas,3.5.2025,,,still_in_office,ALP
 # Re-elected in 2025 election,,,,,,,,,
 855,,Tim Wilson,Goldstein,Vic,3.5.2025,,,still_in_office,LIB
+856,,Barnaby Joyce,New England,NSW,27.11.2025,changed_party,8.12.2025,changed_party,IND
+857,,Barnaby Joyce,New England,NSW,8.12.2025,changed_party,,still_in_office,PHON
