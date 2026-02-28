@@ -5,6 +5,7 @@ $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
 require "test/unit"
 
 require "hansard_day"
+require "hpricot_additions"
 
 # Make it simpler to generate XML with tags with '.' in them. Translate occurences of '_' to '.'
 module Builder
@@ -33,7 +34,7 @@ describe HansardDay do
 
     x = Builder::MyXmlMarkup.new
 
-    @titles_xml = Hpricot.XML(x.hansard do
+    @titles_xml = Nokogiri::XML(x.hansard do
       x.chamber_xscript do
         x.debate do
           x.debateinfo { x.title 1 }
@@ -92,7 +93,7 @@ describe HansardDay do
       end
     end)
 
-    @header = HansardDay.new(Hpricot.XML(header_xml))
+    @header = HansardDay.new(Nokogiri::XML(header_xml))
 
     @titles = HansardDay.new(@titles_xml)
   end
@@ -156,7 +157,7 @@ describe HansardDay do
       end
     end
 
-    xml = Hpricot.XML(titles_xml)
+    xml = Nokogiri::XML(titles_xml)
 
     expect(HansardDay.new(xml).title(xml.at("(subdebate.1)"))).to eq "1; 2; 3; 4; 5"
     expect(HansardDay.new(xml).subtitle(xml.at("(subdebate.1)"))).to eq "6"

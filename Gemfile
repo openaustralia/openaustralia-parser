@@ -4,7 +4,7 @@ source "http://rubygems.org"
 
 gem "rake"
 
-gem "hpricot"
+gem "nokogiri"
 gem "htmlentities"
 gem "mechanize"
 
