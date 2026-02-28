@@ -44,14 +44,3 @@ module Nokogiri
     end
   end
 end
-
-# Add Nokogiri module methods for compatibility with hpricot API
-module Nokogiri
-  def self.XML(xml_string)
-    Nokogiri::XML(xml_string)
-  end
-
-  def self.HTML(html_string)
-    Nokogiri::HTML(html_string)
-  end
-end
