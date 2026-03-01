@@ -408,7 +408,7 @@ XML
         end
 
       when "subdebateinfo"
-        logger.warn "  Subdebate.#{level} \"#{f.at('title').inner_text}\" @ #{f.at('(page.no)').inner_text}"
+        logger.warn "  Subdebate.#{level} \"#{f.at('title').inner_text}\" @ #{f.at("//*[local-name()='page.no']").inner_text}"
         debate_new_children.append f.to_s
 
       # Things we have to process recursively

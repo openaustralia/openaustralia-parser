@@ -22,6 +22,20 @@ module Nokogiri
       def append(str)
         self.inner_html = inner_html + str
       end
+
+      # Traverse all text nodes and yield them
+      def traverse_text(&block)
+        # Iterate through all child nodes
+        children.each do |child|
+          if child.is_a?(Nokogiri::XML::Text)
+            # Yield the text node
+            yield child
+          elsif child.respond_to?(:traverse_text)
+            # Recursively traverse child elements
+            child.traverse_text(&block)
+          end
+        end
+      end
     end
 
     class NodeSet
@@ -40,6 +54,11 @@ module Nokogiri
 
       def append(str)
         each { |node| node.append(str) }
+      end
+
+      # Traverse all text nodes in all elements
+      def traverse_text(&block)
+        each { |node| node.traverse_text(&block) if node.respond_to?(:traverse_text) }
       end
     end
   end
