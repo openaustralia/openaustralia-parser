@@ -56,10 +56,8 @@ class Speech < Section
   end
 
   def append_to_content(content)
-    # Put entities back into the content so that, for instance, '&' becomes '&amp;'
-    # Since we are outputting XML rather than HTML in order to save us the trouble of putting the HTML entities in the XML
-    # we are only encoding the basic XML entities
-    coder = HTMLEntities.new
+    # Note: Text encoding/entity handling is done by the XML builder during output
+    # so we don't need to pre-encode here. The builder will properly escape entities.
     
     # If content is a Document node, extract the body element's children
     if content.is_a?(Nokogiri::HTML4::Document) || content.is_a?(Nokogiri::XML::Document)
@@ -75,11 +73,6 @@ class Speech < Section
       children_to_add = content
     else
       children_to_add = [content]
-    end
-    
-    # Traverse and encode text nodes
-    children_to_add.each do |node|
-      node.traverse_text { |text| text.swap(coder.encode(text, :basic)) } if node.respond_to?(:traverse_text)
     end
     
     # Append to stored content (flatten in case we get nested arrays)
