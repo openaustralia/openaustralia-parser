@@ -413,7 +413,8 @@ XML
 
       # Things we have to process recursively
       when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
-        debate_new_children.append rewrite_debate(f, level + 1).to_s
+        rewritten_subdebate = rewrite_debate(f, level + 1)
+        debate_new_children.append rewritten_subdebate.to_s
 
       # The actual transcript of the proceedings we are going to process
       when "question", "answer", "speech"
@@ -437,7 +438,7 @@ XML
       end
     end
 
-    debate.inner_html = debate_new_children.to_s
+    debate.inner_html = debate_new_children.root.inner_html
     debate
   end
 
