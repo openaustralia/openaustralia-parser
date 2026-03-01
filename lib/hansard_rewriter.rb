@@ -417,12 +417,10 @@ XML
 
       # The actual transcript of the proceedings we are going to process
       when "question", "answer", "speech"
-        unless subdebate_found
-          # We're interested in the talk.text node but have to find it manually
-          # since Nokogiri requires special handling for elements with dots in their names
-          talk = f.child_nodes.detect { |node| node.name == "talk.text" }
-          debate_new_children.append process_textnode(talk.to_s) if talk
-        end
+        # We're interested in the talk.text node but have to find it manually
+        # since Nokogiri requires special handling for elements with dots in their names
+        talk = f.child_nodes.detect { |node| node.name == "talk.text" }
+        debate_new_children.append process_textnode(talk.to_s) if talk
 
       # Divisions are actually still the same format, so we just append them.
       when "division"
