@@ -420,7 +420,14 @@ XML
         # We're interested in the talk.text node but have to find it manually
         # since Nokogiri requires special handling for elements with dots in their names
         talk = f.child_nodes.detect { |node| node.name == "talk.text" }
-        debate_new_children.append process_textnode(talk.to_s) if talk
+        if talk
+          logger.info "Processing speech/question/answer with talk.text"
+          processed = process_textnode(talk.to_s)
+          logger.info "Processed result: #{processed[0..200]}..."
+          debate_new_children.append processed
+        else
+          logger.warn "Found speech/question/answer but no talk.text!"
+        end
 
       # Divisions are actually still the same format, so we just append them.
       when "division"
