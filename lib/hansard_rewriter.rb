@@ -109,7 +109,7 @@ XML
     amendment_node = nil
 
     new_xml = Nokogiri::XML("<root></root>")
-    input_text_node.search("/body/p").each do |p|
+    input_text_node.search(".//body/p").each do |p|
       # Skip empty nodes
       if p.inner_text.strip.empty?
         logger.warn "    Ignoring para node as it was empty\n#{p}"
@@ -125,7 +125,8 @@ XML
       para_text = p.inner_text.strip
       italic_text = ""
       p.search("//span").each do |t|
-        if !t.attributes["style"].nil? && t.attributes["style"].match(/italic/)
+        style_attr = t.attributes["style"]
+        if !style_attr.nil? && style_attr.to_s.match(/italic/)
           italic_text = "#{italic_text}#{t.inner_text}"
           t.inner_html = "{italic}#{t.inner_html}{/italic}"
         end
@@ -141,7 +142,7 @@ XML
         logger.warn "    Found a link without type!? #{ahref}"
         next
       end
-      if !ahref.nil? && ahref.attributes["type"].match(/^Member|Office/)
+      if !ahref.nil? && ahref.attributes["type"].to_s.match(/^Member|Office/)
 
         # Is this start of a speech? We can tell by the fact it has spans
         # with the HPS-Time class.
@@ -265,7 +266,7 @@ XML
           text_node = speech_node.search(type)[-1]
         end
 
-      elsif !ahref.nil? && ahref.attributes["type"].match(/^Bill/)
+      elsif !ahref.nil? && ahref.attributes["type"].to_s.match(/^Bill/)
         # Bills don't have speeches, just dump the paragraphs into the subdebate.
         speech_node = new_xml
         text_node = new_xml
@@ -371,7 +372,8 @@ XML
       end
     end
     input_text_node.search("*").remove
-    new_xml.to_s
+    result = new_xml.root.inner_html
+    result
   end
 
   def rewrite_debate(debate, level)
@@ -399,21 +401,21 @@ XML
       # Things to pass through un-molested
       when "debateinfo"
         logger.warn "\nDebate #{f.at('title').inner_text}"
-        debate_new_children.append f.to_s
+        debate_new_children.root.append f.to_s
 
       when "subdebate.text"
         if f.at("a") && (f.at("a")["type"] == "Bill")
           logger.warn "\nSubdebate.text #{f.at('body').inner_text}"
-          debate_new_children.append f.to_s
+          debate_new_children.root.append f.to_s
         end
 
       when "subdebateinfo"
         logger.warn "  Subdebate.#{level} \"#{f.at('title').inner_text}\" @ #{f.at("//*[local-name()='page.no']").inner_text}"
-        debate_new_children.append f.to_s
+        debate_new_children.root.append f.to_s
 
       # Things we have to process recursively
       when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
-        debate_new_children.append rewrite_debate(f, level + 1).to_s
+        debate_new_children.root.append rewrite_debate(f, level + 1).to_s
 
       # The actual transcript of the proceedings we are going to process
       when "question", "answer", "speech"
@@ -421,17 +423,14 @@ XML
         # since Nokogiri requires special handling for elements with dots in their names
         talk = f.child_nodes.detect { |node| node.name == "talk.text" }
         if talk
-          logger.info "Processing speech/question/answer with talk.text"
           processed = process_textnode(talk.to_s)
-          logger.info "Processed result: #{processed[0..200]}..."
-          debate_new_children.append processed
+          debate_new_children.root.append processed
         else
-          logger.warn "Found speech/question/answer but no talk.text!"
         end
 
       # Divisions are actually still the same format, so we just append them.
       when "division"
-        debate_new_children.append f.to_s
+        debate_new_children.root.append f.to_s
 
       # Things we are delibaretly removing
       when "continue", "interjection", "talk", "debate.text"
@@ -444,7 +443,7 @@ XML
 
     # Convert debate_new_children root element's children to string
     # We want just the inner content without the XML declaration and root element
-    content_html = debate_new_children.root.children.map(&:to_s).join
+    content_html = debate_new_children.root.inner_html
     debate.inner_html = content_html
     debate
   end
