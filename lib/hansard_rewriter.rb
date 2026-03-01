@@ -437,7 +437,10 @@ XML
       end
     end
 
-    debate.inner_html = debate_new_children.to_s
+    # Convert debate_new_children root element's children to string
+    # We want just the inner content without the XML declaration and root element
+    content_html = debate_new_children.root.children.map(&:to_s).join
+    debate.inner_html = content_html
     debate
   end
 
