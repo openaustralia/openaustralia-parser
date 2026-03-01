@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require_relative 'lib/hpricot_additions'
 require_relative 'lib/hansard_rewriter'
 require 'log4r'
 require 'nokogiri'
