@@ -117,11 +117,11 @@ describe HansardDay do
     expect(@titles.title(@titles_xml.at("debate"))).to eq "1"
     expect(@titles.subtitle(@titles_xml.at("debate"))).to eq ""
 
-    expect(@titles.title(@titles_xml.at("(subdebate.1)"))).to eq "2"
-    expect(@titles.subtitle(@titles_xml.at("(subdebate.1)"))).to eq "3; 14"
+    expect(@titles.title(@titles_xml.at("//*[local-name()='subdebate.1']"))).to eq "2"
+    expect(@titles.subtitle(@titles_xml.at("//*[local-name()='subdebate.1']"))).to eq "3; 14"
 
-    expect(@titles.title(@titles_xml.search("(subdebate.1)")[1])).to eq "4"
-    expect(@titles.subtitle(@titles_xml.search("(subdebate.1)")[1])).to eq "5"
+    expect(@titles.title(@titles_xml.search("//*[local-name()='subdebate.1']")[1])).to eq "4"
+    expect(@titles.subtitle(@titles_xml.search("//*[local-name()='subdebate.1']")[1])).to eq "5"
 
     expect(@titles.title(@titles_xml.search("(subdebate.1)")[2])).to eq "4"
     expect(@titles.subtitle(@titles_xml.search("(subdebate.1)")[2])).to eq "6"
