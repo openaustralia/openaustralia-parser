@@ -123,17 +123,17 @@ describe HansardDay do
     expect(@titles.title(@titles_xml.search("//*[local-name()='subdebate.1']")[1])).to eq "4"
     expect(@titles.subtitle(@titles_xml.search("//*[local-name()='subdebate.1']")[1])).to eq "5"
 
-    expect(@titles.title(@titles_xml.search("(subdebate.1)")[2])).to eq "4"
-    expect(@titles.subtitle(@titles_xml.search("(subdebate.1)")[2])).to eq "6"
+    expect(@titles.title(@titles_xml.search("//*[local-name()='subdebate.1']")[2])).to eq "4"
+    expect(@titles.subtitle(@titles_xml.search("//*[local-name()='subdebate.1']")[2])).to eq "6"
 
-    expect(@titles.title(@titles_xml.search("(subdebate.1)")[3])).to eq "7; 13"
-    expect(@titles.subtitle(@titles_xml.search("(subdebate.1)")[3])).to eq "8"
+    expect(@titles.title(@titles_xml.search("//*[local-name()='subdebate.1']")[3])).to eq "7; 13"
+    expect(@titles.subtitle(@titles_xml.search("//*[local-name()='subdebate.1']")[3])).to eq "8"
 
-    expect(@titles.title(@titles_xml.search("(subdebate.1)")[4])).to eq "7; 13"
-    expect(@titles.subtitle(@titles_xml.search("(subdebate.1)")[4])).to eq "9"
+    expect(@titles.title(@titles_xml.search("//*[local-name()='subdebate.1']")[4])).to eq "7; 13"
+    expect(@titles.subtitle(@titles_xml.search("//*[local-name()='subdebate.1']")[4])).to eq "9"
 
-    expect(@titles.title(@titles_xml.at("(subdebate.2)"))).to eq "10"
-    expect(@titles.subtitle(@titles_xml.at("(subdebate.2)"))).to eq "11; 12"
+    expect(@titles.title(@titles_xml.at("//*[local-name()='subdebate.2']"))).to eq "10"
+    expect(@titles.subtitle(@titles_xml.at("//*[local-name()='subdebate.2']"))).to eq "11; 12"
   end
 
   it "should still be able to figure out the title even when there is a title tag within a title tag" do
@@ -160,8 +160,8 @@ describe HansardDay do
 
     xml = Nokogiri::XML(titles_xml)
 
-    expect(HansardDay.new(xml).title(xml.at("(subdebate.1)"))).to eq "1; 2; 3; 4; 5"
-    expect(HansardDay.new(xml).subtitle(xml.at("(subdebate.1)"))).to eq "6"
+    expect(HansardDay.new(xml).title(xml.at("//*[local-name()='subdebate.1']"))).to eq "1; 2; 3; 4; 5"
+    expect(HansardDay.new(xml).subtitle(xml.at("//*[local-name()='subdebate.1']"))).to eq "6"
   end
 
   it "should know when the page is considered in proof stage" do

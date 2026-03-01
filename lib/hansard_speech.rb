@@ -286,7 +286,10 @@ class HansardSpeech
 
   def strip_tags(doc)
     str = doc.to_s
-    str.gsub(%r{</?[^>]*>}, "")
+    str.gsub!(%r{</?[^>]*>}, "")
+    # Decode HTML entities so regex patterns can match special characters like em-dashes
+    require "htmlentities"
+    HTMLEntities.new.decode(str)
   end
 
   def self.generic_speaker?(speakername)
