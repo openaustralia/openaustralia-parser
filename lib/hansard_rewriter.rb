@@ -60,16 +60,9 @@ class HansardRewriter
   def process_textnode(input_text_node)
     raise "Expecting string in process_textnode" unless input_text_node.is_a?(String)
 
-    STDERR.puts "DEBUG process_textnode: input length=#{input_text_node.length}"
-    STDERR.puts "DEBUG process_textnode: input start: #{input_text_node[0..100]}"
-
     input_text_node = Nokogiri::XML(input_text_node).children.first
-    STDERR.puts "DEBUG process_textnode: parsed node = #{input_text_node.inspect}"
-    
-    if input_text_node.nil?
-      STDERR.puts "DEBUG process_textnode: parsed node is nil!"
-      return ""
-    end
+
+    if input_text_node.search("//body/a")
       # This is probably an indication that something was done wrong in the
       # XML formatting and this is a truly nasty way to work around it
       logger.warn "Removing top level a tag (and contents) because it shouldn't be there"
@@ -431,11 +424,8 @@ XML
         talk = f.child_nodes.detect { |node| node.name == "talk.text" }
         if talk
           processed = process_textnode(talk.to_s)
-          STDERR.puts "DEBUG: talk.text found, processed length=#{processed.to_s.length}"
-          STDERR.puts "DEBUG: processed content: #{processed.to_s[0..300]}" if processed.to_s.length > 0
           debate_new_children.root.append processed
         else
-          STDERR.puts "DEBUG: talk.text NOT found in #{f.name}"
         end
 
       # Divisions are actually still the same format, so we just append them.
