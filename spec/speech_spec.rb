@@ -32,8 +32,9 @@ describe Speech do
     nbsp = [160].pack("U")
     doc = Nokogiri::HTML("<p>Q&A#{nbsp}—</p>")
     # Extract the body content (Nokogiri wraps in full HTML document)
+    # Note: Nokogiri's inner_html will encode entities like & as &amp;
     body_content = doc.at_xpath("//body").inner_html.unicode_normalize(:nfkc)
-    expected = "<p>Q&A#{nbsp}—</p>".unicode_normalize(:nfkc)
+    expected = "<p>Q&amp;A#{nbsp}—</p>".unicode_normalize(:nfkc)
     expect(body_content).to eq expected
 
     coder = HTMLEntities.new
