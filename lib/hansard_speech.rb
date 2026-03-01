@@ -55,6 +55,10 @@ class HansardSpeech
   public
 
   def self.strip_leading_dash(text)
+    # Decode HTML entities first so we can properly detect dashes
+    require "htmlentities"
+    text = HTMLEntities.new.decode(text)
+    
     # Unicode Character 'Non-breaking hyphen' (U+2011)
     nbhyphen = [0x2011].pack("U")
     nbsp = [160].pack("U")
@@ -281,7 +285,8 @@ class HansardSpeech
     content_html = HansardSpeech.clean_content_any(@content)
     # Wrap in a simple container to parse, then extract without XML declaration
     doc = Nokogiri::XML("<root>#{content_html}</root>")
-    doc.root.inner_html
+    # Remove newlines added by Nokogiri's pretty printing between elements
+    doc.root.inner_html.gsub(/>\n</, "><")
   end
 
   def strip_tags(doc)

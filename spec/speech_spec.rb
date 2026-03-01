@@ -31,8 +31,10 @@ describe Speech do
     # I'm pretty sure that Mechanize unescapes when it reads things in. So, we'll simulate that here
     nbsp = [160].pack("U")
     doc = Nokogiri::HTML("<p>Q&A#{nbsp}—</p>")
-    # Make sure that you normalise the unicode before comparing.
-    expect(doc.to_s.unicode_normalize(:nfkc)).to eq "<p>Q&A#{nbsp}—</p>".unicode_normalize(:nfkc)
+    # Extract the body content (Nokogiri wraps in full HTML document)
+    body_content = doc.at_xpath("//body").inner_html.unicode_normalize(:nfkc)
+    expected = "<p>Q&A#{nbsp}—</p>".unicode_normalize(:nfkc)
+    expect(body_content).to eq expected
 
     coder = HTMLEntities.new
     expect(coder.encode("Q&A#{nbsp}—", :basic)).to eq "Q&amp;A#{nbsp}—"
