@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "date"
 require "hansard_rewriter"
 require "log4r"
 require "hpricot_additions"
