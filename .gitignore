@@ -14,3 +14,44 @@ data/register_of_interests/representatives/*.pdf
 .*.sw?
 configuration.yml
 xml_output/*.xml
+
+# Bundler & Dependencies
+/.bundle
+
+# IDEs and vim
+/.vscode
+/.aider*
+/.idea
+*~
+*.swp
+*.swo
+
+# Ignore patch files
+*.patch
+*.rej
+
+# Ignore all logfiles
+log/*.log
+
+# Ignore Byebug command history file.
+.byebug_history
+
+# Used by direnv and dotenv
+.envrc
+.env
+.env.local
+.env.*.local
+
+# test coverage reports
+/coverage
+
+# Temp files
+*.bak
+/tmp/
+
+# rspec reports
+/.rspec_status
+/spec/examples.txt
+
+# Mac Finder
+.DS_Store
