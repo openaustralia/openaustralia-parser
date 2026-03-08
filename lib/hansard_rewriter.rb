@@ -54,13 +54,13 @@ class HansardRewriter
   # wrong rather then produce crappy output.
   #
   # Takes a string as input and returns a string. We're doing this so that
-  # each function can be independently migrated from using Hpricot to
-  # Nokogiri without impacting other functions. However, it has a significant
+  # each function can be independently migrated from using Nokogiri
+  # without impacting other functions. However, it has a significant
   # performance impact so it needs to only be a temporary measure
   def process_textnode(input_text_node)
     raise "Expecting string in process_textnode" unless input_text_node.is_a?(String)
 
-    input_text_node = Hpricot.XML(input_text_node).children.first
+    input_text_node = Nokogiri::XML(input_text_node).children.first
 
     if input_text_node.search("//body/a")
       # This is probably an indication that something was done wrong in the
@@ -108,8 +108,8 @@ XML
     text_node = nil
     amendment_node = nil
 
-    new_xml = Hpricot.XML("")
-    input_text_node.search("/body/p").each do |p|
+    new_xml = Nokogiri::XML("<root></root>")
+    input_text_node.search(".//body/p").each do |p|
       # Skip empty nodes
       if p.inner_text.strip.empty?
         logger.warn "    Ignoring para node as it was empty\n#{p}"
@@ -125,7 +125,8 @@ XML
       para_text = p.inner_text.strip
       italic_text = ""
       p.search("//span").each do |t|
-        if !t.attributes["style"].nil? && t.attributes["style"].match(/italic/)
+        style_attr = t.attributes["style"]
+        if !style_attr.nil? && style_attr.to_s.match(/italic/)
           italic_text = "#{italic_text}#{t.inner_text}"
           t.inner_html = "{italic}#{t.inner_html}{/italic}"
         end
@@ -141,7 +142,7 @@ XML
         logger.warn "    Found a link without type!? #{ahref}"
         next
       end
-      if !ahref.nil? && ahref.attributes["type"].match(/^Member|Office/)
+      if !ahref.nil? && ahref.attributes["type"].to_s.match(/^Member|Office/)
 
         # Is this start of a speech? We can tell by the fact it has spans
         # with the HPS-Time class.
@@ -265,7 +266,7 @@ XML
           text_node = speech_node.search(type)[-1]
         end
 
-      elsif !ahref.nil? && ahref.attributes["type"].match(/^Bill/)
+      elsif !ahref.nil? && ahref.attributes["type"].to_s.match(/^Bill/)
         # Bills don't have speeches, just dump the paragraphs into the subdebate.
         speech_node = new_xml
         text_node = new_xml
@@ -371,7 +372,8 @@ XML
       end
     end
     input_text_node.search("*").remove
-    new_xml.to_s
+    result = new_xml.root.inner_html
+    result
   end
 
   def rewrite_debate(debate, level)
@@ -392,41 +394,43 @@ XML
 
     # We use a seperate list as we don't want the new children to appear when
     # doing the loop.
-    debate_new_children = Hpricot.XML("")
+    debate_new_children = Nokogiri::XML("<root></root>")
 
     debate.child_nodes.each do |f|
       case f.name
       # Things to pass through un-molested
       when "debateinfo"
         logger.warn "\nDebate #{f.at('title').inner_text}"
-        debate_new_children.append f.to_s
+        debate_new_children.root.append f.to_s
 
       when "subdebate.text"
         if f.at("a") && (f.at("a")["type"] == "Bill")
           logger.warn "\nSubdebate.text #{f.at('body').inner_text}"
-          debate_new_children.append f.to_s
+          debate_new_children.root.append f.to_s
         end
 
       when "subdebateinfo"
-        logger.warn "  Subdebate.#{level} \"#{f.at('title').inner_text}\" @ #{f.at('(page.no)').inner_text}"
-        debate_new_children.append f.to_s
+        logger.warn "  Subdebate.#{level} \"#{f.at('title').inner_text}\" @ #{f.at("//*[local-name()='page.no']").inner_text}"
+        debate_new_children.root.append f.to_s
 
       # Things we have to process recursively
       when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
-        debate_new_children.append rewrite_debate(f, level + 1).to_s
+        debate_new_children.root.append rewrite_debate(f, level + 1).to_s
 
       # The actual transcript of the proceedings we are going to process
       when "question", "answer", "speech"
-        unless subdebate_found
-          # We're interested in the talk.text node but have to find it manually due to a bug
-          # with Hpricot xpath meaning nodes with a dot '.' in the name are not found.
-          talk = f.child_nodes.detect { |node| node.name == "talk.text" }
-          debate_new_children.append process_textnode(talk.to_s) if talk
+        # We're interested in the talk.text node but have to find it manually
+        # since Nokogiri requires special handling for elements with dots in their names
+        talk = f.child_nodes.detect { |node| node.name == "talk.text" }
+        if talk
+          processed = process_textnode(talk.to_s)
+          debate_new_children.root.append processed
+        else
         end
 
       # Divisions are actually still the same format, so we just append them.
       when "division"
-        debate_new_children.append f.to_s
+        debate_new_children.root.append f.to_s
 
       # Things we are delibaretly removing
       when "continue", "interjection", "talk", "debate.text"
@@ -437,7 +441,10 @@ XML
       end
     end
 
-    debate.inner_html = debate_new_children.to_s
+    # Convert debate_new_children root element's children to string
+    # We want just the inner content without the XML declaration and root element
+    content_html = debate_new_children.root.inner_html
+    debate.inner_html = content_html
     debate
   end
 

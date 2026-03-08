@@ -4,7 +4,7 @@ source "http://rubygems.org"
 
 gem "rake"
 
-gem "hpricot"
+gem "nokogiri"
 gem "htmlentities"
 gem "mechanize"
 
@@ -16,7 +16,7 @@ gem "log4r"
 
 gem "rmagick"
 
-gem "mysql2"
+gem "mysql2", "~> 0.5.5"
 gem "ruby-progressbar"
 
 # For sitemap generation
