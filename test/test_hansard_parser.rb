@@ -1,9 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
+require_relative "test_helper"
 
-require "test/unit"
 require "hansard_parser"
 require "hpricot"
 require "people"

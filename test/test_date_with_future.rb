@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
+require_relative "test_helper"
 
-require "test/unit"
 require "date_with_future"
 
 class TestDateWithFuture < Test::Unit::TestCase

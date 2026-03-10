@@ -2,9 +2,8 @@
 
 # !/usr/bin/env ruby
 
-$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
+require_relative "test_helper"
 
-require "test/unit"
 require "name"
 
 class TestName < Test::Unit::TestCase
