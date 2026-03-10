@@ -13,15 +13,15 @@ class Configuration
     # Load the information from the mysociety configuration
     require "#{web_root}/rblib/config"
     MySociety::Config.set_file("#{web_root}/twfy/conf/general")
-    @database_host = MySociety::Config.get("DB_HOST")
-    @database_user = MySociety::Config.get("DB_USER")
-    @database_password = MySociety::Config.get("DB_PASSWORD")
-    @database_name = MySociety::Config.get("DB_NAME")
-    @file_image_path = MySociety::Config.get("FILEIMAGEPATH")
-    @members_xml_path = MySociety::Config.get("PWMEMBERS")
-    @xml_path = MySociety::Config.get("RAWDATA")
-    @regmem_pdf_path = MySociety::Config.get("REGMEMPDFPATH")
-    @base_dir = MySociety::Config.get("BASEDIR")
+    @database_host = @@conf["database_host"] || MySociety::Config.get("DB_HOST")
+    @database_user = @@conf["database_user"] || MySociety::Config.get("DB_USER")
+    @database_password = @@conf["database_password"] || MySociety::Config.get("DB_PASSWORD")
+    @database_name = @@conf["database_name"] || MySociety::Config.get("DB_NAME")
+    @file_image_path = @@conf["file_image_path"] || MySociety::Config.get("FILEIMAGEPATH")
+    @members_xml_path = @@conf["members_xml_path"] || MySociety::Config.get("PWMEMBERS")
+    @xml_path = @@conf["xml_path"] || MySociety::Config.get("RAWDATA")
+    @regmem_pdf_path = @@conf["regmem_pdf_path"] || MySociety::Config.get("REGMEMPDFPATH")
+    @base_dir = @@conf["base_dir"] || MySociety::Config.get("BASEDIR")
   end
 
   def initialize(conf = nil)
