@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-source "http://rubygems.org"
+source "https://rubygems.org"
 
 gem "rake"
 
@@ -30,6 +30,8 @@ end
 
 group :test do
   gem "rspec"
+  gem "simplecov"
+  gem "simplecov-console"
   gem "test-unit"
   # TODO: rcov doesn't work on ruby > 1.8. Switch to simplecov
   # gem 'rcov', "~> 0.9.10"

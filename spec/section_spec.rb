@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
-
+require_relative "spec_helper"
 require "test/unit"
+
 require "speech"
 require "person"
 require "name"
