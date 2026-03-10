@@ -1,8 +1,8 @@
 # Common spec helper
 
-$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
+# require "bundler/setup"
 
-require "bundler/setup"
+$LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 
 require "simplecov"
 require "simplecov-console"
@@ -18,3 +18,24 @@ SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
     SimpleCov::Formatter::Console
   ]
 )
+
+# require "rspec"
+
+# Load all support files
+# Dir[File.expand_path('./support/**/*.rb', __dir__ || "spec/")].each { |f| require f }
+
+RSpec.configure do |config|
+  # Enable flags like --only-failures and --next-failure
+  config.example_status_persistence_file_path = ".rspec_status"
+
+  # Make it stop on the first failure. Makes in this case
+  # for quicker debugging
+  config.fail_fast = !ENV["FAIL_FAST"].to_s.empty?
+
+  # Disable RSpec exposing methods globally on `Module` and `main`
+  config.disable_monkey_patching!
+
+  config.expect_with :rspec do |c|
+    c.syntax = :expect
+  end
+end

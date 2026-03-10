@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
 require_relative "spec_helper"
-require "test/unit"
 
 require "debates"
 require "house"
 require "builder_alpha_attributes"
 
-describe Debates do
+RSpec.describe Debates do
   before :each do
     @james = double("Person", name: double("Name", full_name: "james"), id: 101)
     @henry = double("Person", name: double("Name", full_name: "henry"), id: 102)

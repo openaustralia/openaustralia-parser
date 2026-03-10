@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 require_relative "spec_helper"
-require "test/unit"
 
 require "people_xml_writer"
 
-describe PeopleXMLWriter do
+RSpec.describe PeopleXMLWriter do
   it "writes out xml file of electoral divisions" do
     people = double("People", divisions: %w[Blah Foo])
 

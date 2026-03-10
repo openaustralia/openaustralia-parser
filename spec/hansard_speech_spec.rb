@@ -5,7 +5,7 @@ require "test/unit"
 
 require "hansard_speech"
 
-describe HansardSpeech, "should recognise who's talking" do
+RSpec.describe HansardSpeech, "should recognise who's talking" do
   it "in a speech block" do
     speech = HansardSpeech.new(content: Hpricot.XML('
 		<speech>
@@ -89,7 +89,7 @@ describe HansardSpeech, "should recognise who's talking" do
   end
 end
 
-describe HansardSpeech, "should clean content" do
+RSpec.describe HansardSpeech, "should clean content" do
   it "in a para (block)" do
     content = '<speech><para class="block">Some text</para></speech>'
     expected = "<p>Some text</p>"

@@ -1,13 +1,12 @@
 # frozen_string_literal: true
 
 require_relative "spec_helper"
-require "test/unit"
 
 require "hansard_division"
 require "hansard_day"
 require "hpricot"
 
-describe HansardDivision do
+RSpec.describe HansardDivision do
   subject(:division) do
     # Tellers are indicated with a "*". There might be or might not be a space before the "*".
     HansardDivision.new(Hpricot.XML("
@@ -180,7 +179,7 @@ describe HansardDivision do
   end
 end
 
-describe HansardDivision, "with pairings" do
+RSpec.describe HansardDivision, "with pairings" do
   before(:each) do
     @division = HansardDivision.new(Hpricot.XML(
                                       "<division>

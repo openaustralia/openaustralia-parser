@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative "spec_helper"
-require "test/unit"
 
 require "speech"
 require "person"
@@ -9,7 +8,7 @@ require "name"
 require "count"
 require "builder_alpha_attributes"
 
-describe Section do
+RSpec.describe Section do
   let!(:person) { Person.new(name: Name.new(first: "John", last: "Smith"), count: 1) }
   let!(:member) { Period.new(person: person, house: House.representatives, count: 1) }
 

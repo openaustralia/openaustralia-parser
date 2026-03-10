@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative "spec_helper"
-require "test/unit"
 
 require "division"
 require "house"
@@ -11,7 +10,7 @@ require "builder_alpha_attributes"
 require "count"
 
 # The Division class knows how to output XML
-describe Division do
+RSpec.describe Division do
   before :each do
     john_person = Person.new(name: Name.new(first: "John", last: "Smith"), count: 1)
     joe_person = Person.new(name: Name.new(first: "Joe", last: "Smith"), count: 2)

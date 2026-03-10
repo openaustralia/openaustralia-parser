@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 require_relative "spec_helper"
-require "test/unit"
 
 require "people"
 
-describe People do
+RSpec.describe People do
   before :each do
     @people = People.new
 

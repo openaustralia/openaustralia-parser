@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 require_relative "spec_helper"
-require "test/unit"
 
 require "patch"
 
-describe Patch do
+RSpec.describe Patch do
   before :each do
     @original = <<~TEXT
       Mary had a little lamb

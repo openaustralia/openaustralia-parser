@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
 require_relative "spec_helper"
-require "test/unit"
 
 require "name"
 
-describe Name do
+RSpec.describe Name do
   describe ".initials" do
     it "returns the string with stops deleted if it includes a fullstop" do
       expect(Name.initials("X.S")).to eq "XS"
