@@ -1,6 +1,81 @@
 # The OpenAustralia Hansard Parser [![Build Status](https://travis-ci.org/openaustralia/openaustralia-parser.svg?branch=master)](https://travis-ci.org/openaustralia/openaustralia-parser) [![Dependency Status](https://gemnasium.com/openaustralia/openaustralia-parser.png)](https://gemnasium.com/openaustralia/openaustralia-parser)
 
+Parses Hansard data from the Australian Parliament.
+
+Included as the Parser component for OpenAustralia.org using git submodule.
+
+## INSTALL
+
 See for installation instructions https://openaustralia.github.io/openaustralia/install-parser.html
+
+### Minimal for development purely within this project
+
+#### openaustralia repo
+
+You need to clone the openaustralia repo and setup the submodules
+
+```
+cd ..
+git clone git@github.com:openaustralia/openaustralia.git
+cd openaustralia
+git submodule init
+git submodule update
+```
+
+#### Setup this (openaustralia-parse) repo
+
+```bash
+# Install ubuntu packages as needed
+
+mise install # from .ruby-version
+bundle install # From Gemfile, Gemfile.lock
+
+cp configuration.yml.example configuration.yml
+```
+Edit `configuration.yml` as needed.
+
+* Uncomment the development options so you dont need to configure twfy and have a working php
+
+## USAGE by open australia
+
+Called from the OpenAustralia.org web application (twfy - another git submodule AKA They Work For You):
+
+* 1:37am daily — dailyupdate (staging + production)
+  * `bundle exec parse-member-links.rb`
+* 9:05am Mon-Fri — morningupdate (staging + production) — this is the one that calls parse-speeches.rb
+  * `bundle exec parse-speeches.rb previous-working-day`
+  * `bundle exec sitemap.rb`
+* These do not appear to call the parser
+  * 4:23am Sunday — weeklyupdate (staging + production)
+  * 10:00am Mon-Fri — alertmailer (staging + production)
+
+## Dependencies
+
+* `#{web_root}/rblib/config.rb` - required by `lib/configuration.rb`
+  * `#{web_root}/twfy/conf/general` - used by MySociety::Config.set_file (can override in configuration.yml)
+* `perl #{conf.web_root}/twfy/scripts/xml2db.pl` - called by `parse-speeches.rb`
+* `#{conf.web_root}/twfy/scripts/mpinfoin.pl links` (perl) - called by `wikipedia.rb`
+* `perl #{conf.web_root}/twfy/scripts/xml2db.pl` (perl) - called by `parse-members.rb` (Use `--no-load` to skip)
+* `#{conf.web_root}/twfy/scripts/mpinfoin.pl` (perl) - called by `parse-member-links.rb`
+
+## USAGE for Developers
+
+See [How to Install](https://openaustralia.github.io/openaustralia/install-parser.html) for detailed instructions
+
+```shell
+# create members information
+bundle exec ./parse-members.rb --no-load
+
+# to download images
+mkdir -p ../openaustralia/twfy/www/docs/images/mpsXL
+bundle exec ./member-images.rb
+# Images in ../openaustralia/twfy/www/docs/images/{mps,mpsL,mpsXL}
+
+# Crontab runs:
+bundle exec parse-member-links.rb
+bundle exec parse-speeches.rb previous-working-day
+bundle exec sitemap.rb
+```
 
 ## Data updates
 
