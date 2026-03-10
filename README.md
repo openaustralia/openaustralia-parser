@@ -68,8 +68,9 @@ bundle exec ./parse-members.rb --no-load
 
 # to download images
 mkdir -p ../openaustralia/twfy/www/docs/images/mpsXL
+# export DEBUG=1 # to enable debugging output for request throttling
 bundle exec ./member-images.rb
-# Images in ../openaustralia/twfy/www/docs/images/{mps,mpsL,mpsXL}
+# 3 images per person in ../openaustralia/twfy/www/docs/images/{mps,mpsL,mpsXL}
 
 # Crontab runs:
 bundle exec parse-member-links.rb
