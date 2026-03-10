@@ -2,16 +2,37 @@
 # Edit this file to control the behaviour of the parser
 #
 
-# The root directory of the patched Australian version of the TheyWorkForYou
-# website.
+# The root directory of the openaustralia repo
+# Note this is NOT the patched Australian version of the TheyWorkForYou website (twfy is a git submodule under this)
 # For example, Under Mac OS X this is likely to be something like:
-web_root: "/var/www/oa"
-# Under Linux, this is likely to be something like:
-#web_root: "/var/www/openaustralia-app"
+# web_root: "/var/www/oa"
+# Under production it is:
+# web_root: "/srv/www/production/current"
+# or for development:
+web_root: "../openaustralia"
 
-log_path: "/var/www/oa/openaustralia-parser/parser.log"
+# Production has the following (not required for development)
+# html_cache_path: "/srv/www/production/shared/html_cache"
 
-# Should hopefully not have to change anything below here
+# Log path is under the openaustralia-parser submodule of web_root, eg for production:
+# log_path: "/srv/www/production/shared/parser.log"
+log_path: "./parser.log"
+
+# -------------------------------------------------------
+# Standalone development override of twfy/conf/general (so you don't need PHP)
+
+# database_host: localhost
+# database_user: openaustralia
+# database_password: openaustralia
+# database_name: openaustralia
+# file_image_path: "../openaustralia/twfy/www/docs/images/"
+# members_xml_path: '../openaustralia/pwdata/members/'
+# xml_path: "../openaustralia/pwdata/"
+# regmem_pdf_path: "regmem/scan/"
+# base_dir: "../openaustralia/twfy/www/docs/"
+
+# -------------------------------------------------------
+# Should hopefully NOT HAVE TO CHANGE ANYTHING BELOW HERE
 
 # This is where the parser looks for Hansard data
 parlinfo_web_root: "http://parlinfoweb.aph.gov.au/piweb"
