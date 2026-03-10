@@ -15,3 +15,4 @@ people.download_images(
   "#{conf.file_image_path}/mpsL",
   "#{conf.file_image_path}/mpsXL"
 )
+puts "Finished downloading person images!"
