@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "spec_helper"
-require "test/unit"
+require "builder"
 
 require "hansard_day"
 
@@ -14,7 +14,7 @@ module Builder
   end
 end
 
-describe HansardDay do
+RSpec.describe HansardDay do
   before(:each) do
     x = Builder::MyXmlMarkup.new
 
