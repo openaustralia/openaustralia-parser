@@ -91,17 +91,17 @@ class ParseSpeeches
       end
     end.parse!
 
-    if ARGV.size != 1 && ARGV.size != 2
+    if @args.size != 1 && @args.size != 2
       puts "Need to supply one or two dates"
       exit
     end
 
-    from_date = parse_date(ARGV[0])
+    from_date = parse_date(@args[0])
 
-    to_date = if ARGV.size == 1
+    to_date = if @args.size == 1
                 from_date
               else
-                parse_date(ARGV[1])
+                parse_date(@args[1])
               end
 
     conf = Configuration.new
