@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require_relative "spec_helper"
+require_relative "../spec_helper"
 require "hansard_rewriter"
 require "log4r"
 
 RSpec.describe HansardRewriter do
   describe "with speeches containing xml like '(10<span class=\"HPS-Time\">:01</span>):' " do
-    let!(:bad_xml) { File.open("#{File.dirname(__FILE__)}/fixtures/bad-dates.xml").read }
+    let!(:bad_xml) { File.open("#{File.dirname(__FILE__)}/../fixtures/bad-dates.xml").read }
     let!(:rewriter) { HansardRewriter.new(Log4r::Logger.new("TestHansardParser")) }
     let!(:rewritten_xml) { rewriter.rewrite_xml(Hpricot.XML(bad_xml)) }
 
@@ -17,7 +17,7 @@ RSpec.describe HansardRewriter do
   end
 
   describe "with speeches containing duplicate times" do
-    let!(:bad_xml) { File.open("#{File.dirname(__FILE__)}/fixtures/duplicate-times.xml").read }
+    let!(:bad_xml) { File.open("#{File.dirname(__FILE__)}/../fixtures/duplicate-times.xml").read }
     let!(:rewriter) { HansardRewriter.new(Log4r::Logger.new("TestHansardParser")) }
     let!(:rewritten_xml) { rewriter.rewrite_xml(Hpricot.XML(bad_xml)) }
 
