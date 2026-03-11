@@ -25,11 +25,11 @@ log_path: "./parser.log"
 # database_user: openaustralia
 # database_password: openaustralia
 # database_name: openaustralia
-# file_image_path: "../openaustralia/twfy/www/docs/images/"
+# file_image_path: "tmp/twfy/www/docs/images/"
 # members_xml_path: '../openaustralia/pwdata/members/'
 # xml_path: "../openaustralia/pwdata/"
 # regmem_pdf_path: "regmem/scan/"
-# base_dir: "../openaustralia/twfy/www/docs/"
+# base_dir: "tmp/twfy/www/docs/"
 
 # -------------------------------------------------------
 # Should hopefully NOT HAVE TO CHANGE ANYTHING BELOW HERE
