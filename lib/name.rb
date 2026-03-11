@@ -57,7 +57,7 @@ class Name
       last = names.shift
     end
     title = Name.extract_title_at_start(names)
-    # Check for hypenated first name
+    # Check for hyphenated first name
     if names[1] == "-"
       first = names.shift(3).join
     elsif names.size >= 1
