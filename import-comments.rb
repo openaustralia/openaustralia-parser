@@ -16,7 +16,8 @@ class ImportComments
   def run
     conf = Configuration.new
 
-    db = Mysql.real_connect(conf.database_host, conf.database_user, conf.database_password, conf.database_name)
+    db = Mysql.real_connect(conf.database_host, conf.database_user, conf.database_password,
+                            conf.database_name)
 
     data = CSV.readlines("exported-comments.csv")
     data.each do |row|

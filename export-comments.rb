@@ -16,7 +16,8 @@ class ExportComments
   def run
     conf = Configuration.new
 
-    db = Mysql.real_connect(conf.database_host, conf.database_user, conf.database_password, conf.database_name)
+    db = Mysql.real_connect(conf.database_host, conf.database_user, conf.database_password,
+                            conf.database_name)
 
     res = db.query("select comments.*, comments.body as comment_body, epobject.body as hansard_body, hdate from comments, epobject, hansard where hansard.epobject_id = epobject.epobject_id and comments.epobject_id = epobject.epobject_id")
 

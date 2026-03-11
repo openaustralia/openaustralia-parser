@@ -71,7 +71,9 @@ class Period < PeriodBase
 
   def initialize(params)
     # TODO: Make some parameters compulsary and others optional
-    raise ":person and :count parameter required in Period.new" unless params[:person] && params[:count]
+    unless params[:person] && params[:count]
+      raise ":person and :count parameter required in Period.new"
+    end
 
     @from_why =   params.delete(:from_why)
     @to_why =     params.delete(:to_why)

@@ -85,7 +85,8 @@ class ParseSpeeches
               "Only parse dates that are at proof stage. Will redownload and populate html cache for those dates.") do |l|
         options[:proof] = l
       end
-      opts.on("--force", "On loading data into database delete records that are not in the XML") do |l|
+      opts.on("--force",
+              "On loading data into database delete records that are not in the XML") do |l|
         options[:force] = l
       end
     end.parse!
@@ -117,7 +118,8 @@ class ParseSpeeches
 
     parser = HansardParser.new(people)
 
-    progress = ProgressBar.create(title: "parse-speeches", total: ((to_date - from_date + 1) * 2).to_i, format: "%t %e: |%B|")
+    progress = ProgressBar.create(title: "parse-speeches",
+                                  total: ((to_date - from_date + 1) * 2).to_i, format: "%t %e: |%B|")
 
     # Kind of helpful to start at the end date and go backwards when using the "--proof" option. So, always going to do this now.
     date = to_date

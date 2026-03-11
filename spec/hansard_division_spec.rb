@@ -142,15 +142,19 @@ RSpec.describe HansardDivision do
       </division>')
     end
     let(:old_tied_division) do
-      HansardDivision.new(old_tied_division_xml, "", "", "", double(HansardDay, add_speaker_to_tied_votes?: true))
+      HansardDivision.new(old_tied_division_xml, "", "", "",
+                          double(HansardDay, add_speaker_to_tied_votes?: true))
     end
     let(:new_tied_division) do
-      HansardDivision.new(new_tied_division_xml, "", "", "", double(HansardDay, add_speaker_to_tied_votes?: true))
+      HansardDivision.new(new_tied_division_xml, "", "", "",
+                          double(HansardDay, add_speaker_to_tied_votes?: true))
     end
 
     it "should include the speaker's casting vote in the event of a tie" do
-      expect(old_tied_division.no).to eq ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Jenkins, Harry"]
-      expect(new_tied_division.no).to eq ["Smith, John", "Doe, Jane", "Quitecontrary, Mary", "Burke, Anna"]
+      expect(old_tied_division.no).to eq ["Smith, John", "Doe, Jane", "Quitecontrary, Mary",
+                                          "Jenkins, Harry"]
+      expect(new_tied_division.no).to eq ["Smith, John", "Doe, Jane", "Quitecontrary, Mary",
+                                          "Burke, Anna"]
     end
 
     describe "#tied?" do
@@ -209,7 +213,8 @@ RSpec.describe HansardDivision, "with pairings" do
   end
 
   it "should parse the pairs votes" do
-    expect(@division.pairs).to eq [["Lundy, K.A.", "McGauran, J.J.J."], ["Stephens, U.", "Barnett, G."]]
+    expect(@division.pairs).to eq [["Lundy, K.A.", "McGauran, J.J.J."],
+                                   ["Stephens, U.", "Barnett, G."]]
   end
 
   describe "with no timestamp but a time in the preamble" do

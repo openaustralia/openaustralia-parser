@@ -58,7 +58,8 @@ class HansardDay
 
   def in_proof?
     proof = @page.at("proof").inner_html
-    @logger.error "#{date} #{house}: Unexpected value '#{proof}' inside tag <proof>" unless %w[1 0].include?(proof)
+    @logger.error "#{date} #{house}: Unexpected value '#{proof}' inside tag <proof>" unless %w[1
+                                                                                               0].include?(proof)
     proof == "1"
   end
 
@@ -81,7 +82,9 @@ class HansardDay
     case debate.name
     when "debate", "petition.group"
       title = title_tag_value(debate).strip
-      cognates = debate.search("> debateinfo > cognate > cognateinfo > title").map { |a| strip_tags(a.inner_html) }
+      cognates = debate.search("> debateinfo > cognate > cognateinfo > title").map do |a|
+        strip_tags(a.inner_html)
+      end
       ([title] + cognates).join("; ")
     when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
       title(debate.parent).strip

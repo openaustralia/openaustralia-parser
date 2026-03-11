@@ -25,7 +25,9 @@ class ParsePostcodes2010
     def extract_divisions_from_page(page)
       divisions = page.search("div/table/tr/td[4]").map(&:inner_text)
       redistributed_divisions = page.search("div/table/tr/td[5]").map(&:inner_text)
-      raise "expected same number of divisions as redistributed divisions" unless divisions.size == redistributed_divisions.size
+      unless divisions.size == redistributed_divisions.size
+        raise "expected same number of divisions as redistributed divisions"
+      end
 
       combined = []
       divisions.each_index do |i|

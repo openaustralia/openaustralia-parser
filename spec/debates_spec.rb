@@ -171,7 +171,8 @@ RSpec.describe Debates do
     describe "a speech followed by an interjection" do
       before do
         @debates.add_speech(@henry, "9:08", "url", Hpricot("<p>And a bit more</p>"))
-        @debates.add_speech(@james, "9:12", "url", Hpricot("<p>I interject!</p>"), interjection: true)
+        @debates.add_speech(@james, "9:12", "url", Hpricot("<p>I interject!</p>"),
+                            interjection: true)
         @debates.add_speech(@rebecca, "9:18", "url", Hpricot("<p>I interject!</p>"))
         @debates.calculate_speech_durations
       end
@@ -195,7 +196,8 @@ RSpec.describe Debates do
 
     describe "an interjection" do
       before do
-        @debates.add_speech(@james, "9:00", "url", Hpricot("<p>I interject!</p>"), interjection: true)
+        @debates.add_speech(@james, "9:00", "url", Hpricot("<p>I interject!</p>"),
+                            interjection: true)
         @debates.add_speech(@henry, "9:08", "url", Hpricot("<p>And a bit more</p>"))
         @debates.calculate_speech_durations
       end
@@ -208,8 +210,10 @@ RSpec.describe Debates do
     describe "a continuation" do
       before do
         @debates.add_speech(@james, "9:00", "url", Hpricot("<p>I interject!</p>"))
-        @debates.add_speech(@henry, "9:04", "url", Hpricot("<p>I interject!</p>"), interjection: true)
-        @debates.add_speech(@james, "9:08", "url", Hpricot("<p>I interject!</p>"), continuation: true)
+        @debates.add_speech(@henry, "9:04", "url", Hpricot("<p>I interject!</p>"),
+                            interjection: true)
+        @debates.add_speech(@james, "9:08", "url", Hpricot("<p>I interject!</p>"),
+                            continuation: true)
         @debates.add_speech(@henry, "9:12", "url", Hpricot("<p>And a bit more</p>"))
         @debates.calculate_speech_durations
       end
@@ -237,9 +241,11 @@ RSpec.describe Debates do
         # Add a speech with only 1 minute of words
         @debates.add_speech(@james, "9:08", "url", Hpricot("test " * 120))
         # Add an interjection
-        @debates.add_speech(@henry, "9:08", "url", Hpricot("<p>And a bit more</p>"), interjection: true)
+        @debates.add_speech(@henry, "9:08", "url", Hpricot("<p>And a bit more</p>"),
+                            interjection: true)
         # Add a continuation with 10 minutes of words
-        @debates.add_speech(@james, "9:08", "url", Hpricot("test " * (120 * 10)), continuation: true)
+        @debates.add_speech(@james, "9:08", "url", Hpricot("test " * (120 * 10)),
+                            continuation: true)
         @debates.calculate_speech_durations
       end
 

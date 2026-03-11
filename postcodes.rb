@@ -44,7 +44,9 @@ class Postcodes
     # First check that all the constituencies are valid
     constituencies = data.map { |row| row[1] }.uniq.reject(&:empty?)
     constituencies.each do |constituency|
-      raise "Constituency #{constituency} not found" unless all_members.any? { |m| m.division == constituency }
+      raise "Constituency #{constituency} not found" unless all_members.any? do |m|
+                                                              m.division == constituency
+                                                            end
     end
 
     if options[:load_database]

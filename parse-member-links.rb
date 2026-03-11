@@ -38,7 +38,8 @@ class ParseMemberLinks
       ).body
       JSON.parse(morph_result).each do |person|
         p = people.find_person_by_aph_id(person["aph_id"].upcase)
-        params = { id: p.id, mp_contact_form: person["contact_page"], aph_url: person["profile_page"] }
+        params = { id: p.id, mp_contact_form: person["contact_page"],
+                   aph_url: person["profile_page"] }
         params[:mp_email] = person["email"] if person["email"]
         params[:mp_website] = person["website"] if person["website"]
         params[:mp_twitter_url] = person["twitter"] if person["twitter"]
@@ -198,7 +199,9 @@ class ParseMemberLinks
         url = page.uri + tr.at("td.format a")["href"]
         parsed = Name.last_title_first(name)
         representative = people.find_person_by_name_current_on_date(parsed, Date.today)
-        raise "Couldn't find #{name}. Try adding \"#{parsed.title} #{parsed.first} #{parsed.last}\" to aliases" if representative.nil?
+        if representative.nil?
+          raise "Couldn't find #{name}. Try adding \"#{parsed.title} #{parsed.first} #{parsed.last}\" to aliases"
+        end
 
         representatives_data << { id: representative.id, aph_interests_url: url }
       end
@@ -218,7 +221,8 @@ class ParseMemberLinks
       senator = people.find_person_by_name(Name.last_title_first(name))
       raise if senator.nil?
 
-      senate_data << { id: senator.id, aph_interests_url: url, aph_interests_last_updated: last_updated }
+      senate_data << { id: senator.id, aph_interests_url: url,
+                       aph_interests_last_updated: last_updated }
     end
 
     xml = File.open("#{conf.members_xml_path}/links-register-of-interests.xml", "w")

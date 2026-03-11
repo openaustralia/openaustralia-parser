@@ -253,7 +253,9 @@ class SitemapGenerator
       @changefreq = options.delete(:changefreq)
       @changefreq = @changefreq.to_s if @changefreq
       @lastmod = options.delete(:lastmod)
-      throw "Invalid value #{@changefreq} for changefreq" unless @changefreq.nil? || CHANGEFREQ_VALUES.include?(@changefreq)
+      unless @changefreq.nil? || CHANGEFREQ_VALUES.include?(@changefreq)
+        throw "Invalid value #{@changefreq} for changefreq"
+      end
       throw "Invalid options in add_url" unless options.empty?
     end
   end
@@ -385,17 +387,20 @@ class SitemapGenerator
       database: conf.database_name
     )
 
-    s = Sitemap.new(MySociety::Config.get("DOMAIN"), MySociety::Config.get("BASEDIR"), MySociety::Config.get("WEBPATH"))
+    s = Sitemap.new(MySociety::Config.get("DOMAIN"), MySociety::Config.get("BASEDIR"),
+                    MySociety::Config.get("WEBPATH"))
 
     # Arrange some static URL's with the most quickly changing at the top
 
     # Add some static URLs with dynamic content
     s.add_url "/", changefreq: :hourly,
-              lastmod: [Comment.last_modified, Hansard.last_modified, News.last_modified].compact.max
+                   lastmod: [Comment.last_modified, Hansard.last_modified, News.last_modified].compact.max
     s.add_url "/comments/recent/", changefreq: :hourly, lastmod: Comment.last_modified
-    s.add_url "/debates/", changefreq: :daily, lastmod: Hansard.most_recent_in_house("reps").last_modified
+    s.add_url "/debates/", changefreq: :daily,
+                           lastmod: Hansard.most_recent_in_house("reps").last_modified
     s.add_url "/hansard/", changefreq: :daily, lastmod: Hansard.most_recent.last_modified
-    s.add_url "/senate/", changefreq: :daily, lastmod: Hansard.most_recent_in_house("senate").last_modified
+    s.add_url "/senate/", changefreq: :daily,
+                          lastmod: Hansard.most_recent_in_house("senate").last_modified
     s.add_url "/news/", changefreq: :weekly, lastmod: News.most_recent.last_modified
     s.add_url "/mps/", changefreq: :monthly
     s.add_url "/senators/", changefreq: :monthly
@@ -431,7 +436,8 @@ class SitemapGenerator
       Hansard.find_all_dates_for_house(house).each do |hdate|
         s.add_url Hansard.url_for_date(hdate, house),
                   changefreq: :monthly,
-                  lastmod: Hansard.find_all_sections_by_date_and_house(hdate, house).map(&:last_modified).compact.max
+                  lastmod: Hansard.find_all_sections_by_date_and_house(hdate,
+                                                                       house).map(&:last_modified).compact.max
       end
     end
 

@@ -75,7 +75,8 @@ class TestName < Test::Unit::TestCase
   end
 
   def test_informal_name
-    assert_equal("Matthew Landauer", Name.new(first: "Matthew", last: "Landauer", title: "Dr").informal_name)
+    assert_equal("Matthew Landauer",
+                 Name.new(first: "Matthew", last: "Landauer", title: "Dr").informal_name)
   end
 
   def test_full_name
@@ -117,11 +118,13 @@ class TestName < Test::Unit::TestCase
   end
 
   def test_title_first_last
-    assert_equal(Name.new(title: "Dr", first: "John", last: "Smith"), Name.title_first_last("Dr John Smith"))
+    assert_equal(Name.new(title: "Dr", first: "John", last: "Smith"),
+                 Name.title_first_last("Dr John Smith"))
     assert_equal(Name.new(title: "Dr", last: "Smith"), Name.title_first_last("Dr Smith"))
     assert_equal(Name.new(title: "Mr", last: "Smith"), Name.title_first_last("Mr Smith"))
     assert_equal(Name.new(title: "Mrs", last: "Smith"), Name.title_first_last("Mrs Smith"))
-    assert_equal(Name.new(title: "Ms", first: "Julie", last: "Smith"), Name.title_first_last("Ms Julie Smith"))
+    assert_equal(Name.new(title: "Ms", first: "Julie", last: "Smith"),
+                 Name.title_first_last("Ms Julie Smith"))
     assert_equal(Name.new(title: "Ms", first: "Julie", middle: "Sarah Marie", last: "Smith"),
                  Name.title_first_last("Ms Julie Sarah Marie Smith"))
   end
@@ -146,23 +149,28 @@ class TestName < Test::Unit::TestCase
   end
 
   def test_post_title_mbe
-    assert_equal(Name.new(first: "John", last: "Smith", post_title: "MBE"), Name.last_title_first("Smith, John, MBE"))
+    assert_equal(Name.new(first: "John", last: "Smith", post_title: "MBE"),
+                 Name.last_title_first("Smith, John, MBE"))
   end
 
   def test_post_title_qc
-    assert_equal(Name.new(first: "John", last: "Smith", post_title: "QC"), Name.last_title_first("Smith, John, QC"))
+    assert_equal(Name.new(first: "John", last: "Smith", post_title: "QC"),
+                 Name.last_title_first("Smith, John, QC"))
   end
 
   def test_post_title_obe
-    assert_equal(Name.new(first: "John", last: "Smith", post_title: "OBE"), Name.last_title_first("Smith, John, OBE"))
+    assert_equal(Name.new(first: "John", last: "Smith", post_title: "OBE"),
+                 Name.last_title_first("Smith, John, OBE"))
   end
 
   def test_post_title_ksj
-    assert_equal(Name.new(first: "John", last: "Smith", post_title: "KSJ"), Name.last_title_first("Smith, John, KSJ"))
+    assert_equal(Name.new(first: "John", last: "Smith", post_title: "KSJ"),
+                 Name.last_title_first("Smith, John, KSJ"))
   end
 
   def test_post_title_jp
-    assert_equal(Name.new(first: "John", last: "Smith", post_title: "JP"), Name.last_title_first("Smith, John, JP"))
+    assert_equal(Name.new(first: "John", last: "Smith", post_title: "JP"),
+                 Name.last_title_first("Smith, John, JP"))
   end
 
   def test_capilisation_on_middle_name
@@ -271,8 +279,10 @@ class TestName < Test::Unit::TestCase
   end
 
   def test_another_three_letter_initial
-    assert_equal(Name.new(title: "Hon.", initials: "DGH", last: "Adams"), Name.title_first_last("Hon. DGH Adams"))
-    assert_equal(Name.new(title: "Hon.", initials: "DGH", last: "Adams"), Name.title_first_last("Hon. D.G.H. Adams"))
+    assert_equal(Name.new(title: "Hon.", initials: "DGH", last: "Adams"),
+                 Name.title_first_last("Hon. DGH Adams"))
+    assert_equal(Name.new(title: "Hon.", initials: "DGH", last: "Adams"),
+                 Name.title_first_last("Hon. D.G.H. Adams"))
   end
 
   def test_lady_bjelke_petersen

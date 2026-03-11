@@ -193,7 +193,12 @@ class HansardParser
           page.each do |speech|
             if speech
               # Only change speaker if a speaker name or url was found
-              this_speaker = speech.speakername || speech.aph_id ? lookup_speaker(speech, date, house) : speaker
+              this_speaker = if speech.speakername || speech.aph_id
+                               lookup_speaker(speech, date,
+                                              house)
+                             else
+                               speaker
+                             end
               # With interjections the next speech should never be by the person doing the interjection
               speaker = this_speaker unless speech.interjection
 
@@ -211,7 +216,9 @@ class HansardParser
 
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes)" if member.nil?
+            if member.nil?
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes)"
+            end
 
             member
           end.compact
@@ -220,7 +227,9 @@ class HansardParser
 
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no)" if member.nil?
+            if member.nil?
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no)"
+            end
 
             member
           end.compact
@@ -229,7 +238,9 @@ class HansardParser
 
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes and teller)" if member.nil?
+            if member.nil?
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes and teller)"
+            end
 
             member
           end.compact
@@ -238,7 +249,9 @@ class HansardParser
 
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no and teller)" if member.nil?
+            if member.nil?
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no and teller)"
+            end
 
             member
           end.compact
@@ -248,7 +261,9 @@ class HansardParser
 
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
-              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair)" if member.nil?
+              if member.nil?
+                raise "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair)"
+              end
 
               member
             end.compact
@@ -288,9 +303,11 @@ class HansardParser
     # Handle names in brackets first
     case speech.speakername
     when /^(.*) \(the (deputy speaker|acting deputy president|temporary chairman)\)/i
-      @people.find_member_by_name_current_on_date(Name.last_title_first($LAST_MATCH_INFO[1]), date, house)
+      @people.find_member_by_name_current_on_date(Name.last_title_first($LAST_MATCH_INFO[1]),
+                                                  date, house)
     when /^the (deputy speaker|acting deputy president|temporary chairman) \((.*)\)/i
-      @people.find_member_by_name_current_on_date(Name.title_first_last($LAST_MATCH_INFO[2]), date, house)
+      @people.find_member_by_name_current_on_date(Name.title_first_last($LAST_MATCH_INFO[2]),
+                                                  date, house)
     when /^the speaker/i
       @people.house_speaker(date)
     when /^the deputy speaker/i
@@ -332,7 +349,9 @@ class HansardParser
     person = @people.find_person_by_aph_id(aph_id)
     if person
       period = person.position_current_on_date(date, house)
-      logger.error "#{date} #{house}: Found person (#{person.name.full_name}) but not both in the right period and house. Strange..." if period.nil?
+      if period.nil?
+        logger.error "#{date} #{house}: Found person (#{person.name.full_name}) but not both in the right period and house. Strange..."
+      end
       period
     else
       logger.error "#{date} #{house}: Can't figure out which person the aph id #{speech.aph_id} belongs to"
@@ -342,7 +361,8 @@ class HansardParser
 
   def lookup_speaker(speech, date, house)
     # First try looking up speaker by id then try name
-    member = lookup_speaker_by_aph_id(speech, date, house) || lookup_speaker_by_name(speech, date, house)
+    member = lookup_speaker_by_aph_id(speech, date,
+                                      house) || lookup_speaker_by_name(speech, date, house)
 
     if member.nil?
       unless HansardSpeech.generic_speaker?(speech.speakername)

@@ -72,7 +72,8 @@ class Name
     end
     post_title = extract_post_title_at_end(names)
     middle = names[0..].join(" ")
-    Name.new(title: title, initials: initials, last: last, first: first, middle: middle, post_title: post_title)
+    Name.new(title: title, initials: initials, last: last, first: first, middle: middle,
+             post_title: post_title)
   end
 
   # Extract a post title from the end if one is available
@@ -131,7 +132,8 @@ class Name
       names.pop
       middle = names[0..].join(" ")
     end
-    Name.new(title: title, last: last, first: first, middle: middle, initials: initials, post_title: post_title)
+    Name.new(title: title, last: last, first: first, middle: middle, initials: initials,
+             post_title: post_title)
   end
 
   def first_initial
@@ -305,7 +307,9 @@ class Name
     # Replace a unicode character
     name = name.capitalize.gsub("\342\200\231", "'")
     # Exceptions to capitalisation rule
-    name = name[0..1] + name[2..].capitalize if name[0..1] == "O'" || name[0..1] == "Mc" || name[0..1] == "D'"
+    if name[0..1] == "O'" || name[0..1] == "Mc" || name[0..1] == "D'"
+      name = name[0..1] + name[2..].capitalize
+    end
     # If name is hyphenated capitalise each side on its own
     # TODO: Fix 'activesupport' gem so that multibyte chars properly pass through include?
     # Cast to normal string for include? necessary because of bug in activesupport multibyte chars
