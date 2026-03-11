@@ -6,7 +6,7 @@ require "test/unit"
 
 require "hansard_day"
 
-# Make it simpler to generate XML with tags with '.' in them. Translate occurences of '_' to '.'
+# Make it simpler to generate XML with tags with '.' in them. Translate occurrences of '_' to '.'
 module Builder
   class MyXmlMarkup < XmlMarkup
     def method_missing(sym, *args, &block)
