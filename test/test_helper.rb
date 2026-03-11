@@ -1,5 +1,8 @@
 # Common spec helper
 
+# Use test configiuration
+ENV["APP_ENV"] = "test"
+
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 
 require "bundler/setup"
