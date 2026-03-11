@@ -10,9 +10,16 @@ See for installation instructions https://openaustralia.github.io/openaustralia/
 
 ### Minimal for development purely within this project
 
-#### openaustralia repo
+#### TWFY or openaustralia repo
 
-You need to clone the openaustralia repo and setup the submodules
+You need to clone the TWFY repo or clone the openaustralia repo and setup the submodules if you want to test interaction
+
+```
+cd ..
+git clone git@github.com:openaustralia/twfy.git
+```
+
+OR
 
 ```
 cd ..
@@ -20,6 +27,20 @@ git clone git@github.com:openaustralia/openaustralia.git
 cd openaustralia
 git submodule init
 git submodule update
+```
+
+This gives access to the DB schema, and if you want to test the php and perl scripts from the other repos, those as
+well.
+
+#### Local database
+
+Use `sudo mysql -u root` and the following commands to setup the database
+
+```mysql
+CREATE DATABASE openaustralia;
+CREATE USER 'openaustralia'@'localhost' IDENTIFIED BY 'openaustralia';
+GRANT ALL PRIVILEGES ON openaustralia.* TO 'openaustralia'@'localhost';
+FLUSH PRIVILEGES;
 ```
 
 #### Setup this (openaustralia-parse) repo
@@ -32,6 +53,7 @@ bundle install # From Gemfile, Gemfile.lock
 
 cp configuration.yml.example configuration.yml
 ```
+
 Edit `configuration.yml` as needed.
 
 * Uncomment the development options so you dont need to configure twfy and have a working php
@@ -333,7 +355,8 @@ detail in this helpful email from mySociety's Matthew Somerville.
 > the XML for those two days, the 10 GIDs on 2001-01-01 get their modified column updated, the 5 new GIDS on 2002-02-02
 > get inserted. You reindex with sincefile, and those 15 GIDs get indexed (or you reindex with those two dates and
 > everything on those 2 days gets indexed), with batch ID 101. You run the email alert script, which will only return
-> things: * in batch ID 101 * created since yesterday - ie the 5 new GIDs from 2002-02-02, but not the 10 from 2001-01-01.
+> things: * in batch ID 101 * created since yesterday - ie the 5 new GIDs from 2002-02-02, but not the 10 from
+> 2001-01-01.
 >
 >
 > Hope that makes sense. Now, the original theory was that people would want to be alerted to new stuff even if it was
@@ -342,7 +365,8 @@ detail in this helpful email from mySociety's Matthew Somerville.
 > our model means everything on that day gets a new GID in that case - which is awful but it's too late to change now...
 >
 > So what we do. I try to make sure any changing of old content isn't added/indexed along with new stuff - ie. run major
-> changes during holidays etc.. Then when the loading/indexing is done, I can manually bump the batch number/ timestamp in
+> changes during holidays etc.. Then when the loading/indexing is done, I can manually bump the batch number/ timestamp
+> in
 > the alerts-lastsent file so that the alert script thinks it's been run on that data already and will just ignore it.
 >
 > If there's some new stuff indexed as well, which you do want to send alerts for, then that's what the manual date in
