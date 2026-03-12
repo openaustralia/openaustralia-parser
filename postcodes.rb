@@ -59,6 +59,10 @@ class Postcodes
 
       values = data.map { |row| "('#{row[0]}', '#{quote_string(row[1])}')" }.join(",")
       db.query("INSERT INTO postcode_lookup (postcode, name) VALUES #{values}")
+    else
+      puts "No-load option has disabled the following SQL that is normally run:"
+      puts "  DELETE FROM postcode_lookup;"
+      puts "  INSERT INTO postcode_lookup (postcode, name) VALUES (from data/postcodes.csv);"
     end
   end
 end
