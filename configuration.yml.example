@@ -29,10 +29,10 @@ morph_api_key: XXXXXXXXXXXXXXXXXXXX
 # database_password: openaustralia
 # database_name: openaustralia
 # file_image_path: "tmp/file_images/"
-# members_xml_path: '../openaustralia/pwdata/members/'
+# members_xml_path: 'tmp/members_xml_output/'
 # xml_path: "../openaustralia/pwdata/"
 # regmem_pdf_path: "regmem/scan/"
-# base_dir: "tmp/twfy/www/docs/"
+# base_dir: "tmp/twfy-www-docs/"
 
 # -------------------------------------------------------
 # Should hopefully NOT HAVE TO CHANGE ANYTHING BELOW HERE
