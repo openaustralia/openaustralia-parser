@@ -20,7 +20,7 @@ class ExportComments
                             conf.database_name)
 
     res = db.query("select comments.*, comments.body as comment_body, epobject.body as hansard_body, hdate from comments, epobject, hansard where hansard.epobject_id = epobject.epobject_id and comments.epobject_id = epobject.epobject_id")
-
+    puts "Creating exported-comments.csv from selected rows in comments table..."
     outfile = File.open("exported-comments.csv", "wb")
     CSV::Writer.generate(outfile) do |csv|
       res.each_hash do |row|
@@ -30,6 +30,7 @@ class ExportComments
     end
     outfile.close
 
+    puts "Clearing comments table..."
     db.query("DELETE FROM comments")
   end
 end
