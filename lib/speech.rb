@@ -71,7 +71,9 @@ class Speech < Section
       # If the duration seems to be off the word count estimate by more than 10
       # minutes, fallback to the wordcount estimate
       duration_from_wordcount = ((words + word_count_for_continuations) / 120).round * 60
-      duration_estimate = duration_from_wordcount if (duration_estimate - duration_from_wordcount).abs > 600
+      if (duration_estimate - duration_from_wordcount).abs > 600
+        duration_estimate = duration_from_wordcount
+      end
     end
     @duration = duration_estimate
   end

@@ -7,19 +7,30 @@
 # No longer needed once we fix https://github.com/openaustralia/openaustralia/issues/545
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 require "open-uri"
+require "openssl"
 require "json"
+
 require "configuration"
 
-conf = Configuration.new
+class TvfyPoliciesToPhp
+  def initialize(args)
+    @args = args
+  end
 
-# Ruby 1.8.7 doesn't like our SNI certificate :(
-require "openssl"
-OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+  def run
+    conf = Configuration.new
 
-policies = JSON.parse(open("https://theyvoteforyou.org.au/api/v1/policies.json?key=#{conf.theyvoteforyou_api_key}").read)
+    # Ruby 1.8.7 doesn't like our SNI certificate :(
+    OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
 
-policies.each do |policy|
-  next if policy["provisional"]
+    policies = JSON.parse(open("https://theyvoteforyou.org.au/api/v1/policies.json?key=#{conf.theyvoteforyou_api_key}").read)
 
-  puts "$got_dream |= display_dream_comparison($extra_info, $member, #{policy['id']}, \"#{policy['name'].gsub('"', '\"')}\", false, \"\");"
+    policies.each do |policy|
+      next if policy["provisional"]
+
+      puts "$got_dream |= display_dream_comparison($extra_info, $member, #{policy['id']}, \"#{policy['name'].gsub('"', '\"')}\", false, \"\");"
+    end
+  end
 end
+
+exit TvfyPoliciesToPhp.new(ARGV).run if $PROGRAM_NAME == __FILE__

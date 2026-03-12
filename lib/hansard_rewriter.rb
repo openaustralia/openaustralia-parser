@@ -204,7 +204,9 @@ XML
 
         # Someone is either interjecting or continuing to speak
         else
-          raise "Assertion failed! speech_node was null while trying to append a speaker" if speech_node.nil?
+          if speech_node.nil?
+            raise "Assertion failed! speech_node was null while trying to append a speaker"
+          end
 
           # Should only be one span in this case, logger.warn otherwise
           span = p.search("> span")

@@ -15,7 +15,8 @@ class PeopleXMLWriter
     x = Builder::XmlMarkup.new(target: output, indent: 2)
     x.divisions do
       people.divisions.each_with_index do |division, index|
-        x.division(fromdate: "1000-01-01", id: "uk.org.publicwhip/cons/#{index + 1}", todate: "9999-12-31") do
+        x.division(fromdate: "1000-01-01", id: "uk.org.publicwhip/cons/#{index + 1}",
+                   todate: "9999-12-31") do
           x.name(text: division)
         end
       end
