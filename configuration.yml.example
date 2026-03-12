@@ -18,6 +18,9 @@ web_root: "../openaustralia"
 # log_path: "/srv/www/production/shared/parser.log"
 log_path: "./parser.log"
 
+# Morph API key
+morph_api_key: XXXXXXXXXXXXXXXXXXXX
+
 # -------------------------------------------------------
 # Standalone development override of twfy/conf/general (so you don't need PHP)
 
@@ -25,7 +28,7 @@ log_path: "./parser.log"
 # database_user: openaustralia
 # database_password: openaustralia
 # database_name: openaustralia
-# file_image_path: "tmp/twfy/www/docs/images/"
+# file_image_path: "tmp/file_images/"
 # members_xml_path: '../openaustralia/pwdata/members/'
 # xml_path: "../openaustralia/pwdata/"
 # regmem_pdf_path: "regmem/scan/"
@@ -56,8 +59,6 @@ qanda_all_senators_url: "http://www.abc.net.au/tv/qanda/find-a-senate-member-by-
 # ABC 2007 election results
 election_web_root: "http://www.abc.net.au/elections/federal/2007"
 
-# Morph API key
-morph_api_key: XXXXXXXXXXXXXXXXXXXX
 
 # They Vote For You API key
 theyvoteforyou_api_key: XXXXXXXXXXXXXXXXXXXX
