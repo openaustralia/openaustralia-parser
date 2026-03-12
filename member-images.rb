@@ -14,7 +14,10 @@ class MemberImages
   def run
     conf = Configuration.new
     people = PeopleCSVReader.read_members
-    puts "Downloading person images..."
+    FileUtils.mkdir_p ["#{conf.file_image_path}/mps",
+                       "#{conf.file_image_path}/mpsL",
+                       "#{conf.file_image_path}/mpsXL"]
+    puts "Downloading person images to #{conf.file_image_path}/{mps,mpsL,mpsXL}..."
     people.download_images(
       "#{conf.file_image_path}/mps",
       "#{conf.file_image_path}/mpsL",
