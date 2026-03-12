@@ -39,7 +39,8 @@ class PeopleImageDownloader
     @agent.user_agent = "Mozilla/5.0+AppleWebKit/537.36+(KHTML,+like+Gecko;+compatible;+Amazonbot/0.1;++https://developer.amazon.com/support/amazonbot)+Chrome/119.0.6045.214+Safari/537.36"
   end
 
-  def download(people, small_image_dir, large_image_dir, extra_large_image_dir)
+  def download(people, small_image_dir, large_image_dir, extra_large_image_dir, limit: nil)
+    todo = limit&.to_i
     # Sort all the people by last name
     sorted_people = people.sort { |a, b| a.name.last <=> b.name.last }
 
@@ -58,22 +59,25 @@ class PeopleImageDownloader
 
       # If we have an aph code for the person we can much more easily get a photo for them
       if person.aph_id
+        puts "Downloading image for #{person.name.full_name} by aph_id ..."
         image = image_from_url("https://www.aph.gov.au/api/parliamentarian/#{person.aph_id}/image")
       else
+        puts "Looking on bio page for #{person.name.full_name} for image ..."
         page = person_bio_page(person)
-        next unless page
-
-        name = extract_name(page)
-        birthday = extract_birthday(page)
-        image = extract_image(page)
-
-        if image.nil?
-          puts "WARNING: Can't find photo for #{name.full_name}"
+        unless page
+          puts "  WARNING: No bio page found for #{name.full_name}"
           next
         end
 
+        name = extract_name(page)
         if name.nil?
-          puts "WARNING: Couldn't find name on page"
+          puts "  WARNING: Couldn't find name on page"
+          next
+        end
+
+        birthday = extract_birthday(page)
+        if name.nil?
+          puts "  WARNING: Couldn't find birthday on page"
           next
         end
 
@@ -83,7 +87,13 @@ class PeopleImageDownloader
         person = people.find_person_by_name_and_birthday(name, birthday)
 
         if person.nil?
-          puts "WARNING: Skipping photo for #{name.full_name} because they don't exist in the list of people"
+          puts "  WARNING: Couldn't find person by name and birthdate in people list"
+          next
+        end
+
+        image = extract_image(page)
+        if image.nil?
+          puts "  WARNING: Can't find photo for #{name.full_name}"
           next
         end
       end
@@ -96,6 +106,14 @@ class PeopleImageDownloader
                            LARGE_THUMBNAIL_HEIGHT).write(large_image_filename)
       image.resize_to_fill(EXTRA_LARGE_THUMBNAIL_WIDTH,
                            EXTRA_LARGE_THUMBNAIL_HEIGHT).write(extra_large_image_filename)
+
+      next unless limit
+
+      todo -= 1
+      next if todo.positive?
+
+      puts "NOTE: Download limit (#{limit}) reached, skipping the rest of the list!"
+      break
     end
   end
 
@@ -104,12 +122,12 @@ class PeopleImageDownloader
     url = "http://parlinfo.aph.gov.au/parlInfo/search/display/" \
       "display.w3p;query=Dataset:allmps%20#{text.gsub(' ', '%20')}"
     page = begin
-      throttle_requests(url)
-      @agent.get(url)
-    rescue Mechanize::ResponseCodeError => e
-      retry if retry_failed_get?(e, url)
-      raise
-    end
+             throttle_requests(url)
+             @agent.get(url)
+           rescue Mechanize::ResponseCodeError => e
+             retry if retry_failed_get?(e, url)
+             raise
+           end
     # Check if the returned page is a valid one. If not just ignore it
     tag1 = page.at("div#content")
     tag2 = page.at("div#content div.error")
@@ -218,12 +236,12 @@ class PeopleImageDownloader
 
   def image_from_url(url)
     res = begin
-      throttle_requests(url)
-      @agent.get(url)
-    rescue Mechanize::ResponseCodeError => e
-      retry if retry_failed_get?(e, url)
-      raise
-    end
+            throttle_requests(url)
+            @agent.get(url)
+          rescue Mechanize::ResponseCodeError => e
+            retry if retry_failed_get?(e, url)
+            raise
+          end
     Magick::Image.from_blob(res.body)[0]
   end
 

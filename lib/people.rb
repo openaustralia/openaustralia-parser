@@ -179,9 +179,9 @@ class People < Array
                           senators_filename: senators_filename, ministers_filename: ministers_filename, divisions_filename: divisions_filename)
   end
 
-  def download_images(small_image_dir, large_image_dir, extra_large_image_dir)
+  def download_images(small_image_dir, large_image_dir, extra_large_image_dir, limit: nil)
     downloader = PeopleImageDownloader.new
-    downloader.download(self, small_image_dir, large_image_dir, extra_large_image_dir)
+    downloader.download(self, small_image_dir, large_image_dir, extra_large_image_dir, limit: limit)
   end
 
   def all_periods_in_house(house)
