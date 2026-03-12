@@ -26,7 +26,7 @@ RSpec.describe "parse-members.rb", :integration do
   after  { FileUtils.rm_rf(output_dir) }
 
   def run_script
-    capture_stdout_and_stderr { ParseMembers.new(["--no-load", "--output-dir=#{output_dir}"]).run }
+    capture_stdout_and_stderr { ParseMembers.new(%W[--no-load --output-dir=#{output_dir}]).run }
   end
 
   it "loads without syntax errors" do
