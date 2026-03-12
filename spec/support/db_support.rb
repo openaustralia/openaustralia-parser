@@ -1,16 +1,25 @@
-# spec/support/db_support.rb
+# frozen_string_literal: true
 
-require_relative '../../lib/configuration'
+require_relative "../../lib/configuration"
 
 module DbSupport
   TABLES_NEEDED = %w[postcode_lookup].freeze
 
+  SCHEMA_FIXTURE = File.expand_path("../fixtures/schema.sql", __dir__)
+
   def self.schema_file
     %w[.. ../openaustralia].each do |dir|
-      path = "#{dir}/twfy/db/schema.sql"
-      return path if File.size?(path)
+      path = File.expand_path("#{dir}/twfy/db/schema.sql", __dir__)
+      if !File.size?(path) || (File.size?(SCHEMA_FIXTURE) && File.mtime(path) <= File.mtime(SCHEMA_FIXTURE))
+        next
+      end
+
+      puts "NOTE: updating #{SCHEMA_FIXTURE} from newer #{path}!"
+      FileUtils.cp(path, SCHEMA_FIXTURE)
     end
-    raise "schema.sql file not found in ../twfy/db or ../openaustralia/twfy/db"
+    return SCHEMA_FIXTURE if File.exist?(SCHEMA_FIXTURE)
+
+    raise "schema.sql not found in fixtures, ../twfy/db or ../openaustralia/twfy/db"
   end
 
   def self.extract_create_statements
@@ -23,7 +32,6 @@ module DbSupport
   def self.establish_test_database(load_fixtures: true)
     conf = Configuration.new
 
-    # Establish the connection to the database
     ActiveRecord::Base.establish_connection(
       adapter: "mysql2",
       host: conf.database_host,
@@ -36,12 +44,15 @@ module DbSupport
     TABLES_NEEDED.each { |t| conn.execute("DROP TABLE IF EXISTS `#{t}`") }
     extract_create_statements.each { |stmt| conn.execute(stmt) }
 
-    if load_fixtures
-      TABLES_NEEDED.each do |table|
-        # FIXME - make relative to spec/support/db_support.rb, and is there a better way!?
-        fixture_path = "../fixtures/#{table}.sql"
-        conn.execute(File.read(fixture_path)) if File.size(fixture_path)
-      end
+    return unless load_fixtures
+
+    TABLES_NEEDED.each do |table|
+      fixture_path = File.expand_path("../fixtures/#{table}.sql", __dir__)
+      conn.execute(File.read(fixture_path)) if File.size?(fixture_path)
     end
   end
+end
+
+RSpec.configure do |config|
+  config.include DbSupport
 end
