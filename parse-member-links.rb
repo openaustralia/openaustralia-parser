@@ -7,6 +7,8 @@ require "mechanize"
 require "open-uri"
 require "hpricot"
 require "json"
+require "optparse"
+require "fileutils"
 
 require "name"
 require "people"
@@ -15,10 +17,26 @@ require "configuration"
 class ParseMemberLinks
   def initialize(args)
     @args = args
+    @options = { load_database: true, limit: nil, output_dir: nil }
+    OptionParser.new do |opts|
+      opts.banner = "Usage: parse-member-links.rb [--no-load] [--limit=N] [--output-dir=PATH]"
+      opts.on("--no-load", "Skip calling mpinfoin.pl at the end") do
+        @options[:load_database] = false
+      end
+      opts.on("--limit=N", Integer, "Cap the number of morph.io entries processed") do |n|
+        @options[:limit] = n
+      end
+      opts.on("--output-dir=PATH", "Write XML output to PATH instead of conf.members_xml_path") do |path|
+        @options[:output_dir] = path
+      end
+    end.parse!(@args)
   end
 
   def run
     conf = Configuration.new
+
+    output_dir = @options[:output_dir] || conf.members_xml_path
+    FileUtils.mkdir_p output_dir
 
     # Not using caching proxy since we will be running this script once a day and we
     # always want to get the new data
@@ -28,15 +46,21 @@ class ParseMemberLinks
     people = PeopleCSVReader.read_members
 
     puts "Web pages, social media URLs and email from APH (via Morph)..."
+    if conf.morph_api_key.nil? || conf.morph_api_key =~ /\AX*\z/
+      puts "WARNING: morph_api_key is not set in configuration.yml! The api call will fail!"
+    end
 
-    xml = File.open("#{conf.members_xml_path}/websites.xml", "w")
+    puts "Writing to #{output_dir}/websites.xml ..."
+    xml = File.open("#{output_dir}/websites.xml", "w")
     x = Builder::XmlMarkup.new(target: xml, indent: 1)
     x.instruct!
     x.peopleinfo do
       morph_result = agent.get(
         "https://api.morph.io/openaustralia/aus_mp_contact_details/data.json", { query: 'select * from "data"' }, nil, "x-api-key" => conf.morph_api_key
       ).body
-      JSON.parse(morph_result).each do |person|
+      morph_entries = JSON.parse(morph_result)
+      morph_entries = morph_entries.first(@options[:limit]) if @options[:limit]
+      morph_entries.each do |person|
         p = people.find_person_by_aph_id(person["aph_id"].upcase)
         params = { id: p.id, mp_contact_form: person["contact_page"],
                    aph_url: person["profile_page"] }
@@ -50,7 +74,8 @@ class ParseMemberLinks
     xml.close
 
     abc_root = "https://www.abc.net.au"
-    xml = File.open("#{conf.members_xml_path}/links-abc-election.xml", "w")
+    puts "Writing to #{output_dir}/links-abc-election.xml ..."
+    xml = File.open("#{output_dir}/links-abc-election.xml", "w")
     x = Builder::XmlMarkup.new(target: xml, indent: 1)
     x.instruct!
 
@@ -225,7 +250,8 @@ class ParseMemberLinks
                        aph_interests_last_updated: last_updated }
     end
 
-    xml = File.open("#{conf.members_xml_path}/links-register-of-interests.xml", "w")
+    puts "Writing to #{output_dir}/links-register-of-interests.xml ..."
+    xml = File.open("#{output_dir}/links-register-of-interests.xml", "w")
     x = Builder::XmlMarkup.new(target: xml, indent: 1)
     x.instruct!
     x.peopleinfo do
@@ -241,7 +267,12 @@ class ParseMemberLinks
     end
     xml.close
 
-    system("#{conf.web_root}/twfy/scripts/mpinfoin.pl links")
+    if @options[:load_database]
+      system("#{conf.web_root}/twfy/scripts/mpinfoin.pl links")
+    else
+      puts "No-load option has disabled the following that is normally run:"
+      puts "  #{conf.web_root}/twfy/scripts/mpinfoin.pl links"
+    end
   end
 end
 
