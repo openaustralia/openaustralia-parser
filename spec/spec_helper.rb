@@ -15,7 +15,13 @@ require_relative "support/db_support"
 
 SimpleCov.start do
   add_filter "/spec/"
-  add_filter "/test/"
+  add_filter "/regression-test/"
+
+  add_group "Libs", "/lib/"
+  add_group "Scripts", ->(src) { !src.filename.include?("/lib/") }
+
+  track_files "lib/**/*.rb"
+  track_files "*.rb"
 end
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(

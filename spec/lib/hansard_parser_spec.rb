@@ -1,22 +1,26 @@
-#!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require_relative "test_helper"
+require_relative "../spec_helper"
+require "hansard_speech"
 
-require "hansard_parser"
-require "hpricot"
-require "people"
+RSpec.describe HansardSpeech do
+  describe ".generic_speaker?" do
+    %w[
+      Honourable\ member
+      Honourable\ members
+      Government\ member
+      Government\ members
+      Opposition\ member
+      Opposition\ members
+      a\ government\ member
+    ].each do |name|
+      it "recognises '#{name}' as a generic speaker" do
+        expect(HansardSpeech.generic_speaker?(name)).to be_truthy
+      end
+    end
 
-class TestHansardParser < Test::Unit::TestCase
-  def test_generic_speakers
-    assert(HansardSpeech.generic_speaker?("Honourable member"))
-    assert(HansardSpeech.generic_speaker?("Honourable members"))
-    assert(HansardSpeech.generic_speaker?("Government member"))
-    assert(HansardSpeech.generic_speaker?("Government members"))
-    assert(HansardSpeech.generic_speaker?("Opposition member"))
-    assert(HansardSpeech.generic_speaker?("Opposition members"))
-    assert(HansardSpeech.generic_speaker?("a government member"))
-
-    assert(!HansardSpeech.generic_speaker?("John Smith"))
+    it "does not treat a real name as a generic speaker" do
+      expect(HansardSpeech.generic_speaker?("John Smith")).to be_falsy
+    end
   end
 end

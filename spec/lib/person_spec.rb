@@ -1,48 +1,44 @@
 # frozen_string_literal: true
 
-require_relative "test_helper"
+require_relative "../spec_helper"
 require "date"
 
 require "person"
 require "name"
 
-class TestPerson < Test::Unit::TestCase
-  def test_equality
-    john_smith1 = Person.new(name: Name.new(first: "John", last: "Smith"), count: 1)
-    john_smith1.add_period(house: House.representatives, division: "division1", party: "party1",
-                           from_date: Date.new(2000, 1, 1), to_date: Date.new(2001, 1, 1),
-                           from_why: "general_election", to_why: "defeated", count: 1)
-    # Give john_smith2 the same id as john_smith1
-    john_smith2 = Person.new(name: Name.new(first: "John", last: "Smith"), count: 1)
-    john_smith2.add_period(house: House.representatives, division: "division1", party: "party1",
-                           from_date: Date.new(2000, 1, 1), to_date: Date.new(2001, 1, 1),
-                           from_why: "general_election", to_why: "defeated", count: 1)
+RSpec.describe Person do
+  let(:john_smith) { Name.new(first: "John", last: "Smith") }
+  let(:jack_smith) { Name.new(first: "Jack", last: "Smith") }
 
-    henry_jones = Person.new(name: Name.new(first: "Henry", last: "Jones"), count: 2)
-    henry_jones.add_period(house: House.representatives, division: "division2", party: "party2",
-                           from_date: Date.new(2000, 1, 1), to_date: Date.new(2001, 1, 1),
-                           from_why: "general_election", to_why: "defeated", count: 2)
-
-    assert_equal(john_smith1, john_smith2)
-    assert_not_equal(henry_jones, john_smith2)
+  def make_person(name:, count:, division: "division1", party: "party1")
+    p = Person.new(name: name, count: count)
+    p.add_period(house: House.representatives, division: division, party: party,
+                 from_date: Date.new(2000, 1, 1), to_date: Date.new(2001, 1, 1),
+                 from_why: "general_election", to_why: "defeated", count: count)
+    p
   end
 
-  def test_multiple_names
-    john_smith = Name.new(first: "John", last: "Smith")
-    jack_smith = Name.new(first: "Jack", last: "Smith")
+  it "considers two people with the same attributes equal" do
+    expect(make_person(name: john_smith, count: 1)).to eq make_person(name: john_smith, count: 1)
+  end
+
+  it "considers two people with different names not equal" do
+    henry_jones = Name.new(first: "Henry", last: "Jones")
+    expect(make_person(name: john_smith, count: 1)).not_to eq make_person(name: henry_jones, count: 2, division: "division2", party: "party2")
+  end
+
+  it "tracks multiple names" do
     person = Person.new(count: 1, name: john_smith, alternate_names: [jack_smith])
-    assert_equal(john_smith, person.name)
-    assert_equal([jack_smith], person.alternate_names)
-    assert_equal([john_smith, jack_smith], person.all_names)
+    expect(person.name).to eq john_smith
+    expect(person.alternate_names).to eq [jack_smith]
+    expect(person.all_names).to eq [john_smith, jack_smith]
   end
 
-  def test_name_matches
-    john_smith = Name.new(first: "John", last: "Smith")
-    jack_smith = Name.new(first: "Jack", last: "Smith")
+  it "matches by primary and alternate names" do
     henry_smith = Name.new(first: "Henry", last: "Smith")
     person = Person.new(count: 1, name: john_smith, alternate_names: [jack_smith])
-    assert(person.name_matches?(john_smith))
-    assert(person.name_matches?(jack_smith))
-    assert(!person.name_matches?(henry_smith))
+    expect(person.name_matches?(john_smith)).to be true
+    expect(person.name_matches?(jack_smith)).to be true
+    expect(person.name_matches?(henry_smith)).to be false
   end
 end

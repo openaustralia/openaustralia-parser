@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "test_helper"
-
+require_relative "../spec_helper"
 require "people_csv_reader"
 
-class TestPeopleCSVReader < Test::Unit::TestCase
-  def test_sophie_mirabella
+RSpec.describe PeopleCSVReader do
+  it "reads Sophie Mirabella's record correctly" do
     ref = Person.new(
       name: Name.new(first: "Sophie", last: "Mirabella"),
       alternate_names: [Name.new(first: "Shophie", last: "Panopoulos")],
@@ -29,6 +28,6 @@ class TestPeopleCSVReader < Test::Unit::TestCase
     PeopleCSVReader.read_all_ministers(people)
     sophie_mirabella = people.find_person_by_name(Name.new(first: "Sophie", last: "Mirabella"))
 
-    assert_equal(ref, sophie_mirabella)
+    expect(sophie_mirabella).to eq ref
   end
 end

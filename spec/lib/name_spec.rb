@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative "../spec_helper"
-
 require "name"
 
 RSpec.describe Name do
@@ -107,339 +106,352 @@ RSpec.describe Name do
       expect(name.last).to eq "Kelly"
     end
 
-    it "parses hyphenated last names" do
+    it "parses hyphenated last names (Hanson-Young)" do
       name = Name.last_title_first("  HANSON  -  YOUNG  ,   Sarah   Coral")
       expect(name.first).to eq "Sarah"
       expect(name.middle).to eq "Coral"
       expect(name.last).to eq "Hanson-Young"
     end
 
-    it "parses hyphenated last names" do
+    it "parses hyphenated last names (Kakoschke-Moore)" do
       name = Name.last_title_first("  KAKOSCHKE  -  MOORE  ,   Skye  ")
       expect(name.first).to eq "Skye"
       expect(name.middle).to eq ""
       expect(name.last).to eq "Kakoschke-Moore"
     end
   end
-end
 
-# frozen_string_literal: true
+  describe ".new" do
+    it "creates a name with the given attributes" do
+      matthew = Name.new(first: "Matthew", middle: "Noah", last: "Landauer")
+      expect(matthew.first).to eq "Matthew"
+      expect(matthew.middle).to eq "Noah"
+      expect(matthew.last).to eq "Landauer"
+    end
 
-# !/usr/bin/env ruby
+    it "raises on unknown parameters" do
+      expect { Name.new(first: "foo", blah: "dibble") }.to raise_error(RuntimeError)
+    end
 
-require_relative "test_helper"
+    it "considers names with the same attributes equal" do
+      expect(Name.new(last: "Landauer", middle: "Noah", first: "Matthew")).to eq \
+        Name.new(first: "Matthew", middle: "Noah", last: "Landauer")
+    end
 
-require "name"
+    it "considers names with different attributes not equal" do
+      expect(Name.new(first: "Matthew", middle: "Noah", last: "Landauer")).not_to eq \
+        Name.new(last: "Landauer")
+    end
 
-class TestName < Test::Unit::TestCase
-  def setup
-    @matthew = Name.new(first: "Matthew", middle: "Noah", last: "Landauer")
-    @joanna_gash = Name.new(first: "Joanna", last: "Gash")
+    it "capitalises Irish names correctly" do
+      expect(Name.new(last: "o'connor").last).to eq "O'Connor"
+    end
+
+    it "capitalises Scottish names correctly" do
+      expect(Name.new(last: "mcmullan").last).to eq "McMullan"
+    end
+
+    it "capitalises D'Ath correctly" do
+      expect(Name.new(last: "d'ath").last).to eq "D'Ath"
+    end
+
+    it "capitalises double-barrelled names correctly" do
+      expect(Name.new(last: "hanson-young").last).to eq "Hanson-Young"
+    end
+
+    it "capitalises middle names with Mc prefix" do
+      expect(Name.new(middle: "mccahon").middle).to eq "McCahon"
+    end
   end
 
-  def test_new
-    assert_equal("Matthew", @matthew.first)
-    assert_equal("Noah", @matthew.middle)
-    assert_equal("Landauer", @matthew.last)
+  describe ".last_title_first (TestName cases)" do
+    it "parses a simple name" do
+      expect(Name.last_title_first("Gash Joanna")).to eq Name.new(first: "Joanna", last: "Gash")
+    end
+
+    it "is case insensitive" do
+      expect(Name.last_title_first("GASH joanna")).to eq Name.new(first: "Joanna", last: "Gash")
+    end
+
+    it "parses a middle name" do
+      expect(Name.last_title_first("Albanese Anthony Norman")).to eq \
+        Name.new(last: "Albanese", first: "Anthony", middle: "Norman")
+    end
+
+    it "parses two middle names" do
+      expect(Name.last_title_first("Albanese Anthony Norman Peter")).to eq \
+        Name.new(last: "Albanese", first: "Anthony", middle: "Norman peter")
+    end
+
+    it "parses 'the Hon.' title" do
+      expect(Name.last_title_first("Baird the Hon. Bruce George")).to eq \
+        Name.new(last: "Baird", title: "the Hon.", first: "Bruce", middle: "George")
+    end
+
+    it "parses initials only (JF)" do
+      expect(Name.last_title_first("Johnson, JF")).to eq Name.new(last: "Johnson", initials: "JF")
+    end
+
+    it "parses initials only (JFK)" do
+      expect(Name.last_title_first("Johnson, JFK")).to eq Name.new(last: "Johnson", initials: "JFK")
+    end
+
+    it "parses a nickname" do
+      expect(Name.last_title_first("ABBOTT, the Hon. Anthony (Tony) John")).to eq \
+        Name.new(last: "Abbott", title: "the Hon.", first: "Anthony", middle: "John")
+    end
+
+    it "parses Dr title" do
+      expect(Name.last_title_first("EMERSON, Dr Craig Anthony")).to eq \
+        Name.new(last: "Emerson", title: "Dr", first: "Craig", middle: "Anthony")
+    end
+
+    it "returns informal name without title" do
+      expect(Name.new(first: "Matthew", last: "Landauer", title: "Dr").informal_name).to eq "Matthew Landauer"
+    end
+
+    it "returns full name including title" do
+      expect(Name.new(last: "Abbott", title: "the Hon.", first: "Anthony", middle: "John").full_name).to eq \
+        "the Hon. Anthony John Abbott"
+    end
+
+    it "parses Stott Despoja (two unhyphenated last names)" do
+      expect(Name.last_title_first("STOTT DESPOJA, Natasha Jessica")).to eq \
+        Name.new(last: "Stott Despoja", first: "Natasha", middle: "Jessica")
+    end
+
+    it "parses post title AM" do
+      name = Name.last_title_first("COMBET, the Hon. Gregory (Greg) Ivan, AM")
+      expect(name.last).to eq "Combet"
+      expect(name.title).to eq "the Hon."
+      expect(name.first).to eq "Gregory"
+      expect(name.middle).to eq "Ivan"
+      expect(name.post_title).to eq "AM"
+    end
+
+    it "parses post title MBE" do
+      expect(Name.last_title_first("Smith, John, MBE")).to eq \
+        Name.new(first: "John", last: "Smith", post_title: "MBE")
+    end
+
+    it "parses post title QC" do
+      expect(Name.last_title_first("Smith, John, QC")).to eq \
+        Name.new(first: "John", last: "Smith", post_title: "QC")
+    end
+
+    it "parses post title OBE" do
+      expect(Name.last_title_first("Smith, John, OBE")).to eq \
+        Name.new(first: "John", last: "Smith", post_title: "OBE")
+    end
+
+    it "parses post title KSJ" do
+      expect(Name.last_title_first("Smith, John, KSJ")).to eq \
+        Name.new(first: "John", last: "Smith", post_title: "KSJ")
+    end
+
+    it "parses post title JP" do
+      expect(Name.last_title_first("Smith, John, JP")).to eq \
+        Name.new(first: "John", last: "Smith", post_title: "JP")
+    end
+
+    it "parses two post titles" do
+      expect(Name.last_title_first("WILLIAMS, the Hon. Daryl Robert, AM, QC")).to eq \
+        Name.new(last: "Williams", title: "the Hon.", first: "Daryl", middle: "Robert", post_title: "AM QC")
+    end
+
+    it "parses Ian Sinclair (Rt Hon.)" do
+      expect(Name.last_title_first("SINCLAIR, the Rt Hon. Ian Mccahon")).to eq \
+        Name.new(last: "Sinclair", title: "the Rt Hon.", first: "Ian", middle: "McCahon")
+    end
+
+    it "parses Lady Bjelke-Petersen" do
+      expect(Name.last_title_first("BJELKE-PETERSEN, Lady (Florence Isabel)")).to eq \
+        Name.new(last: "Bjelke-Petersen", title: "Lady")
+    end
+
+    it "parses nickname after middle names" do
+      expect(Name.last_title_first("MACDONALD, the Hon. John Alexander Lindsay (Sandy)")).to eq \
+        Name.new(last: "Macdonald", title: "the Hon.", first: "John", middle: "Alexander Lindsay")
+    end
+
+    it "parses Hon. (without 'the')" do
+      name = Name.last_title_first("DEBUS, Hon. Robert (Bob) John")
+      expect(name.last).to eq "Debus"
+      expect(name.title).to eq "Hon."
+      expect(name.first).to eq "Robert"
+      expect(name.middle).to eq "John"
+    end
+
+    it "parses initials at end with fullstops (MAJ)" do
+      expect(Name.last_title_first("Vaile, M.A.J.")).to eq Name.new(initials: "MAJ", last: "Vaile")
+    end
+
+    it "parses single initial at end with fullstop" do
+      expect(Name.last_title_first("Turnbull, M.")).to eq Name.new(initials: "M", last: "Turnbull")
+    end
+
+    it "parses initials with spaces" do
+      expect(Name.last_title_first("Wakelin, B. H.")).to eq Name.new(last: "Wakelin", initials: "BH")
+    end
+
+    it "parses initials with multiple fullstops" do
+      expect(Name.last_title_first("Trood R.B..")).to eq Name.new(last: "Trood", initials: "RB")
+    end
+
+    it "returns empty name for empty string" do
+      expect(Name.last_title_first("")).to eq Name.new({})
+    end
   end
 
-  def test_new_wrong_parameters
-    assert_raise(RuntimeError) { Name.new(first: "foo", blah: "dibble") }
+  describe ".title_first_last" do
+    it "parses Dr John Smith" do
+      expect(Name.title_first_last("Dr John Smith")).to eq Name.new(title: "Dr", first: "John", last: "Smith")
+    end
+
+    it "parses Dr Smith" do
+      expect(Name.title_first_last("Dr Smith")).to eq Name.new(title: "Dr", last: "Smith")
+    end
+
+    it "parses Mr Smith" do
+      expect(Name.title_first_last("Mr Smith")).to eq Name.new(title: "Mr", last: "Smith")
+    end
+
+    it "parses Mrs Smith" do
+      expect(Name.title_first_last("Mrs Smith")).to eq Name.new(title: "Mrs", last: "Smith")
+    end
+
+    it "parses Ms Julie Smith" do
+      expect(Name.title_first_last("Ms Julie Smith")).to eq Name.new(title: "Ms", first: "Julie", last: "Smith")
+    end
+
+    it "parses Ms Julie Sarah Marie Smith" do
+      expect(Name.title_first_last("Ms Julie Sarah Marie Smith")).to eq \
+        Name.new(title: "Ms", first: "Julie", middle: "Sarah Marie", last: "Smith")
+    end
+
+    it "parses Ed Husic (short first name)" do
+      name = Name.title_first_last("Ed Husic")
+      expect(name.last).to eq "Husic"
+      expect(name.first).to eq "Ed"
+    end
+
+    it "handles non-breaking spaces" do
+      nbsp = [160].pack("U")
+      expect(Name.title_first_last("Mr#{nbsp}John#{nbsp}Smith")).to eq \
+        Name.new(title: "Mr", first: "John", last: "Smith")
+    end
+
+    it "parses The Hon John Howard MP" do
+      expect(Name.title_first_last("The Hon John Howard MP")).to eq \
+        Name.new(title: "the Hon.", first: "John", last: "Howard", post_title: "MP")
+    end
+
+    it "parses Senator the Hon Nick Minchin" do
+      expect(Name.title_first_last("Senator the Hon Nick Minchin")).to eq \
+        Name.new(title: "Senator the Hon.", first: "Nick", last: "Minchin")
+    end
+
+    it "parses DJC Kerr (three-letter initials)" do
+      expect(Name.title_first_last("DJC Kerr")).to eq Name.new(initials: "DJC", last: "Kerr")
+    end
+
+    it "parses LK Johnson (two-letter initials)" do
+      expect(Name.title_first_last("LK Johnson")).to eq Name.new(initials: "LK", last: "Johnson")
+    end
+
+    it "parses Hon. DGH Adams" do
+      expect(Name.title_first_last("Hon. DGH Adams")).to eq Name.new(title: "Hon.", initials: "DGH", last: "Adams")
+      expect(Name.title_first_last("Hon. D.G.H. Adams")).to eq Name.new(title: "Hon.", initials: "DGH", last: "Adams")
+    end
+
+    it "parses Senator STOTT DESPOJA" do
+      expect(Name.title_first_last("Senator STOTT DESPOJA")).to eq \
+        Name.new(last: "Stott Despoja", title: "Senator")
+    end
+
+    it "parses Natasha Stott Despoja" do
+      expect(Name.title_first_last("Natasha Stott Despoja")).to eq \
+        Name.new(last: "Stott Despoja", first: "Natasha")
+    end
+
+    it "parses Dan John Van Manen initials" do
+      expect(Name.title_first_last("Dan John Van Manen").real_initials).to eq "DJ"
+    end
+
+    it "returns empty name for empty string" do
+      expect(Name.title_first_last("")).to eq Name.new({})
+    end
   end
 
-  def test_equals
-    assert_equal(@matthew, Name.new(last: "Landauer", middle: "Noah", first: "Matthew"))
-    assert_not_equal(@matthew, Name.new(last: "Landauer"))
+  describe "#matches?" do
+    it "matches itself" do
+      dr_john_smith = Name.new(title: "Dr", first: "John", last: "Smith")
+      expect(dr_john_smith.matches?(dr_john_smith)).to be true
+    end
+
+    it "does not match a different first name" do
+      expect(Name.new(title: "Dr", first: "John", last: "Smith").matches?(
+               Name.new(first: "Peter", last: "Smith")
+             )).to be false
+    end
+
+    it "does not match when there is no overlap" do
+      expect(Name.new(last: "Smith").matches?(Name.new(title: "Dr", first: "John"))).to be false
+    end
+
+    it "matches with middle name missing from one side" do
+      expect(Name.new(first: "Kim", middle: "William", last: "Wilkie").matches?(
+               Name.new(first: "Kim", last: "Wilkie")
+             )).to be true
+    end
+
+    it "matches with first initial" do
+      l_johnson = Name.title_first_last("L Johnson")
+      expect(Name.new(first: "Leonard", middle: "Keith", last: "Johnson").matches?(l_johnson)).to be true
+      expect(Name.new(first: "Leslie", middle: "Royston", last: "Johnson").matches?(l_johnson)).to be true
+      expect(Name.new(first: "Peter", middle: "Francis", last: "Johnson").matches?(l_johnson)).to be false
+    end
+
+    it "matches with two-letter middle initial" do
+      lk_johnson = Name.title_first_last("LK Johnson")
+      expect(Name.new(first: "Leonard", middle: "Keith", last: "Johnson").matches?(lk_johnson)).to be true
+      expect(Name.new(first: "Leslie", middle: "Royston", last: "Johnson").matches?(lk_johnson)).to be false
+      expect(lk_johnson.matches?(Name.new(first: "Leonard", middle: "Keith", last: "Johnson"))).to be true
+    end
   end
 
-  def test_simple_parse
-    assert_equal(@joanna_gash, Name.last_title_first("Gash Joanna"))
+  describe "#real_initials / #first_initial / #middle_initials" do
+    it "computes real_initials" do
+      expect(Name.new(first: "John", middle: "Edward Peter").real_initials).to eq "JEP"
+      expect(Name.new(first: "Dan", middle: "John", last: "Van Manen").real_initials).to eq "DJ"
+      expect(Name.new(initials: "MN").real_initials).to eq "MN"
+    end
+
+    it "computes first_initial" do
+      expect(Name.new(first: "John", middle: "Edward Peter").first_initial).to eq "J"
+      expect(Name.new(initials: "MN").first_initial).to eq "M"
+    end
+
+    it "computes middle_initials" do
+      expect(Name.new(first: "John", middle: "Edward Peter").middle_initials).to eq "EP"
+      expect(Name.new(initials: "MN").middle_initials).to eq "N"
+    end
   end
 
-  def test_capitals
-    assert_equal(@joanna_gash, Name.last_title_first("GASH joanna"))
-  end
+  describe ".initials_with_fullstops" do
+    it "strips fullstops from dotted initials" do
+      expect(Name.initials_with_fullstops("D.G.H.")).to eq "DGH"
+      expect(Name.initials_with_fullstops("A.B.")).to eq "AB"
+      expect(Name.initials_with_fullstops("M.")).to eq "M"
+      expect(Name.initials_with_fullstops("AB.")).to eq "AB"
+    end
 
-  #  def test_comma
-  #    assert_equal(@joanna_gash, Name.last_title_first("Gash, Joanna"))
-  #  end
+    it "returns nil for initials without trailing fullstop" do
+      expect(Name.initials_with_fullstops("AB")).to be_nil
+    end
 
-  def test_middle_name
-    assert_equal(Name.new(last: "Albanese", first: "Anthony", middle: "Norman"),
-                 Name.last_title_first("Albanese Anthony Norman"))
-  end
-
-  def test_two_middle_names
-    assert_equal(Name.new(last: "Albanese", first: "Anthony", middle: "Norman peter"),
-                 Name.last_title_first("Albanese Anthony Norman Peter"))
-  end
-
-  def test_the_hon
-    assert_equal(Name.new(last: "Baird", title: "the Hon.", first: "Bruce", middle: "George"),
-                 Name.last_title_first("Baird the Hon. Bruce George"))
-  end
-
-  def test_initials_last
-    assert_equal(Name.new(last: "Johnson", initials: "JF"),
-                 Name.last_title_first("Johnson, JF"))
-  end
-
-  def test_initials_last2
-    assert_equal(Name.new(last: "Johnson", initials: "JFK"),
-                 Name.last_title_first("Johnson, JFK"))
-  end
-
-  def test_nickname
-    assert_equal(Name.new(last: "Abbott", title: "the Hon.", first: "Anthony", middle: "John"),
-                 Name.last_title_first("ABBOTT, the Hon. Anthony (Tony) John"))
-  end
-
-  def test_dr
-    assert_equal(Name.new(last: "Emerson", title: "Dr", first: "Craig", middle: "Anthony"),
-                 Name.last_title_first("EMERSON, Dr Craig Anthony"))
-  end
-
-  def test_informal_name
-    assert_equal("Matthew Landauer",
-                 Name.new(first: "Matthew", last: "Landauer", title: "Dr").informal_name)
-  end
-
-  def test_full_name
-    name = Name.new(last: "Abbott", title: "the Hon.", first: "Anthony", middle: "John")
-    assert_equal("the Hon. Anthony John Abbott", name.full_name)
-  end
-
-  def test_capitals_irish_name
-    assert_equal("O'Connor", Name.new(last: "o'connor").last)
-  end
-
-  def test_capitals_scottish_name
-    assert_equal("McMullan", Name.new(last: "mcmullan").last)
-  end
-
-  def test_dath
-    assert_equal("D'Ath", Name.new(last: "d’ath").last)
-  end
-
-  def test_first_name_ed
-    name = Name.title_first_last("Ed Husic")
-    assert_equal("Husic", name.last)
-    assert_equal("Ed", name.first)
-  end
-
-  def test_non_breaking_space
-    # First check names without any unicode
-    # assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.title_first_last("Mr John Smith"))
-    # assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.last_title_first("Smith, Mr John"))
-    # Now check similar names with unicode
-    nbsp = [160].pack("U")
-    assert_equal(Name.new(title: "Mr", first: "John", last: "Smith"),
-                 Name.title_first_last("Mr#{nbsp}John#{nbsp}Smith"))
-    # assert_equal(Name.new(:title => "Mr", :first => "John", :last => "Smith"), Name.last_title_first("Smith,#{nbsp}Mr#{nbsp}John"))
-  end
-
-  def test_double_barrelled
-    assert_equal("Hanson-Young", Name.new(last: "hanson-young").last)
-  end
-
-  def test_title_first_last
-    assert_equal(Name.new(title: "Dr", first: "John", last: "Smith"),
-                 Name.title_first_last("Dr John Smith"))
-    assert_equal(Name.new(title: "Dr", last: "Smith"), Name.title_first_last("Dr Smith"))
-    assert_equal(Name.new(title: "Mr", last: "Smith"), Name.title_first_last("Mr Smith"))
-    assert_equal(Name.new(title: "Mrs", last: "Smith"), Name.title_first_last("Mrs Smith"))
-    assert_equal(Name.new(title: "Ms", first: "Julie", last: "Smith"),
-                 Name.title_first_last("Ms Julie Smith"))
-    assert_equal(Name.new(title: "Ms", first: "Julie", middle: "Sarah Marie", last: "Smith"),
-                 Name.title_first_last("Ms Julie Sarah Marie Smith"))
-  end
-
-  def test_john_debus
-    # He has a title of "Hon." rather than "the Hon."
-    name = Name.last_title_first("DEBUS, Hon. Robert (Bob) John")
-    assert_equal("Debus", name.last)
-    assert_equal("Hon.", name.title)
-    assert_equal("Robert", name.first)
-    assert_equal("John", name.middle)
-  end
-
-  # Deal with weirdo titles at the end
-  def test_post_title
-    name = Name.last_title_first("COMBET, the Hon. Gregory (Greg) Ivan, AM")
-    assert_equal("Combet", name.last)
-    assert_equal("the Hon.", name.title)
-    assert_equal("Gregory", name.first)
-    assert_equal("Ivan", name.middle)
-    assert_equal("AM", name.post_title)
-  end
-
-  def test_post_title_mbe
-    assert_equal(Name.new(first: "John", last: "Smith", post_title: "MBE"),
-                 Name.last_title_first("Smith, John, MBE"))
-  end
-
-  def test_post_title_qc
-    assert_equal(Name.new(first: "John", last: "Smith", post_title: "QC"),
-                 Name.last_title_first("Smith, John, QC"))
-  end
-
-  def test_post_title_obe
-    assert_equal(Name.new(first: "John", last: "Smith", post_title: "OBE"),
-                 Name.last_title_first("Smith, John, OBE"))
-  end
-
-  def test_post_title_ksj
-    assert_equal(Name.new(first: "John", last: "Smith", post_title: "KSJ"),
-                 Name.last_title_first("Smith, John, KSJ"))
-  end
-
-  def test_post_title_jp
-    assert_equal(Name.new(first: "John", last: "Smith", post_title: "JP"),
-                 Name.last_title_first("Smith, John, JP"))
-  end
-
-  def test_capilisation_on_middle_name
-    assert_equal("McCahon", Name.new(middle: "mccahon").middle)
-  end
-
-  def test_ian_sinclair
-    assert_equal(Name.new(last: "Sinclair", title: "the Rt Hon.", first: "Ian", middle: "McCahon"),
-                 Name.last_title_first("SINCLAIR, the Rt Hon. Ian Mccahon"))
-  end
-
-  def test_two_post_titles
-    assert_equal(Name.new(last: "Williams", title: "the Hon.", first: "Daryl", middle: "Robert", post_title: "AM QC"),
-                 Name.last_title_first("WILLIAMS, the Hon. Daryl Robert, AM, QC"))
-  end
-
-  def test_stott_despoja
-    # Difficult situation of two last names which aren't hyphenated
-    assert_equal(Name.new(last: "Stott Despoja", first: "Natasha", middle: "Jessica"),
-                 Name.last_title_first("STOTT DESPOJA, Natasha Jessica"))
-    assert_equal(Name.new(last: "Stott Despoja", title: "Senator"),
-                 Name.title_first_last("Senator STOTT DESPOJA"))
-    assert_equal(Name.new(last: "Stott Despoja", first: "Natasha"),
-                 Name.title_first_last("Natasha Stott Despoja"))
-  end
-
-  # Class for simple (naive) way of comparing two names. Only compares parts of the name
-  # that exist in both names
-  def test_matches
-    dr_john_smith = Name.new(title: "Dr", first: "John", last: "Smith")
-    peter_smith = Name.new(first: "Peter", last: "Smith")
-    smith = Name.new(last: "Smith")
-    dr_john = Name.new(title: "Dr", first: "John")
-    assert(dr_john_smith.matches?(dr_john_smith))
-    assert(!dr_john_smith.matches?(peter_smith))
-    # When there is no overlap between the names they should not match
-    assert(!smith.matches?(dr_john))
-  end
-
-  def test_nickname_after_middle_names
-    assert_equal(Name.new(last: "Macdonald", title: "the Hon.", first: "John", middle: "Alexander Lindsay"),
-                 Name.last_title_first("MACDONALD, the Hon. John Alexander Lindsay (Sandy)"))
-  end
-
-  # This test for the regression introduced by adding support for initials
-  def test_matches_with_middle_name_missing
-    name1 = Name.new(first: "Kim", middle: "William", last: "Wilkie")
-    name2 = Name.new(first: "Kim", last: "Wilkie")
-    assert(name1.matches?(name2))
-  end
-
-  def test_the_hon_john_howard_mp
-    assert_equal(Name.title_first_last("The Hon John Howard MP"),
-                 Name.new(title: "the Hon.", first: "John", last: "Howard", post_title: "MP"))
-  end
-
-  def test_senator_the_hon_nick_minchin
-    assert_equal(Name.title_first_last("Senator the Hon Nick Minchin"),
-                 Name.new(title: "Senator the Hon.", first: "Nick", last: "Minchin"))
-  end
-
-  def test_title_first_last_djc_kerr
-    assert_equal(Name.new(initials: "DJC", last: "Kerr"), Name.title_first_last("DJC Kerr"))
-  end
-
-  def test_parsing_initials
-    assert_equal(Name.new(initials: "LK", last: "Johnson"), Name.title_first_last("LK Johnson"))
-  end
-
-  def test_matches_with_first_initials
-    l_johnson = Name.title_first_last("L Johnson")
-    leonard_keith_johnson = Name.new(first: "Leonard", middle: "Keith", last: "Johnson")
-    leslie_royston_johnson = Name.new(first: "Leslie", middle: "Royston", last: "Johnson")
-    peter_francis_johnson = Name.new(first: "Peter", middle: "Francis", last: "Johnson")
-    assert(!peter_francis_johnson.matches?(l_johnson))
-    assert(leonard_keith_johnson.matches?(l_johnson))
-    assert(leslie_royston_johnson.matches?(l_johnson))
-  end
-
-  def test_matches_with_middle_initials
-    lk_johnson = Name.title_first_last("LK Johnson")
-    leonard_keith_johnson = Name.new(first: "Leonard", middle: "Keith", last: "Johnson")
-    leslie_royston_johnson = Name.new(first: "Leslie", middle: "Royston", last: "Johnson")
-
-    assert(!leslie_royston_johnson.matches?(lk_johnson))
-    assert(leonard_keith_johnson.matches?(lk_johnson))
-
-    assert(lk_johnson.matches?(leonard_keith_johnson))
-  end
-
-  def test_initials
-    assert_equal("DJ", Name.title_first_last("Dan John Van Manen").real_initials)
-    assert_equal("JEP", Name.new(first: "John", middle: "Edward Peter").real_initials)
-    assert_equal("DJ", Name.new(first: "Dan", middle: "John", last: "Van Manen").real_initials)
-    assert_equal("MN", Name.new(initials: "MN").real_initials)
-  end
-
-  def test_first_initial
-    assert_equal("J", Name.new(first: "John", middle: "Edward Peter").first_initial)
-    assert_equal("M", Name.new(initials: "MN").first_initial)
-  end
-
-  def test_middle_initials
-    assert_equal("EP", Name.new(first: "John", middle: "Edward Peter").middle_initials)
-    assert_equal("N", Name.new(initials: "MN").middle_initials)
-  end
-
-  def test_another_three_letter_initial
-    assert_equal(Name.new(title: "Hon.", initials: "DGH", last: "Adams"),
-                 Name.title_first_last("Hon. DGH Adams"))
-    assert_equal(Name.new(title: "Hon.", initials: "DGH", last: "Adams"),
-                 Name.title_first_last("Hon. D.G.H. Adams"))
-  end
-
-  def test_lady_bjelke_petersen
-    assert_equal(Name.new(last: "Bjelke-Petersen", title: "Lady"),
-                 Name.last_title_first("BJELKE-PETERSEN, Lady (Florence Isabel)"))
-  end
-
-  def test_initials_with_fullstops
-    assert("DGH", Name.initials_with_fullstops("D.G.H."))
-    assert("AB", Name.initials_with_fullstops("A.B."))
-    assert("M", Name.initials_with_fullstops("M."))
-    assert("AB", Name.initials_with_fullstops("AB."))
-    assert_nil(Name.initials_with_fullstops("AB"))
-    assert("", Name.initials_with_fullstops(".."))
-  end
-
-  def test_empty_name
-    assert_equal(Name.new({}), Name.title_first_last(""))
-    assert_equal(Name.new({}), Name.last_title_first(""))
-  end
-
-  def test_initials_at_end
-    assert_equal(Name.new(initials: "MAJ", last: "Vaile"), Name.last_title_first("Vaile, M.A.J."))
-    assert_equal(Name.new(initials: "M", last: "Turnbull"), Name.last_title_first("Turnbull, M."))
-  end
-
-  def test_initials_with_spaces
-    assert_equal(Name.new(last: "Wakelin", initials: "BH"), Name.last_title_first("Wakelin, B. H."))
-  end
-
-  # If only people could learn how to type properly
-  def test_initials_with_multiple_fullstops
-    assert_equal(Name.new(last: "Trood", initials: "RB"), Name.last_title_first("Trood R.B.."))
+    it "handles edge case of only dots" do
+      expect(Name.initials_with_fullstops("..")).to eq ""
+    end
   end
 end

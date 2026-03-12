@@ -32,7 +32,6 @@ group :test do
   gem "rspec"
   gem "simplecov"
   gem "simplecov-console"
-  gem "test-unit"
   gem "timecop"
   gem "vcr"
   gem "webmock"

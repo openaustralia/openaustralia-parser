@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
-require_relative "test_helper"
-
+require_relative "../spec_helper"
 require "date_with_future"
 
-class TestDateWithFuture < Test::Unit::TestCase
-  def test_normal_date
-    assert_equal("2000-01-02", DateWithFuture.new(2000, 1, 2).to_s)
+RSpec.describe DateWithFuture do
+  it "handles a normal date" do
+    expect(DateWithFuture.new(2000, 1, 2).to_s).to eq "2000-01-02"
   end
 
-  def test_future
-    assert_equal(DateWithFuture.new(9999, 12, 31), DateWithFuture.future)
+  it "returns the future sentinel date" do
+    expect(DateWithFuture.future).to eq DateWithFuture.new(9999, 12, 31)
   end
 end
