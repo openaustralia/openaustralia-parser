@@ -1,14 +1,17 @@
 # Common spec helper
 
-# require "bundler/setup"
-
 # Use test configiuration
 ENV["APP_ENV"] = "test"
+
+require "bundler/setup"
 
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 
 require "simplecov"
 require "simplecov-console"
+require "vcr"
+
+require_relative "support/db_support"
 
 SimpleCov.start do
   add_filter "/spec/"
@@ -41,4 +44,10 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+end
+
+VCR.configure do |c|
+  c.cassette_library_dir = "spec/cassettes"
+  c.hook_into :webmock
+  c.configure_rspec_metadata!
 end
