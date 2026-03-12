@@ -184,6 +184,16 @@ class Name
     t
   end
 
+  def to_h
+    {
+      title: title,
+      first: first,
+      middle: middle,
+      last: last,
+      post_title: post_title
+    }.reject { |_, v| v.nil? || v.empty? }
+  end
+
   def title?
     @title != ""
   end

@@ -217,7 +217,8 @@ class HansardParser
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
             if member.nil?
-              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes)"
+              extra_details = @people.find_people_by_name(name)&.any?  ? "not sitting" : "not found"
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes) #{name.to_h.inspect} #{extra_details}"
             end
 
             member
@@ -228,7 +229,8 @@ class HansardParser
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
             if member.nil?
-              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no)"
+              extra_details = @people.find_people_by_name(name)&.any?  ? "not sitting" : "not found"
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no) #{name.to_h.inspect} #{extra_details}"
             end
 
             member
@@ -239,7 +241,8 @@ class HansardParser
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
             if member.nil?
-              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes and teller)"
+              extra_details = @people.find_people_by_name(name)&.any?  ? "not sitting" : "not found"
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes and teller) #{name.to_h.inspect} #{extra_details}"
             end
 
             member
@@ -250,7 +253,8 @@ class HansardParser
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
             if member.nil?
-              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no and teller)"
+              extra_details = @people.find_people_by_name(name)&.any?  ? "not sitting" : "not found"
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no and teller) #{name.to_h.inspect} #{extra_details}"
             end
 
             member
@@ -262,7 +266,8 @@ class HansardParser
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
               if member.nil?
-                raise "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair)"
+                extra_details = @people.find_people_by_name(name)&.any?  ? "not sitting" : "not found"
+                raise "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair) #{name.to_h.inspect} #{extra_details}"
               end
 
               member
