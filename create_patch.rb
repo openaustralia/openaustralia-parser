@@ -54,6 +54,7 @@ class CreatePatch
     # File.open("original.xml", "w") {|f| f << parser.unpatched_hansard_xml_source_data_on_date(date, house)}
     # File.open("patched.xml", "w") {|f| f << parser.hansard_xml_source_data_on_date(date, house)}
     File.open("original.xml", "w") { |f| f << parser.hansard_xml_source_data_on_date(date, house) }
+    puts "WARNING: original.xml is empty!" unless File.size?("original.xml")
     FileUtils.cp "original.xml", "patched.xml"
 
     $stdout.puts "Edit patched.xml to your liking, then:"
