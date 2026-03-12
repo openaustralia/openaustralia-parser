@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+# FIXME: We shouldn't be dependent on GIDs staying the same as replication fallover may change them
+
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
 require "csv"
@@ -14,6 +16,13 @@ class ExportComments
   end
 
   def run
+    puts "WARNING: [mlander:] These are Very rough and ready scripts for importing/exporting comments when gid's might change!"
+    if ENV['BE-DANGEROUS']
+      puts "Continuing..."
+    else
+      puts "Set BE-DANGEROUS=1 if you have read these scripts and know what you are doing!"
+      exit(1)
+    end
     conf = Configuration.new
 
     db = Mysql.real_connect(conf.database_host, conf.database_user, conf.database_password,
