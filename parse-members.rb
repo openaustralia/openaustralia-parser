@@ -17,19 +17,22 @@ class ParseMembers
     options = { load_database: true }
 
     OptionParser.new do |opts|
-      opts.banner = "Usage: parse-members.rb [--no-load]"
+      opts.banner = "Usage: parse-members.rb [--no-load] [--output-dir=PATH]"
 
       # This is useful when just testing whether the members data is well-formed
       # We do this as part of the tests on travis
       opts.on("--no-load", "Just generate XML and don't load up database") do |l|
         options[:load_database] = l
       end
+      opts.on("--output-dir=PATH", "Write XML output to PATH instead of conf.members_xml_path") do |path|
+        options[:output_dir] = path
+      end
     end.parse!(@args)
 
-    # TODO: Fix this obscure parameter option for configuration
-    conf = Configuration.new(({} unless options[:load_database]))
+    conf = Configuration.new
 
-    FileUtils.mkdir_p conf.members_xml_path
+    output_dir = options[:output_dir] || conf.members_xml_path
+    FileUtils.mkdir_p output_dir
 
     puts "Reading members data..."
     people = PeopleCSVReader.read_members
@@ -83,16 +86,18 @@ class ParseMembers
       end
     end
 
-    puts "Writing XML..."
-    people.write_xml("#{conf.members_xml_path}/people.xml", "#{conf.members_xml_path}/representatives.xml", "#{conf.members_xml_path}/senators.xml",
-                     "#{conf.members_xml_path}/ministers.xml", "#{conf.members_xml_path}/divisions.xml")
+    puts "Writing xml files #{output_dir}/{people.xml,representatives.xml,senators.xml,ministers.xml,divisions.xml}..."
+    people.write_xml("#{output_dir}/people.xml", "#{output_dir}/representatives.xml", "#{output_dir}/senators.xml",
+                     "#{output_dir}/ministers.xml", "#{output_dir}/divisions.xml")
 
+    command = "perl #{conf.web_root}/twfy/scripts/xml2db.pl --members --all --force"
     if options[:load_database]
       # And load up the database
       # Starts with 'perl' to be friendly with Windows
-      system("perl #{conf.web_root}/twfy/scripts/xml2db.pl --members --all --force")
+      system(command)
     else
-      puts "Created xml files in #{conf.members_xml_path}"
+      puts "No-load option has disabled the following that is normally run:"
+      puts "  #{command}"
     end
   end
 end
