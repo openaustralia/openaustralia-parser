@@ -35,14 +35,14 @@ RSpec.describe "parse-postcodes.rb", :integration do
       output = capture_stdout_and_stderr { ParsePostcodes.new(["--output-dir", output_dir]).run }
       expect(File).to exist(output_csv)
       expect(File.size?(output_csv)).to be_truthy
-      expect(output).to match(/Fetching postcodes from morph.io to/)
+      expect(output).to match(/Fetching postcodes from morph.io/)
       expect(output).to match(/Done./)
     end
 
     it "postcodes.csv contains expected headers" do
       output = capture_stdout_and_stderr { ParsePostcodes.new(["--output-dir", output_dir]).run }
       first_line = File.readlines(output_csv).first&.strip
-      expect(first_line).to match(/postcode/i)
+      expect(first_line).to match(/postcode,electorate/i)
       expect(output).to match(/Done./)
     end
 
@@ -51,7 +51,7 @@ RSpec.describe "parse-postcodes.rb", :integration do
       File.write(output_csv, 'Rubbish')
       output = capture_stdout_and_stderr { ParsePostcodes.new(["--output-dir", output_dir]).run }
       first_line = File.readlines(output_csv).first&.strip
-      expect(first_line).to match(/postcode/i)
+      expect(first_line).to match(/postcode,electorate/i)
       expect(output).to match(/Done./)
     end
 

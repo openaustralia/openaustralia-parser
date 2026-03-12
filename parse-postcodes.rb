@@ -4,15 +4,15 @@
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
 require "optparse"
-require "cgi"
 require "fileutils"
+require "mechanize"
 
 require "configuration"
 
 class ParsePostcodes
   def initialize(args)
     @args = args
-    @options = { }
+    @options = {}
     OptionParser.new do |opts|
       opts.banner = "Usage: parse-postcodes.rb [--output-dir=PATH] [--morph-api-key=KEY]"
       opts.on("--output-dir=PATH", "Write postcodes.csv to this dir instead of data/") do |path|
@@ -28,27 +28,27 @@ class ParsePostcodes
     conf = Configuration.new
 
     morph_api_key = @options[:morph_api_key] || conf.morph_api_key
-    output_dir = @options[:output_dir] || 'data'
-    new_filename ="#{output_dir}/postcodes.csv.new"
+    output_dir = @options[:output_dir] || "data"
     data_filename = "#{output_dir}/postcodes.csv"
 
-    puts "Fetching postcodes from morph.io to #{new_filename} ..."
+    puts "Fetching postcodes from morph.io ..."
     if morph_api_key.nil? || morph_api_key =~ /\AX*\z/
       puts "WARNING: morph_api_key is not set in configuration.yml! The api call will fail!"
     end
 
-    FileUtils.rm_f new_filename
     FileUtils.mkdir_p output_dir
-    sql_query = CGI.escape "SELECT DISTINCT postcode,COALESCE(NULLIF(electorate,''),redistributedElectorate) FROM 'data'"
-    url = "https://api.morph.io/drzax/morph-division-postcode-correspondence/data.csv?key=#{morph_api_key}&query=#{sql_query}"
-    status_code = `curl --silent --output "#{new_filename}" --write-out "%{http_code}" "#{url}"`
 
-    raise "ERROR: curl exited with status: #{$CHILD_STATUS.exitstatus}" if $CHILD_STATUS.exitstatus != 0
-    raise "HTTP ERROR: #{status_code} fetching postcodes — check your morph.io API key" if status_code != "200"
-    raise "ERROR: Empty response — check your morph.io API key" unless File.size?(new_filename)
+    sql_query = "SELECT DISTINCT postcode,COALESCE(NULLIF(electorate,''),redistributedElectorate) AS electorate FROM 'data' order by postcode,electorate"
+    url = "https://api.morph.io/drzax/morph-division-postcode-correspondence/data.csv"
 
-    puts "Moving #{new_filename} to #{data_filename} ..."
-    FileUtils.mv(new_filename, data_filename, force: true)
+    agent = Mechanize.new
+    response = agent.get(url, { key: morph_api_key, query: sql_query })
+
+    raise "HTTP ERROR: #{response.code} fetching postcodes — check your morph.io API key" if response.code != "200"
+    raise "ERROR: Empty response — check your morph.io API key" if response.body.strip.empty?
+
+    puts "Saving to #{data_filename} ..."
+    File.write(data_filename, response.body)
     puts "Done."
   end
 end
