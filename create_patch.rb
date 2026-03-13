@@ -63,4 +63,4 @@ class CreatePatch
   end
 end
 
-exit CreatePatch.new(ARGV).run if $PROGRAM_NAME == __FILE__
+exit CreatePatch.new(ARGV).run.to_i if $PROGRAM_NAME == __FILE__

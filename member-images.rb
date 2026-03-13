@@ -40,4 +40,4 @@ class MemberImages
   end
 end
 
-MemberImages.new(ARGV).run if $PROGRAM_NAME == __FILE__
+exit MemberImages.new(ARGV).run.to_i if $PROGRAM_NAME == __FILE__

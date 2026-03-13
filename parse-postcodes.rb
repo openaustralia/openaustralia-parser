@@ -53,4 +53,4 @@ class ParsePostcodes
   end
 end
 
-ParsePostcodes.new(ARGV).run if $PROGRAM_NAME == __FILE__
+exit ParsePostcodes.new(ARGV).run.to_i if $PROGRAM_NAME == __FILE__

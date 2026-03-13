@@ -44,4 +44,4 @@ class ExportComments
   end
 end
 
-exit ExportComments.new(ARGV).run if $PROGRAM_NAME == __FILE__
+exit ExportComments.new(ARGV).run.to_i if $PROGRAM_NAME == __FILE__

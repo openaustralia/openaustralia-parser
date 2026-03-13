@@ -102,4 +102,4 @@ class ParseMembers
   end
 end
 
-ParseMembers.new(ARGV).run if $PROGRAM_NAME == __FILE__
+exit ParseMembers.new(ARGV).run.to_i if $PROGRAM_NAME == __FILE__

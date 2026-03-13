@@ -52,4 +52,4 @@ class ImportComments
   end
 end
 
-ImportComments.new(ARGV).run if $PROGRAM_NAME == __FILE__
+exit ImportComments.new(ARGV).run.to_i if $PROGRAM_NAME == __FILE__

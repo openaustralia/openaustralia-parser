@@ -276,4 +276,4 @@ class ParseMemberLinks
   end
 end
 
-ParseMemberLinks.new(ARGV).run if $PROGRAM_NAME == __FILE__
+exit ParseMemberLinks.new(ARGV).run.to_i if $PROGRAM_NAME == __FILE__
