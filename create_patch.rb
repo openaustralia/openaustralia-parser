@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require "bundler/setup"
+
 # Create a patch easily for a particular date
 
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"

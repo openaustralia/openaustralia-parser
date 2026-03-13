@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require "bundler/setup"
+
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 require "optparse"
 require "ruby-progressbar"
@@ -78,6 +80,9 @@ class ParseSpeeches
       opts.on("--no-load", "Just generate XML and don't load up database") do |l|
         options[:load_database] = l
       end
+      opts.on("--output-dir=PATH", "Write XML output to PATH instead of conf.xml_path/scrapedxml") do |path|
+        options[:output_dir] = path
+      end
       opts.on("--interactive", "Upon error, allow the user to patch interactively") do |l|
         options[:interactive] = l
       end
@@ -89,7 +94,7 @@ class ParseSpeeches
               "On loading data into database delete records that are not in the XML") do |l|
         options[:force] = l
       end
-    end.parse!
+    end.parse!(@args)
 
     if @args.size != 1 && @args.size != 2
       puts "Need to supply one or two dates"
@@ -106,17 +111,19 @@ class ParseSpeeches
 
     conf = Configuration.new
 
-    FileUtils.mkdir_p "#{conf.xml_path}/origxml/representatives_debates"
-    FileUtils.mkdir_p "#{conf.xml_path}/origxml/senate_debates"
-    FileUtils.mkdir_p "#{conf.xml_path}/rewritexml/representatives_debates"
-    FileUtils.mkdir_p "#{conf.xml_path}/rewritexml/senate_debates"
-    FileUtils.mkdir_p "#{conf.xml_path}/scrapedxml/representatives_debates"
-    FileUtils.mkdir_p "#{conf.xml_path}/scrapedxml/senate_debates"
+    output_dir = options[:output_dir] || conf.xml_path
+    scraped_root = "#{output_dir}/scrapedxml"
+    FileUtils.mkdir_p "#{output_dir}/origxml/representatives_debates"
+    FileUtils.mkdir_p "#{output_dir}/origxml/senate_debates"
+    FileUtils.mkdir_p "#{output_dir}/rewritexml/representatives_debates"
+    FileUtils.mkdir_p "#{output_dir}/rewritexml/senate_debates"
+    FileUtils.mkdir_p "#{scraped_root}/representatives_debates"
+    FileUtils.mkdir_p "#{scraped_root}/senate_debates"
 
     # First load people back in so that we can look up member id's
     people = PeopleCSVReader.read_members
 
-    parser = HansardParser.new(people)
+    parser = HansardParser.new(people, output_dir: output_dir)
 
     progress = ProgressBar.create(title: "parse-speeches",
                                   total: ((to_date - from_date + 1) * 2).to_i, format: "%t %e: |%B|")
@@ -130,10 +137,10 @@ class ParseSpeeches
                 ->(a, b, c) { parser.parse_date_house a, b, c }
               end
       parse_with_retry options[:interactive], parse, date,
-                       "#{conf.xml_path}/scrapedxml/representatives_debates/#{date}.xml", House.representatives
+                       "#{scraped_root}/representatives_debates/#{date}.xml", House.representatives
       progress.increment
 
-      parse_with_retry options[:interactive], parse, date, "#{conf.xml_path}/scrapedxml/senate_debates/#{date}.xml",
+      parse_with_retry options[:interactive], parse, date, "#{scraped_root}/senate_debates/#{date}.xml",
                        House.senate
       progress.increment
       date -= 1
@@ -142,16 +149,20 @@ class ParseSpeeches
     progress.finish
 
     # And load up the database
-    if options[:load_database]
-      command_options = +" --from=#{from_date} --to=#{to_date}"
-      command_options << " --debates"
-      command_options << " --lordsdebates"
-      command_options << " --force" if options[:force]
+    command_options = +" --from=#{from_date} --to=#{to_date}"
+    command_options << " --debates"
+    command_options << " --lordsdebates"
+    command_options << " --force" if options[:force]
 
-      # Starts with 'perl' to be friendly with Windows
-      system("perl #{conf.web_root}/twfy/scripts/xml2db.pl #{command_options}")
+    # Starts with 'perl' to be friendly with Windows
+    command = "perl #{conf.web_root}/twfy/scripts/xml2db.pl #{command_options}"
+    if options[:load_database]
+      system(command)
+    else
+      puts "No-load option has disabled the following that is normally run:"
+      puts "  #{command}"
     end
   end
 end
 
-exit ParseSpeeches.new(ARGV).run if $PROGRAM_NAME == __FILE__
+exit ParseSpeeches.new(ARGV).run.to_i if $PROGRAM_NAME == __FILE__

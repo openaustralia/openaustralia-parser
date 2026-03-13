@@ -1,11 +1,12 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require "bundler/setup"
+
 # Load the postcode data directly into the database
 
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
-require "rubygems"
 require "csv"
 require "mysql2"
 require "configuration"

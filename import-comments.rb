@@ -1,9 +1,11 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
-#
+
 # mlander: Very rough and ready scripts for importing/exporting comments when gid's might change
 #
 # FIXME: We shouldn't be dependent on GIDs staying the same as replication fallover may change them
+
+require "bundler/setup"
 
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
