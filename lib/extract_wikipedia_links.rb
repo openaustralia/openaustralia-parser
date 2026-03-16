@@ -8,7 +8,7 @@ def extract_all_representative_wikipedia_links(people, agent)
   # Only going to get wikipedia links going back to 2004 for the time being
   %w[2004 2007 2010].each_cons(2) do |pair|
     puts "Analysing years #{pair[0]}-#{pair[1]}"
-    url = "http://en.wikipedia.org/wiki/Members_of_the_Australian_House_of_Representatives%2C_#{pair[0]}-#{pair[1]}"
+    url = "https://en.wikipedia.org/wiki/Members_of_the_Australian_House_of_Representatives%2C_#{pair[0]}-#{pair[1]}"
     extract_links_from_wikipedia(agent.get(url).parser, people, links)
   end
   links
@@ -16,7 +16,7 @@ end
 
 def extract_all_senator_wikipedia_links(people, agent)
   links = {}
-  url = "http://en.wikipedia.org/wiki/Members_of_the_Australian_Senate%2C_2005-2008"
+  url = "https://en.wikipedia.org/wiki/Members_of_the_Australian_Senate%2C_2005-2008"
   extract_links_from_wikipedia(agent.get(url).parser, people, links)
   links
 end
@@ -25,7 +25,7 @@ end
 def check_wikipedia_page(url, agent)
   if url =~ %r{^http://en.wikipedia.org/wiki/(.*)$}
     title = $LAST_MATCH_INFO[1]
-    edit_url = "http://en.wikipedia.org/w/index.php?title=#{title}&action=edit"
+    edit_url = "https://en.wikipedia.org/w/index.php?title=#{title}&action=edit"
     text = agent.get(edit_url).parser.to_s
     puts "WARNING: No OpenAustralia link on #{url}" unless text =~ /\{\{OpenAustralia(\|.*)?\}\}/
   else
@@ -54,5 +54,6 @@ def extract_links_from_wikipedia(doc, people, links)
       puts "WARNING: Could not find person with name #{name.full_name}"
     end
   end
+  puts "DEBUG - Unable to find table in: DOC: #{doc}"
   links
 end
