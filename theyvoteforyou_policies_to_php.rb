@@ -20,10 +20,16 @@ class TvfyPoliciesToPhp
   def run
     conf = Configuration.new
 
-    # Ruby 1.8.7 doesn't like our SNI certificate :(
-    OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
+    if conf.theyvoteforyou_api_key.nil? || conf.theyvoteforyou_api_key =~ /\AX*\z/
+      puts "WARNING: theyvoteforyou_api_key is not set in configuration.yml! The api call will fail!"
+    end
 
-    policies = JSON.parse(open("https://theyvoteforyou.org.au/api/v1/policies.json?key=#{conf.theyvoteforyou_api_key}").read)
+    url = "https://theyvoteforyou.org.au/api/v1/policies.json?key=#{conf.theyvoteforyou_api_key}"
+
+    # Ruby 1.8.7 doesn't like our SNI certificate :(
+    policies = URI.open(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE) do |f|
+      JSON.parse(f.read)
+    end
 
     policies.each do |policy|
       next if policy["provisional"]
