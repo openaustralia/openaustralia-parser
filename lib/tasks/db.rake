@@ -200,9 +200,11 @@ namespace :db do
 
   namespace :fixtures do
     desc "Load spec fixtures into database"
-    task load: :connection do
+    task :load do
+      require "logger"
+      require "active_record"
       require_relative "../../spec/support/db_support"
-      DbSupport.establish_test_database(force: true)
+      DbSupport.establish_test_database
     end
   end
 end
