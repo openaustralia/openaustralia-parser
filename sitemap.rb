@@ -4,17 +4,19 @@
 # Generate sitemap.xml for quick and easy search engine updating
 # This script is run as part of twfy/scripts/morningupdate
 
-$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
+require "bundler/setup"
 
 require "logger"
-require "rubygems"
+
 require "active_record"
 require "builder"
-require "zlib"
-require "json"
-require "yaml"
-require "net/http"
 require "English"
+require "json"
+require "net/http"
+require "yaml"
+require "zlib"
+
+$LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
 require "configuration"
 
@@ -289,6 +291,7 @@ class SitemapGenerator
       @web_path = web_path
       # Index of current sitemap file
       @index = 0
+      FileUtils.mkdir_p [@path, "#{@path}sitemaps"]
       start_index
       start_sitemap
     end
@@ -387,8 +390,7 @@ class SitemapGenerator
       database: conf.database_name
     )
 
-    s = Sitemap.new(MySociety::Config.get("DOMAIN"), MySociety::Config.get("BASEDIR"),
-                    MySociety::Config.get("WEBPATH"))
+    s = Sitemap.new(conf.website, conf.base_dir, conf.web_path)
 
     # Arrange some static URL's with the most quickly changing at the top
 
