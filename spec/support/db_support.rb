@@ -3,14 +3,15 @@
 require_relative "../../lib/configuration"
 
 module DbSupport
-  TABLES_NEEDED = %w[postcode_lookup].freeze
+  TABLES_NEEDED = %w[postcode_lookup users member hansard comments].freeze
 
   SCHEMA_FIXTURE = File.expand_path("../fixtures/schema.sql", __dir__)
 
   def self.schema_file
-    %w[.. ../openaustralia].each do |dir|
-      path = File.expand_path("#{dir}/twfy/db/schema.sql", __dir__)
-      if !File.size?(path) || (File.size?(SCHEMA_FIXTURE) && File.mtime(path) <= File.mtime(SCHEMA_FIXTURE))
+    %w[twfy openaustralia/twfy].each do |dir|
+      path = File.expand_path("../../../#{dir}/db/schema.sql", __dir__)
+      unless File.size?(path) &&
+             (!File.size?(SCHEMA_FIXTURE) || File.mtime(path) > File.mtime(SCHEMA_FIXTURE))
         next
       end
 
@@ -29,7 +30,7 @@ module DbSupport
     end
   end
 
-  def self.establish_test_database(load_fixtures: true)
+  def self.establish_test_database(force: true)
     conf = Configuration.new
 
     ActiveRecord::Base.establish_connection(
@@ -41,18 +42,50 @@ module DbSupport
     )
     conn = ActiveRecord::Base.connection
 
-    TABLES_NEEDED.each { |t| conn.execute("DROP TABLE IF EXISTS `#{t}`") }
-    extract_create_statements.each { |stmt| conn.execute(stmt) }
+    # Drop tables if forced to
+    TABLES_NEEDED.reverse.each do |table|
+      puts "Dropping #{table} table"
+      conn.execute("DROP TABLE IF EXISTS `#{table}`")
+    end if force
+    # create missing tables
+    existing = conn.tables
+    extract_create_statements.zip(TABLES_NEEDED).filter_map do |stmt, table|
+      if existing.include?(table)
+        puts "Truncating #{table} table"
+        conn.execute("TRUNCATE TABLE #{table}")
+      else
+        puts "Creating #{table} table"
+        conn.execute(stmt)
+      end
+    end
 
-    return unless load_fixtures
-
+    # Populate tables with fixtures
     TABLES_NEEDED.each do |table|
       fixture_path = File.expand_path("../fixtures/#{table}.sql", __dir__)
-      conn.execute(File.read(fixture_path)) if File.size?(fixture_path)
+      next unless File.size?(fixture_path)
+
+      puts "Populating #{table} table"
+      File.read(fixture_path).split(/;\s*\n/).each do |stmt|
+        next if stmt.strip.empty?
+
+        # puts "STATEMENT: #{stmt}"
+        conn.execute(stmt)
+      end
+    end
+  end
+end
+if defined?(RSpec) && defined?(RSpec.configure)
+  RSpec.configure do |config|
+    config.include DbSupport
+
+    config.before(:suite) { DbSupport.establish_test_database }
+
+    config.around(:each, :db) do |example|
+      ActiveRecord::Base.connection.transaction(requires_new: true) do
+        example.run
+        raise ActiveRecord::Rollback
+      end
     end
   end
 end
 
-RSpec.configure do |config|
-  config.include DbSupport
-end
