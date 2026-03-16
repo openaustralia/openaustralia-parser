@@ -21,10 +21,6 @@ $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 require "configuration"
 
 class SitemapGenerator
-  def initialize(args)
-    @args = args
-  end
-
   class Member < ActiveRecord::Base
     self.table_name = "member"
 
@@ -33,7 +29,7 @@ class SitemapGenerator
     end
 
     def self.find_all_person_ids
-      Member.group("person_id").map(&:person_id)
+      Member.select(:person_id).group("person_id").map(&:person_id)
     end
 
     # Find the most recent member for the given person_id
@@ -87,7 +83,7 @@ class SitemapGenerator
 
     # Return all dates for which there are speeches on that day in the given house
     def self.find_all_dates_for_house(house)
-      where(major: house_to_major(house)).group("hdate").map(&:hdate)
+      select("hdate").where(major: house_to_major(house)).group("hdate").map(&:hdate)
     end
 
     def self.house_to_major(house)
@@ -218,6 +214,8 @@ class SitemapGenerator
 
     def self.find_all
       news = []
+      return news if ENV["EXCLUDE_NEWS"]
+
       MySociety::Config.fork_php do |child|
         child.print('<?php require "../twfy/www/docs/news/editme.php"; foreach ($all_news as $k => $v) { print $v[0]."\n"; print $v[2]."\n"; } ?>')
         child.close_write
@@ -229,7 +227,7 @@ class SitemapGenerator
     end
 
     def self.last_modified
-      News.most_recent.last_modified
+      News.most_recent&.last_modified
     end
 
     def url
@@ -297,7 +295,7 @@ class SitemapGenerator
     end
 
     def start_sitemap
-      puts "Writing sitemap file (#{sitemap_path})..."
+      puts "\nWriting sitemap file (#{sitemap_path})..."
       @sitemap_file = CountedFile.open(sitemap_path)
       @sitemap_file << "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
       @sitemap_file << "<urlset xmlns=\"#{SITEMAP_XMLNS}\">"
@@ -378,6 +376,11 @@ class SitemapGenerator
     end
   end
 
+  def show_process(index)
+    print "." if (index % 100).zero?
+    puts if index % 10_000 == 9999
+  end
+
   def run
     conf = Configuration.new
 
@@ -394,7 +397,7 @@ class SitemapGenerator
 
     # Arrange some static URL's with the most quickly changing at the top
 
-    # Add some static URLs with dynamic content
+    puts "\nAdding some static URLs with dynamic content..."
     s.add_url "/", changefreq: :hourly,
                    lastmod: [Comment.last_modified, Hansard.last_modified, News.last_modified].compact.max
     s.add_url "/comments/recent/", changefreq: :hourly, lastmod: Comment.last_modified
@@ -403,11 +406,11 @@ class SitemapGenerator
     s.add_url "/hansard/", changefreq: :daily, lastmod: Hansard.most_recent.last_modified
     s.add_url "/senate/", changefreq: :daily,
                           lastmod: Hansard.most_recent_in_house("senate").last_modified
-    s.add_url "/news/", changefreq: :weekly, lastmod: News.most_recent.last_modified
+    s.add_url "/news/", changefreq: :weekly, lastmod: News.most_recent&.last_modified
     s.add_url "/mps/", changefreq: :monthly
     s.add_url "/senators/", changefreq: :monthly
 
-    # Add some static URLs with no dynamic content
+    puts "\nAdding some static URLs with no dynamic content..."
     s.add_url "/about/", changefreq: :monthly
     s.add_url "/contact/", changefreq: :monthly
     s.add_url "/help/", changefreq: :monthly
@@ -424,8 +427,10 @@ class SitemapGenerator
     # No point in including yearly overview of days in which speeches occur because there's nothing on
     # the page to search on
 
-    # All the Hansard urls (for both House of Representatives and the Senate)
-    Hansard.find_each do |h|
+    puts "\nAdding all the Hansard urls (for both House of Representatives and the Senate)..."
+    puts "[Outputs dot (.) every 100 records, a line is 10,000 records]"
+    Hansard.find_each.with_index do |h, index|
+      show_process(index)
       # Skip section urls that just would get redirected to subsection urls
       unless h.section? && h.speeches.size == 1
         # Saying the Hansard could change monthly because of reparsing
@@ -433,9 +438,10 @@ class SitemapGenerator
       end
     end
 
-    # URLs for daily highlights of speeches in Reps and Senate
     %w[reps senate].each do |house|
-      Hansard.find_all_dates_for_house(house).each do |hdate|
+      puts "\nAdding URLs for daily highlights of speeches in #{house}..."
+      Hansard.find_all_dates_for_house(house).each_with_index do |hdate, index|
+        show_process(index)
         s.add_url Hansard.url_for_date(hdate, house),
                   changefreq: :monthly,
                   lastmod: Hansard.find_all_sections_by_date_and_house(hdate,
@@ -443,19 +449,22 @@ class SitemapGenerator
       end
     end
 
-    # All the member urls (Representatives and Senators)
-    Member.find_all_person_ids.each do |person_id|
+    puts "\nAdding member pages ..."
+    Member.find_all_person_ids.each_with_index do |person_id, index|
+      show_process(index)
       # Could change daily because of recent speeches they make
       s.add_url Member.find_most_recent_by_person_id(person_id).url, changefreq: :daily
     end
 
-    # Include the news items
-    News.find_all.each do |n|
+    puts "\nAdding the news items..."
+    News.find_all.each_with_index do |n, index|
+      show_process(index)
       s.add_url n.url, changefreq: :monthly, lastmod: n.last_modified
     end
 
+    puts "\nFinishing up the sitemap generation..."
     s.finish
   end
 end
 
-exit SitemapGenerator.new(ARGV).run if $PROGRAM_NAME == __FILE__
+SitemapGenerator.new.run if $PROGRAM_NAME == __FILE__
