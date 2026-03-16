@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require_relative "../lib/configuration"
+
+conf = Configuration.new
+
+args = ["mysql", "-h", conf.database_host, "-u", conf.database_user, conf.database_name]
+if conf.database_password.to_s != ""
+  if ARGV.include?("-p")
+    args.insert(-2, "--password=#{conf.database_password}")
+  else
+    args.insert(-2, "-p")
+  end
+end
+
+exec(*args)
