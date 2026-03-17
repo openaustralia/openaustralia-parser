@@ -464,6 +464,7 @@ class SitemapGenerator
 
     puts "\nFinishing up the sitemap generation..."
     s.finish
+    puts "\nDone! sitemap generated under #{conf.base_dir}"
   end
 end
 
