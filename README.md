@@ -100,8 +100,6 @@ bundle exec parse-speeches.rb previous-working-day
 bundle exec sitemap.rb
 
 # Misc Utilities
-# Generates data/people.yml (Unused but has spec? data/people.yml not present in production/staging)
-bundle exec ruby lib/people_yaml_writer.rb
 
 # This splits and combines several large pdfs containing the Register of Members' Interests into one pdf per Senator/Member
 # Unable to test without  data/register_of_interests/senate/2010_06.pdf and other pdfs being present
