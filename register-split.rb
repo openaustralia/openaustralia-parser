@@ -9,12 +9,13 @@
 # On Mac OS X 10.5 the latest Macports version kept segfaulting. Installing the pre-compiled
 # version from http://www.pdfhacks.com/pdftk/OSX-10.3/pdftk1.12_OSX10.3.dmg.gz worked.
 
+require "csv"
+
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
-require "csv"
+require "configuration"
 require "name"
 require "people"
-require "configuration"
 
 class RegisterSplit
   PageRange = Struct.new(:filename, :start, :end)
