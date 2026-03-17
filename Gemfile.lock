@@ -80,7 +80,7 @@ GEM
     net-http-persistent (4.0.8)
       connection_pool (>= 2.2.4, < 4)
     nkf (0.2.0)
-    nokogiri (1.15.7)
+    nokogiri (1.17.2)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     observer (0.1.2)
@@ -90,13 +90,13 @@ GEM
       racc
     pkg-config (1.6.5)
     prism (1.9.0)
-    public_suffix (5.1.1)
+    public_suffix (6.0.2)
     racc (1.8.1)
     rainbow (3.1.1)
     rake (13.3.1)
     regexp_parser (2.11.3)
     rexml (3.4.4)
-    rmagick (5.5.0)
+    rmagick (6.2.0)
       observer (~> 0.1)
       pkg-config (~> 1.4)
     rspec (3.13.2)
@@ -175,6 +175,7 @@ DEPENDENCIES
   log4r
   mechanize
   mysql2
+  nokogiri (>= 1.16.5)
   rake
   rmagick
   rspec
@@ -189,4 +190,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   2.1.4
+   2.2.33
