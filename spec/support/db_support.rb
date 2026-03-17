@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "../../lib/configuration"
-
 module DbSupport
   TABLES_NEEDED = %w[postcode_lookup users member hansard comments].freeze
 
@@ -34,6 +32,7 @@ module DbSupport
     require "logger"
     require "active_support"
     require "active_record"
+    require_relative "../../lib/configuration"
 
     conf = Configuration.new
 
