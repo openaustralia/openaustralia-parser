@@ -104,6 +104,8 @@ bundle exec sitemap.rb
 bundle exec ruby lib/people_yaml_writer.rb
 
 # This splits and combines several large pdfs containing the Register of Members' Interests into one pdf per Senator/Member
+# Unable to test without  data/register_of_interests/senate/2010_06.pdf and other pdfs being present
+# (The pdfs do not exist on production or staging)
 bundle exec ruby register-split.rb
 ```
 
