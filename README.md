@@ -186,7 +186,7 @@ After making changes to the data files, you can run `bundle exec ./postcodes.rb 
 `bundle exec ./parse-members.rb --test`. In test mode, these scripts will simply verify that the data files can be
 correctly parsed, without writing to the database.
 
-These checks are also run by Travis when your changes are pushed to github.
+These checks are also run by Travis when your changes are pushed to GitHub.
 
 If you have a local development copy of OpenAustralia.org, you can also run [
 `./parse-members.rb`](https://github.com/openaustralia/openaustralia-parser/blob/master/parse-members.rb), and check
@@ -280,7 +280,7 @@ the days you just loaded.
 After you've fixed a parsing issue and loaded in data from the missing
 days, you may need to manually add those dates to the index. The
 `morningupdate` cron job normally indexes yesterday's speeches, but if
-that's missed we don't have anything that will autoamaticall find and
+that's missed we don't have anything that will automatically find and
 index the missing days.
 
 However, this is fairly easy to do. To index all speeches between the
@@ -331,7 +331,7 @@ detail in this helpful email from mySociety's Matthew Somerville.
 >
 > Sorry, it's all a bit strewn about. I'll try and explain below.
 >
->> Let's say I make some fixes to the parser and I regenerate all the xml
+>> Let's say I make some fixes to the parser and I regenerate all the XML
 > > files. I then reload this into the database and do a xapian reindex on
 > > everything. How can I do this without generating spurious email alerts
 > > the next day for any pages that have changed?

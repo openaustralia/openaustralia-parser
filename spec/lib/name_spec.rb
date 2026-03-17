@@ -91,7 +91,7 @@ RSpec.describe Name do
       expect(name.last).to eq "Bailey"
     end
 
-    it "parses non-hypenated first names" do
+    it "parses non-hyphenated first names" do
       name = Name.last_title_first("  BROWN  ,   Robert   (Bob)   James  ")
       expect(name.first).to eq "Robert"
       expect(name.middle).to eq "James"

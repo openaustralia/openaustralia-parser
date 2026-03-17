@@ -105,7 +105,7 @@ class SitemapGenerator
       end
     end
 
-    # TODO: There seems to be an assymetry between the reps and senate in their handling of the two different kinds of url below
+    # TODO: There seems to be an asymmetry between the reps and senate in their handling of the two different kinds of url below
     # Must investigate this
 
     # Returns the unique url for this bit of the Hansard

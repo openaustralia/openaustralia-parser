@@ -223,7 +223,7 @@ RSpec.describe Debates do
       end
     end
 
-    describe "a speech without a time (this rarely occurs but somtimes the xml is that broken)" do
+    describe "a speech without a time (this rarely occurs but sometimes the xml is that broken)" do
       before do
         @html = "<p>This is a speech</p>" * (121 * 3) # over 10 minutes of words
         @debates.add_speech(@james, nil, "url", Hpricot(@html))
