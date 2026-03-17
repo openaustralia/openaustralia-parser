@@ -7,7 +7,7 @@ gem "rake"
 gem "hpricot"
 gem "htmlentities"
 gem "mechanize"
-gem "nokogiri", ">= 1.16.5"
+gem "nokogiri", ">= 1.18.10"
 
 # Version 3 of builder outputs utf8 strings which will make the regression
 # tests fail. It would be good to check that the rest of the pipeline
@@ -21,10 +21,10 @@ gem "mysql2"
 gem "ruby-progressbar"
 
 # For sitemap generation
-gem "activerecord", "~> 7.1.6"
+gem "activerecord", "~> 7.2.3"
 
 group :development do
-  gem "rubocop", "~> 1.7", require: false
+  gem "rubocop", require: false #  "~> 1.7",
   gem "rubocop-rake"
   gem "rubocop-rspec"
 end
