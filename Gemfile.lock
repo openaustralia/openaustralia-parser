@@ -175,7 +175,7 @@ DEPENDENCIES
   log4r
   mechanize
   mysql2
-  nokogiri (>= 1.18.10)
+  nokogiri (>= 1.19.1)
   rake
   rmagick
   rspec

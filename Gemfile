@@ -7,7 +7,7 @@ gem "rake"
 gem "hpricot"
 gem "htmlentities"
 gem "mechanize"
-gem "nokogiri", ">= 1.18.10"
+gem "nokogiri", ">= 1.19.1"
 
 # Version 3 of builder outputs utf8 strings which will make the regression
 # tests fail. It would be good to check that the rest of the pipeline
