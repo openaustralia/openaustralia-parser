@@ -31,6 +31,10 @@ module DbSupport
   end
 
   def self.establish_test_database(force: true)
+    require "logger"
+    require "active_support"
+    require "active_record"
+
     conf = Configuration.new
 
     ActiveRecord::Base.establish_connection(
