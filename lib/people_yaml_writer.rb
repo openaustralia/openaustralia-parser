@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+# Not used (data/people.yml not present in production/staging) but has a spec
 require "people_csv_reader"
 
+# Utility to create data/people.yml
 class PeopleYamlWriter
   def self.write(people, filename = "#{File.dirname(__FILE__)}/../data/people.yml")
     yaml_people = people.map do |person|
@@ -43,6 +45,7 @@ class PeopleYamlWriter
     puts "Reading members data..."
     people = PeopleCSVReader.read_members
     PeopleCSVReader.read_all_ministers(people)
+    puts "Writing data/people.yml..."
     PeopleYamlWriter.write(people)
   end
 end

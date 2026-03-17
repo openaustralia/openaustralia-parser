@@ -98,6 +98,10 @@ bundle exec ./member-images.rb
 bundle exec parse-member-links.rb
 bundle exec parse-speeches.rb previous-working-day
 bundle exec sitemap.rb
+
+# Misc Utilities
+# Generates data/people.yml (Unused but has spec? data/people.yml not present in production/staging)
+bundle exec ruby lib/people_yaml_writer.rb
 ```
 
 ## Data updates
