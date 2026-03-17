@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "people_csv_reader"
+
 class PeopleYamlWriter
   def self.write(people, filename = "#{File.dirname(__FILE__)}/../data/people.yml")
     yaml_people = people.map do |person|
@@ -36,11 +38,13 @@ class PeopleYamlWriter
       YAML.dump(yaml_people, out)
     end
   end
+
+  def self.run
+    puts "Reading members data..."
+    people = PeopleCSVReader.read_members
+    PeopleCSVReader.read_all_ministers(people)
+    PeopleYamlWriter.write(people)
+  end
 end
 
-require "people_csv_reader"
-
-puts "Reading members data..."
-people = PeopleCSVReader.read_members
-PeopleCSVReader.read_all_ministers(people)
-PeopleYamlWriter.write(people)
+PeopleYamlWriter.run if $PROGRAM_NAME == __FILE__
