@@ -1,16 +1,18 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (7.0.10)
-      activesupport (= 7.0.10)
-    activerecord (7.0.10)
-      activemodel (= 7.0.10)
-      activesupport (= 7.0.10)
-    activesupport (7.0.10)
+    activemodel (7.1.6)
+      activesupport (= 7.1.6)
+    activerecord (7.1.6)
+      activemodel (= 7.1.6)
+      activesupport (= 7.1.6)
+      timeout (>= 0.4.0)
+    activesupport (7.1.6)
       base64
       benchmark (>= 0.3)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
+      connection_pool (>= 2.2.5)
       drb
       i18n (>= 1.6, < 2)
       logger (>= 1.4.2)
@@ -126,6 +128,7 @@ GEM
     terminal-table (4.0.0)
       unicode-display_width (>= 1.1.1, < 4)
     timecop (0.9.10)
+    timeout (0.6.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unf (0.1.4)
@@ -144,7 +147,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord (~> 7.0.10)
+  activerecord (~> 7.1.6)
   builder (~> 2)
   hpricot
   htmlentities
