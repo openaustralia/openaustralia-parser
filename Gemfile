@@ -12,7 +12,7 @@ gem "nokogiri", ">= 1.19.1"
 # Version 3 of builder outputs utf8 strings which will make the regression
 # tests fail. It would be good to check that the rest of the pipeline
 # (on openaustralia.org.au) can handle this change before we upgrade.
-gem "builder", "~> 2"
+gem "builder", "~> 3.0"
 gem "log4r"
 
 gem "rmagick"
