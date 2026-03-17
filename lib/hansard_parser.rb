@@ -27,11 +27,15 @@ class UnknownSpeaker
 end
 
 class HansardParser
-  attr_reader :logger
+  attr_reader :logger, :output_dir, :log_path, :xml_path
 
-  def initialize(people)
+  def initialize(people, output_dir: nil)
     @people = people
     @conf = Configuration.new
+
+    @output_dir = output_dir
+    @log_path = output_dir ? "#{output_dir}/parser.log" : @conf.log_path
+    @xml_path = output_dir ? "#{output_dir}/xml/" : @conf.xml_path
 
     # Set up logging
     @logger = Log4r::Logger.new "HansardParser"
@@ -40,8 +44,8 @@ class HansardParser
     # Only log error messages or above to standard output
     o1.level = Log4r::ERROR
     @logger.add(o1)
-    @logger.add(Log4r::FileOutputter.new("foo", filename: @conf.log_path, trunc: false,
-                                                formatter: Log4r::PatternFormatter.new(pattern: "[%l] %d :: %M")))
+    @logger.add(Log4r::FileOutputter.new("foo", filename: log_path, trunc: false,
+                                         formatter: Log4r::PatternFormatter.new(pattern: "[%l] %d :: %M")))
 
     @rewriter = HansardRewriter.new(@logger)
   end
@@ -110,11 +114,11 @@ class HansardParser
   end
 
   def origxml_filename(date, house)
-    "#{@conf.xml_path}/origxml/#{house_directory_name(house)}/#{date}.xml"
+    "#{xml_path}/origxml/#{house_directory_name(house)}/#{date}.xml"
   end
 
   def rewritexml_filename(date, house)
-    "#{@conf.xml_path}/rewritexml/#{house_directory_name(house)}/#{date}.xml"
+    "#{xml_path}/rewritexml/#{house_directory_name(house)}/#{date}.xml"
   end
 
   # Returns HansardDate object for a particular day
@@ -131,6 +135,7 @@ class HansardParser
       # Load the XML data
       xml = hansard_xml_source_data_on_date(date, house)
       # And cache it
+      FileUtils.mkdir_p(File.dirname(filename))
       File.open(filename, "w") do |f|
         # If there is no data for this day (parliament didn't sit) then
         # still create a file but leave it empty. This allows to
@@ -146,8 +151,10 @@ class HansardParser
       # Rewrite the XML data back to a sane format
       new_xml = @rewriter.rewrite_xml Hpricot.XML(xml)
 
+      filename = rewritexml_filename(date, house)
+      FileUtils.mkdir_p(File.dirname(filename))
       # Save the rewritten XML data
-      File.open(rewritexml_filename(date, house), "w") { |f| f.write(new_xml.to_s) }
+      File.open(filename, "w") { |f| f.write(new_xml.to_s) }
 
       # Process the day
       HansardDay.new(new_xml, @logger)
@@ -217,7 +224,7 @@ class HansardParser
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
             if member.nil?
-              extra_details = @people.find_people_by_name(name)&.any?  ? "not sitting" : "not found"
+              extra_details = @people.find_people_by_name(name)&.any? ? "not sitting" : "not found"
               raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes) #{name.to_h.inspect} #{extra_details}"
             end
 
@@ -229,7 +236,7 @@ class HansardParser
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
             if member.nil?
-              extra_details = @people.find_people_by_name(name)&.any?  ? "not sitting" : "not found"
+              extra_details = @people.find_people_by_name(name)&.any? ? "not sitting" : "not found"
               raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no) #{name.to_h.inspect} #{extra_details}"
             end
 
@@ -241,7 +248,7 @@ class HansardParser
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
             if member.nil?
-              extra_details = @people.find_people_by_name(name)&.any?  ? "not sitting" : "not found"
+              extra_details = @people.find_people_by_name(name)&.any? ? "not sitting" : "not found"
               raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes and teller) #{name.to_h.inspect} #{extra_details}"
             end
 
@@ -253,7 +260,7 @@ class HansardParser
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
             if member.nil?
-              extra_details = @people.find_people_by_name(name)&.any?  ? "not sitting" : "not found"
+              extra_details = @people.find_people_by_name(name)&.any? ? "not sitting" : "not found"
               raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no and teller) #{name.to_h.inspect} #{extra_details}"
             end
 
@@ -266,7 +273,7 @@ class HansardParser
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
               if member.nil?
-                extra_details = @people.find_people_by_name(name)&.any?  ? "not sitting" : "not found"
+                extra_details = @people.find_people_by_name(name)&.any? ? "not sitting" : "not found"
                 raise "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair) #{name.to_h.inspect} #{extra_details}"
               end
 
