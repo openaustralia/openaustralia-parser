@@ -7,6 +7,10 @@
 # In other words, this is only useful for checking that any refactoring has not caused a regression in behaviour.
 #
 
+# FIXME: Untested
+
+# :nocov:
+
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require "people"
@@ -129,3 +133,4 @@ dates[skip..].each do |date|
 end
 
 puts "Regression tests all passed!"
+# :nocov:
