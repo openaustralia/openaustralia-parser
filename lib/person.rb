@@ -3,6 +3,7 @@
 require "period"
 require "house"
 
+# FIXME: Using id's based on counts is FRAGILE and error prone!
 class Person
   attr_reader :periods, :person_count, :name, :alternate_names, :minister_positions, :birthday,
               :aph_id

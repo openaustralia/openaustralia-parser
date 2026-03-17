@@ -23,6 +23,7 @@ class PeriodBase
   end
 end
 
+# FIXME: Using id's based on counts or how many times this class has been initialized is FRAGILE and error prone!
 class MinisterPosition < PeriodBase
   attr_accessor :position, :minister_count
 
@@ -49,6 +50,7 @@ class MinisterPosition < PeriodBase
 end
 
 # Represents a period in the house of representatives or the senate
+# FIXME: Using id's based on counts is FRAGILE and error prone!
 class Period < PeriodBase
   attr_accessor :from_why, :to_why, :division, :state, :party, :house
   attr_reader :count
@@ -70,7 +72,7 @@ class Period < PeriodBase
   end
 
   def initialize(params)
-    # TODO: Make some parameters compulsary and others optional
+    # TODO: Make some parameters compulsory and others optional
     unless params[:person] && params[:count]
       raise ":person and :count parameter required in Period.new"
     end
