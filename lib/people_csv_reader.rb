@@ -7,6 +7,7 @@ require "people"
 require "person"
 require "name"
 
+# Utility used by regression test
 class PeopleCSVReader
   # Ignores comment lines starting with '#'
   def self.read_raw_csv(filename)
@@ -216,3 +217,4 @@ class PeopleCSVReader
     end
   end
 end
+
