@@ -92,7 +92,7 @@ class ParseMembers
     people.write_xml("#{output_dir}/people.xml", "#{output_dir}/representatives.xml", "#{output_dir}/senators.xml",
                      "#{output_dir}/ministers.xml", "#{output_dir}/divisions.xml")
 
-    command = "perl #{conf.web_root}/twfy/scripts/xml2db.pl --members --all --force"
+    command = "#{conf.web_root}/twfy/bin/run scripts/xml2db.pl --members --all --force"
     if options[:load_database]
       # And load up the database
       # Starts with 'perl' to be friendly with Windows

@@ -75,10 +75,10 @@ Called from the OpenAustralia.org web application (twfy - another git submodule 
 
 * `#{web_root}/rblib/config.rb` - required by `lib/configuration.rb`
   * `#{web_root}/twfy/conf/general` - used by MySociety::Config.set_file (can override in configuration.yml)
-* `perl #{conf.web_root}/twfy/scripts/xml2db.pl` - called by `parse-speeches.rb`
-* `#{conf.web_root}/twfy/scripts/mpinfoin.pl links` (perl) - called by `wikipedia.rb`
-* `perl #{conf.web_root}/twfy/scripts/xml2db.pl` (perl) - called by `parse-members.rb` (Use `--no-load` to skip)
-* `#{conf.web_root}/twfy/scripts/mpinfoin.pl` (perl) - called by `parse-member-links.rb`
+* `#{conf.web_root}/twfy/bin/run scripts/xml2db.pl` - called by `parse-speeches.rb`
+* `#{conf.web_root}/twfy/bin/run scripts/mpinfoin.pl links` (perl) - called by `wikipedia.rb`
+* `#{conf.web_root}/twfy/bin/run scripts/xml2db.pl` (perl) - called by `parse-members.rb` (Use `--no-load` to skip)
+* `#{conf.web_root}/twfy/bin/run scripts/mpinfoin.pl` (perl) - called by `parse-member-links.rb`
 
 ## USAGE for Developers
 
