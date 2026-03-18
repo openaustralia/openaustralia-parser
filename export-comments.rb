@@ -23,7 +23,7 @@ class ExportComments
       puts "Continuing..."
     else
       puts "Set BE-DANGEROUS=1 if you have read these scripts and know what you are doing!"
-      exit(1)
+      return 1
     end
     conf = Configuration.new
 
@@ -43,7 +43,8 @@ class ExportComments
 
     puts "Clearing comments table..."
     db.query("DELETE FROM comments")
+    0
   end
 end
 
-exit ExportComments.new(ARGV).run.to_i if $PROGRAM_NAME == __FILE__
+exit ExportComments.new(ARGV).run if $PROGRAM_NAME == __FILE__
