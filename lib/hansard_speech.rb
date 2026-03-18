@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-require "hpricot_additions"
-require "name"
+require "nokogiri_helpers"
 require "English"
+
+require "name"
 
 class HansardSpeech
   attr_reader :logger, :title, :subtitle, :bills, :time, :day, :interjection, :continuation
@@ -30,7 +31,7 @@ class HansardSpeech
   end
 
   def aph_id
-    aph_id_tag = @content.at("//(name.id)")
+    aph_id_tag = @content.at("//name.id")
     aph_id_tag ? aph_id_tag.inner_html : nil
   end
 
@@ -78,28 +79,26 @@ class HansardSpeech
   def self.clean_content_inline(node)
     text = strip_leading_dash(node.inner_html)
 
-    attributes_keys = node.attributes.to_hash.keys
+    attributes_keys = node.attributes.keys
     # Always ignore font-size
     attributes_keys.delete("font-size")
 
     if attributes_keys.delete("ref")
       # We're going to assume these links always point to Bills.
-      link = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{node.attributes['ref']}"
+      link = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{node['ref']}"
       text = "<a href=\"#{link}\">#{text}</a>"
     end
 
     if attributes_keys.delete("font-style")
-      unless node.attributes["font-style"] == "italic"
-        raise "Unexpected font-style value #{node.attributes['font-style']}"
-      end
+      node_font_style = node["font-style"]
+      raise "Unexpected font-style value #{node_font_style.inspect}" unless node_font_style == "italic"
 
       text = "<i>#{text}</i>"
     end
 
     if attributes_keys.delete("font-weight")
-      unless node.attributes["font-weight"] == "bold"
-        raise "Unexpected font-weight value #{e.attributes['font-weight']}"
-      end
+      node_font_weight = node["font-weight"]
+      raise "Unexpected font-weight value #{node_font_weight.inspect}" unless node_font_weight == "bold"
 
       # Workaround for badly marked up content. If a bold item is surrounded in brackets assume it is a name and remove it
       # Alternatively if the bold item is a generic name, remove it as well
@@ -111,13 +110,13 @@ class HansardSpeech
     end
 
     if attributes_keys.delete("font-variant")
-      case node.attributes["font-variant"]
+      case node["font-variant"]
       when "superscript"
         text = "<sup>#{text}</sup>"
       when "subscript"
         text = "<sub>#{text}</sub>"
       else
-        raise "Unexpected font-variant value #{node.attributes['font-variant']}"
+        raise "Unexpected font-variant value #{node['font-variant']}"
       end
     end
 
@@ -131,14 +130,14 @@ class HansardSpeech
 
   def self.clean_content_graphic(node)
     # TODO: Probably the path needs to be different depending on whether Reps or Senate
-    "<img src=\"http://parlinfoweb.aph.gov.au/parlinfo/Repository/Chamber/HANSARDR/#{node.attributes['href']}\"/>"
+    "<img src=\"http://parlinfoweb.aph.gov.au/parlinfo/Repository/Chamber/HANSARDR/#{node['href']}\"/>"
   end
 
   # Pass a <para>Some text</para> block. Returns cleaned "Some text"
   def self.clean_content_para_content(node)
     t = +""
     (node.children || []).each do |c|
-      t << if c.is_a?(Hpricot::Text)
+      t << if c.is_a?(Nokogiri::XML::Text)
              strip_leading_dash(c.to_s)
            else
              clean_content_any(c)
@@ -151,7 +150,7 @@ class HansardSpeech
   def self.clean_content_para(node, override_type = nil)
     type = override_type || ""
 
-    case node.attributes["class"]
+    case node["class"]
     when "italic"
       type = "italic"
     when "bold"
@@ -172,7 +171,7 @@ class HansardSpeech
 
   def self.clean_content_item(node)
     d = +""
-    node.each_child_node do |f|
+    NokogiriHelpers.element_children(node).each do |f|
       case f.name
       when "para"
         d << clean_content_para_content(f)
@@ -185,7 +184,7 @@ class HansardSpeech
       end
     end
     if node.has_attribute?("label")
-      "<dt>#{node.attributes['label']}</dt><dd>#{d}</dd>"
+      "<dt>#{node['label']}</dt><dd>#{d}</dd>"
     else
       "<li>#{d}</li>"
     end
@@ -209,9 +208,9 @@ class HansardSpeech
   end
 
   def self.clean_content_entry(node, override_type = nil)
-    attributes = 'valign="top"'
-    if node.attributes["colspan"] && node.attributes["colspan"] != ""
-      attributes << " colspan=\"#{node.attributes['colspan']}\""
+    attributes = +'valign="top"'
+    if node["colspan"] && node["colspan"] != ""
+      attributes << " colspan=\"#{node['colspan']}\""
     end
     "<td #{attributes}>#{clean_content_recurse(node, override_type)}</td>"
   end
@@ -224,7 +223,7 @@ class HansardSpeech
   def self.clean_content_motion(node)
     # Hmmm. what if there are two para's below? will we get the wrong formatting?
     t = +'<p pwmotiontext="moved">'
-    node.each_child_node do |f|
+    NokogiriHelpers.element_children(node).each do |f|
       case f.name
       when "para"
         t << clean_content_para_content(f)
@@ -281,14 +280,16 @@ class HansardSpeech
 
   def self.clean_content_recurse(node, override_type = nil)
     t = +""
-    node.each_child_node do |f|
+    NokogiriHelpers.element_children(node).each do |f|
       t << clean_content_any(f, override_type)
     end
     t
   end
 
+  # Returns an XML fragment of the clean content
+  # rather than a full document
   def clean_content
-    Hpricot.XML(HansardSpeech.clean_content_any(@content))
+    Nokogiri::XML::DocumentFragment.parse(HansardSpeech.clean_content_any(@content))
   end
 
   def strip_tags(doc)
@@ -301,6 +302,6 @@ class HansardSpeech
   end
 
   def name?(name)
-    @content.is_a?(Hpricot::Text) ? !!@content.at("/#{name}") : name == @content.name
+    @content.is_a?(Nokogiri::XML::Text) ? !!@content.at("/#{name}") : name == @content.name
   end
 end
