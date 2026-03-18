@@ -3,12 +3,14 @@
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require "test/unit"
+require "date"
 
 require "speech"
 require "person"
 require "name"
 require "count"
 require "builder_alpha_attributes"
+require "hpricot_additions"
 
 describe Speech do
   let!(:person) { Person.new(name: Name.new(first: "John", last: "Smith"), count: 1) }
@@ -21,16 +23,19 @@ describe Speech do
   end
 
   it "outputs a simple speech" do
-    @speech.append_to_content(Hpricot("<p>A speech</p>"))
+    @speech.append_to_content(Nokogiri::HTML("<p>A speech</p>"))
     expect(@speech.output(Builder::XmlMarkup.new)).to eq '<speech approximate_duration="0" approximate_wordcount="2" id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" talktype="speech" time="05:00:00" url="http://foo.co.uk/"><p>A speech</p></speech>'
   end
 
   it "encodes html entities" do
     # I'm pretty sure that Mechanize unescapes when it reads things in. So, we'll simulate that here
     nbsp = [160].pack("U")
-    doc = Hpricot("<p>Q&A#{nbsp}—</p>")
-    # Make sure that you normalise the unicode before comparing.
-    expect(doc.to_s.unicode_normalize(:nfkc)).to eq "<p>Q&A#{nbsp}—</p>".unicode_normalize(:nfkc)
+    doc = Nokogiri::HTML("<p>Q&A#{nbsp}—</p>")
+    # Extract the body content (Nokogiri wraps in full HTML document)
+    # Note: Nokogiri's inner_html will encode entities like & as &amp;
+    body_content = doc.at_xpath("//body").inner_html.unicode_normalize(:nfkc)
+    expected = "<p>Q&amp;A#{nbsp}—</p>".unicode_normalize(:nfkc)
+    expect(body_content).to eq expected
 
     coder = HTMLEntities.new
     expect(coder.encode("Q&A#{nbsp}—", :basic)).to eq "Q&amp;A#{nbsp}—"
@@ -50,7 +55,7 @@ describe Speech do
     end
 
     describe "with content with an adjournment" do
-      let!(:content) { Hpricot("<p> some content\n\nadjourned at 19:31</p>") }
+      let!(:content) { Nokogiri::HTML("<p> some content\n\nadjourned at 19:31</p>") }
       subject do
         Speech.new(speaker: member, time: "09:00:00", url: "url", count: Count.new(3, 1), date: Date.new(2006, 1, 1),
                    house: House.representatives)
@@ -82,7 +87,7 @@ describe Speech do
       let!(:minutes_by_wordcount) { 12 }
       let!(:html) { (120 * minutes_by_wordcount).times.map { "<i>word</i>" }.join(" ") }
       before do
-        subject.append_to_content(Hpricot(html))
+        subject.append_to_content(Nokogiri::HTML(html))
         subject.duration = 60
       end
       it { expect(subject.duration).to eq minutes_by_wordcount * 60 }
@@ -90,7 +95,7 @@ describe Speech do
   end
 
   describe "#words" do
-    let!(:content) { Hpricot("<p> some content\n\n<span>another word. New sentence.</span> </p>") }
+    let!(:content) { Nokogiri::HTML("<p> some content\n\n<span>another word. New sentence.</span> </p>") }
     subject do
       Speech.new(speaker: member, time: "09:00:00", url: "url", count: Count.new(3, 1), date: Date.new(2006, 1, 1),
                  house: House.representatives)
@@ -104,7 +109,7 @@ describe Speech do
     end
 
     describe "with paragraph tags" do
-      let!(:content) { Hpricot("<p>para1</p><p>para2</p>") }
+      let!(:content) { Nokogiri::HTML("<p>para1</p><p>para2</p>") }
 
       it "should count the last word of a paragraph and the first word of a new paragraph as two words" do
         expect(subject.words).to eq 2

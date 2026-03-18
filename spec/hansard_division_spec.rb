@@ -3,15 +3,16 @@
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require "test/unit"
+require "date"
 
 require "hansard_division"
 require "hansard_day"
-require "hpricot"
+require "hpricot_additions"
 
 describe HansardDivision do
   subject(:division) do
     # Tellers are indicated with a "*". There might be or might not be a space before the "*".
-    HansardDivision.new(Hpricot.XML("
+    HansardDivision.new(Nokogiri::XML("
     <division>
 			<division.header>
 				<time.stamp>09:06:00</time.stamp>
@@ -64,7 +65,7 @@ describe HansardDivision do
 
   describe "tied vote" do
     let(:old_tied_division_xml) do
-      Hpricot.XML('
+      Nokogiri::XML('
       <division>
         <division.header>
           <time.stamp>09:06:00</time.stamp>
@@ -109,7 +110,7 @@ describe HansardDivision do
     end
     # There's a slightly different layout in newer XML
     let(:new_tied_division_xml) do
-      Hpricot.XML('
+      Nokogiri::XML('
       <division>
         <division.header>
           <body>
@@ -183,7 +184,7 @@ end
 
 describe HansardDivision, "with pairings" do
   before(:each) do
-    @division = HansardDivision.new(Hpricot.XML(
+    @division = HansardDivision.new(Nokogiri::XML(
                                       "<division>
           <division.header>
               <time.stamp>10:36:00</time.stamp>
@@ -216,7 +217,7 @@ describe HansardDivision, "with pairings" do
 
   describe "with no timestamp but a time in the preamble" do
     let(:division_without_timestamp) do
-      HansardDivision.new(Hpricot.XML('
+      HansardDivision.new(Nokogiri::XML('
     <division>
 			<division.header>
          <body>

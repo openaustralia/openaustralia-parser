@@ -32,7 +32,7 @@ class HansardDivision
   end
 
   def passed?
-    case @content.at("(division.result)").inner_text
+    case @content.at("//*[local-name()='division.result']").inner_text
     when /casting vote with the ayes/, /agreed to/
       true
     when /casting vote with the noes/, /negatived/, /was not carried/
@@ -43,7 +43,7 @@ class HansardDivision
   end
 
   def pairs
-    names = @content.search("(division.data) > pairs > names > name").map(&:inner_html)
+    names = @content.search("//*[local-name()='division.data']//pairs//names//name").map(&:inner_html)
     raise "Not an even number of people in the pairs voting" if names.size.odd?
 
     # Format the flat list of names into pairs (assuming that the people in pairs appear consecutively)
@@ -61,10 +61,10 @@ class HansardDivision
   end
 
   def time
-    tag = @content.at("(division.header) > (time.stamp)")
+    tag = @content.at("//*[local-name()='division.header']/*[local-name()='time.stamp']")
     time = tag.inner_html if tag
     # if no timestamp, fallback to extracting out of preamble
-    if !time && (header = @content.at("(division.header)"))
+    if !time && (header = @content.at("//*[local-name()='division.header']"))
       results = header.inner_html.match(/\[(..:..)\]/)
       time = results[1] if results
     end
@@ -73,10 +73,10 @@ class HansardDivision
 
   def speaker
     # There's a slight difference between older and newer XML
-    header_speaker_text = if @content.at("(division) > (para)")
-                            @content.at("(division) > (para)").inner_text
+    header_speaker_text = if @content.at("division > para")
+                            @content.at("division > para").inner_text
                           else
-                            @content.at("(division.header)").inner_text
+                            @content.at("//*[local-name()='division.header']").inner_text
                           end
 
     raise("Speaker not found") unless header_speaker_text.gsub("\342\200\224",
@@ -106,10 +106,10 @@ class HansardDivision
   end
 
   def raw_yes
-    @content.search("(division.data) > ayes > names > name").map(&:inner_html)
+    @content.search("//*[local-name()='division.data']//ayes//names//name").map(&:inner_html)
   end
 
   def raw_no
-    @content.search("(division.data) > noes > names > name").map(&:inner_html)
+    @content.search("//*[local-name()='division.data']//noes//names//name").map(&:inner_html)
   end
 end
