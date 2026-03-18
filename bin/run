@@ -1,0 +1,37 @@
+#!/bin/bash
+
+cd "$(dirname "$0")/.." || exit 1
+
+case "${1:-}" in
+  *.rb)
+    RUNNER="ruby"
+    ;;
+  *.pl)
+    exec perl "$@"
+    ;;
+  *.php)
+    export PATH="/usr/local/bin:/usr/bin:/software/bin:/opt/bin:/opt/php/bin:$PATH"
+    exec php "$@"
+    ;;
+  rake|script/console|script/dbconsole|bin/rake)
+    RUNNER="$1"
+    ;;
+  *)
+#    echo "Usage: $0 <script.rb|script.pl|script.php> [args...]" >&2
+#    exit 1
+    RUNNER="rake"
+    ;;
+esac
+
+if command -v mise &>/dev/null; then
+  exec mise exec -- bundle exec "$RUNNER" "$@"
+elif [ -f "$HOME/.rvm/scripts/rvm" ]; then
+  source "$HOME/.rvm/scripts/rvm"
+  exec rvm . exec bundle exec "$RUNNER" "$@"
+elif [ -f "/usr/local/rvm/scripts/rvm" ]; then
+  source "/usr/local/rvm/scripts/rvm"
+  exec rvm . exec bundle exec "$RUNNER" "$@"
+else
+  exec bundle exec "$RUNNER" "$@"
+fi
+

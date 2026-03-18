@@ -155,7 +155,7 @@ class ParseSpeeches
     command_options << " --force" if options[:force]
 
     # Starts with 'perl' to be friendly with Windows
-    command = "perl #{conf.web_root}/twfy/scripts/xml2db.pl #{command_options}"
+    command = "#{conf.web_root}/twfy/bin/run scripts/xml2db.pl #{command_options}"
     if options[:load_database]
       system(command)
     else
