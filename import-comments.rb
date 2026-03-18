@@ -25,7 +25,7 @@ class ImportComments
       puts "Continuing..."
     else
       puts "Set BE-DANGEROUS=1 if you have read these scripts and know what you are doing!"
-      exit(1)
+      return 1
     end
     conf = Configuration.new
 
@@ -51,7 +51,8 @@ class ImportComments
         db.query("insert into comments (comment_id, user_id, epobject_id, body, posted, modflagged, visible, original_gid) VALUES (\"#{comment_id}\", \"#{user_id}\", \"#{epobject_id}\", \"#{quoted}\", \"#{posted}\", \"#{modflagged}\", \"#{visible}\", \"#{gid}\")")
       end
     end
+    0
   end
 end
 
-exit ImportComments.new(ARGV).run.to_i if $PROGRAM_NAME == __FILE__
+exit ExportComments.new(ARGV).run if $PROGRAM_NAME == __FILE__

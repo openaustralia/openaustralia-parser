@@ -104,4 +104,4 @@ class ParseMembers
   end
 end
 
-exit ParseMembers.new(ARGV).run.to_i if $PROGRAM_NAME == __FILE__
+MemberImages.new(ARGV).run if $PROGRAM_NAME == __FILE__
