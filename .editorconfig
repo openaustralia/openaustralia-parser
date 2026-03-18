@@ -1,0 +1,42 @@
+# EditorConfig helps maintain consistent coding styles across different editors and IDEs
+# https://editorconfig.org/
+
+root = true
+
+# Ruby default: 2 spaces for indentation (Ruby Style Guide standard)
+[*]
+end_of_line = lf
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+tab_width = 4            # Tab display width (RubyMine/Vim standard)
+trim_trailing_whitespace = true
+
+[*.bat]
+end_of_line = crlf
+
+# Python uses 4 spaces (PEP 8 standard)
+[*.py]
+indent_size = 4
+
+# Makefiles require tabs
+[{*[Mm]akefile*,*.mak,*.mk,depend}]
+indent_style = tab
+
+# Minified JavaScript files shouldn't be changed
+[**.min.js]
+indent_style = ignore
+insert_final_newline = ignore
+
+# Editor Setup Instructions:
+# 
+# Vim: Add to ~/.vimrc:
+#   filetype plugin indent on
+#   set expandtab
+#   autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
+#
+# RubyMine: Settings → Editor → Code Style → Ruby → set to 2 spaces
+#   (should auto-detect this .editorconfig file)
+#
+# VS Code: Install "EditorConfig for VS Code" extension
+#   (will automatically apply these settings)

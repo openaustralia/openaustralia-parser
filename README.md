@@ -1,6 +1,111 @@
 # The OpenAustralia Hansard Parser [![Build Status](https://travis-ci.org/openaustralia/openaustralia-parser.svg?branch=master)](https://travis-ci.org/openaustralia/openaustralia-parser) [![Dependency Status](https://gemnasium.com/openaustralia/openaustralia-parser.png)](https://gemnasium.com/openaustralia/openaustralia-parser)
 
+Parses Hansard data from the Australian Parliament.
+
+Included as the Parser component for OpenAustralia.org using git submodule.
+
+## INSTALL
+
 See for installation instructions https://openaustralia.github.io/openaustralia/install-parser.html
+
+### Minimal for development purely within this project
+
+#### TWFY or openaustralia repo
+
+You need to clone the TWFY repo or clone the openaustralia repo and setup the submodules if you want to test interaction
+
+```
+cd ..
+git clone git@github.com:openaustralia/twfy.git
+```
+
+OR
+
+```
+cd ..
+git clone git@github.com:openaustralia/openaustralia.git
+cd openaustralia
+git submodule init
+git submodule update
+```
+
+This gives access to the DB schema, and if you want to test the php and perl scripts from the other repos, those as
+well.
+
+#### Local database
+
+Use `sudo mysql -u root` and the following commands to setup the database
+
+```mysql
+CREATE DATABASE openaustralia;
+CREATE USER 'openaustralia'@'localhost' IDENTIFIED BY 'openaustralia';
+GRANT ALL PRIVILEGES ON openaustralia.* TO 'openaustralia'@'localhost';
+FLUSH PRIVILEGES;
+```
+
+#### Setup this (openaustralia-parse) repo
+
+```bash
+# Install ubuntu packages as needed
+
+mise install # from .ruby-version
+bundle install # From Gemfile, Gemfile.lock
+
+cp configuration.yml.example configuration.yml
+```
+
+Edit `configuration.yml` as needed.
+
+* Uncomment the development options so you dont need to configure twfy and have a working php
+
+## USAGE by open australia
+
+Called from the OpenAustralia.org web application (twfy - another git submodule AKA They Work For You):
+
+* 1:37am daily — dailyupdate (staging + production)
+  * `bundle exec parse-member-links.rb`
+* 9:05am Mon-Fri — morningupdate (staging + production) — this is the one that calls parse-speeches.rb
+  * `bundle exec parse-speeches.rb previous-working-day`
+  * `bundle exec sitemap.rb`
+* These do not appear to call the parser
+  * 4:23am Sunday — weeklyupdate (staging + production)
+  * 10:00am Mon-Fri — alertmailer (staging + production)
+
+## Dependencies
+
+* `#{web_root}/rblib/config.rb` - required by `lib/configuration.rb`
+  * `#{web_root}/twfy/conf/general` - used by MySociety::Config.set_file (can override in configuration.yml)
+* `perl #{conf.web_root}/twfy/scripts/xml2db.pl` - called by `parse-speeches.rb`
+* `#{conf.web_root}/twfy/scripts/mpinfoin.pl links` (perl) - called by `wikipedia.rb`
+* `perl #{conf.web_root}/twfy/scripts/xml2db.pl` (perl) - called by `parse-members.rb` (Use `--no-load` to skip)
+* `#{conf.web_root}/twfy/scripts/mpinfoin.pl` (perl) - called by `parse-member-links.rb`
+
+## USAGE for Developers
+
+See [How to Install](https://openaustralia.github.io/openaustralia/install-parser.html) for detailed instructions
+
+```shell
+# create members information
+bundle exec ./parse-members.rb --no-load
+
+# to download images
+mkdir -p ../openaustralia/twfy/www/docs/images/mpsXL
+# export DEBUG=1 # to enable debugging output for request throttling
+bundle exec ./member-images.rb
+# 3 images per person in ../openaustralia/twfy/www/docs/images/{mps,mpsL,mpsXL}
+
+# Crontab runs:
+bundle exec parse-member-links.rb
+bundle exec parse-speeches.rb previous-working-day
+bundle exec sitemap.rb
+
+# Misc Utilities
+
+# This splits and combines several large pdfs containing the Register of Members' Interests into one pdf per Senator/Member
+# Unable to test without  data/register_of_interests/senate/2010_06.pdf and other pdfs being present
+# (The pdfs do not exist on production or staging)
+bundle exec ruby register-split.rb
+```
 
 ## Data updates
 
@@ -81,7 +186,7 @@ After making changes to the data files, you can run `bundle exec ./postcodes.rb 
 `bundle exec ./parse-members.rb --test`. In test mode, these scripts will simply verify that the data files can be
 correctly parsed, without writing to the database.
 
-These checks are also run by Travis when your changes are pushed to github.
+These checks are also run by Travis when your changes are pushed to GitHub.
 
 If you have a local development copy of OpenAustralia.org, you can also run [
 `./parse-members.rb`](https://github.com/openaustralia/openaustralia-parser/blob/master/parse-members.rb), and check
@@ -175,7 +280,7 @@ the days you just loaded.
 After you've fixed a parsing issue and loaded in data from the missing
 days, you may need to manually add those dates to the index. The
 `morningupdate` cron job normally indexes yesterday's speeches, but if
-that's missed we don't have anything that will autoamaticall find and
+that's missed we don't have anything that will automatically find and
 index the missing days.
 
 However, this is fairly easy to do. To index all speeches between the
@@ -226,7 +331,7 @@ detail in this helpful email from mySociety's Matthew Somerville.
 >
 > Sorry, it's all a bit strewn about. I'll try and explain below.
 >
->> Let's say I make some fixes to the parser and I regenerate all the xml
+>> Let's say I make some fixes to the parser and I regenerate all the XML
 > > files. I then reload this into the database and do a xapian reindex on
 > > everything. How can I do this without generating spurious email alerts
 > > the next day for any pages that have changed?
@@ -257,7 +362,8 @@ detail in this helpful email from mySociety's Matthew Somerville.
 > the XML for those two days, the 10 GIDs on 2001-01-01 get their modified column updated, the 5 new GIDS on 2002-02-02
 > get inserted. You reindex with sincefile, and those 15 GIDs get indexed (or you reindex with those two dates and
 > everything on those 2 days gets indexed), with batch ID 101. You run the email alert script, which will only return
-> things: * in batch ID 101 * created since yesterday - ie the 5 new GIDs from 2002-02-02, but not the 10 from 2001-01-01.
+> things: * in batch ID 101 * created since yesterday - ie the 5 new GIDs from 2002-02-02, but not the 10 from
+> 2001-01-01.
 >
 >
 > Hope that makes sense. Now, the original theory was that people would want to be alerted to new stuff even if it was
@@ -266,7 +372,8 @@ detail in this helpful email from mySociety's Matthew Somerville.
 > our model means everything on that day gets a new GID in that case - which is awful but it's too late to change now...
 >
 > So what we do. I try to make sure any changing of old content isn't added/indexed along with new stuff - ie. run major
-> changes during holidays etc.. Then when the loading/indexing is done, I can manually bump the batch number/ timestamp in
+> changes during holidays etc.. Then when the loading/indexing is done, I can manually bump the batch number/ timestamp
+> in
 > the alerts-lastsent file so that the alert script thinks it's been run on that data already and will just ignore it.
 >
 > If there's some new stuff indexed as well, which you do want to send alerts for, then that's what the manual date in

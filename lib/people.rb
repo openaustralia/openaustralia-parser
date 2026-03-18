@@ -48,7 +48,9 @@ class People < Array
 
   def find_person_by_name_and_birthday(name, birthday)
     matches = find_people_by_name_and_birthday(name, birthday)
-    raise "More than one match for name #{name.full_name} with birthday #{birthday} found" if matches.size > 1
+    if matches.size > 1
+      raise "More than one match for name #{name.full_name} with birthday #{birthday} found"
+    end
 
     matches[0] if matches.size == 1
   end
@@ -138,7 +140,9 @@ class People < Array
           end
         end
       end
-      raise "More than one match for name #{name.full_name} #{name.real_initials} found in #{house.name}" unless refined_matches.size == 1
+      unless refined_matches.size == 1
+        raise "More than one match for name #{name.full_name} #{name.real_initials} found in #{house.name}"
+      end
 
       refined_matches[0]
     elsif matches.size == 1
@@ -175,9 +179,9 @@ class People < Array
                           senators_filename: senators_filename, ministers_filename: ministers_filename, divisions_filename: divisions_filename)
   end
 
-  def download_images(small_image_dir, large_image_dir, extra_large_image_dir)
+  def download_images(small_image_dir, large_image_dir, extra_large_image_dir, limit: nil)
     downloader = PeopleImageDownloader.new
-    downloader.download(self, small_image_dir, large_image_dir, extra_large_image_dir)
+    downloader.download(self, small_image_dir, large_image_dir, extra_large_image_dir, limit: limit)
   end
 
   def all_periods_in_house(house)

@@ -57,7 +57,7 @@ class Name
       last = names.shift
     end
     title = Name.extract_title_at_start(names)
-    # Check for hypenated first name
+    # Check for hyphenated first name
     if names[1] == "-"
       first = names.shift(3).join
     elsif names.size >= 1
@@ -72,7 +72,8 @@ class Name
     end
     post_title = extract_post_title_at_end(names)
     middle = names[0..].join(" ")
-    Name.new(title: title, initials: initials, last: last, first: first, middle: middle, post_title: post_title)
+    Name.new(title: title, initials: initials, last: last, first: first, middle: middle,
+             post_title: post_title)
   end
 
   # Extract a post title from the end if one is available
@@ -131,7 +132,8 @@ class Name
       names.pop
       middle = names[0..].join(" ")
     end
-    Name.new(title: title, last: last, first: first, middle: middle, initials: initials, post_title: post_title)
+    Name.new(title: title, last: last, first: first, middle: middle, initials: initials,
+             post_title: post_title)
   end
 
   def first_initial
@@ -180,6 +182,16 @@ class Name
     t += last.to_s
     t += ", #{post_title}" if post_title?
     t
+  end
+
+  def to_h
+    {
+      title: title,
+      first: first,
+      middle: middle,
+      last: last,
+      post_title: post_title
+    }.reject { |_, v| v.nil? || v.empty? }
   end
 
   def title?
@@ -305,7 +317,9 @@ class Name
     # Replace a unicode character
     name = name.capitalize.gsub("\342\200\231", "'")
     # Exceptions to capitalisation rule
-    name = name[0..1] + name[2..].capitalize if name[0..1] == "O'" || name[0..1] == "Mc" || name[0..1] == "D'"
+    if name[0..1] == "O'" || name[0..1] == "Mc" || name[0..1] == "D'"
+      name = name[0..1] + name[2..].capitalize
+    end
     # If name is hyphenated capitalise each side on its own
     # TODO: Fix 'activesupport' gem so that multibyte chars properly pass through include?
     # Cast to normal string for include? necessary because of bug in activesupport multibyte chars
