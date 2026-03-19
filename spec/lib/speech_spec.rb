@@ -23,18 +23,34 @@ RSpec.describe Speech do
     expect(@speech.output(Builder::XmlMarkup.new)).to eq '<speech approximate_duration="0" approximate_wordcount="2" id="uk.org.publicwhip/debate/2006-01-01.3.1" speakerid="uk.org.publicwhip/member/1" speakername="John Smith" talktype="speech" time="05:00:00" url="http://foo.co.uk/"><p>A speech</p></speech>'
   end
 
-  it "encodes html entities" do
-    # I'm pretty sure that Mechanize unescapes when it reads things in. So, we'll simulate that here
-    nbsp = [160].pack("U")
-    doc = Nokogiri::HTML::DocumentFragment.parse("<p>Q&A#{nbsp}—</p>")
-    # Make sure that you normalise the unicode before comparing.
-    expect(doc.to_s.unicode_normalize(:nfkc)).to eq "<p>Q&A#{nbsp}—</p>".unicode_normalize(:nfkc)
+  describe "document fragments and html entities" do
+    it "encodes dangling ampersands and leaves special characters" do
+      # I'm pretty sure that Mechanize unescapes when it reads things in. So, we'll simulate that here
+      nbsp = "\u00A0" # non-breaking space
+      emdash = "\u2014" # em dash
+      fragment = Nokogiri::HTML::DocumentFragment.parse("<p>Q&A#{nbsp}#{emdash}</p>")
+      expect(fragment.to_s).to eq "<p>Q&amp;A#{nbsp}#{emdash}</p>"
 
-    coder = HTMLEntities.new
-    expect(coder.encode("Q&A#{nbsp}—", :basic)).to eq "Q&amp;A#{nbsp}—"
+      coder = HTMLEntities.new
+      expect(coder.encode("Q&A#{nbsp}#{emdash}", :basic)).to eq "Q&amp;A#{nbsp}#{emdash}"
+    end
+  end
 
-    @speech.append_to_content(doc)
-    expect(@speech.output(Builder::XmlMarkup.new)).to eq "<speech approximate_duration=\"0\" approximate_wordcount=\"1\" id=\"uk.org.publicwhip/debate/2006-01-01.3.1\" speakerid=\"uk.org.publicwhip/member/1\" speakername=\"John Smith\" talktype=\"speech\" time=\"05:00:00\" url=\"http://foo.co.uk/\"><p>Q&amp;A#{nbsp}—</p></speech>"
+  describe "#append_to_content" do
+    it "output encodes unicode characters" do
+      nbsp = "\u00A0" # non-breaking space
+      nbsp_entity = "&#xA0;" # Nokogiri-serialised form
+      emdash = "\u2014" # em dash
+      emdash_entity = "&#x2014;" # Nokogiri-serialised form
+      fragment = Nokogiri::HTML::DocumentFragment.parse("<p>Q&A#{nbsp}#{emdash}</p>")
+
+      @speech.append_to_content(fragment)
+      expected = "<speech approximate_duration=\"0\" approximate_wordcount=\"1\" " \
+        "id=\"uk.org.publicwhip/debate/2006-01-01.3.1\" speakerid=\"uk.org.publicwhip/member/1\" " \
+        "speakername=\"John Smith\" talktype=\"speech\" time=\"05:00:00\" " \
+        "url=\"http://foo.co.uk/\"><p>Q&amp;A#{nbsp_entity}#{emdash_entity}</p></speech>"
+      expect(@speech.output(Builder::XmlMarkup.new)).to eq expected
+    end
   end
 
   describe "#adjournment" do
