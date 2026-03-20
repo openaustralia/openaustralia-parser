@@ -25,7 +25,7 @@ RSpec.describe "create_patch.rb" do
     exitstatus = nil
     output = capture_stdout_and_stderr { exitstatus = CreatePatch.new([]).run }
     puts "OUTPUT:\n#{output}\nEOF" if ENV["DEBUG"]
-    puts output.inspect
+    # puts output.inspect
     expect(exitstatus).to be_positive
   end
 

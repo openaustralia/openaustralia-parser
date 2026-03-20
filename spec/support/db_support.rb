@@ -47,17 +47,17 @@ module DbSupport
 
     # Drop tables if forced to
     TABLES_NEEDED.reverse.each do |table|
-      puts "Dropping #{table} table"
+      puts "Dropping #{table} table" if ENV["DEBUG"]
       conn.execute("DROP TABLE IF EXISTS `#{table}`")
     end if force
     # create missing tables
     existing = conn.tables
     extract_create_statements.zip(TABLES_NEEDED).filter_map do |stmt, table|
       if existing.include?(table)
-        puts "Truncating #{table} table"
+        puts "Truncating #{table} table" if ENV["DEBUG"]
         conn.execute("TRUNCATE TABLE #{table}")
       else
-        puts "Creating #{table} table"
+        puts "Creating #{table} table" if ENV["DEBUG"]
         conn.execute(stmt)
       end
     end
@@ -67,7 +67,7 @@ module DbSupport
       fixture_path = File.expand_path("../fixtures/#{table}.sql", __dir__)
       next unless File.size?(fixture_path)
 
-      puts "Populating #{table} table"
+      puts "Populating #{table} table" if ENV["DEBUG"]
       File.read(fixture_path).split(/;\s*\n/).each do |stmt|
         next if stmt.strip.empty?
 
