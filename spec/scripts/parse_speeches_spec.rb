@@ -104,7 +104,7 @@ RSpec.describe "parse-speeches.rb" do
 
       unless File.exist?(reps_expected)
         FileUtils.cp(reps_output, reps_expected)
-        fail "Expected file missing — please review #{reps_expected} and re-run"
+        fail "Expected file missing - please review #{reps_expected} and re-run"
       end
 
       expect(File.read(reps_output)).to eq(File.read(reps_expected))
@@ -116,7 +116,7 @@ RSpec.describe "parse-speeches.rb" do
 
       unless File.exist?(senate_expected)
         FileUtils.cp(senate_output, senate_expected)
-        fail "Expected file missing — please review #{senate_expected} and re-run"
+        fail "Expected file missing - please review #{senate_expected} and re-run"
       end
 
       expect(File.read(senate_output)).to eq(File.read(senate_expected))

@@ -134,7 +134,8 @@ RSpec.describe HansardSpeech, "should clean content" do
   end
 
   it "special handling for names in bold in brackets (to handle badly marked up xml)" do
-    content = '<speech><para><inline font-weight="bold">(A name)</inline>—Some text</para></speech>'
+    emdash = "\u2014" # em dash
+    content = "<speech><para><inline font-weight=\"bold\">(A name)</inline>#{emdash}Some text</para></speech>"
     expected = "<p>Some text</p>"
     expect(HansardSpeech.clean_content_para(Nokogiri::XML(content).at("para"))).to eq expected
   end

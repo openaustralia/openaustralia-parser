@@ -8,7 +8,7 @@
 # Reads from DB (hansard, member, comments tables).
 # Writes sitemap.xml and sitemaps/sitemapN.xml.gz files.
 # No --no-load needed (no perl/php calls).
-# No VCR needed (no external HTTP — all DB reads).
+# No VCR needed (no external HTTP - all DB reads).
 
 require_relative "../spec_helper"
 

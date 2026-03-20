@@ -108,8 +108,8 @@ XML
     text_node = nil
     amendment_node = nil
 
-    new_xml = Nokogiri::XML("")
-    input_text_node.search("/body/p").each do |p|
+    new_xml = Nokogiri::XML::DocumentFragment.parse("")
+    input_text_node.search("//body/p").each do |p|
       # Skip empty nodes
       if p.inner_text.strip.empty?
         logger.warn "    Ignoring para node as it was empty\n#{p}"
@@ -125,7 +125,7 @@ XML
       para_text = p.inner_text.strip
       italic_text = ""
       p.search("//span").each do |t|
-        if !t.attributes["style"].nil? && t.attributes["style"].match(/italic/)
+        if !t.attributes["style"].nil? && t["style"].match(/italic/)
           italic_text = "#{italic_text}#{t.inner_text}"
           t.inner_html = "{italic}#{t.inner_html}{/italic}"
         end
@@ -141,27 +141,26 @@ XML
         logger.warn "    Found a link without type!? #{ahref}"
         next
       end
-      if !ahref.nil? && ahref.attributes["type"].match(/^Member|Office/)
+      if !ahref.nil? && ahref["type"].match(/^Member|Office/)
 
         # Is this start of a speech? We can tell by the fact it has spans
         # with the HPS-Time class.
-        if speech_node.nil? || !p.search("[@class=HPS-Time]").empty?
+        if speech_node.nil? || !p.search("[@class='HPS-Time']").empty?
           # Rip out the electorate
           # <span class="HPS-Electorate">Grayndler</span>
-          electorate = p.search("//span[@class=HPS-Electorate]")
+          electorate = p.search("//span[@class='HPS-Electorate']")
           electorate.remove
 
           # Rip out the title
           # <span class="HPS-MinisterialTitles">Leader of the House and Minister for Infrastructure and Transport</span>
-          title = p.search("//span[@class=HPS-MinisterialTitles]")
+          title = p.search("//span[@class='HPS-MinisterialTitles']")
           title.remove
 
-          # Rip out the start time
+          # Rip out the start time from the first valid time entry
           # <span class="HPS-Time">09:27</span>
-          time = p.search("//span[@class=HPS-Time]")
-          if time.inner_html =~ /\d+:\d\d/
-            ripped_out_time = time.first.inner_html
-          else
+          time = p.search("//span[@class='HPS-Time']")
+          ripped_out_time = time.map(&:inner_html).find { |t| t =~ /\d+:\d\d/ }
+          unless ripped_out_time
             # We've got a badly formed date, let's try something else
             fallback = p.inner_html.match(%r{(\d+):*<span class="HPS-Time">:*(\d\d)</span>}mi)
             ripped_out_time = "#{fallback[1]}:#{fallback[2]}" if fallback
@@ -197,19 +196,19 @@ XML
               <para>#{restore_tags(text)}</para>
             </speech>
           XML
-          new_xml.append new_node
+          NokogiriHelpers.append new_xml, new_node
           speech_node = new_xml.search("speech")[-1]
           text_node = speech_node
           amendment_node = nil
 
-        # Someone is either interjecting or continuing to speak
+          # Someone is either interjecting or continuing to speak
         else
           if speech_node.nil?
             raise "Assertion failed! speech_node was null while trying to append a speaker"
           end
 
           # Should only be one span in this case, logger.warn otherwise
-          span = p.search("> span")
+          span = p.search("span")
           logger.warn "    Found multiple children spans! #{span.length}" if span.length > 1
 
           # Class will be either "MemberContinuation" or
@@ -229,7 +228,7 @@ XML
 
           # Sometimes we get a second span with the same HPS-Type which just
           # contains someone name. Remove it.
-          extra_spans = p.search("span > span[@class=HPS-#{ahref.attributes['type']}]")
+          extra_spans = p.search("span span[@class='HPS-#{ahref.attributes['type']}']")
           unless extra_spans.empty?
             logger.warn "    Removing excess spans #{extra_spans.length}, removing the following text '#{extra_spans.inner_text}'"
             extra_spans.remove
@@ -263,7 +262,7 @@ XML
               <para>#{restore_tags(text)}</para>
             </#{type}>
           XML
-          speech_node.append(new_node)
+          NokogiriHelpers.append speech_node, new_node
           text_node = speech_node.search(type)[-1]
         end
 
@@ -292,11 +291,11 @@ XML
           if !amendment_node.nil?
             logger.warn "      Found paragraph in an amendment"
 
-            amendment_node.append <<~XML
+            NokogiriHelpers.append amendment_node, <<~XML
               <para>#{restore_tags(text)}</para>
             XML
 
-          # We special case bill's returned from the senate with amendments
+            # We special case bill's returned from the senate with amendments
           elsif p.inner_text.match(/Bill returned from the Senate with .*amendments?/i)
             logger.warn "    Found a bill with amendments"
 
@@ -310,7 +309,7 @@ XML
                             text_node
                           end
 
-            search_node.append <<~XML
+            NokogiriHelpers.append search_node, <<~XML
               <amendments>
                 <para>#{restore_tags(text)}</para>
               </amendments>
@@ -323,17 +322,17 @@ XML
           elsif text_node.nil?
             logger.warn "    Ignoring para node as text_node was null\n#{p}"
 
-          elsif !p.search("span[@class=HPS-MemberIInterjecting]").empty? ||
-                !p.search("span[@class=HPS-MemberInterjecting]").empty? ||
+          elsif !p.search("span[@class='HPS-MemberIInterjecting']").empty? ||
+                !p.search("span[@class='HPS-MemberInterjecting']").empty? ||
                 member_iinterjecting
             logger.warn "    Found new /italics/ paragraph"
-            text_node.append <<~XML
+            NokogiriHelpers.append text_node, <<~XML
               <para class="italic">#{restore_tags(text)}</para>
             XML
 
           else
             logger.warn "    Found new paragraph"
-            text_node.append <<~XML
+            NokogiriHelpers.append text_node, <<~XML
               <para>#{restore_tags(text)}</para>
             XML
           end
@@ -344,7 +343,7 @@ XML
             logger.warn "    Ignoring bullet node as text_node was null\n#{p}"
           else
             logger.warn "    Found new bullet point"
-            text_node.append <<~XML
+            NokogiriHelpers.append text_node, <<~XML
               <list>#{restore_tags(text)}</list>
             XML
           end
@@ -352,19 +351,19 @@ XML
         when "HPS-Small", "HPS-NormalWeb"
           if !amendment_node.nil?
             logger.warn "      Found amendment"
-            amendment_node.append <<~XML
+            NokogiriHelpers.append amendment_node, <<~XML
               <amendment>#{restore_tags(text)}</amendment>
             XML
           elsif text_node.nil?
             logger.warn "    Ignoring quote node as text_node was null\n#{p}"
           else
             logger.warn "    Found new quote"
-            text_node.append <<~XML
+            NokogiriHelpers.append text_node, <<~XML
               <quote><para class="block">#{restore_tags(text)}</para></quote>
             XML
           end
 
-        # Things we are delibaretly ignoring
+          # Things we are delibaretly ignoring
         when "HPS-DivisionSummary"
 
         else
@@ -386,7 +385,11 @@ XML
         NokogiriHelpers.element_children(f).each do |e|
           case e.name
           when "debate.text", "subdebate.text"
-            subdebate_found = true unless e.inner_text.strip.empty?
+            next if e.inner_text.strip.empty?
+
+            logger.warn "sub-debate found"
+            subdebate_found = true
+            break
           end
         end
       end
@@ -394,11 +397,11 @@ XML
 
     # We use a seperate list as we don't want the new children to appear when
     # doing the loop.
-    debate_new_children = Nokogiri::XML("")
+    debate_new_children = Nokogiri::XML::DocumentFragment.parse("")
 
     NokogiriHelpers.element_children(debate).each do |f|
       case f.name
-      # Things to pass through un-molested
+        # Things to pass through un-molested
       when "debateinfo"
         logger.warn "\nDebate #{f.at('title').inner_text}"
         NokogiriHelpers.append debate_new_children, f.to_s
@@ -413,11 +416,11 @@ XML
         logger.warn "  Subdebate.#{level} \"#{f.at('title').inner_text}\" @ #{f.at('//page.no').inner_text}"
         NokogiriHelpers.append debate_new_children, f.to_s
 
-      # Things we have to process recursively
+        # Things we have to process recursively
       when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
         NokogiriHelpers.append debate_new_children, rewrite_debate(f, level + 1).to_s
 
-      # The actual transcript of the proceedings we are going to process
+        # The actual transcript of the proceedings we are going to process
       when "question", "answer", "speech"
         unless subdebate_found
           # We're interested in the talk.text node but have to find it manually due to a bug
@@ -426,11 +429,11 @@ XML
           NokogiriHelpers.append debate_new_children, process_textnode(talk.to_s) if talk
         end
 
-      # Divisions are actually still the same format, so we just append them.
+        # Divisions are actually still the same format, so we just append them.
       when "division"
         NokogiriHelpers.append debate_new_children, f.to_s
 
-      # Things we are delibaretly removing
+        # Things we are delibaretly removing
       when "continue", "interjection", "talk", "debate.text"
         # pass
 

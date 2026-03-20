@@ -4,6 +4,7 @@ require "nokogiri_helpers"
 require "English"
 
 require "name"
+require "unicode_chars"
 
 class HansardSpeech
   attr_reader :logger, :title, :subtitle, :bills, :time, :day, :interjection, :continuation
@@ -50,26 +51,17 @@ class HansardSpeech
   end
 
   def speakername_from_text
-    if strip_tags(@content) =~ (/^([a-z].*?)( interjecting)?—/i) && HansardSpeech.generic_speaker?($LAST_MATCH_INFO[1])
+    if strip_tags(@content) =~ (/^([a-z].*?)( interjecting)?#{UnicodeChars::EM_DASH}/i) && HansardSpeech.generic_speaker?($LAST_MATCH_INFO[1])
       $LAST_MATCH_INFO[1]
     end
   end
 
   public
 
+  # Normalizes hyphens and strips string then strips any leading dash, hyphen, or non-breaking space
   def self.strip_leading_dash(text)
-    # Unicode Character 'Non-breaking hyphen' (U+2011)
-    nbhyphen = [0x2011].pack("U")
-    nbsp = [160].pack("U")
-
-    t = text.gsub(nbhyphen, "-")
-    # TODO: Not handling dashes and nbsp the same here. Should really be stripping whitespace completely before doing
-    # anything for consistency sake.
-    if t.strip[0..0] == "—"
-      t.sub("—", "")
-    # Also remove first non-breaking space (Really should remove them all but we're doing it this way for compatibility
-    # with the previous parser
-    elsif t[0] == nbsp
+    t = text.gsub(UnicodeChars::HYPHEN, "-").gsub(UnicodeChars::NB_HYPHEN, "-").strip
+    if UnicodeChars::DASHES.include?(t[0]) || t[0] == UnicodeChars::NBSP
       t[1..]
     else
       t
@@ -192,9 +184,9 @@ class HansardSpeech
 
   def self.clean_content_list(node)
     # We figure out whether to generate a <dl> or <ul> based on whether the child tags all have a 'label' attribute or not
-    label = node.at("> item").has_attribute?("label") if node.at("> item")
+    label = node.at("item").has_attribute?("label") if node.at("item")
     # Check that all the children are consistent
-    node.search("> item").each do |c|
+    node.search("item").each do |c|
       if c.has_attribute?("label") != label
         raise "Children of <list> are using the 'label' attribute inconsistently"
       end
@@ -302,6 +294,6 @@ class HansardSpeech
   end
 
   def name?(name)
-    @content.is_a?(Nokogiri::XML::Text) ? !!@content.at("/#{name}") : name == @content.name
+    @content.is_a?(Nokogiri::XML::Text) ? !!@content.at("./#{name}") : name == @content.name
   end
 end
