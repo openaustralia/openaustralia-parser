@@ -103,7 +103,7 @@ class HansardDay
       debateinfo = debate.at("debateinfo")
       if debateinfo&.children&.any? { |n| n.name == "id.no" }
         if debate.at("debateinfo/type").inner_text.downcase == "bills"
-          id = debate.at("/debateinfo")
+          id = debate.at("./debateinfo")
                      .children
                      .find { |n| n.name == "id.no" }
                      .inner_text
