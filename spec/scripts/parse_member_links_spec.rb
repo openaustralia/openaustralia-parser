@@ -55,7 +55,7 @@ RSpec.describe "parse-member-links.rb", :integration, :vcr do
       expected = File.join(expected_dir, "websites.xml")
       unless File.exist?(expected)
         FileUtils.cp(produced, expected)
-        fail "Expected file missing — please review #{expected} and re-run"
+        fail "Expected file missing - please review #{expected} and re-run"
       end
 
       expect(File.read(produced)).to eq(File.read(expected))
@@ -69,7 +69,7 @@ RSpec.describe "parse-member-links.rb", :integration, :vcr do
       expected = File.join(expected_dir, "links-abc-election.xml")
       unless File.exist?(expected)
         FileUtils.cp(produced, expected)
-        fail "Expected file missing — please review #{expected} and re-run"
+        fail "Expected file missing - please review #{expected} and re-run"
       end
 
       expect(File.read(produced)).to eq(File.read(expected))
@@ -83,7 +83,7 @@ RSpec.describe "parse-member-links.rb", :integration, :vcr do
       expected = File.join(expected_dir, "links-register-of-interests.xml")
       unless File.exist?(expected)
         FileUtils.cp(produced, expected)
-        fail "Expected file missing — please review #{expected} and re-run"
+        fail "Expected file missing - please review #{expected} and re-run"
       end
 
       expect(File.read(produced)).to eq(File.read(expected))

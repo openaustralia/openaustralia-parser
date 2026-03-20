@@ -6,7 +6,7 @@
 #   regression-test/regression_test_parse_members.rb
 #
 # --no-load flag already exists: skips the perl xml2db.pl database load.
-# No HTTP calls — reads from local CSV data files only.
+# No HTTP calls - reads from local CSV data files only.
 # Output: people.xml, representatives.xml, senators.xml, ministers.xml, divisions.xml
 
 require_relative "../spec_helper"
@@ -55,7 +55,7 @@ RSpec.describe "parse-members.rb", :integration do
       expected = File.join(expected_dir, filename)
       unless File.exist?(expected)
         FileUtils.cp(produced, expected)
-        fail "Expected file missing — please review #{expected} and re-run"
+        fail "Expected file missing - please review #{expected} and re-run"
       end
 
       expect(File.read(produced)).to eq(File.read(expected))
