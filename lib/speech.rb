@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "hpricot"
+require "hpricot_additions"
 require "htmlentities"
 require "section"
 
@@ -11,7 +11,7 @@ class Speech < Section
 
   def initialize(speaker:, time:, url:, count:, date:, house:, logger: nil)
     @speaker = speaker
-    @content = Hpricot::Elements.new
+    @content = []
     @duration = 0
     @word_count_for_continuations = 0
     super(time: time, url: url, count: count, date: date, house: house, logger: logger)
@@ -19,7 +19,24 @@ class Speech < Section
 
   def output(builder)
     time = @time.nil? ? "unknown" : @time
-    if @logger && @content.inner_text.strip == ""
+    # Format content for output - handle arrays of nodes
+    content_output = if @content.is_a?(Array)
+                       @content.map do |node|
+                         # Use to_s for elements to output HTML
+                         node.to_s
+                       end.join
+                     else
+                       @content.respond_to?(:inner_html) ? @content.inner_html : @content.to_s
+                     end
+    
+    # Get text content for validation
+    content_text = if @content.is_a?(Array)
+                     @content.map { |node| node.respond_to?(:inner_text) ? node.inner_text : node.to_s }.join
+                   else
+                     @content.respond_to?(:inner_text) ? @content.inner_text : @content.to_s
+                   end
+    
+    if @logger && content_text.strip == ""
       if @speaker.nil?
         @logger.error "#{@date} #{@house}: Empty speech in procedural text"
       else
@@ -35,23 +52,31 @@ class Speech < Section
     builder.speech(
       speaker_attributes.merge({ time: time, url: quoted_url, id: id, talktype: talk_type,
                                  approximate_duration: @duration.to_i, approximate_wordcount: words })
-    ) { builder << @content.to_s }
+    ) { builder << content_output }
   end
 
   def append_to_content(content)
-    # Put entities back into the content so that, for instance, '&' becomes '&amp;'
-    # Since we are outputting XML rather than HTML in order to save us the trouble of putting the HTML entities in the XML
-    # we are only encoding the basic XML entities
-    coder = HTMLEntities.new
-    content.traverse_text do |text|
-      text.swap(coder.encode(text, :basic))
-    end
-    # Append to stored content
-    if content.is_a?(Array)
-      @content += content
+    # Note: Text encoding/entity handling is done by the XML builder during output
+    # so we don't need to pre-encode here. The builder will properly escape entities.
+    
+    # If content is a Document node, extract the body element's children
+    if content.is_a?(Nokogiri::HTML4::Document) || content.is_a?(Nokogiri::XML::Document)
+      body = content.at_xpath('//body')
+      if body
+        # Get the children of the body (the actual content elements)
+        children_to_add = body.children.to_a
+      else
+        # Fallback to all children if no body
+        children_to_add = content.children.to_a
+      end
+    elsif content.is_a?(Array)
+      children_to_add = content
     else
-      @content << content
+      children_to_add = [content]
     end
+    
+    # Append to stored content (flatten in case we get nested arrays)
+    @content += children_to_add.flatten
   end
 
   def talk_type
@@ -86,7 +111,12 @@ class Speech < Section
   def words
     # Add newlines between p tags so the last and first words of paragraphs are
     # split properly
-    html = @content.inner_html.gsub(%r{</p>}, "</p>\n")
-    Hpricot(html).inner_text.split.count
+    html = if @content.is_a?(Array)
+             @content.map(&:to_s).join
+           else
+             @content.inner_html
+           end
+    html = html.gsub(%r{</p>}, "</p>\n")
+    Nokogiri::HTML(html).inner_text.split.count
   end
 end

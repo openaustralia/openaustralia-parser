@@ -3,8 +3,10 @@
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require "test/unit"
+require "builder"
 
 require "hansard_day"
+require "hpricot_additions"
 
 # Make it simpler to generate XML with tags with '.' in them. Translate occurrences of '_' to '.'
 module Builder
@@ -33,7 +35,7 @@ describe HansardDay do
 
     x = Builder::MyXmlMarkup.new
 
-    @titles_xml = Hpricot.XML(x.hansard do
+    @titles_xml = Nokogiri::XML(x.hansard do
       x.chamber_xscript do
         x.debate do
           x.debateinfo { x.title 1 }
@@ -92,7 +94,7 @@ describe HansardDay do
       end
     end)
 
-    @header = HansardDay.new(Hpricot.XML(header_xml))
+    @header = HansardDay.new(Nokogiri::XML(header_xml))
 
     @titles = HansardDay.new(@titles_xml)
   end
@@ -115,23 +117,23 @@ describe HansardDay do
     expect(@titles.title(@titles_xml.at("debate"))).to eq "1"
     expect(@titles.subtitle(@titles_xml.at("debate"))).to eq ""
 
-    expect(@titles.title(@titles_xml.at("(subdebate.1)"))).to eq "2"
-    expect(@titles.subtitle(@titles_xml.at("(subdebate.1)"))).to eq "3; 14"
+    expect(@titles.title(@titles_xml.at("//*[local-name()='subdebate.1']"))).to eq "2"
+    expect(@titles.subtitle(@titles_xml.at("//*[local-name()='subdebate.1']"))).to eq "3; 14"
 
-    expect(@titles.title(@titles_xml.search("(subdebate.1)")[1])).to eq "4"
-    expect(@titles.subtitle(@titles_xml.search("(subdebate.1)")[1])).to eq "5"
+    expect(@titles.title(@titles_xml.search("//*[local-name()='subdebate.1']")[1])).to eq "4"
+    expect(@titles.subtitle(@titles_xml.search("//*[local-name()='subdebate.1']")[1])).to eq "5"
 
-    expect(@titles.title(@titles_xml.search("(subdebate.1)")[2])).to eq "4"
-    expect(@titles.subtitle(@titles_xml.search("(subdebate.1)")[2])).to eq "6"
+    expect(@titles.title(@titles_xml.search("//*[local-name()='subdebate.1']")[2])).to eq "4"
+    expect(@titles.subtitle(@titles_xml.search("//*[local-name()='subdebate.1']")[2])).to eq "6"
 
-    expect(@titles.title(@titles_xml.search("(subdebate.1)")[3])).to eq "7; 13"
-    expect(@titles.subtitle(@titles_xml.search("(subdebate.1)")[3])).to eq "8"
+    expect(@titles.title(@titles_xml.search("//*[local-name()='subdebate.1']")[3])).to eq "7; 13"
+    expect(@titles.subtitle(@titles_xml.search("//*[local-name()='subdebate.1']")[3])).to eq "8"
 
-    expect(@titles.title(@titles_xml.search("(subdebate.1)")[4])).to eq "7; 13"
-    expect(@titles.subtitle(@titles_xml.search("(subdebate.1)")[4])).to eq "9"
+    expect(@titles.title(@titles_xml.search("//*[local-name()='subdebate.1']")[4])).to eq "7; 13"
+    expect(@titles.subtitle(@titles_xml.search("//*[local-name()='subdebate.1']")[4])).to eq "9"
 
-    expect(@titles.title(@titles_xml.at("(subdebate.2)"))).to eq "10"
-    expect(@titles.subtitle(@titles_xml.at("(subdebate.2)"))).to eq "11; 12"
+    expect(@titles.title(@titles_xml.at("//*[local-name()='subdebate.2']"))).to eq "10"
+    expect(@titles.subtitle(@titles_xml.at("//*[local-name()='subdebate.2']"))).to eq "11; 12"
   end
 
   it "should still be able to figure out the title even when there is a title tag within a title tag" do
@@ -156,10 +158,10 @@ describe HansardDay do
       end
     end
 
-    xml = Hpricot.XML(titles_xml)
+    xml = Nokogiri::XML(titles_xml)
 
-    expect(HansardDay.new(xml).title(xml.at("(subdebate.1)"))).to eq "1; 2; 3; 4; 5"
-    expect(HansardDay.new(xml).subtitle(xml.at("(subdebate.1)"))).to eq "6"
+    expect(HansardDay.new(xml).title(xml.at("//*[local-name()='subdebate.1']"))).to eq "1; 2; 3; 4; 5"
+    expect(HansardDay.new(xml).subtitle(xml.at("//*[local-name()='subdebate.1']"))).to eq "6"
   end
 
   it "should know when the page is considered in proof stage" do

@@ -30,7 +30,7 @@ class HansardSpeech
   end
 
   def aph_id
-    aph_id_tag = @content.at("//(name.id)")
+    aph_id_tag = @content.at("//*[local-name()='name.id']")
     aph_id_tag ? aph_id_tag.inner_html : nil
   end
 
@@ -55,6 +55,10 @@ class HansardSpeech
   public
 
   def self.strip_leading_dash(text)
+    # Decode HTML entities first so we can properly detect dashes
+    require "htmlentities"
+    text = HTMLEntities.new.decode(text)
+    
     # Unicode Character 'Non-breaking hyphen' (U+2011)
     nbhyphen = [0x2011].pack("U")
     nbsp = [160].pack("U")
@@ -82,18 +86,18 @@ class HansardSpeech
 
     if attributes_keys.delete("ref")
       # We're going to assume these links always point to Bills.
-      link = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{node.attributes['ref']}"
+      link = "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;query=Id:legislation/billhome/#{node.attributes['ref'].to_s}"
       text = "<a href=\"#{link}\">#{text}</a>"
     end
 
     if attributes_keys.delete("font-style")
-      raise "Unexpected font-style value #{node.attributes['font-style']}" unless node.attributes["font-style"] == "italic"
+      raise "Unexpected font-style value #{node.attributes['font-style']}" unless node.attributes["font-style"].to_s == "italic"
 
       text = "<i>#{text}</i>"
     end
 
     if attributes_keys.delete("font-weight")
-      raise "Unexpected font-weight value #{e.attributes['font-weight']}" unless node.attributes["font-weight"] == "bold"
+      raise "Unexpected font-weight value #{node.attributes['font-weight']}" unless node.attributes["font-weight"].to_s == "bold"
 
       # Workaround for badly marked up content. If a bold item is surrounded in brackets assume it is a name and remove it
       # Alternatively if the bold item is a generic name, remove it as well
@@ -105,7 +109,7 @@ class HansardSpeech
     end
 
     if attributes_keys.delete("font-variant")
-      case node.attributes["font-variant"]
+      case node.attributes["font-variant"].to_s
       when "superscript"
         text = "<sup>#{text}</sup>"
       when "subscript"
@@ -132,7 +136,7 @@ class HansardSpeech
   def self.clean_content_para_content(node)
     t = +""
     (node.children || []).each do |c|
-      t << if c.is_a?(Hpricot::Text)
+      t << if c.is_a?(Nokogiri::XML::Text)
              strip_leading_dash(c.to_s)
            else
              clean_content_any(c)
@@ -278,12 +282,19 @@ class HansardSpeech
   end
 
   def clean_content
-    Hpricot.XML(HansardSpeech.clean_content_any(@content))
+    content_html = HansardSpeech.clean_content_any(@content)
+    # Wrap in a simple container to parse, then extract without XML declaration
+    doc = Nokogiri::XML("<root>#{content_html}</root>")
+    # Remove newlines added by Nokogiri's pretty printing between elements
+    doc.root.inner_html.gsub(/>\n</, "><")
   end
 
   def strip_tags(doc)
     str = doc.to_s
-    str.gsub(%r{</?[^>]*>}, "")
+    str.gsub!(%r{</?[^>]*>}, "")
+    # Decode HTML entities so regex patterns can match special characters like em-dashes
+    require "htmlentities"
+    HTMLEntities.new.decode(str)
   end
 
   def self.generic_speaker?(speakername)
@@ -291,6 +302,6 @@ class HansardSpeech
   end
 
   def name?(name)
-    @content.is_a?(Hpricot::Text) ? !!@content.at("/#{name}") : name == @content.name
+    @content.is_a?(Nokogiri::XML::Text) ? !!@content.at("/#{name}") : name == @content.name
   end
 end

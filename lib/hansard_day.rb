@@ -147,7 +147,7 @@ class HansardDay
       if debate.parent.name == "subdebate.1"
         front = subtitle(debate.parent).strip
       else
-        possible_firstdebates = debate.parent.search("(subdebate.1)")
+        possible_firstdebates = debate.parent.search("//*[local-name()='subdebate.1']")
         front = if possible_firstdebates.length == 1
                   subtitle(possible_firstdebates[0]).strip
                 else
@@ -164,7 +164,7 @@ class HansardDay
 
   def time(debate)
     # HACK: Hmmm.. check this out more
-    tag = debate.at("//(time.stamp)")
+    tag = debate.at("//*[local-name()='time.stamp']")
     tag&.inner_html
   end
 
