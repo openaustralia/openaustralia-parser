@@ -20,6 +20,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+    - name: Install Magick
+      run: sudo apt-get install libmagickwand-dev imagemagick
     - uses: actions/checkout@v4
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
