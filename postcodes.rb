@@ -68,4 +68,4 @@ class Postcodes
   end
 end
 
-exit Postcodes.new(ARGV).run.to_i if $PROGRAM_NAME == __FILE__
+Postcodes.new.run if $PROGRAM_NAME == __FILE__

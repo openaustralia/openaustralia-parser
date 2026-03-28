@@ -165,3 +165,5 @@ class ParseSpeeches
   end
 end
 
+ParseSpeeches.new.run if $PROGRAM_NAME == __FILE__
+
