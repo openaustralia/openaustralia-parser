@@ -23,7 +23,15 @@ case "${1:-}" in
     ;;
 esac
 
-if command -v mise &>/dev/null; then
+# Put the ruby manager used by openaustralia/Capfile first
+if [ -x "$HOME/.rbenv/bin/rbenv" ]; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)"
+  exec bundle exec "$RUNNER" "$@"
+elif command -v rbenv &>/dev/null; then
+  eval "$(rbenv init -)"
+  exec bundle exec "$RUNNER" "$@"
+elif command -v mise &>/dev/null; then
   exec mise exec -- bundle exec "$RUNNER" "$@"
 elif [ -f "$HOME/.rvm/scripts/rvm" ]; then
   source "$HOME/.rvm/scripts/rvm"
