@@ -34,6 +34,10 @@ jobs:
           --health-timeout=5s
           --health-retries=10
     steps:
+    - name: get rblib
+      run: |
+        mkdir -p ../openaustralia
+        git clone https://github.com/openaustralia/rblib.git ../openaustralia/rblib
     - name: Install Magick
       run: sudo apt-get install libmagickwand-dev imagemagick
     - uses: actions/checkout@v4
