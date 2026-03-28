@@ -20,3 +20,4 @@ $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
 require "sitemap_generator"
 
+SitemapGenerator.new.run if $PROGRAM_NAME == __FILE__
