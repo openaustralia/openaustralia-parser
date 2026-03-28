@@ -41,6 +41,8 @@ jobs:
       uses: ruby/setup-ruby@v1
       with:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Make configuration file
+      run: cp configuration-ci.yml configuration.yml
     - name: Run Specs
       env:
         DATABASE_HOST: 127.0.0.1
