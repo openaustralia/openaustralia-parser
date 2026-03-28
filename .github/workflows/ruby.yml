@@ -34,7 +34,7 @@ jobs:
           --health-timeout=5s
           --health-retries=10
     steps:
-    - name: get rblib
+    - name: get other submodules
       run: |
         mkdir -p ../openaustralia
         git clone -b staging https://github.com/openaustralia/rblib.git ../openaustralia/rblib
