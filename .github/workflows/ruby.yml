@@ -39,6 +39,8 @@ jobs:
         mkdir -p ../openaustralia
         git clone -b staging https://github.com/openaustralia/rblib.git ../openaustralia/rblib
         git clone -b staging https://github.com/openaustralia/twfy.git ../openaustralia/twfy
+    - name: configure TWFY
+      run: cp ../twfy/conf/general-example.ubuntu ../openaustralia/twfy/conf/general
     - name: Install Magick
       run: sudo apt-get install -y libmagickwand-dev imagemagick
     - uses: actions/checkout@v4
