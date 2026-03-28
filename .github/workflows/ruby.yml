@@ -43,4 +43,10 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Run Specs
+      env:
+        DATABASE_HOST: 127.0.0.1
+        DATABASE_USER: root
+        DATABASE_PASSWORD: root
+        DATABASE_NAME: openaustralia_parser_test
+        RACK_ENV: test
       run: bundle exec rspec
