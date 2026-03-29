@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require "hpricot"
 require "htmlentities"
+require "nokogiri"
+
 require "section"
 
 class Speech < Section
@@ -11,7 +12,7 @@ class Speech < Section
 
   def initialize(speaker:, time:, url:, count:, date:, house:, logger: nil)
     @speaker = speaker
-    @content = Hpricot::Elements.new
+    @content = Nokogiri::XML::DocumentFragment.parse("")
     @duration = 0
     @word_count_for_continuations = 0
     super(time: time, url: url, count: count, date: date, house: house, logger: logger)
@@ -38,20 +39,18 @@ class Speech < Section
     ) { builder << @content.to_s }
   end
 
-  def append_to_content(content)
-    # Put entities back into the content so that, for instance, '&' becomes '&amp;'
-    # Since we are outputting XML rather than HTML in order to save us the trouble of putting the HTML entities in the XML
-    # we are only encoding the basic XML entities
+  # Put entities back into the content so that, for instance, '&' becomes '&amp;'
+  # Since we are outputting XML rather than HTML in order to save us the trouble of putting the HTML entities in the XML
+  # we are only encoding the basic XML entities
+  def append_to_content(fragment)
     coder = HTMLEntities.new
-    content.traverse_text do |text|
-      text.swap(coder.encode(text, :basic))
+    fragment.each do |node|
+      node.traverse do |n|
+        next unless n.text?
+        n.content = coder.encode(n.text, :basic)
+      end
     end
-    # Append to stored content
-    if content.is_a?(Array)
-      @content += content
-    else
-      @content << content
-    end
+    @content.add_child(fragment)
   end
 
   def talk_type
@@ -89,6 +88,6 @@ class Speech < Section
     # Add newlines between p tags so the last and first words of paragraphs are
     # split properly
     html = @content.inner_html.gsub(%r{</p>}, "</p>\n")
-    Hpricot(html).inner_text.split.count
+    Nokogiri::HTML(html).inner_text.split.count
   end
 end

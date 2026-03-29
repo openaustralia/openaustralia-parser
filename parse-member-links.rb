@@ -5,12 +5,12 @@ require "bundler/setup"
 
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
-require "mechanize"
-require "open-uri"
-require "hpricot"
-require "json"
-require "optparse"
 require "fileutils"
+require "json"
+require "mechanize"
+require "nokogiri"
+require "open-uri"
+require "optparse"
 
 require "name"
 require "people"
@@ -86,7 +86,7 @@ class ParseMemberLinks
 
       # Representatives
       url = "#{conf.election_web_root}/results/electorateindex.htm"
-      doc = Hpricot(URI.parse(url).open)
+      doc = Nokogiri::HTML(URI.parse(url).open)
       (doc / "td.electorate").each do |td|
         href = td.at("a")["href"]
         href = "#{abc_root}#{href}"
@@ -96,7 +96,7 @@ class ParseMemberLinks
       end
       # Senate
       url = "#{conf.election_web_root}/results/senate/"
-      doc = Hpricot(URI.parse(url).open)
+      doc = Nokogiri::HTML(URI.parse(url).open)
       (doc / :a).each do |a|
         next unless %r{results/senate/(\w+)\.htm}.match(a["href"])
 
@@ -109,7 +109,7 @@ class ParseMemberLinks
       # Representatives
       abc_2010_root = "https://www.abc.net.au/elections/federal/2010/guide"
       url = "#{abc_2010_root}/electorateresults.htm"
-      doc = Hpricot(URI.parse(url).open)
+      doc = Nokogiri::HTML(URI.parse(url).open)
       (doc / "td.electorate").each do |td|
         href = td.at("a")["href"]
         href = "#{abc_2010_root}/#{href}"
@@ -128,7 +128,7 @@ class ParseMemberLinks
       # Representatives
       abc_root = "https://www.abc.net.au"
       url = "#{abc_root}/news/elections/federal/2013/guide/electorates"
-      doc = Hpricot(URI.parse(url).open)
+      doc = Nokogiri::HTML(URI.parse(url).open)
       (doc / "span.electorate").each do |span|
         href = span.parent["href"]
         href = "#{abc_root}#{href}"
