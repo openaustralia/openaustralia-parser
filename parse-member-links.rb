@@ -279,3 +279,4 @@ class ParseMemberLinks
 end
 
 ParseMemberLinks.new(ARGV).run if $PROGRAM_NAME == __FILE__
+

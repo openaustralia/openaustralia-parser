@@ -94,4 +94,5 @@ class ParsePostcodes2010
   end
 end
 
-MemberImages.new(ARGV).run if $PROGRAM_NAME == __FILE__
+ParsePostcodes2010.new(ARGV).run if $PROGRAM_NAME == __FILE__
+

@@ -123,4 +123,4 @@ class RegisterSplit
   end
 end
 
-exit RegisterSplit.new(ARGV).run if $PROGRAM_NAME == __FILE__
+RegisterSplit.new.run if $PROGRAM_NAME == __FILE__
