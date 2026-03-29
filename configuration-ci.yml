@@ -1,0 +1,63 @@
+#
+# Edit this file to control the behaviour of the parser
+#
+
+# The root directory of the openaustralia repo
+# Note this is NOT the patched Australian version of the TheyWorkForYou website (twfy is a git submodule under this)
+# For example, Under Mac OS X this is likely to be something like:
+# web_root: "/var/www/oa"
+# Under production it is:
+# web_root: "/srv/www/production/current"
+# or for development:
+web_root: "../openaustralia"
+
+# Production has the following (not required for development)
+# html_cache_path: "/srv/www/production/shared/html_cache"
+
+# Log path is under the openaustralia-parser submodule of web_root, eg for production:
+# log_path: "/srv/www/production/shared/parser.log"
+log_path: "./parser.log"
+
+# Morph API key
+morph_api_key: XXXXXXXXXXXXXXXXXXXX
+
+# -------------------------------------------------------
+# Standalone development override of twfy/conf/general (so you don't need PHP)
+
+# database_host: localhost
+# database_user: openaustralia
+# database_password: openaustralia
+# database_name: openaustralia
+# file_image_path: "tmp/file_images/"
+# members_xml_path: 'tmp/members_xml_output/'
+# xml_path: "../openaustralia/pwdata/"
+# regmem_pdf_path: "regmem/scan/"
+# base_dir: "tmp/twfy-www-docs/"
+
+# -------------------------------------------------------
+# Should hopefully NOT HAVE TO CHANGE ANYTHING BELOW HERE
+
+# This is where the parser looks for Hansard data
+parlinfo_web_root: ""
+# This is the path to the Hansard data that is used for generating links
+permalink_parlinfo_web_root: ""
+
+# Links to the biographies of all *current* house members and senators
+current_house_members_url: ""
+current_senate_members_url: ""
+# Links to the biographies of all *former* senators and representatives
+former_members_house_and_senate_url: ""
+
+# Alternative version of biography pages for current representatives and senators
+alternative_current_house_members_url: ""
+alternative_current_senate_members_url: ""
+
+# List of electorates from website for the ABC's Q&A programme
+qanda_electorate_url: ""
+qanda_all_senators_url: ""
+
+# ABC 2007 election results
+election_web_root: ""
+
+# They Vote For You API key
+theyvoteforyou_api_key: XXXXXXXXXXXXXXXXXXXX
