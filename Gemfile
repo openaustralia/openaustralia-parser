@@ -1,36 +1,35 @@
 # frozen_string_literal: true
 
-source "http://rubygems.org"
+source "https://rubygems.org"
 
-gem "rake"
+ruby file: ".ruby-version"
 
+gem "activerecord", "~> 8.0.4" # For sitemap generation
+gem "builder", "~> 3.0"
+gem "csv"
 gem "hpricot"
 gem "htmlentities"
-gem "mechanize"
-
-# Version 3 of builder outputs utf8 strings which will make the regression
-# tests fail. It would be good to check that the rest of the pipeline
-# (on openaustralia.org.au) can handle this change before we upgrade.
-gem "builder", "~> 2"
 gem "log4r"
-
-gem "rmagick"
-
+gem "logger"
+gem "mechanize"
 gem "mysql2"
+gem "nokogiri", ">= 1.19.1"
+gem "ostruct"
+gem "rake"
+gem "rmagick"
 gem "ruby-progressbar"
 
-# For sitemap generation
-gem "activerecord", "~> 6.1.0 "
-
 group :development do
-  gem "rubocop", "~> 1.7", require: false
+  gem "rubocop", require: false #  "~> 1.7",
   gem "rubocop-rake"
   gem "rubocop-rspec"
 end
 
 group :test do
   gem "rspec"
-  gem "test-unit"
-  # TODO: rcov doesn't work on ruby > 1.8. Switch to simplecov
-  # gem 'rcov', "~> 0.9.10"
+  gem "simplecov"
+  gem "simplecov-console"
+  gem "timecop"
+  gem "vcr"
+  gem "webmock"
 end

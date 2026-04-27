@@ -49,7 +49,9 @@ class HansardSpeech
   end
 
   def speakername_from_text
-    $LAST_MATCH_INFO[1] if strip_tags(@content) =~ (/^([a-z].*?)( interjecting)?—/i) && HansardSpeech.generic_speaker?($LAST_MATCH_INFO[1])
+    if strip_tags(@content) =~ (/^([a-z].*?)( interjecting)?—/i) && HansardSpeech.generic_speaker?($LAST_MATCH_INFO[1])
+      $LAST_MATCH_INFO[1]
+    end
   end
 
   public
@@ -87,13 +89,17 @@ class HansardSpeech
     end
 
     if attributes_keys.delete("font-style")
-      raise "Unexpected font-style value #{node.attributes['font-style']}" unless node.attributes["font-style"] == "italic"
+      unless node.attributes["font-style"] == "italic"
+        raise "Unexpected font-style value #{node.attributes['font-style']}"
+      end
 
       text = "<i>#{text}</i>"
     end
 
     if attributes_keys.delete("font-weight")
-      raise "Unexpected font-weight value #{e.attributes['font-weight']}" unless node.attributes["font-weight"] == "bold"
+      unless node.attributes["font-weight"] == "bold"
+        raise "Unexpected font-weight value #{e.attributes['font-weight']}"
+      end
 
       # Workaround for badly marked up content. If a bold item is surrounded in brackets assume it is a name and remove it
       # Alternatively if the bold item is a generic name, remove it as well
@@ -190,7 +196,9 @@ class HansardSpeech
     label = node.at("> item").has_attribute?("label") if node.at("> item")
     # Check that all the children are consistent
     node.search("> item").each do |c|
-      raise "Children of <list> are using the 'label' attribute inconsistently" if c.has_attribute?("label") != label
+      if c.has_attribute?("label") != label
+        raise "Children of <list> are using the 'label' attribute inconsistently"
+      end
     end
 
     if label
@@ -202,7 +210,9 @@ class HansardSpeech
 
   def self.clean_content_entry(node, override_type = nil)
     attributes = 'valign="top"'
-    attributes << " colspan=\"#{node.attributes['colspan']}\"" if node.attributes["colspan"] && node.attributes["colspan"] != ""
+    if node.attributes["colspan"] && node.attributes["colspan"] != ""
+      attributes << " colspan=\"#{node.attributes['colspan']}\""
+    end
     "<td #{attributes}>#{clean_content_recurse(node, override_type)}</td>"
   end
 

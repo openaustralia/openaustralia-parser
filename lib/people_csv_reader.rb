@@ -7,6 +7,7 @@ require "people"
 require "person"
 require "name"
 
+# Utility used by regression test
 class PeopleCSVReader
   # Ignores comment lines starting with '#'
   def self.read_raw_csv(filename)
@@ -61,7 +62,9 @@ class PeopleCSVReader
       state = "Tasmania" if ["Tas.", "Tas"].include?(state)
       state = "Victoria" if ["Vic.", "Vic"].include?(state)
       state = "Queensland" if %w[Qld QLD].include?(state)
-      raise "State #{state} is not a valid. Allowed values are #{valid_states.join(', ')}" unless valid_states.member?(state)
+      unless valid_states.member?(state)
+        raise "State #{state} is not a valid. Allowed values are #{valid_states.join(', ')}"
+      end
 
       name = Name.title_first_last(name_text)
       raise "Division is undefined for #{name.full_name}" if house.representatives? && division.nil?
@@ -94,7 +97,7 @@ class PeopleCSVReader
   end
 
   # Attaches ministerial information to people
-  def self.read_ministers(people, filename)
+  def self.read_ministers(people, filename, count)
     data = CSV.readlines(filename)
     # Remove the first two rows
     data.shift
@@ -111,14 +114,15 @@ class PeopleCSVReader
       person = people.find_person_by_name_current_on_date(n, from_date) if n
       raise "Can't find #{name} for date #{from_date}" if person.nil?
 
-      person.add_minister_position(from_date: from_date, to_date: to_date, position: position)
+      person.add_minister_position(from_date: from_date, to_date: to_date, position: position, count: count)
     end
+    count
   end
 
   def self.read_all_ministers(people, ministers_filename = "#{File.dirname(__FILE__)}/../data/ministers.csv",
                               shadow_ministers_filename = "#{File.dirname(__FILE__)}/../data/shadow-ministers.csv")
-    read_ministers(people, ministers_filename)
-    read_ministers(people, shadow_ministers_filename)
+    count = read_ministers(people, ministers_filename, 1)
+    read_ministers(people, shadow_ministers_filename, count)
   end
 
   def self.parse_party(party)
@@ -214,3 +218,4 @@ class PeopleCSVReader
     end
   end
 end
+

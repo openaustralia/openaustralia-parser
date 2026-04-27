@@ -1,19 +1,17 @@
 # frozen_string_literal: true
 
+require "fileutils"
 require "rake"
-require "rake/testtask"
-require "rspec/core/rake_task"
+
+require_relative "lib/configuration"
+
+begin
+  require "rspec/core/rake_task"
+  RSpec::Core::RakeTask.new(:spec)
+rescue LoadError
+  task(:spec) { puts "rspec not available" }
+end
 
 task default: [:spec]
 
-RSpec::Core::RakeTask.new do |t|
-  t.ruby_opts = ["-rtest/unit"]
-  t.pattern = ["spec/*_spec.rb", "test/test_*.rb"]
-end
-
-RSpec::Core::RakeTask.new(:spec_coverage) do |t|
-  t.rcov = true
-  t.rcov_opts = ["-x/Library/, -xspec"]
-  t.ruby_opts = ["-rtest/unit"]
-  t.pattern = ["spec/*_spec.rb", "test/test_*.rb"]
-end
+Dir["lib/tasks/*.rake"].each { |f| load f }

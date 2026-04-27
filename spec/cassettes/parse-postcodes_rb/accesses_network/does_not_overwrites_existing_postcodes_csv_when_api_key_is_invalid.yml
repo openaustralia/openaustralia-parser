@@ -1,0 +1,58 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.morph.io/drzax/morph-division-postcode-correspondence/data.csv?key=NOT-VALID&query=SELECT%20DISTINCT%20postcode,COALESCE(NULLIF(electorate,%27%27),redistributedElectorate)%20AS%20electorate%20FROM%20%27data%27%20order%20by%20postcode,electorate
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip,deflate,identity
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Mechanize/2.8.5 Ruby/2.7.8p225 (http://github.com/sparklemotion/mechanize/)
+      Accept-Charset:
+      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      Accept-Language:
+      - en-us,en;q=0.5
+      Host:
+      - api.morph.io
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - '300'
+  response:
+    status:
+      code: 401
+      message: Unauthorized
+    headers:
+      Content-Type:
+      - text; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Connection:
+      - keep-alive
+      Status:
+      - 401 Unauthorized
+      Cache-Control:
+      - no-cache
+      X-Request-Id:
+      - 4021c899-634c-4472-8471-06c13b098b99
+      X-Runtime:
+      - '0.005567'
+      Date:
+      - Thu, 12 Mar 2026 13:29:29 GMT
+      Set-Cookie:
+      - _morph_session=SXB%2FZbSsgDuUOARed5QMgm8VuMG2WvsC3zKYoh6O1yrA94IiFXDSwbSeH9ERr%2Fln3gxg0aLMKewyw5Bau%2FfQ0Wd27XVtGEs%2FA16MGFUiCALIAgIrR0OCWadLxaUsyjKB9dYxAqqudNisxSFcfM%2FAwlfIyIZ17hp6gSe1eD0WwB7pyRB6RUF0QGo%2F%2FWqz23KKxh%2Bqlk%2F2qTCWXYoCF%2BaOeArd3fhHHtaHme7u3AFgpb%2ByEIYaVCGmGjCFrDpFHzvsZe5AeFuHnpbbp5Qv%2F0wYRCPC9udy06V%2FULnZPWwC7HqZDIMcXVcqPQ1JdTyn%2BL2BDH9NWdLVzqQNe91oNoN6dlQjHg5cnM2bj6imhCMuqEy523bDrenl2vQ2JKDJgqZTGmh3AJ5ysMqe7zq5Dyq7nIETPvRfKbs1NJrATqmhWIKN8mbKQH7SOnMl9Lq21wWvKRhgIj36uhvmdnsW5Du3i9xkwRUZ3h5uaKhuNyj7m%2FufdMQ8B58jhg6hxxifnk9yMBxSQuVdJagkOkmvsrCmJJFly%2BFFcJwmuf1XMtl58YmrqtK4J7RKc0No6MMxGNvLAH4hb8w5d9U4hgwua%2FF0w6QuCmc%2BvLDC%2Fl0VGLxQ2SPZCAgrF0qAGflV--JMw2lb23gTze0QZV--YD1Hv4TSR%2Ftb1y%2BX9dFkOw%3D%3D;
+        path=/; HttpOnly
+      X-Powered-By:
+      - Phusion Passenger(R) 6.0.15
+      Server:
+      - nginx/1.20.2 + Phusion Passenger(R) 6.0.15
+    body:
+      encoding: UTF-8
+      string: API key is not valid
+  recorded_at: Thu, 12 Mar 2026 13:29:29 GMT
+recorded_with: VCR 6.4.0

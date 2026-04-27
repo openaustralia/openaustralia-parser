@@ -1,3 +1,6 @@
+# Generated from data/people.csv
+data/people.yml
+
 pwdata/images/mps/*.jpg
 pwdata/images/mpsL/*.jpg
 pwdata/members/all-members.xml

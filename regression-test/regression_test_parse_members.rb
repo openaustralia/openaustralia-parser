@@ -7,6 +7,10 @@
 # In other words, this is only useful for checking that any refactoring has not caused a regression in behaviour.
 #
 
+# FIXME: Untested
+
+# :nocov:
+
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/../lib"
 
 require "configuration"
@@ -42,3 +46,4 @@ compare_xml("#{conf.members_xml_path}/representatives.xml", "#{ref_path}/represe
 compare_xml("#{conf.members_xml_path}/senators.xml", "#{ref_path}/senators.xml")
 compare_xml("#{conf.members_xml_path}/ministers.xml", "#{ref_path}/ministers.xml")
 compare_xml("#{conf.members_xml_path}/divisions.xml", "#{ref_path}/divisions.xml")
+# :nocov:

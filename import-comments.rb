@@ -1,32 +1,58 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+# mlander: Very rough and ready scripts for importing/exporting comments when gid's might change
+#
+# FIXME: We shouldn't be dependent on GIDs staying the same as replication fallover may change them
+
+require "bundler/setup"
+
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
+
+require "csv"
 
 require "configuration"
 require "mysql"
-require "csv"
 
-conf = Configuration.new
+class ImportComments
+  def initialize(args)
+    @args = args
+  end
 
-db = Mysql.real_connect(conf.database_host, conf.database_user, conf.database_password, conf.database_name)
+  def run
+    puts "WARNING: [mlander:] These are Very rough and ready scripts for importing/exporting comments when gid's might change!"
+    if ENV['BE-DANGEROUS']
+      puts "Continuing..."
+    else
+      puts "Set BE-DANGEROUS=1 if you have read these scripts and know what you are doing!"
+      return 1
+    end
+    conf = Configuration.new
 
-data = CSV.readlines("exported-comments.csv")
-data.each do |row|
-  comment_id, user_id, visible, modflagged, posted, hdate, comment_body, hansard_body = row
-  quoted = hansard_body.gsub('"', '\"')
-  res = db.query("select epobject.epobject_id from epobject, hansard where hansard.hdate=\"#{hdate}\" and epobject.body LIKE \"#{quoted}%\" and epobject.epobject_id = hansard.epobject_id")
-  if res.num_rows.zero?
-    puts "ERROR: No match for text: #{hansard_body} in comment_id: #{comment_id}"
-  elsif res.num_rows > 1
-    puts "ERROR: More than one match for text: #{hansard_body} in comment_id: #{comment_id}"
-  else
-    epobject_id = res.fetch_hash["epobject_id"]
+    db = Mysql.real_connect(conf.database_host, conf.database_user, conf.database_password,
+                            conf.database_name)
 
-    gid = db.query("select gid from hansard where epobject_id=\"#{epobject_id}\"").fetch_hash["gid"]
+    data = CSV.readlines("exported-comments.csv")
+    data.each do |row|
+      comment_id, user_id, visible, modflagged, posted, hdate, comment_body, hansard_body = row
+      quoted = hansard_body.gsub('"', '\"')
+      res = db.query("select epobject.epobject_id from epobject, hansard where hansard.hdate=\"#{hdate}\" and epobject.body LIKE \"#{quoted}%\" and epobject.epobject_id = hansard.epobject_id")
+      if res.num_rows.zero?
+        puts "ERROR: No match for text: #{hansard_body} in comment_id: #{comment_id}"
+      elsif res.num_rows > 1
+        puts "ERROR: More than one match for text: #{hansard_body} in comment_id: #{comment_id}"
+      else
+        epobject_id = res.fetch_hash["epobject_id"]
 
-    # Reinsert the comments back into the database
-    quoted = comment_body.gsub('"', '\"')
-    db.query("insert into comments (comment_id, user_id, epobject_id, body, posted, modflagged, visible, original_gid) VALUES (\"#{comment_id}\", \"#{user_id}\", \"#{epobject_id}\", \"#{quoted}\", \"#{posted}\", \"#{modflagged}\", \"#{visible}\", \"#{gid}\")")
+        gid = db.query("select gid from hansard where epobject_id=\"#{epobject_id}\"").fetch_hash["gid"]
+
+        # Reinsert the comments back into the database
+        quoted = comment_body.gsub('"', '\"')
+        db.query("insert into comments (comment_id, user_id, epobject_id, body, posted, modflagged, visible, original_gid) VALUES (\"#{comment_id}\", \"#{user_id}\", \"#{epobject_id}\", \"#{quoted}\", \"#{posted}\", \"#{modflagged}\", \"#{visible}\", \"#{gid}\")")
+      end
+    end
+    0
   end
 end
+
+exit ExportComments.new(ARGV).run if $PROGRAM_NAME == __FILE__

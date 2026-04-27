@@ -53,11 +53,15 @@ class HansardDivision
   end
 
   def yes_tellers
-    raw_yes.find_all { |text| HansardDivision.teller?(text) }.map { |text| HansardDivision.name(text) }
+    raw_yes.find_all do |text|
+      HansardDivision.teller?(text)
+    end.map { |text| HansardDivision.name(text) }
   end
 
   def no_tellers
-    raw_no.find_all { |text| HansardDivision.teller?(text) }.map { |text| HansardDivision.name(text) }
+    raw_no.find_all do |text|
+      HansardDivision.teller?(text)
+    end.map { |text| HansardDivision.name(text) }
   end
 
   def time

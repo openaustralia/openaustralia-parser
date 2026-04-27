@@ -27,11 +27,15 @@ class UnknownSpeaker
 end
 
 class HansardParser
-  attr_reader :logger
+  attr_reader :logger, :output_dir, :log_path, :xml_path
 
-  def initialize(people)
+  def initialize(people, output_dir: nil)
     @people = people
     @conf = Configuration.new
+
+    @output_dir = output_dir
+    @log_path = output_dir ? "#{output_dir}/parser.log" : @conf.log_path
+    @xml_path = output_dir ? "#{output_dir}/xml/" : @conf.xml_path
 
     # Set up logging
     @logger = Log4r::Logger.new "HansardParser"
@@ -40,8 +44,8 @@ class HansardParser
     # Only log error messages or above to standard output
     o1.level = Log4r::ERROR
     @logger.add(o1)
-    @logger.add(Log4r::FileOutputter.new("foo", filename: @conf.log_path, trunc: false,
-                                                formatter: Log4r::PatternFormatter.new(pattern: "[%l] %d :: %M")))
+    @logger.add(Log4r::FileOutputter.new("foo", filename: log_path, trunc: false,
+                                         formatter: Log4r::PatternFormatter.new(pattern: "[%l] %d :: %M")))
 
     @rewriter = HansardRewriter.new(@logger)
   end
@@ -110,11 +114,11 @@ class HansardParser
   end
 
   def origxml_filename(date, house)
-    "#{@conf.xml_path}/origxml/#{house_directory_name(house)}/#{date}.xml"
+    "#{xml_path}/origxml/#{house_directory_name(house)}/#{date}.xml"
   end
 
   def rewritexml_filename(date, house)
-    "#{@conf.xml_path}/rewritexml/#{house_directory_name(house)}/#{date}.xml"
+    "#{xml_path}/rewritexml/#{house_directory_name(house)}/#{date}.xml"
   end
 
   # Returns HansardDate object for a particular day
@@ -131,6 +135,7 @@ class HansardParser
       # Load the XML data
       xml = hansard_xml_source_data_on_date(date, house)
       # And cache it
+      FileUtils.mkdir_p(File.dirname(filename))
       File.open(filename, "w") do |f|
         # If there is no data for this day (parliament didn't sit) then
         # still create a file but leave it empty. This allows to
@@ -146,8 +151,10 @@ class HansardParser
       # Rewrite the XML data back to a sane format
       new_xml = @rewriter.rewrite_xml Hpricot.XML(xml)
 
+      filename = rewritexml_filename(date, house)
+      FileUtils.mkdir_p(File.dirname(filename))
       # Save the rewritten XML data
-      File.open(rewritexml_filename(date, house), "w") { |f| f.write(new_xml.to_s) }
+      File.open(filename, "w") { |f| f.write(new_xml.to_s) }
 
       # Process the day
       HansardDay.new(new_xml, @logger)
@@ -193,7 +200,12 @@ class HansardParser
           page.each do |speech|
             if speech
               # Only change speaker if a speaker name or url was found
-              this_speaker = speech.speakername || speech.aph_id ? lookup_speaker(speech, date, house) : speaker
+              this_speaker = if speech.speakername || speech.aph_id
+                               lookup_speaker(speech, date,
+                                              house)
+                             else
+                               speaker
+                             end
               # With interjections the next speech should never be by the person doing the interjection
               speaker = this_speaker unless speech.interjection
 
@@ -211,7 +223,10 @@ class HansardParser
 
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes)" if member.nil?
+            if member.nil?
+              extra_details = @people.find_people_by_name(name)&.any? ? "not sitting" : "not found"
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes) #{name.to_h.inspect} #{extra_details}"
+            end
 
             member
           end.compact
@@ -220,7 +235,10 @@ class HansardParser
 
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no)" if member.nil?
+            if member.nil?
+              extra_details = @people.find_people_by_name(name)&.any? ? "not sitting" : "not found"
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no) #{name.to_h.inspect} #{extra_details}"
+            end
 
             member
           end.compact
@@ -229,7 +247,10 @@ class HansardParser
 
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes and teller)" if member.nil?
+            if member.nil?
+              extra_details = @people.find_people_by_name(name)&.any? ? "not sitting" : "not found"
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes and teller) #{name.to_h.inspect} #{extra_details}"
+            end
 
             member
           end.compact
@@ -238,7 +259,10 @@ class HansardParser
 
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
-            raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no and teller)" if member.nil?
+            if member.nil?
+              extra_details = @people.find_people_by_name(name)&.any? ? "not sitting" : "not found"
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no and teller) #{name.to_h.inspect} #{extra_details}"
+            end
 
             member
           end.compact
@@ -248,7 +272,10 @@ class HansardParser
 
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
-              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair)" if member.nil?
+              if member.nil?
+                extra_details = @people.find_people_by_name(name)&.any? ? "not sitting" : "not found"
+                raise "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair) #{name.to_h.inspect} #{extra_details}"
+              end
 
               member
             end.compact
@@ -288,9 +315,11 @@ class HansardParser
     # Handle names in brackets first
     case speech.speakername
     when /^(.*) \(the (deputy speaker|acting deputy president|temporary chairman)\)/i
-      @people.find_member_by_name_current_on_date(Name.last_title_first($LAST_MATCH_INFO[1]), date, house)
+      @people.find_member_by_name_current_on_date(Name.last_title_first($LAST_MATCH_INFO[1]),
+                                                  date, house)
     when /^the (deputy speaker|acting deputy president|temporary chairman) \((.*)\)/i
-      @people.find_member_by_name_current_on_date(Name.title_first_last($LAST_MATCH_INFO[2]), date, house)
+      @people.find_member_by_name_current_on_date(Name.title_first_last($LAST_MATCH_INFO[2]),
+                                                  date, house)
     when /^the speaker/i
       @people.house_speaker(date)
     when /^the deputy speaker/i
@@ -332,7 +361,9 @@ class HansardParser
     person = @people.find_person_by_aph_id(aph_id)
     if person
       period = person.position_current_on_date(date, house)
-      logger.error "#{date} #{house}: Found person (#{person.name.full_name}) but not both in the right period and house. Strange..." if period.nil?
+      if period.nil?
+        logger.error "#{date} #{house}: Found person (#{person.name.full_name}) but not both in the right period and house. Strange..."
+      end
       period
     else
       logger.error "#{date} #{house}: Can't figure out which person the aph id #{speech.aph_id} belongs to"
@@ -342,7 +373,8 @@ class HansardParser
 
   def lookup_speaker(speech, date, house)
     # First try looking up speaker by id then try name
-    member = lookup_speaker_by_aph_id(speech, date, house) || lookup_speaker_by_name(speech, date, house)
+    member = lookup_speaker_by_aph_id(speech, date,
+                                      house) || lookup_speaker_by_name(speech, date, house)
 
     if member.nil?
       unless HansardSpeech.generic_speaker?(speech.speakername)
