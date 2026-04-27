@@ -1,0 +1,60 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
+# For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
+
+name: Ruby
+
+on:
+  push:
+    branches: [ "staging" ]
+  pull_request:
+    branches: [ "staging" ]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: openaustralia_parser_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 -uroot -proot"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=10
+    steps:
+    - name: get other submodules
+      run: |
+        mkdir -p ../openaustralia
+        git clone -b staging https://github.com/openaustralia/rblib.git ../openaustralia/rblib
+        git clone -b staging https://github.com/openaustralia/twfy.git ../openaustralia/twfy
+    - name: configure TWFY
+      run: cp ../openaustralia/twfy/conf/general-example.ubuntu ../openaustralia/twfy/conf/general
+    - name: Install Magick
+      run: sudo apt-get install -y libmagickwand-dev imagemagick
+    - uses: actions/checkout@v4
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Make configuration file
+      run: cp configuration-ci.yml configuration.yml
+    - name: Run Specs
+      env:
+        DATABASE_HOST: 127.0.0.1
+        DATABASE_USER: root
+        DATABASE_PASSWORD: root
+        DATABASE_NAME: openaustralia_parser_test
+        RACK_ENV: test
+      run: bundle exec rspec
