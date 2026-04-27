@@ -52,7 +52,7 @@ class CreatePatch
     patch_file_path = "#{File.dirname(__FILE__)}/data/patches/#{house}.#{date}.xml.patch"
 
     # These get really different results (I think because of the rewriter). I can't
-    # be bothered to work it out right now so I'm just doing the below instead
+    # be bothered to work it out right now, so I'm just doing the below instead
     # File.open("original.xml", "w") {|f| f << parser.unpatched_hansard_xml_source_data_on_date(date, house)}
     # File.open("patched.xml", "w") {|f| f << parser.hansard_xml_source_data_on_date(date, house)}
     File.open("original.xml", "w") { |f| f << parser.hansard_xml_source_data_on_date(date, house) }
