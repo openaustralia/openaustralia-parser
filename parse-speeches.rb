@@ -165,5 +165,4 @@ class ParseSpeeches
   end
 end
 
-ParseSpeeches.new.run if $PROGRAM_NAME == __FILE__
-
+ParseSpeeches.new(ARGV).run if $PROGRAM_NAME == __FILE__
