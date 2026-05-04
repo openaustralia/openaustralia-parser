@@ -20,10 +20,6 @@ require "people"
 class RegisterSplit
   PageRange = Struct.new(:filename, :start, :end)
 
-  def initialize(args)
-    @args = args
-  end
-
   def read_in_ranges(ranges, filename_prefix, people)
     pdf_filename = "data/register_of_interests/#{filename_prefix}.pdf"
     split_filename = "data/register_of_interests/#{filename_prefix}.split"
@@ -53,7 +49,23 @@ class RegisterSplit
         person = people.find_person_by_name(name)
       end
       if person.nil?
-        raise "Couldn't find #{name.full_name} (try adding alias for for \"#{first_name} #{last_name}\")"
+        matched_by_name = people.find_people_by_name(name)
+        suggestion = if matched_by_name.empty?
+                       "Unable to find by name, Try appending alt name: \"#{name.title} #{name.first} #{name.last}\" to their data/people.csv entry"
+                     elsif matched_by_name.size == 1
+                       # Will have used find_person_by_name_current_on_date
+                       last_period = matched_by_name.first.periods.last
+                       sub_suggestion =
+                         if last_period.nil?
+                           "no periods at all!"
+                         else
+                           "not current, last period #{last_period.from_date} #{last_period.to_why} #{last_period.to_date}"
+                         end
+                       "Found one person by name, but #{sub_suggestion} - see data/*.csv"
+                     else
+                       "Found too many people with that name#{" that are current as of #{date_text}" if date_text}"
+                     end
+        raise "Couldn't find #{name.full_name} (#{suggestion})"
       end
 
       ranges[person] ||= []
