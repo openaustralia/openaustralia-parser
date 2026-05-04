@@ -216,7 +216,7 @@ class ParseMemberLinks
     end
     xml.close
 
-    puts "Register of interests from APH..."
+    puts "Parsing Register of interests from APH..."
 
     page = agent.get("https://www.aph.gov.au/Senators_and_Members/Members/Register")
     representatives_data = []
@@ -227,7 +227,32 @@ class ParseMemberLinks
         parsed = Name.last_title_first(name)
         representative = people.find_person_by_name_current_on_date(parsed, Date.today)
         if representative.nil?
-          raise "Couldn't find #{name}. Try adding \"#{parsed.title} #{parsed.first} #{parsed.last}\" to aliases"
+          fatal = true
+          matched_by_name = people.find_people_by_name(parsed)
+          suggestion = if matched_by_name.empty?
+                         "Unable to find by name, Try appending alt name: \"#{parsed.title} #{parsed.first} #{parsed.last}\" to their data/people.csv entry"
+                       elsif matched_by_name.size == 1
+                         last_period = matched_by_name.first.periods.last
+                         sub_suggestion =
+                           if last_period.nil?
+                             "no periods at all!"
+                           elsif last_period.to_date > Date.today ||
+                                 last_period.to_date < Date.today - (3 * 365)
+                             "BAD DATA: last period #{last_period.from_date} #{last_period.to_why} #{last_period.to_date}"
+                           else
+                             fatal = false
+                             "not current, last period #{last_period.from_date} #{last_period.to_why} #{last_period.to_date}"
+                           end
+                         "Found one person by name, but #{sub_suggestion} - see data/*.csv"
+                       else
+                         "Found too many people with that name that are current today"
+                       end
+          if fatal
+            raise "Couldn't find #{name} (#{suggestion})"
+          else
+            warn "WARNING: Couldn't find #{name} (#{suggestion})"
+            next
+          end
         end
 
         representatives_data << { id: representative.id, aph_interests_url: url }
