@@ -17,6 +17,7 @@ class SitemapGenerator
   attr_reader :base_dir
 
   def initialize(args)
+    @args = args
     @options = {}
     OptionParser.new do |opts|
       opts.banner = "Usage: sitemap.rb [--output-dir=PATH]"
