@@ -16,8 +16,9 @@ require "sitemap_generator/sitemap_url"
 class SitemapGenerator
   attr_reader :base_dir
 
-  def initialize(args)
-    @args = args
+  def initialize(args = ARGV)
+    # OptionParser#parse! mutates the array, so copy caller-provided args.
+    @args = args.dup
     @options = {}
     OptionParser.new do |opts|
       opts.banner = "Usage: sitemap.rb [--output-dir=PATH]"
