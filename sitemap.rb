@@ -20,4 +20,6 @@ $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
 require "sitemap_generator"
 
-SitemapGenerator.new(ARGV.dup).run if $PROGRAM_NAME == __FILE__
+args = ARGV.dup # make a copy of ARGV so that OptionParser doesn't modify the original
+
+SitemapGenerator.new(args).run if $PROGRAM_NAME == __FILE__
