@@ -866,3 +866,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 855,,Tim Wilson,Goldstein,Vic,3.5.2025,,,still_in_office,LIB
 856,,Barnaby Joyce,New England,NSW,27.11.2025,changed_party,8.12.2025,changed_party,IND
 857,,Barnaby Joyce,New England,NSW,8.12.2025,changed_party,,still_in_office,PHON
+# Farrer By-Election
+858,,David Farley,Farrer,NSW,09.05.2026,by_election,,,still_in_office,PHON
