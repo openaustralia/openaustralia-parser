@@ -3,11 +3,11 @@
 require "period"
 require "house"
 
-# FIXME: Using id's based on counts is FRAGILE and error prone!
 class Person
   attr_reader :periods, :person_count, :name, :alternate_names, :minister_positions, :birthday,
               :aph_id
 
+  # returns a unique identifier for this person derived from source data
   def id
     "uk.org.publicwhip/person/#{id_count}"
   end
