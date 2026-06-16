@@ -33,6 +33,8 @@ class MinisterPosition < PeriodBase
   def initialize(params)
     @position = params.delete(:position)
     @position_count = params.delete(:count)
+    raise ":position and :count are required parameters" unless @position && @position_count
+
     super
   end
 end
