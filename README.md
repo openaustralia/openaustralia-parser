@@ -386,6 +386,20 @@ detail in this helpful email from mySociety's Matthew Somerville.
 > ATB,
 > Matthew
 
+## Gotchas
+
+### `count` is used as an identifier but isn't how many of anything
+
+Many instances have a `*_count` or `count` property that serves as a unique identifier.
+Despite the name, it does not mean "how many"! It can be:
+- the number of instances created so far, making it volatile if rows are added or removed in the source data, or
+- read directly from a file (eg `data/people.csv`), and is not always sequential nor increasing in value.
+
+### `id` is not always a unique identifier for an instance
+
+Period for instance has a `id` property that will not be unique when a person serves multiple times for the same house
+in different capacities, eg for a different party.
+
 ## Copyright & License
 
 Copyright OpenAustralia Foundation Limited. Licensed under the Affero GPL. See LICENSE file for more details.
