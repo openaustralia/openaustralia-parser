@@ -97,7 +97,7 @@ class PeopleCSVReader
   end
 
   # Attaches ministerial information to people
-  def self.read_ministers(people, filename, count)
+  def self.read_ministers(people, filename, position_count_enumerator)
     data = CSV.readlines(filename)
     # Remove the first two rows
     data.shift
@@ -114,15 +114,17 @@ class PeopleCSVReader
       person = people.find_person_by_name_current_on_date(n, from_date) if n
       raise "Can't find #{name} for date #{from_date}" if person.nil?
 
-      person.add_minister_position(from_date: from_date, to_date: to_date, position: position, count: count)
+      position_count = position_count_enumerator.next
+      person.add_minister_position(from_date: from_date, to_date: to_date, position: position, count: position_count)
     end
-    count
   end
 
   def self.read_all_ministers(people, ministers_filename = "#{File.dirname(__FILE__)}/../data/ministers.csv",
                               shadow_ministers_filename = "#{File.dirname(__FILE__)}/../data/shadow-ministers.csv")
-    count = read_ministers(people, ministers_filename, 1)
-    read_ministers(people, shadow_ministers_filename, count)
+
+    position_count_enumerator = (1..).to_enum
+    read_ministers(people, ministers_filename, position_count_enumerator)
+    read_ministers(people, shadow_ministers_filename, position_count_enumerator)
   end
 
   def self.parse_party(party)
