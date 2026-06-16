@@ -850,4 +850,5 @@
  <member division="Grey" firstname="Tom" fromdate="2025-05-03" fromwhy="general_election" house="representatives" id="uk.org.publicwhip/member/850" lastname="Venning" party="Liberal Party" title="" todate="9999-12-31" towhy="still_in_office"/>
  <member division="Lyons" firstname="Rebecca" fromdate="2025-05-03" fromwhy="general_election" house="representatives" id="uk.org.publicwhip/member/851" lastname="White" party="Australian Labor Party" title="" todate="9999-12-31" towhy="still_in_office"/>
  <member division="Melbourne" firstname="Sarah" fromdate="2025-05-03" fromwhy="general_election" house="representatives" id="uk.org.publicwhip/member/852" lastname="Witty" party="Australian Labor Party" title="" todate="9999-12-31" towhy="still_in_office"/>
+ <member division="Farrer" firstname="David" fromdate="2026-05-09" fromwhy="by_election" house="representatives" id="uk.org.publicwhip/member/858" lastname="Farley" party="Pauline Hanson's One Nation Party" title="" todate="9999-12-31" towhy="still_in_office"/>
 </members>
