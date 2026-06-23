@@ -76,7 +76,7 @@ GEM
     net-http-persistent (4.0.8)
       connection_pool (>= 2.2.4, < 4)
     nkf (0.2.0)
-    nokogiri (1.19.3-x86_64-linux-gnu)
+    nokogiri (1.19.4-x86_64-linux-gnu)
       racc (~> 1.4)
     observer (0.1.2)
     ostruct (0.6.3)
