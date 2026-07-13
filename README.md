@@ -386,6 +386,18 @@ detail in this helpful email from mySociety's Matthew Somerville.
 > ATB,
 > Matthew
 
+## To run style and coding checks
+
+    bundle exec rubocop
+
+## To check for security updates
+
+Either check [Dependabot alerts](https://github.com/openaustralia/openaustralia-parser/security/dependabot)
+for the main branch, taking note of when the last check was run, **or** run manually on current branch:
+
+    bundle exec ruby-audit
+    bundle exec bundle-audit
+
 ## Gotchas
 
 ### `count` is used as an identifier but isn't how many of anything
