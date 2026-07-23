@@ -7,7 +7,6 @@ ruby file: ".ruby-version"
 gem "activerecord", "~> 8.0.4" # For sitemap generation
 gem "builder", "~> 3.0"
 gem "csv"
-gem "hpricot"
 gem "htmlentities"
 gem "log4r"
 gem "logger"
