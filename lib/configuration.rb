@@ -8,6 +8,10 @@ class Configuration
               :regmem_pdf_path, :base_dir, :website, :web_path, :app_env
 
   def load_mysociety_config
+    # Skip loading external mysociety config if we already have all required fields (e.g., in test environment)
+    required_fields = %w[database_host database_user database_password database_name]
+    return if required_fields.all? { |field| @conf[field] }
+
     # Load the information from the mysociety configuration
     require "#{web_root}/rblib/config"
     MySociety::Config.set_file("#{web_root}/twfy/conf/general")

@@ -12,16 +12,16 @@ See for installation instructions https://openaustralia.github.io/openaustralia/
 
 #### TWFY or openaustralia repo
 
-You need to clone the TWFY repo or clone the openaustralia repo and setup the submodules if you want to test interaction
+You need to clone the TWFY repo for database schema and test setup:
 
-```
+```bash
 cd ..
 git clone git@github.com:openaustralia/twfy.git
 ```
 
-OR
+Alternatively, you can clone the openaustralia repo with submodules:
 
-```
+```bash
 cd ..
 git clone git@github.com:openaustralia/openaustralia.git
 cd openaustralia
@@ -29,19 +29,17 @@ git submodule init
 git submodule update
 ```
 
-This gives access to the DB schema, and if you want to test the php and perl scripts from the other repos, those as
-well.
+This gives access to the DB schema needed for tests, and if you want to test the php and perl scripts from the other repos, those as well.
 
 #### Local database
 
-Use `sudo mysql -u root` and the following commands to setup the database
+Use Docker to run MySQL 8.4 for testing:
 
-```mysql
-CREATE DATABASE openaustralia;
-CREATE USER 'openaustralia'@'localhost' IDENTIFIED BY 'openaustralia';
-GRANT ALL PRIVILEGES ON openaustralia.* TO 'openaustralia'@'localhost';
-FLUSH PRIVILEGES;
+```bash
+docker-compose up -d  # Start MySQL in the background
 ```
+
+The test configuration uses `root`/`root` credentials and `openaustralia_test` database automatically. The database schema is automatically loaded from `../twfy/db/schema.sql` when tests run.
 
 #### Setup this (openaustralia-parse) repo
 
@@ -105,6 +103,26 @@ bundle exec sitemap.rb
 # Unable to test without  data/register_of_interests/senate/2010_06.pdf and other pdfs being present
 # (The pdfs do not exist on production or staging)
 bundle exec ruby register-split.rb
+```
+
+## Testing
+
+Run tests with RSpec. First ensure MySQL is available and the database schema is accessible:
+
+```bash
+# Clone twfy (if not already done) - needed for DB schema
+cd ..
+git clone git@github.com:openaustralia/twfy.git
+cd openaustralia-parser
+
+# Start MySQL via Docker
+docker-compose up -d
+
+# Run all tests
+bundle exec rspec
+
+# Stop Docker MySQL
+docker-compose down
 ```
 
 ## Data updates
