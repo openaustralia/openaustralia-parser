@@ -11,7 +11,7 @@ require "simplecov"
 require "vcr"
 
 class SimpleCovSummaryFormatter
-  def format(result)
+  def format(result, *_args)
     puts "COVERAGE: #{format("%6.2f%%", result.covered_percent)} -- #{result.covered_lines}/#{result.total_lines} lines in #{result.files.size} files"
   end
 end
@@ -32,7 +32,7 @@ end
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
   [
     SimpleCov::Formatter::HTMLFormatter,
-    SimpleCovSummaryFormatter.new
+    SimpleCovSummaryFormatter
   ]
 )
 
