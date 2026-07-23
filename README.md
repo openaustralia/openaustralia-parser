@@ -72,6 +72,7 @@ Called from the OpenAustralia.org web application (twfy - another git submodule 
 ## Dependencies
 
 * `#{web_root}/rblib/config.rb` - required by `lib/configuration.rb`
+  * clone from `https://github.com/openaustralia/rblib/`
   * `#{web_root}/twfy/conf/general` - used by MySociety::Config.set_file (can override in configuration.yml)
 * `#{conf.web_root}/twfy/bin/run scripts/xml2db.pl` - called by `parse-speeches.rb`
 * `#{conf.web_root}/twfy/bin/run scripts/mpinfoin.pl links` (perl) - called by `wikipedia.rb`
