@@ -25,7 +25,7 @@ RSpec.describe HansardSpeech, "should recognise who's talking" do
 
   it "in a motionnospeech block" do
     speech = HansardSpeech.new(
-      content: Hpricot.XML("<motionnospeech><name>Mr BILLSON</name></motionnospeech>").at("motionnospeech"), title: "", subtitle: "", bills: "", time: "", day: nil
+      content: Nokogiri::XML("<motionnospeech><name>Mr BILLSON</name></motionnospeech>").at("motionnospeech"), title: "", subtitle: "", bills: "", time: "", day: nil
     )
     expect(speech.speakername).to eq "Mr BILLSON"
     expect(speech.aph_id).to be_nil
@@ -51,7 +51,7 @@ RSpec.describe HansardSpeech, "should recognise who's talking" do
   end
 
   it "is not an interjection if the talker is specified but there is interjecting in the text" do
-    speech = HansardSpeech.new(content: Hpricot.XML('
+    speech = HansardSpeech.new(content: Nokogiri::XML('
     <continue>
 			<talk.start>
 				<talker>
@@ -67,7 +67,7 @@ RSpec.describe HansardSpeech, "should recognise who's talking" do
   end
 
   it "should return the version of the speakername with more information" do
-    speech = HansardSpeech.new(content: Hpricot.XML('
+    speech = HansardSpeech.new(content: Nokogiri::XML('
     <interjection>
 			<talk.start>
 				<talker>
@@ -82,7 +82,7 @@ RSpec.describe HansardSpeech, "should recognise who's talking" do
   end
 
   it "should recognise generic speakers interjecting" do
-    speech = HansardSpeech.new(content: Hpricot.XML('<para class="italic">Honourable members interjecting—</para>'),
+    speech = HansardSpeech.new(content: Nokogiri::XML('<para class="italic">Honourable members interjecting—</para>'),
                                title: "", subtitle: "", bills: "", time: "", day: nil)
     expect(speech.speakername).to eq "Honourable members"
   end
@@ -94,7 +94,7 @@ RSpec.describe HansardSpeech, "should clean content" do
     expected = "<p>Some text</p>"
     expect(HansardSpeech.clean_content_para(Hpricot.XML(content).at("para"))).to eq expected
 
-    speech = HansardSpeech.new(content: Hpricot.XML(content).at("para"), title: "", subtitle: "", bills: "", time: "",
+    speech = HansardSpeech.new(content: Nokogiri::XML(content).at("para"), title: "", subtitle: "", bills: "", time: "",
                                day: nil)
     expect(speech.clean_content.to_s).to eq expected
   end
@@ -130,7 +130,7 @@ RSpec.describe HansardSpeech, "should clean content" do
   it "in a list block" do
     content = '<list type="unadorned"><item label=""><para>Some text</para><list type="loweralpha"><item label="(b)"><para>Section b</para></item></list></item></list>'
     expected = "<dl><dt></dt><dd>Some text<dl><dt>(b)</dt><dd>Section b</dd></dl></dd></dl>"
-    expect(HansardSpeech.clean_content_list(Hpricot.XML(content).at("list"))).to eq expected
+    expect(HansardSpeech.clean_content_list(Nokogiri::XML(content).at("list"))).to eq expected
   end
 
   it "special handling for names in bold in brackets (to handle badly marked up xml)" do
