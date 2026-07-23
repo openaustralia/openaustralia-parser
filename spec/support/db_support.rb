@@ -42,8 +42,7 @@ module DbSupport
       username: conf.database_user,
       password: conf.database_password,
       database: conf.database_name,
-      port: 3306,
-      socket: nil  # Force TCP connection instead of Unix socket
+      port: 3306
     }
 
     ActiveRecord::Base.establish_connection(connection_config)
