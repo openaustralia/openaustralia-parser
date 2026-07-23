@@ -8,14 +8,9 @@ module DbSupport
   def self.schema_file
     %w[twfy openaustralia/twfy].each do |dir|
       path = File.expand_path("../../../#{dir}/db/schema.sql", __dir__)
-      unless File.size?(path) &&
-             (!File.size?(SCHEMA_FIXTURE) || File.mtime(path) > File.mtime(SCHEMA_FIXTURE))
-        next
-      end
-
-      puts "NOTE: updating #{SCHEMA_FIXTURE} from newer #{path}!"
-      FileUtils.cp(path, SCHEMA_FIXTURE)
+      return path if File.size?(path)
     end
+
     return SCHEMA_FIXTURE if File.exist?(SCHEMA_FIXTURE)
 
     raise "schema.sql not found in fixtures, ../twfy/db or ../openaustralia/twfy/db"
