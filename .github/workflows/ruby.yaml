@@ -26,6 +26,7 @@ jobs:
       with:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - run: cp configuration.yml.example configuration.yml
+    - run: mkdir -p ../openaustralia && cd ../openaustralia && git clone --depth 1 https://github.com/openaustralia/rblib.git rblib
     - run: cd .. && git clone --depth 1 https://github.com/openaustralia/twfy.git
     - run: bundle exec rspec
   scripts:
