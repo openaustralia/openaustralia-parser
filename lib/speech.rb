@@ -47,7 +47,8 @@ class Speech < Section
 
     # Handle traversing text nodes for Nokogiri
     if content.respond_to?(:xpath)
-      # It's a Nokogiri node
+      # It's a Nokogiri node. If this is an HTML document, keep only the body content.
+      content = content.at("body") if content.at("body")
       content.xpath('.//text()').each do |text_node|
         text_node.content = coder.encode(text_node.content, :basic)
       end

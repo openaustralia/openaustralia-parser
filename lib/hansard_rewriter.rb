@@ -379,11 +379,11 @@ XML
   def rewrite_debate(debate, level)
     # Does this debate have subdebates? If so all the text can be found in their (sub)debate.text files
     subdebate_found = false
-    debate.child_nodes.each do |f|
+    debate.children.each do |f|
       case f.name
       when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
         f.name = "subdebate.#{level + 1}"
-        f.child_nodes.each do |e|
+        f.children.each do |e|
           case e.name
           when "debate.text", "subdebate.text"
             subdebate_found = true unless e.inner_text.strip.empty?
@@ -396,7 +396,7 @@ XML
     # doing the loop.
     debate_new_children = Nokogiri::XML("")
 
-    debate.child_nodes.each do |f|
+    debate.children.each do |f|
       case f.name
       # Things to pass through un-molested
       when "debateinfo"
@@ -422,7 +422,7 @@ XML
         unless subdebate_found
           # We're interested in the talk.text node but have to find it manually due to a bug
           # with Hpricot xpath meaning nodes with a dot '.' in the name are not found.
-          talk = f.child_nodes.detect { |node| node.name == "talk.text" }
+          talk = f.children.detect { |node| node.name == "talk.text" }
           debate_new_children.append process_textnode(talk.to_s) if talk
         end
 
