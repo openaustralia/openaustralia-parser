@@ -2,7 +2,7 @@
 
 # vim: set ts=2 sw=2 et sts=2 ai:
 
-require "hpricot_additions"
+require "nokogiri"
 
 class HansardRewriter
   attr_reader :logger
@@ -60,7 +60,7 @@ class HansardRewriter
   def process_textnode(input_text_node)
     raise "Expecting string in process_textnode" unless input_text_node.is_a?(String)
 
-    input_text_node = Hpricot.XML(input_text_node).children.first
+    input_text_node = Nokogiri::XML(input_text_node).children.first
 
     if input_text_node.search("//body/a")
       # This is probably an indication that something was done wrong in the
@@ -197,7 +197,7 @@ XML
               <para>#{restore_tags(text)}</para>
             </speech>
           XML
-          new_xml.append new_node
+          new_xml.inner_html += new_node.to_s
           speech_node = new_xml.search("speech")[-1]
           text_node = speech_node
           amendment_node = nil
@@ -263,7 +263,7 @@ XML
               <para>#{restore_tags(text)}</para>
             </#{type}>
           XML
-          speech_node.append(new_node)
+          speech_node.inner_html += new_node.to_s
           text_node = speech_node.search(type)[-1]
         end
 
