@@ -36,13 +36,16 @@ module DbSupport
 
     conf = Configuration.new
 
-    ActiveRecord::Base.establish_connection(
+    connection_config = {
       adapter: "mysql2",
       host: conf.database_host,
       username: conf.database_user,
       password: conf.database_password,
-      database: conf.database_name
-    )
+      database: conf.database_name,
+      port: 3306  # Use TCP for all connections in test (Docker or local)
+    }
+
+    ActiveRecord::Base.establish_connection(connection_config)
     conn = ActiveRecord::Base.connection
 
     # Drop tables if forced to
