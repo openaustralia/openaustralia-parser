@@ -44,7 +44,6 @@ GEM
     domain_name (0.6.20240107)
     drb (2.2.3)
     hashdiff (1.2.1)
-    hpricot (0.8.6)
     htmlentities (4.4.2)
     http-cookie (1.1.6)
       domain_name (~> 0.5)
@@ -176,7 +175,6 @@ DEPENDENCIES
   builder (~> 3.0)
   bundle-audit
   csv
-  hpricot
   htmlentities
   log4r
   logger
