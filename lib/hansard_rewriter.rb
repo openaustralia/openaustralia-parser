@@ -108,7 +108,7 @@ XML
     text_node = nil
     amendment_node = nil
 
-    new_xml = Hpricot.XML("")
+    new_xml = Nokogiri::XML("")
     input_text_node.search("/body/p").each do |p|
       # Skip empty nodes
       if p.inner_text.strip.empty?
@@ -394,7 +394,7 @@ XML
 
     # We use a seperate list as we don't want the new children to appear when
     # doing the loop.
-    debate_new_children = Hpricot.XML("")
+    debate_new_children = Nokogiri::XML("")
 
     debate.child_nodes.each do |f|
       case f.name

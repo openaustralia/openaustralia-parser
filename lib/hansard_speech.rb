@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "hpricot_additions"
+require "nokogiri"
 require "name"
 require "English"
 
@@ -288,7 +288,7 @@ class HansardSpeech
   end
 
   def clean_content
-    Hpricot.XML(HansardSpeech.clean_content_any(@content))
+    Nokogiri::XML(HansardSpeech.clean_content_any(@content))
   end
 
   def strip_tags(doc)
