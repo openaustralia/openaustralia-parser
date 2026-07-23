@@ -138,7 +138,7 @@ class HansardSpeech
   def self.clean_content_para_content(node)
     t = +""
     (node.children || []).each do |c|
-      t << if c.is_a?(Hpricot::Text)
+      t << if c.is_a?(Nokogiri::XML::Text)
              strip_leading_dash(c.to_s)
            else
              clean_content_any(c)
@@ -301,6 +301,6 @@ class HansardSpeech
   end
 
   def name?(name)
-    @content.is_a?(Hpricot::Text) ? !!@content.at("/#{name}") : name == @content.name
+    @content.is_a?(Nokogiri::XML::Text) ? !!@content.at("/#{name}") : name == @content.name
   end
 end
