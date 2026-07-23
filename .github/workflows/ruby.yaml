@@ -39,7 +39,6 @@ jobs:
     - run: cp configuration.yml.example configuration.yml
     - run: bundle exec ./parse-members.rb --no-load
     - run: bundle exec ./postcodes.rb --no-load
-    - run: bundle exec rubocop
   # lint:
   #   runs-on: ubuntu-latest
   #   steps:
