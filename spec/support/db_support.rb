@@ -42,7 +42,8 @@ module DbSupport
       username: conf.database_user,
       password: conf.database_password,
       database: conf.database_name,
-      port: 3306  # Use TCP for all connections in test (Docker or local)
+      port: 3306,
+      socket: nil  # Force TCP connection instead of Unix socket
     }
 
     ActiveRecord::Base.establish_connection(connection_config)
