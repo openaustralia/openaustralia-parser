@@ -28,7 +28,7 @@ RSpec.describe Speech do
     nbsp = [160].pack("U")
     doc = Nokogiri::HTML("<p>Q&A#{nbsp}—</p>")
     # Make sure that you normalise the unicode before comparing.
-    expect(doc.to_s.unicode_normalize(:nfkc)).to eq "<p>Q&A#{nbsp}—</p>".unicode_normalize(:nfkc)
+    expect(doc.at("body").text.unicode_normalize(:nfkc)).to eq "Q&A#{nbsp}—".unicode_normalize(:nfkc)
 
     coder = HTMLEntities.new
     expect(coder.encode("Q&A#{nbsp}—", :basic)).to eq "Q&amp;A#{nbsp}—"
