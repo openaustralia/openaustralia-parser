@@ -394,7 +394,7 @@ XML
 
     # We use a seperate list as we don't want the new children to appear when
     # doing the loop.
-    debate_new_children = Nokogiri::XML("")
+    debate_new_children = +""
 
     debate.children.each do |f|
       case f.name
@@ -440,7 +440,7 @@ XML
       end
     end
 
-    debate.inner_html = debate_new_children.to_s
+    debate.inner_html = debate_new_children
     debate
   end
 
