@@ -40,18 +40,11 @@ class Speech < Section
   end
 
   def append_to_content(content)
-    # Put entities back into the content so that, for instance, '&' becomes '&amp;'
-    # Since we are outputting XML rather than HTML in order to save us the trouble of putting the HTML entities in the XML
-    # we are only encoding the basic XML entities
-    coder = HTMLEntities.new
-
     # Handle traversing text nodes for Nokogiri
     if content.respond_to?(:xpath)
       # It's a Nokogiri node. If this is an HTML document, keep only the body content.
       content = content.at("body") if content.at("body")
-      content.xpath('.//text()').each do |text_node|
-        text_node.content = coder.encode(text_node.content, :basic)
-      end
+      content = content.children.to_a
     end
 
     # Append to stored content
