@@ -7,21 +7,41 @@ class Configuration
   attr_reader :database_host, :database_user, :database_password, :database_name, :file_image_path, :members_xml_path, :xml_path,
               :regmem_pdf_path, :base_dir, :website, :web_path, :app_env
 
+  def load_configuration_file_values
+    @database_host = @conf["database_host"]
+    @database_user = @conf["database_user"]
+    @database_password = @conf["database_password"]
+    @database_name = @conf["database_name"]
+    @file_image_path = @conf["file_image_path"]
+    @members_xml_path = @conf["members_xml_path"]
+    @xml_path = @conf["xml_path"]
+    @website = @conf["website"]
+    @web_path = @conf["web_path"]
+    @regmem_pdf_path = @conf["regmem_pdf_path"]
+    @base_dir = @conf["base_dir"]
+  end
+
   def load_mysociety_config
+    load_configuration_file_values
+
+    # Skip loading external mysociety config if we already have all required fields (e.g., in test environment)
+    required_fields = %w[database_host database_user database_password database_name]
+    return if required_fields.all? { |field| @conf[field] }
+
     # Load the information from the mysociety configuration
     require "#{web_root}/rblib/config"
     MySociety::Config.set_file("#{web_root}/twfy/conf/general")
-    @database_host = @conf["database_host"] || MySociety::Config.get("DB_HOST")
-    @database_user = @conf["database_user"] || MySociety::Config.get("DB_USER")
-    @database_password = @conf["database_password"] || MySociety::Config.get("DB_PASSWORD")
-    @database_name = @conf["database_name"] || MySociety::Config.get("DB_NAME")
-    @file_image_path = @conf["file_image_path"] || MySociety::Config.get("FILEIMAGEPATH")
-    @members_xml_path = @conf["members_xml_path"] || MySociety::Config.get("PWMEMBERS")
-    @xml_path = @conf["xml_path"] || MySociety::Config.get("RAWDATA")
-    @website = @conf["website"] || MySociety::Config.get("DOMAIN")
-    @web_path = @conf["web_path"] || MySociety::Config.get("WEBPATH")
-    @regmem_pdf_path = @conf["regmem_pdf_path"] || MySociety::Config.get("REGMEMPDFPATH")
-    @base_dir = @conf["base_dir"] || MySociety::Config.get("BASEDIR")
+    @database_host ||= MySociety::Config.get("DB_HOST")
+    @database_user ||= MySociety::Config.get("DB_USER")
+    @database_password ||= MySociety::Config.get("DB_PASSWORD")
+    @database_name ||= MySociety::Config.get("DB_NAME")
+    @file_image_path ||= MySociety::Config.get("FILEIMAGEPATH")
+    @members_xml_path ||= MySociety::Config.get("PWMEMBERS")
+    @xml_path ||= MySociety::Config.get("RAWDATA")
+    @website ||= MySociety::Config.get("DOMAIN")
+    @web_path ||= MySociety::Config.get("WEBPATH")
+    @regmem_pdf_path ||= MySociety::Config.get("REGMEMPDFPATH")
+    @base_dir ||= MySociety::Config.get("BASEDIR")
   end
 
   def test?

@@ -2,7 +2,7 @@
 
 # vim: set ts=2 sw=2 et sts=2 ai:
 
-require "hpricot_additions"
+require "nokogiri"
 require "house"
 require "hansard_division"
 require "hansard_speech"
@@ -99,9 +99,9 @@ class HansardDay
     case debate.name
     when "debate", "petition.group"
       # cognate debates can have multiple bill ids
-      if debate.at("> debateinfo") && !debate.at("> debateinfo").children_of_type("id.no").empty?
+      if debate.at("> debateinfo") && !debate.at("> debateinfo").css("id.no").empty?
         if debate.at("> debateinfo > type").inner_text.downcase == "bills"
-          id = debate.at("/debateinfo").children_of_type("id.no")[0].inner_text
+          id = debate.at("/debateinfo").css("id.no")[0].inner_text
           title = debate.at("> debateinfo > title").inner_text
           url = bill_url(id)
           results << { id: id, title: title, url: url }
@@ -109,7 +109,7 @@ class HansardDay
         debate.search("> debateinfo > cognate").each do |congnate|
           next if congnate.at(:type).inner_text.downcase != "bills"
 
-          id_elem = congnate.at(:cognateinfo).children_of_type("id.no")[0]
+          id_elem = congnate.at(:cognateinfo).css("id.no")[0]
           # some old Hansard duplicates <cognateinfo> with <id.no> missing
           next unless id_elem
 
@@ -150,7 +150,7 @@ class HansardDay
       if debate.parent.name == "subdebate.1"
         front = subtitle(debate.parent).strip
       else
-        possible_firstdebates = debate.parent.search("(subdebate.1)")
+        possible_firstdebates = debate.parent.xpath("./*[local-name()='subdebate.1']")
         front = if possible_firstdebates.length == 1
                   subtitle(possible_firstdebates[0]).strip
                 else
@@ -167,7 +167,7 @@ class HansardDay
 
   def time(debate)
     # HACK: Hmmm.. check this out more
-    tag = debate.at("//(time.stamp)")
+    tag = debate.at_xpath(".//*[local-name()='time.stamp']")
     tag&.inner_html
   end
 
@@ -180,7 +180,7 @@ class HansardDay
     question = false
     procedural = false
 
-    debate.each_child_node do |e|
+    debate.children.each do |e|
       case e.name
       when "debateinfo", "subdebateinfo", "subdebate.text", "petition.groupinfo"
         question = false
@@ -252,12 +252,12 @@ class HansardDay
     # When something that was a page in old parlinfo web system is not supported we just return nil for it. This ensures that it is
     # still accounted for in the counting of the ids but we don't try to use it to generate any content
     p << nil
-    hansard.each_child_node do |e|
+    hansard.children.each do |e|
       case e.name
       when "session.header"
         # Do nothing
       when "chamber.xscript", "maincomm.xscript", "fedchamb.xscript"
-        e.each_child_node do |f|
+        e.children.each do |f|
           case f.name
           when "business.start", "adjournment", "interrupt", "interjection"
             p << nil
@@ -268,7 +268,7 @@ class HansardDay
           end
         end
       when "answers.to.questions"
-        e.each_child_node do |f|
+        e.children.each do |f|
           case f.name
           when "debate"
             # Do nothing

@@ -2,7 +2,7 @@
 
 # vim: set ts=2 sw=2 et sts=2 ai:
 
-require "hpricot_additions"
+require "nokogiri"
 
 class HansardRewriter
   attr_reader :logger
@@ -60,7 +60,7 @@ class HansardRewriter
   def process_textnode(input_text_node)
     raise "Expecting string in process_textnode" unless input_text_node.is_a?(String)
 
-    input_text_node = Hpricot.XML(input_text_node).children.first
+    input_text_node = Nokogiri::XML(input_text_node).children.first
 
     if input_text_node.search("//body/a")
       # This is probably an indication that something was done wrong in the
@@ -108,7 +108,7 @@ XML
     text_node = nil
     amendment_node = nil
 
-    new_xml = Hpricot.XML("")
+    new_xml = Nokogiri::XML("")
     input_text_node.search("/body/p").each do |p|
       # Skip empty nodes
       if p.inner_text.strip.empty?
@@ -197,7 +197,7 @@ XML
               <para>#{restore_tags(text)}</para>
             </speech>
           XML
-          new_xml.append new_node
+          new_xml.inner_html += new_node.to_s
           speech_node = new_xml.search("speech")[-1]
           text_node = speech_node
           amendment_node = nil
@@ -263,7 +263,7 @@ XML
               <para>#{restore_tags(text)}</para>
             </#{type}>
           XML
-          speech_node.append(new_node)
+          speech_node.inner_html += new_node.to_s
           text_node = speech_node.search(type)[-1]
         end
 
@@ -379,11 +379,11 @@ XML
   def rewrite_debate(debate, level)
     # Does this debate have subdebates? If so all the text can be found in their (sub)debate.text files
     subdebate_found = false
-    debate.child_nodes.each do |f|
+    debate.children.each do |f|
       case f.name
       when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
         f.name = "subdebate.#{level + 1}"
-        f.child_nodes.each do |e|
+        f.children.each do |e|
           case e.name
           when "debate.text", "subdebate.text"
             subdebate_found = true unless e.inner_text.strip.empty?
@@ -394,41 +394,42 @@ XML
 
     # We use a seperate list as we don't want the new children to appear when
     # doing the loop.
-    debate_new_children = Hpricot.XML("")
+    debate_new_children = +""
 
-    debate.child_nodes.each do |f|
+    debate.children.each do |f|
       case f.name
       # Things to pass through un-molested
       when "debateinfo"
         logger.warn "\nDebate #{f.at('title').inner_text}"
-        debate_new_children.append f.to_s
+        debate_new_children << f.to_s
 
       when "subdebate.text"
         if f.at("a") && (f.at("a")["type"] == "Bill")
           logger.warn "\nSubdebate.text #{f.at('body').inner_text}"
-          debate_new_children.append f.to_s
+          debate_new_children << f.to_s
         end
 
       when "subdebateinfo"
-        logger.warn "  Subdebate.#{level} \"#{f.at('title').inner_text}\" @ #{f.at('(page.no)').inner_text}"
-        debate_new_children.append f.to_s
+        page_no = f.at_xpath(".//*[local-name()='page.no']")
+        logger.warn "  Subdebate.#{level} \"#{f.at('title').inner_text}\" @ #{page_no.inner_text}"
+        debate_new_children << f.to_s
 
       # Things we have to process recursively
       when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
-        debate_new_children.append rewrite_debate(f, level + 1).to_s
+        debate_new_children << rewrite_debate(f, level + 1).to_s
 
       # The actual transcript of the proceedings we are going to process
       when "question", "answer", "speech"
         unless subdebate_found
           # We're interested in the talk.text node but have to find it manually due to a bug
           # with Hpricot xpath meaning nodes with a dot '.' in the name are not found.
-          talk = f.child_nodes.detect { |node| node.name == "talk.text" }
-          debate_new_children.append process_textnode(talk.to_s) if talk
+          talk = f.children.detect { |node| node.name == "talk.text" }
+          debate_new_children << process_textnode(talk.to_s) if talk
         end
 
       # Divisions are actually still the same format, so we just append them.
       when "division"
-        debate_new_children.append f.to_s
+        debate_new_children << f.to_s
 
       # Things we are delibaretly removing
       when "continue", "interjection", "talk", "debate.text"
@@ -439,7 +440,7 @@ XML
       end
     end
 
-    debate.inner_html = debate_new_children.to_s
+    debate.inner_html = debate_new_children
     debate
   end
 

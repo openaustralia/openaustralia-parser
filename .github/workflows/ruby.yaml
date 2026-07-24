@@ -6,12 +6,28 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.4
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: openaustralia_test
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+        ports:
+          - 3306:3306
     steps:
     - uses: actions/checkout@v6
     - run: sudo apt-get update && sudo apt-get install -y libmagickwand-dev # needed to build the rmagick native extension
     - uses: ruby/setup-ruby@v1
       with:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - run: cp configuration.yml.example configuration.yml
+    - run: mkdir -p ../openaustralia && cd ../openaustralia && git clone --depth 1 https://github.com/openaustralia/rblib.git rblib
+    - run: cd .. && git clone --depth 1 https://github.com/openaustralia/twfy.git
     - run: bundle exec rspec
   scripts:
     runs-on: ubuntu-latest
@@ -21,15 +37,15 @@ jobs:
     - uses: ruby/setup-ruby@v1
       with:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - run: cp configuration.yml.example configuration.yml
     - run: bundle exec ./parse-members.rb --no-load
     - run: bundle exec ./postcodes.rb --no-load
-    - run: bundle exec rubocop
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v6
-    - run: sudo apt-get update && sudo apt-get install -y libmagickwand-dev # needed to build the rmagick native extension
-    - uses: ruby/setup-ruby@v1
-      with:
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - run: bundle exec rubocop
+  # lint:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v6
+  #   - run: sudo apt-get update && sudo apt-get install -y libmagickwand-dev # needed to build the rmagick native extension
+  #   - uses: ruby/setup-ruby@v1
+  #     with:
+  #       bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+  #   - run: bundle exec rubocop

@@ -149,7 +149,7 @@ class HansardParser
     # APH changed their XML format on the 10th of May 2011
     if date >= Date.new(2011, 5, 10)
       # Rewrite the XML data back to a sane format
-      new_xml = @rewriter.rewrite_xml Hpricot.XML(xml)
+      new_xml = @rewriter.rewrite_xml Nokogiri::XML(xml)
 
       filename = rewritexml_filename(date, house)
       FileUtils.mkdir_p(File.dirname(filename))
@@ -159,7 +159,7 @@ class HansardParser
       # Process the day
       HansardDay.new(new_xml, @logger)
     else
-      HansardDay.new(Hpricot.XML(xml), @logger)
+      HansardDay.new(Nokogiri::XML(xml), @logger)
     end
   end
 

@@ -8,8 +8,13 @@ require "bundler/setup"
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 
 require "simplecov"
-require "simplecov-console"
 require "vcr"
+
+class SimpleCovSummaryFormatter
+  def format(result, *_args)
+    puts "COVERAGE: #{sprintf("%6.2f%%", result.covered_percent)} -- #{result.covered_lines}/#{result.total_lines} lines in #{result.files.size} files"
+  end
+end
 
 Dir[File.expand_path("support/**/*.rb", __dir__)].sort.each { |f| require f }
 
@@ -27,7 +32,7 @@ end
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
   [
     SimpleCov::Formatter::HTMLFormatter,
-    SimpleCov::Formatter::Console
+    SimpleCovSummaryFormatter
   ]
 )
 

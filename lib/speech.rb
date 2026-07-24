@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "hpricot"
+require "nokogiri"
 require "htmlentities"
 require "section"
 
@@ -11,7 +11,7 @@ class Speech < Section
 
   def initialize(speaker:, time:, url:, count:, date:, house:, logger: nil)
     @speaker = speaker
-    @content = Hpricot::Elements.new
+    @content = []
     @duration = 0
     @word_count_for_continuations = 0
     super(time: time, url: url, count: count, date: date, house: house, logger: logger)
@@ -19,7 +19,8 @@ class Speech < Section
 
   def output(builder)
     time = @time.nil? ? "unknown" : @time
-    if @logger && @content.inner_text.strip == ""
+    content_text = @content.map(&:to_s).join
+    if @logger && Nokogiri::HTML(content_text).text.strip == ""
       if @speaker.nil?
         @logger.error "#{@date} #{@house}: Empty speech in procedural text"
       else
@@ -35,17 +36,17 @@ class Speech < Section
     builder.speech(
       speaker_attributes.merge({ time: time, url: quoted_url, id: id, talktype: talk_type,
                                  approximate_duration: @duration.to_i, approximate_wordcount: words })
-    ) { builder << @content.to_s }
+    ) { builder << content_text }
   end
 
   def append_to_content(content)
-    # Put entities back into the content so that, for instance, '&' becomes '&amp;'
-    # Since we are outputting XML rather than HTML in order to save us the trouble of putting the HTML entities in the XML
-    # we are only encoding the basic XML entities
-    coder = HTMLEntities.new
-    content.traverse_text do |text|
-      text.swap(coder.encode(text, :basic))
+    # Handle traversing text nodes for Nokogiri
+    if content.respond_to?(:xpath)
+      # It's a Nokogiri node. If this is an HTML document, keep only the body content.
+      content = content.at("body") if content.at("body")
+      content = content.children.to_a
     end
+
     # Append to stored content
     if content.is_a?(Array)
       @content += content
@@ -88,7 +89,7 @@ class Speech < Section
   def words
     # Add newlines between p tags so the last and first words of paragraphs are
     # split properly
-    html = @content.inner_html.gsub(%r{</p>}, "</p>\n")
-    Hpricot(html).inner_text.split.count
+    html = @content.map(&:to_s).join.gsub(%r{</p>}, "</p>\n")
+    Nokogiri::HTML(html).text.split.count
   end
 end
