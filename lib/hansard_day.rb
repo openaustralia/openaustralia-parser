@@ -181,6 +181,8 @@ class HansardDay
     procedural = false
 
     debate.children.each do |e|
+      next if e.text?
+
       case e.name
       when "debateinfo", "subdebateinfo", "subdebate.text", "petition.groupinfo"
         question = false
@@ -251,13 +253,24 @@ class HansardDay
     # Step through the top-level debates
     # When something that was a page in old parlinfo web system is not supported we just return nil for it. This ensures that it is
     # still accounted for in the counting of the ids but we don't try to use it to generate any content
+
+    # Nokogiri includes whitespace text nodes between elements.
+    # Those nodes have names like text and would otherwise fall into
+    # the case statements and raise Unexpected tag errors.
+    # when I switched from Hpricot iteration helpers to children, i need
+    # to add from "next if" checks below
+
     p << nil
     hansard.children.each do |e|
+      next if e.text?
+
       case e.name
       when "session.header"
         # Do nothing
       when "chamber.xscript", "maincomm.xscript", "fedchamb.xscript"
         e.children.each do |f|
+          next if f.text?
+
           case f.name
           when "business.start", "adjournment", "interrupt", "interjection"
             p << nil
@@ -269,6 +282,8 @@ class HansardDay
         end
       when "answers.to.questions"
         e.children.each do |f|
+          next if f.text?
+
           case f.name
           when "debate"
             # Do nothing
