@@ -10,14 +10,15 @@
 # No --no-load needed (no perl/php calls).
 # No VCR needed (no external HTTP — all DB reads).
 
-require_relative "../spec_helper"
-
+require "nokogiri"
 require "fileutils"
 
+require_relative "../spec_helper"
 require_relative "../../sitemap"
 
 RSpec.describe "sitemap.rb", :integration do
-  let(:script) { File.expand_path("../../sitemap.rb", __dir__) }
+  let(:script) { "sitemap.rb" }
+  let(:script_path) { File.expand_path("../../#{script}", __dir__) }
   let(:output_dir) { File.expand_path("../../tmp/output/sitemap", __dir__) }
   # A trailing slash is required
   let(:args) { %W[--output-dir #{output_dir}/] }
@@ -26,9 +27,47 @@ RSpec.describe "sitemap.rb", :integration do
   after { FileUtils.rm_rf(output_dir) }
 
   it "loads without syntax errors" do
-    output = `ruby -c #{script} 2>&1`
+    output = `ruby -c #{script_path} 2>&1`
     expect($CHILD_STATUS.exitstatus).to eq(0)
     expect(output).to match(/Syntax OK/)
+  end
+
+  it "runs without errors" do
+    output = `bin/run #{script} #{args.join(" ")} 2>&1`
+    expect($CHILD_STATUS.exitstatus).to eq(0),
+                                        "Failed (non zero status: #{$CHILD_STATUS.exitstatus}) " \
+                                          "with output:\n#{output}"
+    expect(output).to match(/Done! sitemap generated under/)
+  end
+
+  def parse_sitemap_index(path)
+    Nokogiri::XML(File.read(path)) { |cfg| cfg.strict }
+  end
+
+  it "sitemap.xml has one <sitemap> entry per generated file" do
+    output = `bin/run #{script} #{args.join(" ")} 2>&1`
+    doc = parse_sitemap_index(File.join(output_dir, "sitemap.xml"))
+    locs = doc.remove_namespaces!.xpath("//sitemap/loc").map(&:text)
+
+    gz_files = Dir.glob(File.join(output_dir, "sitemaps", "*.xml.gz")).sort
+
+    expect(locs.length).to eq(gz_files.length)
+    locs.each do |loc|
+      filename = File.basename(URI.parse(loc).path)
+      expect(File).to exist(File.join(output_dir, "sitemaps", filename)), "Had output:\n#{output}"
+    end
+  end
+
+  it "each sitemap file is valid gzip and well-formed urlset XML" do
+    output = `bin/run #{script} #{args.join(" ")} 2>&1`
+    Dir.glob(File.join(output_dir, "sitemaps", "*.xml.gz")).each do |gz_path|
+      xml = Zlib::GzipReader.open(gz_path) { |f| f.read }
+      doc = Nokogiri::XML(xml) { |cfg| cfg.strict }
+      expect(doc.errors).to be_empty, "Had output:\n#{output}"
+      expect(doc.root.name).to eq("urlset"), "Had output:\n#{output}"
+      expect(doc.root.namespace.href).to eq("http://www.sitemaps.org/schemas/sitemap/0.9"),
+                                         "Had output:\n#{output}"
+    end
   end
 
   describe "uses db", :db do

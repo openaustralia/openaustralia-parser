@@ -1,3 +1,5 @@
+require "fileutils"
+
 class SitemapGenerator
   class Sitemap
     # These are limits that are imposed on a single sitemap file by the specification
