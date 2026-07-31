@@ -6,8 +6,8 @@ require "bundler/setup"
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 require "optparse"
 
-require "configuration"
-require "people"
+require_relative "lib/configuration"
+require_relative "lib/people"
 
 class ParseMembers
   def initialize(args)

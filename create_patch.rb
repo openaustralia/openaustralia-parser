@@ -11,8 +11,8 @@ require "optparse"
 require "date"
 require "fileutils"
 
-require "people_csv_reader"
-require "hansard_parser"
+require_relative "lib/people_csv_reader"
+require_relative "lib/hansard_parser"
 
 class CreatePatch
   def initialize(args)

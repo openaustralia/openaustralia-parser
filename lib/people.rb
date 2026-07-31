@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require "people_csv_reader"
-require "people_xml_writer"
-require "people_image_downloader"
-require "house"
+require_relative "people_csv_reader"
+require_relative "people_xml_writer"
+require_relative "people_image_downloader"
+require_relative "house"
 
 class People < Array
   def initialize

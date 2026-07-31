@@ -4,6 +4,7 @@
 require "optparse"
 
 require_relative "configuration"
+
 require_relative "sitemap_generator/comment"
 require_relative "sitemap_generator/counted_file"
 require_relative "sitemap_generator/hansard"
