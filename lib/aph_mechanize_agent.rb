@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "mechanize"
+
 module AphMechanizeAgent
   # We've been kindly given a special user agent to use so that our traffic
   # isn't blocked by the application firewall of aph.gov.au.
