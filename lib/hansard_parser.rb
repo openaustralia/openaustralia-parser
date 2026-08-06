@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
-require "speech"
-require "mechanize"
-require "configuration"
-require "debates"
-require "builder_alpha_attributes"
-require "house"
-require "people_image_downloader"
 require "log4r"
-require "hansard_day"
-require "hansard_rewriter"
-require "patch"
+
+require_relative "aph_mechanize_agent"
+require_relative "speech"
+require_relative "configuration"
+require_relative "debates"
+require_relative "builder_alpha_attributes"
+require_relative "house"
+require_relative "people_image_downloader"
+require_relative "hansard_day"
+require_relative "hansard_rewriter"
+require_relative "patch"
 
 class UnknownSpeaker
   def initialize(name)
@@ -54,12 +55,7 @@ class HansardParser
   # Returns nil it it doesn't exist
   # This is the original data without any patches applied at this end
   def unpatched_hansard_xml_source_data_on_date(date, house)
-    agent = Mechanize.new
-    # We've been kindly given a special user agent to use so
-    # that our traffic isn't blocked by the application firewall
-    # of aph.gov.au.
-    # See https://mail.missiveapp.com/#search/aph.gov.au/conversations/4f0a0161-421e-4d0b-9dd1-49275353acf7/messages/bc27bcd1-2cba-5e63-64d3-a364037629a2
-    agent.user_agent = "Mozilla/5.0+AppleWebKit/537.36+(KHTML,+like+Gecko;+compatible;+Amazonbot/0.1;++https://developer.amazon.com/support/amazonbot)+Chrome/119.0.6045.214+Safari/537.36"
+    agent = AphMechanizeAgent.new_agent
 
     # This is the page returned by Parlinfo Search for that day
     url = "https://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;adv=yes;orderBy=_fragment_number,doc_date-rev;page=0;query=Dataset%3Ahansard#{house.representatives? ? 'r' : 's'},hansard#{house.representatives? ? 'r' : 's'}80%20Date%3A#{date.day}%2F#{date.month}%2F#{date.year};rec=0;resCount=Default"
