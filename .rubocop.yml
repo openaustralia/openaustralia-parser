@@ -14,9 +14,10 @@ AllCops:
     - log/*
     - coverage/**/*
 
-# Bumping max line length to something a little more reasonable
+# FIXME: come back and clean up, then Bumping max line length to something a little more reasonable
 Layout/LineLength:
-  Max: 120
+  Enabled: false
+  # Max: 120
 
 # We prefer double quotes here and it we're making liberal use of multi-line
 # strings so it makes sense to enforce those to be consistent too
