@@ -49,9 +49,9 @@ class HansardSpeech
   end
 
   def speakername_from_text
-    if strip_tags(@content) =~ (/^([a-z].*?)( interjecting)?—/i) && HansardSpeech.generic_speaker?($LAST_MATCH_INFO[1])
-      $LAST_MATCH_INFO[1]
-    end
+    return unless strip_tags(@content) =~ (/^([a-z].*?)( interjecting)?—/i) && HansardSpeech.generic_speaker?($LAST_MATCH_INFO[1])
+
+    $LAST_MATCH_INFO[1]
   end
 
   public
