@@ -21,7 +21,7 @@ gem "ruby-progressbar"
 
 group :development do
   gem "bundle-audit", require: false
-  gem "rubocop", require: false #  "~> 1.7",
+  gem "rubocop", require: false
   gem "rubocop-rake"
   gem "rubocop-rspec"
   gem "ruby_audit", require: false
