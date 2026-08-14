@@ -1,11 +1,23 @@
 inherit_from: .rubocop_todo.yml
 
+plugins:
+  - rubocop-rake
+  - rubocop-rspec
+
 AllCops:
   NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - bin/*
+    - script/*
+    - tmp/**/*
+    - log/*
+    - coverage/**/*
 
-# Bumping max line length to something a little more reasonable
+# FIXME: come back and clean up, then Bumping max line length to something a little more reasonable
 Layout/LineLength:
-  Max: 100
+  Enabled: false
+  # Max: 120
 
 # We prefer double quotes here and it we're making liberal use of multi-line
 # strings so it makes sense to enforce those to be consistent too
@@ -24,11 +36,6 @@ Style/ClassVars:
   Exclude:
     - 'lib/configuration.rb'
     - 'lib/period.rb'
-
-# We're use some methods with a large number of parameters. At least make
-# it bearable by using keyword arguments
-Metrics/ParameterLists:
-  CountKeywordArgs: false
 
 Metrics/AbcSize:
   Enabled: false

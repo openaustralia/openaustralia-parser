@@ -50,9 +50,7 @@ class ParseMemberLinks
     people = PeopleCSVReader.read_members
 
     puts "Web pages, social media URLs and email from APH (via Morph)..."
-    if conf.morph_api_key.nil? || conf.morph_api_key =~ /\AX*\z/
-      puts "WARNING: morph_api_key is not set in configuration.yml! The api call will fail!"
-    end
+    puts "WARNING: morph_api_key is not set in configuration.yml! The api call will fail!" if conf.morph_api_key.nil? || conf.morph_api_key =~ /\AX*\z/
 
     puts "Writing to #{output_dir}/websites.xml ..."
     xml = File.open("#{output_dir}/websites.xml", "w")

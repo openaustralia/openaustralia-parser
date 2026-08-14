@@ -9,9 +9,7 @@ class SitemapGenerator
       @changefreq = options.delete(:changefreq)
       @changefreq = @changefreq.to_s if @changefreq
       @lastmod = options.delete(:lastmod)
-      unless @changefreq.nil? || CHANGEFREQ_VALUES.include?(@changefreq)
-        throw "Invalid value #{@changefreq} for changefreq"
-      end
+      throw "Invalid value #{@changefreq} for changefreq" unless @changefreq.nil? || CHANGEFREQ_VALUES.include?(@changefreq)
       throw "Invalid options in add_url" unless options.empty?
     end
   end

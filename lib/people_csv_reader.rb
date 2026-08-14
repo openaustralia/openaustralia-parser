@@ -62,9 +62,7 @@ class PeopleCSVReader
       state = "Tasmania" if ["Tas.", "Tas"].include?(state)
       state = "Victoria" if ["Vic.", "Vic"].include?(state)
       state = "Queensland" if %w[Qld QLD].include?(state)
-      unless valid_states.member?(state)
-        raise "State #{state} is not a valid. Allowed values are #{valid_states.join(', ')}"
-      end
+      raise "State #{state} is not a valid. Allowed values are #{valid_states.join(', ')}" unless valid_states.member?(state)
 
       name = Name.title_first_last(name_text)
       raise "Division is undefined for #{name.full_name}" if house.representatives? && division.nil?
