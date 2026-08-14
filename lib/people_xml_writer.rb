@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "builder_alpha_attributes"
+require_relative "builder_alpha_attributes"
 
 class PeopleXMLWriter
   def self.write(people:, people_filename:, members_filename:, senators_filename:, ministers_filename:, divisions_filename:)

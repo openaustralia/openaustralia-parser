@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "period"
-require "house"
+require_relative "period"
+require_relative "house"
 
 class Person
   attr_reader :periods, :person_count, :name, :alternate_names, :minister_positions, :birthday,

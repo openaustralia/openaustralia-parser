@@ -18,7 +18,7 @@ require "zlib"
 
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
-require "sitemap_generator"
+require_relative "lib/sitemap_generator"
 
 args = ARGV.dup # make a copy of ARGV so that OptionParser doesn't modify the original
 

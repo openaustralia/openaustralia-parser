@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "section"
+require_relative "section"
 
 class Division < Section
   def initialize(yes_members:, no_members:, yes_tellers:, no_tellers:, pairs:, time:, url:, bills:, count:, division_count:, date:, house:, logger: nil)

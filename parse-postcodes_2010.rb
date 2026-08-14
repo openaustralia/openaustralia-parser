@@ -7,7 +7,7 @@ $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
 require "mechanize"
 
-require "people"
+require_relative "lib/people"
 
 class ParsePostcodes2010
   def initialize(args)

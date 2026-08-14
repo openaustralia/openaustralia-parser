@@ -13,9 +13,9 @@ require "csv"
 
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
-require "configuration"
-require "name"
-require "people"
+require_relative "lib/configuration"
+require_relative "lib/name"
+require_relative "lib/people"
 
 class RegisterSplit
   PageRange = Struct.new(:filename, :start, :end)
