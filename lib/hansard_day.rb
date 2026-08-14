@@ -2,10 +2,10 @@
 
 # vim: set ts=2 sw=2 et sts=2 ai:
 
-require "hpricot_additions"
-require "house"
-require "hansard_division"
-require "hansard_speech"
+require_relative "hpricot_additions"
+require_relative "house"
+require_relative "hansard_division"
+require_relative "hansard_speech"
 require "date"
 
 # Use this for sections of the Hansard that we're not currently supporting. Allows us to track

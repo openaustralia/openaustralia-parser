@@ -2,10 +2,10 @@
 # frozen_string_literal: true
 
 require "bundler/setup"
+Bundler.require(:default, ENV.fetch("APP_ENV", "development").to_sym)
 
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__).to_s
 
-%w[configuration count ]
 require_relative "../lib/configuration"
 
 Dir[File.expand_path("../lib/**/*.rb", __dir__)].sort.each do |f|

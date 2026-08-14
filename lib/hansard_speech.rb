@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "hpricot_additions"
-require "name"
+require_relative "hpricot_additions"
+require_relative "name"
 require "English"
 
 class HansardSpeech

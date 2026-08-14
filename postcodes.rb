@@ -9,8 +9,8 @@ $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
 require "csv"
 require "mysql2"
-require "configuration"
-require "people"
+require_relative "lib/configuration"
+require_relative "lib/people"
 require "optparse"
 
 class Postcodes

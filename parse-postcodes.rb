@@ -9,7 +9,7 @@ require "optparse"
 require "fileutils"
 require "mechanize"
 
-require "configuration"
+require_relative "lib/configuration"
 
 class ParsePostcodes
   def initialize(args)

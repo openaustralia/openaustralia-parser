@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require "heading"
-require "speech"
-require "division"
-require "count"
+require_relative "heading"
+require_relative "speech"
+require_relative "division"
+require_relative "count"
 
 # Holds the data for debates on one day
 # Also knows how to output the XML data for that

@@ -7,9 +7,9 @@ $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 require "optparse"
 require "ruby-progressbar"
 
-require "people"
-require "hansard_parser"
-require "configuration"
+require_relative "lib/people"
+require_relative "lib/hansard_parser"
+require_relative "lib/configuration"
 
 class ParseSpeeches
   def initialize(args)

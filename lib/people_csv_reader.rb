@@ -2,10 +2,10 @@
 
 require "csv"
 require "ostruct"
-require "date_with_future"
-require "people"
-require "person"
-require "name"
+require_relative "date_with_future"
+require_relative "people"
+require_relative "person"
+require_relative "name"
 
 # Utility used by regression test
 class PeopleCSVReader
