@@ -82,9 +82,12 @@ This repository has no `CONTRIBUTING.md` or templates of its own; the org-wide o
 [`openaustralia/.github`](https://github.com/openaustralia/.github) apply. Fetch the current versions rather than
 relying on a copy:
 
-`gh api repos/openaustralia/.github/contents/.github/CONTRIBUTING.md -H "Accept: application/vnd.github.raw"`
+`curl -fsSL https://raw.githubusercontent.com/openaustralia/.github/main/.github/CONTRIBUTING.md`
 
-`gh api repos/openaustralia/.github/contents/AGENTS.md -H "Accept: application/vnd.github.raw"`
+`curl -fsSL https://raw.githubusercontent.com/openaustralia/.github/main/AGENTS.md`
+
+Any equivalent fetch of those URLs works (web fetch, or `gh api` if the GitHub CLI
+is installed); don't assume a particular tool is present.
 
 After merging a change here, the umbrella repository's submodule pointer needs bumping before production picks it
 up.
