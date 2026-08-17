@@ -440,7 +440,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 952,,Steph Hodgins-May,,Vic,1.5.2024,section_15,,still_in_office,GRN
 953,,Fatima Payman,,WA,4.7.2024,changed_party,9.10.2024,changed_party,IND
 954,,Gerard Rennick,,Qld,25.8.2024,changed_party,10.9.2024,changed_party,IND
-955,,Tammy Tyrrell,,Tas,28.3.2024,changed_party,,still_in_office,IND
+955,,Tammy Tyrrell,,Tas,28.3.2024,changed_party,14.05.2026,changed_party,IND
 956,,Leah Blyth,,SA,6.2.2025,section_15,,still_in_office,LIB
 # Changed party,,,,,,,,,
 957,,Dorinda Cox,,WA,2.6.2025,changed_party,,still_in_office,ALP
@@ -460,3 +460,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 969,,Sean Bell,,NSW,18.9.2025,,,still_in_office,PHON
 970,,Andrew McLachlan,,SA,22.7.2025,changed_party,,still_in_office,LIB
 971,,Slade Brockman,,WA,22.7.2025,changed_party,,still_in_office,DPRES
+# Party Change
+972,,Tammy Tyrrell,,Tas,,changed_party,,still_in_office,ALP
