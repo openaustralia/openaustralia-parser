@@ -58,7 +58,8 @@ locally.
   by-elections, party changes and reshuffles - a routine workflow here, not an anomaly. The most common parser
   failure is an unrecognised person in a division; the fix is usually a data file edit (see README).
 - `xml_schemas/*.rnc` are RELAX NG schemas for the XML the parser emits; `spec/` uses RSpec with VCR cassettes.
-- `docs/` is an empty scaffold - not a documentation source.
+- `docs/` holds no prose documentation about the parser itself; the only content is `docs/agents/`, the
+  configuration the engineering skills read (see "Agent skills" below).
 
 ## Gotchas
 
