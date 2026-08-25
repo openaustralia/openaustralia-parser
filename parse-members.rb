@@ -53,7 +53,9 @@ class ParseMembers
                      "Batman", "Denison", "McMillan", "Melbourne Ports", "Murray", "Port Adelaide", "Wakefield",
                      # Stirling was abolished for the 2022 Federal election
                      # See https://www.aec.gov.au/Electorates/Redistributions/2021/wa/announce-names-boundaries.htm
-                     "Stirling"]
+                     "Stirling",
+                     # Higgins and North Sydney were abolished for the 2025 Federal election
+                     "Higgins", "North Sydney"]
 
     divisions.each do |division|
       # puts "Checking division #{division}..."
