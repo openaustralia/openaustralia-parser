@@ -91,3 +91,22 @@ is installed); don't assume a particular tool is present.
 
 After merging a change here, the umbrella repository's submodule pointer needs bumping before production picks it
 up.
+
+## Agent skills
+
+Configuration the engineering skills read. These files describe how this repo works; edit them directly rather
+than re-running the setup skill.
+
+### Issue tracker
+
+Issues live as GitHub issues in the umbrella repo, `openaustralia/openaustralia` — issues are disabled on this
+repo. Driven by the `gh` CLI with `-R openaustralia/openaustralia`. See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+The default five-label vocabulary: `needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`.
+See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: one `CONTEXT.md` and one `docs/adr/` at the root, both created lazily. See `docs/agents/domain.md`.
