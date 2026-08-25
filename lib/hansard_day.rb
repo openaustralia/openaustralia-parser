@@ -120,11 +120,11 @@ class HansardDay
         end
       end
     when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
-      if debate.get_elements_by_tag_name("subdebate.text").empty?
+      if debate.xpath(".//subdebate.text").empty?
         results = bills(debate.parent)
       else
-        unless debate.get_elements_by_tag_name("subdebate.text")[0].get_elements_by_tag_name("a").empty?
-          debate.get_elements_by_tag_name("subdebate.text")[0].get_elements_by_tag_name("a").each do |a|
+        unless debate.xpath(".//subdebate.text")[0].xpath(".//a").empty?
+          debate.xpath(".//subdebate.text")[0].xpath(".//a").each do |a|
             id = strip_tags(a["href"].strip)
             title = strip_tags(a.inner_text.strip)
             url = bill_url(id)
