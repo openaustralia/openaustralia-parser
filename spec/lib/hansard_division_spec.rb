@@ -257,3 +257,37 @@ RSpec.describe HansardDivision, "with pairings" do
     end
   end
 end
+
+# Where a seat is vacant aph lists "Vacancy" in the pairs in place of a senator's name.
+# First seen in the Senate on 2026-08-11 after the resignation of Senator Wendy Askew.
+RSpec.describe HansardDivision, "with a vacant seat in the pairings" do
+  subject(:division) do
+    HansardDivision.new(Hpricot.XML(
+                          "<division>
+          <division.header>
+              <time.stamp>10:36:00</time.stamp>
+              <para>The Senate divided.&#xA0;&#xA0;&#xA0;&#xA0; </para>
+          </division.header>
+          <division.data>
+              <pairs>
+                  <num.votes>2</num.votes>
+                  <title>PAIRS</title>
+                  <names>
+                      <name>Sharma, D. N.</name>
+                      <name>Wong, P.</name>
+                      <name>Vacancy</name>
+                      <name>Stewart, J. N. A.</name>
+                  </names>
+              </pairs>
+          </division.data>
+          <division.result>
+              <para>Question negatived.</para>
+          </division.result>
+      </division>"
+                        ), "", "", "", nil)
+  end
+
+  it "drops the pair the vacant seat is in and keeps the rest" do
+    expect(division.pairs).to eq [["Sharma, D. N.", "Wong, P."]]
+  end
+end
