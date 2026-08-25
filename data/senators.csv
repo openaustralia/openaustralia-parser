@@ -383,7 +383,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 896,,Fraser Anning,,Qld,25.10.2018,changed_party,1.7.2019,defeated,IND
 897,,Brian Burston,,NSW,18.6.2018,changed_party,1.7.2019,defeated,UAP
 898,,Lucy Gichuhi,,SA,2.2.2018,changed_party,1.7.2019,defeated,LIB
-899,,Wendy Askew,,Tasmania,6.3.2019,section_15,,still_in_office,LIB
+899,,Wendy Askew,,Tasmania,6.3.2019,section_15,10.8.2026,resigned,LIB
 900,,Raff Ciccone,,Victoria,6.3.2019,section_15,,still_in_office,ALP
 901,,Duncan Spender,,NSW,20.3.2019,section_15,1.7.2019,defeated,LDP
 902,,Alex Antic,,SA,1.7.2019,,,still_in_office,LIB
@@ -462,3 +462,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 971,,Slade Brockman,,WA,22.7.2025,changed_party,,still_in_office,DPRES
 # Party Change
 972,,Tammy Tyrrell,,Tas,14.5.2026,changed_party,,still_in_office,ALP
+# Replacement for Wendy Askew
+973,,Chris Gatenby,,Tas,10.8.2026,section_15,,still_in_office,LIB
