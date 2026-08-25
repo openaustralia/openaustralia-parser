@@ -36,7 +36,7 @@ class HansardParser
 
     @output_dir = output_dir
     @log_path = output_dir ? "#{output_dir}/parser.log" : @conf.log_path
-    @xml_path = output_dir ? "#{output_dir}/xml/" : @conf.xml_path
+    @xml_path = output_dir ? "#{output_dir}/" : @conf.xml_path
 
     # Set up logging
     @logger = Log4r::Logger.new "HansardParser"
