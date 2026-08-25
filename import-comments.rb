@@ -11,7 +11,7 @@ $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
 require "csv"
 
-require "configuration"
+require_relative "lib/configuration"
 require "mysql"
 
 class ImportComments

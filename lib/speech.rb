@@ -2,7 +2,7 @@
 
 require "nokogiri"
 require "htmlentities"
-require "section"
+require_relative "section"
 
 class Speech < Section
   attr_accessor :speaker, :content, :interjection, :continuation,

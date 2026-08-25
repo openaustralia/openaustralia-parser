@@ -12,9 +12,10 @@ require "json"
 require "optparse"
 require "fileutils"
 
-require "name"
-require "people"
-require "configuration"
+require_relative "lib/aph_mechanize_agent"
+require_relative "lib/name"
+require_relative "lib/people"
+require_relative "lib/configuration"
 
 class ParseMemberLinks
   def initialize(args)
@@ -43,14 +44,13 @@ class ParseMemberLinks
     # Not using caching proxy since we will be running this script once a day and we
     # always want to get the new data
     agent = Mechanize.new
+    aph_agent = AphMechanizeAgent.new_agent
 
     puts "Reading member data..."
     people = PeopleCSVReader.read_members
 
     puts "Web pages, social media URLs and email from APH (via Morph)..."
-    if conf.morph_api_key.nil? || conf.morph_api_key =~ /\AX*\z/
-      puts "WARNING: morph_api_key is not set in configuration.yml! The api call will fail!"
-    end
+    puts "WARNING: morph_api_key is not set in configuration.yml! The api call will fail!" if conf.morph_api_key.nil? || conf.morph_api_key =~ /\AX*\z/
 
     puts "Writing to #{output_dir}/websites.xml ..."
     xml = File.open("#{output_dir}/websites.xml", "w")
@@ -218,7 +218,7 @@ class ParseMemberLinks
 
     puts "Parsing Register of interests from APH..."
 
-    page = agent.get("https://www.aph.gov.au/Senators_and_Members/Members/Register")
+    page = aph_agent.get("https://www.aph.gov.au/Senators_and_Members/Members/Register")
     representatives_data = []
     page.search("table.documents").each do |table|
       table.search("tbody tr").each do |tr|

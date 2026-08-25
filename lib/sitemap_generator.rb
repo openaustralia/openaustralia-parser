@@ -1,15 +1,17 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require "configuration"
+require "optparse"
 
-require "sitemap_generator/comment"
-require "sitemap_generator/counted_file"
-require "sitemap_generator/hansard"
-require "sitemap_generator/member"
-require "sitemap_generator/news"
-require "sitemap_generator/sitemap"
-require "sitemap_generator/sitemap_url"
+require_relative "configuration"
+
+require_relative "sitemap_generator/comment"
+require_relative "sitemap_generator/counted_file"
+require_relative "sitemap_generator/hansard"
+require_relative "sitemap_generator/member"
+require_relative "sitemap_generator/news"
+require_relative "sitemap_generator/sitemap"
+require_relative "sitemap_generator/sitemap_url"
 
 # Generate sitemap.xml for quick and easy search engine updating
 # This is run as part of twfy/scripts/morningupdate

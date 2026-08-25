@@ -9,7 +9,7 @@ require "optparse"
 require "fileutils"
 require "mechanize"
 
-require "configuration"
+require_relative "lib/configuration"
 
 class ParsePostcodes
   def initialize(args)
@@ -34,9 +34,7 @@ class ParsePostcodes
     data_filename = "#{output_dir}/postcodes.csv"
 
     puts "Fetching postcodes from morph.io ..."
-    if morph_api_key.nil? || morph_api_key =~ /\AX*\z/
-      puts "WARNING: morph_api_key is not set in configuration.yml! The api call will fail!"
-    end
+    puts "WARNING: morph_api_key is not set in configuration.yml! The api call will fail!" if morph_api_key.nil? || morph_api_key =~ /\AX*\z/
 
     FileUtils.mkdir_p output_dir
 

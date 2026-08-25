@@ -7,7 +7,7 @@ $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
 require "mechanize"
 
-require "people"
+require_relative "lib/people"
 
 class ParsePostcodes2010
   def initialize(args)
@@ -15,11 +15,9 @@ class ParsePostcodes2010
   end
 
   def extract_divisions_from_page(page)
-    divisions = page.search("div/table/tr/td[4]").map(&:text)
-    redistributed_divisions = page.search("div/table/tr/td[5]").map(&:text)
-    unless divisions.size == redistributed_divisions.size
-      raise "expected same number of divisions as redistributed divisions"
-    end
+    divisions = page.search("div/table/tr/td[4]").map(&:inner_text)
+    redistributed_divisions = page.search("div/table/tr/td[5]").map(&:inner_text)
+    raise "expected same number of divisions as redistributed divisions" unless divisions.size == redistributed_divisions.size
 
     combined = []
     divisions.each_index do |i|

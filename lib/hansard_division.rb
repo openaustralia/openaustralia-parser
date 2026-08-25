@@ -49,7 +49,10 @@ class HansardDivision
     # Format the flat list of names into pairs (assuming that the people in pairs appear consecutively)
     pairs = []
     names.each_slice(2) { |p| pairs << p }
-    pairs
+    # A seat that's vacant is listed in the pairs by the placeholder below rather than by a
+    # senator's name. It isn't a person, so the other half of that pair has nobody to be paired
+    # with and we drop the pair rather than emit a half of one.
+    pairs.reject { |pair| pair.any? { |name| HansardDivision.vacancy?(name) } }
   end
 
   def yes_tellers
@@ -96,6 +99,11 @@ class HansardDivision
 
   def self.teller?(text)
     text =~ /^(.*)\*$/
+  end
+
+  # The placeholder aph uses in a division's pairs where a seat is vacant
+  def self.vacancy?(text)
+    text.strip == "Vacancy"
   end
 
   private

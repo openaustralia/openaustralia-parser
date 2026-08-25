@@ -4,7 +4,7 @@ source "https://rubygems.org"
 
 ruby file: ".ruby-version"
 
-gem "activerecord", "~> 8.0.4" # For sitemap generation
+gem "activerecord", "~> 8.0.4", require: "active_record" # For sitemap generation
 gem "builder", "~> 3.0"
 gem "csv"
 gem "htmlentities"
@@ -20,7 +20,7 @@ gem "ruby-progressbar"
 
 group :development do
   gem "bundle-audit", require: false
-  gem "rubocop", require: false #  "~> 1.7",
+  gem "rubocop", require: false
   gem "rubocop-rake"
   gem "rubocop-rspec"
   gem "ruby_audit", require: false
