@@ -137,7 +137,7 @@ XML
       # it's all a MemberIInterjecting
       para_text = p.inner_text.strip
       italic_text = ""
-      p.search("//span").each do |t|
+      p.search(".//span").each do |t|
         if !t["style"].nil? && t["style"].match(/italic/)
           italic_text = "#{italic_text}#{t.inner_text}"
           t.inner_html = "{italic}#{t.inner_html}{/italic}"
@@ -149,7 +149,7 @@ XML
       # record with a class that starts with "Member".
       # (There are also '<a href' records which point to bills rather then
       # people.)
-      ahref = p.search("//a")[0] unless p.search("//a").empty?
+      ahref = p.search(".//a")[0] unless p.search(".//a").empty?
       if !ahref.nil? && ahref["type"].nil?
         logger.warn "    Found a link without type!? #{ahref}"
         next
@@ -161,17 +161,17 @@ XML
         if speech_node.nil? || !p.search("[@class=HPS-Time]").empty?
           # Rip out the electorate
           # <span class="HPS-Electorate">Grayndler</span>
-          electorate = p.search("//span[@class=HPS-Electorate]")
+          electorate = p.search(".//span[@class='HPS-Electorate']")
           electorate.remove
 
           # Rip out the title
           # <span class="HPS-MinisterialTitles">Leader of the House and Minister for Infrastructure and Transport</span>
-          title = p.search("//span[@class=HPS-MinisterialTitles]")
+          title = p.search(".//span[@class='HPS-MinisterialTitles']")
           title.remove
 
           # Rip out the start time
           # <span class="HPS-Time">09:27</span>
-          time = p.search("//span[@class=HPS-Time]")
+          time = p.search(".//span[@class='HPS-Time']")
           if time.inner_html =~ /\d+:\d\d/
             ripped_out_time = time.first.inner_html
           else
@@ -188,7 +188,7 @@ XML
           aph_id = lookup_aph_id(ahref["href"], name)
 
           # Rip the a link out.
-          p.search("//a").remove
+          p.search(".//a").remove
 
           # Extract the text
           text = santize(p.inner_text, false)
@@ -256,7 +256,7 @@ XML
           aph_id = lookup_aph_id(ahref["href"], name)
 
           # Rip out the a tag
-          p.search("//a").remove
+          p.search(".//a").remove
 
           # Clean up the text a little
           text = santize(p.inner_text, false)
