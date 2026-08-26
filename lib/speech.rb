@@ -81,7 +81,7 @@ class Speech < Section
 
   # Returns adjournment time if the debate was adjourned during the speech
   def adjournment
-    match = @content.to_s.match(/adjourned at (\d+:\d\d)/mi)
+    match = @content.join.match(/adjourned at (\d+:\d\d)/mi)
     match && to_time(match[1])
   end
 
