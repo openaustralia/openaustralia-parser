@@ -296,7 +296,7 @@ XML
           if !amendment_node.nil?
             logger.warn "      Found paragraph in an amendment"
 
-            amendment_node.append <<~XML
+            amendment_node << <<~XML
               <para>#{restore_tags(text)}</para>
             XML
 
@@ -314,7 +314,7 @@ XML
                             text_node
                           end
 
-            search_node.append <<~XML
+            search_node << <<~XML
               <amendments>
                 <para>#{restore_tags(text)}</para>
               </amendments>
@@ -331,13 +331,13 @@ XML
                 !p.search("span[@class=HPS-MemberInterjecting]").empty? ||
                 member_iinterjecting
             logger.warn "    Found new /italics/ paragraph"
-            text_node.append <<~XML
+            text_node << <<~XML
               <para class="italic">#{restore_tags(text)}</para>
             XML
 
           else
             logger.warn "    Found new paragraph"
-            text_node.append <<~XML
+            text_node << <<~XML
               <para>#{restore_tags(text)}</para>
             XML
           end
@@ -348,7 +348,7 @@ XML
             logger.warn "    Ignoring bullet node as text_node was null\n#{p}"
           else
             logger.warn "    Found new bullet point"
-            text_node.append <<~XML
+            text_node << <<~XML
               <list>#{restore_tags(text)}</list>
             XML
           end
@@ -356,14 +356,14 @@ XML
         when "HPS-Small", "HPS-NormalWeb"
           if !amendment_node.nil?
             logger.warn "      Found amendment"
-            amendment_node.append <<~XML
+            amendment_node << <<~XML
               <amendment>#{restore_tags(text)}</amendment>
             XML
           elsif text_node.nil?
             logger.warn "    Ignoring quote node as text_node was null\n#{p}"
           else
             logger.warn "    Found new quote"
-            text_node.append <<~XML
+            text_node << <<~XML
               <quote><para class="block">#{restore_tags(text)}</para></quote>
             XML
           end
