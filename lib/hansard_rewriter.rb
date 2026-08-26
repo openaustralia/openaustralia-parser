@@ -109,7 +109,11 @@ XML
     amendment_node = nil
 
     new_xml = Nokogiri::XML("")
-    input_text_node.search("/body/p").each do |p|
+    # Relative to input_text_node (e.g. <talk.text><body>...<p>...）; a leading "/"
+    # here would be an absolute path requiring <body> to be the document root, which
+    # it never is, so it silently matched nothing and process_textnode always
+    # returned "" (dropping every speech's content).
+    input_text_node.search(".//body/p").each do |p|
       # Skip empty nodes
       if p.inner_text.strip.empty?
         logger.warn "    Ignoring para node as it was empty\n#{p}"
