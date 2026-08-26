@@ -164,4 +164,25 @@ RSpec.describe HansardDay do
   it "should know when the page is considered in proof stage" do
     expect(@header).to be_in_proof
   end
+
+  it "should group question and answer pairs even with whitespace between the elements" do
+    xml = Nokogiri::XML(<<~XML)
+      <hansard>
+        <chamber.xscript>
+          <debate>
+            <debateinfo>
+              <title>QUESTIONS WITHOUT NOTICE</title>
+            </debateinfo>
+            <question>q</question>
+            <answer>a</answer>
+          </debate>
+        </chamber.xscript>
+      </hansard>
+    XML
+
+    pages = HansardDay.new(xml).pages_from_debate(xml.at("debate"))
+
+    expect(pages.length).to eq 1
+    expect(pages.first.length).to eq 2
+  end
 end

@@ -227,7 +227,10 @@ class HansardDay
               HansardSpeech.new(content: c, title: title, subtitle: subtitle, bills: bills, time: time(e), day: self,
                                 logger: @logger)
             end
-            f = f.next_sibling
+            # next_element rather than next_sibling so whitespace text nodes
+            # between elements don't end the loop early (Hpricot's
+            # next_sibling skipped text nodes; Nokogiri's doesn't)
+            f = f.next_element
           end
           p << questions
         end
@@ -242,7 +245,7 @@ class HansardDay
           while f && procedural_tags.include?(f.name)
             procedurals << HansardSpeech.new(content: f, title: title, subtitle: subtitle, bills: bills,
                                              time: time(f), day: self, logger: @logger)
-            f = f.next_sibling
+            f = f.next_element
           end
           p << procedurals
         end
