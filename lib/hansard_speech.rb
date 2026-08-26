@@ -254,6 +254,12 @@ class HansardSpeech
       clean_content_recurse(node, "italic")
     when "talk.start", "amendments", "motionnospeech", "interjection", "continue", "answer", "question"
       clean_content_recurse(node)
+    when "speech", "talk"
+      # Further turns (continue/interjection/question/answer) are nested inside this
+      # node by HansardRewriter rather than being siblings of it; each becomes its
+      # own HansardSpeech (see HansardDay#speech_turns), so stop before rendering them
+      # here to avoid rendering their content twice.
+      clean_content_own_turn(node)
     when "tgroup", "thead", "tbody"
       clean_content_recurse(node, override_type)
     when "para"
@@ -288,6 +294,19 @@ class HansardSpeech
   def self.clean_content_recurse(node, override_type = nil)
     t = +""
     node.element_children.each do |f|
+      t << clean_content_any(f, override_type)
+    end
+    t
+  end
+
+  # Renders only the children belonging to this turn (e.g. a <speech>'s own
+  # <talker>/<para>), stopping before any further turns (HansardDay::TURN_TAGS)
+  # nested inside it by HansardRewriter, since those are rendered separately.
+  def self.clean_content_own_turn(node, override_type = nil)
+    t = +""
+    node.element_children.each do |f|
+      break if HansardDay::TURN_TAGS.include?(f.name)
+
       t << clean_content_any(f, override_type)
     end
     t
