@@ -55,11 +55,12 @@ locally.
 - Top-level `*.rb` scripts are the entry points; the daily ones are `parse-speeches.rb`, `parse-member-links.rb`
   and `sitemap.rb`. `lib/` holds the parser proper (`hansard_parser.rb`, `hansard_rewriter.rb`, `people.rb`, ...).
 - `data/*.csv` (people, representatives, senators, ministers, shadow-ministers) are **maintained by hand** for
-  by-elections, party changes and reshuffles - a routine workflow here, not an anomaly. The most common parser
-  failure is an unrecognised person in a division; the fix is usually a data file edit (see README).
+  by-elections, party changes and reshuffles - a routine workflow here, not an anomaly. The full workflows and file
+  formats are in `docs/data-updates.md`. The most common parser failure is an unrecognised person in a division;
+  the fix is usually a data file edit.
 - `xml_schemas/*.rnc` are RELAX NG schemas for the XML the parser emits; `spec/` uses RSpec with VCR cassettes.
-- `docs/` holds no prose documentation about the parser itself; the only content is `docs/agents/`, the
-  configuration the engineering skills read (see "Agent skills" below).
+- `docs/` holds `docs/data-updates.md` (the data-maintenance guide) and `docs/agents/`, the configuration the
+  engineering skills read (see "Agent skills" below). There is no other prose documentation outside the README.
 
 ## Gotchas
 
@@ -73,7 +74,12 @@ locally.
   development; specs force `test`.
 - `export-comments.rb` / `import-comments.rb` `require "mysql"`, which isn't in the Gemfile (`mysql2` is), and
   refuse to run without the `BE-DANGEROUS` env var - treat them as broken until fixed.
-- `wikipedia.rb` is an empty file despite being listed in the README's dependencies.
+- `wikipedia.rb` is an empty file; nothing references it any more.
+- **Data-file traps** (full detail in `docs/data-updates.md`): members CSVs use `d.m.yyyy` dates but ministers CSVs
+  use `dd/mm/yyyy`, always with 4-digit years; a new party abbreviation needs a mapping added to
+  `lib/people_csv_reader.rb`; honorifics in ministers files must be `The Hon` (never bare `Hon`) with post-nominals
+  whitelisted in `lib/name.rb`; after elections the merge order is people.csv, then representatives/senators.csv,
+  then ministers/shadow-ministers.csv. Check any data edit with `bundle exec ./parse-members.rb --no-load`.
 - Scripts that load the database write to production-shaped tables; anything run with a real `configuration.yml`
   pointed at production paths is a live action needing an explicit go-ahead.
 
