@@ -32,6 +32,12 @@ class HansardRewriter
     text.gsub(%r{\{/italic\}}, "</inline>")
   end
 
+  # Nokogiri has no #append, so do what the Hpricot monkey patch in the old
+  # lib/hpricot_additions.rb did and add the markup to the end of the node
+  def append(node, str)
+    node.inner_html = node.inner_html + str
+  end
+
   def lookup_aph_id(aph_id, name)
     if name.match(/^The (([^S]*SPEAKER)|([^R]*RESIDENT))/i)
       if aph_id != "10000"
@@ -292,7 +298,7 @@ XML
           if !amendment_node.nil?
             logger.warn "      Found paragraph in an amendment"
 
-            amendment_node.append <<~XML
+            append(amendment_node, <<~XML)
               <para>#{restore_tags(text)}</para>
             XML
 
@@ -310,7 +316,7 @@ XML
                             text_node
                           end
 
-            search_node.append <<~XML
+            append(search_node, <<~XML)
               <amendments>
                 <para>#{restore_tags(text)}</para>
               </amendments>
@@ -327,13 +333,13 @@ XML
                 !p.search("span[@class=HPS-MemberInterjecting]").empty? ||
                 member_iinterjecting
             logger.warn "    Found new /italics/ paragraph"
-            text_node.append <<~XML
+            append(text_node, <<~XML)
               <para class="italic">#{restore_tags(text)}</para>
             XML
 
           else
             logger.warn "    Found new paragraph"
-            text_node.append <<~XML
+            append(text_node, <<~XML)
               <para>#{restore_tags(text)}</para>
             XML
           end
@@ -344,7 +350,7 @@ XML
             logger.warn "    Ignoring bullet node as text_node was null\n#{p}"
           else
             logger.warn "    Found new bullet point"
-            text_node.append <<~XML
+            append(text_node, <<~XML)
               <list>#{restore_tags(text)}</list>
             XML
           end
@@ -352,14 +358,14 @@ XML
         when "HPS-Small", "HPS-NormalWeb"
           if !amendment_node.nil?
             logger.warn "      Found amendment"
-            amendment_node.append <<~XML
+            append(amendment_node, <<~XML)
               <amendment>#{restore_tags(text)}</amendment>
             XML
           elsif text_node.nil?
             logger.warn "    Ignoring quote node as text_node was null\n#{p}"
           else
             logger.warn "    Found new quote"
-            text_node.append <<~XML
+            append(text_node, <<~XML)
               <quote><para class="block">#{restore_tags(text)}</para></quote>
             XML
           end
