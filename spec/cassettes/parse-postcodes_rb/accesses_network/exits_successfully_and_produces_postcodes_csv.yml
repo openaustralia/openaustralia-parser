@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.morph.io/drzax/morph-division-postcode-correspondence/data.csv?key=ji96AnIkXWRUbw5ZNVfz&query=SELECT%20DISTINCT%20postcode,COALESCE(NULLIF(electorate,%27%27),redistributedElectorate)%20AS%20electorate%20FROM%20%27data%27%20order%20by%20postcode,electorate
+    uri: https://api.morph.io/drzax/morph-division-postcode-correspondence/data.csv?key=XXXXXXXXXXXXXXXXXXXX&query=SELECT%20DISTINCT%20postcode,COALESCE(NULLIF(electorate,%27%27),redistributedElectorate)%20AS%20electorate%20FROM%20%27data%27%20order%20by%20postcode,electorate
     body:
       encoding: US-ASCII
       string: ''

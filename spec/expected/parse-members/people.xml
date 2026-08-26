@@ -5190,7 +5190,7 @@
   <office id="uk.org.publicwhip/member/737"/>
  </person>
  <person id="uk.org.publicwhip/person/10914" latestname="Wendy Askew">
-  <office current="yes" id="uk.org.publicwhip/lord/100899"/>
+  <office id="uk.org.publicwhip/lord/100899"/>
  </person>
  <person id="uk.org.publicwhip/person/10915" latestname="Raff Ciccone">
   <office current="yes" id="uk.org.publicwhip/lord/100900"/>
@@ -5606,7 +5606,8 @@
  </person>
  <person id="uk.org.publicwhip/person/11012" latestname="Tammy Tyrrell">
   <office id="uk.org.publicwhip/lord/100941"/>
-  <office current="yes" id="uk.org.publicwhip/lord/100955"/>
+  <office id="uk.org.publicwhip/lord/100955"/>
+  <office current="yes" id="uk.org.publicwhip/lord/100972"/>
  </person>
  <person id="uk.org.publicwhip/person/11013" latestname="Linda White">
   <office id="uk.org.publicwhip/lord/100942"/>
@@ -5772,5 +5773,8 @@
  </person>
  <person id="uk.org.publicwhip/person/11063" latestname="David Farley">
   <office current="yes" id="uk.org.publicwhip/member/858"/>
+ </person>
+ <person id="uk.org.publicwhip/person/11064" latestname="Chris Gatenby">
+  <office current="yes" id="uk.org.publicwhip/lord/100973"/>
  </person>
 </people>

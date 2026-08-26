@@ -36,6 +36,8 @@ jobs:
         } >> configuration.yml
     - run: mkdir -p ../openaustralia && cd ../openaustralia && git clone --depth 1 https://github.com/openaustralia/rblib.git rblib
     - run: bundle exec rspec
+      env:
+        EXCLUDE_NEWS: "1"
   scripts:
     runs-on: ubuntu-latest
     steps:

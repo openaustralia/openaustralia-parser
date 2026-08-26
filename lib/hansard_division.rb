@@ -43,7 +43,7 @@ class HansardDivision
   end
 
   def pairs
-    names = @content.xpath(".//*[local-name()='division.data']/pairs/names/name").map(&:inner_html)
+    names = @content.xpath(".//*[local-name()='division.data']/pairs/names/name").map(&:text)
     raise "Not an even number of people in the pairs voting" if names.size.odd?
 
     # Format the flat list of names into pairs (assuming that the people in pairs appear consecutively)
@@ -118,10 +118,10 @@ class HansardDivision
   end
 
   def raw_yes
-    @content.xpath(".//*[local-name()='division.data']/ayes/names/name").map(&:inner_html)
+    @content.xpath(".//*[local-name()='division.data']/ayes/names/name").map(&:text)
   end
 
   def raw_no
-    @content.xpath(".//*[local-name()='division.data']/noes/names/name").map(&:inner_html)
+    @content.xpath(".//*[local-name()='division.data']/noes/names/name").map(&:text)
   end
 end

@@ -262,7 +262,7 @@ end
 # First seen in the Senate on 2026-08-11 after the resignation of Senator Wendy Askew.
 RSpec.describe HansardDivision, "with a vacant seat in the pairings" do
   subject(:division) do
-    HansardDivision.new(Hpricot.XML(
+    HansardDivision.new(Nokogiri::XML(
                           "<division>
           <division.header>
               <time.stamp>10:36:00</time.stamp>
