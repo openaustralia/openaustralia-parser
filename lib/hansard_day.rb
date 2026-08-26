@@ -99,9 +99,11 @@ class HansardDay
     case debate.name
     when "debate", "petition.group"
       # cognate debates can have multiple bill ids
-      if debate.at("> debateinfo") && !debate.at("> debateinfo").css("id.no").empty?
+      # Element names containing a dot are a class selector in CSS, so <id.no>
+      # has to be matched with XPath rather than css()
+      if debate.at("> debateinfo") && !debate.at("> debateinfo").xpath("./id.no").empty?
         if debate.at("> debateinfo > type").inner_text.downcase == "bills"
-          id = debate.at("/debateinfo").css("id.no")[0].inner_text
+          id = debate.at("> debateinfo").xpath("./id.no")[0].inner_text
           title = debate.at("> debateinfo > title").inner_text
           url = bill_url(id)
           results << { id: id, title: title, url: url }
@@ -109,7 +111,7 @@ class HansardDay
         debate.search("> debateinfo > cognate").each do |congnate|
           next if congnate.at(:type).inner_text.downcase != "bills"
 
-          id_elem = congnate.at(:cognateinfo).css("id.no")[0]
+          id_elem = congnate.at(:cognateinfo).xpath("./id.no")[0]
           # some old Hansard duplicates <cognateinfo> with <id.no> missing
           next unless id_elem
 
