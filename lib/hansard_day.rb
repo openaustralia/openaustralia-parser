@@ -29,6 +29,11 @@ class HansardDay
   # vote because an absolute majority was required
   ALLOW_TIED_VOTE_DATES = [Date.new(2011, 2, 22)].freeze
 
+  # process_textnode (in HansardRewriter) emits a single <speech>/<talk> element per
+  # top-level turn, with any further turns (interjections, continuations, etc.)
+  # nested inside it rather than as siblings.
+  TURN_TAGS = %w[continue interjection question answer].freeze
+
   def initialize(page, logger = nil)
     @page = page
     @logger = logger
@@ -165,6 +170,12 @@ class HansardDay
     end
   end
 
+  # A rewritten <speech>/<question>/<answer> element represents one turn itself,
+  # plus any further turns (continuations, interjections, etc.) nested inside it.
+  def speech_turns(node)
+    [node] + node.children.select { |c| TURN_TAGS.include?(c.name) }
+  end
+
   def time(debate)
     # HACK: Hmmm.. check this out more
     tag = debate.at_xpath(".//*[local-name()='time.stamp']")
@@ -188,7 +199,7 @@ class HansardDay
         question = false
         procedural = false
       when "speech", "talk"
-        p << e.map_child_node do |c|
+        p << speech_turns(e).map do |c|
           HansardSpeech.new(content: c, title: title, subtitle: subtitle, bills: bills, time: time(e), day: self,
                             logger: @logger)
         end
@@ -210,7 +221,7 @@ class HansardDay
           questions = []
           f = e
           while f && (f.name == "question" || f.name == "answer")
-            questions += f.map_child_node do |c|
+            questions += speech_turns(f).map do |c|
               HansardSpeech.new(content: c, title: title, subtitle: subtitle, bills: bills, time: time(e), day: self,
                                 logger: @logger)
             end
