@@ -26,8 +26,15 @@ jobs:
       with:
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - run: cp configuration.yml.example configuration.yml
+    - name: Add CI database credentials to configuration.yml
+      run: |
+        {
+          echo 'database_host: "127.0.0.1"'
+          echo 'database_user: root'
+          echo 'database_password: root'
+          echo 'database_name: openaustralia_test'
+        } >> configuration.yml
     - run: mkdir -p ../openaustralia && cd ../openaustralia && git clone --depth 1 https://github.com/openaustralia/rblib.git rblib
-    - run: cd .. && git clone --depth 1 https://github.com/openaustralia/twfy.git
     - run: bundle exec rspec
   scripts:
     runs-on: ubuntu-latest
