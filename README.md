@@ -1,4 +1,4 @@
-# The OpenAustralia Hansard Parser [![Build Status](https://travis-ci.org/openaustralia/openaustralia-parser.svg?branch=master)](https://travis-ci.org/openaustralia/openaustralia-parser) [![Dependency Status](https://gemnasium.com/openaustralia/openaustralia-parser.png)](https://gemnasium.com/openaustralia/openaustralia-parser)
+# The OpenAustralia Hansard Parser
 
 Parses Hansard data from the Australian Parliament.
 
@@ -43,7 +43,7 @@ GRANT ALL PRIVILEGES ON openaustralia.* TO 'openaustralia'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
-#### Setup this (openaustralia-parse) repo
+#### Setup this (openaustralia-parser) repo
 
 ```bash
 # Install ubuntu packages as needed
@@ -76,7 +76,6 @@ Called from the OpenAustralia.org web application (twfy - another git submodule 
 * `#{web_root}/rblib/config.rb` - required by `lib/configuration.rb`
   * `#{web_root}/twfy/conf/general` - used by MySociety::Config.set_file (can override in configuration.yml)
 * `#{conf.web_root}/twfy/bin/run scripts/xml2db.pl` - called by `parse-speeches.rb`
-* `#{conf.web_root}/twfy/bin/run scripts/mpinfoin.pl links` (perl) - called by `wikipedia.rb`
 * `#{conf.web_root}/twfy/bin/run scripts/xml2db.pl` (perl) - called by `parse-members.rb` (Use `--no-load` to skip)
 * `#{conf.web_root}/twfy/bin/run scripts/mpinfoin.pl` (perl) - called by `parse-member-links.rb`
 
@@ -182,11 +181,11 @@ for an example of making both the required changes for new MP Malarndirri McCart
 
 #### Checking
 
-After making changes to the data files, you can run `bundle exec ./postcodes.rb --test` and
-`bundle exec ./parse-members.rb --test`. In test mode, these scripts will simply verify that the data files can be
-correctly parsed, without writing to the database.
+After making changes to the data files, you can run `bundle exec ./postcodes.rb --no-load` and
+`bundle exec ./parse-members.rb --no-load`. With `--no-load`, these scripts verify that the data files can be
+correctly parsed (and generate the XML output), without writing to the database.
 
-These checks are also run by Travis when your changes are pushed to GitHub.
+There is currently no CI on this repository, so run these checks yourself before pushing.
 
 If you have a local development copy of OpenAustralia.org, you can also run [
 `./parse-members.rb`](https://github.com/openaustralia/openaustralia-parser/blob/master/parse-members.rb), and check
@@ -414,4 +413,4 @@ in different capacities, eg for a different party.
 
 ## Copyright & License
 
-Copyright OpenAustralia Foundation Limited. Licensed under the Affero GPL. See LICENSE file for more details.
+Copyright OpenAustralia Foundation Limited. Licensed under the Affero GPL. See the LICENSE.txt file for more details.

@@ -41,8 +41,8 @@ bundle exec rake                     # default task: the RSpec suite
 bundle exec rspec spec/lib/name_spec.rb
 bundle exec rubocop
 bundle exec ruby-audit / bundle exec bundle-audit
-bundle exec ./parse-members.rb --test   # data-file sanity checks, no DB writes
-bundle exec ./postcodes.rb --test
+bundle exec ./parse-members.rb --no-load   # data-file sanity checks, no DB writes
+bundle exec ./postcodes.rb --no-load
 bundle exec rake db:stats / db:backup / db:validate_encoding
 script/console                       # loads lib/**/*.rb into IRB
 ```
