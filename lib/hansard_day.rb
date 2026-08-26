@@ -188,7 +188,7 @@ class HansardDay
         question = false
         procedural = false
       when "speech", "talk"
-        p << e.map_child_node do |c|
+        p << e.element_children.map do |c|
           HansardSpeech.new(content: c, title: title, subtitle: subtitle, bills: bills, time: time(e), day: self,
                             logger: @logger)
         end
@@ -210,7 +210,7 @@ class HansardDay
           questions = []
           f = e
           while f && (f.name == "question" || f.name == "answer")
-            questions += f.map_child_node do |c|
+            questions += f.element_children.map do |c|
               HansardSpeech.new(content: c, title: title, subtitle: subtitle, bills: bills, time: time(e), day: self,
                                 logger: @logger)
             end
