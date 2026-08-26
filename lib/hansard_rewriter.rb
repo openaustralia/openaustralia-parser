@@ -380,7 +380,7 @@ XML
     # new_xml is a full Document (built via Nokogiri::XML("")); Document#to_s would
     # include an "<?xml version=...?>" declaration, which ends up embedded as a stray
     # child node once this string is reparsed via debate.inner_html= in rewrite_debate.
-    new_xml.children.map(&:to_s).join
+    new_xml.children.join
   end
 
   def rewrite_debate(debate, level)
