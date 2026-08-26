@@ -172,7 +172,9 @@ class HansardSpeech
 
   def self.clean_content_item(node)
     d = +""
-    node.children.each do |f|
+    # element_children skips the whitespace text nodes that Nokogiri keeps
+    # between elements and that clean_content_any has no case for
+    node.element_children.each do |f|
       case f.name
       when "para"
         d << clean_content_para_content(f)
@@ -224,7 +226,7 @@ class HansardSpeech
   def self.clean_content_motion(node)
     # Hmmm. what if there are two para's below? will we get the wrong formatting?
     t = +'<p pwmotiontext="moved">'
-    node.children.each do |f|
+    node.element_children.each do |f|
       case f.name
       when "para"
         t << clean_content_para_content(f)
@@ -281,7 +283,7 @@ class HansardSpeech
 
   def self.clean_content_recurse(node, override_type = nil)
     t = +""
-    node.children.each do |f|
+    node.element_children.each do |f|
       t << clean_content_any(f, override_type)
     end
     t
