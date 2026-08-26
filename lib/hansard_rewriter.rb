@@ -397,11 +397,11 @@ XML
   def rewrite_debate(debate, level)
     # Does this debate have subdebates? If so all the text can be found in their (sub)debate.text files
     subdebate_found = false
-    debate.children.each do |f|
+    debate.element_children.each do |f|
       case f.name
       when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
         f.name = "subdebate.#{level + 1}"
-        f.children.each do |e|
+        f.element_children.each do |e|
           case e.name
           when "debate.text", "subdebate.text"
             subdebate_found = true unless e.inner_text.strip.empty?
@@ -414,7 +414,7 @@ XML
     # doing the loop.
     debate_new_children = +""
 
-    debate.children.each do |f|
+    debate.element_children.each do |f|
       case f.name
       # Things to pass through un-molested
       when "debateinfo"
@@ -441,7 +441,7 @@ XML
         unless subdebate_found
           # We're interested in the talk.text node but have to find it manually due to a bug
           # with Hpricot xpath meaning nodes with a dot '.' in the name are not found.
-          talk = f.children.detect { |node| node.name == "talk.text" }
+          talk = f.element_children.detect { |node| node.name == "talk.text" }
           debate_new_children << process_textnode(talk.to_s) if talk
         end
 
