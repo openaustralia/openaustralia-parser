@@ -68,11 +68,14 @@ class HansardRewriter
 
     input_text_node = Nokogiri::XML(input_text_node).children.first
 
-    if input_text_node.search("//body/a")
+    # search always returns a NodeSet, which is truthy even when empty, so we
+    # have to test for emptiness rather than the NodeSet itself
+    top_level_a = input_text_node.search("//body/a")
+    unless top_level_a.empty?
       # This is probably an indication that something was done wrong in the
       # XML formatting and this is a truly nasty way to work around it
       logger.warn "Removing top level a tag (and contents) because it shouldn't be there"
-      input_text_node.search("//body/a").remove
+      top_level_a.remove
     end
 
     # Many speaker interjections/continuates are not properly marked with
