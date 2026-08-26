@@ -76,7 +76,11 @@ class HansardSpeech
   end
 
   def self.clean_content_inline(node)
-    text = strip_leading_dash(node.text)
+    # inner_html rather than text because the result is interpolated straight
+    # back into XML, so entities such as &amp; have to stay encoded. The
+    # encoding keeps characters like the em dash literal rather than turning
+    # them into numeric entities that strip_leading_dash wouldn't recognise.
+    text = strip_leading_dash(node.inner_html(encoding: "UTF-8"))
 
     attributes_keys = node.attributes.to_hash.keys
     # Always ignore font-size
