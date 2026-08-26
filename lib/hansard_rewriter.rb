@@ -129,7 +129,7 @@ XML
       para_text = p.inner_text.strip
       italic_text = ""
       p.search("//span").each do |t|
-        if !t.attributes["style"].nil? && t.attributes["style"].match(/italic/)
+        if !t["style"].nil? && t["style"].match(/italic/)
           italic_text = "#{italic_text}#{t.inner_text}"
           t.inner_html = "{italic}#{t.inner_html}{/italic}"
         end
@@ -141,11 +141,11 @@ XML
       # (There are also '<a href' records which point to bills rather then
       # people.)
       ahref = p.search("//a")[0] unless p.search("//a").empty?
-      if !ahref.nil? && ahref.attributes["type"].nil?
+      if !ahref.nil? && ahref["type"].nil?
         logger.warn "    Found a link without type!? #{ahref}"
         next
       end
-      if !ahref.nil? && ahref.attributes["type"].match(/^Member|Office/)
+      if !ahref.nil? && ahref["type"].match(/^Member|Office/)
 
         # Is this start of a speech? We can tell by the fact it has spans
         # with the HPS-Time class.
@@ -176,7 +176,7 @@ XML
           name = santize(ahref.inner_text, true)
 
           # Pull out the aph_id
-          aph_id = lookup_aph_id(ahref.attributes["href"], name)
+          aph_id = lookup_aph_id(ahref["href"], name)
 
           # Rip the a link out.
           p.search("//a").remove
@@ -218,7 +218,7 @@ XML
 
           # Class will be either "MemberContinuation" or
           # "MemberInterjecting" - strip off the "Member" part.
-          case ahref.attributes["type"]
+          case ahref["type"]
           when "MemberContinuation", "MemberContinuation1", "OfficeContinuation", "OfficeContinuation1", "MemberSpeech", "MemberSpeech1"
             type = "continue"
           when "MemberInterjecting", "MemberInterjecting1", "OfficeInterjecting", "OfficeInterjecting1"
@@ -228,12 +228,12 @@ XML
           when "MemberAnswer", "MemberAnswer1"
             type = "answer"
           else
-            raise "Assertion failed! Unknown type #{ahref.attributes['type']}"
+            raise "Assertion failed! Unknown type #{ahref['type']}"
           end
 
           # Sometimes we get a second span with the same HPS-Type which just
           # contains someone name. Remove it.
-          extra_spans = p.search("span > span[@class=HPS-#{ahref.attributes['type']}]")
+          extra_spans = p.search("span > span[@class=HPS-#{ahref['type']}]")
           unless extra_spans.empty?
             logger.warn "    Removing excess spans #{extra_spans.length}, removing the following text '#{extra_spans.inner_text}'"
             extra_spans.remove
@@ -244,7 +244,7 @@ XML
           name = santize(ahref.inner_text, true)
 
           # Pull out the aph_id
-          aph_id = lookup_aph_id(ahref.attributes["href"], name)
+          aph_id = lookup_aph_id(ahref["href"], name)
 
           # Rip out the a tag
           p.search("//a").remove
@@ -271,7 +271,7 @@ XML
           text_node = speech_node.search(type)[-1]
         end
 
-      elsif !ahref.nil? && ahref.attributes["type"].match(/^Bill/)
+      elsif !ahref.nil? && ahref["type"].match(/^Bill/)
         # Bills don't have speeches, just dump the paragraphs into the subdebate.
         speech_node = new_xml
         text_node = new_xml
@@ -282,11 +282,11 @@ XML
 
         next if text.empty?
 
-        case p.attributes["class"]
+        case p["class"]
         when "HPS-Debate", "HPS-SubDebate", "HPS-SubSubDebate"
           # FIXME: We should handle bill readings a bit better then this.
 
-          logger.warn "    Found title #{p.attributes['class']}, resetting"
+          logger.warn "    Found title #{p['class']}, resetting"
           speech_node = nil
           text_node = new_xml
           amendment_node = nil
@@ -372,7 +372,7 @@ XML
         when "HPS-DivisionSummary"
 
         else
-          logger.warn "    Unknown attribute class #{p.attributes['class']}, ignoring"
+          logger.warn "    Unknown attribute class #{p['class']}, ignoring"
         end
       end
     end
