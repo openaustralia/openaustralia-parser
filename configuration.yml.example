@@ -37,6 +37,10 @@ morph_api_key: XXXXXXXXXXXXXXXXXXXX
 # -------------------------------------------------------
 # Should hopefully NOT HAVE TO CHANGE ANYTHING BELOW HERE
 
+# NOTE: Of the URLs below, only election_web_root is still read by the code
+# (parse-member-links.rb). The rest are legacy settings from the retired
+# ParlInfo Web service and old ABC pages, kept for reference only.
+
 # This is where the parser looks for Hansard data
 parlinfo_web_root: "http://parlinfoweb.aph.gov.au/piweb"
 # This is the path to the Hansard data that is used for generating links
