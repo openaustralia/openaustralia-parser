@@ -17,6 +17,7 @@ gem "ostruct"
 gem "rake"
 gem "rmagick"
 gem "ruby-progressbar"
+gem "sentry-ruby"
 
 group :development do
   gem "bundle-audit", require: false

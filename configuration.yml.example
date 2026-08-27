@@ -33,6 +33,7 @@ morph_api_key: XXXXXXXXXXXXXXXXXXXX
 # xml_path: "../openaustralia/pwdata/"
 # regmem_pdf_path: "regmem/scan/"
 # base_dir: "tmp/twfy-www-docs/"
+# sentry_dsn: ""
 
 # -------------------------------------------------------
 # Should hopefully NOT HAVE TO CHANGE ANYTHING BELOW HERE
