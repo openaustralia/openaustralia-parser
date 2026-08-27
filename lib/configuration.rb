@@ -7,6 +7,21 @@ class Configuration
   attr_reader :database_host, :database_user, :database_password, :database_name, :file_image_path, :members_xml_path, :xml_path,
               :regmem_pdf_path, :base_dir, :website, :web_path, :app_env
 
+  # Sibling rblib checkout, fixed by this repo's own layout - not the same
+  # thing as configuration.yml's web_root, which is legitimately overridable
+  # per-environment (and deliberately /dev/null in test) but has nothing to
+  # do with where rblib physically lives relative to this file.
+  RBLIB_PATH = File.expand_path("../../rblib", __dir__)
+
+  # Loads the MySociety module (idempotent, cheap to call repeatedly), for
+  # code that needs it directly - eg lib/sitemap_generator/news.rb's
+  # MySociety::Config.fork_php - independent of whether Configuration itself
+  # went on to load DB config from it (see load_mysociety_config below,
+  # which skips that part whenever configuration.yml already has it).
+  def self.require_mysociety_config
+    require "#{RBLIB_PATH}/config"
+  end
+
   def load_configuration_file_values
     @database_host = @conf["database_host"]
     @database_user = @conf["database_user"]
@@ -29,7 +44,7 @@ class Configuration
     return if required_fields.all? { |field| @conf[field] }
 
     # Load the information from the mysociety configuration
-    require "#{web_root}/rblib/config"
+    self.class.require_mysociety_config
     MySociety::Config.set_file("#{web_root}/twfy/conf/general")
     @database_host ||= MySociety::Config.get("DB_HOST")
     @database_user ||= MySociety::Config.get("DB_USER")

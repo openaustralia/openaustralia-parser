@@ -64,9 +64,11 @@ locally.
 
 ## Gotchas
 
-- **Hpricot is still the primary HTML parser** (six `lib/` files plus `parse-member-links.rb`); Nokogiri appears in
-  exactly one file. Draft PR #253 converts `ParseMemberLinks` only. Don't add new Hpricot usage, and don't do a
-  wholesale conversion as a side effect of another change - it touches the specs too.
+- **Hpricot is gone, Nokogiri is the HTML parser throughout** (PR #253 converted it fully, not just
+  `parse-member-links.rb` as earlier noted here). Titles/subtitles built by hand for raw XML insertion (eg
+  `lib/hansard_day.rb`'s `title`/`subtitle`/`title_tag_value`) go through `numeric_entities` before use - Nokogiri's
+  entity output is inconsistent (numeric ref, named HTML entity, or literal UTF-8 char depending on the surrounding
+  markup), and raw-appended text has to be deterministically XML-safe regardless.
 - **No CI runs yet.** There is no `.github/workflows/`; the checked-in `.travis.yml` is dead (pins Ruby 2.7.2
   against `.ruby-version` 3.4.9) and draft PR #252 adds GitHub Actions. A green local run is currently the only
   gate, so run the spec suite and RuboCop yourself.

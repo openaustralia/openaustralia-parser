@@ -80,7 +80,23 @@ class HansardDay
   # Search for the title tag and return its value, stripping out any HTML tags
   def title_tag_value(debate)
     # Doing this rather than calling inner_text to preserve html entities which for some reason get all screwed up by inner_text
-    strip_tags(debate.search("> * > title").map { |e| e.inner_html.strip }.join("; ")).strip
+    numeric_entities(strip_tags(debate.search("> * > title").map { |e| e.inner_html.strip }.join("; ")).strip)
+  end
+
+  # Titles/subtitles get raw-appended into the output XML (builder << text, see
+  # heading.rb), so they must already be fully entity-safe. Nokogiri's inner_html
+  # is unpredictable here depending on the surrounding markup - sometimes a
+  # numeric entity, sometimes a named HTML entity (eg &rsquo;), sometimes a
+  # literal UTF-8 character. Normalise by decoding whatever we got back down to
+  # plain text, then re-encoding deterministically: XML-escape the ASCII
+  # metacharacters, and numeric-entity-encode everything non-ASCII, matching
+  # what the (Hpricot-era) expected fixtures use throughout.
+  def numeric_entities(text)
+    # CGI.unescapeHTML only knows &lt; &gt; &amp; &quot; and numeric refs, not
+    # the full HTML5 named-entity table (eg &rsquo;) - Nokogiri does.
+    plain = Nokogiri::HTML.fragment(text).text
+    plain.gsub("&", "&amp;").gsub("<", "&lt;").gsub(">", "&gt;")
+         .gsub(/[^\x00-\x7F]/) { |c| format("&#x%x;", c.ord) }
   end
 
   def title(debate)
@@ -88,7 +104,7 @@ class HansardDay
     when "debate", "petition.group"
       title = title_tag_value(debate).strip
       cognates = debate.search("> debateinfo > cognate > cognateinfo > title").map do |a|
-        strip_tags(a.inner_html)
+        numeric_entities(strip_tags(a.inner_html))
       end
       ([title] + cognates).join("; ")
     when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"

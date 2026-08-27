@@ -1,3 +1,12 @@
+# Needed for MySociety::Config.fork_php below. Configuration only requires
+# this as a side effect of reading DB config, which it skips whenever
+# configuration.yml already supplies all DB fields directly (eg in test) -
+# that leaves this undefined despite having nothing to do with the DB, so
+# load it directly via Configuration's own single source of truth for where
+# rblib lives.
+require_relative "../configuration"
+Configuration.require_mysociety_config
+
 # A news item
 class SitemapGenerator
   class News
