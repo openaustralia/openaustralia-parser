@@ -2,10 +2,10 @@
 
 # Called from:
 #   Capfile:100: run "cd #{current_path}/openaustralia-parser && bundle exec parse-members.rb"
-#   README.md:81: bundle exec ./parse-members.rb --test
+#   README.md (Data updates -> Checking): bundle exec ./parse-members.rb --no-load
 #   regression-test/regression_test_parse_members.rb
 #
-# --no-load flag already exists: skips the perl xml2db.pl database load.
+# --no-load skips the perl xml2db.pl database load.
 # No HTTP calls — reads from local CSV data files only.
 # Output: people.xml, representatives.xml, senators.xml, ministers.xml, divisions.xml
 

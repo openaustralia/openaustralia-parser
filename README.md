@@ -1,8 +1,10 @@
-# The OpenAustralia Hansard Parser [![Build Status](https://travis-ci.org/openaustralia/openaustralia-parser.svg?branch=master)](https://travis-ci.org/openaustralia/openaustralia-parser) [![Dependency Status](https://gemnasium.com/openaustralia/openaustralia-parser.png)](https://gemnasium.com/openaustralia/openaustralia-parser)
+# The OpenAustralia Hansard Parser
 
 Parses Hansard data from the Australian Parliament.
 
-Included as the Parser component for OpenAustralia.org using git submodule.
+Included as the Parser component for OpenAustralia.org using git submodule. After a change merges here, the
+submodule pointer in the umbrella [openaustralia repository](https://github.com/openaustralia/openaustralia) needs
+bumping before production picks it up.
 
 ## INSTALL
 
@@ -43,12 +45,15 @@ GRANT ALL PRIVILEGES ON openaustralia.* TO 'openaustralia'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
-#### Setup this (openaustralia-parse) repo
-
+#### Setup this (openaustralia-parser) repo
 ```bash
 # Install ubuntu packages as needed
 
 mise install # from .ruby-version
+
+# On modern compilers the hpricot gem needs a build flag before bundle install:
+bundle config build.hpricot --with-cflags=-Wno-error=incompatible-function-pointer-types
+
 bundle install # From Gemfile, Gemfile.lock
 
 cp configuration.yml.example configuration.yml
@@ -76,7 +81,6 @@ Called from the OpenAustralia.org web application (twfy - another git submodule 
 * `#{web_root}/rblib/config.rb` - required by `lib/configuration.rb`
   * `#{web_root}/twfy/conf/general` - used by MySociety::Config.set_file (can override in configuration.yml)
 * `#{conf.web_root}/twfy/bin/run scripts/xml2db.pl` - called by `parse-speeches.rb`
-* `#{conf.web_root}/twfy/bin/run scripts/mpinfoin.pl links` (perl) - called by `wikipedia.rb`
 * `#{conf.web_root}/twfy/bin/run scripts/xml2db.pl` (perl) - called by `parse-members.rb` (Use `--no-load` to skip)
 * `#{conf.web_root}/twfy/bin/run scripts/mpinfoin.pl` (perl) - called by `parse-member-links.rb`
 
@@ -109,117 +113,25 @@ bundle exec ruby register-split.rb
 
 ## Data updates
 
-While we have largely automated data updates to [OpenAustralia.org](http://www.openaustralia.org.au/), the parliamentary
-calendar and people records (and their ministerial roles) must be updated manually. This section explains how you can
-update these bits and check your changes.
+While we have largely automated data updates to [OpenAustralia.org](http://www.openaustralia.org.au/), the
+parliamentary calendar and people records (and their ministerial roles) must be updated manually. Every
+by-election, resignation, party change, general election and ministerial reshuffle is a hand edit to the CSV files
+in `data/`.
 
-### Updating recess and sitting dates in the calendar
+The full workflows, file formats and conventions are documented in
+[docs/data-updates.md](docs/data-updates.md). In short:
 
-The parliamentary sitting dates are shown on [the calendar](http://www.openaustralia.org.au/debates/?y=2016) on
-OpenAustralia.org and as a little banner on the front page.
-These are both based on information in [
-`recess.php`](https://github.com/openaustralia/twfy/blob/master/www/includes/easyparliament/recess.php) in
-the [web application's repository](https://github.com/openaustralia/twfy/).
+* **Someone leaves parliament**: fill in the end date and reason on their row in `data/representatives.csv` or
+  `data/senators.csv`.
+* **Someone enters parliament**: add a person row to `data/people.csv` and a membership row to the chamber file.
+* **Someone changes party (or becomes Speaker)**: close their current membership row with reason `changed_party`
+  and add a new one.
+* **Ministerial reshuffle**: reconcile `data/ministers.csv` / `data/shadow-ministers.csv` against the tabled
+  Ministerial Arrangements document.
+* **Recess/sitting dates**: edit `recess.php` in the [twfy repository](https://github.com/openaustralia/twfy/),
+  not this one.
 
-#### How
-
-In the `recess.php` file you need to specify the date ranges that the parliament is in _recess_, i.e. NOT sitting. This
-is a bit unintuitive and it's easy to get the wrong way around so take care.
-
-#### Checking
-
-After you've made these changes open your development copy of OpenAustralia.org and visit
-the [calendar page](http://www.openaustralia.org.au/debates/?y=2016) for the year you've changed to see if it looks OK.
-Non-sitting dates should be grey and should say "recess" when you hover over them.
-
-### Adding or removing people
-
-During the term of a parliament, for all sorts of reasons, people can leave (e.g. retirement, death) or enter
-parliament (e.g. by-election, appointed to fill
-a [casual vacancy](https://en.wikipedia.org/wiki/Australian_Senate#Casual_vacancies)). At a general election lots of
-people leave and enter parliament as they're elected or not re-elected.
-
-#### How
-
-##### Leaving parliament
-
-When someone leaves parliament you need to update their membership record's end date and reason they left parliament.
-This could be in [
-`data/representatives.csv`](https://github.com/openaustralia/openaustralia-parser/blob/master/data/representatives.csv)
-or [`data/senators.csv`](https://github.com/openaustralia/openaustralia-parser/blob/master/data/senators.csv), depending
-on which House they were in.
-
-Here's [an example](https://github.com/openaustralia/openaustralia-parser/commit/1b20b321c436c819f256461fa79b4d9c8762f71c#diff-04102f0761533ac76b4dade410634698R39)
-that was part of the 2016 election where Bruce Billson retired (and Chris Crewther was added as his replacement in the
-same commit).
-
-##### Changing parties
-
-When
-someone [changes parties](https://github.com/openaustralia/openaustralia-parser/commit/41838814d7b51059d6ba56c0f1a4c74aece2cba6),
-or [becomes Speaker](https://github.com/openaustralia/openaustralia-parser/commit/2f6990bb8da5e5452103c649ac92c18709fadf3e),
-you need to update their membership record's end date and reason (to `changed_party`), and create a new one for their
-new party membership.
-
-##### Entering parliament
-
-When a new person enters parliament, you need to create **two kinds of records** for them.
-
-Firstly, you need to add a new Person record at the end of [
-`data/people.csv`](https://github.com/openaustralia/openaustralia-parser/blob/master/data/people.csv).
-The "APH ID" referred to in this file is the one you can find in the URL string of the person's APH profile page.
-For example, [Linda Burney's](http://www.aph.gov.au/Senators_and_Members/Parliamentarian?MPID=8GH) is `8GH` as you can
-see in the URL of her APH page http://www.aph.gov.au/Senators_and_Members/Parliamentarian?MPID=<strong>8GH</strong> and
-also
-in [the commit](https://github.com/openaustralia/openaustralia-parser/commit/8c286a12f5cc00682a011b4159d821ccc7b3b245#diff-b66a2e76ccb4627268b1733ec86424e8R887)
-that added her to OpenAustralia.org.
-
-Secondly, you need to create a membership record for them, just
-like [when a person changes parties](https://github.com/openaustralia/openaustralia-parser#changing-parties).
-
-See [commit ee9d91c](https://github.com/openaustralia/openaustralia-parser/commit/ee9d91c7250688200217cb47b51aa43c45f3b8e1)
-for an example of making both the required changes for new MP Malarndirri McCarthy.
-
-#### Checking
-
-After making changes to the data files, you can run `bundle exec ./postcodes.rb --test` and
-`bundle exec ./parse-members.rb --test`. In test mode, these scripts will simply verify that the data files can be
-correctly parsed, without writing to the database.
-
-These checks are also run by Travis when your changes are pushed to GitHub.
-
-If you have a local development copy of OpenAustralia.org, you can also run [
-`./parse-members.rb`](https://github.com/openaustralia/openaustralia-parser/blob/master/parse-members.rb), and check
-that it's loaded your changes correctly into your development copy of OpenAustralia.org.
-
-### Ministerial reshuffles
-
-On each person's profile page we show the positions they hold or have held in the past. For example, these could be
-_Shadow Minister for Health_ or _Prime Minister_. We also show it next to their name in the debates to give some extra
-context about who is speaking.
-
-These change when there's a ministerial reshuffle. This can happen because the party decides to make a change or because
-it's forced to, e.g. when someone leaves parliament. In addition to the government's ministry there's also the
-opposition's shadow ministry.
-
-#### How
-
-These changes are usually tabled in parliament and show up in Hansard under the heading _Ministerial Arrangements_ or
-_Shadow Ministerial Arrangements_.
-Here's [an example](http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;adv=yes;db=CHAMBER;id=chamber%2Fhansardr%2F1133bdef-2731-42fb-a226-6522e1a8fec5%2F0025;orderBy=_fragment_number,doc_date-rev;page=0;query=Dataset%3Ahansardr,hansardr80%20Date%3A30%2F8%2F2016;rec=0;resCount=Default)
-of the one from the start of the 2016 parliament.
-
-What you need to do is go through that document and make sure the data that we have in [
-`data/ministers.csv`](https://github.com/openaustralia/openaustralia-parser/blob/master/data/ministers.csv) or [
-`data/shadow-ministers.csv`](https://github.com/openaustralia/openaustralia-parser/blob/master/data/shadow-ministers.csv)
-matches it. This means adding "to" dates to people that are no longer in the list and adding new records for those
-people that have been added.
-
-#### Checking
-
-After making changes run [
-`./parse-members.rb`](https://github.com/openaustralia/openaustralia-parser/blob/master/parse-members.rb), check the
-output, and also check that it's loaded your changes correctly into your development copy of OpenAustralia.org.
+Check any data change with `bundle exec ./parse-members.rb --no-load` before opening a PR.
 
 ## Failures
 
@@ -266,7 +178,8 @@ Whole thing done time: 2017-09-05 10:40:40
 
 You can see in the output above there's an exception thrown by the parser. It's complaining about not being able to
 figure out who the person is that's voted in a division. This is one of the most common failures. The fix is
-to [add the person](#adding-or-removing-people) using the instructions above and run the parser again for the missing
+to add the person or an alternative name for them (see [docs/data-updates.md](docs/data-updates.md)) and run the
+parser again for the missing
 days.
 
 The other most common failure is that APH has published something wacky. To fix this you need to delete the cache for
@@ -386,6 +299,13 @@ detail in this helpful email from mySociety's Matthew Somerville.
 > ATB,
 > Matthew
 
+## To run the tests
+
+    bundle exec rake
+
+This runs the RSpec suite (also available directly via `bundle exec rspec`). There is currently no CI, so a green
+local run is the only gate.
+
 ## To run style and coding checks
 
     bundle exec rubocop
@@ -414,4 +334,4 @@ in different capacities, eg for a different party.
 
 ## Copyright & License
 
-Copyright OpenAustralia Foundation Limited. Licensed under the Affero GPL. See LICENSE file for more details.
+Copyright OpenAustralia Foundation Limited. Licensed under the Affero GPL. See the LICENSE.txt file for more details.

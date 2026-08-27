@@ -1,3 +1,0 @@
-The install documentation has moved online to http://software.openaustralia.org/install.html
-
-Also, it can be found in the gh-pages branch of the openaustralia repository.
