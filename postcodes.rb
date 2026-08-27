@@ -68,4 +68,4 @@ class Postcodes
   end
 end
 
-Postcodes.new.run if $PROGRAM_NAME == __FILE__
+Configuration.report_errors { Postcodes.new.run } if $PROGRAM_NAME == __FILE__

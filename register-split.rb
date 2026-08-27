@@ -135,4 +135,4 @@ class RegisterSplit
   end
 end
 
-RegisterSplit.new.run if $PROGRAM_NAME == __FILE__
+Configuration.report_errors { RegisterSplit.new.run } if $PROGRAM_NAME == __FILE__
