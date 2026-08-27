@@ -106,5 +106,5 @@ class ParseMembers
   end
 end
 
-ParseMembers.new(ARGV).run if $PROGRAM_NAME == __FILE__
+Configuration.report_errors { ParseMembers.new(ARGV).run } if $PROGRAM_NAME == __FILE__
 

@@ -53,5 +53,5 @@ class ParsePostcodes
   end
 end
 
-ParsePostcodes.new(ARGV).run if $PROGRAM_NAME == __FILE__
+Configuration.report_errors { ParsePostcodes.new(ARGV).run } if $PROGRAM_NAME == __FILE__
 
