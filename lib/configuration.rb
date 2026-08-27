@@ -26,7 +26,10 @@ class Configuration
     # Same Sentry project as twfy (conf/general's SENTRY_DSN), so the web app
     # and the parser report to the same place. sentry_dsn in configuration.yml
     # overrides it for standalone development (see configuration.yml.example).
-    @sentry_dsn = @conf["sentry_dsn"] || MySociety::Config.get("SENTRY_DSN")
+    # rblib's MySociety::Config.get treats an explicit nil default the same as
+    # no default (raises either way, see its `elsif !default.nil?`), so this
+    # must be a real string, not nil, to actually avoid raising.
+    @sentry_dsn = @conf["sentry_dsn"] || MySociety::Config.get("SENTRY_DSN", "")
   end
 
   # Reports uncaught exceptions to Sentry, if configured. Safe to call even
