@@ -84,6 +84,12 @@ locally.
   then ministers/shadow-ministers.csv. Check any data edit with `bundle exec ./parse-members.rb --no-load`.
 - Scripts that load the database write to production-shaped tables; anything run with a real `configuration.yml`
   pointed at production paths is a live action needing an explicit go-ahead.
+- **`bundle exec ./script.rb` silently no-ops** (exit 0, no output, no error) - these scripts guard their entry
+  point with `if $PROGRAM_NAME == __FILE__`, which is false under that invocation style (`__FILE__` resolves
+  absolute, `$PROGRAM_NAME` stays relative). Use `bundle exec ruby ./script.rb`, `bin/run script.rb`, or the
+  `Makefile.dev` targets in `twfy` instead. See the README's "Backfilling a real local dev database" section for
+  the full local-dev-against-`twfy`-docker workflow, including how to bridge `DB_HOST` to the docker-compose MySQL
+  and how to verify what loaded against production's public data at data.openaustralia.org.au.
 
 ## Contributing
 

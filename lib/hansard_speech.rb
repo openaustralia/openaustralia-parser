@@ -287,7 +287,17 @@ class HansardSpeech
       puts "Came across an <Error> tag in the XML. That's probably not good. Skipping it."
       ""
     else
-      raise "Unexpected tag #{node.name}"
+      # Somewhere upstream of this, a named HTML entity (eg &mdash;) ends up in text that
+      # gets re-parsed as bare XML, which doesn't define named entities - libxml2 then
+      # turns the unresolvable reference into a bogus child element named after it (eg
+      # <mdash/>) instead of the character it stood for. HansardRewriter#xml_safe_html
+      # catches most of these before they get this far, but not all (see PR #253's
+      # comments) - recover the character here too rather than crashing on it.
+      decoded = Nokogiri::HTML.fragment("&#{node.name};").text
+      raise "Unexpected tag #{node.name}" unless decoded.length == 1 && decoded != node.name
+
+      format("&#x%x;", decoded.ord)
+
     end
   end
 

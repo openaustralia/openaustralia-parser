@@ -81,6 +81,14 @@ class HansardParser
     text = unpatched_hansard_xml_source_data_on_date(date, house)
     return unless text
 
+    # Mechanize's #body returns the response tagged ASCII-8BIT regardless of the actual
+    # (UTF-8) content, and that mistagging survives through every downstream
+    # inner_text/inner_html/string interpolation step, contributing to inconsistent
+    # entity encoding later in the pipeline (eg &mdash; turning up where a literal char
+    # or numeric ref was expected - see the xml_safe_html fixes in HansardRewriter and
+    # HansardSpeech.clean_content_any). Fix the tag at the source.
+    text = text.force_encoding("UTF-8")
+
     # Horribe hack to fix some stupid wrapping
     text = text.gsub(/\r/, "")
     text = text.gsub(%r{</span>[^<]*<span style="&#xD;&#xA;    font-size:9.5pt;&#xD;&#xA;  ">}m, "")

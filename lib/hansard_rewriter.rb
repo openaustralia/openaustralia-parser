@@ -12,6 +12,31 @@ class HansardRewriter
     @role_map = {}
   end
 
+  XML_BUILTIN_ENTITIES = %w[amp lt gt quot apos].freeze
+
+  # Nokogiri's #inner_html getter can emit named HTML entities (eg &mdash;) that bare
+  # XML doesn't define. Round-tripping that string straight back through #inner_html=
+  # then makes libxml2 (parsing as XML, not HTML) turn the unresolvable entity into a
+  # bogus child element named after it (eg <mdash/>), which later blows up in
+  # HansardSpeech.clean_content_any with "Unexpected tag mdash". Downgrade any
+  # non-XML-builtin named entity to its numeric form first so the XML re-parse can't
+  # mistake it for a tag. Doesn't fully eliminate the problem on its own - see the
+  # defensive recovery in HansardSpeech.clean_content_any and PR #253's comments for
+  # the fuller picture (this is a symptom fix, not a root-cause one).
+  def xml_safe_html(html)
+    html.gsub(/&(\w+);/) do
+      name = Regexp.last_match(1)
+      next "&#{name};" if XML_BUILTIN_ENTITIES.include?(name)
+
+      begin
+        codepoint = Nokogiri::HTML.fragment("&#{name};").text.ord
+        format("&#x%x;", codepoint)
+      rescue StandardError
+        "&#{name};"
+      end
+    end
+  end
+
   # Clean up random crap in the code
   def santize(text, name)
     # Remove any DOS linebreaks
@@ -35,7 +60,7 @@ class HansardRewriter
   # Nokogiri has no #append, so do what the Hpricot monkey patch in the old
   # lib/hpricot_additions.rb did and add the markup to the end of the node
   def append(node, str)
-    node.inner_html = node.inner_html + str
+    node.inner_html = xml_safe_html(node.inner_html + str)
   end
 
   def lookup_aph_id(aph_id, name)
@@ -98,9 +123,9 @@ class HansardRewriter
 
       logger.info "Doing rewrite #{text}"
       logger.info "Before: #{p}"
-      p.inner_html = p.inner_html.gsub(
-        %r{<span class="HPS-Normal">.*<span class="HPS-([^"]*)">(The (([^S]*SPEAKER)|([^R]*RESIDENT))):</span>  (.*)</span>}m,
-        <<XML
+      p.inner_html = xml_safe_html(p.inner_html.gsub(
+                                     %r{<span class="HPS-Normal">.*<span class="HPS-([^"]*)">(The (([^S]*SPEAKER)|([^R]*RESIDENT))):</span>  (.*)</span>}m,
+                                     <<XML
     <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
       <span class="HPS-Normal">
         <a href="10000" type="\\1">
@@ -108,7 +133,7 @@ class HansardRewriter
         </a>  \\6</span>
     </p>
 XML
-      )
+                                   ))
       logger.info "After: #{p}"
     end
     #--------------------------------------------------------------------------
@@ -140,7 +165,7 @@ XML
       p.search(".//span").each do |t|
         if !t["style"].nil? && t["style"].match(/italic/)
           italic_text = "#{italic_text}#{t.inner_text}"
-          t.inner_html = "{italic}#{t.inner_html}{/italic}"
+          t.inner_html = xml_safe_html("{italic}#{t.inner_html}{/italic}")
         end
       end
       member_iinterjecting = italic_text.strip == para_text

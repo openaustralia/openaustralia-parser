@@ -111,6 +111,59 @@ bundle exec sitemap.rb
 bundle exec ruby register-split.rb
 ```
 
+## Backfilling a real local dev database
+
+The steps above (`docker-compose up -d` + `bundle exec rspec`) get you a working *test* database, but that's
+throwaway and only used by the spec suite. To actually run the parser against real Hansard data and see it land in
+a browsable TWFY site, use `twfy`'s own dev stack instead:
+
+```bash
+# In the twfy checkout (sibling of this one)
+cd ../twfy
+make docker              # builds and starts the docker-compose stack (mysql + webhost)
+make docker-db-migrate
+make docker-db-seed
+```
+
+`twfy/conf/general` (symlinked from `shared/` at deploy time, but present directly in a docker dev checkout) points
+`DB_HOST` at `mysql`, the docker-compose *internal* hostname - not reachable from your host shell. `twfy/Makefile.dev`
+bridges this for you: it overrides `DB_HOST=127.0.0.1`, `DB_PORT` (mapped to `3306` by default) and `RAWDATA`
+(this repo's `xml_path`, so downloaded/rewritten XML ends up somewhere sane) and calls this repo's scripts via
+`bin/run`. From `twfy/`:
+
+```bash
+make -f Makefile.dev parse-members                       # seed people/electorates first
+make -f Makefile.dev parse-speeches ARGS="2025.01.01 2025.01.31"   # backfill a real month
+make -f Makefile.dev xapian-index                         # make the new speeches searchable
+```
+
+(Note the `-f Makefile.dev` - it's a separate file from `twfy`'s main `Makefile`, not included by it, so plain
+`make parse-speeches` won't find the target.)
+
+Without `--no-load` (the `Makefile.dev` targets don't pass it), `parse-speeches.rb` loads into the database
+automatically as its last step - but only *once*, after every day in the range has been fetched and parsed. A
+crash partway through a long range (a bad day's data, a network blip) means nothing from that run gets loaded, no
+matter how much of the range succeeded before the crash. For a large backfill, prefer a handful of smaller date
+ranges over one huge one, so a failure only costs you that chunk.
+
+### Verifying what got loaded is actually correct
+
+There's no local "before" baseline to diff against - a fresh dev DB has no prior parser run to compare with. The
+useful comparison is against **production**, which is still real Hansard data, parsed and public:
+<https://data.openaustralia.org.au/scrapedxml/> has the final per-day, per-house XML for every day production has
+ever parsed. Pull the same date range you backfilled locally and diff structurally (speech counts, `speakername`
+tallies, `approximate_wordcount` sums) rather than byte-for-byte, since cosmetic differences (eg how an em dash is
+encoded) don't mean anything's wrong.
+
+### A gotcha when testing scripts ad hoc
+
+Running an entry-point script as `bundle exec ./parse-speeches.rb ...` (leading `./`, executing the file directly)
+silently does nothing - exit 0, no output, no error. These scripts guard their entry point with `if $PROGRAM_NAME
+== __FILE__`, and under `bundle exec ./script.rb` Ruby resolves `__FILE__` to an absolute path while leaving
+`$PROGRAM_NAME` as the relative string you typed, so the guard is always false. Use `bundle exec ruby
+./parse-speeches.rb ...` instead (or `bin/run parse-speeches.rb ...`, or the `Makefile.dev` targets above, which
+already do this correctly).
+
 ## Testing
 
 Run tests with RSpec. First ensure MySQL is available and the database schema is accessible:
