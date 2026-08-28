@@ -69,9 +69,13 @@ locally.
   `lib/hansard_day.rb`'s `title`/`subtitle`/`title_tag_value`) go through `numeric_entities` before use - Nokogiri's
   entity output is inconsistent (numeric ref, named HTML entity, or literal UTF-8 char depending on the surrounding
   markup), and raw-appended text has to be deterministically XML-safe regardless.
-- **No CI runs yet.** There is no `.github/workflows/`; the checked-in `.travis.yml` is dead (pins Ruby 2.7.2
-  against `.ruby-version` 3.4.9) and draft PR #252 adds GitHub Actions. A green local run is currently the only
-  gate, so run the spec suite and RuboCop yourself.
+- **No CI on `main` yet** - no `.github/workflows/` there, and `.travis.yml` is gone entirely (removed, not just
+  dead). PR #252 (closed, unmerged) was an earlier attempt. `.github/workflows/ruby.yaml` *does* exist on this
+  `convert/hpricot-nokogiri` branch (added directly here, not via #252) and runs on every push/PR to it - `test`
+  (`bundle exec rspec` against a real MySQL service container) and `scripts` (`parse-members.rb --no-load`,
+  `postcodes.rb --no-load`); its `lint` (RuboCop) job is present but commented out. Until this branch merges,
+  treat CI as branch-specific: check `.github/workflows/` directly rather than assuming this note is still
+  accurate, and run RuboCop yourself regardless since the lint job is disabled.
 - `APP_ENV` is inferred from the working directory path (`/production/` or `/staging/` in `Dir.pwd`), defaulting to
   development; specs force `test`.
 - `export-comments.rb` / `import-comments.rb` `require "mysql"`, which isn't in the Gemfile (`mysql2` is), and
