@@ -50,6 +50,13 @@ script/console                       # loads lib/**/*.rb into IRB
 `bin/run <script>` is the production wrapper (picks the Ruby manager, dispatches .rb/.pl/.php); you don't need it
 locally.
 
+## CI
+
+`.github/workflows/ruby.yaml` runs on every push/PR **on this branch** (`convert/hpricot-nokogiri`) - not yet on
+`main`, see the Gotchas entry below for why that matters. Two jobs: `test` (`bundle exec rspec` against a real
+MySQL service container) and `scripts` (`parse-members.rb --no-load`, `postcodes.rb --no-load`). A third, `lint`
+(RuboCop), exists in the file but is commented out - run `bundle exec rubocop` yourself, CI won't catch it.
+
 ## Structure
 
 - Top-level `*.rb` scripts are the entry points; the daily ones are `parse-speeches.rb`, `parse-member-links.rb`
@@ -69,13 +76,10 @@ locally.
   `lib/hansard_day.rb`'s `title`/`subtitle`/`title_tag_value`) go through `numeric_entities` before use - Nokogiri's
   entity output is inconsistent (numeric ref, named HTML entity, or literal UTF-8 char depending on the surrounding
   markup), and raw-appended text has to be deterministically XML-safe regardless.
-- **No CI on `main` yet** - no `.github/workflows/` there, and `.travis.yml` is gone entirely (removed, not just
-  dead). PR #252 (closed, unmerged) was an earlier attempt. `.github/workflows/ruby.yaml` *does* exist on this
-  `convert/hpricot-nokogiri` branch (added directly here, not via #252) and runs on every push/PR to it - `test`
-  (`bundle exec rspec` against a real MySQL service container) and `scripts` (`parse-members.rb --no-load`,
-  `postcodes.rb --no-load`); its `lint` (RuboCop) job is present but commented out. Until this branch merges,
-  treat CI as branch-specific: check `.github/workflows/` directly rather than assuming this note is still
-  accurate, and run RuboCop yourself regardless since the lint job is disabled.
+- **CI (see above) is branch-specific, not yet on `main`.** It was added directly on `convert/hpricot-nokogiri`;
+  a separate, earlier attempt at GitHub Actions (PR #252) closed unmerged. `.travis.yml` is gone entirely now too
+  (removed, not just dead). Once this branch merges, check `.github/workflows/` directly rather than trusting this
+  note - it'll be stale the moment `main`'s CI story changes again.
 - `APP_ENV` is inferred from the working directory path (`/production/` or `/staging/` in `Dir.pwd`), defaulting to
   development; specs force `test`.
 - `export-comments.rb` / `import-comments.rb` `require "mysql"`, which isn't in the Gemfile (`mysql2` is), and
