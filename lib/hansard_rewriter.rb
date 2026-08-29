@@ -316,6 +316,41 @@ XML
 
         next if text.empty?
 
+        # Anonymous/collective interjections ("Government members interjecting—...",
+        # "Opposition senators interjecting—...") have no <a> link identifying a
+        # specific member - just plain text starting with a generic-speaker marker
+        # phrase (the same pattern HansardSpeech#speakername_from_text looks for).
+        # Without this check they fall straight through to the paragraph-append logic
+        # below and get silently glued onto whoever's already speaking instead of
+        # becoming their own turn - see PR #253's comments for how that caused
+        # systematic, silent data loss for exactly these speakers.
+        #
+        # Verified against production for real dates: this fixes the silent-drop case
+        # completely for some days (eg 2026-08-11 representatives now matches exactly).
+        # It doesn't yet reproduce production's exact grouping for busier exchanges -
+        # a run of several consecutive generic interjections sometimes ends up as more
+        # separate turns here than production's single merged one. Content and
+        # attribution are correct either way, just split more finely - see PR #253's
+        # comments for the comparison data. Not chasing the precise merge heuristic
+        # further without clearer evidence of what it should be.
+        generic_match = text.match(/^([a-z].*?)( interjecting)?—/i)
+        if !speech_node.nil? && generic_match && HansardSpeech.generic_speaker?(generic_match[1])
+          name = generic_match[1].strip
+          logger.warn "    Found new interjection by generic speaker #{name}"
+
+          new_node = <<~XML
+            <interjection>
+              <talker>
+                <name role="metadata">#{name}</name>
+              </talker>
+              <para>#{restore_tags(text)}</para>
+            </interjection>
+          XML
+          speech_node.inner_html += new_node.to_s
+          text_node = speech_node.search("interjection")[-1]
+          next
+        end
+
         case p["class"]
         when "HPS-Debate", "HPS-SubDebate", "HPS-SubSubDebate"
           # FIXME: We should handle bill readings a bit better then this.
