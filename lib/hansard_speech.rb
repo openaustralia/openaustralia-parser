@@ -143,7 +143,16 @@ class HansardSpeech
     t = +""
     (node.children || []).each do |c|
       t << if c.is_a?(Nokogiri::XML::Text)
-             strip_leading_dash(c.text)
+             # #text fully decodes entities to raw characters (eg &lt; becomes a
+             # literal "<"), and the result is interpolated straight into a new XML
+             # string by #clean_content_para/#clean_content - an unescaped "<" then
+             # gets reparsed as a real tag (a bare "<" is always invalid in XML text
+             # content; a lone ">" happens to be technically valid there, which is why
+             # this only broke on one side of a citation URL in angle brackets - see
+             # PR #253's comments). Escape after stripping the leading dash, since that
+             # check looks for a literal em-dash character, not an entity.
+             text = strip_leading_dash(c.text)
+             text.gsub("&", "&amp;").gsub("<", "&lt;").gsub(">", "&gt;")
            else
              clean_content_any(c)
            end
