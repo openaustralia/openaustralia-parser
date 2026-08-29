@@ -52,6 +52,16 @@ class HansardRewriter
   end
 
   def restore_tags(text)
+    # `text` is plain extracted text (via #inner_text/#santize, so already fully
+    # entity-decoded) that can contain literal <, >, & from the real content - eg a
+    # URL cited in angle brackets ("<https://example.org>"), "Fish & Chips". Every
+    # caller interpolates the result straight into a new XML string
+    # ("<para>#{restore_tags(text)}</para>"), so unescaped metacharacters get reparsed
+    # as real markup - this crashed HansardSpeech.clean_content_any with "Unexpected
+    # tag https:" on a real citation (see PR #253's comments). Escape those first; the
+    # {italic}/{/italic} placeholder markers below are plain ASCII curly braces so they
+    # pass through unaffected, then become real <inline> tags afterward.
+    text = text.gsub("&", "&amp;").gsub("<", "&lt;").gsub(">", "&gt;")
     text = text.gsub(%r{\{italic\}\s*\{/italic\}}, "")
     text = text.gsub(/\{italic\}/, "<inline font-style='italic'>")
     text.gsub(%r{\{/italic\}}, "</inline>")
