@@ -16,6 +16,114 @@ RSpec.describe HansardRewriter do
     end
   end
 
+  describe "with a time span carrying extra surrounding text" do
+    # Real example from backfilling 2024: an HPS-Time span containing
+    # " (Canberra) (14:24):" instead of just the time (the member's own electorate
+    # happened to be "Canberra", the seat containing Parliament House). Previously
+    # #ripped_out_time took the *whole* inner_html once it merely matched /\d+:\d\d/
+    # anywhere within it, so this reached xml2db.pl as an invalid SQL time value and
+    # silently failed the entire load - see PR #253's comments.
+    let(:bad_xml) do
+      <<~XML
+        <talk.text>
+          <body>
+            <p class="HPS-Normal">
+              <span class="HPS-Normal">
+                <a href="E3L" type="MemberSpeech">
+                  <span class="HPS-MemberSpeech">Mr SMITH</span>
+                </a>
+                (<span class="HPS-Time"> (Canberra) (14:24):</span>): This is my speech.
+              </span>
+            </p>
+          </body>
+        </talk.text>
+      XML
+    end
+    let!(:rewriter) { HansardRewriter.new(Log4r::Logger.new("TestHansardParser")) }
+
+    it "extracts just the HH:MM time, not the surrounding text" do
+      expect(rewriter.process_textnode(bad_xml)).to match(%r{<time\.stamp>14:24</time\.stamp>})
+    end
+  end
+
+  describe "with anonymous/collective interjections (no <a> link to a specific member)" do
+    # "Government members interjecting—...", "Opposition senators interjecting—..." etc
+    # have no <a href type="Member..."> link identifying who's speaking - just plain
+    # text starting with a generic-speaker marker phrase. Previously this fell through
+    # to the paragraph-append logic and got silently glued onto whoever was already
+    # speaking instead of becoming its own turn - real, silent content
+    # misattribution, not a crash. See PR #253's comments.
+    let(:bad_xml) do
+      <<~XML
+        <talk.text>
+          <body>
+            <p class="HPS-Normal">
+              <span class="HPS-Normal">
+                <a href="E3L" type="MemberSpeech">
+                  <span class="HPS-MemberSpeech">Mr SMITH</span>
+                </a>
+                (<span class="HPS-Electorate">Testington</span>) (<span class="HPS-Time">10:00</span>): This is my speech.
+              </span>
+            </p>
+            <p class="HPS-Normal">
+              <span class="HPS-Normal">Government members interjecting—Hear, hear!</span>
+            </p>
+          </body>
+        </talk.text>
+      XML
+    end
+    let!(:rewriter) { HansardRewriter.new(Log4r::Logger.new("TestHansardParser")) }
+    let!(:result) { rewriter.process_textnode(bad_xml) }
+
+    it "gives the generic speaker their own interjection turn" do
+      expect(result).to match(%r{<interjection>\s*<talker>\s*<name role="metadata">Government members</name>})
+    end
+
+    it "keeps the full original text, including the marker phrase, in that turn's para" do
+      expect(result).to include("Government members interjecting")
+    end
+
+    it "doesn't glue the interjection onto the preceding speaker's own para" do
+      expect(result).to match(%r{<para>This is my speech\.</para>\s*<interjection>})
+    end
+  end
+
+  describe "with raw <, > and & characters in speech text" do
+    # #restore_tags's callers extract plain text (already fully entity-decoded via
+    # #inner_text/#santize) and interpolate it straight into a new XML string
+    # ("<para>#{restore_tags(text)}</para>"), so unescaped metacharacters get reparsed
+    # as real markup. This crashed HansardSpeech.clean_content_any with "Unexpected
+    # tag https:" on a real citation ("<https://www.icj-cij.org/...>", angle-bracket
+    # URL citation, correctly escaped in the source) - see PR #253's comments.
+    let(:bad_xml) do
+      <<~XML
+        <talk.text>
+          <body>
+            <p class="HPS-Normal">
+              <span class="HPS-Normal">
+                <a href="E3L" type="MemberSpeech">
+                  <span class="HPS-MemberSpeech">Mr SMITH</span>
+                </a>
+                (<span class="HPS-Electorate">Testington</span>) (<span class="HPS-Time">10:00</span>): See &lt;https://example.org&gt; for details, and Smith &amp; Jones report.
+              </span>
+            </p>
+          </body>
+        </talk.text>
+      XML
+    end
+    let!(:rewriter) { HansardRewriter.new(Log4r::Logger.new("TestHansardParser")) }
+    let!(:result) { rewriter.process_textnode(bad_xml) }
+
+    it "produces well-formed XML" do
+      doc = Nokogiri::XML(result, &:strict)
+      expect(doc.errors).to be_empty
+    end
+
+    it "keeps the citation URL and ampersand as real text, not reparsed markup" do
+      expect(result).to include("See &lt;https://example.org&gt; for details, and Smith &amp; Jones report.")
+    end
+  end
+
   describe "with speeches containing duplicate times" do
     let!(:bad_xml) { File.open("#{File.dirname(__FILE__)}/../fixtures/duplicate-times.xml").read }
     let!(:rewriter) { HansardRewriter.new(Log4r::Logger.new("TestHansardParser")) }

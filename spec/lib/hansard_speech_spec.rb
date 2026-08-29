@@ -214,6 +214,18 @@ RSpec.describe HansardSpeech, "should clean content" do
                              day: nil).clean_content.to_s).to eq expected
   end
 
+  it "recovers a named HTML entity that leaked through as a bogus element, instead of crashing" do
+    # Simulates what libxml2 does when an XML re-parse hits an unresolvable named HTML
+    # entity (eg &mdash;, which bare XML doesn't define) - it turns the reference into
+    # a real child element named after it instead of the character. This crashed with
+    # "Unexpected tag mdash" on real data (em dashes are extremely common in speech
+    # transcripts) before HansardRewriter#xml_safe_html and this recovery were added -
+    # see PR #253's comments.
+    content = "<speech><para>Before<mdash/>After</para></speech>"
+    expected = "<p>Before&#x2014;After</p>"
+    expect(HansardSpeech.clean_content_para(Nokogiri::XML(content).at("para"))).to eq expected
+  end
+
   it "wraps inlines in motionnospeech in <p> tags" do
     content = "<motionnospeech><inline>—I move:</inline><motion><para>That the member be no longer heard.</para></motion><para>Question put.</para></motionnospeech>"
     expected = '<p>I move:</p><p pwmotiontext="moved">That the member be no longer heard.</p><p>Question put.</p>'

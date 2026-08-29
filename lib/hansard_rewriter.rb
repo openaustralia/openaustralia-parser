@@ -3,6 +3,7 @@
 # vim: set ts=2 sw=2 et sts=2 ai:
 
 require "nokogiri"
+require_relative "hansard_speech"
 
 class HansardRewriter
   attr_reader :logger
@@ -207,8 +208,14 @@ XML
           # Rip out the start time
           # <span class="HPS-Time">09:27</span>
           time = p.search(".//span[@class='HPS-Time']")
-          if time.inner_html =~ /\d+:\d\d/
-            ripped_out_time = time.first.inner_html
+          time_match = time.inner_html.match(/\d+:\d\d/)
+          if time_match
+            # Take just the matched "HH:MM", not the whole span - #inner_html can carry
+            # extra surrounding text (eg when the member's own electorate happens to be
+            # "Canberra" and sits right next to the time span), which isn't a valid SQL
+            # time value downstream and crashed xml2db.pl on real data ("Incorrect time
+            # value: ' (Canberra) (14:24):'" - see PR #253's comments).
+            ripped_out_time = time_match[0]
           else
             # We've got a badly formed date, let's try something else
             fallback = p.inner_html.match(%r{(\d+):*<span class="HPS-Time">:*(\d\d)</span>}mi)
