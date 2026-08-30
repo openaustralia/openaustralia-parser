@@ -59,7 +59,7 @@ class HansardParser
 
     # This is the page returned by Parlinfo Search for that day
     url = "https://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;adv=yes;orderBy=_fragment_number,doc_date-rev;page=0;query=Dataset%3Ahansard#{house.representatives? ? 'r' : 's'},hansard#{house.representatives? ? 'r' : 's'}80%20Date%3A#{date.day}%2F#{date.month}%2F#{date.year};rec=0;resCount=Default"
-    page = agent.get(url)
+    page = AphMechanizeAgent.with_backoff { agent.get(url) }
 
     tag = page.at("div#content center")
     if tag && tag.inner_html =~ /^Unable to find document/
@@ -70,7 +70,7 @@ class HansardParser
         @logger.warn "#{date} #{house}: Link to XML download is missing"
         nil
       else
-        agent.click(link).body
+        AphMechanizeAgent.with_backoff { agent.click(link).body }
       end
     end
   end
@@ -80,6 +80,14 @@ class HansardParser
   def hansard_xml_source_data_on_date(date, house)
     text = unpatched_hansard_xml_source_data_on_date(date, house)
     return unless text
+
+    # Mechanize's #body returns the response tagged ASCII-8BIT regardless of the actual
+    # (UTF-8) content, and that mistagging survives through every downstream
+    # inner_text/inner_html/string interpolation step, contributing to inconsistent
+    # entity encoding later in the pipeline (eg &mdash; turning up where a literal char
+    # or numeric ref was expected - see the xml_safe_html fixes in HansardRewriter and
+    # HansardSpeech.clean_content_any). Fix the tag at the source.
+    text = text.force_encoding("UTF-8")
 
     # Horribe hack to fix some stupid wrapping
     text = text.gsub(/\r/, "")
@@ -145,7 +153,7 @@ class HansardParser
     # APH changed their XML format on the 10th of May 2011
     if date >= Date.new(2011, 5, 10)
       # Rewrite the XML data back to a sane format
-      new_xml = @rewriter.rewrite_xml Hpricot.XML(xml)
+      new_xml = @rewriter.rewrite_xml Nokogiri::XML(xml)
 
       filename = rewritexml_filename(date, house)
       FileUtils.mkdir_p(File.dirname(filename))
@@ -155,7 +163,7 @@ class HansardParser
       # Process the day
       HansardDay.new(new_xml, @logger)
     else
-      HansardDay.new(Hpricot.XML(xml), @logger)
+      HansardDay.new(Nokogiri::XML(xml), @logger)
     end
   end
 

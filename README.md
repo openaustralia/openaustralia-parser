@@ -14,16 +14,16 @@ See for installation instructions https://openaustralia.github.io/openaustralia/
 
 #### TWFY or openaustralia repo
 
-You need to clone the TWFY repo or clone the openaustralia repo and setup the submodules if you want to test interaction
+You need to clone the TWFY repo for database schema and test setup:
 
-```
+```bash
 cd ..
 git clone git@github.com:openaustralia/twfy.git
 ```
 
-OR
+Alternatively, you can clone the openaustralia repo with submodules:
 
-```
+```bash
 cd ..
 git clone git@github.com:openaustralia/openaustralia.git
 cd openaustralia
@@ -31,21 +31,20 @@ git submodule init
 git submodule update
 ```
 
-This gives access to the DB schema, and if you want to test the php and perl scripts from the other repos, those as
-well.
+This gives access to the DB schema needed for tests, and if you want to test the php and perl scripts from the other repos, those as well.
 
 #### Local database
 
-Use `sudo mysql -u root` and the following commands to setup the database
+Use Docker to run MySQL 8.4 for testing:
 
-```mysql
-CREATE DATABASE openaustralia;
-CREATE USER 'openaustralia'@'localhost' IDENTIFIED BY 'openaustralia';
-GRANT ALL PRIVILEGES ON openaustralia.* TO 'openaustralia'@'localhost';
-FLUSH PRIVILEGES;
+```bash
+docker-compose up -d  # Start MySQL in the background
 ```
 
+The test configuration uses `root`/`root` credentials and `openaustralia_test` database automatically. The database schema is automatically loaded from `../twfy/db/schema.sql` when tests run.
+
 #### Setup this (openaustralia-parser) repo
+
 ```bash
 # Install ubuntu packages as needed
 
@@ -79,6 +78,7 @@ Called from the OpenAustralia.org web application (twfy - another git submodule 
 ## Dependencies
 
 * `#{web_root}/rblib/config.rb` - required by `lib/configuration.rb`
+  * clone from `https://github.com/openaustralia/rblib/`
   * `#{web_root}/twfy/conf/general` - used by MySociety::Config.set_file (can override in configuration.yml)
 * `#{conf.web_root}/twfy/bin/run scripts/xml2db.pl` - called by `parse-speeches.rb`
 * `#{conf.web_root}/twfy/bin/run scripts/xml2db.pl` (perl) - called by `parse-members.rb` (Use `--no-load` to skip)
@@ -109,6 +109,79 @@ bundle exec sitemap.rb
 # Unable to test without  data/register_of_interests/senate/2010_06.pdf and other pdfs being present
 # (The pdfs do not exist on production or staging)
 bundle exec ruby register-split.rb
+```
+
+## Backfilling a real local dev database
+
+The steps above (`docker-compose up -d` + `bundle exec rspec`) get you a working *test* database, but that's
+throwaway and only used by the spec suite. To actually run the parser against real Hansard data and see it land in
+a browsable TWFY site, use `twfy`'s own dev stack instead:
+
+```bash
+# In the twfy checkout (sibling of this one)
+cd ../twfy
+make docker              # builds and starts the docker-compose stack (mysql + webhost)
+make docker-db-migrate
+make docker-db-seed
+```
+
+`twfy/conf/general` (symlinked from `shared/` at deploy time, but present directly in a docker dev checkout) points
+`DB_HOST` at `mysql`, the docker-compose *internal* hostname - not reachable from your host shell. `twfy/Makefile.dev`
+bridges this for you: it overrides `DB_HOST=127.0.0.1`, `DB_PORT` (mapped to `3306` by default) and `RAWDATA`
+(this repo's `xml_path`, so downloaded/rewritten XML ends up somewhere sane) and calls this repo's scripts via
+`bin/run`. From `twfy/`:
+
+```bash
+make -f Makefile.dev parse-members                       # seed people/electorates first
+make -f Makefile.dev parse-speeches ARGS="2025.01.01 2025.01.31"   # backfill a real month
+make -f Makefile.dev xapian-index                         # make the new speeches searchable
+```
+
+(Note the `-f Makefile.dev` - it's a separate file from `twfy`'s main `Makefile`, not included by it, so plain
+`make parse-speeches` won't find the target.)
+
+Without `--no-load` (the `Makefile.dev` targets don't pass it), `parse-speeches.rb` loads into the database
+automatically as its last step - but only *once*, after every day in the range has been fetched and parsed. A
+crash partway through a long range (a bad day's data, a network blip) means nothing from that run gets loaded, no
+matter how much of the range succeeded before the crash. For a large backfill, prefer a handful of smaller date
+ranges over one huge one, so a failure only costs you that chunk.
+
+### Verifying what got loaded is actually correct
+
+There's no local "before" baseline to diff against - a fresh dev DB has no prior parser run to compare with. The
+useful comparison is against **production**, which is still real Hansard data, parsed and public:
+<https://data.openaustralia.org.au/scrapedxml/> has the final per-day, per-house XML for every day production has
+ever parsed. Pull the same date range you backfilled locally and diff structurally (speech counts, `speakername`
+tallies, `approximate_wordcount` sums) rather than byte-for-byte, since cosmetic differences (eg how an em dash is
+encoded) don't mean anything's wrong.
+
+### A gotcha when testing scripts ad hoc
+
+Running an entry-point script as `bundle exec ./parse-speeches.rb ...` (leading `./`, executing the file directly)
+silently does nothing - exit 0, no output, no error. These scripts guard their entry point with `if $PROGRAM_NAME
+== __FILE__`, and under `bundle exec ./script.rb` Ruby resolves `__FILE__` to an absolute path while leaving
+`$PROGRAM_NAME` as the relative string you typed, so the guard is always false. Use `bundle exec ruby
+./parse-speeches.rb ...` instead (or `bin/run parse-speeches.rb ...`, or the `Makefile.dev` targets above, which
+already do this correctly).
+
+## Testing
+
+Run tests with RSpec. First ensure MySQL is available and the database schema is accessible:
+
+```bash
+# Clone twfy (if not already done) - needed for DB schema
+cd ..
+git clone git@github.com:openaustralia/twfy.git
+cd openaustralia-parser
+
+# Start MySQL via Docker
+docker-compose up -d
+
+# Run all tests
+bundle exec rspec
+
+# Stop Docker MySQL
+docker-compose down
 ```
 
 ## Data updates

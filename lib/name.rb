@@ -43,6 +43,9 @@ class Name
   def self.last_title_first(text)
     # First normalize the unicode. Using this form of normalize so that non-breaking spaces get turned into 'normal' spaces
     text = text.unicode_normalize(:nfkc)
+    # Normalize typographic apostrophes (U+2018/U+2019) to plain ASCII apostrophe so that
+    # names like O\u2019Connor in Hansard XML match the plain-apostrophe spelling in our data files
+    text = text.tr("\u2018\u2019", "'")
     # Do the following before the split so we can handle things like "(foo bar)"
     text = remove_text_in_brackets(text)
     names = text.delete(",").split

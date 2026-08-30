@@ -2,7 +2,8 @@
 
 # vim: set ts=2 sw=2 et sts=2 ai:
 
-require_relative "hpricot_additions"
+require "nokogiri"
+require_relative "hansard_speech"
 
 class HansardRewriter
   attr_reader :logger
@@ -10,6 +11,31 @@ class HansardRewriter
   def initialize(logger = nil)
     @logger = logger
     @role_map = {}
+  end
+
+  XML_BUILTIN_ENTITIES = %w[amp lt gt quot apos].freeze
+
+  # Nokogiri's #inner_html getter can emit named HTML entities (eg &mdash;) that bare
+  # XML doesn't define. Round-tripping that string straight back through #inner_html=
+  # then makes libxml2 (parsing as XML, not HTML) turn the unresolvable entity into a
+  # bogus child element named after it (eg <mdash/>), which later blows up in
+  # HansardSpeech.clean_content_any with "Unexpected tag mdash". Downgrade any
+  # non-XML-builtin named entity to its numeric form first so the XML re-parse can't
+  # mistake it for a tag. Doesn't fully eliminate the problem on its own - see the
+  # defensive recovery in HansardSpeech.clean_content_any and PR #253's comments for
+  # the fuller picture (this is a symptom fix, not a root-cause one).
+  def xml_safe_html(html)
+    html.gsub(/&(\w+);/) do
+      name = Regexp.last_match(1)
+      next "&#{name};" if XML_BUILTIN_ENTITIES.include?(name)
+
+      begin
+        codepoint = Nokogiri::HTML.fragment("&#{name};").text.ord
+        format("&#x%x;", codepoint)
+      rescue StandardError
+        "&#{name};"
+      end
+    end
   end
 
   # Clean up random crap in the code
@@ -27,9 +53,25 @@ class HansardRewriter
   end
 
   def restore_tags(text)
+    # `text` is plain extracted text (via #inner_text/#santize, so already fully
+    # entity-decoded) that can contain literal <, >, & from the real content - eg a
+    # URL cited in angle brackets ("<https://example.org>"), "Fish & Chips". Every
+    # caller interpolates the result straight into a new XML string
+    # ("<para>#{restore_tags(text)}</para>"), so unescaped metacharacters get reparsed
+    # as real markup - this crashed HansardSpeech.clean_content_any with "Unexpected
+    # tag https:" on a real citation (see PR #253's comments). Escape those first; the
+    # {italic}/{/italic} placeholder markers below are plain ASCII curly braces so they
+    # pass through unaffected, then become real <inline> tags afterward.
+    text = text.gsub("&", "&amp;").gsub("<", "&lt;").gsub(">", "&gt;")
     text = text.gsub(%r{\{italic\}\s*\{/italic\}}, "")
     text = text.gsub(/\{italic\}/, "<inline font-style='italic'>")
     text.gsub(%r{\{/italic\}}, "</inline>")
+  end
+
+  # Nokogiri has no #append, so do what the Hpricot monkey patch in the old
+  # lib/hpricot_additions.rb did and add the markup to the end of the node
+  def append(node, str)
+    node.inner_html = xml_safe_html(node.inner_html + str)
   end
 
   def lookup_aph_id(aph_id, name)
@@ -60,13 +102,16 @@ class HansardRewriter
   def process_textnode(input_text_node)
     raise "Expecting string in process_textnode" unless input_text_node.is_a?(String)
 
-    input_text_node = Hpricot.XML(input_text_node).children.first
+    input_text_node = Nokogiri::XML(input_text_node).children.first
 
-    if input_text_node.search("//body/a")
+    # search always returns a NodeSet, which is truthy even when empty, so we
+    # have to test for emptiness rather than the NodeSet itself
+    top_level_a = input_text_node.search("//body/a")
+    unless top_level_a.empty?
       # This is probably an indication that something was done wrong in the
       # XML formatting and this is a truly nasty way to work around it
       logger.warn "Removing top level a tag (and contents) because it shouldn't be there"
-      input_text_node.search("//body/a").remove
+      top_level_a.remove
     end
 
     # Many speaker interjections/continuates are not properly marked with
@@ -89,9 +134,9 @@ class HansardRewriter
 
       logger.info "Doing rewrite #{text}"
       logger.info "Before: #{p}"
-      p.inner_html = p.inner_html.gsub(
-        %r{<span class="HPS-Normal">.*<span class="HPS-([^"]*)">(The (([^S]*SPEAKER)|([^R]*RESIDENT))):</span>  (.*)</span>}m,
-        <<XML
+      p.inner_html = xml_safe_html(p.inner_html.gsub(
+                                     %r{<span class="HPS-Normal">.*<span class="HPS-([^"]*)">(The (([^S]*SPEAKER)|([^R]*RESIDENT))):</span>  (.*)</span>}m,
+                                     <<XML
     <p class="HPS-Normal" style="direction:ltr;unicode-bidi:normal;">
       <span class="HPS-Normal">
         <a href="10000" type="\\1">
@@ -99,7 +144,7 @@ class HansardRewriter
         </a>  \\6</span>
     </p>
 XML
-      )
+                                   ))
       logger.info "After: #{p}"
     end
     #--------------------------------------------------------------------------
@@ -108,8 +153,12 @@ XML
     text_node = nil
     amendment_node = nil
 
-    new_xml = Hpricot.XML("")
-    input_text_node.search("/body/p").each do |p|
+    new_xml = Nokogiri::XML("")
+    # Relative to input_text_node (e.g. <talk.text><body>...<p>...）; a leading "/"
+    # here would be an absolute path requiring <body> to be the document root, which
+    # it never is, so it silently matched nothing and process_textnode always
+    # returned "" (dropping every speech's content).
+    input_text_node.search(".//body/p").each do |p|
       # Skip empty nodes
       if p.inner_text.strip.empty?
         logger.warn "    Ignoring para node as it was empty\n#{p}"
@@ -124,10 +173,10 @@ XML
       # it's all a MemberIInterjecting
       para_text = p.inner_text.strip
       italic_text = ""
-      p.search("//span").each do |t|
-        if !t.attributes["style"].nil? && t.attributes["style"].match(/italic/)
+      p.search(".//span").each do |t|
+        if !t["style"].nil? && t["style"].match(/italic/)
           italic_text = "#{italic_text}#{t.inner_text}"
-          t.inner_html = "{italic}#{t.inner_html}{/italic}"
+          t.inner_html = xml_safe_html("{italic}#{t.inner_html}{/italic}")
         end
       end
       member_iinterjecting = italic_text.strip == para_text
@@ -136,31 +185,37 @@ XML
       # record with a class that starts with "Member".
       # (There are also '<a href' records which point to bills rather then
       # people.)
-      ahref = p.search("//a")[0] unless p.search("//a").empty?
-      if !ahref.nil? && ahref.attributes["type"].nil?
+      ahref = p.search(".//a")[0] unless p.search(".//a").empty?
+      if !ahref.nil? && ahref["type"].nil?
         logger.warn "    Found a link without type!? #{ahref}"
         next
       end
-      if !ahref.nil? && ahref.attributes["type"].match(/^Member|Office/)
+      if !ahref.nil? && ahref["type"].match(/^Member|Office/)
 
         # Is this start of a speech? We can tell by the fact it has spans
         # with the HPS-Time class.
         if speech_node.nil? || !p.search("[@class=HPS-Time]").empty?
           # Rip out the electorate
           # <span class="HPS-Electorate">Grayndler</span>
-          electorate = p.search("//span[@class=HPS-Electorate]")
+          electorate = p.search(".//span[@class='HPS-Electorate']")
           electorate.remove
 
           # Rip out the title
           # <span class="HPS-MinisterialTitles">Leader of the House and Minister for Infrastructure and Transport</span>
-          title = p.search("//span[@class=HPS-MinisterialTitles]")
+          title = p.search(".//span[@class='HPS-MinisterialTitles']")
           title.remove
 
           # Rip out the start time
           # <span class="HPS-Time">09:27</span>
-          time = p.search("//span[@class=HPS-Time]")
-          if time.inner_html =~ /\d+:\d\d/
-            ripped_out_time = time.first.inner_html
+          time = p.search(".//span[@class='HPS-Time']")
+          time_match = time.inner_html.match(/\d+:\d\d/)
+          if time_match
+            # Take just the matched "HH:MM", not the whole span - #inner_html can carry
+            # extra surrounding text (eg when the member's own electorate happens to be
+            # "Canberra" and sits right next to the time span), which isn't a valid SQL
+            # time value downstream and crashed xml2db.pl on real data ("Incorrect time
+            # value: ' (Canberra) (14:24):'" - see PR #253's comments).
+            ripped_out_time = time_match[0]
           else
             # We've got a badly formed date, let's try something else
             fallback = p.inner_html.match(%r{(\d+):*<span class="HPS-Time">:*(\d\d)</span>}mi)
@@ -172,10 +227,10 @@ XML
           name = santize(ahref.inner_text, true)
 
           # Pull out the aph_id
-          aph_id = lookup_aph_id(ahref.attributes["href"], name)
+          aph_id = lookup_aph_id(ahref["href"], name)
 
           # Rip the a link out.
-          p.search("//a").remove
+          p.search(".//a").remove
 
           # Extract the text
           text = santize(p.inner_text, false)
@@ -197,7 +252,7 @@ XML
               <para>#{restore_tags(text)}</para>
             </speech>
           XML
-          new_xml.append new_node
+          new_xml.inner_html += new_node.to_s
           speech_node = new_xml.search("speech")[-1]
           text_node = speech_node
           amendment_node = nil
@@ -214,7 +269,7 @@ XML
 
           # Class will be either "MemberContinuation" or
           # "MemberInterjecting" - strip off the "Member" part.
-          case ahref.attributes["type"]
+          case ahref["type"]
           when "MemberContinuation", "MemberContinuation1", "OfficeContinuation", "OfficeContinuation1", "MemberSpeech", "MemberSpeech1"
             type = "continue"
           when "MemberInterjecting", "MemberInterjecting1", "OfficeInterjecting", "OfficeInterjecting1"
@@ -224,12 +279,12 @@ XML
           when "MemberAnswer", "MemberAnswer1"
             type = "answer"
           else
-            raise "Assertion failed! Unknown type #{ahref.attributes['type']}"
+            raise "Assertion failed! Unknown type #{ahref['type']}"
           end
 
           # Sometimes we get a second span with the same HPS-Type which just
           # contains someone name. Remove it.
-          extra_spans = p.search("span > span[@class=HPS-#{ahref.attributes['type']}]")
+          extra_spans = p.search("span > span[@class=HPS-#{ahref['type']}]")
           unless extra_spans.empty?
             logger.warn "    Removing excess spans #{extra_spans.length}, removing the following text '#{extra_spans.inner_text}'"
             extra_spans.remove
@@ -240,10 +295,10 @@ XML
           name = santize(ahref.inner_text, true)
 
           # Pull out the aph_id
-          aph_id = lookup_aph_id(ahref.attributes["href"], name)
+          aph_id = lookup_aph_id(ahref["href"], name)
 
           # Rip out the a tag
-          p.search("//a").remove
+          p.search(".//a").remove
 
           # Clean up the text a little
           text = santize(p.inner_text, false)
@@ -263,11 +318,11 @@ XML
               <para>#{restore_tags(text)}</para>
             </#{type}>
           XML
-          speech_node.append(new_node)
+          speech_node.inner_html += new_node.to_s
           text_node = speech_node.search(type)[-1]
         end
 
-      elsif !ahref.nil? && ahref.attributes["type"].match(/^Bill/)
+      elsif !ahref.nil? && ahref["type"].match(/^Bill/)
         # Bills don't have speeches, just dump the paragraphs into the subdebate.
         speech_node = new_xml
         text_node = new_xml
@@ -278,11 +333,46 @@ XML
 
         next if text.empty?
 
-        case p.attributes["class"]
+        # Anonymous/collective interjections ("Government members interjecting—...",
+        # "Opposition senators interjecting—...") have no <a> link identifying a
+        # specific member - just plain text starting with a generic-speaker marker
+        # phrase (the same pattern HansardSpeech#speakername_from_text looks for).
+        # Without this check they fall straight through to the paragraph-append logic
+        # below and get silently glued onto whoever's already speaking instead of
+        # becoming their own turn - see PR #253's comments for how that caused
+        # systematic, silent data loss for exactly these speakers.
+        #
+        # Verified against production for real dates: this fixes the silent-drop case
+        # completely for some days (eg 2026-08-11 representatives now matches exactly).
+        # It doesn't yet reproduce production's exact grouping for busier exchanges -
+        # a run of several consecutive generic interjections sometimes ends up as more
+        # separate turns here than production's single merged one. Content and
+        # attribution are correct either way, just split more finely - see PR #253's
+        # comments for the comparison data. Not chasing the precise merge heuristic
+        # further without clearer evidence of what it should be.
+        generic_match = text.match(/^([a-z].*?)( interjecting)?—/i)
+        if !speech_node.nil? && generic_match && HansardSpeech.generic_speaker?(generic_match[1])
+          name = generic_match[1].strip
+          logger.warn "    Found new interjection by generic speaker #{name}"
+
+          new_node = <<~XML
+            <interjection>
+              <talker>
+                <name role="metadata">#{name}</name>
+              </talker>
+              <para>#{restore_tags(text)}</para>
+            </interjection>
+          XML
+          speech_node.inner_html += new_node.to_s
+          text_node = speech_node.search("interjection")[-1]
+          next
+        end
+
+        case p["class"]
         when "HPS-Debate", "HPS-SubDebate", "HPS-SubSubDebate"
           # FIXME: We should handle bill readings a bit better then this.
 
-          logger.warn "    Found title #{p.attributes['class']}, resetting"
+          logger.warn "    Found title #{p['class']}, resetting"
           speech_node = nil
           text_node = new_xml
           amendment_node = nil
@@ -292,7 +382,7 @@ XML
           if !amendment_node.nil?
             logger.warn "      Found paragraph in an amendment"
 
-            amendment_node.append <<~XML
+            append(amendment_node, <<~XML)
               <para>#{restore_tags(text)}</para>
             XML
 
@@ -310,7 +400,7 @@ XML
                             text_node
                           end
 
-            search_node.append <<~XML
+            append(search_node, <<~XML)
               <amendments>
                 <para>#{restore_tags(text)}</para>
               </amendments>
@@ -327,13 +417,13 @@ XML
                 !p.search("span[@class=HPS-MemberInterjecting]").empty? ||
                 member_iinterjecting
             logger.warn "    Found new /italics/ paragraph"
-            text_node.append <<~XML
+            append(text_node, <<~XML)
               <para class="italic">#{restore_tags(text)}</para>
             XML
 
           else
             logger.warn "    Found new paragraph"
-            text_node.append <<~XML
+            append(text_node, <<~XML)
               <para>#{restore_tags(text)}</para>
             XML
           end
@@ -344,7 +434,7 @@ XML
             logger.warn "    Ignoring bullet node as text_node was null\n#{p}"
           else
             logger.warn "    Found new bullet point"
-            text_node.append <<~XML
+            append(text_node, <<~XML)
               <list>#{restore_tags(text)}</list>
             XML
           end
@@ -352,14 +442,14 @@ XML
         when "HPS-Small", "HPS-NormalWeb"
           if !amendment_node.nil?
             logger.warn "      Found amendment"
-            amendment_node.append <<~XML
+            append(amendment_node, <<~XML)
               <amendment>#{restore_tags(text)}</amendment>
             XML
           elsif text_node.nil?
             logger.warn "    Ignoring quote node as text_node was null\n#{p}"
           else
             logger.warn "    Found new quote"
-            text_node.append <<~XML
+            append(text_node, <<~XML)
               <quote><para class="block">#{restore_tags(text)}</para></quote>
             XML
           end
@@ -368,22 +458,27 @@ XML
         when "HPS-DivisionSummary"
 
         else
-          logger.warn "    Unknown attribute class #{p.attributes['class']}, ignoring"
+          logger.warn "    Unknown attribute class #{p['class']}, ignoring"
         end
       end
     end
     input_text_node.search("*").remove
-    new_xml.to_s
+    # new_xml is a full Document (built via Nokogiri::XML("")); Document#to_s would
+    # include an "<?xml version=...?>" declaration, which ends up embedded as a stray
+    # child node once this string is reparsed via debate.inner_html= in rewrite_debate.
+    # rubocop:disable Style/MapJoin -- NodeSet has no #join of its own, unlike Array.
+    new_xml.children.map(&:to_s).join
+    # rubocop:enable Style/MapJoin
   end
 
   def rewrite_debate(debate, level)
     # Does this debate have subdebates? If so all the text can be found in their (sub)debate.text files
     subdebate_found = false
-    debate.child_nodes.each do |f|
+    debate.element_children.each do |f|
       case f.name
       when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
         f.name = "subdebate.#{level + 1}"
-        f.child_nodes.each do |e|
+        f.element_children.each do |e|
           case e.name
           when "debate.text", "subdebate.text"
             subdebate_found = true unless e.inner_text.strip.empty?
@@ -394,41 +489,42 @@ XML
 
     # We use a seperate list as we don't want the new children to appear when
     # doing the loop.
-    debate_new_children = Hpricot.XML("")
+    debate_new_children = +""
 
-    debate.child_nodes.each do |f|
+    debate.element_children.each do |f|
       case f.name
       # Things to pass through un-molested
       when "debateinfo"
         logger.warn "\nDebate #{f.at('title').inner_text}"
-        debate_new_children.append f.to_s
+        debate_new_children << f.to_s
 
       when "subdebate.text"
         if f.at("a") && (f.at("a")["type"] == "Bill")
           logger.warn "\nSubdebate.text #{f.at('body').inner_text}"
-          debate_new_children.append f.to_s
+          debate_new_children << f.to_s
         end
 
       when "subdebateinfo"
-        logger.warn "  Subdebate.#{level} \"#{f.at('title').inner_text}\" @ #{f.at('(page.no)').inner_text}"
-        debate_new_children.append f.to_s
+        page_no = f.at_xpath(".//*[local-name()='page.no']")
+        logger.warn "  Subdebate.#{level} \"#{f.at('title').inner_text}\" @ #{page_no.inner_text}"
+        debate_new_children << f.to_s
 
       # Things we have to process recursively
       when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
-        debate_new_children.append rewrite_debate(f, level + 1).to_s
+        debate_new_children << rewrite_debate(f, level + 1).to_s
 
       # The actual transcript of the proceedings we are going to process
       when "question", "answer", "speech"
         unless subdebate_found
           # We're interested in the talk.text node but have to find it manually due to a bug
           # with Hpricot xpath meaning nodes with a dot '.' in the name are not found.
-          talk = f.child_nodes.detect { |node| node.name == "talk.text" }
-          debate_new_children.append process_textnode(talk.to_s) if talk
+          talk = f.element_children.detect { |node| node.name == "talk.text" }
+          debate_new_children << process_textnode(talk.to_s) if talk
         end
 
       # Divisions are actually still the same format, so we just append them.
       when "division"
-        debate_new_children.append f.to_s
+        debate_new_children << f.to_s
 
       # Things we are delibaretly removing
       when "continue", "interjection", "talk", "debate.text"
@@ -439,7 +535,7 @@ XML
       end
     end
 
-    debate.inner_html = debate_new_children.to_s
+    debate.inner_html = debate_new_children
     debate
   end
 

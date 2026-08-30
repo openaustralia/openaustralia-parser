@@ -8,14 +8,9 @@ module DbSupport
   def self.schema_file
     %w[twfy openaustralia/twfy].each do |dir|
       path = File.expand_path("../../../#{dir}/db/schema.sql", __dir__)
-      unless File.size?(path) &&
-             (!File.size?(SCHEMA_FIXTURE) || File.mtime(path) > File.mtime(SCHEMA_FIXTURE))
-        next
-      end
-
-      puts "NOTE: updating #{SCHEMA_FIXTURE} from newer #{path}!"
-      FileUtils.cp(path, SCHEMA_FIXTURE)
+      return path if File.size?(path)
     end
+
     return SCHEMA_FIXTURE if File.exist?(SCHEMA_FIXTURE)
 
     raise "schema.sql not found in fixtures, ../twfy/db or ../openaustralia/twfy/db"
@@ -36,13 +31,16 @@ module DbSupport
 
     conf = Configuration.new
 
-    ActiveRecord::Base.establish_connection(
+    connection_config = {
       adapter: "mysql2",
       host: conf.database_host,
       username: conf.database_user,
       password: conf.database_password,
-      database: conf.database_name
-    )
+      database: conf.database_name,
+      port: 3306
+    }
+
+    ActiveRecord::Base.establish_connection(connection_config)
     conn = ActiveRecord::Base.connection
 
     # Drop tables if forced to

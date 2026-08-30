@@ -32,7 +32,7 @@ RSpec.describe HansardDay do
 
     x = Builder::MyXmlMarkup.new
 
-    @titles_xml = Hpricot.XML(x.hansard do
+    @titles_xml = Nokogiri::XML(x.hansard do
       x.chamber_xscript do
         x.debate do
           x.debateinfo { x.title 1 }
@@ -91,7 +91,7 @@ RSpec.describe HansardDay do
       end
     end)
 
-    @header = HansardDay.new(Hpricot.XML(header_xml))
+    @header = HansardDay.new(Nokogiri::XML(header_xml))
 
     @titles = HansardDay.new(@titles_xml)
   end
@@ -114,23 +114,23 @@ RSpec.describe HansardDay do
     expect(@titles.title(@titles_xml.at("debate"))).to eq "1"
     expect(@titles.subtitle(@titles_xml.at("debate"))).to eq ""
 
-    expect(@titles.title(@titles_xml.at("(subdebate.1)"))).to eq "2"
-    expect(@titles.subtitle(@titles_xml.at("(subdebate.1)"))).to eq "3; 14"
+    expect(@titles.title(@titles_xml.at_xpath(".//*[local-name()='subdebate.1']"))).to eq "2"
+    expect(@titles.subtitle(@titles_xml.at_xpath(".//*[local-name()='subdebate.1']"))).to eq "3; 14"
 
-    expect(@titles.title(@titles_xml.search("(subdebate.1)")[1])).to eq "4"
-    expect(@titles.subtitle(@titles_xml.search("(subdebate.1)")[1])).to eq "5"
+    expect(@titles.title(@titles_xml.xpath(".//*[local-name()='subdebate.1']")[1])).to eq "4"
+    expect(@titles.subtitle(@titles_xml.xpath(".//*[local-name()='subdebate.1']")[1])).to eq "5"
 
-    expect(@titles.title(@titles_xml.search("(subdebate.1)")[2])).to eq "4"
-    expect(@titles.subtitle(@titles_xml.search("(subdebate.1)")[2])).to eq "6"
+    expect(@titles.title(@titles_xml.xpath(".//*[local-name()='subdebate.1']")[2])).to eq "4"
+    expect(@titles.subtitle(@titles_xml.xpath(".//*[local-name()='subdebate.1']")[2])).to eq "6"
 
-    expect(@titles.title(@titles_xml.search("(subdebate.1)")[3])).to eq "7; 13"
-    expect(@titles.subtitle(@titles_xml.search("(subdebate.1)")[3])).to eq "8"
+    expect(@titles.title(@titles_xml.xpath(".//*[local-name()='subdebate.1']")[3])).to eq "7; 13"
+    expect(@titles.subtitle(@titles_xml.xpath(".//*[local-name()='subdebate.1']")[3])).to eq "8"
 
-    expect(@titles.title(@titles_xml.search("(subdebate.1)")[4])).to eq "7; 13"
-    expect(@titles.subtitle(@titles_xml.search("(subdebate.1)")[4])).to eq "9"
+    expect(@titles.title(@titles_xml.xpath(".//*[local-name()='subdebate.1']")[4])).to eq "7; 13"
+    expect(@titles.subtitle(@titles_xml.xpath(".//*[local-name()='subdebate.1']")[4])).to eq "9"
 
-    expect(@titles.title(@titles_xml.at("(subdebate.2)"))).to eq "10"
-    expect(@titles.subtitle(@titles_xml.at("(subdebate.2)"))).to eq "11; 12"
+    expect(@titles.title(@titles_xml.at_xpath(".//*[local-name()='subdebate.2']"))).to eq "10"
+    expect(@titles.subtitle(@titles_xml.at_xpath(".//*[local-name()='subdebate.2']"))).to eq "11; 12"
   end
 
   it "should still be able to figure out the title even when there is a title tag within a title tag" do
@@ -155,13 +155,34 @@ RSpec.describe HansardDay do
       end
     end
 
-    xml = Hpricot.XML(titles_xml)
+    xml = Nokogiri::XML(titles_xml)
 
-    expect(HansardDay.new(xml).title(xml.at("(subdebate.1)"))).to eq "1; 2; 3; 4; 5"
-    expect(HansardDay.new(xml).subtitle(xml.at("(subdebate.1)"))).to eq "6"
+    expect(HansardDay.new(xml).title(xml.at_xpath(".//*[local-name()='subdebate.1']"))).to eq "1; 2; 3; 4; 5"
+    expect(HansardDay.new(xml).subtitle(xml.at_xpath(".//*[local-name()='subdebate.1']"))).to eq "6"
   end
 
   it "should know when the page is considered in proof stage" do
     expect(@header).to be_in_proof
+  end
+
+  it "should group question and answer pairs even with whitespace between the elements" do
+    xml = Nokogiri::XML(<<~XML)
+      <hansard>
+        <chamber.xscript>
+          <debate>
+            <debateinfo>
+              <title>QUESTIONS WITHOUT NOTICE</title>
+            </debateinfo>
+            <question>q</question>
+            <answer>a</answer>
+          </debate>
+        </chamber.xscript>
+      </hansard>
+    XML
+
+    pages = HansardDay.new(xml).pages_from_debate(xml.at("debate"))
+
+    expect(pages.length).to eq 1
+    expect(pages.first.length).to eq 2
   end
 end

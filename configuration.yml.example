@@ -67,3 +67,20 @@ election_web_root: "http://www.abc.net.au/elections/federal/2007"
 
 # They Vote For You API key
 theyvoteforyou_api_key: XXXXXXXXXXXXXXXXXXXX
+
+# -------------------------------------------------------
+# Test environment overrides, matching this repo's own docker-compose.yml
+# (docker-compose up -d mysql). Without these, `bundle exec rspec` falls
+# through to whatever twfy/conf/general's dev DB_HOST/DB_USER/etc resolve to
+# instead, which won't match this container.
+test:
+  web_root: "/dev/null"
+  database_host: 127.0.0.1
+  database_user: root
+  database_password: root
+  database_name: openaustralia_test
+  file_image_path: "tmp/file_images/"
+  members_xml_path: "tmp/members_xml_output/"
+  xml_path: "tmp/pwdata/"
+  regmem_pdf_path: "regmem/scan/"
+  base_dir: "tmp/twfy-www-docs/"

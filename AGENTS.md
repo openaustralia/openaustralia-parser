@@ -50,6 +50,13 @@ script/console                       # loads lib/**/*.rb into IRB
 `bin/run <script>` is the production wrapper (picks the Ruby manager, dispatches .rb/.pl/.php); you don't need it
 locally.
 
+## CI
+
+`.github/workflows/ruby.yaml` runs on every push/PR **on this branch** (`convert/hpricot-nokogiri`) - not yet on
+`main`, see the Gotchas entry below for why that matters. Two jobs: `test` (`bundle exec rspec` against a real
+MySQL service container) and `scripts` (`parse-members.rb --no-load`, `postcodes.rb --no-load`). A third, `lint`
+(RuboCop), exists in the file but is commented out - run `bundle exec rubocop` yourself, CI won't catch it.
+
 ## Structure
 
 - Top-level `*.rb` scripts are the entry points; the daily ones are `parse-speeches.rb`, `parse-member-links.rb`
@@ -64,12 +71,15 @@ locally.
 
 ## Gotchas
 
-- **Hpricot is still the primary HTML parser** (six `lib/` files plus `parse-member-links.rb`); Nokogiri appears in
-  exactly one file. Draft PR #253 converts `ParseMemberLinks` only. Don't add new Hpricot usage, and don't do a
-  wholesale conversion as a side effect of another change - it touches the specs too.
-- **No CI runs yet.** There is no `.github/workflows/`; the checked-in `.travis.yml` is dead (pins Ruby 2.7.2
-  against `.ruby-version` 3.4.9) and draft PR #252 adds GitHub Actions. A green local run is currently the only
-  gate, so run the spec suite and RuboCop yourself.
+- **Hpricot is gone, Nokogiri is the HTML parser throughout** (PR #253 converted it fully, not just
+  `parse-member-links.rb` as earlier noted here). Titles/subtitles built by hand for raw XML insertion (eg
+  `lib/hansard_day.rb`'s `title`/`subtitle`/`title_tag_value`) go through `numeric_entities` before use - Nokogiri's
+  entity output is inconsistent (numeric ref, named HTML entity, or literal UTF-8 char depending on the surrounding
+  markup), and raw-appended text has to be deterministically XML-safe regardless.
+- **CI (see above) is branch-specific, not yet on `main`.** It was added directly on `convert/hpricot-nokogiri`;
+  a separate, earlier attempt at GitHub Actions (PR #252) closed unmerged. `.travis.yml` is gone entirely now too
+  (removed, not just dead). Once this branch merges, check `.github/workflows/` directly rather than trusting this
+  note - it'll be stale the moment `main`'s CI story changes again.
 - `APP_ENV` is inferred from the working directory path (`/production/` or `/staging/` in `Dir.pwd`), defaulting to
   development; specs force `test`.
 - `export-comments.rb` / `import-comments.rb` `require "mysql"`, which isn't in the Gemfile (`mysql2` is), and
@@ -82,6 +92,12 @@ locally.
   then ministers/shadow-ministers.csv. Check any data edit with `bundle exec ./parse-members.rb --no-load`.
 - Scripts that load the database write to production-shaped tables; anything run with a real `configuration.yml`
   pointed at production paths is a live action needing an explicit go-ahead.
+- **`bundle exec ./script.rb` silently no-ops** (exit 0, no output, no error) - these scripts guard their entry
+  point with `if $PROGRAM_NAME == __FILE__`, which is false under that invocation style (`__FILE__` resolves
+  absolute, `$PROGRAM_NAME` stays relative). Use `bundle exec ruby ./script.rb`, `bin/run script.rb`, or the
+  `Makefile.dev` targets in `twfy` instead. See the README's "Backfilling a real local dev database" section for
+  the full local-dev-against-`twfy`-docker workflow, including how to bridge `DB_HOST` to the docker-compose MySQL
+  and how to verify what loaded against production's public data at data.openaustralia.org.au.
 
 ## Contributing
 

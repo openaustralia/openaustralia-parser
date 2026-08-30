@@ -7,7 +7,6 @@ ruby file: ".ruby-version"
 gem "activerecord", "~> 8.0.4", require: "active_record" # For sitemap generation
 gem "builder", "~> 3.0"
 gem "csv"
-gem "hpricot"
 gem "htmlentities"
 gem "log4r"
 gem "logger"
@@ -31,7 +30,6 @@ end
 group :test do
   gem "rspec"
   gem "simplecov"
-  gem "simplecov-console"
   gem "timecop"
   gem "vcr"
   gem "webmock"

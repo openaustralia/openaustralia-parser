@@ -12,6 +12,8 @@
 
 require "nokogiri"
 require "fileutils"
+require "zlib"
+require "uri"
 
 require_relative "../spec_helper"
 require_relative "../../sitemap"

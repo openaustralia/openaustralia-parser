@@ -8,28 +8,64 @@ class Configuration
   attr_reader :database_host, :database_user, :database_password, :database_name, :file_image_path, :members_xml_path, :xml_path,
               :regmem_pdf_path, :base_dir, :website, :web_path, :app_env, :sentry_dsn
 
+  # Sibling rblib checkout, fixed by this repo's own layout - not the same
+  # thing as configuration.yml's web_root, which is legitimately overridable
+  # per-environment (and deliberately /dev/null in test) but has nothing to
+  # do with where rblib physically lives relative to this file.
+  RBLIB_PATH = File.expand_path("../../rblib", __dir__)
+
+  # Loads the MySociety module (idempotent, cheap to call repeatedly), for
+  # code that needs it directly - eg lib/sitemap_generator/news.rb's
+  # MySociety::Config.fork_php - independent of whether Configuration itself
+  # went on to load DB config from it (see load_mysociety_config below,
+  # which skips that part whenever configuration.yml already has it).
+  def self.require_mysociety_config
+    require "#{RBLIB_PATH}/config"
+  end
+
+  def load_configuration_file_values
+    @database_host = @conf["database_host"]
+    @database_user = @conf["database_user"]
+    @database_password = @conf["database_password"]
+    @database_name = @conf["database_name"]
+    @file_image_path = @conf["file_image_path"]
+    @members_xml_path = @conf["members_xml_path"]
+    @xml_path = @conf["xml_path"]
+    @website = @conf["website"]
+    @web_path = @conf["web_path"]
+    @regmem_pdf_path = @conf["regmem_pdf_path"]
+    @base_dir = @conf["base_dir"]
+    @sentry_dsn = @conf["sentry_dsn"]
+  end
+
   def load_mysociety_config
+    load_configuration_file_values
+
+    # Skip loading external mysociety config if we already have all required fields (e.g., in test environment)
+    required_fields = %w[database_host database_user database_password database_name]
+    return if required_fields.all? { |field| @conf[field] }
+
     # Load the information from the mysociety configuration
-    require "#{web_root}/rblib/config"
+    self.class.require_mysociety_config
     MySociety::Config.set_file("#{web_root}/twfy/conf/general")
-    @database_host = @conf["database_host"] || MySociety::Config.get("DB_HOST")
-    @database_user = @conf["database_user"] || MySociety::Config.get("DB_USER")
-    @database_password = @conf["database_password"] || MySociety::Config.get("DB_PASSWORD")
-    @database_name = @conf["database_name"] || MySociety::Config.get("DB_NAME")
-    @file_image_path = @conf["file_image_path"] || MySociety::Config.get("FILEIMAGEPATH")
-    @members_xml_path = @conf["members_xml_path"] || MySociety::Config.get("PWMEMBERS")
-    @xml_path = @conf["xml_path"] || MySociety::Config.get("RAWDATA")
-    @website = @conf["website"] || MySociety::Config.get("DOMAIN")
-    @web_path = @conf["web_path"] || MySociety::Config.get("WEBPATH")
-    @regmem_pdf_path = @conf["regmem_pdf_path"] || MySociety::Config.get("REGMEMPDFPATH")
-    @base_dir = @conf["base_dir"] || MySociety::Config.get("BASEDIR")
+    @database_host ||= MySociety::Config.get("DB_HOST")
+    @database_user ||= MySociety::Config.get("DB_USER")
+    @database_password ||= MySociety::Config.get("DB_PASSWORD")
+    @database_name ||= MySociety::Config.get("DB_NAME")
+    @file_image_path ||= MySociety::Config.get("FILEIMAGEPATH")
+    @members_xml_path ||= MySociety::Config.get("PWMEMBERS")
+    @xml_path ||= MySociety::Config.get("RAWDATA")
+    @website ||= MySociety::Config.get("DOMAIN")
+    @web_path ||= MySociety::Config.get("WEBPATH")
+    @regmem_pdf_path ||= MySociety::Config.get("REGMEMPDFPATH")
+    @base_dir ||= MySociety::Config.get("BASEDIR")
     # Same Sentry project as twfy (conf/general's SENTRY_DSN), so the web app
     # and the parser report to the same place. sentry_dsn in configuration.yml
     # overrides it for standalone development (see configuration.yml.example).
     # rblib's MySociety::Config.get treats an explicit nil default the same as
     # no default (raises either way, see its `elsif !default.nil?`), so this
     # must be a real string, not nil, to actually avoid raising.
-    @sentry_dsn = @conf["sentry_dsn"] || MySociety::Config.get("SENTRY_DSN", "")
+    @sentry_dsn ||= MySociety::Config.get("SENTRY_DSN", "")
   end
 
   # Reports uncaught exceptions to Sentry, if configured. Safe to call even

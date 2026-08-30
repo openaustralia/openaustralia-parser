@@ -2,10 +2,10 @@
 
 # vim: set ts=2 sw=2 et sts=2 ai:
 
-require_relative "hpricot_additions"
-require_relative "house"
-require_relative "hansard_division"
-require_relative "hansard_speech"
+require "nokogiri"
+require "house"
+require "hansard_division"
+require "hansard_speech"
 require "date"
 
 # Use this for sections of the Hansard that we're not currently supporting. Allows us to track
@@ -28,6 +28,11 @@ class HansardDay
   # On 2011-02-22 there was a tied vote and the speaker didn't need to cast a deciding
   # vote because an absolute majority was required
   ALLOW_TIED_VOTE_DATES = [Date.new(2011, 2, 22)].freeze
+
+  # process_textnode (in HansardRewriter) emits a single <speech>/<talk> element per
+  # top-level turn, with any further turns (interjections, continuations, etc.)
+  # nested inside it rather than as siblings.
+  TURN_TAGS = %w[continue interjection question answer].freeze
 
   def initialize(page, logger = nil)
     @page = page
@@ -75,7 +80,23 @@ class HansardDay
   # Search for the title tag and return its value, stripping out any HTML tags
   def title_tag_value(debate)
     # Doing this rather than calling inner_text to preserve html entities which for some reason get all screwed up by inner_text
-    strip_tags(debate.search("> * > title").map { |e| e.inner_html.strip }.join("; ")).strip
+    numeric_entities(strip_tags(debate.search("> * > title").map { |e| e.inner_html.strip }.join("; ")).strip)
+  end
+
+  # Titles/subtitles get raw-appended into the output XML (builder << text, see
+  # heading.rb), so they must already be fully entity-safe. Nokogiri's inner_html
+  # is unpredictable here depending on the surrounding markup - sometimes a
+  # numeric entity, sometimes a named HTML entity (eg &rsquo;), sometimes a
+  # literal UTF-8 character. Normalise by decoding whatever we got back down to
+  # plain text, then re-encoding deterministically: XML-escape the ASCII
+  # metacharacters, and numeric-entity-encode everything non-ASCII, matching
+  # what the (Hpricot-era) expected fixtures use throughout.
+  def numeric_entities(text)
+    # CGI.unescapeHTML only knows &lt; &gt; &amp; &quot; and numeric refs, not
+    # the full HTML5 named-entity table (eg &rsquo;) - Nokogiri does.
+    plain = Nokogiri::HTML.fragment(text).text
+    plain.gsub("&", "&amp;").gsub("<", "&lt;").gsub(">", "&gt;")
+         .gsub(/[^\x00-\x7F]/) { |c| format("&#x%x;", c.ord) }
   end
 
   def title(debate)
@@ -83,7 +104,7 @@ class HansardDay
     when "debate", "petition.group"
       title = title_tag_value(debate).strip
       cognates = debate.search("> debateinfo > cognate > cognateinfo > title").map do |a|
-        strip_tags(a.inner_html)
+        numeric_entities(strip_tags(a.inner_html))
       end
       ([title] + cognates).join("; ")
     when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
@@ -99,9 +120,11 @@ class HansardDay
     case debate.name
     when "debate", "petition.group"
       # cognate debates can have multiple bill ids
-      if debate.at("> debateinfo") && !debate.at("> debateinfo").children_of_type("id.no").empty?
+      # Element names containing a dot are a class selector in CSS, so <id.no>
+      # has to be matched with XPath rather than css()
+      if debate.at("> debateinfo") && !debate.at("> debateinfo").xpath("./id.no").empty?
         if debate.at("> debateinfo > type").inner_text.downcase == "bills"
-          id = debate.at("/debateinfo").children_of_type("id.no")[0].inner_text
+          id = debate.at("> debateinfo").xpath("./id.no")[0].inner_text
           title = debate.at("> debateinfo > title").inner_text
           url = bill_url(id)
           results << { id: id, title: title, url: url }
@@ -109,7 +132,7 @@ class HansardDay
         debate.search("> debateinfo > cognate").each do |congnate|
           next if congnate.at(:type).inner_text.downcase != "bills"
 
-          id_elem = congnate.at(:cognateinfo).children_of_type("id.no")[0]
+          id_elem = congnate.at(:cognateinfo).xpath("./id.no")[0]
           # some old Hansard duplicates <cognateinfo> with <id.no> missing
           next unless id_elem
 
@@ -120,11 +143,11 @@ class HansardDay
         end
       end
     when "subdebate.1", "subdebate.2", "subdebate.3", "subdebate.4"
-      if debate.get_elements_by_tag_name("subdebate.text").empty?
+      if debate.xpath(".//subdebate.text").empty?
         results = bills(debate.parent)
       else
-        unless debate.get_elements_by_tag_name("subdebate.text")[0].get_elements_by_tag_name("a").empty?
-          debate.get_elements_by_tag_name("subdebate.text")[0].get_elements_by_tag_name("a").each do |a|
+        unless debate.xpath(".//subdebate.text")[0].xpath(".//a").empty?
+          debate.xpath(".//subdebate.text")[0].xpath(".//a").each do |a|
             id = strip_tags(a["href"].strip)
             title = strip_tags(a.inner_text.strip)
             url = bill_url(id)
@@ -150,7 +173,7 @@ class HansardDay
       if debate.parent.name == "subdebate.1"
         front = subtitle(debate.parent).strip
       else
-        possible_firstdebates = debate.parent.search("(subdebate.1)")
+        possible_firstdebates = debate.parent.xpath("./*[local-name()='subdebate.1']")
         front = if possible_firstdebates.length == 1
                   subtitle(possible_firstdebates[0]).strip
                 else
@@ -165,9 +188,15 @@ class HansardDay
     end
   end
 
+  # A rewritten <speech>/<question>/<answer> element represents one turn itself,
+  # plus any further turns (continuations, interjections, etc.) nested inside it.
+  def speech_turns(node)
+    [node] + node.children.select { |c| TURN_TAGS.include?(c.name) }
+  end
+
   def time(debate)
     # HACK: Hmmm.. check this out more
-    tag = debate.at("//(time.stamp)")
+    tag = debate.at_xpath(".//*[local-name()='time.stamp']")
     tag&.inner_html
   end
 
@@ -180,13 +209,15 @@ class HansardDay
     question = false
     procedural = false
 
-    debate.each_child_node do |e|
+    debate.children.each do |e|
+      next if e.text?
+
       case e.name
       when "debateinfo", "subdebateinfo", "subdebate.text", "petition.groupinfo"
         question = false
         procedural = false
       when "speech", "talk"
-        p << e.map_child_node do |c|
+        p << speech_turns(e).map do |c|
           HansardSpeech.new(content: c, title: title, subtitle: subtitle, bills: bills, time: time(e), day: self,
                             logger: @logger)
         end
@@ -208,11 +239,14 @@ class HansardDay
           questions = []
           f = e
           while f && (f.name == "question" || f.name == "answer")
-            questions += f.map_child_node do |c|
+            questions += speech_turns(f).map do |c|
               HansardSpeech.new(content: c, title: title, subtitle: subtitle, bills: bills, time: time(e), day: self,
                                 logger: @logger)
             end
-            f = f.next_sibling
+            # next_element rather than next_sibling so whitespace text nodes
+            # between elements don't end the loop early (Hpricot's
+            # next_sibling skipped text nodes; Nokogiri's doesn't)
+            f = f.next_element
           end
           p << questions
         end
@@ -227,7 +261,7 @@ class HansardDay
           while f && procedural_tags.include?(f.name)
             procedurals << HansardSpeech.new(content: f, title: title, subtitle: subtitle, bills: bills,
                                              time: time(f), day: self, logger: @logger)
-            f = f.next_sibling
+            f = f.next_element
           end
           p << procedurals
         end
@@ -251,13 +285,24 @@ class HansardDay
     # Step through the top-level debates
     # When something that was a page in old parlinfo web system is not supported we just return nil for it. This ensures that it is
     # still accounted for in the counting of the ids but we don't try to use it to generate any content
+
+    # Nokogiri includes whitespace text nodes between elements.
+    # Those nodes have names like text and would otherwise fall into
+    # the case statements and raise Unexpected tag errors.
+    # when I switched from Hpricot iteration helpers to children, i need
+    # to add from "next if" checks below
+
     p << nil
-    hansard.each_child_node do |e|
+    hansard.children.each do |e|
+      next if e.text?
+
       case e.name
       when "session.header"
         # Do nothing
       when "chamber.xscript", "maincomm.xscript", "fedchamb.xscript"
-        e.each_child_node do |f|
+        e.children.each do |f|
+          next if f.text?
+
           case f.name
           when "business.start", "adjournment", "interrupt", "interjection"
             p << nil
@@ -268,7 +313,9 @@ class HansardDay
           end
         end
       when "answers.to.questions"
-        e.each_child_node do |f|
+        e.children.each do |f|
+          next if f.text?
+
           case f.name
           when "debate"
             # Do nothing

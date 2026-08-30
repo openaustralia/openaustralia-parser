@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative "hpricot_additions"
-require_relative "name"
+require "nokogiri"
+require "name"
 require "English"
 
 class HansardSpeech
@@ -30,8 +30,8 @@ class HansardSpeech
   end
 
   def aph_id
-    aph_id_tag = @content.at("//(name.id)")
-    aph_id_tag ? aph_id_tag.inner_html : nil
+    aph_id_tag = @content.at_xpath(".//*[local-name()='name.id']")
+    aph_id_tag ? aph_id_tag.text : nil
   end
 
   private
@@ -76,7 +76,11 @@ class HansardSpeech
   end
 
   def self.clean_content_inline(node)
-    text = strip_leading_dash(node.inner_html)
+    # inner_html rather than text because the result is interpolated straight
+    # back into XML, so entities such as &amp; have to stay encoded. The
+    # encoding keeps characters like the em dash literal rather than turning
+    # them into numeric entities that strip_leading_dash wouldn't recognise.
+    text = strip_leading_dash(node.inner_html(encoding: "UTF-8"))
 
     attributes_keys = node.attributes.to_hash.keys
     # Always ignore font-size
@@ -89,16 +93,16 @@ class HansardSpeech
     end
 
     if attributes_keys.delete("font-style")
-      unless node.attributes["font-style"] == "italic"
-        raise "Unexpected font-style value #{node.attributes['font-style']}"
+      unless node["font-style"] == "italic"
+        raise "Unexpected font-style value #{node['font-style']}"
       end
 
       text = "<i>#{text}</i>"
     end
 
     if attributes_keys.delete("font-weight")
-      unless node.attributes["font-weight"] == "bold"
-        raise "Unexpected font-weight value #{e.attributes['font-weight']}"
+      unless node["font-weight"] == "bold"
+        raise "Unexpected font-weight value #{node['font-weight']}"
       end
 
       # Workaround for badly marked up content. If a bold item is surrounded in brackets assume it is a name and remove it
@@ -111,13 +115,13 @@ class HansardSpeech
     end
 
     if attributes_keys.delete("font-variant")
-      case node.attributes["font-variant"]
+      case node["font-variant"]
       when "superscript"
         text = "<sup>#{text}</sup>"
       when "subscript"
         text = "<sub>#{text}</sub>"
       else
-        raise "Unexpected font-variant value #{node.attributes['font-variant']}"
+        raise "Unexpected font-variant value #{node['font-variant']}"
       end
     end
 
@@ -131,15 +135,24 @@ class HansardSpeech
 
   def self.clean_content_graphic(node)
     # TODO: Probably the path needs to be different depending on whether Reps or Senate
-    "<img src=\"http://parlinfoweb.aph.gov.au/parlinfo/Repository/Chamber/HANSARDR/#{node.attributes['href']}\"/>"
+    "<img src=\"http://parlinfoweb.aph.gov.au/parlinfo/Repository/Chamber/HANSARDR/#{node['href']}\"/>"
   end
 
   # Pass a <para>Some text</para> block. Returns cleaned "Some text"
   def self.clean_content_para_content(node)
     t = +""
     (node.children || []).each do |c|
-      t << if c.is_a?(Hpricot::Text)
-             strip_leading_dash(c.to_s)
+      t << if c.is_a?(Nokogiri::XML::Text)
+             # #text fully decodes entities to raw characters (eg &lt; becomes a
+             # literal "<"), and the result is interpolated straight into a new XML
+             # string by #clean_content_para/#clean_content - an unescaped "<" then
+             # gets reparsed as a real tag (a bare "<" is always invalid in XML text
+             # content; a lone ">" happens to be technically valid there, which is why
+             # this only broke on one side of a citation URL in angle brackets - see
+             # PR #253's comments). Escape after stripping the leading dash, since that
+             # check looks for a literal em-dash character, not an entity.
+             text = strip_leading_dash(c.text)
+             text.gsub("&", "&amp;").gsub("<", "&lt;").gsub(">", "&gt;")
            else
              clean_content_any(c)
            end
@@ -151,7 +164,7 @@ class HansardSpeech
   def self.clean_content_para(node, override_type = nil)
     type = override_type || ""
 
-    case node.attributes["class"]
+    case node["class"]
     when "italic"
       type = "italic"
     when "bold"
@@ -172,7 +185,9 @@ class HansardSpeech
 
   def self.clean_content_item(node)
     d = +""
-    node.each_child_node do |f|
+    # element_children skips the whitespace text nodes that Nokogiri keeps
+    # between elements and that clean_content_any has no case for
+    node.element_children.each do |f|
       case f.name
       when "para"
         d << clean_content_para_content(f)
@@ -210,8 +225,8 @@ class HansardSpeech
 
   def self.clean_content_entry(node, override_type = nil)
     attributes = 'valign="top"'
-    if node.attributes["colspan"] && node.attributes["colspan"] != ""
-      attributes << " colspan=\"#{node.attributes['colspan']}\""
+    if node["colspan"] && node["colspan"] != ""
+      attributes << " colspan=\"#{node['colspan']}\""
     end
     "<td #{attributes}>#{clean_content_recurse(node, override_type)}</td>"
   end
@@ -224,7 +239,7 @@ class HansardSpeech
   def self.clean_content_motion(node)
     # Hmmm. what if there are two para's below? will we get the wrong formatting?
     t = +'<p pwmotiontext="moved">'
-    node.each_child_node do |f|
+    node.element_children.each do |f|
       case f.name
       when "para"
         t << clean_content_para_content(f)
@@ -248,6 +263,12 @@ class HansardSpeech
       clean_content_recurse(node, "italic")
     when "talk.start", "amendments", "motionnospeech", "interjection", "continue", "answer", "question"
       clean_content_recurse(node)
+    when "speech", "talk"
+      # Further turns (continue/interjection/question/answer) are nested inside this
+      # node by HansardRewriter rather than being siblings of it; each becomes its
+      # own HansardSpeech (see HansardDay#speech_turns), so stop before rendering them
+      # here to avoid rendering their content twice.
+      clean_content_own_turn(node)
     when "tgroup", "thead", "tbody"
       clean_content_recurse(node, override_type)
     when "para"
@@ -275,25 +296,47 @@ class HansardSpeech
       puts "Came across an <Error> tag in the XML. That's probably not good. Skipping it."
       ""
     else
-      raise "Unexpected tag #{node.name}"
+      # Somewhere upstream of this, a named HTML entity (eg &mdash;) ends up in text that
+      # gets re-parsed as bare XML, which doesn't define named entities - libxml2 then
+      # turns the unresolvable reference into a bogus child element named after it (eg
+      # <mdash/>) instead of the character it stood for. HansardRewriter#xml_safe_html
+      # catches most of these before they get this far, but not all (see PR #253's
+      # comments) - recover the character here too rather than crashing on it.
+      decoded = Nokogiri::HTML.fragment("&#{node.name};").text
+      raise "Unexpected tag #{node.name}" unless decoded.length == 1 && decoded != node.name
+
+      format("&#x%x;", decoded.ord)
+
     end
   end
 
   def self.clean_content_recurse(node, override_type = nil)
     t = +""
-    node.each_child_node do |f|
+    node.element_children.each do |f|
+      t << clean_content_any(f, override_type)
+    end
+    t
+  end
+
+  # Renders only the children belonging to this turn (e.g. a <speech>'s own
+  # <talker>/<para>), stopping before any further turns (HansardDay::TURN_TAGS)
+  # nested inside it by HansardRewriter, since those are rendered separately.
+  def self.clean_content_own_turn(node, override_type = nil)
+    t = +""
+    node.element_children.each do |f|
+      break if HansardDay::TURN_TAGS.include?(f.name)
+
       t << clean_content_any(f, override_type)
     end
     t
   end
 
   def clean_content
-    Hpricot.XML(HansardSpeech.clean_content_any(@content))
+    Nokogiri::XML::DocumentFragment.parse(HansardSpeech.clean_content_any(@content))
   end
 
   def strip_tags(doc)
-    str = doc.to_s
-    str.gsub(%r{</?[^>]*>}, "")
+    doc.text
   end
 
   def self.generic_speaker?(speakername)
@@ -301,6 +344,6 @@ class HansardSpeech
   end
 
   def name?(name)
-    @content.is_a?(Hpricot::Text) ? !!@content.at("/#{name}") : name == @content.name
+    @content.is_a?(Nokogiri::XML::Text) ? !!@content.at("/#{name}") : name == @content.name
   end
 end

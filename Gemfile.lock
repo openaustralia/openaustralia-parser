@@ -22,7 +22,6 @@ GEM
       uri (>= 0.13.1)
     addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
-    ansi (1.6.0)
     ast (2.4.3)
     base64 (0.3.0)
     benchmark (0.5.0)
@@ -44,7 +43,6 @@ GEM
     domain_name (0.6.20240107)
     drb (2.2.3)
     hashdiff (1.2.1)
-    hpricot (0.8.6)
     htmlentities (4.4.2)
     http-cookie (1.1.6)
       domain_name (~> 0.5)
@@ -150,14 +148,8 @@ GEM
       docile (~> 1.1)
       simplecov-html (~> 0.11)
       simplecov_json_formatter (~> 0.1)
-    simplecov-console (0.9.5)
-      ansi
-      simplecov
-      terminal-table
     simplecov-html (0.13.2)
     simplecov_json_formatter (0.1.4)
-    terminal-table (4.0.0)
-      unicode-display_width (>= 1.1.1, < 4)
     thor (1.5.0)
     timecop (0.9.11)
     timeout (0.6.1)
@@ -184,7 +176,6 @@ DEPENDENCIES
   builder (~> 3.0)
   bundle-audit
   csv
-  hpricot
   htmlentities
   log4r
   logger
@@ -202,7 +193,6 @@ DEPENDENCIES
   ruby_audit
   sentry-ruby
   simplecov
-  simplecov-console
   timecop
   vcr
   webmock
