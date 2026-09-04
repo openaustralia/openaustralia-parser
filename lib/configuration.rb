@@ -99,11 +99,20 @@ class Configuration
   # top-level entry script's final "SomeClass.new(...).run" call in this.
   # Sentry must already be initialized (ie a Configuration instantiated)
   # before the block runs, or reporting is a no-op.
+  #
+  # Also starts a transaction covering the whole run, named after the
+  # invoked script ($PROGRAM_NAME, eg "parse-speeches.rb") - the parent that
+  # subscribe_active_record_queries_to_sentry's spans attach to.
   def self.report_errors
+    transaction = Sentry.start_transaction(op: "cli.script", name: $PROGRAM_NAME)
+    Sentry.get_current_scope.set_span(transaction) if transaction
+
     yield
   rescue StandardError => e
     Sentry.capture_exception(e)
     raise
+  ensure
+    transaction&.finish
   end
 
   def initialize(app_env: nil)
