@@ -75,6 +75,30 @@ class Configuration
     Sentry.init do |config|
       config.dsn = sentry_dsn
       config.environment = app_env
+      # 100%, unlike twfy's PHP web app (10%, see its init.php's own
+      # traces_sample_rate comment) - this runs a handful of times a day via
+      # cron (dailyupdate/morningupdate), not per public web request, so
+      # full tracing is cheap and gives complete data rather than a sample.
+      config.traces_sample_rate = 1.0
+    end
+
+    subscribe_active_record_queries_to_sentry
+  end
+
+  # ActiveRecord is only used for sitemap generation (see the Gemfile) - the
+  # main Hansard parse/load path shells out to twfy's own scripts/xml2db.pl
+  # instead (see parse-speeches.rb), so this only covers sitemap queries.
+  # SCHEMA/TRANSACTION excluded to match sentry-rails' own ActiveRecord
+  # subscriber - neither is a query worth its own span. Each span is
+  # attached to whatever transaction report_errors started for this run;
+  # Sentry.with_child_span is a no-op without one.
+  def subscribe_active_record_queries_to_sentry
+    ActiveSupport::Notifications.subscribe("sql.active_record") do |_name, start, finish, _id, payload|
+      next if %w[SCHEMA TRANSACTION].include?(payload[:name])
+
+      Sentry.with_child_span(op: "db.query", description: payload[:sql], start_timestamp: start.to_f) do |span|
+        span&.set_timestamp(finish.to_f)
+      end
     end
   end
 
@@ -99,11 +123,20 @@ class Configuration
   # top-level entry script's final "SomeClass.new(...).run" call in this.
   # Sentry must already be initialized (ie a Configuration instantiated)
   # before the block runs, or reporting is a no-op.
+  #
+  # Also starts a transaction covering the whole run, named after the
+  # invoked script ($PROGRAM_NAME, eg "parse-speeches.rb") - the parent that
+  # subscribe_active_record_queries_to_sentry's spans attach to.
   def self.report_errors
+    transaction = Sentry.start_transaction(op: "cli.script", name: $PROGRAM_NAME)
+    Sentry.get_current_scope.set_span(transaction) if transaction
+
     yield
   rescue StandardError => e
     Sentry.capture_exception(e)
     raise
+  ensure
+    transaction&.finish
   end
 
   def initialize(app_env: nil)
