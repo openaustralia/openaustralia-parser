@@ -75,6 +75,13 @@ class Configuration
     Sentry.init do |config|
       config.dsn = sentry_dsn
       config.environment = app_env
+      # The full git SHA of the deployed umbrella openaustralia repo, from
+      # the REVISION file Capistrano writes at the deploy root (one level
+      # above this parser submodule), so parser exceptions tie to the same
+      # release as the web app's. Absent in local development, where the SDK
+      # leaves the release unset.
+      revision_file = File.expand_path("../../REVISION", __dir__)
+      config.release = File.read(revision_file).strip if File.exist?(revision_file)
       # 100%, unlike twfy's PHP web app (10%, see its init.php's own
       # traces_sample_rate comment) - this runs a handful of times a day via
       # cron (dailyupdate/morningupdate), not per public web request, so
