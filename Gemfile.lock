@@ -140,7 +140,7 @@ GEM
     rubyntlm (0.6.5)
       base64
     securerandom (0.4.1)
-    sentry-ruby (6.7.0)
+    sentry-ruby (7.0.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
       logger
@@ -191,7 +191,7 @@ DEPENDENCIES
   rubocop-rspec
   ruby-progressbar
   ruby_audit
-  sentry-ruby
+  sentry-ruby (~> 7.0)
   simplecov
   timecop
   vcr

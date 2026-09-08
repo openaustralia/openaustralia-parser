@@ -17,7 +17,10 @@ gem "ostruct"
 gem "rake"
 gem "rmagick"
 gem "ruby-progressbar"
-gem "sentry-ruby"
+# Pinned to the current major, matching the other OAF repos (see
+# docs/monitoring.md in the infrastructure repo) - majors move defaults
+# around, so take them deliberately.
+gem "sentry-ruby", "~> 7.0"
 
 group :development do
   gem "bundle-audit", require: false
