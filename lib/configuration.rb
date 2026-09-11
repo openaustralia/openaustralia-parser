@@ -100,6 +100,8 @@ class Configuration
   # attached to whatever transaction report_errors started for this run;
   # Sentry.with_child_span is a no-op without one.
   def subscribe_active_record_queries_to_sentry
+    return unless defined?(ActiveSupport::Notifications)
+
     ActiveSupport::Notifications.subscribe("sql.active_record") do |_name, start, finish, _id, payload|
       next if %w[SCHEMA TRANSACTION].include?(payload[:name])
 
