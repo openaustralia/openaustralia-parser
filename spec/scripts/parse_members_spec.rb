@@ -8,6 +8,14 @@
 # --no-load skips the perl xml2db.pl database load.
 # No HTTP calls — reads from local CSV data files only.
 # Output: people.xml, representatives.xml, senators.xml, ministers.xml, divisions.xml
+#
+# Runs against a small, fixed dataset (spec/fixtures/data-members/), not the
+# real data/*.csv - those change for real, unrelated reasons (a by-election,
+# someone retiring...) every time someone does a routine data update, which
+# used to break this snapshot on every such PR (see openaustralia/openaustralia#967).
+# The fixture covers a retired House member, a by-election entrant, and a
+# section_15 senator - enough to exercise the interesting code paths in
+# lib/people_csv_reader.rb without being real, ever-changing data.
 
 require_relative "../spec_helper"
 require_relative "../../parse-members"
@@ -15,6 +23,7 @@ require "fileutils"
 
 RSpec.describe "parse-members.rb", :integration do
   let(:script)       { File.expand_path("../../parse-members.rb", __dir__) }
+  let(:data_dir)     { File.expand_path("../fixtures/data-members", __dir__) }
   let(:expected_dir) { File.expand_path("../expected/parse-members", __dir__) }
   let(:output_dir)   { File.expand_path("../../tmp/output/parse-members", __dir__) }
 
@@ -26,7 +35,7 @@ RSpec.describe "parse-members.rb", :integration do
   after  { FileUtils.rm_rf(output_dir) }
 
   def run_script
-    capture_stdout_and_stderr { ParseMembers.new(%W[--no-load --output-dir=#{output_dir}]).run }
+    capture_stdout_and_stderr { ParseMembers.new(%W[--no-load --output-dir=#{output_dir} --data-dir=#{data_dir}]).run }
   end
 
   it "loads without syntax errors" do
