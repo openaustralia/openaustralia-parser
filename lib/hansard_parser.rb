@@ -228,7 +228,7 @@ class HansardParser
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
             if member.nil?
-              extra_details = @people.find_people_by_name(name)&.any? ? "not sitting" : "not found"
+              extra_details = unmatched_name_details(name)
               raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes) #{name.to_h.inspect} #{extra_details}"
             end
 
@@ -240,7 +240,7 @@ class HansardParser
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
             if member.nil?
-              extra_details = @people.find_people_by_name(name)&.any? ? "not sitting" : "not found"
+              extra_details = unmatched_name_details(name)
               raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no) #{name.to_h.inspect} #{extra_details}"
             end
 
@@ -252,7 +252,7 @@ class HansardParser
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
             if member.nil?
-              extra_details = @people.find_people_by_name(name)&.any? ? "not sitting" : "not found"
+              extra_details = unmatched_name_details(name)
               raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting yes and teller) #{name.to_h.inspect} #{extra_details}"
             end
 
@@ -264,7 +264,7 @@ class HansardParser
             name = Name.last_title_first(text)
             member = @people.find_member_by_name_current_on_date(name, date, house)
             if member.nil?
-              extra_details = @people.find_people_by_name(name)&.any? ? "not sitting" : "not found"
+              extra_details = unmatched_name_details(name)
               raise "#{date} #{house}: Couldn't figure out who #{text} is in division (voting no and teller) #{name.to_h.inspect} #{extra_details}"
             end
 
@@ -277,7 +277,7 @@ class HansardParser
               name = Name.last_title_first(text)
               member = @people.find_member_by_name_current_on_date(name, date, house)
               if member.nil?
-                extra_details = @people.find_people_by_name(name)&.any? ? "not sitting" : "not found"
+                extra_details = unmatched_name_details(name)
                 raise "#{date} #{house}: Couldn't figure out who #{text} is in division (in a pair) #{name.to_h.inspect} #{extra_details}"
               end
 
@@ -300,6 +300,21 @@ class HansardParser
 
     # Only output the debate file if there's going to be something in it
     debates.output(xml_filename) if content
+  end
+
+  # Debug detail for a division name that didn't resolve to a sitting member -
+  # every candidate this name could plausibly be, with the IDs (Person#id,
+  # aph_id, each Period#id) and house needed to find and fix the actual
+  # data/*.csv row.
+  def unmatched_name_details(name)
+    candidates = @people.find_people_by_name(name)
+    return "not found" if candidates.nil? || candidates.empty?
+
+    details = candidates.map do |person|
+      periods = person.periods.map { |p| "#{p.house}: #{p.id} (#{p.from_date} to #{p.to_date})" }.join(", ")
+      "#{person.id} aph_id=#{person.aph_id.inspect} #{person.name.full_name} [#{periods}]"
+    end.join("; ")
+    "not sitting - #{details}"
   end
 
   def lookup_speaker_by_title(speech, date, house)
