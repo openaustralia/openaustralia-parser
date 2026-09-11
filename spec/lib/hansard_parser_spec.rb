@@ -2,6 +2,39 @@
 
 require_relative "../spec_helper"
 require "hansard_speech"
+require "hansard_parser"
+require "people"
+
+# Two classes both live in hansard_parser.rb (see HansardSpeech below), so
+# this file already predates the one-describe-per-file convention.
+# rubocop:disable RSpec/MultipleDescribes
+RSpec.describe HansardParser do
+  describe "#unmatched_name_details" do
+    let(:people) { People.new }
+    let(:parser) { HansardParser.new(people) }
+
+    it "says 'not found' when no candidate matches the name at all" do
+      details = parser.unmatched_name_details(Name.new(first: "Nobody", last: "Nowhere"))
+      expect(details).to eq "not found"
+    end
+
+    it "lists each candidate's IDs and house/period when the name matches but no period fits" do
+      people << Person.new(name: Name.new(first: "Jane", last: "Doe"), count: 42, aph_id: "ABC123")
+      people.last.add_period(from_date: Date.new(2010, 1, 1), to_date: Date.new(2013, 1, 1),
+                             house: House.senate, division: "Testville", party: "ALP", count: 7)
+
+      details = parser.unmatched_name_details(Name.new(first: "Jane", last: "Doe"))
+
+      expect(details).to start_with("not sitting - ")
+      expect(details).to include("uk.org.publicwhip/person/10042")
+      expect(details).to include("aph_id=\"ABC123\"")
+      expect(details).to include("Jane Doe")
+      expect(details).to include("senate")
+      expect(details).to include("uk.org.publicwhip/lord/100007")
+      expect(details).to include("2010-01-01 to 2013-01-01")
+    end
+  end
+end
 
 RSpec.describe HansardSpeech do
   describe ".generic_speaker?" do
@@ -24,3 +57,4 @@ RSpec.describe HansardSpeech do
     end
   end
 end
+# rubocop:enable RSpec/MultipleDescribes
