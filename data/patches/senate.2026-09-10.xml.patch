@@ -1,0 +1,10 @@
+--- original.xml
++++ patched.xml
+@@ -676,7 +676,6 @@
+                   <name>Walsh, J. C.</name>
+                   <name>Smith, D. A.</name>
+                   <name>Tyrrell, T. M.</name>
+-                  <name>Chisholm, A. D.</name>
+                 </names>
+               </pairs>
+             </division.data>
