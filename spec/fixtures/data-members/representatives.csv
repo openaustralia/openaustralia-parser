@@ -1,0 +1,4 @@
+member count,person count,name,Division,State/Territory,Date of election,Type of election,Date ceased to be a Member,reason,Most recent party
+
+1,,Alice Anderson,Testville,NSW,1.1.2000,,31.12.2010,retired,ALP
+2,,Bob Brown,Sampleton,WA,1.6.2015,by_election,,still_in_office,LIB
