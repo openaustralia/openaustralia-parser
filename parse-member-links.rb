@@ -64,6 +64,11 @@ class ParseMemberLinks
       morph_entries = morph_entries.first(@options[:limit]) if @options[:limit]
       morph_entries.each do |person|
         p = people.find_person_by_aph_id(person["aph_id"].upcase)
+        if p.nil?
+          warn "Skipping #{person['contact_page']}: no person with aph_id #{person['aph_id']} in data/people.csv"
+          next
+        end
+
         params = { id: p.id, mp_contact_form: person["contact_page"],
                    aph_url: person["profile_page"] }
         params[:mp_email] = person["email"] if person["email"]
