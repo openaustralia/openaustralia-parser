@@ -63,6 +63,11 @@ class ParseMemberLinks
       morph_entries = JSON.parse(morph_result)
       morph_entries = morph_entries.first(@options[:limit]) if @options[:limit]
       morph_entries.each do |person|
+        if person["aph_id"].nil?
+          warn "Skipping #{person['contact_page']}: no aph_id in morph.io data"
+          next
+        end
+
         p = people.find_person_by_aph_id(person["aph_id"].upcase)
         if p.nil?
           warn "Skipping #{person['contact_page']}: no person with aph_id #{person['aph_id']} in data/people.csv"
