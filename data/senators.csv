@@ -301,7 +301,7 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 302,,Robert John Carr,,NSW,06.03.2012,,24.10.2013,resigned,ALP
 303,,Dean Smith,,WA,2.5.2012,,,still_in_office,LIB
 304,,Lin Estelle Thorp,,Tas.,20.6.2012,,30.6.2014,retired,ALP
-305,,Peter Stuart Whish-Wilson,,Tas.,20.06.2012,,,still_in_office,GRN
+305,,Peter Stuart Whish-Wilson,,Tas.,20.06.2012,,20.8.2026,retired,GRN
 306,,Anne Ruston,,SA,05.09.2012,section_15,,still_in_office,LIB
 307,,Sue Lines,,WA,15.5.2013,section_15,30.9.2016,changed_party,ALP
 308,,Sam Dastyari,,NSW,21.8.2013,section_15,25.1.2018,resigned,ALP
@@ -464,3 +464,5 @@ member count,person count,name,Division,State/Territory,Date of election,Type of
 972,,Tammy Tyrrell,,Tas,14.5.2026,changed_party,,still_in_office,ALP
 # Replacement for Wendy Askew
 973,,Chris Gatenby,,Tas,10.8.2026,section_15,,still_in_office,LIB
+# Replacement for Peter Whish-Wilson
+974,,Vanessa Bleyer,,Tas,20.8.2026,section_15,,still_in_office,GRN
