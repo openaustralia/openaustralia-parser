@@ -19,7 +19,7 @@ class ParseMembers
     options = { load_database: true }
 
     OptionParser.new do |opts|
-      opts.banner = "Usage: parse-members.rb [--no-load] [--output-dir=PATH]"
+      opts.banner = "Usage: parse-members.rb [--no-load] [--output-dir=PATH] [--data-dir=PATH]"
 
       # This is useful when just testing whether the members data is well-formed
       # We do this as part of the tests on travis
@@ -29,6 +29,9 @@ class ParseMembers
       opts.on("--output-dir=PATH", "Write XML output to PATH instead of conf.members_xml_path") do |path|
         options[:output_dir] = path
       end
+      opts.on("--data-dir=PATH", "Read people/representatives/senators/ministers/shadow-ministers .csv from PATH instead of data/") do |path|
+        options[:data_dir] = path
+      end
     end.parse!(@args)
 
     conf = Configuration.new
@@ -37,8 +40,17 @@ class ParseMembers
     FileUtils.mkdir_p output_dir
 
     puts "Reading members data..."
-    people = PeopleCSVReader.read_members
-    PeopleCSVReader.read_all_ministers(people)
+    people = if options[:data_dir]
+               PeopleCSVReader.read_members("#{options[:data_dir]}/people.csv", "#{options[:data_dir]}/representatives.csv",
+                                            "#{options[:data_dir]}/senators.csv")
+             else
+               PeopleCSVReader.read_members
+             end
+    if options[:data_dir]
+      PeopleCSVReader.read_all_ministers(people, "#{options[:data_dir]}/ministers.csv", "#{options[:data_dir]}/shadow-ministers.csv")
+    else
+      PeopleCSVReader.read_all_ministers(people)
+    end
     puts "Running consistency checks..."
     # First check that each constituency is showing a continuous period of members with there never being more than one member at any time.
     # Collect all the division names
