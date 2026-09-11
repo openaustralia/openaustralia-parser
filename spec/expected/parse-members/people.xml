@@ -4386,7 +4386,7 @@
   <office id="uk.org.publicwhip/lord/100304"/>
  </person>
  <person id="uk.org.publicwhip/person/10780" latestname="Peter Whish-Wilson">
-  <office current="yes" id="uk.org.publicwhip/lord/100305"/>
+  <office id="uk.org.publicwhip/lord/100305"/>
  </person>
  <person id="uk.org.publicwhip/person/10781" latestname="Anne Ruston">
   <office current="yes" id="uk.org.publicwhip/lord/100306"/>
@@ -5776,5 +5776,8 @@
  </person>
  <person id="uk.org.publicwhip/person/11064" latestname="Chris Gatenby">
   <office current="yes" id="uk.org.publicwhip/lord/100973"/>
+ </person>
+ <person id="uk.org.publicwhip/person/11065" latestname="Vanessa Bleyer">
+  <office current="yes" id="uk.org.publicwhip/lord/100974"/>
  </person>
 </people>

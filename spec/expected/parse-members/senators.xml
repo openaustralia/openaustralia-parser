@@ -310,7 +310,7 @@
  <member division="NSW" firstname="Bob" fromdate="2012-03-06" fromwhy="general_election" house="senate" id="uk.org.publicwhip/lord/100302" lastname="Carr" party="Australian Labor Party" title="" todate="2013-10-24" towhy="resigned"/>
  <member division="WA" firstname="Dean" fromdate="2012-05-02" fromwhy="general_election" house="senate" id="uk.org.publicwhip/lord/100303" lastname="Smith" party="Liberal Party" title="" todate="9999-12-31" towhy="still_in_office"/>
  <member division="Tasmania" firstname="Lin" fromdate="2012-06-20" fromwhy="general_election" house="senate" id="uk.org.publicwhip/lord/100304" lastname="Thorp" party="Australian Labor Party" title="" todate="2014-06-30" towhy="retired"/>
- <member division="Tasmania" firstname="Peter" fromdate="2012-06-20" fromwhy="general_election" house="senate" id="uk.org.publicwhip/lord/100305" lastname="Whish-Wilson" party="Australian Greens" title="" todate="9999-12-31" towhy="still_in_office"/>
+ <member division="Tasmania" firstname="Peter" fromdate="2012-06-20" fromwhy="general_election" house="senate" id="uk.org.publicwhip/lord/100305" lastname="Whish-Wilson" party="Australian Greens" title="" todate="2026-08-20" towhy="retired"/>
  <member division="SA" firstname="Anne" fromdate="2012-09-05" fromwhy="unknown" house="senate" id="uk.org.publicwhip/lord/100306" lastname="Ruston" party="Liberal Party" title="" todate="9999-12-31" towhy="still_in_office"/>
  <member division="WA" firstname="Sue" fromdate="2013-05-15" fromwhy="unknown" house="senate" id="uk.org.publicwhip/lord/100307" lastname="Lines" party="Australian Labor Party" title="" todate="2016-09-30" towhy="changed_party"/>
  <member division="WA" firstname="Sue" fromdate="2016-09-30" fromwhy="changed_party" house="senate" id="uk.org.publicwhip/lord/100872" lastname="Lines" party="DPRES" title="" todate="2022-07-26" towhy="changed_party"/>
@@ -449,4 +449,5 @@
  <member division="NSW" firstname="Warwick" fromdate="2025-05-03" fromwhy="general_election" house="senate" id="uk.org.publicwhip/lord/100968" lastname="Stacey" party="Pauline Hanson's One Nation Party" title="" todate="2025-08-19" towhy="resigned"/>
  <member division="NSW" firstname="Sean" fromdate="2025-09-18" fromwhy="general_election" house="senate" id="uk.org.publicwhip/lord/100969" lastname="Bell" party="Pauline Hanson's One Nation Party" title="" todate="9999-12-31" towhy="still_in_office"/>
  <member division="Tasmania" firstname="Chris" fromdate="2026-08-10" fromwhy="unknown" house="senate" id="uk.org.publicwhip/lord/100973" lastname="Gatenby" party="Liberal Party" title="" todate="9999-12-31" towhy="still_in_office"/>
+ <member division="Tasmania" firstname="Vanessa" fromdate="2026-08-20" fromwhy="unknown" house="senate" id="uk.org.publicwhip/lord/100974" lastname="Bleyer" party="Australian Greens" title="" todate="9999-12-31" towhy="still_in_office"/>
 </members>
