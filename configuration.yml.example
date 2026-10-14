@@ -70,7 +70,7 @@ theyvoteforyou_api_key: XXXXXXXXXXXXXXXXXXXX
 
 # -------------------------------------------------------
 # Test environment overrides, matching this repo's own docker-compose.yml
-# (docker-compose up -d mysql). Without these, `bundle exec rspec` falls
+# (make services-up). Without these, `bundle exec rspec` falls
 # through to whatever twfy/conf/general's dev DB_HOST/DB_USER/etc resolve to
 # instead, which won't match this container.
 test:

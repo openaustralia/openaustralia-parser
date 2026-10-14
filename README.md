@@ -38,10 +38,28 @@ This gives access to the DB schema needed for tests, and if you want to test the
 Use Docker to run MySQL 8.4 for testing:
 
 ```bash
-docker-compose up -d  # Start MySQL in the background
+make services-up  # Start MySQL in the background, once it's ready
 ```
 
+If port 3306 is already in use, or you run more than one worktree at once, see
+[Port clashes](AGENTS.md#port-clashes) in AGENTS.md.
+
 The test configuration uses `root`/`root` credentials and `openaustralia_test` database automatically. The database schema is automatically loaded from `../twfy/db/schema.sql` when tests run.
+
+#### If the app won't start
+
+Startup fails loudly on purpose, so a broken setup gets noticed instead of hiding behind a container that looks fine.
+If setup fails, or takes longer than `START_LIMIT` (5 minutes here, set in `.devcontainer/compose.yaml`), the `app`
+container stops, `make up` reports the failure, and the dev container shows an error instead of opening.
+
+To fix it:
+
+1. `make status` shows which container stopped, and `make logs SERVICE=app` shows why.
+2. `make shell` opens a shell in a fresh `app` container even when it has stopped, so you can rerun the setup by hand
+   and fix the problem.
+3. `make up`, or reopen the dev container, to start again.
+
+On a slow machine, a longer limit can go in `.env`, for example `START_LIMIT=20m`.
 
 #### Setup this (openaustralia-parser) repo
 
@@ -113,7 +131,7 @@ bundle exec ruby register-split.rb
 
 ## Backfilling a real local dev database
 
-The steps above (`docker-compose up -d` + `bundle exec rspec`) get you a working *test* database, but that's
+The steps above (`make services-up` + `bundle exec rspec`) get you a working *test* database, but that's
 throwaway and only used by the spec suite. To actually run the parser against real Hansard data and see it land in
 a browsable TWFY site, use `twfy`'s own dev stack instead:
 
@@ -175,13 +193,13 @@ git clone git@github.com:openaustralia/twfy.git
 cd openaustralia-parser
 
 # Start MySQL via Docker
-docker-compose up -d
+make services-up
 
 # Run all tests
 bundle exec rspec
 
-# Stop Docker MySQL
-docker-compose down
+# Stop Docker MySQL (make clobber also deletes its data)
+make dev-down
 ```
 
 ## Data updates
