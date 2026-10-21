@@ -10,6 +10,9 @@ require_relative "count"
 class Debates
   attr_reader :items
 
+  # true for a proof (draft) day, false when final, nil when unknown.
+  attr_accessor :proof
+
   def initialize(date, house, logger = nil)
     @date = date
     @house = house
@@ -90,9 +93,16 @@ class Debates
 
   def output_builder(builder)
     builder.instruct!
-    builder.debates do
+    builder.debates(proof_attributes) do
       @items.each { |i| i.output(builder) }
     end
+  end
+
+  # Only written when known, as proof="1" (proof, not final) or proof="0" (final).
+  def proof_attributes
+    return {} if proof.nil?
+
+    { proof: proof ? "1" : "0" }
   end
 
   def calculate_speech_durations
