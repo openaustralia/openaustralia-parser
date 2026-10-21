@@ -44,7 +44,7 @@ class HansardDivision
 
   def pairs
     names = @content.xpath(".//*[local-name()='division.data']/pairs/names/name").map(&:text)
-    raise "Not an even number of people in the pairs voting" if names.size.odd?
+    raise odd_pairs_message(names) if names.size.odd?
 
     # Format the flat list of names into pairs (assuming that the people in pairs appear consecutively)
     pairs = []
@@ -107,6 +107,18 @@ class HansardDivision
   end
 
   private
+
+  def odd_pairs_message(names)
+    listing = names.each_with_index.map { |name, i| "  #{i + 1}. #{name}" }.join("\n")
+    <<~MSG.chomp
+      Not an even number of people in the pairs voting (#{names.size} names)
+      Division: #{title.inspect} / #{subtitle.inspect}
+      Time: #{time.inspect}
+      URL: #{permanent_url}
+      Names listed in the pairs element:
+      #{listing}
+    MSG
+  end
 
   def add_speaker?(to_vote)
     case to_vote
