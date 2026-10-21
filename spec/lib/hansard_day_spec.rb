@@ -165,6 +165,35 @@ RSpec.describe HansardDay do
     expect(@header).to be_in_proof
   end
 
+  describe "#proof" do
+    def day_with_proof(value)
+      x = Builder::MyXmlMarkup.new
+      HansardDay.new(Nokogiri::XML(x.hansard do
+        x.session_header do
+          x.date "2008-09-25"
+          x.chamber "SENATE"
+          x.proof value unless value.nil?
+        end
+      end))
+    end
+
+    it "is true when APH marks the day as a proof (draft)" do
+      expect(day_with_proof("1").proof).to be true
+    end
+
+    it "is false when APH marks the day as final" do
+      expect(day_with_proof("0").proof).to be false
+    end
+
+    it "is nil when the proof tag is blank" do
+      expect(day_with_proof("").proof).to be_nil
+    end
+
+    it "is nil when the proof tag is missing" do
+      expect(day_with_proof(nil).proof).to be_nil
+    end
+  end
+
   it "should group question and answer pairs even with whitespace between the elements" do
     xml = Nokogiri::XML(<<~XML)
       <hansard>

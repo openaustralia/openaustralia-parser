@@ -186,6 +186,7 @@ class HansardParser
     if day
       @logger.info "Parsing #{house} speeches for #{date.strftime('%a %d %b %Y')}..."
       @logger.warn "In proof stage" if day.in_proof?
+      debates.proof = day.proof
       day.pages.each do |page|
         content = true
 
