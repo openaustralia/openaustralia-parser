@@ -291,3 +291,35 @@ RSpec.describe HansardDivision, "with a vacant seat in the pairings" do
     expect(division.pairs).to eq [["Sharma, D. N.", "Wong, P."]]
   end
 end
+
+RSpec.describe HansardDivision, "with an odd number of names in the pairings" do
+  subject(:division) do
+    HansardDivision.new(Nokogiri::XML(
+                          "<division>
+          <division.header>
+              <time.stamp>10:36:00</time.stamp>
+          </division.header>
+          <division.data>
+              <pairs>
+                  <names>
+                      <name>Sharma, D. N.</name>
+                      <name>Wong, P.</name>
+                      <name>Stewart, J. N. A.</name>
+                  </names>
+              </pairs>
+          </division.data>
+      </division>"
+                        ), "Bills", "Third reading", [], double(HansardDay, permanent_url: "http://foo/day"))
+  end
+
+  it "raises an error that locates the division and lists the names" do
+    expect { division.pairs }.to raise_error(
+      RuntimeError,
+      a_string_including("Not an even number of people in the pairs voting (3 names)",
+                         'Division: "Bills" / "Third reading"',
+                         'Time: "10:36:00"',
+                         "URL: http://foo/day",
+                         "  3. Stewart, J. N. A.")
+    )
+  end
+end
