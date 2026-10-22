@@ -199,7 +199,7 @@ make services-up
 bundle exec rspec
 
 # Stop Docker MySQL (make clobber also deletes its data)
-make dev-down
+make down
 ```
 
 ## Data updates

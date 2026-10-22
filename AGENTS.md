@@ -56,20 +56,20 @@ A start that takes longer than `START_LIMIT` (in `.devcontainer/compose.yaml`) c
 see "If the app won't start" in the README.
 
 There's no web app here: the `app` container is Ruby with the gems installed and `../rblib` cloned, for running the
-parser and specs (`make shell`, then `bundle exec rspec`). It shares MySQL's network, so `configuration.yml`'s test
+specs (`make shell`, then `bundle exec rspec`). It shares MySQL's network, so `configuration.yml`'s test
 settings work unchanged inside it. To run specs on the host instead, `make services-up` starts MySQL alone.
 
 ### Port clashes
 
 | Variable  | Default | Publishes                                                                          |
 |-----------|---------|------------------------------------------------------------------------------------|
-| `DB_PORT` | 3306    | MySQL. The specs read it too; the load scripts and rake tasks still connect on 3306 |
+| `DB_PORT` | 3306    | MySQL. The specs and sitemap read it too; the load scripts and rake tasks still use 3306 |
 
 Put overrides in `.env` at the repo root, which is gitignored, with different values in each worktree. Compose reads
 it however you start the stack. Containers and data are named `openaustralia-parser` (`name:` in `compose.yaml`), so a second checkout of
 this repo, such as a worktree, shares them unless its `.env` also sets its own `COMPOSE_PROJECT_NAME`. For
 host-side commands to see the same values, put `dotenv` in a gitignored `.envrc` if you use direnv, or
-run `set -a; . ./.env; set +a`. Services you rarely need from the host get a random port, which `make status` shows.
+run `set -a; . ./.env; set +a`.
 To see what holds a port, use `ss -ltnp | grep 3306` (Linux) or `lsof -iTCP:3306 -sTCP:LISTEN` (macOS); a database
 server installed on the host is the usual culprit.
 

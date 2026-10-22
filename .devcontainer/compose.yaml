@@ -17,7 +17,7 @@ services:
       interval: 2s
       retries: 60
 
-  # Ruby for running the parser and specs, and the dev container's workspace.
+  # Ruby for running the specs, and the dev container's workspace.
   app:
     build:
       context: ..
@@ -40,12 +40,11 @@ services:
     command: >
       sh -c 'cp -n configuration.yml.example configuration.yml;
              { [ -d /rblib/.git ] || git clone --depth 1 https://github.com/openaustralia/rblib.git /rblib; } &&
-             bundle config set build.hpricot --with-cflags=-Wno-error=incompatible-function-pointer-types &&
              { bundle check || bundle install; } &&
              echo "Ready: make shell, then bundle exec rspec" &&
              exec sleep infinity'
     healthcheck:
-      test: ["CMD", "bundle", "check"]
+      test: ["CMD-SHELL", "bundle check && [ -d /rblib/.git ]"]
       interval: 5s
       start_period: *start_limit
 

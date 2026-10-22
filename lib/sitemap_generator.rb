@@ -45,7 +45,8 @@ class SitemapGenerator
       host: conf.database_host,
       username: conf.database_user,
       password: conf.database_password,
-      database: conf.database_name
+      database: conf.database_name,
+      port: ENV.fetch("DB_PORT", 3306).to_i
     )
 
     s = Sitemap.new(conf.website, output_dir, conf.web_path)
