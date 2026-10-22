@@ -61,9 +61,9 @@ settings work unchanged inside it. To run specs on the host instead, `make servi
 
 ### Port clashes
 
-| Variable  | Default | Publishes                                                                          |
-|-----------|---------|------------------------------------------------------------------------------------|
-| `DB_PORT` | 3306    | MySQL. The specs and sitemap read it too; the load scripts and rake tasks still use 3306 |
+| Variable  | Default | Publishes                                                                                                   |
+|-----------|---------|-------------------------------------------------------------------------------------------------------------|
+| `DB_PORT` | 3306    | MySQL. The specs and sitemap read it too; `postcodes.rb` and the `db:` rake tasks still use 3306 ([#1006](https://github.com/openaustralia/openaustralia/issues/1006)) |
 
 Put overrides in `.env` at the repo root, which is gitignored, with different values in each worktree. Compose reads
 it however you start the stack. Containers and data are named `openaustralia-parser` (`name:` in `compose.yaml`), so a second checkout of
