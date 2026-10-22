@@ -22,4 +22,4 @@ require_relative "lib/sitemap_generator"
 
 args = ARGV.dup # make a copy of ARGV so that OptionParser doesn't modify the original
 
-SitemapGenerator.new(args).run if $PROGRAM_NAME == __FILE__
+SitemapGenerator.new(args).run if File.expand_path($PROGRAM_NAME) == File.expand_path(__FILE__)
