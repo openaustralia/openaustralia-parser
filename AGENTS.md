@@ -34,6 +34,45 @@ cp configuration.yml.example configuration.yml
 - A local MySQL database is needed for the load scripts; the exact `CREATE DATABASE`/`CREATE USER` statements are
   in the README.
 
+## Docker development environment
+
+One stack, defined in `.devcontainer/compose.yaml`, serves every way of working: `make`, plain `docker compose`
+(through the root `compose.yaml`), and the dev container in VS Code, RubyMine, Codespaces or
+`devcontainer up --workspace-folder .`. They all share the same containers and data.
+
+```
+make up           # MySQL plus a Ruby container with the gems installed, once it's ready
+make services-up  # MySQL only, for running specs on the host
+make status       # each container's health and host ports
+make logs         # follow the logs (SERVICE=<name> for one container)
+make shell        # a shell in the app container, or a fresh one if it has stopped
+make down         # stop and remove the containers, keeping the data
+make clean        # also remove built images and dependencies, so the next start rebuilds; keeps the data
+make clobber      # also remove the data, and prune unused Docker images and cache machine-wide
+```
+
+`make up` and `make services-up` return once every service passes its healthcheck. Run `make` for the full list.
+A start that takes longer than `START_LIMIT` (in `.devcontainer/compose.yaml`) counts as failed, and stops loudly on purpose;
+see "If the app won't start" in the README.
+
+There's no web app here: the `app` container is Ruby with the gems installed and `../rblib` cloned, for running the
+specs (`make shell`, then `bundle exec rspec`). It shares MySQL's network, so `configuration.yml`'s test
+settings work unchanged inside it. To run specs on the host instead, `make services-up` starts MySQL alone.
+
+### Port clashes
+
+| Variable  | Default | Publishes                                                                                                   |
+|-----------|---------|-------------------------------------------------------------------------------------------------------------|
+| `DB_PORT` | 3306    | MySQL. The specs and sitemap read it too; `postcodes.rb` and the `db:` rake tasks still use 3306 ([#1006](https://github.com/openaustralia/openaustralia/issues/1006)) |
+
+Put overrides in `.env` at the repo root, which is gitignored, with different values in each worktree. Compose reads
+it however you start the stack. Containers and data are named `openaustralia-parser` (`name:` in `compose.yaml`), so a second checkout of
+this repo, such as a worktree, shares them unless its `.env` also sets its own `COMPOSE_PROJECT_NAME`. For
+host-side commands to see the same values, put `dotenv` in a gitignored `.envrc` if you use direnv, or
+run `set -a; . ./.env; set +a`.
+To see what holds a port, use `ss -ltnp | grep 3306` (Linux) or `lsof -iTCP:3306 -sTCP:LISTEN` (macOS); a database
+server installed on the host is the usual culprit.
+
 ## Commands
 
 ```
