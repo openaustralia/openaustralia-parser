@@ -40,6 +40,8 @@ jobs:
         EXCLUDE_NEWS: "1"
   scripts:
     runs-on: ubuntu-latest
+    env:
+      APP_ENV: test # the example's test settings need neither rblib nor twfy
     steps:
     - uses: actions/checkout@v6
     - run: sudo apt-get update && sudo apt-get install -y libmagickwand-dev # needed to build the rmagick native extension
