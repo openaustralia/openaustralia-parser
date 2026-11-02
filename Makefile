@@ -1,11 +1,21 @@
-.PHONY: help up services-up down clean clobber status logs shell
+.PHONY: help setup up services-up down clean clobber status logs shell test lint console
 
 help: ## Show this help (the default target)
 	@grep -hE '^[a-zA-Z0-9_.-]+:.*## ' $(MAKEFILE_LIST) | \
 	  awk 'BEGIN {FS = ":.*## "}; {printf "  %-12s %s\n", $$1, $$2}'
 
+# For running the specs and scripts on the host. mise is preferred, rbenv works too; both read .ruby-version (mise via
+# mise.toml). bin/setup can't install Ruby itself, as it needs Ruby to run.
+setup: services-up ## Install Ruby (with mise or rbenv), gems, config and ../rblib, and start MySQL, to work on the host
+	@if command -v mise >/dev/null; then mise trust && mise install && mise exec -- bin/setup; \
+	elif command -v rbenv >/dev/null; then rbenv install --skip-existing && rbenv exec ruby bin/setup; \
+	else echo "Install mise (https://mise.jdx.dev) or rbenv first" >&2; exit 1; fi
+
 # The stack is defined in .devcontainer/compose.yaml (see "Docker development environment" in AGENTS.md).
 # --wait returns once every service passes its healthcheck, so the next command can use them straight away.
+# Runs a command in the app container, or in a fresh one if it has stopped
+in_app = if [ -n "$$(docker compose ps -q --status running app)" ]; then docker compose exec app $(1); else docker compose run --rm app $(1); fi
+
 up: ## Start MySQL and a Ruby container with the gems installed, once ready (then make shell)
 	docker compose up --build --wait -d
 services-up: ## Start the test MySQL only, for running specs on the host
@@ -33,4 +43,11 @@ status: ## Show each container's health and the host ports it's published on
 logs: ## Follow the logs of every container (or SERVICE=app for one)
 	docker compose logs -f $(SERVICE)
 shell: ## Open a shell in the app container, or in a fresh one if it has stopped (e.g. after a failed start)
-	@if [ -n "$$(docker compose ps -q --status running app)" ]; then docker compose exec app bash; else docker compose run --rm app bash; fi
+	@$(call in_app,bash)
+# The specs recreate their tables before each run, so there's no database to reset first
+test: ## Run the specs as CI does, in the app container (ARGS=spec/lib/name_spec.rb:42 to narrow)
+	@$(call in_app,bundle exec rspec $(ARGS))
+lint: ## Run RuboCop in the app container (ARGS=<paths> to narrow); CI doesn't run it yet
+	@$(call in_app,bundle exec rubocop $(ARGS))
+console: ## Open IRB with the parser's lib loaded, in the app container
+	@$(call in_app,script/console)

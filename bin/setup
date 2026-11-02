@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Gets a checkout ready to run the specs and scripts on the host. Safe to rerun.
+# `make setup` installs Ruby and starts MySQL first.
+require "fileutils"
+
+def system!(*args)
+  system(*args, exception: true)
+end
+
+FileUtils.chdir File.expand_path("..", __dir__) do
+  puts "== Installing dependencies =="
+  system("bundle check") || system!("bundle install")
+
+  puts "\n== Copying sample files =="
+  FileUtils.cp "configuration.yml.example", "configuration.yml" unless File.exist?("configuration.yml")
+
+  # lib/configuration.rb loads rblib from beside this checkout
+  puts "\n== Cloning rblib =="
+  system!("git clone --depth 1 https://github.com/openaustralia/rblib.git ../rblib") unless File.directory?("../rblib")
+end
