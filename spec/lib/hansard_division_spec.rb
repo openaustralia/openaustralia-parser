@@ -330,3 +330,25 @@ RSpec.describe HansardDivision, "with an odd number of names in the pairings" do
     )
   end
 end
+
+RSpec.describe HansardDivision, "with an empty name in an odd pairings list" do
+  subject(:division) do
+    HansardDivision.new(Nokogiri::XML(
+                          "<division>
+          <division.data>
+              <pairs>
+                  <names>
+                      <name>Sharma, D. N.</name>
+                      <name/>
+                      <name>Wong, P.</name>
+                  </names>
+              </pairs>
+          </division.data>
+      </division>"
+                        ), "", "", "", nil)
+  end
+
+  it "leaves the empty name out of the unpaired names" do
+    expect(division.unpaired).to eq ["Sharma, D. N.", "Wong, P."]
+  end
+end

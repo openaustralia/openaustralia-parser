@@ -56,7 +56,7 @@ class HansardDivision
 
   # With an odd number of names we can't tell who is paired with whom, so the names are kept unpaired.
   def unpaired
-    odd_pairs? ? pair_names.reject { |name| HansardDivision.vacancy?(name) } : []
+    odd_pairs? ? pair_names.reject { |name| name.strip.empty? || HansardDivision.vacancy?(name) } : []
   end
 
   def odd_pairs?
