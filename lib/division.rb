@@ -3,12 +3,13 @@
 require_relative "section"
 
 class Division < Section
-  def initialize(yes_members:, no_members:, yes_tellers:, no_tellers:, pairs:, time:, url:, bills:, count:, division_count:, date:, house:, logger: nil)
+  def initialize(yes_members:, no_members:, yes_tellers:, no_tellers:, pairs:, time:, url:, bills:, count:, division_count:, date:, house:, unpaired: [], logger: nil)
     @yes = yes_members
     @no = no_members
     @yes_tellers = yes_tellers
     @no_tellers = no_tellers
     @pairs = pairs
+    @unpaired = unpaired
     @division_count = division_count
     @bills = bills
     super(time: time, url: url, count: count, date: date, house: house, logger: logger)
@@ -31,6 +32,7 @@ class Division < Section
       builder.divisioncount(count_attributes)
       output_vote_list(builder, @yes, @yes_tellers, "aye")
       output_vote_list(builder, @no, @no_tellers, "no")
+      output_unpaired(builder)
       # Output pairs votes
       unless @pairs.empty?
         builder.pairs do
@@ -46,6 +48,14 @@ class Division < Section
   end
 
   private
+
+  def output_unpaired(builder)
+    return if @unpaired.empty?
+
+    builder.unpaired do
+      @unpaired.each { |member| builder.member({ id: member.id }, member.name.full_name) }
+    end
+  end
 
   def output_vote_list(builder, members, tellers, vote)
     builder.memberlist(vote: vote) do

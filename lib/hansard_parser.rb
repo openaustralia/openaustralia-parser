@@ -285,8 +285,19 @@ class HansardParser
               member
             end.compact
           end.compact
+          unpaired = page.unpaired.map do |text|
+            name = Name.last_title_first(text)
+            member = @people.find_member_by_name_current_on_date(name, date, house)
+            if member.nil?
+              extra_details = unmatched_name_details(name, house)
+              raise "#{date} #{house}: Couldn't figure out who #{text} is in division (unpaired) #{name.to_h.inspect} #{extra_details}"
+            end
+
+            member
+          end
+          @logger.warn "#{date} #{house}: #{page.odd_pairs_message}" if page.odd_pairs?
           debates.add_division(yes_members: yes, no_members: no, yes_tellers: yes_tellers, no_tellers: no_tellers,
-                               pairs: pairs, time: page.time, url: page.permanent_url, bills: page.bills)
+                               pairs: pairs, unpaired: unpaired, time: page.time, url: page.permanent_url, bills: page.bills)
         end
         # This ensures that every sub day page has a different major count which limits the impact
         # of when we start supporting things like written questions, procedurial text, etc..
