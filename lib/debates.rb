@@ -79,11 +79,11 @@ class Debates
     @items.last.append_to_content(content)
   end
 
-  def add_division(yes_members:, no_members:, yes_tellers:, no_tellers:, pairs:, time:, url:, bills:)
+  def add_division(yes_members:, no_members:, yes_tellers:, no_tellers:, pairs:, time:, url:, bills:, unpaired: [])
     add_heading_for_real
 
     @items << Division.new(yes_members: yes_members, no_members: no_members, yes_tellers: yes_tellers,
-                           no_tellers: no_tellers, pairs: pairs, time: time, url: url, bills: bills, count: @count.clone, division_count: @division_count, date: @date, house: @house, logger: @logger)
+                           no_tellers: no_tellers, pairs: pairs, unpaired: unpaired, time: time, url: url, bills: bills, count: @count.clone, division_count: @division_count, date: @date, house: @house, logger: @logger)
     increment_division_count
   end
 
