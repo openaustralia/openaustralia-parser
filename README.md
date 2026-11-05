@@ -173,15 +173,6 @@ ever parsed. Pull the same date range you backfilled locally and diff structural
 tallies, `approximate_wordcount` sums) rather than byte-for-byte, since cosmetic differences (eg how an em dash is
 encoded) don't mean anything's wrong.
 
-### A gotcha when testing scripts ad hoc
-
-Running an entry-point script as `bundle exec ./parse-speeches.rb ...` (leading `./`, executing the file directly)
-silently does nothing - exit 0, no output, no error. These scripts guard their entry point with `if $PROGRAM_NAME
-== __FILE__`, and under `bundle exec ./script.rb` Ruby resolves `__FILE__` to an absolute path while leaving
-`$PROGRAM_NAME` as the relative string you typed, so the guard is always false. Use `bundle exec ruby
-./parse-speeches.rb ...` instead (or `bin/run parse-speeches.rb ...`, or the `Makefile.dev` targets above, which
-already do this correctly).
-
 ## Testing
 
 Run tests with RSpec. First ensure MySQL is available and the database schema is accessible:
