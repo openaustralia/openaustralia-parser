@@ -43,16 +43,37 @@ class HansardDivision
   end
 
   def pairs
-    names = @content.xpath(".//*[local-name()='division.data']/pairs/names/name").map(&:text)
-    raise odd_pairs_message(names) if names.size.odd?
+    return [] if odd_pairs?
 
     # Format the flat list of names into pairs (assuming that the people in pairs appear consecutively)
     pairs = []
-    names.each_slice(2) { |p| pairs << p }
+    pair_names.each_slice(2) { |p| pairs << p }
     # A seat that's vacant is listed in the pairs by the placeholder below rather than by a
     # senator's name. It isn't a person, so the other half of that pair has nobody to be paired
     # with and we drop the pair rather than emit a half of one.
     pairs.reject { |pair| pair.any? { |name| HansardDivision.vacancy?(name) } }
+  end
+
+  # With an odd number of names we can't tell who is paired with whom, so the names are kept unpaired.
+  def unpaired
+    odd_pairs? ? pair_names.reject { |name| name.strip.empty? || HansardDivision.vacancy?(name) } : []
+  end
+
+  def odd_pairs?
+    pair_names.size.odd?
+  end
+
+  def odd_pairs_message
+    names = pair_names
+    listing = names.each_with_index.map { |name, i| "  #{i + 1}. #{name}" }.join("\n")
+    <<~MSG.chomp
+      Not an even number of people in the pairs voting (#{names.size} names)
+      Division: #{title.inspect} / #{subtitle.inspect}
+      Time: #{time.inspect}
+      URL: #{permanent_url}
+      Names listed in the pairs element:
+      #{listing}
+    MSG
   end
 
   def yes_tellers
@@ -108,16 +129,8 @@ class HansardDivision
 
   private
 
-  def odd_pairs_message(names)
-    listing = names.each_with_index.map { |name, i| "  #{i + 1}. #{name}" }.join("\n")
-    <<~MSG.chomp
-      Not an even number of people in the pairs voting (#{names.size} names)
-      Division: #{title.inspect} / #{subtitle.inspect}
-      Time: #{time.inspect}
-      URL: #{permanent_url}
-      Names listed in the pairs element:
-      #{listing}
-    MSG
+  def pair_names
+    @content.xpath(".//*[local-name()='division.data']/pairs/names/name").map(&:text)
   end
 
   def add_speaker?(to_vote)
