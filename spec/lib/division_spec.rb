@@ -79,6 +79,18 @@ RSpec.describe Division do
     XML
   end
 
+  it "should output unpaired names without pairing them" do
+    division = Division.new(yes_members: [], no_members: [], yes_tellers: [], no_tellers: [], pairs: [],
+                            unpaired: [@division3.instance_variable_get(:@pairs).first.first],
+                            time: "9:10:00", url: "http://foo/link", bills: [], count: Count.new(1, 2), division_count: 3, date: Date.new(2008, 2, 1), house: House.senate)
+    x = Builder::XmlMarkup.new(indent: 2)
+    expect(division.output(x)).to include <<~XML.gsub(/^/, "  ")
+      <unpaired>
+        <member id="uk.org.publicwhip/lord/100001">John Smith</member>
+      </unpaired>
+    XML
+  end
+
   it "should output voting pairs" do
     x = Builder::XmlMarkup.new(indent: 2)
     expect(@division3.output(x)).to eq <<~XML
