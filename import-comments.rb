@@ -55,4 +55,4 @@ class ImportComments
   end
 end
 
-exit ExportComments.new(ARGV).run if File.expand_path($PROGRAM_NAME) == File.expand_path(__FILE__)
+exit ImportComments.new(ARGV).run if File.expand_path($PROGRAM_NAME) == File.expand_path(__FILE__)
