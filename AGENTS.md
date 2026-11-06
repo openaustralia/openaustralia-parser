@@ -51,8 +51,8 @@ A start that takes longer than `START_LIMIT` (in `.devcontainer/compose.yaml`) c
 see "If the app won't start" in the README.
 
 There's no web app here: the `app` container is Ruby with the gems installed and `../rblib` cloned, for running the
-specs (`make test`, or `make shell` then `bundle exec rspec`). `make test`, `make lint` and `make console` use the
-running container, or a fresh one if it has stopped. It shares MySQL's network, so `configuration.yml`'s test
+specs (`make test`, or `make shell` then `bundle exec rspec`). `make test`, `make lint` and `make console` start the
+stack first if it isn't running. It shares MySQL's network, so `configuration.yml`'s test
 settings work unchanged inside it. To run specs on the host instead, `make services-up` starts MySQL alone.
 
 ### Port clashes

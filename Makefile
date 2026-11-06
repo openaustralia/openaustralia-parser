@@ -13,8 +13,11 @@ setup: services-up ## Install Ruby (with mise or rbenv), gems, config and ../rbl
 
 # The stack is defined in .devcontainer/compose.yaml (see "Docker development environment" in AGENTS.md).
 # --wait returns once every service passes its healthcheck, so the next command can use them straight away.
-# Runs a command in the app container, or in a fresh one if it has stopped
+# Runs a command in the app container, or in a fresh one if it has stopped. The fresh one skips compose.yaml's setup
+# (gems, rblib, configuration.yml), which suits a shell for debugging a failed start
 in_app = if [ -n "$$(docker compose ps -q --status running app)" ]; then docker compose exec app $(1); else docker compose run --rm app $(1); fi
+# Runs a command in the app container, starting the stack first if needed so that setup has run
+in_ready_app = docker compose up --wait -d app && docker compose exec app $(1)
 
 up: ## Start MySQL and a Ruby container with the gems installed, once ready (then make shell)
 	docker compose up --build --wait -d
@@ -46,8 +49,8 @@ shell: ## Open a shell in the app container, or in a fresh one if it has stopped
 	@$(call in_app,bash)
 # The specs recreate their tables before each run, so there's no database to reset first
 test: ## Run the specs as CI does, in the app container (ARGS=spec/lib/name_spec.rb:42 to narrow)
-	@$(call in_app,bundle exec rspec $(ARGS))
+	@$(call in_ready_app,bundle exec rspec $(ARGS))
 lint: ## Run RuboCop in the app container (ARGS=<paths> to narrow); CI doesn't run it yet
-	@$(call in_app,bundle exec rubocop $(ARGS))
+	@$(call in_ready_app,bundle exec rubocop $(ARGS))
 console: ## Open IRB with the parser's lib loaded, in the app container
-	@$(call in_app,script/console)
+	@$(call in_ready_app,script/console)
