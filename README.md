@@ -63,17 +63,11 @@ On a slow machine, a longer limit can go in `.env`, for example `START_LIMIT=20m
 
 #### Setup this (openaustralia-parser) repo
 
+Install [mise](https://mise.jdx.dev) (preferred) or rbenv, plus the Ubuntu packages the gems need (see
+`.devcontainer/Dockerfile`), then:
+
 ```bash
-# Install ubuntu packages as needed
-
-mise install # from .ruby-version
-
-# On modern compilers the hpricot gem needs a build flag before bundle install:
-bundle config build.hpricot --with-cflags=-Wno-error=incompatible-function-pointer-types
-
-bundle install # From Gemfile, Gemfile.lock
-
-cp configuration.yml.example configuration.yml
+make setup # Ruby from .ruby-version, gems, configuration.yml and ../rblib, and starts MySQL
 ```
 
 Edit `configuration.yml` as needed.
@@ -175,23 +169,19 @@ encoded) don't mean anything's wrong.
 
 ## Testing
 
-Run tests with RSpec. First ensure MySQL is available and the database schema is accessible:
+`make test` runs the specs in Docker, as CI does (`make test ARGS=spec/lib/name_spec.rb` runs just one file), and
+`make lint` runs RuboCop. They need nothing but Docker.
+
+To run them on the host after `make setup`:
 
 ```bash
-# Clone twfy (if not already done) - needed for DB schema
-cd ..
-git clone git@github.com:openaustralia/twfy.git
-cd openaustralia-parser
-
-# Start MySQL via Docker
-make services-up
-
-# Run all tests
-bundle exec rspec
-
-# Stop Docker MySQL (make clobber also deletes its data)
-make down
+make services-up                 # Start MySQL via Docker, if it isn't running
+EXCLUDE_NEWS=1 bundle exec rspec # as CI does; the sitemap's news section needs PHP
+bundle exec rubocop
+make down                        # Stop MySQL (make clobber also deletes its data)
 ```
+
+The specs load the schema from `../twfy/db/schema.sql` if you have it, else from `spec/fixtures/schema.sql`.
 
 ## Data updates
 

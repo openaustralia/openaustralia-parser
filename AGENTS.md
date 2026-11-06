@@ -13,13 +13,8 @@ production is driven by the `twfy` app's cron scripts (`dailyupdate` runs `parse
 
 ## Setup
 
-Ruby 3.4.9 (`.ruby-version`).
-
-```
-mise install
-bundle install
-cp configuration.yml.example configuration.yml
-```
+Ruby 3.4.9 (`.ruby-version`). To work on the host, `make setup` installs Ruby with mise (or rbenv), the gems,
+`configuration.yml` and `../rblib`, and starts MySQL. It's safe to rerun. To work in Docker instead, see below.
 
 - `configuration.yml` is gitignored and **required before anything runs, including `bundle exec rake`** - the
   Rakefile loads `lib/configuration.rb`, which reads it unconditionally.
@@ -28,9 +23,6 @@ cp configuration.yml.example configuration.yml
   development override" keys in the example so you don't need twfy or PHP at all (see README).
 - The example file has placeholder `morph_api_key` / `theyvoteforyou_api_key` values; real keys belong only in the
   gitignored `configuration.yml`, never in a commit.
-- The `hpricot` gem needs a compiler workaround on modern toolchains, and `.bundle/` is gitignored, so on a fresh
-  clone run `bundle config build.hpricot --with-cflags=-Wno-error=incompatible-function-pointer-types` before
-  `bundle install`.
 - A local MySQL database is needed for the load scripts; the exact `CREATE DATABASE`/`CREATE USER` statements are
   in the README.
 
@@ -46,6 +38,9 @@ make services-up  # MySQL only, for running specs on the host
 make status       # each container's health and host ports
 make logs         # follow the logs (SERVICE=<name> for one container)
 make shell        # a shell in the app container, or a fresh one if it has stopped
+make test         # the specs, as CI runs them (ARGS=spec/lib/name_spec.rb:42 to narrow)
+make lint         # RuboCop (ARGS=<paths> to narrow)
+make console      # IRB with lib/ loaded
 make down         # stop and remove the containers, keeping the data
 make clean        # also remove built images and dependencies, so the next start rebuilds; keeps the data
 make clobber      # also remove the data, and prune unused Docker images and cache machine-wide
@@ -56,7 +51,8 @@ A start that takes longer than `START_LIMIT` (in `.devcontainer/compose.yaml`) c
 see "If the app won't start" in the README.
 
 There's no web app here: the `app` container is Ruby with the gems installed and `../rblib` cloned, for running the
-specs (`make shell`, then `bundle exec rspec`). It shares MySQL's network, so `configuration.yml`'s test
+specs (`make test`, or `make shell` then `bundle exec rspec`). `make test`, `make lint` and `make console` start the
+stack first if it isn't running. It shares MySQL's network, so `configuration.yml`'s test
 settings work unchanged inside it. To run specs on the host instead, `make services-up` starts MySQL alone.
 
 ### Port clashes
@@ -74,6 +70,9 @@ To see what holds a port, use `ss -ltnp | grep 3306` (Linux) or `lsof -iTCP:3306
 server installed on the host is the usual culprit.
 
 ## Commands
+
+`make test` and `make lint` run the first three in the app container. On the host, set `EXCLUDE_NEWS=1` for the specs
+as CI does, or the sitemap specs fail for want of PHP.
 
 ```
 bundle exec rake                     # default task: the RSpec suite
@@ -94,7 +93,7 @@ locally.
 `.github/workflows/ruby.yaml` runs on every push/PR **on this branch** (`convert/hpricot-nokogiri`) - not yet on
 `main`, see the Gotchas entry below for why that matters. Two jobs: `test` (`bundle exec rspec` against a real
 MySQL service container) and `scripts` (`parse-members.rb --no-load`, `postcodes.rb --no-load`). A third, `lint`
-(RuboCop), exists in the file but is commented out - run `bundle exec rubocop` yourself, CI won't catch it.
+(RuboCop), exists in the file but is commented out - run `make lint` yourself, CI won't catch it.
 
 ## Structure
 
