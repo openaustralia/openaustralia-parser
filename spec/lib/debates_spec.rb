@@ -26,6 +26,26 @@ RSpec.describe Debates do
     XML
   end
 
+  describe "proof" do
+    def output_for(proof)
+      @debates.proof = proof
+      @debates.add_speech(@james, "9:00", "url", Nokogiri::HTML("<p>This is a speech</p>"))
+      @debates.output_builder(Builder::XmlMarkup.new(indent: 2))
+    end
+
+    it 'writes proof="1" when the day is a proof (draft), so the text is not final' do
+      expect(output_for(true)).to include('<debates proof="1">')
+    end
+
+    it 'writes proof="0" when the day is final' do
+      expect(output_for(false)).to include('<debates proof="0">')
+    end
+
+    it "writes no proof attribute when we do not know" do
+      expect(output_for(nil)).to include("<debates>")
+    end
+  end
+
   it "appends to a speech when the speaker is the same" do
     @debates.add_speech(@james, "9:00", "url", Nokogiri::HTML("<p>This is a speech</p>"))
     @debates.add_speech(@james, "9:00", "url", Nokogiri::HTML("<p>And a bit more</p>"))

@@ -1,0 +1,54 @@
+# The development stack, shared by `make`, plain `docker compose` (via ../compose.yaml) and the dev container.
+# See "Docker development environment" in AGENTS.md.
+services:
+  mysql:
+    image: mysql:8.4.9 # production's RDS version
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: openaustralia_test
+    # Overridable to avoid clashes, see "Port clashes" in AGENTS.md.
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    # Over TCP, so it only passes once first-run setup has finished and the real server is listening.
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot"]
+      interval: 2s
+      retries: 60
+
+  # Ruby for running the specs, and the dev container's workspace.
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    # Shares MySQL's network, so configuration.yml's test settings (127.0.0.1:3306) work unchanged in here.
+    network_mode: service:mysql
+    environment:
+      START_LIMIT: &start_limit ${START_LIMIT:-5m} # how long startup may take before it counts as failed; see "If the app won't start" in the README
+      EXCLUDE_NEWS: "1" # as CI does: the sitemap's news section needs PHP, which this image doesn't have
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - ..:/app
+      - bundle:/usr/local/bundle
+      - rblib:/rblib # ../rblib from /app, as the code expects
+    command: >
+      sh -c 'cp -n configuration.yml.example configuration.yml;
+             { [ -d /rblib/.git ] || git clone --depth 1 https://github.com/openaustralia/rblib.git /rblib; } &&
+             { bundle check || bundle install; } &&
+             echo "Ready: make shell, then bundle exec rspec" &&
+             exec sleep infinity'
+    healthcheck:
+      test: ["CMD-SHELL", "bundle check && [ -d /rblib/.git ]"]
+      interval: 5s
+      start_period: *start_limit
+
+volumes:
+  mysql_data:
+  bundle:
+  rblib:

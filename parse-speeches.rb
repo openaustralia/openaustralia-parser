@@ -165,4 +165,4 @@ class ParseSpeeches
   end
 end
 
-Configuration.report_errors { ParseSpeeches.new(ARGV).run } if $PROGRAM_NAME == __FILE__
+Configuration.report_errors { ParseSpeeches.new(ARGV).run } if File.expand_path($PROGRAM_NAME) == File.expand_path(__FILE__)

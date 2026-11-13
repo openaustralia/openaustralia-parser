@@ -312,14 +312,43 @@ RSpec.describe HansardDivision, "with an odd number of names in the pairings" do
                         ), "Bills", "Third reading", [], double(HansardDay, permanent_url: "http://foo/day"))
   end
 
-  it "raises an error that locates the division and lists the names" do
-    expect { division.pairs }.to raise_error(
-      RuntimeError,
-      a_string_including("Not an even number of people in the pairs voting (3 names)",
-                         'Division: "Bills" / "Third reading"',
-                         'Time: "10:36:00"',
-                         "URL: http://foo/day",
-                         "  3. Stewart, J. N. A.")
+  it "pairs nobody" do
+    expect(division.pairs).to eq []
+  end
+
+  it "keeps the names as unpaired" do
+    expect(division.unpaired).to eq ["Sharma, D. N.", "Wong, P.", "Stewart, J. N. A."]
+  end
+
+  it "describes the division and lists the names in the warning" do
+    expect(division.odd_pairs_message).to include(
+      "Not an even number of people in the pairs voting (3 names)",
+      'Division: "Bills" / "Third reading"',
+      'Time: "10:36:00"',
+      "URL: http://foo/day",
+      "  3. Stewart, J. N. A."
     )
+  end
+end
+
+RSpec.describe HansardDivision, "with an empty name in an odd pairings list" do
+  subject(:division) do
+    HansardDivision.new(Nokogiri::XML(
+                          "<division>
+          <division.data>
+              <pairs>
+                  <names>
+                      <name>Sharma, D. N.</name>
+                      <name/>
+                      <name>Wong, P.</name>
+                  </names>
+              </pairs>
+          </division.data>
+      </division>"
+                        ), "", "", "", nil)
+  end
+
+  it "leaves the empty name out of the unpaired names" do
+    expect(division.unpaired).to eq ["Sharma, D. N.", "Wong, P."]
   end
 end

@@ -38,24 +38,36 @@ This gives access to the DB schema needed for tests, and if you want to test the
 Use Docker to run MySQL 8.4 for testing:
 
 ```bash
-docker-compose up -d  # Start MySQL in the background
+make services-up  # Start MySQL in the background, once it's ready
 ```
+
+If port 3306 is already in use, or you run more than one worktree at once, see
+[Port clashes](AGENTS.md#port-clashes) in AGENTS.md.
 
 The test configuration uses `root`/`root` credentials and `openaustralia_test` database automatically. The database schema is automatically loaded from `../twfy/db/schema.sql` when tests run.
 
+#### If the app won't start
+
+Startup fails loudly on purpose, so a broken setup gets noticed instead of hiding behind a container that looks fine.
+If setup fails, or takes longer than `START_LIMIT` (5 minutes here, set in `.devcontainer/compose.yaml`), the `app`
+container stops, `make up` reports the failure, and the dev container shows an error instead of opening.
+
+To fix it:
+
+1. `make status` shows which container stopped, and `make logs SERVICE=app` shows why.
+2. `make shell` opens a shell in a fresh `app` container even when it has stopped, so you can rerun the setup by hand
+   and fix the problem.
+3. `make up`, or reopen the dev container, to start again.
+
+On a slow machine, a longer limit can go in `.env`, for example `START_LIMIT=20m`.
+
 #### Setup this (openaustralia-parser) repo
 
+Install [mise](https://mise.jdx.dev) (preferred) or rbenv, plus the Ubuntu packages the gems need (see
+`.devcontainer/Dockerfile`), then:
+
 ```bash
-# Install ubuntu packages as needed
-
-mise install # from .ruby-version
-
-# On modern compilers the hpricot gem needs a build flag before bundle install:
-bundle config build.hpricot --with-cflags=-Wno-error=incompatible-function-pointer-types
-
-bundle install # From Gemfile, Gemfile.lock
-
-cp configuration.yml.example configuration.yml
+make setup # Ruby from .ruby-version, gems, configuration.yml and ../rblib, and starts MySQL
 ```
 
 Edit `configuration.yml` as needed.
@@ -113,7 +125,7 @@ bundle exec ruby register-split.rb
 
 ## Backfilling a real local dev database
 
-The steps above (`docker-compose up -d` + `bundle exec rspec`) get you a working *test* database, but that's
+The steps above (`make services-up` + `bundle exec rspec`) get you a working *test* database, but that's
 throwaway and only used by the spec suite. To actually run the parser against real Hansard data and see it land in
 a browsable TWFY site, use `twfy`'s own dev stack instead:
 
@@ -155,34 +167,21 @@ ever parsed. Pull the same date range you backfilled locally and diff structural
 tallies, `approximate_wordcount` sums) rather than byte-for-byte, since cosmetic differences (eg how an em dash is
 encoded) don't mean anything's wrong.
 
-### A gotcha when testing scripts ad hoc
-
-Running an entry-point script as `bundle exec ./parse-speeches.rb ...` (leading `./`, executing the file directly)
-silently does nothing - exit 0, no output, no error. These scripts guard their entry point with `if $PROGRAM_NAME
-== __FILE__`, and under `bundle exec ./script.rb` Ruby resolves `__FILE__` to an absolute path while leaving
-`$PROGRAM_NAME` as the relative string you typed, so the guard is always false. Use `bundle exec ruby
-./parse-speeches.rb ...` instead (or `bin/run parse-speeches.rb ...`, or the `Makefile.dev` targets above, which
-already do this correctly).
-
 ## Testing
 
-Run tests with RSpec. First ensure MySQL is available and the database schema is accessible:
+`make test` runs the specs in Docker, as CI does (`make test ARGS=spec/lib/name_spec.rb` runs just one file), and
+`make lint` runs RuboCop. They need nothing but Docker.
+
+To run them on the host after `make setup`:
 
 ```bash
-# Clone twfy (if not already done) - needed for DB schema
-cd ..
-git clone git@github.com:openaustralia/twfy.git
-cd openaustralia-parser
-
-# Start MySQL via Docker
-docker-compose up -d
-
-# Run all tests
-bundle exec rspec
-
-# Stop Docker MySQL
-docker-compose down
+make services-up                 # Start MySQL via Docker, if it isn't running
+EXCLUDE_NEWS=1 bundle exec rspec # as CI does; the sitemap's news section needs PHP
+bundle exec rubocop
+make down                        # Stop MySQL (make clobber also deletes its data)
 ```
+
+The specs load the schema from `../twfy/db/schema.sql` if you have it, else from `spec/fixtures/schema.sql`.
 
 ## Data updates
 

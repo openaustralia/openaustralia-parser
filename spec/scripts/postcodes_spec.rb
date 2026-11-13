@@ -15,6 +15,12 @@ RSpec.describe "postcodes.rb", :integration do
     expect(output).to match(/Syntax OK/)
   end
 
+  it "runs its main code when started as `bundle exec ./postcodes.rb`" do
+    output = Dir.chdir(File.dirname(script)) { `bundle exec ./postcodes.rb --no-load 2>&1` }
+    expect($CHILD_STATUS.exitstatus).to eq(0), output
+    expect(output).to match(/No-load option has disabled/)
+  end
+
   it "exits successfully with --no-load" do
     expect { capture_stdout_and_stderr { Postcodes.new(["--no-load"]).run } }.not_to raise_error
   end

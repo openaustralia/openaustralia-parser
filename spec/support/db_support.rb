@@ -37,7 +37,7 @@ module DbSupport
       username: conf.database_user,
       password: conf.database_password,
       database: conf.database_name,
-      port: 3306
+      port: ENV.fetch("DB_PORT", 3306).to_i
     }
 
     ActiveRecord::Base.establish_connection(connection_config)

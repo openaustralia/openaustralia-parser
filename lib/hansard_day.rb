@@ -61,11 +61,15 @@ class HansardDay
     "http://parlinfo.aph.gov.au/parlInfo/search/display/display.w3p;adv=yes;orderBy=_fragment_number,doc_date-rev;page=0;query=Dataset%3Ahansard#{house.representatives? ? 'r' : 's'},hansard#{house.representatives? ? 'r' : 's'}80%20Date%3A#{date.day}%2F#{date.month}%2F#{date.year};rec=0;resCount=Default"
   end
 
+  # nil when the <proof> tag is missing or blank, so we do not claim to know.
+  def proof
+    value = @page.at("proof")&.inner_html
+    @logger&.error "#{date} #{house}: Unexpected value '#{value}' inside tag <proof>" unless %w[1 0].include?(value)
+    { "1" => true, "0" => false }[value]
+  end
+
   def in_proof?
-    proof = @page.at("proof").inner_html
-    @logger.error "#{date} #{house}: Unexpected value '#{proof}' inside tag <proof>" unless %w[1
-                                                                                               0].include?(proof)
-    proof == "1"
+    proof == true
   end
 
   def add_speaker_to_tied_votes?

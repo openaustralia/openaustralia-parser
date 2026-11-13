@@ -13,13 +13,8 @@ production is driven by the `twfy` app's cron scripts (`dailyupdate` runs `parse
 
 ## Setup
 
-Ruby 3.4.9 (`.ruby-version`).
-
-```
-mise install
-bundle install
-cp configuration.yml.example configuration.yml
-```
+Ruby 3.4.9 (`.ruby-version`). To work on the host, `make setup` installs Ruby with mise (or rbenv), the gems,
+`configuration.yml` and `../rblib`, and starts MySQL. It's safe to rerun. To work in Docker instead, see below.
 
 - `configuration.yml` is gitignored and **required before anything runs, including `bundle exec rake`** - the
   Rakefile loads `lib/configuration.rb`, which reads it unconditionally.
@@ -28,13 +23,56 @@ cp configuration.yml.example configuration.yml
   development override" keys in the example so you don't need twfy or PHP at all (see README).
 - The example file has placeholder `morph_api_key` / `theyvoteforyou_api_key` values; real keys belong only in the
   gitignored `configuration.yml`, never in a commit.
-- The `hpricot` gem needs a compiler workaround on modern toolchains, and `.bundle/` is gitignored, so on a fresh
-  clone run `bundle config build.hpricot --with-cflags=-Wno-error=incompatible-function-pointer-types` before
-  `bundle install`.
 - A local MySQL database is needed for the load scripts; the exact `CREATE DATABASE`/`CREATE USER` statements are
   in the README.
 
+## Docker development environment
+
+One stack, defined in `.devcontainer/compose.yaml`, serves every way of working: `make`, plain `docker compose`
+(through the root `compose.yaml`), and the dev container in VS Code, RubyMine, Codespaces or
+`devcontainer up --workspace-folder .`. They all share the same containers and data.
+
+```
+make up           # MySQL plus a Ruby container with the gems installed, once it's ready
+make services-up  # MySQL only, for running specs on the host
+make status       # each container's health and host ports
+make logs         # follow the logs (SERVICE=<name> for one container)
+make shell        # a shell in the app container, or a fresh one if it has stopped
+make test         # the specs, as CI runs them (ARGS=spec/lib/name_spec.rb:42 to narrow)
+make lint         # RuboCop (ARGS=<paths> to narrow)
+make console      # IRB with lib/ loaded
+make down         # stop and remove the containers, keeping the data
+make clean        # also remove built images and dependencies, so the next start rebuilds; keeps the data
+make clobber      # also remove the data, and prune unused Docker images and cache machine-wide
+```
+
+`make up` and `make services-up` return once every service passes its healthcheck. Run `make` for the full list.
+A start that takes longer than `START_LIMIT` (in `.devcontainer/compose.yaml`) counts as failed, and stops loudly on purpose;
+see "If the app won't start" in the README.
+
+There's no web app here: the `app` container is Ruby with the gems installed and `../rblib` cloned, for running the
+specs (`make test`, or `make shell` then `bundle exec rspec`). `make test`, `make lint` and `make console` start the
+stack first if it isn't running. It shares MySQL's network, so `configuration.yml`'s test
+settings work unchanged inside it. To run specs on the host instead, `make services-up` starts MySQL alone.
+
+### Port clashes
+
+| Variable  | Default | Publishes                                                                                                   |
+|-----------|---------|-------------------------------------------------------------------------------------------------------------|
+| `DB_PORT` | 3306    | MySQL. The specs and sitemap read it too; `postcodes.rb` and the `db:` rake tasks still use 3306 ([#1006](https://github.com/openaustralia/openaustralia/issues/1006)) |
+
+Put overrides in `.env` at the repo root, which is gitignored, with different values in each worktree. Compose reads
+it however you start the stack. Containers and data are named `openaustralia-parser` (`name:` in `compose.yaml`), so a second checkout of
+this repo, such as a worktree, shares them unless its `.env` also sets its own `COMPOSE_PROJECT_NAME`. For
+host-side commands to see the same values, put `dotenv` in a gitignored `.envrc` if you use direnv, or
+run `set -a; . ./.env; set +a`.
+To see what holds a port, use `ss -ltnp | grep 3306` (Linux) or `lsof -iTCP:3306 -sTCP:LISTEN` (macOS); a database
+server installed on the host is the usual culprit.
+
 ## Commands
+
+`make test` and `make lint` run the first three in the app container. On the host, set `EXCLUDE_NEWS=1` for the specs
+as CI does, or the sitemap specs fail for want of PHP.
 
 ```
 bundle exec rake                     # default task: the RSpec suite
@@ -55,7 +93,7 @@ locally.
 `.github/workflows/ruby.yaml` runs on every push/PR **on this branch** (`convert/hpricot-nokogiri`) - not yet on
 `main`, see the Gotchas entry below for why that matters. Two jobs: `test` (`bundle exec rspec` against a real
 MySQL service container) and `scripts` (`parse-members.rb --no-load`, `postcodes.rb --no-load`). A third, `lint`
-(RuboCop), exists in the file but is commented out - run `bundle exec rubocop` yourself, CI won't catch it.
+(RuboCop), exists in the file but is commented out - run `make lint` yourself, CI won't catch it.
 
 ## Structure
 
@@ -92,12 +130,12 @@ MySQL service container) and `scripts` (`parse-members.rb --no-load`, `postcodes
   then ministers/shadow-ministers.csv. Check any data edit with `bundle exec ./parse-members.rb --no-load`.
 - Scripts that load the database write to production-shaped tables; anything run with a real `configuration.yml`
   pointed at production paths is a live action needing an explicit go-ahead.
-- **`bundle exec ./script.rb` silently no-ops** (exit 0, no output, no error) - these scripts guard their entry
-  point with `if $PROGRAM_NAME == __FILE__`, which is false under that invocation style (`__FILE__` resolves
-  absolute, `$PROGRAM_NAME` stays relative). Use `bundle exec ruby ./script.rb`, `bin/run script.rb`, or the
-  `Makefile.dev` targets in `twfy` instead. See the README's "Backfilling a real local dev database" section for
-  the full local-dev-against-`twfy`-docker workflow, including how to bridge `DB_HOST` to the docker-compose MySQL
-  and how to verify what loaded against production's public data at data.openaustralia.org.au.
+- Entry scripts guard their main code with `File.expand_path($PROGRAM_NAME) == File.expand_path(__FILE__)`, not
+  a bare `$PROGRAM_NAME == __FILE__`: under `bundle exec ./script.rb` `__FILE__` is absolute while
+  `$PROGRAM_NAME` stays relative, so the bare form silently skips the script. Keep the expanded form in new scripts.
+- For running scripts against a real local database, see the README's "Backfilling a real local dev database"
+  section: the local-dev-against-`twfy`-docker workflow, how to bridge `DB_HOST` to the docker-compose MySQL, and
+  how to verify what loaded against production's public data at data.openaustralia.org.au.
 
 ## Contributing
 
@@ -132,4 +170,4 @@ See `docs/agents/triage-labels.md`.
 
 ### Domain docs
 
-Single-context: one `CONTEXT.md` and one `docs/adr/` at the root, both created lazily. See `docs/agents/domain.md`.
+Single-context: one `GLOSSARY.md` and one `docs/adr/` at the root, both created lazily. See `docs/agents/domain.md`.

@@ -92,5 +92,5 @@ class ParsePostcodes2010
   end
 end
 
-ParsePostcodes2010.new(ARGV).run if $PROGRAM_NAME == __FILE__
+ParsePostcodes2010.new(ARGV).run if File.expand_path($PROGRAM_NAME) == File.expand_path(__FILE__)
 
