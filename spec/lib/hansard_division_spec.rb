@@ -292,6 +292,45 @@ RSpec.describe HansardDivision, "with a vacant seat in the pairings" do
   end
 end
 
+# Aph also lists the senator who left, followed by "(Vacancy)", in place of the bare word.
+# First seen in the Senate on 2025-02-04 after the resignation of Senator Simon Birmingham.
+RSpec.describe HansardDivision, "with a named vacant seat in the pairings" do
+  def division_with(vacant_name)
+    HansardDivision.new(Nokogiri::XML(
+                          "<division>
+          <division.header>
+              <time.stamp>10:36:00</time.stamp>
+          </division.header>
+          <division.data>
+              <pairs>
+                  <names>
+                      <name>Askew, W.</name>
+                      <name>Urquhart, A. E.</name>
+                      <name>#{vacant_name}</name>
+                      <name>McAllister, J. R.</name>
+                  </names>
+              </pairs>
+          </division.data>
+      </division>"
+                        ), "", "", "", nil)
+  end
+
+  [
+    "Birmingham, S. J. (Vacancy)",
+    "Birmingham, S. J. (Vacancy).",
+    "Birmingham, S. J. (Vacancy) ",
+    "Birmingham, S.J. (Vacancy)"
+  ].each do |vacant_name|
+    it "drops the pair that #{vacant_name.inspect} is in and keeps the rest" do
+      expect(division_with(vacant_name).pairs).to eq [["Askew, W.", "Urquhart, A. E."]]
+    end
+  end
+
+  it "does not treat a senator whose name merely contains the word as a vacancy" do
+    expect(HansardDivision.vacancy?("Vacancy-Smith, J.")).to be false
+  end
+end
+
 RSpec.describe HansardDivision, "with an odd number of names in the pairings" do
   subject(:division) do
     HansardDivision.new(Nokogiri::XML(
