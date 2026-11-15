@@ -111,6 +111,112 @@ RSpec.describe HansardParser do
       expect(divisions.last.xpath("unpaired")).to be_empty
     end
   end
+
+  describe "refreshing the cached origxml of a proof day" do
+    let(:date) { Date.new(2026, 2, 4) }
+    let(:output_dir) { Dir.mktmpdir }
+    let(:parser) { HansardParser.new(People.new, output_dir: output_dir) }
+    let(:filename) { parser.origxml_filename(date, House.senate) }
+    let(:cached) { hansard_xml(proof: 1) }
+
+    def hansard_xml(proof:, day: date)
+      "<hansard><session.header><date>#{day}</date><proof>#{proof}</proof></session.header></hansard>"
+    end
+
+    before do
+      FileUtils.mkdir_p(File.dirname(filename))
+      File.write(filename, cached)
+      allow(parser.logger).to receive(:warn)
+      allow(parser.logger).to receive(:error)
+    end
+
+    after { FileUtils.remove_entry(output_dir) }
+
+    it "replaces the cached copy with a valid fresh copy that differs" do
+      fresh = hansard_xml(proof: 0)
+      allow(parser).to receive(:hansard_xml_source_data_on_date).and_return(fresh)
+
+      expect(parser.refresh_origxml(date, House.senate)).to eq :replaced
+      expect(File.read(filename)).to eq fresh
+      expect(File.exist?("#{filename}.new")).to be false
+    end
+
+    it "leaves the cached copy alone when the fresh copy is the same" do
+      allow(parser).to receive(:hansard_xml_source_data_on_date).and_return(cached)
+
+      expect(parser.refresh_origxml(date, House.senate)).to eq :unchanged
+      expect(File.read(filename)).to eq cached
+    end
+
+    {
+      "aph has no copy" => nil,
+      "the fresh copy is empty" => "",
+      "the fresh copy is not a hansard document" => "<html><body>Unavailable</body></html>"
+    }.each do |reason, fresh|
+      it "keeps the cached copy when #{reason}" do
+        allow(parser).to receive(:hansard_xml_source_data_on_date).and_return(fresh)
+
+        expect(parser.refresh_origxml(date, House.senate)).to eq :kept
+        expect(File.read(filename)).to eq cached
+        expect(parser.logger).to have_received(:warn).with(a_string_including("keeping the cached origxml"))
+      end
+    end
+
+    it "keeps the cached copy when the fresh copy is for another day" do
+      allow(parser).to receive(:hansard_xml_source_data_on_date).and_return(hansard_xml(proof: 0, day: date - 1))
+
+      expect(parser.refresh_origxml(date, House.senate)).to eq :kept
+      expect(File.read(filename)).to eq cached
+      expect(parser.logger).to have_received(:warn).with(a_string_including("it is for 2026-02-03, not 2026-02-04"))
+    end
+
+    it "keeps the cached copy and logs an error when the download or its patch fails" do
+      allow(parser).to receive(:hansard_xml_source_data_on_date).and_raise("2026-02-04 senate: Patch failed")
+
+      expect(parser.refresh_origxml(date, House.senate)).to eq :kept
+      expect(File.read(filename)).to eq cached
+      expect(parser.logger).to have_received(:error).with(a_string_including("Patch failed", "keeping the cached origxml"))
+    end
+
+    describe "#parse_date_house_only_in_proof" do
+      def xml_filename
+        File.join(output_dir, "out.xml")
+      end
+
+      before do
+        allow(parser).to receive(:refresh_origxml)
+        allow(parser).to receive(:parse_date_house)
+      end
+
+      it "refreshes a cached proof day, then parses it" do
+        allow(parser).to receive(:hansard_day_on_date).and_return(instance_double(HansardDay, in_proof?: true))
+
+        parser.parse_date_house_only_in_proof(date, xml_filename, House.senate)
+
+        expect(parser).to have_received(:refresh_origxml).with(date, House.senate).ordered
+        expect(parser).to have_received(:parse_date_house).with(date, xml_filename, House.senate).ordered
+      end
+
+      it "skips a day that is not at proof stage" do
+        allow(parser).to receive(:hansard_day_on_date).and_return(instance_double(HansardDay, in_proof?: false))
+
+        parser.parse_date_house_only_in_proof(date, xml_filename, House.senate)
+
+        expect(parser).not_to have_received(:refresh_origxml)
+        expect(parser).not_to have_received(:parse_date_house)
+      end
+
+      it "does not download a day again when this run has just fetched it" do
+        FileUtils.rm_f(filename)
+        allow(parser).to receive(:hansard_day_on_date).and_return(instance_double(HansardDay, in_proof?: true))
+
+        parser.parse_date_house_only_in_proof(date, xml_filename, House.senate)
+
+        expect(parser).not_to have_received(:refresh_origxml)
+        expect(parser).to have_received(:parse_date_house)
+      end
+    end
+  end
 end
 
 RSpec.describe HansardSpeech do
