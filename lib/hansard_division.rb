@@ -122,9 +122,10 @@ class HansardDivision
     text =~ /^(.*)\*$/
   end
 
-  # The placeholder aph uses in a division's pairs where a seat is vacant
+  # The placeholder aph uses in a division's pairs where a seat is vacant, either on its own or after the name
+  # of the senator who left, eg "Birmingham, S. J. (Vacancy)" (with or without a trailing full stop)
   def self.vacancy?(text)
-    text.strip == "Vacancy"
+    text.strip.match?(/\A(?:.*\(Vacancy\)\.?|Vacancy)\z/i)
   end
 
   private
