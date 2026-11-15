@@ -87,7 +87,7 @@ class ParseSpeeches
         options[:interactive] = l
       end
       opts.on("--proof",
-              "Only parse dates that are at proof stage. Will redownload and populate html cache for those dates.") do |l|
+              "Only parse dates that are at proof stage. Tries to download a fresh copy of each, and keeps the cached copy unless the new one is valid.") do |l|
         options[:proof] = l
       end
       opts.on("--force",

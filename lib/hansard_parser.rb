@@ -167,15 +167,66 @@ class HansardParser
     end
   end
 
-  # Parse but only if there is a page that is at "proof" stage
+  # Parse but only if there is a page that is at "proof" stage. A proof day gets a fresh copy from aph first
+  # (see refresh_origxml), unless this run has just fetched it.
   def parse_date_house_only_in_proof(date, xml_filename, house)
+    just_fetched = !File.exist?(origxml_filename(date, house))
     day = hansard_day_on_date(date, house)
     return unless day&.in_proof?
 
-    logger.info "Deleting cached origxml file for #{date} because that date is in proof stage."
-    FileUtils.rm_f(origxml_filename(date, house))
-    logger.info "Redownloading pages on #{date}..."
+    refresh_origxml(date, house) unless just_fetched
     parse_date_house(date, xml_filename, house)
+  end
+
+  # Downloads a fresh copy of a day and puts it in place as origxml only if it is valid and has changed.
+  # Returns :replaced, :unchanged or :kept (no usable fresh copy). Any failure leaves the cached copy untouched.
+  def refresh_origxml(date, house)
+    filename = origxml_filename(date, house)
+    fresh = download_valid_xml(date, house)
+    return :kept unless fresh
+
+    if File.read(filename) == fresh
+      logger.info "#{date} #{house}: The fresh copy is the same as the cached origxml"
+      return :unchanged
+    end
+
+    temporary = "#{filename}.new"
+    begin
+      File.write(temporary, fresh)
+      File.rename(temporary, filename)
+    ensure
+      FileUtils.rm_f(temporary)
+    end
+    logger.info "#{date} #{house}: Replaced the cached origxml with a fresh copy"
+    :replaced
+  end
+
+  # Returns the fresh text, or nil (after logging why) when there is nothing usable to replace the cache with.
+  def download_valid_xml(date, house)
+    text = hansard_xml_source_data_on_date(date, house)
+    unless text
+      logger.warn "#{date} #{house}: No fresh copy is available from aph, keeping the cached origxml"
+      return
+    end
+
+    problem = problem_with_fresh_xml(text, date)
+    if problem
+      logger.warn "#{date} #{house}: Not using the fresh copy because #{problem}, keeping the cached origxml"
+      return
+    end
+
+    text
+  rescue StandardError => e
+    logger.error "#{date} #{house}: Could not download a fresh copy (#{e.class}: #{e.message}), keeping the cached origxml"
+    nil
+  end
+
+  def problem_with_fresh_xml(text, date)
+    root = Nokogiri::XML(text).root
+    return "it is not a hansard document" unless root&.name == "hansard"
+
+    found = root.at_xpath("session.header/date")&.text&.strip
+    "it is for #{found}, not #{date}" if found && found != date.to_s
   end
 
   def parse_date_house(date, xml_filename, house)
