@@ -151,7 +151,7 @@ class ParseSpeeches
     # And load up the database
     command_options = +" --from=#{from_date} --to=#{to_date}"
     command_options << " --debates"
-    command_options << " --lordsdebates"
+    command_options << " --senatedebates"
     command_options << " --force" if options[:force]
 
     # Starts with 'perl' to be friendly with Windows
