@@ -19,7 +19,7 @@ module DbSupport
   def self.extract_create_statements
     sql = File.read(schema_file)
     TABLES_NEEDED.map do |table|
-      sql[/CREATE TABLE `#{table}`.*?;/m] or raise "Table '#{table}' not found in schema.sql"
+      sql[/CREATE TABLE `#{table}`.*?;$/m] or raise "Table '#{table}' not found in schema.sql"
     end
   end
 
