@@ -298,8 +298,19 @@ class HansardParser
 
     text
   rescue StandardError => e
+    @aph_blocked = true if aph_is_refusing_requests?(e)
     logger.error "#{date} #{house}: Could not download a fresh copy (#{e.class}: #{e.message}), keeping the cached origxml"
     nil
+  end
+
+  # True once aph has refused a download with a rate limit response (AphMechanizeAgent.with_backoff has already
+  # retried and given up). A caller working through many days should stop and try again later.
+  def aph_blocked?
+    @aph_blocked == true
+  end
+
+  def aph_is_refusing_requests?(error)
+    error.is_a?(Mechanize::ResponseCodeError) && AphMechanizeAgent::RATE_LIMIT_RESPONSE_CODES.include?(error.response_code)
   end
 
   def problem_with_fresh_xml(text, date)

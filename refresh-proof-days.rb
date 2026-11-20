@@ -66,6 +66,7 @@ class RefreshProofDays
 
     refreshed = []
     failed = []
+    blocked = false
     days.each do |date, house|
       path = "#{scraped_root}/#{parser.house_directory_name(house)}/#{date}.xml"
       if parser.cached_proof(date, house) == false
@@ -73,6 +74,11 @@ class RefreshProofDays
         parser.parse_date_house(date, path, house)
       else
         parser.parse_date_house_only_in_proof(date, path, house)
+      end
+      if parser.aph_blocked?
+        # Asking again now would only make it worse, so leave this day and the rest for the next run
+        blocked = true
+        break
       end
       refreshed << date
     rescue StandardError => e
@@ -83,7 +89,8 @@ class RefreshProofDays
 
     load_days(conf, refreshed.uniq.sort, options[:load_database])
 
-    puts "Refreshed #{days.size - failed.size} days, #{failed.size} failed"
+    puts "aph.gov.au is refusing requests (403 or 429), so stopping. The days not yet done will be tried again next run." if blocked
+    puts "Refreshed #{refreshed.size} of #{days.size} days, #{failed.size} failed"
     exit 1 if failed.any?
   end
 

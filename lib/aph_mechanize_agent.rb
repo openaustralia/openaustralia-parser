@@ -13,6 +13,10 @@ module AphMechanizeAgent
   # Hansard for that day.
   RETRYABLE_RESPONSE_CODES = %w[403 429 502 503 504].freeze
 
+  # The responses that mean aph.gov.au wants us to slow down. A caller that still gets one after
+  # with_backoff has given up should stop making requests and try again later.
+  RATE_LIMIT_RESPONSE_CODES = %w[403 429].freeze
+
   # Returns a Mechanize agent configured with the UA aph.gov.au has asked us to use.
   def self.new_agent
     agent = Mechanize.new
