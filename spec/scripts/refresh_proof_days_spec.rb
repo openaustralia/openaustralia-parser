@@ -29,7 +29,7 @@ RSpec.describe RefreshProofDays do
 
   it "asks for 100 days by default" do
     script.run
-    expect(parser).to have_received(:proof_days).with(limit: 100)
+    expect(parser).to have_received(:proof_days).with(limit: 100, around: Date.today << 12)
   end
 
   context "with --limit" do
@@ -37,7 +37,7 @@ RSpec.describe RefreshProofDays do
 
     it "passes the limit on" do
       script.run
-      expect(parser).to have_received(:proof_days).with(limit: 5)
+      expect(parser).to have_received(:proof_days).with(limit: 5, around: Date.today << 12)
     end
   end
 
@@ -48,12 +48,21 @@ RSpec.describe RefreshProofDays do
     expect(script).to have_received(:system).with(a_string_including("--from=2026-02-05 --to=2026-02-05")).once
   end
 
+  context "with --around" do
+    let(:arguments) { ["--around=2025-06-01"] }
+
+    it "starts from that date instead of 12 months ago" do
+      script.run
+      expect(parser).to have_received(:proof_days).with(limit: 100, around: Date.new(2025, 6, 1))
+    end
+  end
+
   context "with --unknown" do
     let(:arguments) { ["--unknown", "--limit=3"] }
 
     it "works on the days with no proof flag instead of the proof days" do
       script.run
-      expect(parser).to have_received(:days_without_proof_flag).with(limit: 3)
+      expect(parser).to have_received(:days_without_proof_flag).with(limit: 3, around: Date.today << 12)
       expect(parser).not_to have_received(:proof_days)
     end
 

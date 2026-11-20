@@ -115,6 +115,7 @@ RSpec.describe HansardParser do
   describe "#proof_days" do
     let(:output_dir) { Dir.mktmpdir }
     let(:parser) { HansardParser.new(People.new, output_dir: output_dir) }
+    let(:today) { Date.new(2026, 11, 20) }
 
     def cache(house, date, text)
       filename = parser.origxml_filename(Date.iso8601(date), house)
@@ -126,20 +127,29 @@ RSpec.describe HansardParser do
       "<hansard><session.header><proof>#{proof}</proof></session.header></hansard>"
     end
 
+    def proof_days(limit: 10, around: Date.new(2026, 2, 10))
+      parser.proof_days(limit: limit, around: around, today: today)
+    end
+
     after { FileUtils.remove_entry(output_dir) }
 
-    it "lists the days at proof stage, most recent first, the Representatives before the Senate" do
-      cache(House.senate, "2026-02-04", day_xml(1))
-      cache(House.representatives, "2026-02-04", day_xml(1))
-      cache(House.representatives, "2026-02-03", day_xml(1))
-      cache(House.senate, "2026-03-10", day_xml(1))
+    it "works outward from the pivot, alternating the nearest day on or after it and the nearest before it" do
+      %w[2026-02-03 2026-02-05 2026-02-09 2026-02-10 2026-02-12 2026-02-18].each { |date| cache(House.senate, date, day_xml(1)) }
 
-      expect(parser.proof_days(limit: 10)).to eq [
-        [Date.new(2026, 3, 10), House.senate],
-        [Date.new(2026, 2, 4), House.representatives],
-        [Date.new(2026, 2, 4), House.senate],
-        [Date.new(2026, 2, 3), House.representatives]
-      ]
+      expect(proof_days.map(&:first).map(&:to_s)).to eq %w[2026-02-10 2026-02-09 2026-02-12 2026-02-05 2026-02-18 2026-02-03]
+    end
+
+    it "carries on with the other side when one side runs out" do
+      %w[2026-02-03 2026-02-04 2026-02-05].each { |date| cache(House.senate, date, day_xml(1)) }
+
+      expect(proof_days.map(&:first).map(&:to_s)).to eq %w[2026-02-05 2026-02-04 2026-02-03]
+    end
+
+    it "puts the Representatives before the Senate on the same date" do
+      cache(House.senate, "2026-02-10", day_xml(1))
+      cache(House.representatives, "2026-02-10", day_xml(1))
+
+      expect(proof_days).to eq [[Date.new(2026, 2, 10), House.representatives], [Date.new(2026, 2, 10), House.senate]]
     end
 
     it "leaves out final days, days with no data, and days with no proof tag" do
@@ -148,19 +158,26 @@ RSpec.describe HansardParser do
       cache(House.senate, "2026-02-06", "<hansard></hansard>")
       cache(House.senate, "2026-02-03", day_xml(1))
 
-      expect(parser.proof_days(limit: 10)).to eq [[Date.new(2026, 2, 3), House.senate]]
+      expect(proof_days).to eq [[Date.new(2026, 2, 3), House.senate]]
     end
 
-    it "stops at the limit, keeping the most recent days" do
-      cache(House.senate, "2026-02-03", day_xml(1))
-      cache(House.senate, "2026-02-04", day_xml(1))
-      cache(House.senate, "2026-02-05", day_xml(1))
+    it "stops at the limit" do
+      %w[2026-02-03 2026-02-10 2026-02-12].each { |date| cache(House.senate, date, day_xml(1)) }
 
-      expect(parser.proof_days(limit: 2)).to eq [[Date.new(2026, 2, 5), House.senate], [Date.new(2026, 2, 4), House.senate]]
+      expect(proof_days(limit: 2).map(&:first).map(&:to_s)).to eq %w[2026-02-10 2026-02-03]
     end
 
     it "returns nothing when there is no cache" do
-      expect(parser.proof_days(limit: 10)).to eq []
+      expect(proof_days).to eq []
+    end
+
+    # The alert mailer skips anything dated more than 8 weeks ago, and the guard adds a week.
+    it "never picks a day that loading again could email people about" do
+      cache(House.senate, "2026-09-18", day_xml(1)) # 63 days before today: not old enough
+      cache(House.senate, "2026-10-15", day_xml(1))
+      cache(House.senate, "2026-09-17", day_xml(1)) # 64 days before today: old enough
+
+      expect(proof_days(around: Date.new(2026, 9, 1)).map(&:first).map(&:to_s)).to eq %w[2026-09-17]
     end
   end
 
@@ -180,15 +197,19 @@ RSpec.describe HansardParser do
     after { FileUtils.remove_entry(output_dir) }
 
     describe "#days_without_proof_flag" do
-      it "lists final and proof days whose scrapedxml has no proof attribute, most recent first" do
+      def days_without_proof_flag(limit: 10, around: Date.new(2026, 2, 4))
+        parser.days_without_proof_flag(limit: limit, around: around, today: Date.new(2026, 11, 20))
+      end
+
+      it "lists final and proof days whose scrapedxml has no proof attribute, working outward from the pivot" do
         cache(House.senate, "2026-02-03", proof: 1, flagged: false)
         cache(House.representatives, "2026-02-04", proof: 0, flagged: false)
         cache(House.senate, "2026-02-04", proof: 0, flagged: false)
 
-        expect(parser.days_without_proof_flag(limit: 10)).to eq [
+        expect(days_without_proof_flag).to eq [
           [Date.new(2026, 2, 4), House.representatives],
-          [Date.new(2026, 2, 4), House.senate],
-          [Date.new(2026, 2, 3), House.senate]
+          [Date.new(2026, 2, 3), House.senate],
+          [Date.new(2026, 2, 4), House.senate]
         ]
       end
 
@@ -196,7 +217,7 @@ RSpec.describe HansardParser do
         cache(House.senate, "2026-02-03", proof: 1, flagged: true)
         cache(House.senate, "2026-02-04", proof: 0, flagged: true)
 
-        expect(parser.days_without_proof_flag(limit: 10)).to eq []
+        expect(days_without_proof_flag).to eq []
       end
 
       it "leaves out days with no scrapedxml, no data, or a blank proof value" do
@@ -205,14 +226,20 @@ RSpec.describe HansardParser do
         File.write(parser.origxml_filename(Date.new(2026, 2, 4), House.senate), "<hansard><proof>0</proof></hansard>")
         File.write(parser.origxml_filename(Date.new(2026, 2, 5), House.senate), "")
 
-        expect(parser.days_without_proof_flag(limit: 10)).to eq []
+        expect(days_without_proof_flag).to eq []
       end
 
-      it "stops at the limit, keeping the most recent days" do
+      it "stops at the limit" do
         cache(House.senate, "2026-02-03", proof: 0, flagged: false)
         cache(House.senate, "2026-02-04", proof: 0, flagged: false)
 
-        expect(parser.days_without_proof_flag(limit: 1)).to eq [[Date.new(2026, 2, 4), House.senate]]
+        expect(days_without_proof_flag(limit: 1)).to eq [[Date.new(2026, 2, 4), House.senate]]
+      end
+
+      it "never picks a day that loading again could email people about" do
+        cache(House.senate, "2026-10-15", proof: 0, flagged: false)
+
+        expect(days_without_proof_flag(around: Date.new(2026, 9, 1))).to eq []
       end
     end
 
