@@ -11,7 +11,7 @@ require_relative "../../refresh-proof-days"
 RSpec.describe RefreshProofDays do
   let(:output_dir) { Dir.mktmpdir }
   let(:parser) do
-    instance_double(HansardParser, proof_days: days, days_without_proof_flag: days, cached_proof: true,
+    instance_double(HansardParser, proof_days: days, aph_blocked?: false, days_without_proof_flag: days, cached_proof: true,
                                    parse_date_house_only_in_proof: nil, parse_date_house: nil, house_directory_name: "senate_debates")
   end
   let(:days) { [[Date.new(2026, 2, 5), House.senate], [Date.new(2026, 2, 4), House.senate]] }
@@ -86,6 +86,24 @@ RSpec.describe RefreshProofDays do
     it "does not load the database" do
       script.run
       expect(script).not_to have_received(:system)
+    end
+  end
+
+  context "when aph starts refusing requests" do
+    before do
+      allow(parser).to receive(:aph_blocked?).and_return(false, true)
+    end
+
+    it "stops, loads only the days it finished, and leaves the rest for the next run" do
+      script.run
+      expect(parser).to have_received(:parse_date_house_only_in_proof).twice
+      expect(script).not_to have_received(:system).with(a_string_including("--from=2026-02-04"))
+      expect(script).to have_received(:system).with(a_string_including("--from=2026-02-05")).once
+      expect(script).to have_received(:puts).with(a_string_including("refusing requests"))
+    end
+
+    it "does not count it as a failure" do
+      expect { script.run }.not_to raise_error
     end
   end
 

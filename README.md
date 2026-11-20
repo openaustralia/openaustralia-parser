@@ -225,6 +225,10 @@ past together. On the same date the Representatives come before the Senate.
 (`AlertMaxAge` in twfy), so loading an older day again cannot email anyone, and the extra week covers the gap between a
 run and the next mailer run. This applies to every mode.
 
+**Rate limits.** If APH answers 403 or 429 (the agent has already retried with a growing wait), the script stops
+at once, loads the days it finished, and leaves the rest for the next run. Nothing marks those days as done, so they
+are still in the list next time.
+
 `--unknown` works on the days we cannot yet say are proof or final instead: those whose `scrapedxml` has no `proof`
 attribute, because the day was parsed before the parser wrote one. A day whose cached copy is final is parsed again
 from the cache without calling APH, and a day whose cached copy is proof is refreshed from APH. Each day gets its

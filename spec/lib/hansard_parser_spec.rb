@@ -312,6 +312,28 @@ RSpec.describe HansardParser do
       expect(parser.logger).to have_received(:warn).with(a_string_including("it is for 2026-02-03, not 2026-02-04"))
     end
 
+    {
+      "403" => true,
+      "429" => true,
+      "404" => false,
+      "500" => false
+    }.each do |code, blocked|
+      it "#{blocked ? 'notes that aph is refusing requests' : 'does not note a block'} when the download gets a #{code}" do
+        error = Mechanize::ResponseCodeError.new(instance_double(Mechanize::Page, code: code))
+        allow(parser).to receive(:hansard_xml_source_data_on_date).and_raise(error)
+
+        expect(parser.refresh_origxml(date, House.senate)).to eq :kept
+        expect(parser.aph_blocked?).to be blocked
+      end
+    end
+
+    it "does not note a block for a failed patch" do
+      allow(parser).to receive(:hansard_xml_source_data_on_date).and_raise("2026-02-04 senate: Patch failed")
+
+      parser.refresh_origxml(date, House.senate)
+      expect(parser.aph_blocked?).to be false
+    end
+
     it "keeps the cached copy and logs an error when the download or its patch fails" do
       allow(parser).to receive(:hansard_xml_source_data_on_date).and_raise("2026-02-04 senate: Patch failed")
 
