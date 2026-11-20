@@ -167,6 +167,61 @@ class HansardParser
     end
   end
 
+  PROOF_TAG = %r{<proof>\s*1\s*</proof>}
+  FINAL_TAG = %r{<proof>\s*0\s*</proof>}
+  DEBATES_TAG = /<debates\b[^>]*>/
+
+  # The [date, house] pairs whose cached origxml is at proof stage, most recent first (the Representatives
+  # before the Senate on the same day), up to limit. Reads only the local cache, so it never calls aph.
+  def proof_days(limit:)
+    days = cached_origxml_days.select { |_date, _house, filename| File.read(filename).match?(PROOF_TAG) }
+    most_recent_first(days, limit)
+  end
+
+  # The [date, house] pairs we cannot yet say are proof or final: the cached origxml says which, but the
+  # scrapedxml has no proof attribute because the day was parsed before the parser wrote one. Parsing the day
+  # again gives it the attribute, and with it the proof column, so the day drops out of this list. Most recent
+  # first, up to limit. Reads only the local cache.
+  def days_without_proof_flag(limit:)
+    days = cached_origxml_days.select do |date, house, filename|
+      text = File.read(filename)
+      (text.match?(PROOF_TAG) || text.match?(FINAL_TAG)) && scrapedxml_without_proof_flag?(date, house)
+    end
+    most_recent_first(days, limit)
+  end
+
+  # true or false as the cached origxml says, nil when there is no cached copy or it has no proof value.
+  def cached_proof(date, house)
+    filename = origxml_filename(date, house)
+    return unless File.size?(filename)
+
+    text = File.read(filename)
+    return true if text.match?(PROOF_TAG)
+
+    false if text.match?(FINAL_TAG)
+  end
+
+  def cached_origxml_days
+    [House.representatives, House.senate].flat_map do |house|
+      Dir["#{xml_path}/origxml/#{house_directory_name(house)}/*.xml"].map do |filename|
+        [Date.iso8601(File.basename(filename, ".xml")), house, filename]
+      end
+    end
+  end
+
+  # False when there is no scrapedxml for the day (it has not been parsed, which is a different problem).
+  def scrapedxml_without_proof_flag?(date, house)
+    filename = "#{xml_path}/scrapedxml/#{house_directory_name(house)}/#{date}.xml"
+    return false unless File.size?(filename)
+
+    tag = File.read(filename, 2000)[DEBATES_TAG]
+    !tag.nil? && !tag.include?("proof=")
+  end
+
+  def most_recent_first(days, limit)
+    days.sort_by { |date, house, _filename| [-date.jd, house.representatives? ? 0 : 1] }.first(limit).map { |date, house, _filename| [date, house] }
+  end
+
   # Parse but only if there is a page that is at "proof" stage. A proof day gets a fresh copy from aph first
   # (see refresh_origxml), unless this run has just fetched it.
   def parse_date_house_only_in_proof(date, xml_filename, house)

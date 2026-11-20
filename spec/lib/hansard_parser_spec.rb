@@ -112,6 +112,121 @@ RSpec.describe HansardParser do
     end
   end
 
+  describe "#proof_days" do
+    let(:output_dir) { Dir.mktmpdir }
+    let(:parser) { HansardParser.new(People.new, output_dir: output_dir) }
+
+    def cache(house, date, text)
+      filename = parser.origxml_filename(Date.iso8601(date), house)
+      FileUtils.mkdir_p(File.dirname(filename))
+      File.write(filename, text)
+    end
+
+    def day_xml(proof)
+      "<hansard><session.header><proof>#{proof}</proof></session.header></hansard>"
+    end
+
+    after { FileUtils.remove_entry(output_dir) }
+
+    it "lists the days at proof stage, most recent first, the Representatives before the Senate" do
+      cache(House.senate, "2026-02-04", day_xml(1))
+      cache(House.representatives, "2026-02-04", day_xml(1))
+      cache(House.representatives, "2026-02-03", day_xml(1))
+      cache(House.senate, "2026-03-10", day_xml(1))
+
+      expect(parser.proof_days(limit: 10)).to eq [
+        [Date.new(2026, 3, 10), House.senate],
+        [Date.new(2026, 2, 4), House.representatives],
+        [Date.new(2026, 2, 4), House.senate],
+        [Date.new(2026, 2, 3), House.representatives]
+      ]
+    end
+
+    it "leaves out final days, days with no data, and days with no proof tag" do
+      cache(House.senate, "2026-02-04", day_xml(0))
+      cache(House.senate, "2026-02-05", "")
+      cache(House.senate, "2026-02-06", "<hansard></hansard>")
+      cache(House.senate, "2026-02-03", day_xml(1))
+
+      expect(parser.proof_days(limit: 10)).to eq [[Date.new(2026, 2, 3), House.senate]]
+    end
+
+    it "stops at the limit, keeping the most recent days" do
+      cache(House.senate, "2026-02-03", day_xml(1))
+      cache(House.senate, "2026-02-04", day_xml(1))
+      cache(House.senate, "2026-02-05", day_xml(1))
+
+      expect(parser.proof_days(limit: 2)).to eq [[Date.new(2026, 2, 5), House.senate], [Date.new(2026, 2, 4), House.senate]]
+    end
+
+    it "returns nothing when there is no cache" do
+      expect(parser.proof_days(limit: 10)).to eq []
+    end
+  end
+
+  describe "days with no proof flag" do
+    let(:output_dir) { Dir.mktmpdir }
+    let(:parser) { HansardParser.new(People.new, output_dir: output_dir) }
+
+    def cache(house, date, proof:, flagged:)
+      origxml = parser.origxml_filename(Date.iso8601(date), house)
+      FileUtils.mkdir_p(File.dirname(origxml))
+      File.write(origxml, "<hansard><session.header><proof>#{proof}</proof></session.header></hansard>")
+      scrapedxml = "#{output_dir}/scrapedxml/#{parser.house_directory_name(house)}/#{date}.xml"
+      FileUtils.mkdir_p(File.dirname(scrapedxml))
+      File.write(scrapedxml, %(<?xml version="1.0" encoding="UTF-8"?>\n<debates#{' proof="1"' if flagged}>\n</debates>\n))
+    end
+
+    after { FileUtils.remove_entry(output_dir) }
+
+    describe "#days_without_proof_flag" do
+      it "lists final and proof days whose scrapedxml has no proof attribute, most recent first" do
+        cache(House.senate, "2026-02-03", proof: 1, flagged: false)
+        cache(House.representatives, "2026-02-04", proof: 0, flagged: false)
+        cache(House.senate, "2026-02-04", proof: 0, flagged: false)
+
+        expect(parser.days_without_proof_flag(limit: 10)).to eq [
+          [Date.new(2026, 2, 4), House.representatives],
+          [Date.new(2026, 2, 4), House.senate],
+          [Date.new(2026, 2, 3), House.senate]
+        ]
+      end
+
+      it "leaves out days that already have the attribute" do
+        cache(House.senate, "2026-02-03", proof: 1, flagged: true)
+        cache(House.senate, "2026-02-04", proof: 0, flagged: true)
+
+        expect(parser.days_without_proof_flag(limit: 10)).to eq []
+      end
+
+      it "leaves out days with no scrapedxml, no data, or a blank proof value" do
+        cache(House.senate, "2026-02-03", proof: "", flagged: false)
+        FileUtils.mkdir_p(File.dirname(parser.origxml_filename(Date.new(2026, 2, 4), House.senate)))
+        File.write(parser.origxml_filename(Date.new(2026, 2, 4), House.senate), "<hansard><proof>0</proof></hansard>")
+        File.write(parser.origxml_filename(Date.new(2026, 2, 5), House.senate), "")
+
+        expect(parser.days_without_proof_flag(limit: 10)).to eq []
+      end
+
+      it "stops at the limit, keeping the most recent days" do
+        cache(House.senate, "2026-02-03", proof: 0, flagged: false)
+        cache(House.senate, "2026-02-04", proof: 0, flagged: false)
+
+        expect(parser.days_without_proof_flag(limit: 1)).to eq [[Date.new(2026, 2, 4), House.senate]]
+      end
+    end
+
+    describe "#cached_proof" do
+      it "is true, false or nil as the cached origxml says" do
+        cache(House.senate, "2026-02-03", proof: 1, flagged: false)
+        cache(House.senate, "2026-02-04", proof: 0, flagged: false)
+        cache(House.senate, "2026-02-05", proof: "", flagged: false)
+
+        expect([3, 4, 5, 6].map { |day| parser.cached_proof(Date.new(2026, 2, day), House.senate) }).to eq [true, false, nil, nil]
+      end
+    end
+  end
+
   describe "refreshing the cached origxml of a proof day" do
     let(:date) { Date.new(2026, 2, 4) }
     let(:output_dir) { Dir.mktmpdir }

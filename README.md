@@ -205,6 +205,30 @@ The full workflows, file formats and conventions are documented in
 
 Check any data change with `bundle exec ./parse-members.rb --no-load` before opening a PR.
 
+## Refreshing proof days
+
+Parliament publishes each day's Hansard as a proof (draft) first and finalises it later, and the parser caches the
+first copy it fetches. `refresh-proof-days.rb` finds the days in the `origxml` cache that are still at proof stage
+(without calling APH), takes the most recent first, fetches a fresh copy of up to `--limit` of them (default 100,
+each house's day counts as one), and loads the changed days into the database. Nothing runs it on a schedule.
+
+```
+bundle exec ./refresh-proof-days.rb --limit=20
+bundle exec ./refresh-proof-days.rb --no-load   # only generate the XML
+```
+
+`--unknown` works on the days we cannot yet say are proof or final instead: those whose `scrapedxml` has no `proof`
+attribute, because the day was parsed before the parser wrote one. A day whose cached copy is final is parsed again
+from the cache without calling APH, and a day whose cached copy is proof is refreshed from APH. Each day gets its
+attribute, so it drops out of the list, and a daily run with a small `--limit` works through the backlog.
+
+```
+bundle exec ./refresh-proof-days.rb --unknown --limit=10
+```
+
+It keeps the cached copy unless the new one is valid, as `parse-speeches.rb --proof` does. Reloading a day that APH
+has edited can change gids and email alerts for days within 8 weeks, so treat a run as a live action.
+
 ## Failures
 
 Every weekday the `./parse-speeches.rb` script gets run by cron to parse and import new speeches into OpenAustralia.org.
