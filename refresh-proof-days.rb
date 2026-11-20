@@ -100,7 +100,7 @@ class RefreshProofDays
   def load_days(conf, dates, load_database)
     dates.each do |date|
       # Starts with 'perl' to be friendly with Windows, as in parse-speeches.rb
-      command = "#{conf.web_root}/twfy/bin/run scripts/xml2db.pl --from=#{date} --to=#{date} --debates --lordsdebates"
+      command = "#{conf.web_root}/twfy/bin/run scripts/xml2db.pl --from=#{date} --to=#{date} --debates --senatedebates"
       if load_database
         system(command)
       else
