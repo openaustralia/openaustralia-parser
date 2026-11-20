@@ -10,7 +10,9 @@ require_relative "lib/people"
 require_relative "lib/hansard_parser"
 require_relative "lib/configuration"
 
-# Refreshes the days whose cached APH XML is still at proof stage, most recent first, up to a limit.
+# Refreshes the days whose cached APH XML is still at proof stage, up to a limit. It starts at a day 12 months ago and
+# works outward, alternating between the next newer and the next older day, so each run reaches toward today and toward
+# the past together.
 # Each day goes through the same refresh as parse-speeches.rb --proof (HansardParser#parse_date_house_only_in_proof),
 # then the changed days are loaded into the database.
 #
@@ -26,7 +28,7 @@ class RefreshProofDays
   end
 
   def run
-    options = { limit: DEFAULT_LIMIT, load_database: true, unknown: false }
+    options = { limit: DEFAULT_LIMIT, load_database: true, unknown: false, around: Date.today << 12 }
 
     OptionParser.new do |opts|
       opts.banner = "Usage: refresh-proof-days.rb [options]"
@@ -35,6 +37,9 @@ class RefreshProofDays
       end
       opts.on("--unknown", "Work on days with no proof attribute in scrapedxml: re-parse final ones from the cache, refresh proof ones") do |unknown|
         options[:unknown] = unknown
+      end
+      opts.on("--around=DATE", "Start from DATE and work outward, alternating newer and older days (default 12 months ago)") do |date|
+        options[:around] = Date.parse(date)
       end
       opts.on("--[no-]load", "Load the refreshed days into the database (default), or only generate XML") do |load|
         options[:load_database] = load
@@ -53,9 +58,9 @@ class RefreshProofDays
 
     parser = HansardParser.new(PeopleCSVReader.read_members, output_dir: output_dir)
     days = if options[:unknown]
-             parser.days_without_proof_flag(limit: options[:limit])
+             parser.days_without_proof_flag(limit: options[:limit], around: options[:around])
            else
-             parser.proof_days(limit: options[:limit])
+             parser.proof_days(limit: options[:limit], around: options[:around])
            end
     puts "Working on #{days.size} days"
 

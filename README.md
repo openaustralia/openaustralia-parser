@@ -209,13 +209,21 @@ Check any data change with `bundle exec ./parse-members.rb --no-load` before ope
 
 Parliament publishes each day's Hansard as a proof (draft) first and finalises it later, and the parser caches the
 first copy it fetches. `refresh-proof-days.rb` finds the days in the `origxml` cache that are still at proof stage
-(without calling APH), takes the most recent first, fetches a fresh copy of up to `--limit` of them (default 100,
-each house's day counts as one), and loads the changed days into the database. Nothing runs it on a schedule.
+(without calling APH), fetches a fresh copy of up to `--limit` of them (default 100, each house's day counts as one),
+and loads the changed days into the database. Nothing runs it on a schedule.
 
 ```
 bundle exec ./refresh-proof-days.rb --limit=20
 bundle exec ./refresh-proof-days.rb --no-load   # only generate the XML
 ```
+
+**Order.** It starts at a day 12 months ago (`--around=DATE` changes it) and works outward, alternating between the
+nearest day on or after that date and the nearest day before it, so each run reaches toward today and toward the
+past together. On the same date the Representatives come before the Senate.
+
+**Safety.** It never picks a day from the last 9 weeks. The alert mailer skips anything dated more than 8 weeks ago
+(`AlertMaxAge` in twfy), so loading an older day again cannot email anyone, and the extra week covers the gap between a
+run and the next mailer run. This applies to every mode.
 
 `--unknown` works on the days we cannot yet say are proof or final instead: those whose `scrapedxml` has no `proof`
 attribute, because the day was parsed before the parser wrote one. A day whose cached copy is final is parsed again
@@ -226,8 +234,7 @@ attribute, so it drops out of the list, and a daily run with a small `--limit` w
 bundle exec ./refresh-proof-days.rb --unknown --limit=10
 ```
 
-It keeps the cached copy unless the new one is valid, as `parse-speeches.rb --proof` does. Reloading a day that APH
-has edited can change gids and email alerts for days within 8 weeks, so treat a run as a live action.
+It keeps the cached copy unless the new one is valid, as `parse-speeches.rb --proof` does.
 
 ## Failures
 

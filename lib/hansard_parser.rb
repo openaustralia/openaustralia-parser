@@ -171,23 +171,30 @@ class HansardParser
   FINAL_TAG = %r{<proof>\s*0\s*</proof>}
   DEBATES_TAG = /<debates\b[^>]*>/
 
-  # The [date, house] pairs whose cached origxml is at proof stage, most recent first (the Representatives
-  # before the Senate on the same day), up to limit. Reads only the local cache, so it never calls aph.
-  def proof_days(limit:)
-    days = cached_origxml_days.select { |_date, _house, filename| File.read(filename).match?(PROOF_TAG) }
-    most_recent_first(days, limit)
+  # The alert mailer skips anything dated more than 8 weeks ago (AlertMaxAge::MAX_AGE in twfy), so loading a day
+  # that is older than that again cannot email anyone. One more week covers the time between a run and the next
+  # mailer run. Days newer than this are never picked, whatever the mode.
+  ALERT_SAFE_AFTER_DAYS = 9 * 7
+
+  # The [date, house] pairs whose cached origxml is at proof stage, up to limit, in the order of #outward_from
+  # around, and only those old enough to load again without emailing anyone. Reads only the local cache, so it
+  # never calls aph.
+  def proof_days(limit:, around:, today: Date.today)
+    days = cached_origxml_days(today: today).select { |_date, _house, filename| File.read(filename).match?(PROOF_TAG) }
+    outward_from(days, around, limit)
   end
 
   # The [date, house] pairs we cannot yet say are proof or final: the cached origxml says which, but the
   # scrapedxml has no proof attribute because the day was parsed before the parser wrote one. Parsing the day
-  # again gives it the attribute, and with it the proof column, so the day drops out of this list. Most recent
-  # first, up to limit. Reads only the local cache.
-  def days_without_proof_flag(limit:)
-    days = cached_origxml_days.select do |date, house, filename|
+  # again gives it the attribute, and with it the proof column, so the day drops out of this list. Up to limit,
+  # in the order of #outward_from around, and only those old enough to load again without emailing anyone. Reads
+  # only the local cache.
+  def days_without_proof_flag(limit:, around:, today: Date.today)
+    days = cached_origxml_days(today: today).select do |date, house, filename|
       text = File.read(filename)
       (text.match?(PROOF_TAG) || text.match?(FINAL_TAG)) && scrapedxml_without_proof_flag?(date, house)
     end
-    most_recent_first(days, limit)
+    outward_from(days, around, limit)
   end
 
   # true or false as the cached origxml says, nil when there is no cached copy or it has no proof value.
@@ -201,10 +208,13 @@ class HansardParser
     false if text.match?(FINAL_TAG)
   end
 
-  def cached_origxml_days
+  # Every cached [date, house, filename] old enough to load again without emailing anyone (see ALERT_SAFE_AFTER_DAYS).
+  def cached_origxml_days(today: Date.today)
+    cutoff = today - ALERT_SAFE_AFTER_DAYS
     [House.representatives, House.senate].flat_map do |house|
-      Dir["#{xml_path}/origxml/#{house_directory_name(house)}/*.xml"].map do |filename|
-        [Date.iso8601(File.basename(filename, ".xml")), house, filename]
+      Dir["#{xml_path}/origxml/#{house_directory_name(house)}/*.xml"].filter_map do |filename|
+        date = Date.iso8601(File.basename(filename, ".xml"))
+        [date, house, filename] if date < cutoff
       end
     end
   end
@@ -218,8 +228,24 @@ class HansardParser
     !tag.nil? && !tag.include?("proof=")
   end
 
-  def most_recent_first(days, limit)
-    days.sort_by { |date, house, _filename| [-date.jd, house.representatives? ? 0 : 1] }.first(limit).map { |date, house, _filename| [date, house] }
+  # Picks up to limit days by working outward from the pivot date, alternating between the nearest day on or
+  # after it and the nearest day before it, so each run reaches toward today and toward the past together. When
+  # one side runs out, the rest come from the other. On the same date the Representatives come before the Senate.
+  def outward_from(days, pivot, limit)
+    newer, older = days.partition { |date, _house, _filename| date >= pivot }
+    newer = newer.sort_by { |date, house, _filename| [date.jd, house_order(house)] }
+    older = older.sort_by { |date, house, _filename| [-date.jd, house_order(house)] }
+
+    picked = []
+    while picked.size < limit && (newer.any? || older.any?)
+      picked << newer.shift if newer.any?
+      picked << older.shift if older.any? && picked.size < limit
+    end
+    picked.map { |date, house, _filename| [date, house] }
+  end
+
+  def house_order(house)
+    house.representatives? ? 0 : 1
   end
 
   # Parse but only if there is a page that is at "proof" stage. A proof day gets a fresh copy from aph first
