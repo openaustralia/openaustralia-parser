@@ -158,6 +158,22 @@ crash partway through a long range (a bad day's data, a network blip) means noth
 matter how much of the range succeeded before the crash. For a large backfill, prefer a handful of smaller date
 ranges over one huge one, so a failure only costs you that chunk.
 
+### Copying production's cached APH XML
+
+`parse-speeches.rb` reads each day from the local `origxml` cache and only asks APH for days it doesn't have.
+`pull-origxml.rb` fills that cache from <https://data.openaustralia.org.au/origxml/> instead, so a development
+checkout can parse real days without APH:
+
+```bash
+bundle exec ./pull-origxml.rb --from=2020-02-04 --to=2020-02-13
+bundle exec ./pull-origxml.rb --from=2020-02-04 --dry-run   # list what the server has, download nothing
+```
+
+It copies a day only when it is missing locally or newer on the server (`If-Modified-Since`, using the local file's
+modification time), waits half a second between requests (`--delay`), and never overwrites a local file that is
+newer, such as one refreshed from APH (`--force` does). `--from` is required so a run can't copy the whole archive.
+Production's copies were cached the morning after each sitting, so older days are still at proof stage.
+
 ### Verifying what got loaded is actually correct
 
 There's no local "before" baseline to diff against - a fresh dev DB has no prior parser run to compare with. The
