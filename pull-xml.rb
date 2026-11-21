@@ -114,6 +114,12 @@ class PullXml
     when Net::HTTPNotModified
       count(:up_to_date, "#{date} #{directory}: up to date")
     when Net::HTTPSuccess
+      # The parser keeps an empty file for a day with no sitting, so it doesn't ask APH about it again.
+      if response.body.to_s.empty?
+        save(path, response.body, response["Last-Modified"])
+        return count(:downloaded, "#{date} #{directory}: downloaded (no sitting)")
+      end
+
       problem = problem_with(response.body, date, options[:source])
       return count(:failed, "#{date} #{directory}: not saved, #{problem}") if problem
 
