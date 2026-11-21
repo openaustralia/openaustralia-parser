@@ -63,4 +63,25 @@ RSpec.describe "parse-postcodes.rb", :integration do
       expect(contents).to match(/Previous-value/i)
     end
   end
+
+  describe "when morph.io returns only a header row" do
+    let(:output_dir) { File.expand_path("../../tmp/postcode_header_only", __dir__) }
+    let(:output_csv) { "#{output_dir}/postcodes.csv" }
+    let(:agent) { instance_double(Mechanize, get: instance_double(Mechanize::File, code: "200", body: "postcode,electorate\n")) }
+
+    before do
+      FileUtils.rm_rf(output_dir)
+      FileUtils.mkdir_p(output_dir)
+      File.write(output_csv, "Previous-value")
+      allow(Mechanize).to receive(:new).and_return(agent)
+    end
+
+    after { FileUtils.rm_rf(output_dir) }
+
+    it "raises and keeps the existing postcodes.csv" do
+      expect { capture_stdout_and_stderr { ParsePostcodes.new(["--output-dir", output_dir]).run } }
+        .to raise_error(/No postcode rows returned/)
+      expect(File.read(output_csv)).to eq("Previous-value")
+    end
+  end
 end

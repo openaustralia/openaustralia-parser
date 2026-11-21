@@ -6,6 +6,7 @@ require "bundler/setup"
 $LOAD_PATH.unshift "#{File.dirname(__FILE__)}/lib"
 
 require "optparse"
+require "csv"
 require "fileutils"
 require "mechanize"
 
@@ -46,6 +47,7 @@ class ParsePostcodes
 
     raise "HTTP ERROR: #{response.code} fetching postcodes — check your morph.io API key" if response.code != "200"
     raise "ERROR: Empty response — check your morph.io API key" if response.body.strip.empty?
+    raise "ERROR: No postcode rows returned, only a header — check the scraper's electorate_type values" if CSV.parse(response.body, headers: true).none?
 
     puts "Saving to #{data_filename} ..."
     File.write(data_filename, response.body)
