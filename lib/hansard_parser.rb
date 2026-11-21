@@ -363,7 +363,7 @@ class HansardParser
             debates.increment_minor_count
           end
         when HansardDivision
-          puts "#{date} #{house} #{page.title} #{page.subtitle}"
+          puts "#{date} #{house} #{page.title} #{page.subtitle}#{' (proof-only)' if day.in_proof?}"
           debates.add_heading(page.title, page.subtitle, page.permanent_url, page.bills)
           # Lookup names
           yes = page.yes.map do |text|
