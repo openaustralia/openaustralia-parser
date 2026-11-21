@@ -1,4 +1,4 @@
-.PHONY: help setup up services-up down clean clobber status logs shell test lint console
+.PHONY: help setup up services-up down clean clobber status logs shell test lint console pull-xml pull-xml-test
 
 help: ## Show this help (the default target)
 	@grep -hE '^[a-zA-Z0-9_.-]+:.*## ' $(MAKEFILE_LIST) | \
@@ -54,3 +54,8 @@ lint: ## Run RuboCop in the app container (ARGS=<paths> to narrow); CI doesn't r
 	@$(call in_ready_app,bundle exec rubocop $(ARGS))
 console: ## Open IRB with the parser's lib loaded, in the app container
 	@$(call in_ready_app,script/console)
+# A Go tool that runs on the host, as it writes to tmp/pwdata here. Needs Go (see tools/pull-xml/go.mod).
+pull-xml: ## Copy production's XML into tmp/pwdata (ARGS="--from=2025-01-01 --to=2025-12-31 --source=scrapedxml")
+	@cd tools/pull-xml && go run . $(ARGS)
+pull-xml-test: ## Run the pull-xml tool's Go tests, with the race detector
+	@cd tools/pull-xml && go test -race ./...
