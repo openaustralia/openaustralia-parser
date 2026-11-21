@@ -11,15 +11,18 @@ require "optparse"
 require "time"
 require "uri"
 
-# Copies the days of Hansard that production has cached from APH (https://data.openaustralia.org.au/origxml/) into the
-# local origxml cache, so a development checkout can parse real days without asking APH for them.
+# Copies days of Hansard from https://data.openaustralia.org.au into the local data folder, so a development checkout
+# can work with real days without asking APH for them. --source=origxml (the default) copies the XML production cached
+# from APH, which parse-speeches.rb then parses locally; --source=scrapedxml copies production's parsed output, which
+# xml2db.pl loads into the database as it is.
 # It only fetches a day that is missing locally or newer on the server, using If-Modified-Since with the local file's
 # modification time, and gives each file the server's Last-Modified time. A file that is newer locally, for example one
 # refreshed from APH, is left alone. A development tool: nothing runs it on a schedule.
-class PullOrigxml
+class PullXml
   BASE_URL = "https://data.openaustralia.org.au"
   DEFAULT_OUTPUT_DIR = File.expand_path("tmp/pwdata", __dir__)
-  USER_AGENT = "openaustralia-parser pull-origxml.rb (copying the public origxml for development)"
+  USER_AGENT = "openaustralia-parser pull-xml.rb (copying public data for development)"
+  SOURCES = %w[origxml scrapedxml].freeze
   HOUSES = { "representatives" => "representatives_debates", "senate" => "senate_debates" }.freeze
 
   def initialize(args, stdout: $stdout)
@@ -48,14 +51,17 @@ class PullOrigxml
   private
 
   def parse_options
-    options = { to: Date.today, output_dir: DEFAULT_OUTPUT_DIR, delay: 0.5, base_url: BASE_URL }
+    options = { to: Date.today, source: "origxml", output_dir: DEFAULT_OUTPUT_DIR, delay: 0.5, base_url: BASE_URL }
 
     OptionParser.new do |opts|
-      opts.banner = "Usage: pull-origxml.rb --from=DATE [options]"
+      opts.banner = "Usage: pull-xml.rb --from=DATE [options]"
       opts.on("--from=DATE", "First day to pull (required, so a run never copies the whole archive by accident)") do |date|
         options[:from] = Date.parse(date)
       end
       opts.on("--to=DATE", "Last day to pull (default today)") { |date| options[:to] = Date.parse(date) }
+      opts.on("--source=SOURCE", SOURCES, "origxml (APH's XML, the default) or scrapedxml (the parsed output)") do |source|
+        options[:source] = source
+      end
       opts.on("--house=HOUSE", HOUSES.keys, "representatives or senate (default both)") { |house| options[:house] = house }
       opts.on("--force", "Download even if the local file is as new or newer") { options[:force] = true }
       opts.on("--dry-run", "List the days the server has and whether each is present locally, without downloading") do
@@ -75,10 +81,10 @@ class PullOrigxml
 
   def pull_house(directory, options)
     dates = days_on_server(directory, options)
-    @stdout.puts "#{directory}: #{dates.size} days on the server from #{options[:from]} to #{options[:to]}"
+    @stdout.puts "#{options[:source]}/#{directory}: #{dates.size} days on the server from #{options[:from]} to #{options[:to]}"
 
     dates.each do |date|
-      path = local_path(options[:output_dir], directory, date)
+      path = local_path(options, directory, date)
       if options[:dry_run]
         @stdout.puts "#{date} #{File.exist?(path) ? 'present locally' : 'not present locally'}"
         next
@@ -92,8 +98,8 @@ class PullOrigxml
   end
 
   def days_on_server(directory, options)
-    response = get("/origxml/#{directory}/")
-    abort "Could not list #{directory} on the server (#{response.code})" unless response.is_a?(Net::HTTPSuccess)
+    response = get("/#{options[:source]}/#{directory}/")
+    abort "Could not list #{options[:source]}/#{directory} on the server (#{response.code})" unless response.is_a?(Net::HTTPSuccess)
 
     response.body.scan(/href="(\d{4}-\d{2}-\d{2})\.xml"/).flatten.map { |text| Date.iso8601(text) }
             .grep(options[:from]..options[:to]).sort
@@ -102,13 +108,13 @@ class PullOrigxml
   def pull_day(directory, date, path, options)
     headers = {}
     headers["If-Modified-Since"] = File.mtime(path).httpdate if File.exist?(path) && !options[:force]
-    response = get("/origxml/#{directory}/#{date}.xml", headers)
+    response = get("/#{options[:source]}/#{directory}/#{date}.xml", headers)
 
     case response
     when Net::HTTPNotModified
       count(:up_to_date, "#{date} #{directory}: up to date")
     when Net::HTTPSuccess
-      problem = problem_with(response.body, date)
+      problem = problem_with(response.body, date, options[:source])
       return count(:failed, "#{date} #{directory}: not saved, #{problem}") if problem
 
       save(path, response.body, response["Last-Modified"])
@@ -124,16 +130,23 @@ class PullOrigxml
     @http.get(path, { "User-Agent" => USER_AGENT }.merge(headers))
   end
 
-  def local_path(output_dir, directory, date)
-    File.join(output_dir, "origxml", directory, "#{date}.xml")
+  def local_path(options, directory, date)
+    File.join(options[:output_dir], options[:source], directory, "#{date}.xml")
   end
 
-  def problem_with(text, date)
+  def problem_with(text, date, source)
     root = Nokogiri::XML(text).root
-    return "it is not a hansard document" unless root&.name == "hansard"
+    if source == "scrapedxml"
+      return "it is not parsed debates" unless root&.name == "debates"
 
-    found = root.at_xpath("session.header/date")&.text&.strip
-    "it is for #{found}, not #{date}" if found && found != date.to_s
+      found = root.at_xpath("*[@id]")&.[]("id")
+      "it is for another day than #{date}" if found && !found.include?(date.to_s)
+    else
+      return "it is not a hansard document" unless root&.name == "hansard"
+
+      found = root.at_xpath("session.header/date")&.text&.strip
+      "it is for #{found}, not #{date}" if found && found != date.to_s
+    end
   end
 
   # Written to a temporary file first, so an interrupted run never leaves half a day where the parser would read it.
@@ -154,4 +167,4 @@ class PullOrigxml
   end
 end
 
-PullOrigxml.new(ARGV).run if File.expand_path($PROGRAM_NAME) == File.expand_path(__FILE__)
+PullXml.new(ARGV).run if File.expand_path($PROGRAM_NAME) == File.expand_path(__FILE__)
