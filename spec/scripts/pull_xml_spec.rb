@@ -8,9 +8,9 @@ require "stringio"
 require "tmpdir"
 require "webmock/rspec"
 
-require_relative "../../pull-origxml"
+require_relative "../../pull-xml"
 
-RSpec.describe PullOrigxml do
+RSpec.describe PullXml do
   let(:output_dir) { Dir.mktmpdir }
   let(:stdout) { StringIO.new }
   let(:arguments) { [] }
@@ -100,6 +100,39 @@ RSpec.describe PullOrigxml do
     it "says which days are not present locally" do
       script.run
       expect(stdout.string).to include("2026-02-04 not present locally")
+    end
+  end
+
+  context "with --source=scrapedxml" do
+    let(:arguments) { ["--source=scrapedxml"] }
+    let(:scraped_file) { File.join(output_dir, "scrapedxml", "senate_debates", "2026-02-04.xml") }
+
+    def debates(date)
+      %(<debates><major-heading id="uk.org.publicwhip/lords/#{date}.3.1">HEADING</major-heading></debates>)
+    end
+
+    before do
+      listing = %(<a href="2026-02-04.xml">2026-02-04.xml</a>)
+      stub_request(:get, "https://data.openaustralia.org.au/scrapedxml/senate_debates/").to_return(body: listing)
+      stub_request(:get, "https://data.openaustralia.org.au/scrapedxml/senate_debates/2026-02-04.xml")
+        .to_return(body: debates("2026-02-04"), headers: { "Last-Modified" => modified })
+    end
+
+    it "saves the day under scrapedxml" do
+      script.run
+      expect(File.read(scraped_file)).to include("HEADING")
+    end
+
+    it "leaves origxml alone" do
+      script.run
+      expect(WebMock).not_to have_requested(:get, "#{directory_url}/2026-02-04.xml")
+    end
+
+    it "does not save a file that is origxml" do
+      stub_request(:get, "https://data.openaustralia.org.au/scrapedxml/senate_debates/2026-02-04.xml")
+        .to_return(body: hansard("2026-02-04"), headers: { "Last-Modified" => modified })
+      expect { script.run }.to raise_error(SystemExit)
+      expect(File).not_to exist(scraped_file)
     end
   end
 
