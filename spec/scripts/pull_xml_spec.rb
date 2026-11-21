@@ -136,6 +136,21 @@ RSpec.describe PullXml do
     end
   end
 
+  context "when a day has an empty file because there was no sitting" do
+    before do
+      stub_request(:get, "#{directory_url}/2026-02-04.xml").to_return(body: "", headers: { "Last-Modified" => modified })
+    end
+
+    it "saves the empty file, as the parser's cache does" do
+      script.run
+      expect(File.size(local_file)).to eq(0)
+    end
+
+    it "does not count it as a failure" do
+      expect { script.run }.not_to raise_error
+    end
+  end
+
   context "when a file is for another day" do
     before do
       stub_request(:get, "#{directory_url}/2026-02-04.xml").to_return(body: hansard("2026-02-09"), headers: { "Last-Modified" => modified })
