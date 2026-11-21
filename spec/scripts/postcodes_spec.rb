@@ -35,4 +35,12 @@ RSpec.describe "postcodes.rb", :integration do
     output = capture_stdout_and_stderr { Postcodes.new(["--no-load"]).run }
     expect(output).not_to match(/Constituency .+ not found/i)
   end
+
+  it "fails when a sitting division has no postcode" do
+    allow(CSV).to receive(:readlines).and_wrap_original do |original, path, *args|
+      rows = original.call(path, *args)
+      path == "data/postcodes.csv" ? rows.reject { |row| row[1] == "Fadden" } : rows
+    end
+    expect { Postcodes.new(["--no-load"]).run }.to raise_error(/No postcodes for sitting divisions: .*Fadden/)
+  end
 end

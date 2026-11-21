@@ -40,6 +40,10 @@ One of the two chambers: the House of Representatives or the Senate.
 **Division (electorate)**:
 The geographic seat a representative holds, e.g. Fadden. The `Division` column in the members CSVs.
 
+**Current electorate** / **redistributed electorate**:
+A current electorate is a division that has a sitting member now. A redistributed electorate is a division drawn for
+the next election after a boundary change, which no one holds yet. OpenAustralia only shows current electorates.
+
 **division (vote)**:
 A formal recorded vote in a chamber. The classic parser failure — "Couldn't figure out who X is in division" —
 uses this sense, not the electorate sense.

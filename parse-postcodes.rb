@@ -38,8 +38,8 @@ class ParsePostcodes
 
     FileUtils.mkdir_p output_dir
 
-    sql_query = "SELECT DISTINCT postcode,COALESCE(NULLIF(electorate,''),redistributedElectorate) AS electorate FROM 'data' order by postcode,electorate"
-    url = "https://api.morph.io/drzax/morph-division-postcode-correspondence/data.csv"
+    sql_query = "SELECT DISTINCT postcode, electorate FROM 'data' WHERE electorate_type = 'current' ORDER BY postcode, electorate"
+    url = "https://api.morph.io/openaustralia/aec_electorate_postcodes/data.csv"
 
     agent = Mechanize.new
     response = agent.get(url, { key: morph_api_key, query: sql_query })

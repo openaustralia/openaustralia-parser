@@ -3,7 +3,7 @@
 # DOES NOT APPEAR TO BE CALLED explicitly in Makefile/cron, but postcodes.rb
 # references the output CSV it produces. Likely run manually before postcodes.rb.
 #
-# Hits morph.io API to download postcode/electorate mapping CSV.
+# Hits morph.io API (openaustralia/aec_electorate_postcodes) to download the current postcode/electorate mapping CSV.
 # VCR cassette records the morph.io response.
 
 require_relative "../spec_helper"
