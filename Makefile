@@ -54,8 +54,12 @@ lint: ## Run RuboCop in the app container (ARGS=<paths> to narrow); CI doesn't r
 	@$(call in_ready_app,bundle exec rubocop $(ARGS))
 console: ## Open IRB with the parser's lib loaded, in the app container
 	@$(call in_ready_app,script/console)
-# A Go tool that runs on the host, as it writes to tmp/pwdata here. Needs Go (see tools/pull-xml/go.mod).
-pull-xml: ## Copy production's XML into tmp/pwdata (ARGS="--from=2025-01-01 --to=2025-12-31 --source=scrapedxml")
-	@cd tools/pull-xml && go run . $(ARGS)
+# A Go tool that runs on the host, as it writes to tmp/pwdata here. Needs Go (see tools/pull-xml/go.mod). Make takes
+# any --option for itself, so the year is a variable, not make pull-xml --year=2025. With no YEAR and no --from or
+# --year in ARGS it pulls every day the server has.
+SOURCE ?= origxml scrapedxml
+pull_xml_range = $(if $(or $(YEAR),$(findstring --from,$(ARGS)),$(findstring --year,$(ARGS))),,--all)
+pull-xml: ## Copy production's XML for every year into tmp/pwdata (YEAR=2025 for one, SOURCE=origxml, ARGS=--dry-run)
+	@cd tools/pull-xml && for source in $(SOURCE); do go run . --source=$$source $(pull_xml_range) $(if $(YEAR),--year=$(YEAR)) $(ARGS) || exit 1; done
 pull-xml-test: ## Run the pull-xml tool's Go tests, with the race detector
 	@cd tools/pull-xml && go test -race ./...

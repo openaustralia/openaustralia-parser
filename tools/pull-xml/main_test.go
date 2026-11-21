@@ -350,12 +350,15 @@ func TestPrintsNoBarWhenNotATerminal(t *testing.T) {
 
 func TestOptionErrors(t *testing.T) {
 	cases := map[string][]string{
-		"--from=DATE is required":  {},
-		"--from is not a date":     {"--from=yesterday"},
-		"--source must be one of":  {"--from=2025-11-25", "--source=rewritexml"},
-		"--house must be":          {"--from=2025-11-25", "--house=lords"},
-		"--workers must be at":     {"--from=2025-11-25", "--workers=0"},
-		"--to is not a date like ": {"--from=2025-11-25", "--to=soon"},
+		"--from=DATE, --year=YEAR or --all": {},
+		"--all can't be used with":          {"--all", "--year=2025"},
+		"--year can't be used with":         {"--year=2025", "--from=2025-01-01"},
+		"--year is not a year":              {"--year=25"},
+		"--from is not a date":              {"--from=yesterday"},
+		"--source must be one of":           {"--from=2025-11-25", "--source=rewritexml"},
+		"--house must be":                   {"--from=2025-11-25", "--house=lords"},
+		"--workers must be at":              {"--from=2025-11-25", "--workers=0"},
+		"--to is not a date like ":          {"--from=2025-11-25", "--to=soon"},
 	}
 	for want, args := range cases {
 		var errs bytes.Buffer
@@ -383,5 +386,36 @@ func TestDefaultOutputDirFindsTheRepository(t *testing.T) {
 	want, _ := filepath.EvalSymlinks(filepath.Join(root, "tmp", "pwdata"))
 	if got != want {
 		t.Fatalf("got %s, want %s", got, want)
+	}
+}
+
+func TestYearPullsTheWholeYear(t *testing.T) {
+	srv := server(t, map[string]string{
+		"/origxml/senate_debates/2024-12-31.xml": hansard("2024-12-31"),
+		"/origxml/senate_debates/2025-01-01.xml": hansard("2025-01-01"),
+		"/origxml/senate_debates/2025-12-31.xml": hansard("2025-12-31"),
+		"/origxml/senate_debates/2026-01-01.xml": hansard("2026-01-01"),
+	}, nil)
+	var out, errs bytes.Buffer
+
+	status := run([]string{"--year=2025", "--base-url=" + srv.URL, "--output-dir=" + t.TempDir(), "--house=senate", "--dry-run"}, &out, &errs)
+
+	got := out.String()
+	if status != 0 || !strings.Contains(got, "2 days on the server from 2025-01-01 to 2025-12-31") {
+		t.Fatalf("status %d, output:\n%s", status, got)
+	}
+}
+
+func TestAllPullsEveryDay(t *testing.T) {
+	srv := server(t, map[string]string{
+		"/origxml/senate_debates/2006-02-07.xml": hansard("2006-02-07"),
+		"/origxml/senate_debates/2025-11-25.xml": hansard("2025-11-25"),
+	}, nil)
+	var out, errs bytes.Buffer
+
+	status := run([]string{"--all", "--base-url=" + srv.URL, "--output-dir=" + t.TempDir(), "--house=senate"}, &out, &errs)
+
+	if status != 0 || !strings.Contains(out.String(), "origxml/senate_debates: 2 days on the server\n") || !strings.Contains(out.String(), "Downloaded 2,") {
+		t.Fatalf("status %d, output:\n%s", status, out.String())
 	}
 }

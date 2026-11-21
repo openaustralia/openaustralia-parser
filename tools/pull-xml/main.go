@@ -50,6 +50,7 @@ type options struct {
 	house     string
 	outputDir string
 	baseURL   string
+	all       bool
 	force     bool
 	dryRun    bool
 	delay     time.Duration
@@ -96,15 +97,18 @@ func run(args []string, stdout, stderr io.Writer) int {
 func parseOptions(args []string, stderr io.Writer) (options, error) {
 	opts := options{}
 	var from, to string
+	var year int
 	var delay float64
 
 	fs := flag.NewFlagSet("pull-xml", flag.ContinueOnError)
 	fs.SetOutput(stderr)
 	fs.Usage = func() {
-		fmt.Fprintln(stderr, "Usage: pull-xml --from=DATE [options]")
+		fmt.Fprintln(stderr, "Usage: pull-xml --from=DATE | --year=YEAR | --all [options]")
 		fs.PrintDefaults()
 	}
-	fs.StringVar(&from, "from", "", "First day to pull, as YYYY-MM-DD (required, so a run never copies the whole archive by accident)")
+	fs.StringVar(&from, "from", "", "First day to pull, as YYYY-MM-DD (--from, --year or --all is required, so a run never copies the whole archive by accident)")
+	fs.IntVar(&year, "year", 0, "Pull the whole of this year, instead of --from and --to")
+	fs.BoolVar(&opts.all, "all", false, "Pull every day the server has, instead of --from, --to or --year")
 	fs.StringVar(&to, "to", "", "Last day to pull (default today)")
 	fs.StringVar(&opts.source, "source", "origxml", "origxml (APH's XML) or scrapedxml (the parsed output)")
 	fs.StringVar(&opts.house, "house", "", "representatives or senate (default both)")
@@ -118,17 +122,33 @@ func parseOptions(args []string, stderr io.Writer) (options, error) {
 		return opts, err
 	}
 
-	if from == "" {
-		return opts, errors.New("--from=DATE is required")
-	}
 	var err error
-	if opts.from, err = time.Parse(dateLayout, from); err != nil {
-		return opts, fmt.Errorf("--from is not a date like 2025-11-25: %w", err)
-	}
-	opts.to = time.Now()
-	if to != "" {
-		if opts.to, err = time.Parse(dateLayout, to); err != nil {
-			return opts, fmt.Errorf("--to is not a date like 2025-11-25: %w", err)
+	switch {
+	case opts.all:
+		if from != "" || to != "" || year != 0 {
+			return opts, errors.New("--all can't be used with --from, --to or --year")
+		}
+		opts.to = time.Now()
+	case year != 0:
+		if from != "" || to != "" {
+			return opts, errors.New("--year can't be used with --from or --to")
+		}
+		if year < 1900 || year > 9999 {
+			return opts, errors.New("--year is not a year like 2025")
+		}
+		opts.from = time.Date(year, time.January, 1, 0, 0, 0, 0, time.UTC)
+		opts.to = time.Date(year, time.December, 31, 0, 0, 0, 0, time.UTC)
+	case from == "":
+		return opts, errors.New("--from=DATE, --year=YEAR or --all is required")
+	default:
+		if opts.from, err = time.Parse(dateLayout, from); err != nil {
+			return opts, fmt.Errorf("--from is not a date like 2025-11-25: %w", err)
+		}
+		opts.to = time.Now()
+		if to != "" {
+			if opts.to, err = time.Parse(dateLayout, to); err != nil {
+				return opts, fmt.Errorf("--to is not a date like 2025-11-25: %w", err)
+			}
 		}
 	}
 	opts.to = opts.to.Truncate(24 * time.Hour)
@@ -183,7 +203,7 @@ func (p *puller) run() int {
 			p.logf("%v", err)
 			return 1
 		}
-		p.logf("%s/%s: %d days on the server from %s to %s", p.opts.source, directory, len(dates), p.opts.from.Format(dateLayout), p.opts.to.Format(dateLayout))
+		p.logf("%s/%s: %d days on the server%s", p.opts.source, directory, len(dates), p.rangeText())
 		for _, date := range dates {
 			jobs = append(jobs, job{directory, date})
 		}
@@ -243,6 +263,14 @@ func (p *puller) advance() {
 	}
 	p.bar.Describe(fmt.Sprintf("%s: %d new, %d current, %d failed", p.opts.source, p.downloaded.Load(), p.upToDate.Load(), p.failed.Load()))
 	p.bar.Add(1)
+}
+
+// rangeText says which days were asked for, or nothing when it was all of them.
+func (p *puller) rangeText() string {
+	if p.opts.all {
+		return ""
+	}
+	return fmt.Sprintf(" from %s to %s", p.opts.from.Format(dateLayout), p.opts.to.Format(dateLayout))
 }
 
 func presence(path string) string {
