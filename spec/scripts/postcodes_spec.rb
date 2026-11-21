@@ -43,4 +43,21 @@ RSpec.describe "postcodes.rb", :integration do
     end
     expect { Postcodes.new(["--no-load"]).run }.to raise_error(/No postcodes for sitting divisions: .*Fadden/)
   end
+
+  describe "when no House member is sitting" do
+    before do
+      allow(PeopleCSVReader).to receive(:read_members).and_wrap_original do |original|
+        original.call.tap { |people| allow(people).to receive(:find_current_members).and_return([]) }
+      end
+    end
+
+    it "refuses to load the database" do
+      expect { Postcodes.new([]).run }.to raise_error(/No sitting House members found/)
+    end
+
+    it "warns but carries on with --no-load" do
+      output = capture_stdout_and_stderr { Postcodes.new(["--no-load"]).run }
+      expect(output).to match(/WARNING: No sitting House members found/)
+    end
+  end
 end

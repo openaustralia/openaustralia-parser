@@ -52,6 +52,11 @@ class Postcodes
 
     # Then that every division with a sitting member has at least one postcode
     sitting = people.find_current_members(House.representatives).map(&:division).uniq
+    if sitting.empty?
+      raise "No sitting House members found, so the postcodes cannot be checked" if options[:load_database]
+
+      puts "WARNING: No sitting House members found, so the postcodes were not checked"
+    end
     missing = sitting - constituencies
     raise "No postcodes for sitting divisions: #{missing.sort.join(', ')}" unless missing.empty?
 
