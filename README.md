@@ -217,6 +217,14 @@ bundle exec ./refresh-proof-days.rb --limit=20
 bundle exec ./refresh-proof-days.rb --no-load   # only generate the XML
 ```
 
+**Deleting.** When APH has edited a day, the refreshed XML can lack gids that the earlier proof copy loaded.
+`xml2db.pl` refuses to load a day with such gids unless it gets `--force`, so pass `--force` to have it delete them.
+It still refuses if one of those gids has a comment, vote or edit queue entry and no gid redirect.
+
+```
+bundle exec ./refresh-proof-days.rb --limit=20 --force
+```
+
 **Order.** It starts at a day 12 months ago (`--around=DATE` changes it) and works outward, alternating between the
 nearest day on or after that date and the nearest day before it, so each run reaches toward today and toward the
 past together. On the same date the Representatives come before the Senate.
