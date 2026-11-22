@@ -251,7 +251,7 @@ func (p *puller) run() int {
 		p.logf("The server asked us to slow down, so stopping. Run again later to carry on.")
 	}
 	p.logf("Downloaded %d, up to date %d, failed %d", p.downloaded.Load(), p.upToDate.Load(), p.failed.Load())
-	return boolToStatus(p.failed.Load() > 0)
+	return boolToStatus(p.failed.Load() > 0 || p.stopped.Load())
 }
 
 // advance moves the bar on by one day and shows the counts so far.
