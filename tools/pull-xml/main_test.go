@@ -247,7 +247,7 @@ func TestStopsWhenTheServerSaysSlowDown(t *testing.T) {
 
 	output, status := pull(t, srv, t.TempDir(), "--house=senate", "--workers=1")
 
-	if !strings.Contains(output, "The server asked us to slow down, so stopping") || status != 0 {
+	if !strings.Contains(output, "The server asked us to slow down, so stopping") || status == 0 {
 		t.Fatalf("status %d, output:\n%s", status, output)
 	}
 }
