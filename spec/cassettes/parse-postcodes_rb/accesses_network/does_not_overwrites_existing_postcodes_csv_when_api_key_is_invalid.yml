@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.morph.io/drzax/morph-division-postcode-correspondence/data.csv?key=NOT-VALID&query=SELECT%20DISTINCT%20postcode,COALESCE(NULLIF(electorate,%27%27),redistributedElectorate)%20AS%20electorate%20FROM%20%27data%27%20order%20by%20postcode,electorate
+    uri: https://api.morph.io/openaustralia/aec_electorate_postcodes/data.csv?key=NOT-VALID&query=SELECT%20DISTINCT%20postcode,%20electorate%20FROM%20%27data%27%20WHERE%20electorate_type%20=%20%27current%27%20ORDER%20BY%20postcode,%20electorate
     body:
       encoding: US-ASCII
       string: ''
@@ -12,9 +12,7 @@ http_interactions:
       Accept:
       - "*/*"
       User-Agent:
-      - Mechanize/2.8.5 Ruby/2.7.8p225 (http://github.com/sparklemotion/mechanize/)
-      Accept-Charset:
-      - ISO-8859-1,utf-8;q=0.7,*;q=0.7
+      - Mechanize/2.14.1 Ruby/3.4.9p82 (http://github.com/sparklemotion/mechanize/)
       Accept-Language:
       - en-us,en;q=0.5
       Host:
@@ -23,6 +21,10 @@ http_interactions:
       - keep-alive
       Keep-Alive:
       - '300'
+      Sentry-Trace:
+      - a5ffda06e4954b55bb33826d740f266f-edf25a4ee03749cf
+      Baggage:
+      - sentry-trace_id=a5ffda06e4954b55bb33826d740f266f,sentry-sample_rand=0.584840,sentry-environment=test
   response:
     status:
       code: 401
@@ -39,14 +41,14 @@ http_interactions:
       Cache-Control:
       - no-cache
       X-Request-Id:
-      - 4021c899-634c-4472-8471-06c13b098b99
+      - 4b2d6cf9-8bac-4280-9df6-77a200d3e9a3
       X-Runtime:
-      - '0.005567'
+      - '0.010126'
       Date:
-      - Thu, 12 Mar 2026 13:29:29 GMT
+      - Sat, 21 Nov 2026 03:47:57 GMT
       Set-Cookie:
-      - _morph_session=SXB%2FZbSsgDuUOARed5QMgm8VuMG2WvsC3zKYoh6O1yrA94IiFXDSwbSeH9ERr%2Fln3gxg0aLMKewyw5Bau%2FfQ0Wd27XVtGEs%2FA16MGFUiCALIAgIrR0OCWadLxaUsyjKB9dYxAqqudNisxSFcfM%2FAwlfIyIZ17hp6gSe1eD0WwB7pyRB6RUF0QGo%2F%2FWqz23KKxh%2Bqlk%2F2qTCWXYoCF%2BaOeArd3fhHHtaHme7u3AFgpb%2ByEIYaVCGmGjCFrDpFHzvsZe5AeFuHnpbbp5Qv%2F0wYRCPC9udy06V%2FULnZPWwC7HqZDIMcXVcqPQ1JdTyn%2BL2BDH9NWdLVzqQNe91oNoN6dlQjHg5cnM2bj6imhCMuqEy523bDrenl2vQ2JKDJgqZTGmh3AJ5ysMqe7zq5Dyq7nIETPvRfKbs1NJrATqmhWIKN8mbKQH7SOnMl9Lq21wWvKRhgIj36uhvmdnsW5Du3i9xkwRUZ3h5uaKhuNyj7m%2FufdMQ8B58jhg6hxxifnk9yMBxSQuVdJagkOkmvsrCmJJFly%2BFFcJwmuf1XMtl58YmrqtK4J7RKc0No6MMxGNvLAH4hb8w5d9U4hgwua%2FF0w6QuCmc%2BvLDC%2Fl0VGLxQ2SPZCAgrF0qAGflV--JMw2lb23gTze0QZV--YD1Hv4TSR%2Ftb1y%2BX9dFkOw%3D%3D;
-        path=/; HttpOnly
+      - _morph_session=9Y3wpj%2BYZiPL9cNamAsLSRtMfahRwvmzDFsyKVpW16EUtO0w6dzZgqK1Xl8IvyM4XkXW%2Be6%2BUSVZSld%2FFVy6QGCvfuvvO%2BI9eZi10Sr5rqX7GYipQmj2g3TpeagyZdk9lMJwS46Eb%2B%2FWScEUJxfMet73%2BAF%2FBksdRW9tHWvvV6eT0SB7ElYMp2W7DVOD7rTFMoMae7z1HI%2FC3lZjpTTqHDVqLxxSj6GQ8DKoCmoi5J50RVkSfi0yjgZNUIri8M6gPIPGT0XaM12lG3OJHtMA5J64kePGW7rcwSa1Jf%2BRdaHaYscWkuI0JXTb3EhevLDpBB5qrH%2BEvsWFmLayXkkyPzQ9TC0QXneDp3n0Tu9QPymL%2FPE%2BPb5VJ5L0fh7bAiy67SYs3Bomoy9OXekO0Ck%2BTY36I2eC%2FX4ZOXtSrBTYKC%2FwRsTHGKeLNUYpmmUgYpY3pcNO3q5lrbYIjA2XE87OFBH48LCrJu2874h8CCLkqKdmFF9gGC32hPYV%2F7ViTUACk1Q%2FQd5zaIM5Y5Dpywj8iPFvuevfB9BPms5NsP7AS3Zl4luPm3s%3D--z929f8VI9JIakToE--FT6gdWNE8gbynRSvDWnOdQ%3D%3D;
+        path=/; HttpOnly; SameSite=Lax
       X-Powered-By:
       - Phusion Passenger(R) 6.0.15
       Server:
@@ -54,5 +56,5 @@ http_interactions:
     body:
       encoding: UTF-8
       string: API key is not valid
-  recorded_at: Thu, 12 Mar 2026 13:29:29 GMT
+  recorded_at: Sat, 21 Nov 2026 03:47:57 GMT
 recorded_with: VCR 6.4.0

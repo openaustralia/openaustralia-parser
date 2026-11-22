@@ -3,7 +3,7 @@
 # DOES NOT APPEAR TO BE CALLED explicitly in Makefile/cron, but postcodes.rb
 # references the output CSV it produces. Likely run manually before postcodes.rb.
 #
-# Hits morph.io API to download postcode/electorate mapping CSV.
+# Hits morph.io API (openaustralia/aec_electorate_postcodes) to download the current postcode/electorate mapping CSV.
 # VCR cassette records the morph.io response.
 
 require_relative "../spec_helper"
@@ -61,6 +61,27 @@ RSpec.describe "parse-postcodes.rb", :integration do
       expect { ParsePostcodes.new(["--output-dir", output_dir, "--morph-api-key", "NOT-VALID"]).run }.to raise_error
       contents = File.read(output_csv)
       expect(contents).to match(/Previous-value/i)
+    end
+  end
+
+  describe "when morph.io returns only a header row" do
+    let(:output_dir) { File.expand_path("../../tmp/postcode_header_only", __dir__) }
+    let(:output_csv) { "#{output_dir}/postcodes.csv" }
+    let(:agent) { instance_double(Mechanize, get: instance_double(Mechanize::File, code: "200", body: "postcode,electorate\n")) }
+
+    before do
+      FileUtils.rm_rf(output_dir)
+      FileUtils.mkdir_p(output_dir)
+      File.write(output_csv, "Previous-value")
+      allow(Mechanize).to receive(:new).and_return(agent)
+    end
+
+    after { FileUtils.rm_rf(output_dir) }
+
+    it "raises and keeps the existing postcodes.csv" do
+      expect { capture_stdout_and_stderr { ParsePostcodes.new(["--output-dir", output_dir]).run } }
+        .to raise_error(/No postcode rows returned/)
+      expect(File.read(output_csv)).to eq("Previous-value")
     end
   end
 end
