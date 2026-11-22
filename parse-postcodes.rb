@@ -45,8 +45,8 @@ class ParsePostcodes
     agent = Mechanize.new
     response = agent.get(url, { key: morph_api_key, query: sql_query })
 
-    raise "HTTP ERROR: #{response.code} fetching postcodes — check your morph.io API key" if response.code != "200"
-    raise "ERROR: Empty response — check your morph.io API key" if response.body.strip.empty?
+    raise "HTTP ERROR: #{response.code} fetching postcodes, check your morph.io API key" if response.code != "200"
+    raise "ERROR: Empty response, check your morph.io API key" if response.body.strip.empty?
     raise "ERROR: No postcode rows returned, only a header, check the scraper's electorate_type values" if CSV.parse(response.body, headers: true).none?
 
     puts "Saving to #{data_filename} ..."
