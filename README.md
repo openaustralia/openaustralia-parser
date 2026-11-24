@@ -158,6 +158,36 @@ crash partway through a long range (a bad day's data, a network blip) means noth
 matter how much of the range succeeded before the crash. For a large backfill, prefer a handful of smaller date
 ranges over one huge one, so a failure only costs you that chunk.
 
+### Copying production's cached APH XML
+
+`parse-speeches.rb` reads each day from the local `origxml` cache and only asks APH for days it doesn't have.
+`make pull-xml` fills that cache from <https://data.openaustralia.org.au/origxml/> instead, so a development
+checkout can parse real days without APH. It is a Go tool in `tools/pull-xml`, so it needs Go on the host:
+
+```bash
+make pull-xml                          # every day the server has, for both sources
+make pull-xml YEAR=2025                # one year
+make pull-xml SOURCE=origxml           # one source (origxml or scrapedxml) instead of both
+make pull-xml ARGS="--from=2020-02-04 --to=2020-02-13"
+make pull-xml ARGS=--dry-run           # list what the server has, download nothing
+```
+
+Make takes any `--option` for itself, so the year is `YEAR=2025`, not `--year=2025`, and the source is `SOURCE=`, not
+`--source=` inside `ARGS`. Run directly (`cd tools/pull-xml && go run . --year=2025`), the tool takes `--year`, `--all`
+or `--from` and `--to`, and one `--source` (origxml by default); it insists on one of them so a run can't copy the
+whole archive by accident.
+
+It fetches ten days at once (`--workers`), with a progress bar on a terminal. It copies a day only when it is missing
+locally or newer on the server (`If-Modified-Since`, using the local file's modification time), and never overwrites
+a local file that is newer, such as one refreshed from APH (`--force` does). It stops if the server answers 429 or
+503, and `--delay` makes each worker wait between requests. A first run for every year is thousands of requests;
+later runs are mostly "up to date" answers.
+Production's copies were cached the morning after each sitting, so older days are still at proof stage.
+`make pull-xml-test` runs its tests; CI doesn't run them.
+
+The `scrapedxml` source is production's parsed output, which `xml2db.pl` loads into the database without running the
+parser. Old days there were parsed before the parser wrote a `proof` attribute, so they load as unknown.
+
 ### Verifying what got loaded is actually correct
 
 There's no local "before" baseline to diff against - a fresh dev DB has no prior parser run to compare with. The

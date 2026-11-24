@@ -21,7 +21,11 @@ shadow-ministers.csv:
 Contains the periods when particular people were part of the shadow ministry, going back to 20th March 1996.
 
 postcodes.csv:
-From the Australian Bureau of Statistics <http://www.abs.gov.au/>
+Generated, not hand-maintained: run `bundle exec ruby parse-postcodes.rb` (needs a morph.io API key in
+configuration.yml). It downloads the "current" rows from the openaustralia/aec_electorate_postcodes scraper on
+morph.io, which holds Australian Electoral Commission electorate data. Rows for "redistributed" electorates
+(the next election's boundaries) are excluded, as OpenAustralia shows who sits in Parliament now. A postcode that
+spans electorates has one row per electorate. Run `bundle exec ./postcodes.rb` to load it into the database.
 
 patches:
 Contains patches for the XML files of the Hansard to fix any errors by hand that are too painful or ugly to try to fix

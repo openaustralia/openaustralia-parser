@@ -33,6 +33,11 @@ RSpec.describe Patch do
     RESULT
   end
 
+  it "returns the text unchanged, without prompting, when the patch is already applied" do
+    patched = Patch.patch(@original, @patch)
+    expect(Patch.patch(patched, @patch)).to eq patched
+  end
+
   it "raises an error when the patch doesn't go" do
     expect { Patch.patch("foo", @patch) }.to raise_error(RuntimeError)
   end
