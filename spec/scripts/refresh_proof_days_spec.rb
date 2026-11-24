@@ -80,6 +80,20 @@ RSpec.describe RefreshProofDays do
     end
   end
 
+  it "does not pass --force to xml2db.pl by default" do
+    script.run
+    expect(script).not_to have_received(:system).with(a_string_including("--force"))
+  end
+
+  context "with --force" do
+    let(:arguments) { ["--force"] }
+
+    it "passes --force to xml2db.pl for each date" do
+      script.run
+      expect(script).to have_received(:system).with(a_string_including("--from=2026-02-04 --to=2026-02-04 --debates --senatedebates --force")).once
+    end
+  end
+
   context "with --no-load" do
     let(:arguments) { ["--no-load"] }
 

@@ -28,7 +28,7 @@ class RefreshProofDays
   end
 
   def run
-    options = { limit: DEFAULT_LIMIT, load_database: true, unknown: false, around: Date.today << 12 }
+    options = { limit: DEFAULT_LIMIT, load_database: true, force: false, unknown: false, around: Date.today << 12 }
 
     OptionParser.new do |opts|
       opts.banner = "Usage: refresh-proof-days.rb [options]"
@@ -43,6 +43,9 @@ class RefreshProofDays
       end
       opts.on("--[no-]load", "Load the refreshed days into the database (default), or only generate XML") do |load|
         options[:load_database] = load
+      end
+      opts.on("--force", "Have xml2db.pl delete rows that are no longer in the refreshed XML (it refuses if one has comments or votes)") do |force|
+        options[:force] = force
       end
       opts.on("--output-dir=PATH", "Use PATH instead of conf.xml_path") do |path|
         options[:output_dir] = path
@@ -87,7 +90,7 @@ class RefreshProofDays
       failed << [date, house]
     end
 
-    load_days(conf, refreshed.uniq.sort, options[:load_database])
+    load_days(conf, refreshed.uniq.sort, options[:load_database], options[:force])
 
     puts "aph.gov.au is refusing requests (403 or 429), so stopping. The days not yet done will be tried again next run." if blocked
     puts "Refreshed #{refreshed.size} of #{days.size} days, #{failed.size} failed"
@@ -97,10 +100,11 @@ class RefreshProofDays
   private
 
   # Loaded one date at a time, as xml2db.pl would otherwise reload every day between the first and last.
-  def load_days(conf, dates, load_database)
+  def load_days(conf, dates, load_database, force)
     dates.each do |date|
       # Starts with 'perl' to be friendly with Windows, as in parse-speeches.rb
       command = "#{conf.web_root}/twfy/bin/run scripts/xml2db.pl --from=#{date} --to=#{date} --debates --senatedebates"
+      command += " --force" if force
       if load_database
         system(command)
       else
