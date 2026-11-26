@@ -109,7 +109,7 @@
  <consinfo abc_election_results_2022="https://www.abc.net.au/news/elections/federal/2022/guide/hink/" canonical="Hinkler"/>
  <consinfo abc_election_results_2022="https://www.abc.net.au/news/elections/federal/2022/guide/holt/" canonical="Holt"/>
  <consinfo abc_election_results_2022="https://www.abc.net.au/news/elections/federal/2022/guide/hoth/" canonical="Hotham"/>
- <consinfo abc_election_results_2022="https://www.abc.net.au/news/elections/federal/2022/guide/hugh/" canonical="Hughes (*)"/>
+ <consinfo abc_election_results_2022="https://www.abc.net.au/news/elections/federal/2022/guide/hugh/" canonical="Hughes"/>
  <consinfo abc_election_results_2022="https://www.abc.net.au/news/elections/federal/2022/guide/hume/" canonical="Hume"/>
  <consinfo abc_election_results_2022="https://www.abc.net.au/news/elections/federal/2022/guide/hunt/" canonical="Hunter"/>
  <consinfo abc_election_results_2022="https://www.abc.net.au/news/elections/federal/2022/guide/indi/" canonical="Indi"/>
@@ -192,7 +192,7 @@
  <consinfo abc_election_results_2022="https://www.abc.net.au/news/elections/federal/2022/results/senate" canonical="ACT"/>
  <consinfo abc_election_results_2022="https://www.abc.net.au/news/elections/federal/2022/results/senate" canonical="NT"/>
  <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/adel/" canonical="Adelaide"/>
- <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/asto/" canonical="Aston (*)"/>
+ <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/asto/" canonical="Aston"/>
  <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/ball/" canonical="Ballarat"/>
  <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/bank/" canonical="Banks"/>
  <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/bark/" canonical="Barker"/>
@@ -200,7 +200,7 @@
  <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/bass/" canonical="Bass"/>
  <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/bean/" canonical="Bean"/>
  <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/bend/" canonical="Bendigo"/>
- <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/benn/" canonical="Bennelong (*)"/>
+ <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/benn/" canonical="Bennelong"/>
  <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/bero/" canonical="Berowra"/>
  <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/blai/" canonical="Blair"/>
  <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/blax/" canonical="Blaxland"/>
@@ -300,7 +300,7 @@
  <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/mcma/" canonical="McMahon"/>
  <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/mcph/" canonical="McPherson"/>
  <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/melb/" canonical="Melbourne"/>
- <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/menz/" canonical="Menzies (*)"/>
+ <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/menz/" canonical="Menzies"/>
  <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/mitc/" canonical="Mitchell"/>
  <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/mona/" canonical="Monash"/>
  <consinfo abc_election_results_2025="https://www.abc.net.au/news/elections/federal/2025/guide/monc/" canonical="Moncrieff"/>
