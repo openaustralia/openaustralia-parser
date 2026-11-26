@@ -197,7 +197,7 @@ class ParseMemberLinks
 
       doc.search("td.electorate a").each do |a|
         href = doc.uri + a["href"]
-        name = a.inner_text.strip
+        name = abc_electorate_name(a)
         x.consinfo("canonical" => name, "abc_election_results_2022" => href)
       end
 
@@ -214,7 +214,7 @@ class ParseMemberLinks
 
       doc.search("td.electorate a").each do |a|
         href = doc.uri + a["href"]
-        name = a.inner_text.strip
+        name = abc_electorate_name(a)
         x.consinfo("canonical" => name, "abc_election_results_2025" => href)
       end
 
@@ -310,6 +310,13 @@ class ParseMemberLinks
       puts "No-load option has disabled the following that is normally run:"
       puts "  #{conf.web_root}/twfy/scripts/mpinfoin.pl links"
     end
+  end
+
+  private
+
+  # ABC appends " (*)" to a few electorate names, which no constituency name has.
+  def abc_electorate_name(link)
+    link.inner_text.sub(/\s*\(\*\)\s*\z/, "").strip
   end
 end
 
